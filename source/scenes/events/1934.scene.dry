@@ -1,21 +1,19 @@
-title: 1934
-subtitle: A new year
+title: Halbzeit 2030
+subtitle: Das Jahr ist halb vorbei
 new-page: true
 tags: event
 priority: 2
-view-if: year >= 1934 and month >= 1
+view-if: year >= 2030 and month >= 7
 max-visits: 1
 on-arrival: {!
-if (Q.unemployed >= 20) {
-    Q.unemployed -= 2;
-    Q.inflation += 1;
+if (Q.unemployed >= 10) {
+    Q.unemployed -= 1;
+    Q.inflation += 0.4;
 }
 !}
 
-= 1934
+= Halbzeit 2030
 
-A new year begins. [? if works_program = 0 : The economic depression seems to have bottomed out, but there is still much suffering. It is not too late to launch an economic rescue program. ?][? if works_program >= 1 and unemployment >= 15 : We have begun to launch a public works program, but the economy is still troubled. The recovery has begun, but more must be done. ?][? if works_program >= 1 and unemployment < 15 : Our public works program has successfully guided us through the worst of the crisis. The economy is improving, and finally people have optimism for the future. ?]
+Das Jahr ist halb vorbei. [? if works_program = 0 : Die Krise scheint ihren Tiefpunkt erreicht zu haben, doch das Leid ist groß. Noch ist es nicht zu spät für ein Rettungsprogramm. ?][? if works_program >= 1 and unemployed >= 8 : Unser Investitionsprogramm läuft, doch die Wirtschaft ist noch angeschlagen. Die Erholung hat begonnen, aber es muss mehr geschehen. ?][? if works_program >= 1 and unemployed < 8 : Unser Investitionsprogramm hat uns durch das Schlimmste geführt. Die Wirtschaft erholt sich, und die Menschen blicken endlich wieder zuversichtlich in die Zukunft. ?]
 
-[? if return_to_normalcy: With the return to normalcy, the political landscape in Germany is shifting. Liberalism is making a return among the middle classes, and the radical parties of the right are declining. ?]
-
-[? if president = "Hindenburg" : The president is in poor health; he is not expected to live out the year. ?]
+[? if return_to_normalcy: Mit der Rückkehr zur Normalität verschiebt sich die politische Landschaft. Die Parteien der Mitte gewinnen in der Mittelschicht zurück, und die extreme Rechte verliert an Boden. ?]

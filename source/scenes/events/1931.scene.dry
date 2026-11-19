@@ -1,28 +1,26 @@
-title: 1931
-subtitle: A new year 
+title: 2029
+subtitle: Ein neues Jahr
 on-arrival: {!
-// increase NSDAP vote share 
 // TODO: if a public works program has started, unemployment is not so bad.
-Q.unemployed += 6;
-Q.inflation -= 5;
-// historical: -7.7%
+Q.unemployed += 2.4;
+Q.inflation -= 2;
 // leave some economic decline for the banking crisis event
-Q.economic_growth -= 5;
+Q.economic_growth -= 2;
 if (Q.works_program) {
-    Q.unemployed -= 4;
-    Q.inflation += 3;
-    Q.economic_growth += 3.5;
+    Q.unemployed -= 1.6;
+    Q.inflation += 1.2;
+    Q.economic_growth += 1.4;
 }
 if (Q.works_program && Q.works_program > 1) {
-    Q.unemployed -= 1.5;
-    Q.inflation += 1;
-    Q.economic_growth += 1.5;
+    Q.unemployed -= 0.6;
+    Q.inflation += 0.4;
+    Q.economic_growth += 0.6;
 }
 // moved demographic changes to post_event
 !}
 tags: event
-view-if: year = 1931 and month = 1 
+view-if: year = 2029 and month = 1
 priority: 2
 max-visits: 1
 
-A new year begins. [? if works_program = 0 : Unemployment continues to spiral upwards. The strength of the NSDAP continues to rise. ?][? if works_program > 0 : A works program has been enacted in order to reduce unemployment. ?] [? if works_program > 0 and unemployment > 15 : However, unemployment remains too high for comfort. ?]
+Ein neues Jahr beginnt, das Wahljahr. Im Februar wird der Bundestag gewählt, im Juni das Europäische Parlament, und im Herbst wählen Sachsen, Thüringen und Brandenburg neue Landtage. [? if works_program = 0 : Die Arbeitslosigkeit steigt weiter, und mit ihr die AfD. ?][? if works_program > 0 : Unser Investitionsprogramm läuft und soll die Arbeitslosigkeit senken. ?] [? if works_program > 0 and unemployed > 8 : Doch die Arbeitslosigkeit ist noch immer beunruhigend hoch. ?]

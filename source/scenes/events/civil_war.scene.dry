@@ -1,4 +1,4 @@
-title: Civil War
+title: Staatskrise
 audio: music/communist/A_las_barricadas.ogg
 on-arrival: {!
 Q.demo_strength = Math.round(Q.demo_strength);
@@ -85,51 +85,53 @@ if (Q.total_power >= Q.enemy_power*0.95) {
 !}
 go-to: war_menu
 
-= The Array of Forces
+= Die Kräfteverhältnisse
 
-Our enemies are the nationalist Stahlhelm, with [+ bauern_strength +] thousand troops, and the Nazi SA, with [+ rechts_strength +] thousand troops. The loyalties of the Reichswehr, with its [+ bundeswehr_strength +] thousand regular soldiers, and Prussian police, with [+ prussian_police_strength +] thousand members, are unclear.
+# Staatskrise statt Bürgerkrieg: Die Stärken sind Teilnehmende (in Tausend), keine Truppen.
 
-[? if chancellor_party == "Linke" or president == "Thälmann" : The KPD's paramilitary, the RFB, is leading the battle, and we are their co-combatants. ?]
+Gegen uns stehen radikalisierte Teile der Bauern- und Mittelstandsproteste mit [+ bauern_strength +] Tausend Anhängern und die rechte Straßenmobilisierung mit [+ rechts_strength +] Tausend, darunter bewaffnete Reichsbürger-Gruppen. Wem die [+ bundeswehr_strength +] Tausend Soldatinnen und Soldaten der Bundeswehr und die [+ prussian_police_strength +] Tausend Beamtinnen und Beamten der Landespolizeien die Treue halten, ist unklar.
 
-On our side, we have the Reichsbanner, at [+ demo_strength +] thousand members. [? if dissent > 0.15 and dissent <= 0.25: It is somewhat weakened by dissent within the party, and some members choose not to fight. ?][? if dissent > 0.25 and dissent < 0.5: It is weakened by dissent within the party, and many members choose not to fight. ?][? if dissent >= 0.5: It is heavily weakened by dissent within the party, and a substantial portion of members choose not to fight. ?]
+[? if chancellor_party == "Linke" or president == "Trabert" : Die Linke und die Klimabewegung stehen in der ersten Reihe, und wir stehen an ihrer Seite. ?]
 
-[? if demo_radicalism < 0.25 : Unfortunately, the Reichsbanner are poorly trained and equipped, and will not be able to stand against our more militarized opponents. ?][? if demo_radicalism >= 0.25 and demo_radicalism < 0.5 : We have spent some resources training and equipping the Reichsbanner. Let us hope our people can persist. ?][? if demo_radicalism >= 0.5 : We have spent quite a great deal of resources on turning the Reichsbanner into a fighting force. Let us hope that they survive. ?]
+Auf unserer Seite steht die Demokratiebewegung mit [+ demo_strength +] Tausend Menschen. [? if dissent > 0.15 and dissent <= 0.25: Der Streit in unserer Partei schwächt sie etwas, manche bleiben zu Hause. ?][? if dissent > 0.25 and dissent < 0.5: Der Streit in unserer Partei schwächt sie, viele bleiben zu Hause. ?][? if dissent >= 0.5: Der Streit in unserer Partei schwächt sie schwer, ein großer Teil bleibt zu Hause. ?]
 
-What else do we have?
+[? if demo_radicalism < 0.25 : Leider ist die Bewegung kaum organisiert; gegen entschlossene Blockaden und Einschüchterung wird sie es schwer haben. ?][? if demo_radicalism >= 0.25 and demo_radicalism < 0.5 : Wir haben in Organisation, Ordnerdienste und Netzwerke der Bewegung investiert. Hoffen wir, dass die Menschen durchhalten. ?][? if demo_radicalism >= 0.5 : Wir haben viel in die Bewegung investiert: Bündnisse in jeder Stadt, geschulte Ordner, Telefonketten. Hoffen wir, dass es reicht. ?]
 
-# note: many scenarios lead to civil war. This calculates the array of forces, and the possible outcomes.
+Worauf können wir noch zählen?
+
+# Viele Wege führen in die Staatskrise. Hier werden die Kräfteverhältnisse und mögliche Ausgänge berechnet.
 
 @war_menu
 
-- @rw_help: Appeal to the Reichswehr to stand down.
-- @linke_help: Call for support from the Communists.
-- @general_strike: Call a general strike!
-- @loyal_police: Call up the loyal portions of the police.
-- @war_outcome: Now, the battle...
+- @rw_help: Die Bundeswehr auf die Verfassung verpflichten.
+- @linke_help: Die Linke um Unterstützung bitten.
+- @general_strike: Zum Generalstreik aufrufen!
+- @loyal_police: Die verfassungstreuen Teile der Polizei einsetzen.
+- @war_outcome: Jetzt entscheidet es sich …
 
 @rw_help
 max-visits: 1
 go-to: war_menu
 on-arrival: war_choices += 1
 
-We have urged the Reichswehr to stand down, to avoid killing their countrymen. [? if bundeswehr_loyalty < 0.2 : Unfortunately, few heed our calls; the Reichswhere detest us. ?][? if bundeswehr_loyalty >= 0.2 and bundeswehr_loyalty < 0.4 : Some officers and troops heed our calls to not fight against us. Some even join us. ?][? if bundeswehr_loyalty >= 0.4 and bundeswehr_loyalty < 0.6 : The Reichswehr is split. Many avoid taking a side, or join our side. ?][? if bundeswehr_loyalty >= 0.6 : Surprisingly, the majority of the Reichswehr is on our side! Our preparations have worked. ?]
+Wir appellieren an die Bundeswehr, ihren Eid auf das Grundgesetz zu halten und sich nicht gegen die gewählte Regierung stellen zu lassen. [? if bundeswehr_loyalty < 0.2 : Leider hören nur wenige auf uns; in Teilen der Truppe verachtet man uns. ?][? if bundeswehr_loyalty >= 0.2 and bundeswehr_loyalty < 0.4 : Einige Offiziere und Einheiten folgen unserem Aufruf, manche stellen sich offen auf unsere Seite. ?][? if bundeswehr_loyalty >= 0.4 and bundeswehr_loyalty < 0.6 : Die Bundeswehr ist gespalten. Viele halten sich heraus oder stellen sich auf unsere Seite. ?][? if bundeswehr_loyalty >= 0.6 : Die große Mehrheit der Bundeswehr steht zur Verfassung! Unsere Reformen haben sich ausgezahlt. ?]
 
 @linke_help
 max-visits: 1
-view-if: chancellor_party != "Linke" and president != "Thälmann" 
+view-if: chancellor_party != "Linke" and president != "Trabert"
 go-to: war_menu
 on-arrival: war_choices += 1
 
-There are [+ klima_strength +] thousand fighters with the Communist RFB, in addition to the workers who support the KPD.
+Die Klimabewegung zählt [+ klima_strength +] Tausend Aktive, dazu kommen die Beschäftigten, die der Linken nahestehen.
 
-[? if linke_relation >= 60 : The KPD is entirely on our side, owing to our good relations.. ?][? if linke_relation < 60 and linke_relation >= 45 : Most of the KPD is on our side, due to their good relations with us. ?][? if linke_relation < 45 : The KPD does not support us. ?]
+[? if linke_relation >= 60 : Dank unserer guten Beziehungen steht die Linke geschlossen an unserer Seite. ?][? if linke_relation < 60 and linke_relation >= 45 : Der größte Teil der Linken steht an unserer Seite. ?][? if linke_relation < 45 : Die Linke unterstützt uns nicht. ?]
 
 @general_strike
 max-visits: 1
 go-to: war_menu
 on-arrival: war_choices += 1
 
-A general strike stopped the Kapp Putsch in 1920, and it can stop fascism today. [? if normalized_workers_total > 70 : The workers are largely united with us. ?][? if normalized_workers_total >= 50 and normalized_workers_total <= 70 : There is some dissent within labor, but a majority of workers support the general strike. ?][? if normalized_workers_total > 30 and normalized_workers_total < 50 : However, there is substantial dissent within labor, and less than half support the general strike. ?][? if normalized_workers_total <= 30 : However, labor is deeply divided, and most workers do not heed the call to strike. ?]
+Ein Generalstreik hat 1920 den Kapp-Putsch gestoppt, und er kann auch heute die Feinde der Demokratie stoppen. [? if normalized_workers_total > 70 : Die Beschäftigten stehen weitgehend geschlossen hinter uns. ?][? if normalized_workers_total >= 50 and normalized_workers_total <= 70 : In den Belegschaften gibt es Zweifel, doch eine Mehrheit folgt dem Streikaufruf. ?][? if normalized_workers_total > 30 and normalized_workers_total < 50 : In den Belegschaften gibt es viel Widerspruch, weniger als die Hälfte folgt dem Streikaufruf. ?][? if normalized_workers_total <= 30 : Die Beschäftigten sind tief gespalten, und die meisten folgen dem Streikaufruf nicht. ?]
 
 
 @loyal_police
@@ -138,7 +140,7 @@ go-to: war_menu
 on-arrival: war_choices += 1
 view-if: spd_prussia = 1
 
-Since we still control the Prussian government, we can call upon the Prussian police. [? if prussian_police_loyalty < 0.4 : Unfortunately, the police are politically unreliable at best. ?][? if prussian_police_loyalty >= 0.4 and prussian_police_loyalty < 0.65 : In this crucial hour, the Prussian police are split, with about half actively supporting our efforts. ?][? if prussian_police_loyalty >= 0.65 : Most join in supporting our efforts. Our efforts in cultivating republican loyalties in the police have proven their worth. ?]
+In den SPD-geführten Ländern können wir die Landespolizeien einsetzen. [? if prussian_police_loyalty < 0.4 : Leider ist auf die Polizei bestenfalls bedingt Verlass. ?][? if prussian_police_loyalty >= 0.4 and prussian_police_loyalty < 0.65 : In dieser entscheidenden Stunde ist die Polizei gespalten, etwa die Hälfte unterstützt uns aktiv. ?][? if prussian_police_loyalty >= 0.65 : Die meisten Beamtinnen und Beamten stehen zur Verfassung. Unsere Arbeit für eine verfassungstreue Polizei zahlt sich aus. ?]
 
 
 
@@ -146,9 +148,9 @@ Since we still control the Prussian government, we can call upon the Prussian po
 @foreign_intervention
 max-visits: 1
 go-to: war_menu
-on-arrival: war_choices += 1; 
+on-arrival: war_choices += 1;
 
-# note: the Prussian coup should not trigger foreign intervention...
+# Hinweis: wird derzeit nicht verwendet.
 
 
 @war_outcome
@@ -157,70 +159,69 @@ go-to: defeat if total_defeat = 1; long_war if long_war = 1; republic_victory if
 
 @defeat
 
-= Total Defeat
+= Die Demokratie fällt
 
-Our forces are no match for those of the reactionaries. Reichsbanner fighters are quickly overpowered by the forces of the Stahlhelm, SA, and Reichswehr. Many are killed before the rest surrender. Our remaining leaders flee the country or face execution, as the reactionaries take absolute power over Germany.
+Wir sind den Kräften des Umsturzes nicht gewachsen. Die Demonstrationen werden auseinandergetrieben, Teile von Polizei und Bundeswehr laufen über, Sender und Ministerien werden besetzt. Eine „Notstandsregierung“ setzt die Verfassung außer Kraft. Viele von uns werden festgenommen, andere fliehen ins Ausland.
 
-Our resistance will be recorded in the history books, and in the future, our names will be honored. But for now, all is lost.
+Unser Widerstand wird in die Geschichtsbücher eingehen, und eines Tages wird man unsere Namen ehren. Doch für jetzt ist alles verloren.
 
-- @game_over: Game over.
+- @game_over: Spielende.
 
 @long_war
 go-to: long_war_intervention if resist_coup == 0; game_over_menu if resist_coup == 1
 
-= Long War
+= Lähmung
 
-The initial phase of the action ends, and somehow, both sides remain standing.
+Die ersten Tage der Krise sind vorbei, und keine Seite hat sich durchgesetzt.
 
-The war settles into fixed battle lines. This will not be a quick coup, but a long civil war. The nation will destroy itself before it can be rebuilt again.
+Das Land ist gespalten. In manchen Regionen herrschen faktisch die Umstürzler, Behörden und Gerichte arbeiten gegeneinander, der Ausnahmezustand wird zum Dauerzustand. Die Republik zerreibt sich, bevor sie neu aufgebaut werden kann.
 
 @game_over_menu
 
-While we might want to call for foreign assistance, the foreign powers see the "Prussian Coup" as a purely internal matter.
+Wir könnten um internationale Hilfe bitten, doch die Partner sehen die Krise als innere Angelegenheit Deutschlands.
 
 - @game_over
 
-# no war
+# keine Hilfe
 
 @long_war_intervention
 
-- @west_aid: Perhaps we can receive aid from the Western powers, France and Britain.
-- @soviet_aid: Perhaps we can receive aid from the Soviet Union.
-- @east_aid: Perhaps our eastern neighbors, Poland and Czechoslovakia, can help us. If they know anything, they do not want fascists coming to power in Germany.
-- @game_over: Game over.
+- @west_aid: Vielleicht helfen uns die EU und Frankreich.
+- @soviet_aid: Vielleicht hilft uns die internationale Gewerkschaftsbewegung.
+- @east_aid: Vielleicht helfen uns Polen und die baltischen Staaten. Sie wissen genau, was ein autoritäres Deutschland für sie bedeuten würde.
+- @game_over: Spielende.
 
 @west_aid
 choose-if: west_relation >= 2
-unavailable-subtitle: Our relations are not strong enough.
+unavailable-subtitle: Unsere Beziehungen sind nicht gut genug.
 on-arrival: west_aid += 1
 max-visits: 1
 go-to: long_war_intervention
 
-We send a call for help to the West, but their governments are divided on whether or not to support us. We have to survive on our own until they make a decision.
+Wir bitten Brüssel und Paris um Hilfe. Die EU leitet ein Verfahren nach Artikel 7 gegen die Umstürzler ein, und Frankreich bietet Unterstützung an, doch die Mitgliedstaaten sind uneins. Bis zu einer Entscheidung müssen wir allein durchhalten.
 
 @soviet_aid
 choose-if: (soviet_relation >= 1 and linke_relation >= 50) or (linke_relation >= 75)
 on-arrival: soviet_aid += 1
-unavailable-subtitle: Our relations are not strong enough.
+unavailable-subtitle: Unsere Beziehungen sind nicht gut genug.
 max-visits: 1
 go-to: long_war_intervention
 
-We send a call for help to the Soviet Union. The KPD receives the bulk of the aid, while the Reichsbanner and our loyal military units are left floundering. If we win, this does not bode well for our future.
+Wir rufen die internationalen Gewerkschaften und linken Parteien um Hilfe. Streikkassen, Juristinnen und Juristen und Freiwillige kommen ins Land, doch die meisten Mittel fließen an Linke und Klimabewegung, nicht an uns. Wenn wir gewinnen, verheißt das nichts Gutes für unsere Rolle danach.
 
 @east_aid
 choose-if: east_relation >= 2
 on-arrival: east_aid += 1
-unavailable-subtitle: Our relations are not strong enough.
+unavailable-subtitle: Unsere Beziehungen sind nicht gut genug.
 max-visits: 1
 go-to: long_war_intervention
 
-Poland and Czechoslovakia are largely too absorbed in their own problems to be of much help, but weapons and volunteers filter through the parts of the borders that we control.
+Polen und die baltischen Staaten haben mit eigenen Sorgen zu kämpfen, doch sie schließen die Grenzen für Unterstützer der Umstürzler und lassen Hilfe für die verfassungstreuen Kräfte durch.
 
 @republic_victory
 
-= Victory for the Republic
+= Sieg für die Demokratie
 
-The battle lines hold, and the SA, Stahlhelm, and pro-coup Reichswehr forces are defeated. Today, the forces of the republic prevail over the fascists and the reactionaries. There is a new revolution in Germany. Let us hope it produces a longer-lasting peace than the previous one.
+Die Demokratie hält stand. Die Belagerungen brechen zusammen, die Rädelsführer werden festgenommen, und die Einheiten, die sich den Umstürzlern angeschlossen hatten, geben auf. Heute haben die Verteidigerinnen und Verteidiger der Verfassung gesiegt. Hoffen wir, dass dieser Sieg einen längeren Frieden bringt als manche Siege zuvor.
 
-- @game_over: Game over.
-
+- @game_over: Spielende.

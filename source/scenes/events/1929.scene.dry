@@ -1,13 +1,13 @@
-title: 1929
-subtitle: A new year
+title: 2027
+subtitle: Ein neues Jahr
 on-arrival: {!
 // see post_event.scene.dry for changes.
-Q.economic_growth -= 4;
+Q.economic_growth -= 1.5;
 
 !}
 tags: event
-view-if: year = 1929 and month = 1
+view-if: year = 2027 and month = 1
 priority: 2
 max-visits: 1
 
-A new year begins. The economy appears to be slackening; unemployment is increasing throughout the republic, although for the most part, people are still doing well.
+Ein neues Jahr beginnt. Die Konjunktur schwächelt weiter, in der Industrie wird Personal abgebaut, und die Arbeitslosigkeit steigt im ganzen Land. Den meisten Menschen geht es noch gut, doch die Sorgen wachsen. Im Februar wählt die Bundesversammlung ein neues Staatsoberhaupt, und im Mai stehen wichtige Landtagswahlen an, darunter in Nordrhein-Westfalen.

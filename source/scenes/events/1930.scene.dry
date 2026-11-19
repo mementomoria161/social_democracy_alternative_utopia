@@ -1,20 +1,19 @@
-title: 1930
-subtitle: A new year 
+title: 2028
+subtitle: Ein neues Jahr
 audio: clear shuffle music/1928_1933/ZurSonne_zurFreiheit.mp3 music/1928_1933/arbeiter_marseille.mp3 music/1928_1933/DERLINDENBAUM_normalized.mp3 music/1928_1933/Wann_wir_schreiten_Seit_an_Seit.mp3 music/1930_1933/Internationale-de_normalized.ogg music/1930_1933/ironfront_normalized.mp3 music/1930_1933/KommSusserTod.mp3 music/1930_1933/Warszawianka.mp3 music/1928_1933/Liebesleid_normalized.mp3 music/1928_1933/SozialistenMarsch.mp3
 on-arrival: {!
-// increase NSDAP vote share 
-Q.unemployed += 6.8; 
-Q.inflation -= 4;
+// Krisenjahr: Zollkrieg wirkt nach
+Q.unemployed += 2.5;
+Q.inflation -= 1.5;
 if (Q.budget > 0) {
     Q.budget -= 1;
 }
-// historical: -1.4
-Q.economic_growth -= 1;
+Q.economic_growth -= 0.5;
 // moved demographic changes to post_event
 !}
 tags: event
-view-if: year = 1930 and month = 1 
+view-if: year = 2028 and month = 1
 priority: 2
 max-visits: 1
 
-A new year begins. The economic crisis is worsening throughout the world, with no end in sight. The NSDAP seems to be strengthening in local elections. All very worrisome trends.
+Ein neues Jahr beginnt. Die Wirtschaftskrise verschärft sich weltweit, ein Ende ist nicht in Sicht. Die AfD legt in Umfragen und bei Kommunalwahlen weiter zu. In den USA wird im November ein neuer Präsident gewählt, und in Bayern und Hessen stehen Landtagswahlen an. Alles beunruhigende Zeichen.

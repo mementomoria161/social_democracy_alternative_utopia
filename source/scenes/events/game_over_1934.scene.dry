@@ -11,7 +11,7 @@ if (Q.difficulty == -1) {
 } else if (Q.difficulty == 2 && Q.annual_income <= 1 && Q.saves_disabled == 1 && Q.discard_disabled == 1 && Q.starting_resources == 0 && Q.starting_budget == 0 && Q.hand_size == 3 && Q.starting_dissent == 2 && Q.starting_relations == 2 && Q.historical_mode && Q.starting_demo_strength < 1100 && !Q.cabinet_enabled && !Q.shuffle_leadership_enabled) {
     // TODO: custom difficutly max...
     this.achieve('in_kummernis_und_dunkelheit');
-    if ((Q.president == "Braun" || Q.president == "Schumacher" || Q.president == "Juchacz") && !(Q.chancellor == "Hitler") && Q.unemployed < 20 && Q.year >= 1933 && !Q.civil_war_seen && Q.hitler_deported && Q.reparations <= -2 && Q.womens_rights >= 3) {
+    if (Q.president == "Schwesig" && Q.chancellor_party != "AfD" && Q.unemployed < 10 && Q.year >= 2029 && !Q.civil_war_seen && Q.hitler_deported && Q.reparations <= -2 && Q.womens_rights >= 3) {
         this.achieve('bruder_zur_sonne');
     }
 }
@@ -19,8 +19,8 @@ if (Q.difficulty == -1) {
 if (Q.historical_mode) {
     this.achieve('schwarz_rot_gold');
 }
-// Brüder, zur Sonne, zur Freiheit - reduce unemployment, pause reparations, increase women's rights, elect Otto Braun president, and deport Hitler in one playthrough on at least normal difficulty.
-if (Q.difficulty >= 0 && (Q.president == "Braun" || Q.president == "Schumacher" || Q.president == "Juchacz") && !(Q.chancellor == "Hitler") && Q.unemployed < 20 && Q.year >= 1933 && !Q.civil_war_seen && Q.hitler_deported && Q.reparations <= -2 && Q.womens_rights >= 3) {
+// Brüder, zur Sonne, zur Freiheit - Arbeitslosigkeit senken, EU-Investitionsausnahme, Gleichstellung, SPD-Bundespräsidentin, AfD-Verbotsverfahren in einem Durchgang (mind. normal).
+if (Q.difficulty >= 0 && Q.president == "Schwesig" && Q.chancellor_party != "AfD" && Q.unemployed < 10 && Q.year >= 2029 && !Q.civil_war_seen && Q.hitler_deported && Q.reparations <= -2 && Q.womens_rights >= 3) {
     this.achieve('bruder_zur_sonne');
 }
 // Freie Marktwirtschaft - win without doing an economic plan.
@@ -29,4 +29,4 @@ if (!Q.economic_plan) {
 }
 !}
 
-- @game_over: Game over.
+- @game_over: Spielende.

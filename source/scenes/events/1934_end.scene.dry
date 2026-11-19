@@ -1,15 +1,14 @@
-title: A New Day in Germany
-subtitle: Has democracy finally triumphed?
+title: Ein neuer Tag für Deutschland
+subtitle: Hat die Demokratie gesiegt?
 tags: event
 priority: 3
-view-if: hindenburg_dead = 1 and president != "Hitler" and president != "Göring" and president != "Seldte"
+view-if: (hindenburg_dead = 1 or (year >= 2030 and month >= 12)) and chancellor_party != "AfD"
 max-visits: 1
 on-arrival: {!
 !}
 new-page: true
 go-to: game_over_1934
 
-= A New Day in Germany
+= Ein neuer Tag für Deutschland
 
-After the death of Hindenburg and the presidential election of 1934, it seems as if an era of history is closing. The worst years of political and economic crisis are over, and Nazism's days are numbered. Perhaps Germany will finally enter into a new era of genuine peace...
-
+Das Jahr 2030 geht zu Ende, und mit ihm scheint ein Kapitel zu schließen. Die schlimmsten Jahre der politischen und wirtschaftlichen Krise liegen hinter uns, und der Höhenflug der extremen Rechten ist gebrochen. Vielleicht bricht für Deutschland nun endlich eine Zeit des Friedens und der Zuversicht an …
