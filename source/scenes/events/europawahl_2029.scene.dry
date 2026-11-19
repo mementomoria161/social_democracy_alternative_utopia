@@ -1,0 +1,20 @@
+title: Europawahl
+subtitle: Deutschland wählt das Europäische Parlament.
+new-page: true
+tags: event
+view-if: year = 2029 and month = 6
+max-visits: 1
+on-arrival: europawahl_2029_seen = 1; pro_republic += 2 if eu or eu_progress >= 1; pro_republic -= 2 if not eu and eu_progress < 1
+face-image: img/international.jpg
+
+= Europawahl
+
+Wenige Monate nach der Bundestagswahl wählt Deutschland das Europäische Parlament. Ohne Fünf-Prozent-Hürde ziehen auch kleine Parteien ein, und die Wahl gilt als Stimmungstest für die neue Bundesregierung.
+
+[? if spd_r >= 20 : Die SPD schneidet ordentlich ab und kann sich als proeuropäische Kraft profilieren. ?][? if spd_r < 20 : Die SPD bleibt hinter ihren Erwartungen zurück. ?] [? if afd_r >= 25 : Die AfD wird zur größten deutschen Gruppe im Europäischen Parlament, was in Brüssel für Unruhe sorgt. ?] [? if eu : Die neue Europäische Föderation ist das große Thema des Wahlkampfs. ?]
+
+- @weiter: Weiter.
+
+@weiter
+
+Der Wahlabend ist vorbei, die Arbeit geht weiter.

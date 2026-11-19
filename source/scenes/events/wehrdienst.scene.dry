@@ -1,0 +1,33 @@
+title: Wehrpflicht?
+subtitle: Die Union will den freiwilligen Wehrdienst verschärfen.
+new-page: true
+tags: event
+view-if: year = 2026 and month >= 7 and spd_in_government
+max-visits: 1
+on-arrival: wehrdienst_seen = 1
+
+= Wehrpflicht?
+
+Seit Januar 2026 erhalten alle 18-Jährigen einen Fragebogen zum neuen Wehrdienst. Doch die Zahl der Freiwilligen bleibt hinter den Zielen zurück. Die Union drängt darauf, die im Gesetz angelegte Bedarfswehrpflicht sofort zu aktivieren. Jusos und Teile der Parteilinken wollen beim Prinzip der Freiwilligkeit bleiben.
+
+- @pflicht: Der Bedarfswehrpflicht zustimmen.
+- @freiwillig: Bei der Freiwilligkeit bleiben und den Dienst attraktiver machen.
+- @gesellschaftsjahr: Ein allgemeines Gesellschaftsjahr für alle vorschlagen, mit Wahl zwischen Bundeswehr und Zivildienst.
+
+@pflicht
+on-arrival: bundeswehr_strength += 20; bundeswehr_loyalty += 0.03; left_dissent += 10; new_middle_spd -= 2; union_relation += 4; pacifism -= 1 if pacifism > 0; coalition_dissent -= 1 if coalition_dissent > 0
+
+Die Bedarfswehrpflicht wird aktiviert. Bundeswehr und Union sind zufrieden, bei jungen Wählerinnen und Wählern verlieren wir deutlich.
+
+@freiwillig
+subtitle: -1 Haushaltsspielraum
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt uns der Haushaltsspielraum.
+on-arrival: budget -= 1; bundeswehr_strength += 10; left_dissent -= 3; coalition_dissent += 1 if in_grand_coalition; union_relation -= 2
+
+Mit besserem Sold, Führerscheinzuschuss und Studienplatzvorteilen machen wir den freiwilligen Dienst attraktiver. Die Zahlen steigen, aber langsamer, als die Union es will.
+
+@gesellschaftsjahr
+on-arrival: bundeswehr_strength += 10; demo_strength += 50; new_middle_spd += 2*(1-dissent); left_dissent += 3; reformist_dissent -= 3; union_relation += 1
+
+Unser Vorschlag eines Gesellschaftsjahrs für alle jungen Menschen, in Bundeswehr, Pflege, Katastrophenschutz oder Kultur, findet breite Zustimmung. Bis zur Umsetzung ist es noch ein weiter Weg, doch die Debatte hat sich verschoben.

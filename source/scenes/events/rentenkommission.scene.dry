@@ -1,0 +1,34 @@
+title: Die Rentenkommission legt ihren Bericht vor
+subtitle: Wie soll die Rente in Zukunft finanziert werden?
+new-page: true
+tags: event
+view-if: year = 2027 and month >= 6 and month <= 9 and spd_in_government
+max-visits: 1
+on-arrival: rentenkommission_seen = 1
+face-image: img/sozialstaat.jpg
+
+= Die Rentenkommission
+
+Die Rentenkommission der Bundesregierung legt ihren Bericht vor. Die Babyboomer gehen in Rente, die Beiträge steigen, und der Zuschuss aus dem Bundeshaushalt wächst Jahr für Jahr. Die Kommission schlägt verschiedene Wege vor; die Union favorisiert ein späteres Renteneintrittsalter, die Gewerkschaften wollen das Rentenniveau sichern.
+
+- @niveau: Das Rentenniveau bei 48 Prozent dauerhaft sichern und Beamte und Selbstständige einbeziehen.
+- @alter: Das Renteneintrittsalter an die Lebenserwartung koppeln.
+- @kapital: Eine kapitalgedeckte Säule nach schwedischem Vorbild aufbauen.
+
+@niveau
+on-arrival: welfare += 1; rentner_spd += 6*(1-dissent); workers_spd += 3*(1-dissent); old_middle_spd -= 4; new_middle_spd -= 2; labor_dissent -= 8; left_dissent -= 5; coalition_dissent += 1 if in_grand_coalition; union_relation -= 5; fdp_relation -= 5
+
+Das Rentenniveau wird dauerhaft gesichert, und schrittweise zahlen auch neue Beamte und Selbstständige in die gesetzliche Rente ein. Die Gewerkschaften jubeln, Beamtenbund und Union protestieren.
+
+@alter
+on-arrival: budget += 1; rentner_spd -= 3; workers_spd -= 6; labor_dissent += 12; left_dissent += 8; union_relation += 5; fdp_relation += 5; workers_afd += 3; workers_linke += 3
+
+Das Renteneintrittsalter steigt künftig mit der Lebenserwartung. Für Beschäftigte in harten Berufen ist das eine bittere Nachricht, und AfD und Linke greifen das Thema dankbar auf.
+
+@kapital
+subtitle: -1 Haushaltsspielraum
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt uns der Haushaltsspielraum.
+on-arrival: budget -= 1; new_middle_spd += 3*(1-dissent); old_middle_spd += 2*(1-dissent); rentner_spd += 1; left_dissent += 3; fdp_relation += 6; economic_growth += 0.1
+
+Ein staatlich verwalteter Fonds nach schwedischem Vorbild soll die gesetzliche Rente ergänzen. Ökonomen loben den Schritt, die Parteilinke fürchtet den Einstieg in die Privatisierung.

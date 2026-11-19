@@ -1,0 +1,26 @@
+title: Landtagswahlen im Südwesten
+subtitle: Baden-Württemberg und Rheinland-Pfalz wählen.
+new-page: true
+tags: event
+view-if: year = 2026 and month = 3
+max-visits: 1
+on-arrival: ltw_maerz_2026_seen = 1; pro_republic -= 1; rp_lost = 1 if historical_mode or spd_r < 17; reformist_dissent += 5 if rp_lost; center_dissent += 5 if rp_lost; left_dissent += 3 if rp_lost
+face-image: img/wahlkampf.jpg
+
+= Landtagswahlen im Südwesten
+
+In Baden-Württemberg liefern sich Grüne und CDU ein Kopf-an-Kopf-Rennen; am Ende liegen die Grünen knapp vorn. Die AfD kommt auf fast ein Fünftel der Stimmen, die SPD bleibt einstellig bis knapp zweistellig.
+
+[? if rp_lost : In Rheinland-Pfalz verliert die SPD nach 35 Jahren die Staatskanzlei. Die CDU wird stärkste Kraft, die SPD bleibt als Juniorpartnerin in der Regierung. Für die Bundespartei ist das ein schwerer Schlag. ?][? if not rp_lost : In Rheinland-Pfalz verteidigt die SPD überraschend die Staatskanzlei, wenn auch knapp. Für die Bundespartei ist das ein wichtiges Signal. ?]
+
+- @analyse: Die Ergebnisse gründlich analysieren.
+- @weiter: Weitermachen wie bisher.
+
+@analyse
+on-arrival: nazi_urgency += 1 if nazi_urgency < 3; crisis_urgency += 1 if rp_lost
+
+Die Wahlanalysen sind deutlich: In Industrieregionen und auf dem Land wandern Beschäftigte zur AfD ab, in den Städten verlieren wir an Grüne und Linke. Wir müssen unsere Strategie überdenken.
+
+@weiter
+
+Landtagswahlen haben ihre eigenen Gesetze. Wir lassen uns nicht beirren.

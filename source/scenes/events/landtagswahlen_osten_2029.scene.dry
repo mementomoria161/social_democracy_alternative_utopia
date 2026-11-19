@@ -1,0 +1,22 @@
+title: Landtagswahlen im Osten
+subtitle: Sachsen, Thüringen und Brandenburg wählen.
+new-page: true
+tags: event
+view-if: year = 2029 and month = 9
+max-visits: 1
+on-arrival: ltw_osten_2029_seen = 1; brandenburg_lost = 1 if afd_r >= 30 or spd_r < 15; nazi_urgency += 1 if brandenburg_lost; strife += 1 if afd_r >= 30
+face-image: img/wahlkampf.jpg
+
+# Fiktives Szenario; Ausgang hängt von den Umfragen ab.
+
+= Landtagswahlen im Osten
+
+In Sachsen, Thüringen und Brandenburg werden neue Landtage gewählt. [? if afd_r >= 30 : In allen drei Ländern wird die AfD mit großem Abstand stärkste Kraft, in Thüringen fehlen ihr nur wenige Sitze zur absoluten Mehrheit. ?][? if afd_r < 30 : Die AfD bleibt stark, verliert aber erstmals seit Jahren an Zustimmung. ?]
+
+[? if brandenburg_lost : In Brandenburg verliert die SPD nach mehr als 35 Jahren die Staatskanzlei. ?][? if not brandenburg_lost : In Brandenburg hält die SPD die Staatskanzlei, als letzte Bastion im Osten. ?]
+
+- @weiter: Weiter.
+
+@weiter
+
+[? if brandenburg_lost : Für die SPD ist das eine historische Niederlage. ?][? if not brandenburg_lost : Ein Lichtblick in schwierigen Zeiten. ?]

@@ -1,0 +1,22 @@
+title: Superwahlsonntag
+subtitle: Nordrhein-Westfalen, Schleswig-Holstein und Bremen wählen.
+new-page: true
+tags: event
+view-if: year = 2027 and month = 5
+max-visits: 1
+on-arrival: ltw_2027_seen = 1; nrw_won = 1 if spd_r >= union_r and not historical_mode; spd_prussia = 1 if nrw_won; prussian_government = "SPD" if nrw_won; pro_republic += 2 if nrw_won; reformist_dissent -= 5 if nrw_won; center_dissent -= 5 if nrw_won; left_dissent += 3 if not nrw_won; center_dissent += 3 if not nrw_won
+face-image: img/wahlkampf.jpg
+
+# Fiktives Szenario; Ergebnisse hängen von den Umfragewerten ab.
+
+= Superwahlsonntag
+
+Im Mai wählen Nordrhein-Westfalen, Schleswig-Holstein und Bremen ihre Landtage. Vor allem die Wahl im bevölkerungsreichsten Land gilt als Test für die Bundespolitik.
+
+[? if nrw_won : Sensation in Düsseldorf: Die SPD wird in Nordrhein-Westfalen stärkste Kraft und erobert die Staatskanzlei zurück. Im Bundesrat haben wir wieder Gewicht. ?][? if not nrw_won : In Nordrhein-Westfalen bleibt die CDU unter Hendrik Wüst klar stärkste Kraft. Die SPD verbessert sich kaum. ?] In Bremen bleibt die SPD vorn, in Schleswig-Holstein regiert die CDU weiter.
+
+- @weiter: Weiter.
+
+@weiter
+
+Die Landtagswahlen sind vorbei. Der Blick richtet sich nun auf die Bundestagswahl 2029.

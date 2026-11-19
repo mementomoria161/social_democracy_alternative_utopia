@@ -1,0 +1,39 @@
+title: Die Haushaltslücke
+subtitle: Im Haushalt 2027 fehlen über 30 Milliarden Euro.
+new-page: true
+tags: event
+view-if: year = 2026 and month >= 6 and month <= 8 and spd_in_government and finance_minister_party == "SPD"
+max-visits: 1
+on-arrival: haushaltsluecke_seen = 1; budget -= 1 if budget >= 1; crisis_urgency += 1
+face-image: img/portraits/Klingbeil.jpg
+
+= Die Haushaltslücke
+
+Die Steuereinnahmen bleiben hinter den Erwartungen zurück, Zinsen und Verteidigungsausgaben steigen. Für den Haushalt 2027 fehlen über 30 Milliarden Euro, und als Finanzminister muss die SPD einen Weg finden, die Lücke zu schließen. Die Union lehnt Steuererhöhungen ab und verlangt Einschnitte beim Sozialstaat.
+
+- @sozial_kuerzen: Bei Bürgergeld und Rentenzuschüssen kürzen.
+- @reiche: Einen Krisenbeitrag für sehr hohe Einkommen und Vermögen durchsetzen.
+- @notlage: Die Schuldenbremse über eine Notlage aussetzen.
+- @subventionen: Klimaschädliche Subventionen streichen.
+
+@sozial_kuerzen
+on-arrival: budget += 2; welfare -= 1; workers_spd -= 4; unemployed_spd -= 6; rentner_spd -= 3; left_dissent += 10; labor_dissent += 8; workers_linke += 3; unemployed_afd += 2; union_relation += 4
+
+Die Lücke wird vor allem durch Kürzungen bei Grundsicherung und Rentenzuschüssen geschlossen. Die Union ist zufrieden, Sozialverbände und Gewerkschaften laufen Sturm.
+
+@reiche
+on-arrival: budget += 2; upper_tax_rates += 1; workers_spd += 4*(1-dissent); left_dissent -= 5; labor_dissent -= 5; coalition_dissent += 2 if in_grand_coalition; capital_strike_progress += 1; union_relation -= 6
+
+Wir setzen einen befristeten Krisenbeitrag auf sehr hohe Einkommen und Vermögen durch. Die Union stimmt nur unter Protest zu und droht, die Koalition infrage zu stellen.
+
+@notlage
+choose-if: judicial_reform >= 1 or unemployed >= 7
+unavailable-subtitle: Ohne echte Notlage würde Karlsruhe das kassieren, wie 2023 den Nachtragshaushalt.
+on-arrival: budget += 2; inflation += 0.3; coalition_dissent += 1 if in_grand_coalition; fdp_relation -= 5; economic_growth += 0.2
+
+Mit Verweis auf Industriekrise und Arbeitslosigkeit erklärt der Bundestag eine außergewöhnliche Notlage. Die Lücke wird über Kredite geschlossen. Die Union trägt das zähneknirschend mit, warnt aber vor einem Präzedenzfall.
+
+@subventionen
+on-arrival: budget += 1; gruene_relation += 5; rural_spd -= 3; workers_spd -= 2; new_middle_spd += 2*(1-dissent); coalition_dissent += 1 if in_grand_coalition
+
+Wir streichen Dienstwagenprivileg, Dieselsubventionen und Steuervorteile für Kerosin. Das schließt einen Teil der Lücke. Pendler, Landwirtschaft und Autoindustrie sind empört, die Grünen loben uns.

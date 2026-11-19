@@ -1,0 +1,37 @@
+title: Industriekrise
+subtitle: Ein großer Autozulieferer will Werke schließen.
+new-page: true
+tags: event
+view-if: year = 2026 and month >= 10 and spd_in_government
+max-visits: 1
+on-arrival: industriekrise_seen = 1; unemployed += 0.3; workers_afd += 2; crisis_urgency += 1
+face-image: img/werksschliessung.jpg
+
+= Industriekrise
+
+Einer der größten deutschen Autozulieferer kündigt an, mehrere Werke in Deutschland zu schließen und die Produktion nach Osteuropa und Asien zu verlagern. Zehntausende Arbeitsplätze stehen auf dem Spiel, vor allem in ohnehin strukturschwachen Regionen. Auch in der Stahlindustrie wird über Stilllegungen verhandelt. Die IG Metall ruft zu Protesten auf und fordert die Regierung zum Handeln auf.
+
+- @beteiligung: Mit einer staatlichen Beteiligung die Werke retten.
+- @kurzarbeit: Das Kurzarbeitergeld verlängern und Qualifizierung fördern.
+- @markt: Das ist eine unternehmerische Entscheidung.
+
+@beteiligung
+subtitle: -2 Haushaltsspielraum
+choose-if: budget >= 2
+unavailable-subtitle: Dafür fehlt uns der Haushaltsspielraum.
+on-arrival: budget -= 2; unemployed -= 0.3; workers_spd += 5*(1-dissent); workers_afd -= 2; labor_dissent -= 5; left_dissent -= 3; fdp_relation -= 4; union_relation -= 2; socializations += 1; capital_strike_progress += 1
+
+Über einen Transformationsfonds steigt der Bund bei den bedrohten Werken ein, gekoppelt an Standortgarantien und eine Umstellung auf Batterie- und Wärmepumpentechnik. Die Beschäftigten feiern, Ordnungspolitiker der Union sprechen von „Staatswirtschaft“.
+
+@kurzarbeit
+subtitle: -1 Haushaltsspielraum
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt uns der Haushaltsspielraum.
+on-arrival: budget -= 1; unemployed -= 0.15; workers_spd += 2*(1-dissent); labor_dissent -= 2
+
+Wir verlängern das Kurzarbeitergeld und finanzieren Weiterbildung für Beschäftigte in der Transformation. Das kauft Zeit, ändert aber nichts an den Schließungsplänen.
+
+@markt
+on-arrival: workers_spd -= 4; labor_dissent += 8; left_dissent += 5; workers_afd += 3; workers_linke += 2; fdp_relation += 3
+
+Wir mischen uns nicht ein. Die Werke werden geschlossen, und vor den Werkstoren hört man bittere Worte über die SPD.

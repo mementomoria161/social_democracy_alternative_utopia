@@ -1,0 +1,20 @@
+title: Die USA wählen
+subtitle: Wer wird der nächste US-Präsident?
+new-page: true
+tags: event
+view-if: year = 2028 and month = 11
+max-visits: 1
+on-arrival: us_wahl_2028_seen = 1; us_democrat_wins = 1 if west_relation + economic_growth >= 4
+
+# Fiktives Szenario: Ausgang an Beziehungen und Konjunktur gekoppelt, keine Namen.
+
+= Die USA wählen
+
+Die ganze Welt blickt auf die Präsidentschaftswahl in den Vereinigten Staaten. [? if us_democrat_wins : Die Demokraten gewinnen das Weiße Haus zurück. In Europa atmet man auf: Die neue Regierung kündigt an, die Zölle zu überprüfen und zur NATO zu stehen. ?][? if not us_democrat_wins : Die Republikaner verteidigen das Weiße Haus. Der neue Präsident setzt den Kurs der Zölle und des „America First“ fort, und in Europa wächst der Druck, sich selbst zu verteidigen. ?]
+
+- @weiter: Weiter.
+
+@weiter
+on-arrival: economic_growth += 0.5 if us_democrat_wins; tariffs -= 1 if us_democrat_wins and tariffs > 0; west_relation += 1 if not us_democrat_wins; nationalism += 2 if not us_democrat_wins
+
+[? if us_democrat_wins : Die Exportindustrie hofft auf bessere Zeiten. ?][? if not us_democrat_wins : Europa rückt enger zusammen, doch die Exportindustrie bleibt unter Druck. ?]

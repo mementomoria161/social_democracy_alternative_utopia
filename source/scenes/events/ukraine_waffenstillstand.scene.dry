@@ -1,0 +1,35 @@
+title: Waffenstillstand in der Ukraine
+subtitle: Nach Jahren des Krieges schweigen die Waffen.
+new-page: true
+tags: event
+view-if: year = 2027 and month >= 8 and (soviet_relation >= 1 or east_relation >= 2 or west_relation >= 3)
+max-visits: 1
+on-arrival: ukraine_ceasefire_seen = 1; economic_growth += 0.3; pacifism += 1
+
+# Fiktives Szenario.
+
+= Waffenstillstand in der Ukraine
+
+Nach langen Verhandlungen tritt in der Ukraine ein Waffenstillstand in Kraft. Er ist brüchig, und niemand weiß, wie lange er hält. Die Ukraine verlangt Sicherheitsgarantien und Hilfe beim Wiederaufbau, und Europa muss entscheiden, wie es den Frieden absichert.
+
+- @truppen: Die Bundeswehr an einer europäischen Absicherungsmission beteiligen.
+- @wiederaufbau: Einen großen Beitrag zum Wiederaufbau leisten.
+- @zurueckhaltung: Uns zurückhalten und die USA in der Pflicht sehen.
+
+@truppen
+on-arrival: bundeswehr_loyalty += 0.05; east_relation += 2; west_relation += 1; left_dissent += 8; bsw_relation -= 5; rentner_spd -= 2; union_relation += 3
+
+Deutschland beteiligt sich mit einer Brigade an der Absicherung der Waffenstillstandslinie. Polen und das Baltikum sind erleichtert, in der Partei und im Osten des Landes wächst die Angst vor einer Verwicklung in den Konflikt.
+
+@wiederaufbau
+subtitle: -1 Haushaltsspielraum
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt uns der Haushaltsspielraum.
+on-arrival: budget -= 1; east_relation += 1; west_relation += 1; economic_growth += 0.3; workers_spd += 1
+
+Wir legen ein Wiederaufbauprogramm mit Aufträgen für deutsche Unternehmen auf. Bauindustrie und Maschinenbau freuen sich, und Kyjiw dankt.
+
+@zurueckhaltung
+on-arrival: east_relation -= 2; west_relation -= 1; left_dissent -= 3; reformist_dissent += 5; rentner_spd += 2
+
+Wir halten uns zurück. In Teilen der Partei und bei vielen Älteren kommt das gut an, in Warschau, Vilnius und Paris dagegen gar nicht.

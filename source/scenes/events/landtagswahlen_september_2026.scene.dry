@@ -1,0 +1,37 @@
+title: Wahlsonntag im Osten
+subtitle: Sachsen-Anhalt, Mecklenburg-Vorpommern und Berlin wählen.
+new-page: true
+tags: event
+view-if: year = 2026 and month = 9
+max-visits: 1
+on-arrival: ltw_sept_2026_seen = 1; nazi_urgency += 1; pro_republic -= 2; mv_lost = 1 if spd_r < 14 and not historical_mode; spd_prussia = 0 if mv_lost and rp_lost; prussian_government = "Union" if mv_lost and rp_lost; strife += 1
+face-image: img/wahlkampf.jpg
+
+= Wahlsonntag im Osten
+
+In Sachsen-Anhalt wird die AfD mit über 40 Prozent mit großem Abstand stärkste Kraft. Eine Regierung gegen sie ist nur noch als breites Bündnis aller übrigen Parteien möglich, und in der CDU wird offen darüber gestritten, ob man nicht doch mit der AfD reden müsse.
+
+[? if not mv_lost : In Mecklenburg-Vorpommern wird die AfD ebenfalls stärkste Kraft, doch Manuela Schwesig kann mit einer Koalition der demokratischen Parteien weiterregieren. ?][? if mv_lost : In Mecklenburg-Vorpommern wird die AfD stärkste Kraft, und die SPD verliert die Staatskanzlei an eine CDU-geführte Koalition. ?] In Berlin profitiert vor allem die Linke vom Ärger über Mieten und Verkehr.
+
+[? if mv_lost and rp_lost : Mit Rheinland-Pfalz und Mecklenburg-Vorpommern hat die SPD in diesem Jahr zwei Staatskanzleien verloren. Unsere Macht im Bundesrat ist dahin. ?]
+
+- @brandmauer: Die Union öffentlich auf die Brandmauer verpflichten.
+- @soziales: Mit einem Ost-Programm für Löhne, Renten und Infrastruktur reagieren.
+- @weiter: Die Ergebnisse zur Kenntnis nehmen.
+
+@brandmauer
+on-arrival: union_relation -= 3; pro_republic += 3*(1-dissent); new_middle_spd += 2*(1-dissent)
+
+Wir fordern die Union auf, jede Zusammenarbeit mit der AfD auszuschließen, auch in den Ländern. Die CDU-Spitze bekennt sich zur Brandmauer, ist aber verärgert über unseren öffentlichen Druck.
+
+@soziales
+subtitle: -1 Haushaltsspielraum
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt uns der Haushaltsspielraum.
+on-arrival: budget -= 1; workers_spd += 3*(1-dissent); rural_spd += 3*(1-dissent); rentner_spd += 2*(1-dissent); workers_afd -= 2; rural_afd -= 2
+
+Ein Programm für gleichwertige Lebensverhältnisse: Tarifbindung bei öffentlichen Aufträgen, Geld für Bahnstrecken, Ärzte und Schulen auf dem Land und ein Zuschlag für kleine Renten. Im Osten wird es aufmerksam registriert.
+
+@weiter
+
+Wir nehmen die Ergebnisse zur Kenntnis und machen weiter.

@@ -1,0 +1,36 @@
+title: Stromsteuer-Streit
+subtitle: Wer wird bei den Strompreisen entlastet?
+new-page: true
+tags: event
+view-if: year = 2026 and month >= 4 and month <= 6 and spd_in_government
+max-visits: 1
+on-arrival: stromsteuer_seen = 1
+
+= Stromsteuer-Streit
+
+Die Koalition hatte versprochen, die Stromsteuer für alle zu senken. Nun reicht das Geld nur für Industrie, Landwirtschaft und Gewerbe, die privaten Haushalte gehen leer aus. In der Bevölkerung ist der Ärger groß, und auch in der eigenen Fraktion rumort es.
+
+- @alle: Darauf bestehen, die Stromsteuer auch für Privathaushalte zu senken.
+- @industrie: Bei der Entlastung nur für die Wirtschaft bleiben.
+- @sozial: Stattdessen ein Klimageld für Haushalte mit kleinen Einkommen durchsetzen.
+
+@alle
+subtitle: -1 Haushaltsspielraum
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt uns der Haushaltsspielraum.
+on-arrival: budget -= 1; workers_spd += 3*(1-dissent); rentner_spd += 3*(1-dissent); new_middle_spd += 2*(1-dissent); coalition_dissent += 1 if in_grand_coalition; inflation -= 0.2
+
+Nach zähem Ringen wird die Stromsteuer für alle gesenkt. Die Haushälter der Union sind verärgert, doch bei den Bürgerinnen und Bürgern kommt die Entlastung an.
+
+@industrie
+on-arrival: workers_spd -= 2; rentner_spd -= 2; left_dissent += 5; labor_dissent += 3; union_relation += 3; economic_growth += 0.1
+
+Wir tragen den Kompromiss mit. Die Wirtschaft ist zufrieden, doch viele Menschen fühlen sich einmal mehr vergessen.
+
+@sozial
+subtitle: -1 Haushaltsspielraum
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt uns der Haushaltsspielraum.
+on-arrival: budget -= 1; workers_spd += 2*(1-dissent); unemployed_spd += 4*(1-dissent); left_dissent -= 3; gruene_relation += 4; union_relation -= 3; coalition_dissent += 1 if in_grand_coalition
+
+Haushalte mit kleinen Einkommen erhalten ein Klimageld, das die steigenden CO2-Preise ausgleicht. Grüne und Sozialverbände loben uns, die Union spricht von „Umverteilung durch die Hintertür“.
