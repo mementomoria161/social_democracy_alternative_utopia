@@ -60,12 +60,12 @@ submit.onclick = function() {
 };
 !}
 
-Curated mods:
+Ausgewählte Mods:
 
 {!<div id="mods_list"></div>!}
 
-Enter a mod's URL:
+URL einer Mod eingeben:
 
-{!<input type="text" size="25" id="mod_url" name="mod_url"/> <button id="submit">Submit</button>!}
+{!<input type="text" size="25" id="mod_url" name="mod_url"/> <button id="submit">Laden</button>!}
 
-- @backSpecialScene: Back
+- @backSpecialScene: Zurück

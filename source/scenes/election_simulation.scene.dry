@@ -1,245 +1,12 @@
-title: Election Simulation
+title: Wahlsimulation
 set-jump: post_election
 
+# Testwerkzeug: simuliert eine Bundestagswahl mit den aktuellen Startwerten (Januar 2026).
+# Die Weimarer Szenarien 1928/1930/1932 wurden entfernt.
 
-- @1928: 1928 historical scenario
-- @1930: 1930 historical scenario
-- @1932: 1932 (July) historical scenario
+- @aktuell: Bundestagswahl mit den Umfragewerten vom Januar 2026 simulieren
 
-@1928
-on-arrival: {!
-Q.workers = 46; // industry and trade
-Q.old_middle = 13; // "old mittelstand"
-// 16.4 trade & commerce, 6.6 public and private services, 4.4 domestic help
-Q.new_middle = 14; // "new mittelstand"
-Q.rural = 25; // agriculture and forestry employment... but many of those are proletarians so...
-// source: https://surface.syr.edu/cgi/viewcontent.cgi?filename=3&article=1016&context=books&type=additional page 43, table 3.3
-Q.unemployed = 8.6;
-Q.catholics = 30;
-
-Q.classes = ['workers', 'old_middle', 'new_middle', 'rural', 'unemployed', 'rentner'];
-Q.parties = ['spd', 'linke', 'union', 'gruene', 'fdp', 'bsw', 'afd', 'other'];
-
-// Support for party by social group
-// they don't have to sum to 100 since the electoral calculations will be normalized.
-Q.workers_spd = 65;
-Q.workers_linke = 20;
-Q.workers_union = 5;
-Q.workers_gruene = 0;
-Q.workers_fdp = 0;
-Q.workers_bsw = 5;
-Q.workers_afd = 0;
-Q.workers_other = 10;
-
-Q.old_middle_spd = 5;
-Q.old_middle_linke = 0;
-Q.old_middle_union = 5;
-Q.old_middle_gruene= 10;
-Q.old_middle_fdp = 25;
-Q.old_middle_bsw = 25;
-Q.old_middle_afd = 10;
-Q.old_middle_other = 10;
-
-Q.new_middle_spd = 5;
-Q.new_middle_linke = 0;
-Q.new_middle_union = 10;
-Q.new_middle_gruene= 25;
-Q.new_middle_fdp = 25;
-Q.new_middle_bsw = 10;
-Q.new_middle_afd = 5;
-Q.new_middle_other = 15;
-
-Q.rural_spd = 10;
-Q.rural_linke = 0;
-Q.rural_union = 5;
-Q.rural_gruene= 5;
-Q.rural_fdp = 15;
-Q.rural_bsw = 45;
-Q.rural_afd = 5;
-Q.rural_other = 10;
-
-Q.unemployed_spd = 25;
-Q.unemployed_linke = 55;
-Q.unemployed_union = 1;
-Q.unemployed_gruene = 0;
-Q.unemployed_fdp = 0;
-Q.unemployed_bsw = 5;
-Q.unemployed_afd = 15;
-Q.unemployed_other = 9;
-
-Q.rentner_spd = 15;
-Q.rentner_linke = 5;
-Q.rentner_union = 50;
-Q.rentner_gruene = 0;
-Q.rentner_fdp = 5;
-Q.rentner_bsw = 5;
-Q.rentner_afd = 0;
-Q.rentner_other = 10;
-!}
-go-to: election_algorithm
-set-jump: post_election
-
-@1930
-on-arrival: {!
-Q.workers = 46; // industry and trade
-Q.old_middle = 13; // "old mittelstand"
-// 16.4 trade & commerce, 6.6 public and private services, 4.4 domestic help
-Q.new_middle = 14; // "new mittelstand"
-Q.rural = 25; // agriculture and forestry employment... but many of those are proletarians so...
-// source: https://surface.syr.edu/cgi/viewcontent.cgi?filename=3&article=1016&context=books&type=additional page 43, table 3.3
-Q.unemployed = 20;
-Q.catholics = 30;
-
-Q.classes = ['workers', 'old_middle', 'new_middle', 'rural', 'unemployed', 'rentner'];
-Q.parties = ['spd', 'linke', 'union', 'gruene', 'fdp', 'bsw', 'afd', 'other'];
-
-// Support for party by social group
-// they don't have to sum to 100 since the electoral calculations will be normalized.
-Q.workers_spd = 60;
-Q.workers_linke = 20;
-Q.workers_union = 5;
-Q.workers_gruene = 0;
-Q.workers_fdp = 0;
-Q.workers_bsw = 0;
-Q.workers_afd = 10;
-Q.workers_other = 15;
-
-Q.old_middle_spd = 5;
-Q.old_middle_linke = 0;
-Q.old_middle_union = 5;
-Q.old_middle_gruene= 5;
-Q.old_middle_fdp = 10;
-Q.old_middle_bsw = 20;
-Q.old_middle_afd = 30;
-Q.old_middle_other = 15;
-
-Q.new_middle_spd = 5;
-Q.new_middle_linke = 0;
-Q.new_middle_union = 5;
-Q.new_middle_gruene = 10;
-Q.new_middle_fdp = 20;
-Q.new_middle_bsw = 10;
-Q.new_middle_afd = 25;
-Q.new_middle_other = 15;
-
-Q.rural_spd = 5;
-Q.rural_linke = 0;
-Q.rural_union = 5;
-Q.rural_gruene= 5;
-Q.rural_fdp = 10;
-Q.rural_bsw = 20;
-Q.rural_afd = 25;
-Q.rural_other = 15;
-
-Q.unemployed_spd = 20;
-Q.unemployed_linke = 50;
-Q.unemployed_union = 0;
-Q.unemployed_gruene = 0;
-Q.unemployed_fdp = 0;
-Q.unemployed_bsw = 5;
-Q.unemployed_afd = 25;
-Q.unemployed_other = 5;
-
-Q.rentner_spd = 10;
-Q.rentner_linke = 5;
-Q.rentner_union = 50;
-Q.rentner_gruene = 0;
-Q.rentner_fdp = 5;
-Q.rentner_bsw = 5;
-Q.rentner_afd = 10;
-Q.rentner_other = 5;
-
-Q.spd_r = 25;
-Q.linke_r = 10;
-Q.union_r = 15;
-Q.gruene_r = 10;
-Q.fdp_r = 10;
-Q.bsw_r = 14;
-Q.afd_r = 10;
-Q.other_r = 5;
-!}
-go-to: election_algorithm
-set-jump: post_election
-
-@1932
-on-arrival: {!
-Q.workers = 46; // industry and trade
-Q.old_middle = 13; // "old mittelstand"
-// 16.4 trade & commerce, 6.6 public and private services, 4.4 domestic help
-Q.new_middle = 14; // "new mittelstand"
-Q.rural = 25; // agriculture and forestry employment... but many of those are proletarians so...
-// source: https://surface.syr.edu/cgi/viewcontent.cgi?filename=3&article=1016&context=books&type=additional page 43, table 3.3
-Q.unemployed = 33;
-Q.catholics = 30;
-
-Q.classes = ['workers', 'old_middle', 'new_middle', 'rural', 'unemployed', 'rentner'];
-Q.parties = ['spd', 'linke', 'union', 'gruene', 'fdp', 'bsw', 'afd', 'other'];
-
-// Support for party by social group
-// they don't have to sum to 100 since the electoral calculations will be normalized.
-Q.workers_spd = 55;
-Q.workers_linke = 20;
-Q.workers_union = 5;
-Q.workers_gruene = 0;
-Q.workers_fdp = 0;
-Q.workers_bsw = 0;
-Q.workers_afd = 15;
-Q.workers_other = 5;
-
-Q.old_middle_spd = 0;
-Q.old_middle_linke = 0;
-Q.old_middle_union = 5;
-Q.old_middle_gruene = 4;
-Q.old_middle_fdp = 4;
-Q.old_middle_bsw = 15;
-Q.old_middle_afd = 70;
-Q.old_middle_other = 5;
-
-Q.new_middle_spd = 5;
-Q.new_middle_linke = 0;
-Q.new_middle_union = 5;
-Q.new_middle_gruene = 10;
-Q.new_middle_fdp = 10;
-Q.new_middle_bsw = 10;
-Q.new_middle_afd = 60;
-Q.new_middle_other = 5;
-
-Q.rural_spd = 0;
-Q.rural_linke = 0;
-Q.rural_union = 5;
-Q.rural_gruene = 0;
-Q.rural_fdp = 5;
-Q.rural_bsw = 15;
-Q.rural_afd = 65;
-Q.rural_other = 5;
-
-Q.unemployed_spd = 20;
-Q.unemployed_linke = 40;
-Q.unemployed_union = 0;
-Q.unemployed_gruene = 0;
-Q.unemployed_fdp = 0;
-Q.unemployed_bsw = 0;
-Q.unemployed_afd = 50;
-Q.unemployed_other = 5;
-
-Q.rentner_spd = 10;
-Q.rentner_linke = 5;
-Q.rentner_union = 60;
-Q.rentner_gruene = 0;
-Q.rentner_fdp = 5;
-Q.rentner_bsw = 5;
-Q.rentner_afd = 10;
-Q.rentner_other = 5;
-
-Q.spd_r = 25;
-Q.linke_r = 10;
-Q.union_r = 15;
-Q.gruene_r = 10;
-Q.fdp_r = 10;
-Q.bsw_r = 14;
-Q.afd_r = 10;
-Q.other_r = 5;
-!}
+@aktuell
 go-to: election_algorithm
 set-jump: post_election
 
@@ -255,65 +22,59 @@ Q.bsw_r = Q.bsw_votes;
 Q.afd_r = Q.afd_votes;
 Q.other_r = Q.other_votes;
 
-// The largest party can only be the NSDAP or the SPD.
 Q.largest_party = 'SPD';
-if (Q.afd_r >= Q.spd_r && Q.afd_r >= Q.linke_r) {
+if (Q.union_r >= Q.spd_r && Q.union_r >= Q.afd_r) {
+    Q.largest_party = 'Union';
+}
+if (Q.afd_r >= Q.spd_r && Q.afd_r >= Q.union_r) {
     Q.largest_party = 'AfD';
 }
-if (Q.linke_r >= Q.spd_r && Q.linke_r >= Q.afd_r) {
-    Q.largest_party = 'Linke';
-}
 
-// coalitions
-Q.weimar_coalition = Q.spd_r + Q.gruene_r + Q.union_r - 3;
-Q.grand_coalition = Q.spd_r + Q.gruene_r + Q.union_r + Q.fdp_r;
-Q.bourgeois_coalition = Q.gruene_r + Q.union_r + Q.fdp_r + Q.other_r;
-Q.center_right_coalition = Q.union_r + Q.gruene_r + Q.fdp_r + Q.other_r + Q.bsw_r;
-Q.right_coalition = Q.union_r + Q.fdp_r + Q.other_r + Q.bsw_r;
-Q.far_right_coalition = Q.bsw_r + Q.afd_r;
-Q.left_coalition = Q.spd_r + Q.linke_r;
-// this is an absurd concept lol
-Q.united_front_coalition = Q.spd_r + Q.linke_r + Q.union_r + Q.gruene_r - 3;
-Q.anti_democratic_coalition = Q.linke_r + Q.afd_r;
-// aka everyone except nazi, kpd, dnvp
-Q.neo_weimar_coalition = Q.spd_r + Q.gruene_r + Q.union_r + Q.fdp_r + Q.other_r;
+// Koalitionen wie in bundestagswahl.scene.dry
+Q.grand_coalition = Q.spd_r + Q.union_r;
+Q.weimar_coalition = Q.spd_r + Q.union_r + Q.gruene_r;
+Q.ampel_coalition = Q.spd_r + Q.gruene_r + Q.fdp_r;
+Q.popular_front_coalition = Q.spd_r + Q.gruene_r + Q.linke_r;
+Q.schwarz_gruen_coalition = Q.union_r + Q.gruene_r;
+Q.right_coalition = Q.union_r + Q.fdp_r;
+Q.far_right_coalition = Q.afd_r + Q.bsw_r;
+Q.union_afd_coalition = Q.union_r + Q.afd_r;
 !}
 
-The electoral system is essentially proportional, with the proportion of Reichstag seats roughly equal to the proportion of votes.
- 
-**Election results:**
+Bei der Bundestagswahl gilt die Fünf-Prozent-Hürde: Parteien darunter erhalten keine Sitze, die übrigen Sitze werden proportional zu den Stimmen verteilt.
 
-# 1928: 30, 1930: 25, 1932: 22
+**Wahlergebnis (Prozent):**
+
 SPD: [+ spd_r +]
 
-# 1928: 15, 1930: 15, 1932: 
-Z + BVP: [+ union_r +]
+CDU/CSU: [+ union_r +]
 
-# 1928: 10, 1930: 13
-KPD: [+ linke_r +]
+AfD: [+ afd_r +]
 
-# 1928: 5, 1930: 4 (as DstP)
-DDP: [+ gruene_r +]
+Grüne: [+ gruene_r +]
 
-# 1928: 9, 1930: 5
-DVP: [+ fdp_r +]
+Die Linke: [+ linke_r +]
 
-# 1928: 14, 1930: 7
-DNVP: [+ bsw_r +]
+FDP: [+ fdp_r +]
 
-# 1928: 3, 1930: 18
-NSDAP: [+ afd_r +]
+BSW: [+ bsw_r +]
 
-# 1928: 9, 1930: 10
-Other: [+ other_r +]
+Sonstige: [+ other_r +]
 
-**Potential coalitions:**
+**Mögliche Koalitionen:**
 
-Weimar Coalition (SPD + Z + DDP): [+ weimar_coalition +]
+Schwarz-Rot (Union + SPD): [+ grand_coalition +]
 
-Grand Coalition (SPD + Z + BVP + DDP + DVP): [+ grand_coalition +]
+Kenia (Union + SPD + Grüne): [+ weimar_coalition +]
 
-Bourgeois Coalition (Z + BVP + DDP + DVP + Others): [+ bourgeois_coalition +]
+Ampel (SPD + Grüne + FDP): [+ ampel_coalition +]
 
-Right-wing Coalition (Z + BVP + DVP + Others + DNVP): [+ right_coalition +]
+Rot-Grün-Rot (SPD + Grüne + Linke): [+ popular_front_coalition +]
 
+Schwarz-Grün (Union + Grüne): [+ schwarz_gruen_coalition +]
+
+Schwarz-Gelb (Union + FDP): [+ right_coalition +]
+
+Union + AfD: [+ union_afd_coalition +]
+
+Stärkste Kraft: [+ largest_party +]

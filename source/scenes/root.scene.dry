@@ -648,7 +648,6 @@ go-to: 2026_main
 go-to: custom_difficulty
 
 @2026_main
-audio: shuffle music/Wann_wir_schreiten_Seit_an_Seit.mp3
 new-page: true
 go-to: main if hand_size == 3; main.main_easy if hand_size == 4
 

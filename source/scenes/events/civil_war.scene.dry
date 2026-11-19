@@ -1,5 +1,4 @@
 title: Staatskrise
-audio: music/communist/A_las_barricadas.ogg
 on-arrival: {!
 Q.demo_strength = Math.round(Q.demo_strength);
 Q.bauern_strength = Math.round(Q.bauern_strength);

@@ -1,4 +1,4 @@
-title: Customize Difficulty
+title: Eigene Schwierigkeit
 on-departure: {!
 Q.difficulty = 2;
 // TODO: use js to get all the things
@@ -65,15 +65,15 @@ if (Q.saves_disabled) {
 }
 
 if (Q.historical_mode && Q.annual_income == 0) {
-    alert("Annual income must be greater than 0 in historical mode - setting to 1.");
+    alert("Im historischen Modus muss das jährliche Einkommen größer als 0 sein – es wird auf 1 gesetzt.");
     Q.annual_income = 1;
 }
 !}
 
-= Difficulty Settings
+= Schwierigkeitseinstellungen
 
 # difficulty settings:
-# 1. Fundraising income:
+# 1. Einnahmen aus Spenden:
 # 2. Annual income:
 # 3. Initial dissent:
 # 4. Initial inter-party relations:
@@ -83,81 +83,81 @@ if (Q.historical_mode && Q.annual_income == 0) {
 # 8. Enable saving/loading:
 # 9. Initial budget
 
-Starting party resources: {! <input type="number" id="resources" name="resources" value="2" min="0" max="10"></input> !}
+Ressourcen der Partei zu Beginn: {! <input type="number" id="resources" name="resources" value="2" min="0" max="10"></input> !}
 
 # default: 2
-Fundraising income: {! <input type="number" id="fundraising_income" name="fundraising_income" value="2" min="0" max="5"></input> !}
+Einnahmen aus Spenden: {! <input type="number" id="fundraising_income" name="fundraising_income" value="2" min="0" max="5"></input> !}
 
 # default: 0
-Annual party income: {! <input type="number" id="annual_income" name="annual_income" value="0" min="0" max="5"></input>!}
+Jährliches Einkommen der Partei: {! <input type="number" id="annual_income" name="annual_income" value="0" min="0" max="5"></input>!}
 
 # default: 4
-Starting government budget: {! <input type="number" id="budget" name="budget" min="0" max="10" value="4"></input>!}
+Haushaltsspielraum zu Beginn: {! <input type="number" id="budget" name="budget" min="0" max="10" value="4"></input>!}
 
 # default: 1 (normal)
-Starting dissent: {! <select name="starting_dissent" id="starting_dissent"> 
-<option value="0">Easy</option>
+Unmut in der Partei zu Beginn: {! <select name="starting_dissent" id="starting_dissent"> 
+<option value="0">Leicht</option>
 <option value="1" selected>Normal</option>
-<option value="2">Hard</option>
+<option value="2">Schwer</option>
 </select> !}
 
 
 # default: 1 (normal)
-Starting inter-party relations: {! <select name="starting_relations" id="starting_relations"> 
-<option value="0">Easy</option>
+Beziehungen zu anderen Parteien zu Beginn: {! <select name="starting_relations" id="starting_relations"> 
+<option value="0">Leicht</option>
 <option value="1" selected>Normal</option>
-<option value="2">Hard</option>
+<option value="2">Schwer</option>
 </select> !}
 
 # default: 1 (normal)
-Starting Reichsbanner strength: {! <select name="starting_demo_strength" id="starting_demo_strength"> 
+Stärke der Demokratiebewegung zu Beginn (Tausend): {! <select name="starting_demo_strength" id="starting_demo_strength"> 
 <option value="1000">1000</option>
-<option value="2000" selected>2000</option>
-<option value="2500">2500</option>
+<option value="1500" selected>1500</option>
+<option value="2000">2000</option>
 </select> !}
 
 
 
 # historical mode
-Historical mode (makes certain actions more difficult): {! <select name="historical_mode" id="historical_mode"> 
-<option value="0" selected>Disabled</option>
-<option value="1">Enabled</option>
+Historischer Modus (orientiert sich am realen Verlauf, erschwert manche Aktionen): {! <select name="historical_mode" id="historical_mode"> 
+<option value="0" selected>Aus</option>
+<option value="1">An</option>
 </select> !}
 
 # default: disabled
-#Hindenburg removing the government: {! <select name="hindenburg_enabled" id="hindenburg_enabled"> <option value="0" selected>Disabled</option> <option value="1">Enabled</option> </select> !}
+#Hindenburg removing the government: {! <select name="hindenburg_enabled" id="hindenburg_enabled"> <option value="0" selected>Aus</option> <option value="1">An</option> </select> !}
 
 # Shuffle leadership card: disabled 
-Shuffle leadership pinned card: {! <select name="shuffle_leadership_enabled" id="shuffle_leadership_enabled"> 
-<option value="0" selected>Disabled</option>
-<option value="1">Enabled</option>
+Dauerkarte „Führung umbilden“: {! <select name="shuffle_leadership_enabled" id="shuffle_leadership_enabled"> 
+<option value="0" selected>Aus</option>
+<option value="1">An</option>
 </select> !}
 
 # cabinet card:
-Cabinet pinned card: {! <select name="cabinet_enabled" id="cabinet_enabled"> 
-<option value="0" selected>Disabled</option>
-<option value="1">Enabled</option>
+Dauerkarte „Kabinett“: {! <select name="cabinet_enabled" id="cabinet_enabled"> 
+<option value="0" selected>Aus</option>
+<option value="1">An</option>
 </select> !}
 
 # default: enabled
-Saving/loading: {! <select name="saves_disabled" id="saves_disabled"> 
-<option value="1">Disabled</option>
-<option value="0" selected>Enabled</option>
+Speichern/Laden: {! <select name="saves_disabled" id="saves_disabled"> 
+<option value="1">Aus</option>
+<option value="0" selected>An</option>
 </select> !}
 
 # default: 1 (normal)
-Hand size: {! <select name="hand_size" id="hand_size"> 
+Kartenhand: {! <select name="hand_size" id="hand_size"> 
 <option value="3" selected>3</option>
 <option value="4">4</option>
 </select> !}
 
 # default: enabled
-Returning cards to hand: {! <select name="discard_disabled" id="discard_disabled"> 
-<option value="1">Disabled</option>
-<option value="0" selected>Enabled</option>
+Karten auf die Hand zurücklegen: {! <select name="discard_disabled" id="discard_disabled"> 
+<option value="1">Aus</option>
+<option value="0" selected>An</option>
 </select> !}
 
-- @done: Done
+- @done: Fertig
 
 @done
 go-to: root.2026_main

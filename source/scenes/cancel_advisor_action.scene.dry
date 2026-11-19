@@ -1,4 +1,4 @@
-title: Cancel action.
+title: Aktion abbrechen.
 view-if: last_advisor_action = 1 or last_cabinet_action = 1
 go-to: root
 on-arrival: {!
