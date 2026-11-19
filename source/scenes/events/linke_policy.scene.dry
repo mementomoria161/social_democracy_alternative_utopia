@@ -1,5 +1,5 @@
-title: KPD policy
-subtitle: The KPD ministers are carrying out their policy portfolios.
+title: Politik der Linken
+subtitle: Die Ministerinnen und Minister der Linken setzen ihre Vorhaben um.
 new-page: true
 view-if: (in_popular_front or in_left_front) and (labor_minister_party = "Linke" or economic_minister_party = "Linke" or finance_minister_party = "Linke") and (linke_policy_timer = 0)
 on-arrival: linke_policy_timer = 5
@@ -14,9 +14,9 @@ on-arrival: linke_policy_timer = 5
 # LaPorte, Norman H. “The German Communist Party in Saxony, 1924-1933 : Factionalism, Fratricide and Political Failure,” 1998. http://dspace.stir.ac.uk/handle/1893/3259.
 
 
-= KPD Policy
+= Politik der Linken
 
-# The Communist-run ministries are pursuing their own policy course. It is up to us whether to support or oppose these policies.
+# Die von der Linken geführten Ministerien verfolgen einen eigenen Kurs. Wir entscheiden, ob wir ihn mittragen.
 
 # different policies for every minister choice
 
@@ -27,84 +27,84 @@ on-arrival: linke_policy_timer = 5
 - @interior
 
 @labor
-title: Labor Ministry
-subtitle: The Labor Ministry is giving significant concessions to organized labor.
+title: Arbeitsministerium
+subtitle: Das Arbeitsministerium stellt sich in jedem Konflikt auf die Seite der Gewerkschaften.
 view-if: labor_minister_party = "Linke"
 
-The KPD-controlled Labor Ministry is taking a policy of supporting labor in every dispute between workers and employees, leading to a proliferation of strikes across the country. Given the economic circumstances, there are worries that this could harm any potential economic recovery, not to mention the conflicts this may engender with the bourgeois parties.
+Das Arbeitsministerium der Linken unterstützt die Beschäftigten in jedem Tarifkonflikt, erklärt Tarifverträge massenhaft für allgemeinverbindlich und erleichtert Streiks. Im ganzen Land wird gestreikt. Viele fürchten, das könnte den Aufschwung abwürgen, von den Konflikten mit Union und FDP ganz zu schweigen.
 
-Do we support their radical labor policy?
+Tragen wir diesen Kurs mit?
 
-- @labor_support: Of course we support labor.
-- @labor_oppose: No, this is too radical.
+- @labor_support: Natürlich stehen wir an der Seite der Beschäftigten.
+- @labor_oppose: Nein, das geht zu weit.
 
 @labor_support
-on-arrival: capital_strike_progress += 2; workers_linke += 5; workers_spd += 3*(1-dissent); linke_labor_support += 1; coalition_dissent += 1; union_relation -= 6; unemployment += 2; linke_influence += 2
+on-arrival: capital_strike_progress += 2; workers_linke += 5; workers_spd += 3*(1-dissent); linke_labor_support += 1; coalition_dissent += 1; union_relation -= 6; unemployment += 1; linke_influence += 2
 
-The pro-labor policy is popular among workers and is bringing the KPD more support, but in response businesses are laying off more workers and reducing hours. This is setting the government up for a confrontation with the capitalists.
+Die Politik ist bei Beschäftigten beliebt und bringt der Linken Zulauf. Doch Unternehmen reagieren mit Entlassungen und Kurzarbeit, und die Regierung steuert auf eine Konfrontation mit der Wirtschaft zu.
 
 @labor_oppose
 on-arrival: linke_coalition_dissent += 1; workers_spd -= 5; workers_linke += 5; linke_relation -= 6
 
-We oppose the KPD's policy, and prevent it from being enacted. The KPD is displeased, as are the workers who would have stood to benefit.
+Wir stoppen die Pläne der Linken. Sie ist verärgert, ebenso die Beschäftigten, die davon profitiert hätten.
 
 @economy
-title: Economy Ministry
-subtitle: The Economy Ministry is pursuing a policy of nationalizations.
+title: Wirtschaftsministerium
+subtitle: Das Wirtschaftsministerium plant Verstaatlichungen.
 view-if: economic_minister_party = "Linke"
 
-The KPD-controlled Economy Ministry is planning a policy of mass nationalizations. [? if budget < 3 : They plan to use deficit spending to finance state takeovers of underutilized industrial enterprises, and run them for the benefit of the workers. ?] [? if budget >= 3 : They plan to buy out closed and underutilized industrial enterprises, and run them at full capacity for the benefit of the workers. ?] 
+Das Wirtschaftsministerium der Linken plant Verstaatlichungen im großen Stil. [? if budget < 3 : Mit neuen Schulden sollen stillgelegte und von Schließung bedrohte Werke übernommen und im Interesse der Beschäftigten weitergeführt werden. ?] [? if budget >= 3 : Stillgelegte und von Schließung bedrohte Werke sollen aufgekauft und im Interesse der Beschäftigten weitergeführt werden. ?]
 
-Do we support this policy?
+Tragen wir diesen Kurs mit?
 
-- @economy_support: Yes, support the nationalization policy.
-- @economy_oppose: No, this must be stopped.
+- @economy_support: Ja, wir unterstützen die Verstaatlichungen.
+- @economy_oppose: Nein, das muss gestoppt werden.
 
 @economy_support
-on-arrival: nationalization_progress += 1; capital_strike_progress += 4; unemployed -= 2.5 if unemployed >= 6; unemployed -= 1.2 if works_councils >= 3; budget -= 3; works_program += 1; workers_spd += 4*(1-dissent); workers_linke += 8*(1-dissent); unemployed_linke += 4*(1-dissent); coalition_dissent += 2; fdp_relation -= 6; union_relation -= 4; new_middle_spd -= 3; old_middle_spd -= 3; economy_goal_completed += 1; linke_influence += 2
+on-arrival: nationalization_progress += 1; capital_strike_progress += 4; unemployed -= 1.25 if unemployed >= 4.5; unemployed -= 0.6 if works_councils >= 3; budget -= 3; works_program += 1; workers_spd += 4*(1-dissent); workers_linke += 8*(1-dissent); unemployed_linke += 4*(1-dissent); coalition_dissent += 2; fdp_relation -= 6; union_relation -= 4; new_middle_spd -= 3; old_middle_spd -= 3; economy_goal_completed += 1; linke_influence += 2
 
-The KPD has gained credit with the workers for enabling many to keep their jobs. Meanwhile, the bourgeois parties and middle-class voters blame the SPD for enabling the nationalizations.
+Die Linke gewinnt bei Beschäftigten an Ansehen, weil viele ihre Arbeitsplätze behalten. Union, FDP und die Mittelschicht machen dagegen die SPD für die Verstaatlichungen verantwortlich.
 
 @economy_oppose
 on-arrival: linke_coalition_dissent += 1; workers_spd -= 5; workers_linke += 5; linke_relation -= 6
 
-After opposing the nationalization policy, the KPD has commenced a propaganda campaign against us, accusing the SPD of yet another perfidy.
+Nachdem wir die Verstaatlichungen gestoppt haben, startet die Linke eine Kampagne gegen uns und wirft der SPD einmal mehr Verrat vor.
 
 @finance
-title: Finance Ministry
-subtitle: The Finance Ministry is increasing taxes on the rich.
+title: Finanzministerium
+subtitle: Das Finanzministerium will Reiche stärker besteuern.
 view-if: finance_minister_party = "Linke"
 
-The KPD-controlled Finance Ministry
+Das Finanzministerium der Linken plant eine einmalige Vermögensabgabe.
 
-- @finance_support: Yes, we support increasing taxes on the rich.
-- @finance_oppose: No, now is not the right time.
+- @finance_support: Ja, wir unterstützen höhere Steuern für Reiche.
+- @finance_oppose: Nein, jetzt ist nicht der richtige Zeitpunkt.
 
 @finance_support
 
 @finance_oppose
 
 @foreign
-title: Foreign Ministry
-subtitle: The Foreign Ministry is aiding the Soviet Union.
+title: Auswärtiges Amt
+subtitle: Das Auswärtige Amt will Waffenlieferungen stoppen.
 view-if: foreign_minister_party = "Linke"
 
-The KPD-controlled Foreign Ministry is planning to send economic aid to the Soviet Union.
+Das Auswärtige Amt unter Führung der Linken will alle Rüstungsexporte stoppen und direkte Gespräche mit Moskau aufnehmen.
 
-- @foreign_support: Yes, we support aiding the Soviet Union.
-- @foreign_oppose: No, this must be stopped.
+- @foreign_support: Ja, wir tragen das mit.
+- @foreign_oppose: Nein, das muss gestoppt werden.
 
 @foreign_support
 
 @foreign_oppose
 
 @interior
-title: Interior Ministry
-subtitle: The Interior Ministry is engaged in a purge of the security services.
+title: Innenministerium
+subtitle: Das Innenministerium baut den Verfassungsschutz radikal um.
 view-if: interior_minister_party = "Linke"
 
-- @interior_support: Yes, we support purging the security services.
-- @interior_oppose: No, this seems to be a pretext for a KPD power grab.
+- @interior_support: Ja, die Sicherheitsbehörden brauchen einen Neuanfang.
+- @interior_oppose: Nein, das geht zu weit.
 
 @interior_support
 

@@ -1,54 +1,54 @@
-title: Panzerkreuzer B
-subtitle: A political question
+title: Neues Rüstungspaket
+subtitle: Eine politische Frage
 tags: event
 on-arrival: panzerkreuzer_b_seen = 1
 new-page: true
-face-image: img/panzerkreuzer.jpg
-view-if: panzerkreuzer_b_seen = 0 and year = 1931 and month >= 2 and (spd_in_government = 1 or spd_toleration = 1)
+face-image: img/kampfjet.jpg
+view-if: panzerkreuzer_b_seen = 0 and year = 2028 and month >= 2 and (spd_in_government = 1 or spd_toleration = 1)
 
-= Panzerkreuzer B
+= Neues Rüstungspaket
 
-The Navy is demanding the construction of another new battlecruiser. [? if panzerkreuzer_funded: The previous battlecruiser had been funded, and has already been launched. Another ship would futher progress Germany's rearmament. ?][? if not panzerkreuzer_funded: The previous battlecruiser requested by the Navy was not funded, thanks to us. The military remains bitter, but nevertheless they are still pursuing their rearmament plan, and must seek funding from the Reichstag. ?]
+Die Bundeswehr fordert ein weiteres Milliardenpaket: neue Fregatten und Langstreckenraketen, um das NATO-Ziel zu erreichen. [? if panzerkreuzer_funded: Die Kampfjets wurden bestellt, die ersten Maschinen sind ausgeliefert. Das neue Paket wäre der nächste große Schritt der Aufrüstung. ?][? if not panzerkreuzer_funded: Die Kampfjets wurden dank uns nicht bestellt. Die Bundeswehrführung ist verbittert, verfolgt ihre Pläne aber weiter und braucht dafür die Zustimmung des Bundestages. ?]
 
-Much of our party is deeply opposed to rearmament, while the center and right parties are united in support. What will we do?
+Große Teile unserer Partei lehnen die Aufrüstung ab, während Union und Mitte geschlossen dafür sind. Was tun wir?
 
-- @vote_yes: Vote yes, for constructing the battlecruiser.
-- @vote_no: Vote no, against constructing the battlecruiser.
-- @abstain: Abstain from the vote.
-- @ministry: Use the Reichswehr Ministry to prevent the construction.
+- @vote_yes: Mit Ja stimmen, für das Rüstungspaket.
+- @vote_no: Mit Nein stimmen, gegen das Rüstungspaket.
+- @abstain: Uns enthalten.
+- @ministry: Über das Verteidigungsministerium das Paket stoppen.
 
 @vote_yes
 on-arrival: left_dissent += 10; labor_dissent += 5; center_dissent += 5; reformist_dissent += 5 if not panzerkreuzer_funded; neorevisionist_dissent += 5 if not panzerkreuzer_funded; panzerkreuzer_b_funded = 1; linke_coalition_dissent += 1; linke_relation -= 6; workers_spd -= 4
 
-Our grassroots party members are highly critical of our decision. Many party branches have increased their agitation against our parliamentary fraction. [? if panzerkreuzer_funded : However, given the construction of the previous battlecruiser, this seemed to be a foregone conclusion, and the reaction is muted. ?]
+Unsere Basis kritisiert die Entscheidung scharf, viele Ortsvereine machen gegen die Fraktion mobil. [? if panzerkreuzer_funded : Nach der Bestellung der Kampfjets schien das allerdings ohnehin beschlossene Sache, und die Empörung hält sich in Grenzen. ?]
 
-The vote in favor of the battlecruiser easily passes, with opposition only from the KPD. The ship will be built.
+Das Paket geht mit großer Mehrheit durch, nur die Linke stimmt dagegen.
 
 @vote_no
 on-arrival: fdp_relation -= 8; union_relation -= 5; pacifism += 1; nationalism -= 5*(1-dissent); coalition_dissent += 1; workers_spd += 4*(1-dissent) if nationalism < 49;
 go-to: built if spd_r + linke_r + gruene_r < 50; not_built if spd_r + linke_r + gruene_r >= 50
 
-Our vote against the battlecruiser is unpopular among the right-wing parties[? if in_grand_coalition or in_weimar_coalition: , including our coalition partners ?][? if spd_toleration: , including the minority government that we are currently supporting ?].
+Unser Nein kommt bei den Parteien rechts der Mitte schlecht an[? if in_grand_coalition or in_weimar_coalition: , auch bei unseren Koalitionspartnern ?][? if spd_toleration: , auch bei der Minderheitsregierung, die wir tolerieren ?].
 
 @abstain
 on-arrival: fdp_relation -= 5; union_relation -= 3; left_dissent += 5; labor_dissent += 5 if not panzerkreuzer_funded; panzerkreuzer_b_funded = 1; linke_relation -= 3
 
-The center-right parties are critical of our decision to abstain, and the pressure from our left flank is not entirely assuaged. Despite our abstention, the vote in the Reichstag passes, with all parties in favor except the SPD and KPD. The ship will be built.
+Die Parteien der Mitte kritisieren unsere Enthaltung, und auch der Druck von links lässt nicht nach. Das Paket geht trotzdem durch, mit allen Stimmen außer denen von SPD und Linke.
 
-[? if panzerkreuzer_funded : Given the construction of the previous battlecruiser, this seemed to be a foregone conclusion, and the reaction is muted. ?]
+[? if panzerkreuzer_funded : Nach der Bestellung der Kampfjets schien das ohnehin beschlossene Sache, und die Empörung hält sich in Grenzen. ?]
 
 @built
 on-arrival: panzerkreuzer_b_funded = 1
 
-Chancellor [+ chancellor +] brings the matter to a full Reichstag vote, which passes with all parties in favor except the SPD and KPD. The ship will be built.
+Bundeskanzler\*in [+ chancellor +] bringt das Paket in den Bundestag, wo es mit allen Stimmen außer denen von SPD und Linke beschlossen wird.
 
 @not_built
 on-arrival: panzerkreuzer_b_funded = 0; budget += 1 if panzerkreuzer_funded = 0
 
-Our vote against the battlecruiser succeeds, with the support of the KPD and anti-war portions of the [+ gruene_name +]. The ship will not be built! [? if panzerkreuzer_funded == 0 : We have saved some budget from not funding the two ships. ?]
+Unser Nein hat Erfolg, mit den Stimmen der Linken und des friedensbewegten Teils von [+ gruene_name +]. Das Paket ist gescheitert! [? if panzerkreuzer_funded == 0 : Ohne Kampfjets und Rüstungspaket haben wir etwas Haushaltsspielraum gewonnen. ?]
 
 @ministry
 on-arrival: panzerkreuzer_b_funded = 0; budget += 1 if panzerkreuzer_funded = 0
 view-if: bundeswehr_minister_party == "SPD"
 
-With our control of the Reichswehr Ministry, we have pressured the Navy to abandon its rearmament plans. The ship will not be built. [? if panzerkreuzer_funded == 0 : We have saved some budget from not funding the two ships. ?]
+Mit dem Verteidigungsministerium in unserer Hand stoppen wir die Beschaffung und setzen andere Prioritäten. Das Paket kommt nicht. [? if panzerkreuzer_funded == 0 : Ohne Kampfjets und Rüstungspaket haben wir etwas Haushaltsspielraum gewonnen. ?]

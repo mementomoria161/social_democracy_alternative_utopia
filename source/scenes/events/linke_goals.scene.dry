@@ -1,27 +1,27 @@
-title: The KPD presents its list of goals for the coalition.
+title: Die Linke legt ihre Forderungen für die Koalition vor.
 view-if: (in_popular_front = 1 or in_left_front = 1) and linke_goals_seen = 0 and linke_coalition_success = 0 and next_election_time - time > 12 and spd_in_government
-on-arrival: linke_goals_seen = 1; welfare_goal = 1; foreign_goal = 0; agriculture_goal = 1 if agriculture_minister_party != "Linke"; economy_goal = 1 if economic_minister_party != "Linke"; finance_goal = 1 if finance_minister_party != "Linke"; labor_goal = 1 if labor_minister_party != "Linke"; bundeswehr_goal = 1 if bundeswehr_minister_party != "Linke"; linke_ultimatum_timer = 12; linke_ultimatum_timer = 16 if linke_relation >= 60; linke_ultimatum_timer = 24 if linke_party_leader == "Conciliators" or constructive_vonc; linke_ultimatum_timer = next_election_time - time - 1 if next_election_time - time <= 12;
+on-arrival: linke_goals_seen = 1; welfare_goal = 1; foreign_goal = 0; agriculture_goal = 1 if agriculture_minister_party != "Linke"; economy_goal = 1 if economic_minister_party != "Linke"; finance_goal = 1 if finance_minister_party != "Linke"; labor_goal = 1 if labor_minister_party != "Linke"; bundeswehr_goal = 1 if bundeswehr_minister_party != "Linke"; linke_ultimatum_timer = 12; linke_ultimatum_timer = 16 if linke_relation >= 60; linke_ultimatum_timer = 24 if linke_party_leader == "Reformflügel" or constructive_vonc; linke_ultimatum_timer = next_election_time - time - 1 if next_election_time - time <= 12;
 new-page: true
 tags: event
 
-= KPD Goals
+= Forderungen der Linken
 
-The KPD presents us with a list of goals for the coalition:
+Die Linke legt uns eine Liste von Forderungen für die Koalition vor:
 
-[? if welfare_goal = 1 : - Expand social welfare programs. ?]
+[? if welfare_goal = 1 : - Den Sozialstaat ausbauen. ?]
 
-[? if agriculture_goal = 1 : - Enact a land reform program. ?]
+[? if agriculture_goal = 1 : - Bodenspekulation stoppen und Land an kleine Betriebe geben. ?]
 
-[? if economy_goal = 1 : - Start substantial nationalization of the economy. ?]
+[? if economy_goal = 1 : - Schlüsselindustrien und Wohnungskonzerne in öffentliche Hand holen. ?]
 
-[? if finance_goal = 1 : - Make taxes more progressive. ?]
+[? if finance_goal = 1 : - Das Steuersystem gerechter machen. ?]
 
-[? if labor_goal = 1 : - Support workers in labor disputes. ?]
+[? if labor_goal = 1 : - Beschäftigte in Arbeitskämpfen unterstützen. ?]
 
-[? if foreign_goal = 1 : - Improve our relations with the Soviet Union. ?]
+[? if foreign_goal = 1 : - Abrüstung und eine Friedensinitiative vorantreiben. ?]
 
-#[? if interior_goal = 1 : - Ban the SA and Stahlhelm. ?]
+#[? if interior_goal = 1 : - Rechtsextreme Vereine verbieten. ?]
 
-[? if bundeswehr_goal = 1 : - Reduce funding for the Reichswehr. ?]
+[? if bundeswehr_goal = 1 : - Die Rüstungsausgaben senken. ?]
 
-They say that they expect to see these goals fulfilled in [+ linke_ultimatum_timer +] months. Otherwise, they will vote to dissolve the coalition.
+Sie erwartet, dass diese Ziele in [+ linke_ultimatum_timer +] Monaten erfüllt sind. Andernfalls will sie die Koalition verlassen.

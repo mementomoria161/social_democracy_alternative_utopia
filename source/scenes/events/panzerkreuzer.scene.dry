@@ -1,51 +1,52 @@
-title: Panzerkreuzer A
-subtitle: A political question
+title: Kampfjets
+subtitle: Eine politische Frage
 tags: event, govt_affairs
 is-card: true
 on-arrival: panzerkreuzer_seen = 1
-face-image: img/panzerkreuzer.jpg
-view-if: panzerkreuzer_seen = 0 and year = 1928 and month >= 8 and bundeswehr_minister_party != "SPD" and spd_in_government = 1
+face-image: img/kampfjet.jpg
+view-if: panzerkreuzer_seen = 0 and year = 2026 and month >= 8 and bundeswehr_minister_party != "SPD" and spd_in_government = 1
 new-page: true
 
-= Panzerkreuzer
+# Ehemals Panzerkreuzer A (1928): „Kinderspeisung statt Panzerkreuzer“
 
-The Reichswehr Ministry is demanding the construction of a new battlecruiser, as part of Germany's rearmament. Our coalition partners are united in support. While many of our members are vehemently against new military spending, this vote may be necessary to preserve the coalition. 
-We campaigned on food for children instead of battlecruisers. Will we really betray our campaign promises?
+= Kampfjets
 
-- @vote_yes: Vote yes, for constructing the battlecruiser.
-- @vote_no: Vote no, against constructing the battlecruiser.
-- @abstain: Abstain from the vote.
+Das Verteidigungsministerium will weitere F-35-Kampfjets in den USA bestellen, für viele Milliarden Euro. Unsere Koalitionspartner sind geschlossen dafür. Viele unserer Mitglieder lehnen die Bestellung entschieden ab, gerade während bei Kitas, Schulen und Rente gespart wird, und erinnern an die alte Parole „Kinderspeisung statt Panzerkreuzer“. Doch ohne unsere Zustimmung könnte die Koalition wackeln.
+
+- @vote_yes: Mit Ja stimmen, für die Kampfjets.
+- @vote_no: Mit Nein stimmen, gegen die Kampfjets.
+- @abstain: Uns enthalten.
 
 @vote_yes
 on-arrival: left_dissent += 10; labor_dissent += 5; center_dissent += 5; reformist_dissent += 5; neorevisionist_dissent += 5; panzerkreuzer_funded = 1; linke_coalition_dissent += 1; linke_relation -= 6; workers_spd -= 3
 
-Our grassroots party members are shocked by our intransigence! Many party branches have begun agitating against the cabinet, and our Reichstag members even plan a full vote on the proposal, contravening the government's decision.
+Unsere Basis ist fassungslos! Viele Ortsvereine machen gegen die Kabinettsmitglieder mobil, und in der Fraktion bereiten Abgeordnete eine offene Gegenstimme vor.
 
-The campaign against the battlecruiser fails, with only the dissident SPD and KPD members voting against. The ship will be built.
+Doch der Aufstand scheitert: Nur einige SPD-Abgeordnete und die Linke stimmen dagegen. Die Jets werden bestellt.
 
 @vote_no
 on-arrival: fdp_relation -= 8; union_relation -= 5; pacifism += 1; nationalism -= 5*(1-dissent); coalition_dissent += 1; hindenburg_dissent += 1; hiindenburg_relation -= 4
 go-to: vote_no_chancellor if chancellor_party = "SPD"; vote_no_pass if chancellor_party != "SPD"
 
 @vote_no_chancellor
-go-to: braun if chancellor = "Braun"; muller if chancellor = "Müller"
+go-to: braun if chancellor = "Schwesig"; muller if chancellor != "Schwesig"
 
 @braun
 on-arrival: panzerkreuzer_funded = 0; nationalism -= 3*(1-dissent); panzerkreuzer_failed = 1; workers_spd += 5*(1-dissent);
 
-Our coalition partners are shocked by our intransigence! However, Chancellor Braun manages to persuade our cabinet ministers to drop the plan to vote on the battlecruiser. The ship will not be built!
+Unsere Koalitionspartner sind entsetzt! Doch Bundeskanzlerin [+ chancellor +] stellt sich hinter die Fraktion und lässt die Vorlage zurückziehen. Die Jets werden nicht bestellt!
 
 @muller
 on-arrival: panzerkreuzer_funded = 1
 
-Our coalition partners are shocked by our intransigence! Despite Chancellor Müller's rejection of the proposal, the other parties bring the matter to a Reichstag vote, which easily passes, with only the SPD and KPD voting against. The ship will be built.
+Unsere Koalitionspartner sind entsetzt! Obwohl Bundeskanzler\*in [+ chancellor +] die Vorlage ablehnt, bringen die anderen Parteien sie im Haushaltsausschuss durch, nur SPD und Linke stimmen dagegen. Die Jets werden bestellt.
 
 @vote_no_pass
 on-arrival: panzerkreuzer_funded = 1
 
-Our coalition partners are shocked by our intransigence! Chancellor [+ chancellor +] brings the matter to a Reichstag vote, which passes with all parties in favor except the SPD and KPD. The ship will be built.
+Unsere Koalitionspartner sind entsetzt! Bundeskanzler\*in [+ chancellor +] bringt die Vorlage trotzdem im Bundestag durch, mit allen Stimmen außer denen von SPD und Linke. Die Jets werden bestellt.
 
 @abstain
 on-arrival: fdp_relation -= 5; union_relation -= 3; left_dissent += 5; labor_dissent += 5; panzerkreuzer_funded = 1; linke_relation -= 3
 
-Our coalition partners are shocked by our intransigence! Despite our abstention, the vote in the Reichstag goes through, with all parties in favor except the SPD and KPD. The ship will be built.
+Unsere Koalitionspartner sind verärgert über unsere Enthaltung, und auch die Parteilinke ist nicht zufrieden. Die Vorlage geht trotzdem durch, mit allen Stimmen außer denen von SPD und Linke. Die Jets werden bestellt.

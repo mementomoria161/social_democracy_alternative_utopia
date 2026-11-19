@@ -1,15 +1,15 @@
-title: Unions Declare Independence
+title: Die Gewerkschaften gehen auf Distanz
 new-page: true 
-subtitle: Labor's disagreements with our policies have grown too severe.
+subtitle: Der Streit mit dem Gewerkschaftsflügel ist eskaliert.
 tags: event
 view-if: labor_dissent >= 60
 on-arrival: unions_independent = 1; labor_strength = labor_strength/2; workers_spd -= 20; unemployed_spd -= 10; workers_other += 5 if not sapd_formed; workers_linke += 5; workers_afd += 5; n_advisors -= 1 if suedekum_advisor == 1; n_advisors -= 1 if fahimi_advisor == 1; suedekum_advisor = 0; fahimi_advisor = 0; demo_strength -= 600; workers_sapd += 10 if sapd_formed; unemployed_sapd += 6 if sapd_formed;
 max-visits: 1
 
-= Unions Declare Independence
+= Die Gewerkschaften gehen auf Distanz
 
-Our policy choices have greatly offended the labor movement. Union leaders have declared that they are independent of any political party, and some have been seen seeking accomodation with the KPD and even the NSDAP.
+Unsere Politik hat die Gewerkschaften zutiefst verärgert. Die Gewerkschaftsspitzen erklären, sie seien keiner Partei mehr verpflichtet, und suchen offen das Gespräch mit der Linken. In manchen Betrieben treten AfD-nahe Listen bei den Betriebsratswahlen an und gewinnen Sitze.
 
-Most workers remain loyal to the SPD, although their affiliation is less solid. Many workers move left[? if sapd_formed:, to the KPD or the nascent SAPD?]. Others move in a more nationalist direction, as the ADGB signals its willingness to work with the right to solve the economic crisis.
+Die meisten Beschäftigten bleiben der SPD treu, doch die Bindung ist brüchig geworden. Viele wandern nach links ab[? if sapd_formed:, zur Linken oder zur jungen Sozialen Linken ?]. Andere wenden sich der AfD zu, die sich als neue „Partei der kleinen Leute“ inszeniert.
 
-Much of our working-class base has defected, and labor's influence in our party has greatly diminished.
+Ein großer Teil unserer Stammwählerschaft ist weg, und der Einfluss des Gewerkschaftsflügels in der Partei ist stark geschrumpft.

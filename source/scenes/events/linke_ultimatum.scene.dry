@@ -1,4 +1,4 @@
-title: The KPD checks upon our progress in accomplishing the coalition's goals...
+title: Die Linke zieht Bilanz: Haben wir die Ziele der Koalition erreicht?
 view-if: (in_popular_front or in_left_front) and (linke_ultimatum_timer = 0 or (welfare_goal_completed and agriculture_goal_completed and economy_goal_completed and finance_goal_completed and labor_goal_completed and bundeswehr_goal_completed)) and linke_goals_seen = 1 and linke_ultimatum_seen = 0 and spd_in_government
 on-arrival: {!
 Q.linke_ultimatum_seen = 1;
@@ -40,47 +40,47 @@ new-page: true
 tags: event
 go-to: goals_success if linke_goals_completed; goals_failed if not linke_goals_completed
 
-= KPD Goals
+= Bilanz der Linken
 
-At the start of this government, the KPD presented a list of goals for the coalition:
+Zu Beginn der Koalition hat uns die Linke eine Liste von Forderungen vorgelegt:
 
-[? if welfare_goal = 1 : - Expand social welfare programs - [? if welfare_goal_completed : success ?][? if not welfare_goal_completed: failed ?] ?]
+[? if welfare_goal = 1 : - Den Sozialstaat ausbauen. – [? if welfare_goal_completed : erreicht ?][? if not welfare_goal_completed: verfehlt ?] ?]
 
-[? if agriculture_goal = 1 : - Enact a land reform program. - [? if agriculture_goal_completed : success ?][? if not agriculture_goal_completed: failed ?] ?]
+[? if agriculture_goal = 1 : - Bodenspekulation stoppen und Land an kleine Betriebe geben. – [? if agriculture_goal_completed : erreicht ?][? if not agriculture_goal_completed: verfehlt ?] ?]
 
-[? if economy_goal = 1 : - Start substantial nationalization of the economy. - [? if economy_goal_completed : success ?][? if not economy_goal_completed: failed ?] ?]
+[? if economy_goal = 1 : - Schlüsselindustrien und Wohnungskonzerne in öffentliche Hand holen. – [? if economy_goal_completed : erreicht ?][? if not economy_goal_completed: verfehlt ?] ?]
 
-[? if finance_goal = 1 : - Make taxes more progressive. - [? if finance_goal_completed : success ?][? if not finance_goal_completed: failed ?] ?]
+[? if finance_goal = 1 : - Das Steuersystem gerechter machen. – [? if finance_goal_completed : erreicht ?][? if not finance_goal_completed: verfehlt ?] ?]
 
-[? if labor_goal = 1 : - Support workers in labor disputes. - [? if labor_goal_completed : success ?][? if not labor_goal_completed: failed ?] ?]
+[? if labor_goal = 1 : - Beschäftigte in Arbeitskämpfen unterstützen. – [? if labor_goal_completed : erreicht ?][? if not labor_goal_completed: verfehlt ?] ?]
 
-[? if foreign_goal = 1 : - Improve our relations with the Soviet Union. - [? if foreign_goal_completed : success ?][? if not foreign_goal_completed: failed ?] ?]
+[? if foreign_goal = 1 : - Abrüstung und eine Friedensinitiative vorantreiben. – [? if foreign_goal_completed : erreicht ?][? if not foreign_goal_completed: verfehlt ?] ?]
 
-[? if bundeswehr_goal = 1 : - Reduce funding for the Reichswehr. - [? if bundeswehr_goal_completed : success ?][? if not bundeswehr_goal_completed: failed ?] ?]
+[? if bundeswehr_goal = 1 : - Die Rüstungsausgaben senken. – [? if bundeswehr_goal_completed : erreicht ?][? if not bundeswehr_goal_completed: verfehlt ?] ?]
 
 @goals_failed
 on-arrival: linke_relation -= 10; workers_spd -= 8; unemployed_spd -= 8;
 
-Unfortunately, we have failed to accomplish all of the goals the KPD set out. They plan to call a vote of no confidence against our government, and have already begun mounting a propaganda campaign to delegitimize our government in the eyes of the workers.
+Wir haben nicht alle Forderungen der Linken erfüllt. Sie kündigt an, die Koalition zu verlassen, und hat bereits eine Kampagne gestartet, die uns bei den Beschäftigten als Verräter darstellt.
 
-- @appeal: Appeal to the Communists to have patience - we are trying!
-- @linke_vote_of_no_confidence.support_center: Could we form a new government based on the Center Party and [+ gruene_name +] (and possibly DVP)?
-- @linke_vote_of_no_confidence.let_it_happen: Let the vote happen.
-- @no_vonc: They cannot call a vote of no confidence due to the constitutional reforms, but they can obstruct our government at every opportunity.
+- @appeal: Die Linke um Geduld bitten – wir arbeiten daran!
+- @linke_vote_of_no_confidence.support_center: Könnten wir eine neue Regierung mit [+ gruene_name +] und Union (und vielleicht der FDP) bilden?
+- @linke_vote_of_no_confidence.let_it_happen: Die Koalition zerbrechen lassen.
+- @no_vonc: Als Minderheitsregierung weitermachen.
 
 @appeal
-choose-if: (linke_score >= 4 and linke_relation > 50 and linke_appeal_seen = 0) or linke_party_leader = "Conciliators"
-unavailable-subtitle: [? if linke_score < 4: They do not see us as serious in trying to achieve the goals of the coalition. ?] [? if linke_relation < 50: Our relations are too poor. ?] [? if linke_appeal_seen = 1: we do not have any more time. ?]
+choose-if: (linke_score >= 4 and linke_relation > 50 and linke_appeal_seen = 0) or linke_party_leader = "Reformflügel"
+unavailable-subtitle: [? if linke_score < 4: Die Linke hält uns nicht für ernsthaft bemüht. ?] [? if linke_relation < 50: Unser Verhältnis ist zu schlecht. ?] [? if linke_appeal_seen = 1: Unsere Zeit ist abgelaufen. ?]
 on-arrival: linke_ultimatum_seen = 0; linke_ultimatum_timer += 6; linke_appeal_seen = 1
 
-We argue that we are working hard to achieve the coalition's goals, and in the name of proletarian solidarity, we must make this coalition function. Surprisingly, the KPD hears our pleas, and is willing to give us six more months before the coalition goals must be achieved.
+Wir versichern, dass wir mit aller Kraft an den gemeinsamen Zielen arbeiten und dass eine linke Regierung nicht an Ungeduld scheitern darf. Überraschend lässt sich die Linke darauf ein und gibt uns sechs weitere Monate.
 
 
 @goals_success
 on-arrival: workers_spd += 8; unemployed_spd += 8; linke_relation += 10; workers_linke += 5; linke_coalition_success += 1
 go-to: popular_front_achievement if in_popular_front; united_front_achievement if in_left_front
 
-Against all expectations, the KPD's goals have all been met! Apparently the Communists did not prepare for this eventuality, a worker's government successfully built through democratic means. They will continue to "tolerate" our government for the rest of our term, while still acting as a watchdog against bourgeois backsliding.
+Allen Erwartungen zum Trotz haben wir alle Forderungen der Linken erfüllt! Offenbar hatte sie mit diesem Fall gar nicht gerechnet: einer linken Regierung, die liefert. Sie bleibt für den Rest der Wahlperiode in der Koalition, versteht sich aber weiter als Wächterin gegen jeden Rückfall in den Sparkurs.
 
 
 @popular_front_achievement
@@ -95,4 +95,4 @@ achievement: einheitsfront_2
 view-if: constructive_vonc
 on-arrival: in_popular_front = 0; in_left_front = 0; in_minority_government = 1;
 
-We have been effectively made a minority government, and the KPD intends to obstruct our attempts to pass policy.
+Die Linke verlässt die Koalition. Ohne eigene Mehrheit für eine andere Regierung kann sie uns nicht stürzen, aber sie wird jedes unserer Vorhaben blockieren, wo sie kann.

@@ -1,25 +1,24 @@
-title: Return to Normalcy
-subtitle: Have we finally found our way out of the crisis?
+title: Zurück zur Normalität
+subtitle: Haben wir endlich einen Weg aus der Krise gefunden?
 new-page: true
-view-if: ((year = 1933 and month > 7) or (year >= 1934)) and pro_republic >= 50 and unemployed <= 13 and inflation < 7 and chancellor != "Papen" and chancellor != "Schleicher" and coup_progress < 9
+view-if: ((year = 2029 and month > 7) or (year >= 2030)) and pro_republic >= 50 and unemployed <= 7 and inflation < 7 and chancellor_party != "AfD" and coup_progress < 9
 max-visits: 1
 on-arrival: return_to_normalcy = 1; workers_afd -= 8; new_middle_afd -= 8; old_middle_afd -= 8; rural_afd -= 8; unemployed_afd -= 8; rechts_strength *= 0.7; coup_progress -= 4 if coup_progress > 4; new_middle_gruene += 5; new_middle_fdp += 3; old_middle_gruene += 3; old_middle_fdp += 5; old_middle_bsw += 3; rural_bsw += 6; rural_gruene += 2; rural_fdp += 2; unemployed_linke += 3; unemployed_spd += 3; strife -= 2
 tags: event
 
-= Return to Normalcy
+= Zurück zur Normalität
 
-Germany is finally recovering from the Great Depression. As the economy gradually improves, the political crisis begins to unravel as well.
+Deutschland kommt endlich aus der Krise. Mit der Wirtschaft beruhigt sich nach und nach auch die politische Lage.
 
-Finally, the internal contradictions of the NSDAP have caught up to it. With the improving economic conditions, many business leaders are less interested in supporting them. Tensions between their remaining big capitalist funders and their lower middle class frontliners have come to a head, leading to desertions and public spats. This all saps Hitler's aura of strength, weakening Nazi support across a variety of demographics.
+Und die AfD holen ihre inneren Widersprüche ein. Wirtschaftsnahe Unterstützer wenden sich ab, seit die Krise vorbei ist, und zwischen dem völkischen Flügel und den Marktliberalen in der Partei bricht ein offener Machtkampf aus. Austritte, Spaltungen in Landesverbänden und öffentliche Schlammschlachten kratzen am Image der Stärke, und die Partei verliert in fast allen Wählergruppen.
 
-- @celebrate: This is an occasion to celebrate.
-- @complacency: The Nazis are still a threat. We must not be too complacent.
+- @celebrate: Ein Grund zum Feiern.
+- @complacency: Die AfD bleibt eine Gefahr. Wir dürfen nicht nachlassen.
 
 @celebrate
 
-This is an occasion to celebrate! Hopefully he Nazis will no longer be a threat to the Republic.
+Ein Grund zum Feiern! Hoffentlich ist die Gefahr für die Demokratie nun gebannt.
 
 @complacency
 
-Even in their weakened state, the Nazis are still a threat. We must not be too complacent.
-
+Auch geschwächt bleibt die AfD eine Gefahr. Wir dürfen nicht selbstzufrieden werden.

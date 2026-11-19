@@ -1,56 +1,51 @@
-title: Agricultural Revolt
-subtitle: Small farmers are in revolt over debts and taxes...
-view-if: ((year = 1929 and month >= 2)) and spd_in_government and agricultural_finance < 2
+title: Bauernproteste
+subtitle: Landwirt*innen gehen gegen Kürzungen und Bürokratie auf die Straße …
+view-if: ((year = 2026 and month >= 2)) and spd_in_government and agricultural_finance < 2
 max-visits: 1
 on-arrival: agricultural_crisis_seen = 1; rural_bsw -= 2; rural_spd -= 2; rural_afd += 2
 new-page: true
 tags: event
-face-image: img/Kollwitz_bauernkrieg.jpg
+face-image: img/traktorblockade.jpg
 
-= Agricultural Revolt
+= Bauernproteste
 
-# Schleswig-Holstein Landvolk
-# sources: https://www.journals.uchicago.edu/doi/10.2307/2125668 
-# https://www.jstor.org/stable/1405576?seq=11 - Landvolk Revolt, centered in Schleswig-Holstein
+# Vorbild: Bauernproteste gegen die Agrardiesel-Kürzung 2023/24
 
-The German peasantry is beginning to wage a war against the Republic. Starting in the state of Schleswig-Holstein, the *Landvolkbewegung* (peasant's movement) has become increasingly brazen, conducting sabotage against local government offices. The peasants claim that they are being crushed by taxes and debts, and insofar that they have coherent demands, they demand unconditional economic relief. In addition, the movement is developing ties to the so-called "National Socialists", the Nazi party.
+Die Bauernproteste flammen wieder auf. Mit Traktorkolonnen blockieren Landwirt\*innen Autobahnauffahrten, Innenstädte und Parteibüros. Sie fühlen sich von sinkenden Erzeugerpreisen, Auflagen und Kürzungen erdrückt und fordern, soweit sich die Forderungen auf einen Nenner bringen lassen, sofortige Entlastung. Zugleich versuchen Reichsbürger und rechtsextreme Gruppen, die Proteste zu unterwandern; auf manchen Traktoren hängen Galgen mit Regierungssymbolen.
 
-What should we do?
+Was tun wir?
 
-- @nothing: There is nothing we can do.
-- @suppress: The *Landvolkbewegung* must be suppressed!
-- @financing_1: We must increase financial support for the peasantry.
-- @financing_2: We must increase financial support for the peasantry.
+- @nothing: Wir können nichts tun.
+- @suppress: Die Blockaden müssen aufgelöst werden!
+- @financing_1: Wir müssen die Höfe stärker unterstützen.
+- @financing_2: Wir müssen die Höfe stärker unterstützen.
 
-# options:
-# 1. There is nothing we can do.
-# 2. The Landvolk must be suppressed.
-# 3. Increase agricultural financing
+# Optionen: nichts tun, Blockaden auflösen, mehr Geld für die Höfe
 
 @nothing
 on-arrival: rural_afd += 3; rural_spd -= 2; rural_gruene -= 2; pro_republic -= 3
 
-There is nothing we can do. The peasant unrest rages on, only tempered by its own internal dissention. More and more, the peasant movement is being coopted by the growing Nazi party, who channel their grievances into demands for the overthrow of the Republic.
+Wir können nichts tun. Die Proteste gehen weiter, nur gebremst durch Streit unter den Protestierenden selbst. Zunehmend vereinnahmt die AfD die Bewegung und lenkt die Wut gegen „die da oben“ und die Demokratie insgesamt.
 
 @suppress
-unavailable-subtitle: The police are largely unwilling to take the action needed.
+unavailable-subtitle: Die Polizei ist kaum bereit, gegen die Bauern durchzugreifen.
 choose-if: prussian_police_loyalty >= 0.6 or interior_police_loyalty >= 0.6
 on-arrival: rural_spd -= 4; rural_gruene -= 4; rural_afd -= 2
 
-The police are able to suppress the farmer unrest, preventing them from threatening the state. However, the peasants' economic circumstances remain poor, and they will only curse the SPD more and more.
+Die Polizei löst die Blockaden auf und verhindert, dass die Lage eskaliert. Doch die wirtschaftliche Not der Höfe bleibt, und auf dem Land verflucht man die SPD mehr denn je.
 
 @financing_1
-subtitle: -1 budget - we have already funded agricultural credit, but more support is still needed.
+subtitle: -1 Haushaltsspielraum – wir unterstützen die Höfe bereits, doch es braucht mehr.
 choose-if: budget >= 1
-unavailable-subtitle: -1 budget - we do not have the funds.
+unavailable-subtitle: -1 Haushaltsspielraum – dafür fehlt uns das Geld.
 view-if: agricultural_finance == 1
 on-arrival: budget -= 1; agricultural_finance += 1; rural_policy += 1
 go-to: financing_done
 
 @financing_2
-subtitle: -2 budget
+subtitle: -2 Haushaltsspielraum
 choose-if: budget >= 2
-unavailable-subtitle: -2 budget - we do not have the funds.
+unavailable-subtitle: -2 Haushaltsspielraum – dafür fehlt uns das Geld.
 view-if: agricultural_finance < 1
 on-arrival: budget -= 2; rural_spd += 2*(1-dissent); coalition_dissent += 1; center_dissent += 3; agricultural_finance += 1; rural_policy += 1
 go-to: financing_done
@@ -58,4 +53,4 @@ go-to: financing_done
 @financing_done
 on-arrival: rural_spd += 3*(1-dissent); rural_gruene += 2 if gruene_in_government
 
-In response to the unrest, we have substantially increased financial support for small farmers. On the one hand, the *Landvolkbewegung* is largely appeased by the increased funding, even if some Nazi infiltration remains. However, some in our coalition see it as an act of weakness and capitulation to terrorism, as well as a sign of budget indiscipline.
+Als Antwort auf die Proteste stocken wir die Unterstützung für kleine und mittlere Höfe deutlich auf. Die meisten Protestierenden sind besänftigt, auch wenn rechte Gruppen weiter mitmischen. Manche in der Koalition sehen darin allerdings ein Einknicken vor Erpressung und einen Bruch der Haushaltsdisziplin.

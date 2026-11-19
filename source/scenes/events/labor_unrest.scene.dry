@@ -1,33 +1,33 @@
-title: Labor Unrest
-subtitle: Clashes between workers and employers in the Ruhr...
-view-if: year = 1928 and month = 12 and spd_in_government and labor_minister_party != "SPD"
+title: Tarifkonflikt
+subtitle: Streiks in der Metall- und Elektroindustrie …
+view-if: year = 2026 and month = 11 and spd_in_government and labor_minister_party != "SPD"
 max-visits: 1
 new-page: true
-face-image: img/Kollwitz_Weavers.jpg
+face-image: img/streik.jpg
 tags: event
 
-= Labor Unrest
+= Tarifkonflikt
 
-The mining and metals industry of the Ruhr region is beset by a wave of strikes against cuts to wages and benefits. Meanwhile, employers have started a retaliatory lockout to force their workers to accept these cuts. Both the strikers and the employers look to the SPD in the government to resolve this crisis.
+In der Metall- und Elektroindustrie eskaliert die Tarifrunde. Die Arbeitgeber verlangen angesichts der Industriekrise eine Nullrunde und längere Arbeitszeiten, die IG Metall antwortet mit Warnstreiks und droht mit Urabstimmung. Einige Konzerne kündigen an, Produktion ins Ausland zu verlagern, falls die Gewerkschaft nicht nachgibt. Beide Seiten erwarten, dass die SPD in der Regierung Stellung bezieht.
 
-- @support_labor: Support labor in their demands.
-- @support_employers: Support the employers in their demands.
-- @balance: Try to strike a compromise between the sides.
+- @support_labor: Uns hinter die Forderungen der Beschäftigten stellen.
+- @support_employers: Uns hinter die Forderungen der Arbeitgeber stellen.
+- @balance: Einen Kompromiss zwischen beiden Seiten vermitteln.
 
 @support_labor
-subtitle: This will alienate the bourgeoisie.
-on-arrival: labor_strength += 5; labor_dissent -= 5; left_dissent -= 5; workers_spd += 6*(1-dissent); coalition_dissent += 1; fdp_relation -= 4; capital_strike_progress += 1 if fdp_relation <= 30; capital_strike_progress += 1 if unemployed > 15; capital_strike_progress += 1 if unemployed > 24; labor_goal_completed += 1; inflation += 0.1; economic_growth -= 0.2
+subtitle: Das wird die Wirtschaft verärgern.
+on-arrival: labor_strength += 5; labor_dissent -= 5; left_dissent -= 5; workers_spd += 6*(1-dissent); coalition_dissent += 1; fdp_relation -= 4; capital_strike_progress += 1 if fdp_relation <= 30; capital_strike_progress += 1 if unemployed > 8; capital_strike_progress += 1 if unemployed > 11.5; labor_goal_completed += 1; inflation += 0.1; economic_growth -= 0.2
 
-Supporting labor is always popular in the SPD, although many of our coalition partners represent employers, and they are less enthused.
+Die Unterstützung der Beschäftigten kommt in der SPD immer gut an. Der Wirtschaftsflügel der Union und die Arbeitgeberverbände sind weniger begeistert.
 
 @support_employers
-subtitle: This will alienate the workers.
+subtitle: Das wird die Beschäftigten verärgern.
 on-arrival: labor_dissent += 8; left_dissent += 8; workers_spd -= 6; coalition_dissent -= 1; fdp_relation += 5; union_relation += 5; coalition_dissent -= 1; workers_linke += 5; linke_coalition_dissent += 1; linke_relation -= 8; capital_strike_progress -= 1 if capital_strike_progress > 1; capital_strike_progress -= 1 if capital_strike_progress > 8
 
-Even though most workers grudgingly accept the our intervention, there is deep bitterness developing against the SPD, especially among the more radical workers. The Communists stand to gain.
+Die meisten Beschäftigten fügen sich zähneknirschend, doch gegen die SPD wächst tiefe Verbitterung, gerade unter Vertrauensleuten und Betriebsräten. Linke und AfD stehen bereit, davon zu profitieren.
 
 @balance
-subtitle: Both sides need to share the pain in the current crisis.
+subtitle: In der Krise müssen beide Seiten Opfer bringen.
 on-arrival: labor_dissent += 4; workers_spd -= 2; linke_coalition_dissent += 1; linke_relation -= 5; workers_linke += 2
 
-Many workers are unhappy at our compromises, but they will learn to accept that we are all in a shared struggle against economic forces. This is perhaps the best we could do given the present circumstances.
+Viele Beschäftigte sind mit unserem Kompromiss unzufrieden, doch sie werden hoffentlich verstehen, dass alle gemeinsam gegen die Krise stehen. Unter den Umständen war wohl nicht mehr drin.

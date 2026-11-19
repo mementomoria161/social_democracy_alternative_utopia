@@ -1,32 +1,32 @@
-title: KPD Party Conference
-subtitle: The KPD chooses their new central committee - will the Wittorf Affair have an influence on their choice?
+title: Parteitag der Linken
+subtitle: Die Linke wählt ihren Vorstand – und streitet über ihren Kurs gegenüber der SPD.
 new-page: true
-view-if: linke_relation >= 50 and wittorf_soviet_union = 1 and year = 1929 and month >= 6 and month <= 8
+view-if: linke_relation >= 50 and (wittorf_soviet_union = 1 or linke_foreign_seen = 1) and year = 2027 and month >= 5 and month <= 7
 max-visits: 1
 on-arrival: linke_party_conference_seen = 1
 tags: event
 
-= KPD Party Conference
+= Parteitag der Linken
 
-Now is the KPD's national party conference, where they will choose their new leadership. The shadow of the Wittorf Affair hangs over it. On one hand are the hardline supporters of Thälmann, who support a "social fascist" policy that places the SPD as equivalent to the Nazis. On the other hand is the "Conciliator" faction, who support a more cooperative policy towards the SPD.
+Die Linke hält ihren Bundesparteitag ab und wählt einen neuen Vorstand. Auf der einen Seite stehen jene, die jede Zusammenarbeit mit der SPD ablehnen: Die SPD sei Teil des Problems, Opposition sei der einzige glaubwürdige Ort. Auf der anderen Seite steht der Reformflügel, getragen von Landesverbänden, die wie in Bremen seit Jahren mitregieren, und von vielen Kommunalpolitiker\*innen. Er will Rot-Grün-Rot im Bund möglich machen.
 
-After our discussion with the Soviets, we are inclined to believe that Stalin is at least open to the Conciliators. In order to affect the KPD's leadership elections, we have to influence both the Comintern leaders as as well as the KPD membership.
+Nach unseren Gesprächen über die Friedensinitiative ist der Reformflügel gestärkt. Um den Ausgang zu beeinflussen, müssten wir der Parteiführung und der Basis der Linken glaubhaft zeigen, dass wir es ernst meinen.
 
 - @conciliator_success
 - @conciliator_fail
 
 
 @conciliator_success
-title: The Conciliators are the new leadership of the KPD.
-choose-if: (stegner_advisor or tuermer_advisor) and (left_strength >= reformist_strength) and (linke_relation >= 50) 
-unavailable-subtitle: [?  if not stegner_advisor and not tuermer_advisor: Our party leadership is not left-wing enough. ?] [? if left_strength < reformist_strength: The Comintern doubts our commitment to socialism. ?]
-on-arrival: linke_party_leader = "Conciliators"; communist_coalition += 3; linke_relation += 10*(1-dissent); left_strength += 5; left_dissent -= 8
+title: Der Reformflügel übernimmt die Führung der Linken.
+choose-if: (stegner_advisor or tuermer_advisor) and (left_strength >= reformist_strength) and (linke_relation >= 50)
+unavailable-subtitle: [?  if not stegner_advisor and not tuermer_advisor: Unsere Parteiführung ist der Linken nicht links genug. ?] [? if left_strength < reformist_strength: Die Linke zweifelt, ob wir es mit einem sozialen Kurswechsel ernst meinen. ?]
+on-arrival: linke_party_leader = "Reformflügel"; communist_coalition += 3; linke_relation += 10*(1-dissent); left_strength += 5; left_dissent -= 8
 achievement: versohnler
 
-With our support, the Conciliators have won the leadership contest! The new leadership is a group of Conciliators, including Arthur Ewert, Hugo Eberlein, and Ernst Meyer. Thälmann remains, but largely as a figurehead only, it seems. We hope that the new leadership will be more inclined towards cooperation.
+Mit unserer Unterstützung setzt sich der Reformflügel durch! Der neue Vorstand erklärt, die Linke wolle „regieren, um zu verändern“, und bietet der SPD Gespräche über ein gemeinsames Programm an. Die Kritiker bleiben im Vorstand vertreten, haben aber an Einfluss verloren.
 
 
 @conciliator_fail
-title: Thälmann retains his leadership position.
+title: Die Linke bleibt auf Abstand.
 
-Unfortunately, we could not influence the KPD leadership election against the hardliners. Thälmann quickly moves to consolidate absolute leadership, expelling or exiling his opponents.
+Es gelingt uns nicht, den Parteitag zu beeinflussen. Die Linke beschließt, auf eine Zusammenarbeit mit der SPD vorerst zu verzichten und sich als „einzige soziale Opposition“ zu profilieren.

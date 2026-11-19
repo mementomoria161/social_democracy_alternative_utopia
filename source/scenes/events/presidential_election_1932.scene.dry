@@ -119,7 +119,7 @@ choose-if: spd_votes >= linke_votes
 unavailable-subtitle: The KPD knows that they are more popular than us; they do not see a reason to support our candidate.
 max-visits: 1
 
-The KPD is supporting their own candidate, Ernst Thälmann. [? if linke_relation >= 50 : However, they are willing to be convinced to drop their campaign and support Braun; how do we convince them? ?][? if linke_relation < 50 or linke_party_leader != "Conciliators" : They do not seem willing to be convinced. ?]
+The KPD is supporting their own candidate, Ernst Thälmann. [? if linke_relation >= 50 : However, they are willing to be convinced to drop their campaign and support Braun; how do we convince them? ?][? if linke_relation < 50 or linke_party_leader != "Reformflügel" : They do not seem willing to be convinced. ?]
 
 - @linke_resources: Use our resources.
 - @linke_relations: Use our good relations.
@@ -136,7 +136,7 @@ go-to: schwesig_campaign
 The KPD now endorses Braun in the presidential election! We ask them to keep their support low-key, so as to not alienate the bourgeois voters.
 
 @linke_relations
-view-if: linke_relation >= 60 or (linke_party_leader == "Conciliators" and linke_relation >= 45)
+view-if: linke_relation >= 60 or (linke_party_leader == "Reformflügel" and linke_relation >= 45)
 unavailable-subtitle: Our relations are not good enough.
 on-arrival: linke_support_schwesig = 1
 go-to: schwesig_campaign
@@ -373,7 +373,7 @@ go-to: round2_menu
 The KPD now endorses Braun in the presidential election! We ask them to keep their support low-key, so as to not alienate the bourgeois voters.
 
 @r2_linke_relations
-view-if: linke_relation >= 60 or (linke_party_leader == "Conciliators" and linke_relation >= 45)
+view-if: linke_relation >= 60 or (linke_party_leader == "Reformflügel" and linke_relation >= 45)
 unavailable-subtitle: Our relations are not good enough.
 on-arrival: linke_support_schwesig = 1
 go-to: round2_menu

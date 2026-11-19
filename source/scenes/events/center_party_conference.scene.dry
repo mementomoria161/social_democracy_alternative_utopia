@@ -1,40 +1,40 @@
-title: Center Party Conference
-subtitle: The Center Party chooses their new leader...
-view-if: year = 1928 and month = 12 and union_party_leader = "Marx"
+title: CDU-Parteitag
+subtitle: Die CDU wählt einen neuen Vorsitzenden …
+view-if: year = 2028 and month = 11 and union_party_leader = "Merz"
 max-visits: 1
 tags: event
 new-page: true
 
-= Center Party Conference
+= CDU-Parteitag
 
-# reference: Evans, Ellen L. “Adam Stegerwald and the Role of the Christian Trade Unions in the Weimar Republic.” The Catholic Historical Review 59, no. 4 (1974): 602–26.
+# Fiktives Szenario nach dem Vorbild von 2018, als die Kanzlerin den Parteivorsitz abgab und im Amt blieb.
 
-Wilhelm Marx, former Center Party chancellor and presidential candidate, has chosen to resign from leadership of the Center Party. Now, the party holds a conference to replace him.
+Friedrich Merz hat angekündigt, den CDU-Vorsitz abzugeben, um sich ganz auf das Kanzleramt zu konzentrieren. Ein Parteitag soll die Nachfolge regeln, und damit auch die Frage, wer die Union in die Bundestagswahl 2029 führt.
 
-The consensus candidate on the right is Ludwig Kaas, a Catholic priest who represents the party's traditionalists. On the other hand, there is Joseph Joos, a leader of the Catholic trade unions, who has been more supportive of cooperation with the SPD than most of the Center Party.
+Als Favorit des konservativen Flügels gilt Jens Spahn, der eine härtere Linie bei Migration und Sozialstaat verspricht und eine Zusammenarbeit mit der SPD nur noch als Notlösung sieht. Gegenkandidat ist Hendrik Wüst, Ministerpräsident von Nordrhein-Westfalen, der für einen Kurs der Mitte steht und sich klar von der AfD abgrenzt.
 
-- @kaas: The Center Party elects Ludwig Kaas as the party chair.
-- @joos: Influence the Center Party to select Joseph Joos as the party chair.
-- @joos_campaign: We must hold a campaign in support of Joseph Joos as party chair.
+- @kaas: Die CDU wählt Jens Spahn zum Vorsitzenden.
+- @joos: Den Parteitag zugunsten von Hendrik Wüst beeinflussen.
+- @joos_campaign: Gezielt für eine Wahl von Hendrik Wüst werben.
 
 @kaas
-on-arrival: union_party_leader = "Kaas"; union_relation -= 5
+on-arrival: union_party_leader = "Spahn"; union_relation -= 5
 
-Ludwig Kaas has been selected as the chairman of the Center Party. He seems to represent a rightward turn from Marx, and will preside over a Center Party less inclined to compromise with the left.
+Jens Spahn ist neuer CDU-Vorsitzender. Mit ihm rückt die Partei nach rechts und wird weniger bereit sein, Kompromisse mit der SPD einzugehen.
 
 @joos
-unavailable-subtitle: Our relations are not good enough.
-subtitle: Joos is likely to be friendlier to us than Kaas.
+unavailable-subtitle: Unser Verhältnis zur Union ist nicht gut genug.
+subtitle: Mit Wüst dürfte die Zusammenarbeit leichter werden als mit Spahn.
 choose-if: union_relation >= 70
-on-arrival: union_party_leader = "Joos"; rentner_spd += 5; workers_union += 3
+on-arrival: union_party_leader = "Wüst"; rentner_spd += 5; workers_union += 3
 
-With our grassroots connections, we have been able to influence the Center delegates to support Joseph Joos as the new Center chairman. He has long been a friend of the SPD, and will be more inclined to collaborate with us compared to Kaas. He also increases the appeal of the Center Party to the working class.
+Über unsere guten Drähte in die Union, von den Ländern bis zu den Sozialausschüssen der CDA, stärken wir das Lager von Hendrik Wüst, und er setzt sich durch. Mit ihm wird die Zusammenarbeit leichter, und die CDU spricht wieder stärker Beschäftigte an.
 
 @joos_campaign
-choose-if: union_relation >= 62 and resources >= 1 
+choose-if: union_relation >= 62 and resources >= 1
 view-if: union_relation < 70
-unavailable-subtitle: [? if union_relation <= 62 : Our relations are not good enough. ?] [? if resources < 1 : We do not have enough resources. ?]
-subtitle: -1 resource. Joos is likely to be friendlier to us than Kaas.
-on-arrival: resources -= 1; union_party_leader = "Joos"; rentner_spd += 5; workers_union += 3
+unavailable-subtitle: [? if union_relation <= 62 : Unser Verhältnis zur Union ist nicht gut genug. ?] [? if resources < 1 : Wir haben nicht genug Ressourcen. ?]
+subtitle: -1 Ressource. Mit Wüst dürfte die Zusammenarbeit leichter werden als mit Spahn.
+on-arrival: resources -= 1; union_party_leader = "Wüst"; rentner_spd += 5; workers_union += 3
 
-With our grassroots connections as well as a professional campaign, we have been able to influence the Center delegates to support Joseph Joos as the new Center chairman. He has long been a friend of the SPD, and will be more inclined to collaborate with us compared to Kaas. He also increases the appeal of the Center Party to the working class.
+Mit unseren Kontakten in die Union und einer geschickten Medienstrategie, die Wüst als Garanten der Stabilität erscheinen lässt, setzt er sich auf dem Parteitag durch. Mit ihm wird die Zusammenarbeit leichter, und die CDU spricht wieder stärker Beschäftigte an.

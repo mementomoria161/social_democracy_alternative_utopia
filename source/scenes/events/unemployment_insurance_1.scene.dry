@@ -1,74 +1,72 @@
-title: Unemployment Insurance Crisis
-subtitle: The right wing of our coalition presents an ultimatum.
+title: Streit um die Sozialkassen
+subtitle: Der Wirtschaftsflügel der Union stellt ein Ultimatum.
 new-page: true
-view-if: spd_in_government = 1 and (year = 1930 or year = 1931 or year = 1932) and (month >= 3) and in_grand_coalition = 1 and unemployment_insurance_timer = 0 and (unemployed >= unemployment_insurance_threshold + 4 or (unemployed >= 20 and unemployed >= unemployment_insurance_threshold)) and not constructive_vonc and president == "Hindenburg"
+view-if: spd_in_government = 1 and (year = 2026 or year = 2027 or year = 2028) and (month >= 3) and in_grand_coalition = 1 and unemployment_insurance_timer = 0 and (unemployed >= unemployment_insurance_threshold + 2 or (unemployed >= 10 and unemployed >= unemployment_insurance_threshold)) and chancellor_party == "Union"
 on-arrival: unemployment_insurance_crisis += 1; budget -= 1 if budget >= 1; unemployment_insurance_timer = 10; crisis_urgency += 1; unemployment_insurance_threshold = unemployed
 tags: event
 max-visits: 2
 go-to: what_do if unemployment_insurance_crisis = 2
-face-image: img/Kollwitz_Arbeitslosigkeit.jpg
+face-image: img/jobcenter.jpg
 
-= Unemployment Insurance Crisis
+= Streit um die Sozialkassen
 
-The economic crisis has caused mass layoffs all throughout Germany, affecting the industrial working class the hardest. Our welfare spending is increasing due to the greater need.
+Die Wirtschaftskrise hat überall im Land Entlassungen ausgelöst, besonders in der Industrie. Die Arbeitslosenversicherung ist tief im Minus, die Rentenkasse braucht immer höhere Zuschüsse, und die Zahl der Menschen in der Grundsicherung steigt.
 
-In the midst of all this, our right-wing coalition partners in the DVP and Center parties have a plan to cut benefits for the unemployed, lower taxes on the rich, and raise taxes on the working class, as part of a plan to balance the budget and discipline labor. They do not see a possibility for compromise. If we do not accept, they could blow up the coalition.
+Mitten in dieser Lage legen Wirtschaftsflügel und Junge Gruppe der Union einen Plan vor: kürzere Bezugsdauer beim Arbeitslosengeld, härtere Sanktionen in der Grundsicherung, ein späteres Renteneintrittsalter und zugleich Steuersenkungen für Unternehmen und hohe Einkommen. Spielraum für Kompromisse sehen sie nicht. Lehnen wir ab, könnte die Koalition platzen.
 
-[? if unemployment_insurance_crisis = 2 : This is the second such ultimatum thrown by the Right. Obviously, the bourgeoisie are trying to remove us from the government. ?]
+[? if unemployment_insurance_crisis = 2 : Das ist bereits das zweite Ultimatum dieser Art. Offensichtlich will ein Teil der Union uns aus der Regierung drängen. ?]
 
-- @tax_rich: Why can't we simply tax the rich?
-- @gift: This is a gift to the Communists.
+- @tax_rich: Warum besteuern wir nicht einfach die Reichen?
+- @gift: Das ist ein Geschenk für AfD und Linke.
 
 @tax_rich
 max-visits: 1
 go-to: what_do
 
-The bourgeois parties, as representatives of the rich industrialists, would not have that.
+Das macht die Union nicht mit. Steuererhöhungen hat sie im Wahlkampf kategorisch ausgeschlossen.
 
 @gift
 go-to: what_do
 
-This is a gift to the Communists, a boost to their theory that parliamentary democracy will never benefit the working class.
+Das ist ein Geschenk für AfD und Linke und Wasser auf die Mühlen all jener, die sagen, dass sich Demokratie für die kleinen Leute nicht lohnt.
 
 @what_do
-on-arrival: fdp_relation += 5 if chancellor = "Braun"
+on-arrival: fdp_relation += 5 if chancellor_party == "SPD"
 
-But the crux of the matter is, what can we do?
+Doch die entscheidende Frage ist: Was tun wir?
 
-- @destroy: Fine. We will end this coalition.
-- @accept: Unfortunately, we must accept the Right's demands for the sake of stability.
-- @compromise: Surely there is some compromise to be had?
+- @destroy: Na gut. Dann beenden wir die Koalition.
+- @accept: Leider müssen wir der Stabilität zuliebe nachgeben.
+- @compromise: Es muss doch einen Kompromiss geben?
 
 @destroy
 call: set_next_election_time
-on-arrival: time_to_election = 3; spd_in_government = 0; in_grand_coalition = 0; spd_toleration = 0; union_relation -= 8; fdp_relation -= 10; chancellor = "Brüning"; chancellor_party = "Z "; welfare -= 2; budget += 1; inflation -= 2; foreign_minister_party = "FDP"; interior_minister_party = "Union"; justice_minister_party = "parteilos"; labor_minister_party = "Union"; bundeswehr_minister_party = "parteilos"; economic_minister_party = gruene_name; finance_minister_party = "FDP"; agriculture_minister_party = "Union"; spd_no_confidence = 1; pro_republic -= 4; old_middle_spd -= 3; new_middle_spd -= 2; rural_spd -= 2; rentner_spd -= 2; economic_growth -= 0.6
+on-arrival: time_to_election = 3; spd_in_government = 0; in_grand_coalition = 0; spd_toleration = 0; union_relation -= 8; fdp_relation -= 10; chancellor = union_leader; chancellor_party = "Union"; coalition_name = "geschäftsführende Regierung"; welfare -= 2; budget += 1; inflation -= 2; foreign_minister_party = "Union"; interior_minister_party = "Union"; justice_minister_party = "Union"; labor_minister_party = "Union"; bundeswehr_minister_party = "Union"; economic_minister_party = "Union"; finance_minister_party = "Union"; agriculture_minister_party = "Union"; spd_no_confidence = 1; pro_republic -= 4; old_middle_spd -= 3; new_middle_spd -= 2; rural_spd -= 2; rentner_spd -= 2; economic_growth -= 0.6
 
-# TODO: if Braun is president, don't do this...
+Na gut. Wenn die Union die Regierung sprengen will, soll sie es tun. Die SPD macht sich nicht zur Komplizin beim Abbau des Sozialstaats.
 
-Fine. If the bourgeoisie wish to blow up the government, let them do so. Socialists will not be complicit in the destruction of the working class.
+[+ chancellor +] führt nun eine Minderheitsregierung der Union, verliert die Vertrauensfrage und regiert bis zur Neuwahl geschäftsführend. Das Kürzungspaket bringt die Union trotzdem durch den Bundestag, und ob sie dafür Stimmen der AfD in Kauf genommen hat, wird zum beherrschenden Wahlkampfthema.
 
-[? if chancellor_party = "SPD" : Heinrich Brüning of the Center Party has been appointed Chancellor. ?] Brüning now leads an all-bourgeois cabinet. Using the emergency powers of Article 48, Brüning and President Hindenburg have passed the welfare cuts over the objections of the Reichstag.
-
-New elections have been set for [+ next_election_month : month +] [+ next_election_year +].
+Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt.
 
 @accept
-on-arrival: workers_spd -= 0.15*workers_spd; unemployed_spd -= 0.3*unemployed_spd; workers_linke += 7; workers_afd += 7; unemployed_linke += 5; unemployed_afd += 5; left_dissent += 15; center_dissent += 10; labor_dissent += 15; reformist_dissent += 5; welfare -= 2; budget += 1; unemployed += 3; month += 1; pro_republic -= 4; linke_relation -= 8; inflation -= 2; economic_growth -= 0.6
+on-arrival: workers_spd -= 0.15*workers_spd; unemployed_spd -= 0.3*unemployed_spd; workers_linke += 7; workers_afd += 7; unemployed_linke += 5; unemployed_afd += 5; left_dissent += 15; center_dissent += 10; labor_dissent += 15; reformist_dissent += 5; welfare -= 2; budget += 1; unemployed += 1.5; month += 1; pro_republic -= 4; linke_relation -= 8; inflation -= 2; economic_growth -= 0.6
 
-Unfortunately, we must accept this ultimatum if we are to maintain this coalition. The Nazis and Communists are waiting in the wings for us to fail, ready to pounce upon the instability that would result from a breakup of the governing coalition.
+Leider müssen wir das Ultimatum annehmen, wenn wir die Koalition retten wollen. AfD und Linke warten nur darauf, dass wir scheitern, um aus der Instabilität eines Koalitionsbruchs Kapital zu schlagen.
 
-The workers are furious at our betrayal, as are a good portion of our membership throughout the factions. Our loss is the KPD's gain, and even the NSDAP, those lapdogs of the bourgeoisie, have joined in criticizing us for our austerity.
+Die Beschäftigten sind wütend über den Verrat, ebenso große Teile unserer Mitgliedschaft in allen Flügeln. Was wir verlieren, gewinnt die Linke, und selbst die AfD prangert jetzt scheinheilig unseren Sozialabbau an.
 
 
 @compromise
-unavailable-subtitle: We do not have good enough relations with the right-wing parties.
+unavailable-subtitle: Unser Verhältnis zum Wirtschaftsflügel der Union ist dafür nicht gut genug.
 choose-if: fdp_relation >= 35
 
-Thanks to our good relations, the DVP have offered a compromise that raises some taxes on the wealthy, along with lesser welfare cuts. Our members have mixed opinions on accepting this compromise. Reformists and Centrists support maintaining our government to keep the fascists and communists out, while Labor generally opposes any cuts, and the Left is opposed to compromises with the bourgeoisie.
+Dank unserer guten Kontakte bietet der Wirtschaftsflügel der Union einen Kompromiss an: ein Krisenbeitrag für sehr hohe Einkommen, dafür mildere Kürzungen. In der Partei gehen die Meinungen auseinander. Seeheimer und Parteimitte wollen die Regierung halten, um die AfD fernzuhalten, der Gewerkschaftsflügel lehnt jede Kürzung ab, und die Parteilinke will keine Kompromisse mit der Union mehr.
 
-- @accept_compromise: Accept the compromise.
-- @destroy: Reject the compromise and let this government fall.
+- @accept_compromise: Den Kompromiss annehmen.
+- @destroy: Den Kompromiss ablehnen und die Regierung platzen lassen.
 
 @accept_compromise
 on-arrival: workers_spd -= 5; unemployed_spd -= 6; workers_linke += 5; unemployed_linke += 3; unemployed_afd += 3; left_dissent += 10; labor_dissent += 8; center_dissent += 5; welfare -= 1; budget += 1; month += 1; linke_relation -= 4; inflation -= 1; economic_growth -= 0.3
 
-We have accepted the compromise offered by the bourgeoisie. Many of the workers and unemployed see this as a betrayal, although we present it as the successful aversion of a much worse alternative.
+Wir haben den Kompromiss angenommen. Viele Beschäftigte und Arbeitslose sehen darin einen Verrat, auch wenn wir ihn als Abwendung von Schlimmerem verkaufen.

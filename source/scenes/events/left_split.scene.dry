@@ -1,15 +1,15 @@
-title: Left-wing Split
+title: Abspaltung der Parteilinken
 new-page: true 
-subtitle: The Left's disagreements with our policies have grown too severe.
+subtitle: Der Streit mit der Parteilinken ist eskaliert.
 tags: event
 view-if: left_dissent >= 60
 on-arrival: left_split = 1; left_strength = left_strength/2; workers_spd -= 5; unemployed_spd -= 5; workers_other += 5; workers_linke += 3; n_advisors -= 1 if stegner_advisor == 1; stegner_advisor = 0; demo_strength -= 300; linke_relation -= 5; demo_radicalism -= 0.05 if demo_radicalism >= 0.1; n_advisors -= 1 if kuehnert_advisor == 1; kuehnert_advisor = 0; n_advisors -= 1 if tuermer_advisor == 1; tuermer_advisor = 0; n_advisors -= 1 if rosenthal_advisor == 1; rosenthal_advisor = 0
 go-to: sapd_formed if centrists_resign = 1 and not sapd_formed
 max-visits: 1
 
-= Left-wing members split
+= Die Parteilinke spaltet sich ab
 
-Our policy choices have greatly offended the left, and many of their leaders have split to form a new party, the SAPD, or Socialist Worker's Party. They do not count a huge section of our membership, so this should be survivable.
+Unsere Politik hat die Parteilinke zutiefst verärgert. Viele ihrer bekanntesten Köpfe verlassen die SPD und gründen eine neue Partei, die Soziale Linke. Sie vertreten keinen großen Teil unserer Mitgliedschaft, das sollten wir überstehen.
 
-[? if centrists_resign = 1 : Many former Centrist Marxists have joined with the SAPD, the party formed by dissident leftists. They have brought their support base and organization skills to the party, leading to its growth as a nascent rival to the SPD for the support of the working class. ?]
+[? if centrists_resign = 1 : Viele frühere Funktionär\*innen der Parteimitte haben sich der Sozialen Linken angeschlossen, der Partei der abtrünnigen Linken. Sie bringen Erfahrung, Netzwerke und Wählerschaft mit, und die Soziale Linke wächst zur ernsthaften Konkurrenz der SPD um die Stimmen der Beschäftigten heran. ?]
 

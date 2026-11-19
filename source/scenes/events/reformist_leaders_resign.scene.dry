@@ -1,15 +1,14 @@
-title: Reformist leaders resign
+title: Die Seeheimer gehen
 new-page: true 
-subtitle: Reformist disagreements with our policies have grown too severe.
+subtitle: Der Streit mit dem Seeheimer Kreis ist eskaliert.
 tags: event
 view-if: reformist_dissent >= 60
 on-arrival: reformist_strength *= 0.3; n_advisors -= 1 if schwesig_advisor == 1; n_advisors -= 1 if pistorius_advisor == 1; schwesig_advisor = 0; pistorius_advisor = 0; demo_strength -= 250; reformists_resign = 1
 go-to: srpd_formed
 max-visits: 1
 
-= Reformist leaders resign
+= Die Seeheimer gehen
 
-Our policy choices have greatly offended the reformist faction. Many of our most experienced leaders have resigned.
+Unsere Politik hat den Seeheimer Kreis zutiefst verärgert. Viele unserer erfahrensten Führungsleute legen ihre Ämter nieder.
 
-[? if year >= 1932 : Now, many reformists have joined a splinter party, the *Sozial-Republikanische Partei Deutschlands* (Social-Republican Party of Germany), founded by former Reichsbanner leader Otto Hörsing, transforming it from a rump party into a viable competitor. They proclaim their desire to defend the Republic and the Constitution, and see us as having strayed from a pure Republican path. The SRPD has support from the workers and progressive middle class. ?]
-[? if year < 1932:  Now, many reformists have formed a new splinter party, the *Sozial-Republikanische Partei Deutschlands* (Social-Republican Party of Germany), led by former Reichsbanner leader Otto Hörsing. They proclaim their desire to defend the Republic and the Constitution, and see us as having strayed from a pure Republican path. The SRPD has support from the workers and progressive middle class. ?]
+Viele Seeheimer gründen eine neue Partei, die *Neue Mitte*. Sie versteht sich als pragmatische, sozialliberale Kraft für einen handlungsfähigen Staat, innere Sicherheit und solide Finanzen, und wirft uns vor, die Mitte der Gesellschaft aufgegeben zu haben. Die Neue Mitte findet Unterstützung bei Beschäftigten und in der aufstiegsorientierten Mittelschicht.

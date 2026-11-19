@@ -39,7 +39,7 @@ Zusammensetzung des Bundestags:
 
 {!<span class="tooltip-text" title="Sozialdemokratische Partei Deutschlands">SPD</span>!}: [+ spd_r +]%
 [? if sapd_formed and sapd_r > 0: Soziale Linke: [+ sapd_r +]% ?]
-[? if srpd_formed and srpd_r > 0: SRPD: [+ srpd_r +]% ?]
+[? if srpd_formed and srpd_r > 0: Neue Mitte: [+ srpd_r +]% ?]
 {!<span class="tooltip-text" title="Christlich Demokratische Union und Christlich-Soziale Union">CDU/CSU</span>!}: [+ union_r +]%
 {!<span class="tooltip-text" title="Alternative für Deutschland, in Teilen als gesichert rechtsextrem eingestuft">AfD</span>!}: [+ afd_r +]%
 {!<span class="tooltip-text" title="Bündnis 90/Die Grünen">Grüne</span>!}: [+ gruene_r +]%
@@ -152,7 +152,7 @@ SPD: [+ spd_votes +]%
 
 [? if sapd_formed: Soziale Linke: [+ sapd_votes +]% ?]
 
-[? if srpd_formed: SRPD: [+ srpd_votes +]% ?]
+[? if srpd_formed: Neue Mitte: [+ srpd_votes +]% ?]
 
 CDU/CSU: [+ union_votes +]%
 
@@ -170,16 +170,16 @@ Sonstige: [+ other_votes +]%
 
 **Ergebnisse nach Wählergruppen**
 
-Arbeitnehmer\*innen: SPD [+ workers_spd_display +]%, Union [+ workers_union_display +]%, AfD [+ workers_afd_display +]%, Grüne [+ workers_gruene_display +]%, Linke [+ workers_linke_display +]%, FDP [+ workers_fdp_display +]%, BSW [+ workers_bsw_display +]%, Sonstige [+ workers_other_display +]% [? if sapd_formed: Soziale Linke [+ workers_sapd_display +]% ?][? if srpd_formed: SRPD [+ workers_srpd_display +]% ?]
+Arbeitnehmer\*innen: SPD [+ workers_spd_display +]%, Union [+ workers_union_display +]%, AfD [+ workers_afd_display +]%, Grüne [+ workers_gruene_display +]%, Linke [+ workers_linke_display +]%, FDP [+ workers_fdp_display +]%, BSW [+ workers_bsw_display +]%, Sonstige [+ workers_other_display +]% [? if sapd_formed: Soziale Linke [+ workers_sapd_display +]% ?][? if srpd_formed: Neue Mitte [+ workers_srpd_display +]% ?]
 
-Akademische Mittelschicht: SPD [+ new_middle_spd_display +]%, Union [+ new_middle_union_display +]%, AfD [+ new_middle_afd_display +]%, Grüne [+ new_middle_gruene_display +]%, Linke [+ new_middle_linke_display +]%, FDP [+ new_middle_fdp_display +]%, BSW [+ new_middle_bsw_display +]%, Sonstige [+ new_middle_other_display +]% [? if sapd_formed: Soziale Linke [+ new_middle_sapd_display +]% ?][? if srpd_formed: SRPD [+ new_middle_srpd_display +]% ?]
+Akademische Mittelschicht: SPD [+ new_middle_spd_display +]%, Union [+ new_middle_union_display +]%, AfD [+ new_middle_afd_display +]%, Grüne [+ new_middle_gruene_display +]%, Linke [+ new_middle_linke_display +]%, FDP [+ new_middle_fdp_display +]%, BSW [+ new_middle_bsw_display +]%, Sonstige [+ new_middle_other_display +]% [? if sapd_formed: Soziale Linke [+ new_middle_sapd_display +]% ?][? if srpd_formed: Neue Mitte [+ new_middle_srpd_display +]% ?]
 
-Selbstständige & Mittelstand: SPD [+ old_middle_spd_display +]%, Union [+ old_middle_union_display +]%, AfD [+ old_middle_afd_display +]%, Grüne [+ old_middle_gruene_display +]%, Linke [+ old_middle_linke_display +]%, FDP [+ old_middle_fdp_display +]%, BSW [+ old_middle_bsw_display +]%, Sonstige [+ old_middle_other_display +]% [? if sapd_formed: Soziale Linke [+ old_middle_sapd_display +]% ?][? if srpd_formed: SRPD [+ old_middle_srpd_display +]% ?]
+Selbstständige & Mittelstand: SPD [+ old_middle_spd_display +]%, Union [+ old_middle_union_display +]%, AfD [+ old_middle_afd_display +]%, Grüne [+ old_middle_gruene_display +]%, Linke [+ old_middle_linke_display +]%, FDP [+ old_middle_fdp_display +]%, BSW [+ old_middle_bsw_display +]%, Sonstige [+ old_middle_other_display +]% [? if sapd_formed: Soziale Linke [+ old_middle_sapd_display +]% ?][? if srpd_formed: Neue Mitte [+ old_middle_srpd_display +]% ?]
 
-Ländlicher Raum: SPD [+ rural_spd_display +]%, Union [+ rural_union_display +]%, AfD [+ rural_afd_display +]%, Grüne [+ rural_gruene_display +]%, Linke [+ rural_linke_display +]%, FDP [+ rural_fdp_display +]%, BSW [+ rural_bsw_display +]%, Sonstige [+ rural_other_display +]% [? if sapd_formed: Soziale Linke [+ rural_sapd_display +]% ?][? if srpd_formed: SRPD [+ rural_srpd_display +]% ?]
+Ländlicher Raum: SPD [+ rural_spd_display +]%, Union [+ rural_union_display +]%, AfD [+ rural_afd_display +]%, Grüne [+ rural_gruene_display +]%, Linke [+ rural_linke_display +]%, FDP [+ rural_fdp_display +]%, BSW [+ rural_bsw_display +]%, Sonstige [+ rural_other_display +]% [? if sapd_formed: Soziale Linke [+ rural_sapd_display +]% ?][? if srpd_formed: Neue Mitte [+ rural_srpd_display +]% ?]
 
-Arbeitslose & Grundsicherung: SPD [+ unemployed_spd_display +]%, Union [+ unemployed_union_display +]%, AfD [+ unemployed_afd_display +]%, Grüne [+ unemployed_gruene_display +]%, Linke [+ unemployed_linke_display +]%, FDP [+ unemployed_fdp_display +]%, BSW [+ unemployed_bsw_display +]%, Sonstige [+ unemployed_other_display +]% [? if sapd_formed: Soziale Linke [+ unemployed_sapd_display +]% ?][? if srpd_formed: SRPD [+ unemployed_srpd_display +]% ?]
+Arbeitslose & Grundsicherung: SPD [+ unemployed_spd_display +]%, Union [+ unemployed_union_display +]%, AfD [+ unemployed_afd_display +]%, Grüne [+ unemployed_gruene_display +]%, Linke [+ unemployed_linke_display +]%, FDP [+ unemployed_fdp_display +]%, BSW [+ unemployed_bsw_display +]%, Sonstige [+ unemployed_other_display +]% [? if sapd_formed: Soziale Linke [+ unemployed_sapd_display +]% ?][? if srpd_formed: Neue Mitte [+ unemployed_srpd_display +]% ?]
 
-Rentner\*innen: SPD [+ rentner_spd_display +]%, Union [+ rentner_union_display +]%, AfD [+ rentner_afd_display +]%, Grüne [+ rentner_gruene_display +]%, Linke [+ rentner_linke_display +]%, FDP [+ rentner_fdp_display +]%, BSW [+ rentner_bsw_display +]%, Sonstige [+ rentner_other_display +]% [? if sapd_formed: Soziale Linke [+ rentner_sapd_display +]% ?][? if srpd_formed: SRPD [+ rentner_srpd_display +]% ?]
+Rentner\*innen: SPD [+ rentner_spd_display +]%, Union [+ rentner_union_display +]%, AfD [+ rentner_afd_display +]%, Grüne [+ rentner_gruene_display +]%, Linke [+ rentner_linke_display +]%, FDP [+ rentner_fdp_display +]%, BSW [+ rentner_bsw_display +]%, Sonstige [+ rentner_other_display +]% [? if sapd_formed: Soziale Linke [+ rentner_sapd_display +]% ?][? if srpd_formed: Neue Mitte [+ rentner_srpd_display +]% ?]
 
 Vertrauen in die Demokratie: [+ pro_republic_disp +]%
