@@ -1,58 +1,53 @@
-title: Homosexual Rights
+title: Queere Rechte
 new-page: true
 is-card: true
-card-image: img/hirschfeld.jpg
+card-image: img/csd.jpg
 frequency: 25
 max-visits: 3
 view-if: spd_in_government == 1 and (progressive_coalition >= 50) and chancellor_party == "SPD" and homosexual_rights_timer == 0 and homosexual_rights < 3
 on-arrival: homosexual_rights_timer += 11; month_actions += 1
 tags: govt_affairs, cabinet
 
-= Homosexual Rights
+= Queere Rechte
 
-There is a constellation of different groups that have grown up around divergences in gender and sexuality, including homosexuals, lesbians, transsexuals, transvestites, inverts, etc. Our party's policy is to support their right to live freely and free from persecution; Magnus Hirschfeld, the founder of the Institut für Sexualwissenschaft, is a member of our party and a major advocate for homosexual rights. 
+Ehe für alle, Selbstbestimmungsgesetz, Entschädigung für die Opfer des alten §175: Vieles wurde erreicht. Doch queere Menschen erleben wieder mehr Gewalt, CSDs in ostdeutschen Kleinstädten werden von rechtsextremen Gruppen angegriffen, und die Union will das Selbstbestimmungsgesetz auf den Prüfstand stellen. Unsere Partei steht an der Seite der Community; Falko Droßmann und viele andere kämpfen in der Fraktion für ihre Rechte.
 
-- @repeal_175: Repeal Paragraph 175.
-- @reform_183: Reform Paragraph 183.
-- @change_sex: Create a legal process for changing sex.
-- @return: Do not enact any changes for now.
+- @repeal_175: Sexuelle Identität in Artikel 3 des Grundgesetzes aufnehmen.
+- @reform_183: Abstammungsrecht reformieren und queerfeindliche Gewalt bekämpfen.
+- @change_sex: Das Selbstbestimmungsgesetz verteidigen und ausbauen.
+- @return: Vorerst nichts ändern.
 - @easy_discard
 - @cancel_advisor_action
 
-# economic growth due to gay tourism, and creating a new economic niche for the gay populace.
-
 @repeal_175
-subtitle: Paragraph 175 currently criminalizes homosexual acts. We can pass a law to change that.
-unavailable-subtitle: We do not have majority support for this policy.
+subtitle: Artikel 3 schützt vor Benachteiligung wegen Geschlecht, Herkunft oder Glauben, aber nicht wegen sexueller Identität. Für eine Grundgesetzänderung brauchen wir eine breite Mehrheit.
+unavailable-subtitle: Dafür haben wir keine Mehrheit.
 view-if: repealed_175 == 0
-choose-if: progressive_coalition >= 50 
-on-arrival: repealed_175 = 1; homosexual_rights += 1; z_relation -= 5; kpd_relation += 4*(1-dissent); ddp_relation += 4*(1-dissent); coalition_dissent += 1 if (in_grand_coalition or in_weimar_coalition); catholics_spd -= 4; economic_growth += 0.1;
-audio: shuffle music/1928_1933/Das_lila_lied_normalized.mp3
+choose-if: progressive_coalition >= 50
+on-arrival: repealed_175 = 1; homosexual_rights += 1; union_relation -= 5; linke_relation += 4*(1-dissent); gruene_relation += 4*(1-dissent); coalition_dissent += 1 if (in_grand_coalition or in_weimar_coalition); rentner_spd -= 4; economic_growth += 0.1;
 
-Together with the progressives in the KPD and [+ ddp_name +], we have effectively decriminalized homosexual sex in Germany. Persecution of homosexuals for their private acts will stop, as long as the police are loyal to the republic.
+Gemeinsam mit [+ gruene_name +], der Linken und einem Teil der Union haben wir „sexuelle Identität“ in Artikel 3 des Grundgesetzes aufgenommen. Der Schutz queerer Menschen hängt damit nicht mehr von wechselnden Mehrheiten ab.
 
-Of course, conservatives and the far right accuse us of "degeneracy".
+Die AfD spricht von „Gender-Ideologie im Grundgesetz“.
 
 
 @reform_183
-subtitle: Paragraph 183 criminalizes public homosexual displays and cross-dressing. We can change that.
-unavailable-subtitle: We do not have majority support for this policy.
+subtitle: Lesbische Mütter müssen ihr eigenes Kind noch adoptieren, und queerfeindliche Straftaten nehmen zu.
+unavailable-subtitle: Dafür haben wir keine Mehrheit.
 view-if: reformed_183 == 0
-choose-if: progressive_coalition >= 50 
-on-arrival: reformed_183 = 1; homosexual_rights += 1; z_relation -= 5; kpd_relation += 4*(1-dissent); ddp_relation += 4*(1-dissent); coalition_dissent += 1 if (in_grand_coalition or in_weimar_coalition); catholics_spd -= 4; economic_growth += 0.1;
-audio: shuffle music/1928_1933/Das_lila_lied_normalized.mp3
+choose-if: progressive_coalition >= 50
+on-arrival: reformed_183 = 1; homosexual_rights += 1; union_relation -= 5; linke_relation += 4*(1-dissent); gruene_relation += 4*(1-dissent); coalition_dissent += 1 if (in_grand_coalition or in_weimar_coalition); rentner_spd -= 4; economic_growth += 0.1;
 
-Voting together with the progressives in the KPD and [+ ddp_name +], we have reformed Paragraph 183 so that it no longer criminalizes public homosexuality and cross-dressing.
+Mit den Stimmen von [+ gruene_name +] und der Linken haben wir das Abstammungsrecht reformiert: Die Ehefrau der Mutter ist künftig automatisch zweiter Elternteil. Ein Bund-Länder-Aktionsplan schützt CSDs und queere Einrichtungen, Polizei und Justiz erfassen queerfeindliche Straftaten künftig gezielt.
 
 
 @change_sex
-subtitle: We can create a legal process for individuals to change their sex, making their lives easier.
-unavailable-subtitle: We do not have majority support for this policy.
+subtitle: Das Selbstbestimmungsgesetz steht unter Beschuss. Wir können es absichern und die Gesundheitsversorgung für trans\* Personen verbessern.
+unavailable-subtitle: Dafür haben wir keine Mehrheit.
 view-if: trans_rights == 0
 choose-if: progressive_coalition >= 50
-on-arrival: trans_rights = 1; homosexual_rights += 1; z_relation -= 5; kpd_relation += 4*(1-dissent); ddp_relation += 4*(1-dissent); coalition_dissent += 1 if (in_grand_coalition or in_weimar_coalition); catholics_spd -= 4; economic_growth += 0.1
-audio: shuffle music/1928_1933/Das_lila_lied_normalized.mp3
+on-arrival: trans_rights = 1; homosexual_rights += 1; union_relation -= 5; linke_relation += 4*(1-dissent); gruene_relation += 4*(1-dissent); coalition_dissent += 1 if (in_grand_coalition or in_weimar_coalition); rentner_spd -= 4; economic_growth += 0.1
 
-We have passed a bill to allow legal recognition of transsexual and transvestite individuals as the sex in which they live, and allow them to change their name, dress as they wish without police persecution, and undergo medical treatment.
+Die Rücknahme des Selbstbestimmungsgesetzes ist vom Tisch. Stattdessen sichern wir die Kostenübernahme geschlechtsangleichender Behandlungen gesetzlich ab und verkürzen die Wartezeiten. Für trans\*, inter\* und nicht-binäre Menschen bedeutet das ein Stück mehr Sicherheit.
 
-Of course, conservatives and the far right accuse us of "degeneracy".
+Konservative und die extreme Rechte werfen uns vor, wir hätten „keine anderen Probleme“.

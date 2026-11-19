@@ -1,0 +1,50 @@
+title: Matthias Miersch
+is-pinned-card: true
+tags: advisor, centrist
+card-image: img/portraits/Miersch.jpg
+view-if: miersch_advisor = 1
+new-page: true
+
+= Matthias Miersch
+
+Miersch führt seit 2025 die SPD-Bundestagsfraktion. Der Umweltjurist aus der Region Hannover kommt aus der Parlamentarischen Linken, war Generalsekretär im Wahlkampf 2025 und muss nun dafür sorgen, dass 120 Abgeordnete die Kompromisse der Koalition mittragen.
+
+- @against_right_and_left
+- @toleration
+- @finance_ministry_
+- @economic_democracy_
+- @root: Zurück
+
+@against_right_and_left
+title: Die Fraktion zusammenhalten
+subtitle: Miersch vermittelt zwischen den Flügeln und stärkt die Mitte.
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 5; advisor_action_time = time; center_strength += 10; left_strength -= 5; labor_strength -= 5; neorevisionist_strength -= 5; center_dissent -= 10
+
+Die Flügel der Fraktion sind eingehegt, die Parteimitte ist gestärkt.
+
+@toleration
+title: Die Tolerierung verteidigen
+subtitle: Miersch wirbt für verlässliche Absprachen mit den anderen demokratischen Parteien.
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if not spd_toleration: Die SPD toleriert derzeit keine Regierung. ?]
+choose-if: spd_in_government = 0 and spd_toleration = 1 and advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; left_dissent -= 10; neorevisionist_dissent -= 8; center_dissent -= 5
+
+Der Unmut der Tolerierungsgegner in der Partei hat nachgelassen.
+
+@finance_ministry_
+title: Haushaltspolitik
+subtitle: Mit dem Finanzministerium kann die SPD Steuer- und Haushaltspolitik machen.
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?] [? if spd_in_government = 0 : Die SPD ist nicht an der Regierung beteiligt. ?] [? if finance_minister_party != "SPD" : Die SPD stellt nicht den Finanzminister. ?]
+choose-if: advisor_action_timer == 0 and spd_in_government == 1 and finance_minister_party == "SPD"
+on-arrival: advisor_action_timer = 6; fiscal_policy_timer -= 6; last_advisor_action = 1
+go-to: fiscal_policy
+
+@economic_democracy_
+title: Wirtschaftsdemokratie
+subtitle: Mitbestimmung und Tarifbindung stärken.
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?] [? if spd_in_government = 0 : Die SPD ist nicht an der Regierung beteiligt. ?] [? if labor_minister_party != "SPD" or (finance_minister_party != "SPD" and economic_minister_party != "SPD") : Uns fehlen die nötigen Ministerien. ?]
+choose-if: advisor_action_timer == 0 and spd_in_government == 1 and (economic_minister_party == "SPD" or finance_minister_party == "SPD") and (labor_minister_party == "SPD")
+on-arrival: advisor_action_timer = 6; economic_democracy_timer -= 10; last_advisor_action = 1
+go-to: economic_democracy

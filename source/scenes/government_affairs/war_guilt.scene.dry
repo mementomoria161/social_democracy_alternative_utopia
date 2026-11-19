@@ -1,35 +1,35 @@
-title: War Guilt Inquiry
+title: Rechte Netzwerke aufklären
 new-page: true
 is-card: true
 tags: govt_affairs
 on-arrival: war_guilt_timer = 6; month_actions += 1
 view-if: spd_in_government = 1 and war_guilt_timer = 0
-card-image: img/reichstag_1.jpg
+card-image: img/untersuchungsausschuss.jpg
 max-visits: 1
 
-= Reichstag War Guilt Inquiry
+= Rechte Netzwerke in den Sicherheitsbehörden
 
-The War Guilt Inquiry has been an intermittent Reichstag committee for investigating the causes of the Great War and the German defeat. So far, it has faced massive resistance from the military establishment up to President Hindenburg.
+NSU 2.0, das Hannibal-Netzwerk, Chatgruppen von Polizisten, Munitionsdiebstähle im KSK, die Reichsbürger um Prinz Reuß: Immer wieder werden rechtsextreme Verbindungen in Polizei, Bundeswehr und Justiz bekannt. Eine umfassende Aufarbeitung gab es nie. Gewerkschaften der Polizei und Teile der Union warnen vor einem „Generalverdacht“.
 
-- @restart: Restart the inquiry.
-- @root: Do nothing.
+- @restart: Eine unabhängige Untersuchungskommission einsetzen.
+- @root: Nichts unternehmen.
 - @easy_discard
 - @cancel_advisor_action
 
 @restart
 on-arrival: war_guilt += 1
 
-What is the goal of this tribunal?
+Welches Ziel soll die Kommission verfolgen?
 
-- @pure_history: To provide a historical record of the events of the war.
-- @rewrite: To revise the popular German histories and finally put to rest the "stabbed in the back" myth.
+- @pure_history: Einen nüchternen Lagebericht über bekannte Fälle erstellen.
+- @rewrite: Systematisch aufklären, Netzwerke offenlegen und Konsequenzen ziehen.
 
 @pure_history
 
-The history is being compiled, as it always has been.
+Die Kommission legt einen sachlichen Bericht vor. Er wird zur Kenntnis genommen und verschwindet in den Schubladen der Ministerien.
 
 @rewrite
-subtitle: [? if hindenburg_enabled and president == "Hindenburg": President Hindenburg strongly disapproves of this, and will topple the government. ?]
-on-arrival: pacifism += 1; nationalism -= 5*(1-dissent); pro_republic += 5*(1-dissent); coup_progress += 1; hindenburg_dissent += 3; hindenburg_relation -= 25
+subtitle: Die Sicherheitsbehörden und Teile der Union werden sich mit allen Mitteln wehren.
+on-arrival: pacifism += 1; nationalism -= 5*(1-dissent); pro_republic += 5*(1-dissent); coup_progress += 1; interior_police_loyalty += 0.05; bundeswehr_loyalty += 0.03; union_relation -= 3
 
-Destroying the "stabbed in the back" myth, in addition to finally correcting the historical record, would do a great deal to improve our party's reputation. This is why it would be resisted by the military establishment every step of the way.
+Die Kommission deckt Chatgruppen, Waffenlager und Verbindungen zur AfD auf. Dutzende Beamte und Soldaten werden suspendiert. Das stärkt das Vertrauen in den Rechtsstaat – und macht uns in rechten Kreisen noch verhasster.

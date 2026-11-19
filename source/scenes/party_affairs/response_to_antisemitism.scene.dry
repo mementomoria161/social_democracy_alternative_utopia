@@ -1,29 +1,29 @@
-title: Confronting Antisemitism
+title: Antisemitismus bekämpfen
 new-page: true
 is-card: true
 view-if: iron_front_formed == 1 and nazi_urgency >= 3
 on-arrival: confronting_antisemitism += 1; month_actions += 1
-card-image: img/iron_front.png
+card-image: img/synagoge.jpg
 tags: party_affairs, antifascism
 max-visits: 1
 
-= Confronting Antisemitism
+= Antisemitismus bekämpfen
 
-Antisemitism has long been a latent feature of German society, but since the beginning of the economic depression, it has grown to a horrifying extent. The Nazis are the worst of it, but all the right-wing parties are deeply antisemitic. Regarding the SPD specifically, our right-wing enemies love to deploy their racist rhetoric against our many Jewish comrades, magnifying criticism of any minor transgression, and they call the entire SPD a Jewish party. We are a favorite target of their invectives.
+Antisemitismus war in Deutschland nie verschwunden, doch seit dem Terrorangriff der Hamas am 7. Oktober 2023 hat er ein erschreckendes Ausmaß angenommen. Jüdische Studierende werden bedroht, Synagogen brauchen Polizeischutz, und rechtsextreme Politiker relativieren den Holocaust. Hass kommt von rechts, aus islamistischen Milieus und auch aus Teilen der Linken.
 
-- @socialism_of_fools: Antisemitism is the "socialism of fools". We will defeat them with real socialism.
-- @if: Antisemitism is a crisis. Direct the full force of the Iron Front against antisemitism.
-- @all: All Germans will suffer from fascism, not just the Jews. We do not need a separate policy for them.
+- @socialism_of_fools: Antisemitismus ist der „Sozialismus der dummen Kerle“. Gute Sozialpolitik ist das beste Gegenmittel.
+- @if: Antisemitismus ist eine Krise. Das Bündnis für Demokratie soll sich mit voller Kraft dagegenstellen.
+- @all: Wir bekämpfen jede Form von Menschenfeindlichkeit. Eine eigene Kampagne brauchen wir nicht.
 
 @socialism_of_fools
 
-The best policy to deal with this sort of irrational, senseless hatred is to ignore it. Few are swayed by racist rhetoric; the best way to combat it is to provide economic security so that people do not turn to antisemitism.
+Wir setzen auf soziale Sicherheit: Wer keine Angst um seine Zukunft hat, sucht keine Sündenböcke. Ob das reicht, wird sich zeigen.
 
 @if
-on-arrival: confronting_antisemitism += 2; sa_strength -= 20; democratization += 1; pacifism += 1; nationalism -= 5*(1-dissent); workers_nsdap -= 6*(1-dissent);
+on-arrival: confronting_antisemitism += 2; rechts_strength -= 10; democratization += 1; pacifism += 1; nationalism -= 5*(1-dissent); workers_afd -= 6*(1-dissent);
 
-We develop an entire campaign against antisemitism under the auspices of the Iron Front. Hopefully our campaign can sway the workers away from Nazism.
+Unter dem Dach des Bündnisses für Demokratie starten wir eine große Kampagne gegen Antisemitismus: Begegnungsprojekte an Schulen, Schutz für jüdische Einrichtungen, klare Kante gegen Holocaust-Relativierung. Hoffentlich erreichen wir damit auch Menschen, die mit der AfD sympathisieren.
 
 @all
 
-We do not need any special treatment for minorities.
+Wir verzichten auf eine eigene Kampagne. Jüdische Gemeinden kritisieren, dass ihre Sorgen nicht ernst genommen werden.

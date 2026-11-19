@@ -1,8 +1,8 @@
 
-# faction strength
+# Stärke der Strömungen
 
-(0..10) weak
-(10..25) moderate
-(25..40) strong
-(40..60) very strong
+(0..10) schwach
+(10..25) mittel
+(25..40) stark
+(40..60) sehr stark
 (60..) dominant

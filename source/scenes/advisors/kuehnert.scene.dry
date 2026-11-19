@@ -1,0 +1,46 @@
+title: Kevin Kühnert
+is-pinned-card: true
+tags: advisor, left
+card-image: img/portraits/Kuehnert.jpg
+view-if: kuehnert_advisor = 1
+new-page: true
+
+= Kevin Kühnert
+
+Kühnert war Juso-Vorsitzender und von 2021 bis 2024 Generalsekretär der SPD, bevor er sich aus der Politik zurückzog. Mit seiner Forderung nach einer Kollektivierung großer Konzerne sorgte er 2019 für Aufsehen. Ein Comeback des begabten Rhetorikers würde die Parteilinke elektrisieren.
+
+- @class_struggle
+- @socialist_youth
+- @against_toleration
+- @root: Zurück
+
+@class_struggle
+title: Verteilungskampf statt Wohlfühlpolitik
+subtitle: Die SPD muss wieder die Frage stellen, wem dieses Land gehört.
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; workers_spd += 4*(1-dissent); unemployed_spd += 3*(1-dissent); workers_spd += 4*(1-dissent) if nationalization_progress > 0; unemployed_spd += 3*(1-dissent) if nationalization_progress > 0; left_strength += 5; left_dissent -= 5; old_middle_spd -= 3; new_middle_spd -= 2
+
+Mieten, Erbschaften, Konzernmacht: Unsere zugespitzte Botschaft kommt bei Beschäftigten mit kleinen Einkommen an, verschreckt aber Teile der Mittelschicht. [? if nationalization_progress > 0 : Unsere Erfolge bei der Vergesellschaftung machen die Botschaft glaubwürdig. ?]
+
+
+@socialist_youth
+title: Die Jusos stärken
+subtitle: Mit mehr Geld für die Jugendarbeit das Image als Partei der Älteren loswerden. -1 Ressourcen
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?] [? if resources <= 0 : Nicht genug Ressourcen. ?]
+choose-if: advisor_action_timer = 0 and resources > 0
+on-arrival: advisor_action_timer = 6; resources -= 1; left_strength += 5; left_dissent -= 3; demo_strength += 50; demo_radicalism += 0.025; workers_spd += 2*(1-dissent); new_middle_spd += 1; radicalization += 1;
+
+Mehr Geld für die Jusos bringt junge Leute in die Partei und auf die Straße. Die SPD-Linke wird stärker, und die Demokratiebewegung wird lauter und kämpferischer.
+
+@against_toleration
+title: Die Tolerierung aufkündigen
+subtitle: Die Tolerierung beenden und Neuwahlen erzwingen.
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?] [? if spd_toleration == 0 : Die SPD toleriert derzeit keine Regierung. ?]
+view-if: not constructive_vonc
+choose-if: advisor_action_timer == 0 and spd_toleration
+on-arrival: advisor_action_timer = 6; next_election_time = time + 3 if next_election_time > time+3; next_election_month = month + 3 if next_election_time >= time + 3; next_election_year = year if next_election_time >= time + 3; next_election_year += 1 if next_election_month > 12; next_election_month -= 12 if next_election_month > 12; spd_toleration = 0; left_strength += 8; pro_republic -= 4; new_middle_spd -= 3; rural_spd -= 3; old_middle_spd -= 3; rentner_spd -= 3; reformist_dissent += 8
+
+Wir sind der Tolerierung überdrüssig und kündigen sie auf. Die Minderheitsregierung hat keine Mehrheit mehr.
+
+Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt.

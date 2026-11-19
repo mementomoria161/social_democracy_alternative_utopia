@@ -1,0 +1,41 @@
+title: Verena Hubertz
+is-pinned-card: true
+tags: advisor, reformist
+card-image: img/portraits/Hubertz.jpg
+view-if: hubertz_advisor = 1
+new-page: true
+
+= Verena Hubertz
+
+Hubertz ist seit 2025 Bundesministerin für Wohnen, Stadtentwicklung und Bauwesen. Die Trierin hat vor ihrer politischen Karriere ein Start-up gegründet und gilt als eine der Hoffnungsträgerinnen einer jüngeren, wirtschaftsnahen SPD.
+
+- @white_collar
+- @housing
+- @moderate_economic_plan
+- @root: Zurück
+
+@white_collar
+title: Junge Angestellte und Gründerinnen gewinnen
+subtitle: Unsere Stellung in der akademischen Mittelschicht verbessern.
+choose-if: advisor_action_timer <= 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; new_middle_spd += 6*(1-dissent);
+
+Hubertz wirbt in Co-Working-Spaces, Hochschulen und Gründerzentren für eine SPD, die Fortschritt und soziale Sicherheit zusammendenkt.
+
+@housing
+title: Bau-Offensive
+subtitle: Mehr bezahlbare Wohnungen, schneller genehmigt. Kostet Haushaltsmittel.
+choose-if: advisor_action_timer <= 0 and spd_in_government and budget > -3
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if not spd_in_government : Die SPD ist nicht an der Regierung beteiligt. ?][? if budget <= -3 : Der Haushalt gibt das nicht mehr her. ?]
+on-arrival: advisor_action_timer = 6; budget -= 1; workers_spd += 3*(1-dissent); new_middle_spd += 3*(1-dissent); unemployed_spd += 2*(1-dissent); economic_growth += 0.2
+
+Mit einem „Bau-Turbo“ für Genehmigungen und zusätzlichen Mitteln für den sozialen Wohnungsbau entstehen wieder mehr bezahlbare Wohnungen. Mieterinnen und Mieter in den Städten danken es uns.
+
+@moderate_economic_plan
+title: Den Reformplan für die Wirtschaft unterstützen
+subtitle: Gezielte Entlastungen und Investitionen, ohne neue Schulden.
+choose-if: advisor_action_timer = 0 and moderate_plan_adopted = 0 and black_thursday_seen = 1
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?] [? if moderate_plan_adopted : Wir haben den Reformplan bereits beschlossen. ?] [? if black_thursday_seen == 0 : Wir befinden uns derzeit nicht in einer Wirtschaftskrise. ?]
+on-arrival: advisor_action_timer = 6
+go-to: crisis_program.support_moderate

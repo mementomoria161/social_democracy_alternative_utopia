@@ -75,17 +75,17 @@ Reichstag composition:
 SPD: [+ spd_r +]%
 [? if sapd_formed and sapd_r > 0: SAPD: [+ sapd_r +]% ?]
 # 1928: 15, 1930: 15, 1932: 
-Z + BVP: [+ z_r +]%
+Z + BVP: [+ union_r +]%
 # 1928: 10, 1930: 13
-KPD: [+ kpd_r +]%
+KPD: [+ linke_r +]%
 # 1928: 5, 1930: 4 (as DstP)
-[+ ddp_name +]: [+ ddp_r +]%
+[+ gruene_name +]: [+ gruene_r +]%
 # 1928: 9, 1930: 5
-DVP: [+ dvp_r +]%
+DVP: [+ fdp_r +]%
 # 1928: 14, 1930: 7
-DNVP: [+ dnvp_r +]%
+DNVP: [+ bsw_r +]%
 # 1928: 3, 1930: 18
-NSDAP: [+ nsdap_r +]%
+NSDAP: [+ afd_r +]%
 # 1928: 9, 1930: 10
 Others: [+ other_r +]%
 
@@ -94,7 +94,7 @@ SPD position: [? if spd_toleration : toleration ?][? if spd_in_government : in g
 
 [? if spd_in_government and not in_spd_majority and not in_left_front : Coalition dissent: [+ coalition_dissent : coalition_dissent +] ?]
 
-[? if spd_in_government and (in_left_front or in_popular_front): KPD coalition dissent: [+ kpd_coalition_dissent : coalition_dissent +] ?]
+[? if spd_in_government and (in_left_front or in_popular_front): KPD coalition dissent: [+ linke_coalition_dissent : coalition_dissent +] ?]
 
 @cabinet
 go-to: menu
@@ -113,7 +113,7 @@ Justice: [+ justice_minister_party +]
 
 Foreign: [+ foreign_minister_party +]
 
-Reichswehr: [+ reichswehr_minister_party +]
+Reichswehr: [+ bundeswehr_minister_party +]
 
 Agriculture: [+ agriculture_minister_party +]
 
@@ -167,39 +167,39 @@ SPD: [+ spd_votes +]%
 [? if sapd_formed: SAPD: [+ sapd_votes +]% ?]
 
 # 1928: 15, 1930: 15, 1932: 
-Z + BVP: [+ z_votes +]%
+Z + BVP: [+ union_votes +]%
 
 # 1928: 10, 1930: 13
-KPD: [+ kpd_votes +]%
+KPD: [+ linke_votes +]%
 
 # 1928: 5, 1930: 4 (as DstP)
-[+ ddp_name +]: [+ ddp_votes +]%
+[+ gruene_name +]: [+ gruene_votes +]%
 
 # 1928: 9, 1930: 5
-DVP: [+ dvp_votes +]%
+DVP: [+ fdp_votes +]%
 
 # 1928: 14, 1930: 7
-DNVP: [+ dnvp_votes +]%
+DNVP: [+ bsw_votes +]%
 
 # 1928: 3, 1930: 18
-NSDAP: [+ nsdap_votes +]%
+NSDAP: [+ afd_votes +]%
 
 # 1928: 9, 1930: 10
 Others: [+ other_votes +]%
 
 **Detailed results for each demographic**
 
-Workers: SPD: [+ workers_spd_display +]%, Z: [+ workers_z_display +]%, KPD: [+ workers_kpd_display +]%, [+ ddp_name +]: [+ workers_ddp_display +]%, DVP: [+ workers_dvp_display +]%; DNVP: [+ workers_dnvp_display +]%, NSDAP: [+ workers_nsdap_display +]%, Others: [+ workers_other_display +]% [? if sapd_formed: SAPD: [+ workers_sapd_display +]% ?]
+Workers: SPD: [+ workers_spd_display +]%, Z: [+ workers_union_display +]%, KPD: [+ workers_linke_display +]%, [+ gruene_name +]: [+ workers_gruene_display +]%, DVP: [+ workers_fdp_display +]%; DNVP: [+ workers_bsw_display +]%, NSDAP: [+ workers_afd_display +]%, Others: [+ workers_other_display +]% [? if sapd_formed: SAPD: [+ workers_sapd_display +]% ?]
 
-New Middle Class: SPD: [+ new_middle_spd_display +]%, Z: [+ new_middle_z_display +]%, KPD: [+ new_middle_kpd_display +]%, [+ ddp_name +]: [+ new_middle_ddp_display +]%, DVP: [+ new_middle_dvp_display +]%; DNVP: [+ new_middle_dnvp_display +]%, NSDAP: [+ new_middle_nsdap_display +]%, Others: [+ new_middle_other_display +]% [? if sapd_formed: SAPD: [+ new_middle_sapd_display +]% ?]
+New Middle Class: SPD: [+ new_middle_spd_display +]%, Z: [+ new_middle_union_display +]%, KPD: [+ new_middle_linke_display +]%, [+ gruene_name +]: [+ new_middle_gruene_display +]%, DVP: [+ new_middle_fdp_display +]%; DNVP: [+ new_middle_bsw_display +]%, NSDAP: [+ new_middle_afd_display +]%, Others: [+ new_middle_other_display +]% [? if sapd_formed: SAPD: [+ new_middle_sapd_display +]% ?]
 
-Old Middle Class: SPD: [+ old_middle_spd_display +]%, Z: [+ old_middle_z_display +]%, KPD: [+ old_middle_kpd_display +]%, [+ ddp_name +]: [+ old_middle_ddp_display +]%, DVP: [+ old_middle_dvp_display +]%; DNVP: [+ old_middle_dnvp_display +]%, NSDAP: [+ old_middle_nsdap_display +]%, Others: [+ old_middle_other_display +]% [? if sapd_formed: SAPD: [+ old_middle_sapd_display +]% ?]
+Old Middle Class: SPD: [+ old_middle_spd_display +]%, Z: [+ old_middle_union_display +]%, KPD: [+ old_middle_linke_display +]%, [+ gruene_name +]: [+ old_middle_gruene_display +]%, DVP: [+ old_middle_fdp_display +]%; DNVP: [+ old_middle_bsw_display +]%, NSDAP: [+ old_middle_afd_display +]%, Others: [+ old_middle_other_display +]% [? if sapd_formed: SAPD: [+ old_middle_sapd_display +]% ?]
 
-Rural: SPD: [+ rural_spd_display +]%, Z: [+ rural_z_display +]%, KPD: [+ rural_kpd_display +]%, [+ ddp_name +]: [+ rural_ddp_display +]%, DVP: [+ rural_dvp_display +]%; DNVP: [+ rural_dnvp_display +]%, NSDAP: [+ rural_nsdap_display +]%, Others: [+ rural_other_display +]% [? if sapd_formed: SAPD: [+ rural_sapd_display +]% ?]
+Rural: SPD: [+ rural_spd_display +]%, Z: [+ rural_union_display +]%, KPD: [+ rural_linke_display +]%, [+ gruene_name +]: [+ rural_gruene_display +]%, DVP: [+ rural_fdp_display +]%; DNVP: [+ rural_bsw_display +]%, NSDAP: [+ rural_afd_display +]%, Others: [+ rural_other_display +]% [? if sapd_formed: SAPD: [+ rural_sapd_display +]% ?]
 
-Unemployed: SPD: [+ unemployed_spd_display +]%, Z: [+ unemployed_z_display +]%, KPD: [+ unemployed_kpd_display +]%, [+ ddp_name +]: [+ unemployed_ddp_display +]%, DVP: [+ unemployed_dvp_display +]%; DNVP: [+ unemployed_dnvp_display +]%, NSDAP: [+ unemployed_nsdap_display +]%, Others: [+ unemployed_other_display +]% [? if sapd_formed: SAPD: [+ unemployed_sapd_display +]% ?]
+Unemployed: SPD: [+ unemployed_spd_display +]%, Z: [+ unemployed_union_display +]%, KPD: [+ unemployed_linke_display +]%, [+ gruene_name +]: [+ unemployed_gruene_display +]%, DVP: [+ unemployed_fdp_display +]%; DNVP: [+ unemployed_bsw_display +]%, NSDAP: [+ unemployed_afd_display +]%, Others: [+ unemployed_other_display +]% [? if sapd_formed: SAPD: [+ unemployed_sapd_display +]% ?]
 
-Catholics: SPD: [+ catholics_spd_display +]%, Z: [+ catholics_z_display +]%, KPD: [+ catholics_kpd_display +]%, [+ ddp_name +]: [+ catholics_ddp_display +]%, DVP: [+ catholics_dvp_display +]%; DNVP: [+ catholics_dnvp_display +]%, NSDAP: [+ catholics_nsdap_display +]%, Others: [+ catholics_other_display +]% [? if sapd_formed: SAPD: [+ catholics_sapd_display +]% ?]
+Catholics: SPD: [+ rentner_spd_display +]%, Z: [+ rentner_union_display +]%, KPD: [+ rentner_linke_display +]%, [+ gruene_name +]: [+ rentner_gruene_display +]%, DVP: [+ rentner_fdp_display +]%; DNVP: [+ rentner_bsw_display +]%, NSDAP: [+ rentner_afd_display +]%, Others: [+ rentner_other_display +]% [? if sapd_formed: SAPD: [+ rentner_sapd_display +]% ?]
 
 @parties
 go-to: menu
@@ -208,38 +208,38 @@ go-to: menu
 
 **Z** - *Zentrumspartei* (Center Party) - a centrist to center-right Catholic party that supports the Republic, and has historically supported many of our labor, welfare, and anti-militarist priorities. They have often been in coalitions with us. They are often associated with the **BVP** (Bavarian People's Party), which represents Catholics in Bavaria. [? if year >= 1930 or chancellor = "Brüning" : They have appeared to take a more conservative turn recently, with the rise of Brüning and the party leader, Ludwig Kaas. ?]
 
-Current relations: [+ z_relation : relationships +]
+Current relations: [+ union_relation : relationships +]
 
 # TODO: replace this with the german state party after 1930
 **DDP** - *Deutsche Demokratische Partei* (German Democratic Party) - a center-left liberal party, popular among the intelligensia and educated middle class. They have often been in coalitions with us. [? if year >= 1930 : They have recently reformed themselves as the German State Party (DStP). ?]
 
-Current relations: [+ ddp_relation : relationships +]
+Current relations: [+ gruene_relation : relationships +]
 
 **DVP** - *Deutsche Volkspartei* (German People's Party) - a conservative-liberal party, supported by the middle classes and bourgeoisie. We have occasionally been in coalitions.
 
-Current relations: [+ dvp_relation : relationships +]
+Current relations: [+ fdp_relation : relationships +]
 
 **DNVP** - *Deutschnationale Volkspartei* (German National People's Party) - a right-wing nationalist-conservative party, with authoritarian, monarchist, and racist elements. It is supported by the former aristocracy, rural landowners, and conservative Lutherans.
 
-Current relations: [+ dnvp_relation : relationships +]
+Current relations: [+ bsw_relation : relationships +]
 
 **KPD** - *Kommunistische Partei Deutschlands* (German Communist Party) - a radical left-wing offshoot of the SPD that emerged in the aftermath of the German Revolution of 1918, they follow the path of Moscow, opposing parliamentary democracy in favor of a Soviet-style revolution.
 
-Current relations: [+ kpd_relation : relationships +]
+Current relations: [+ linke_relation : relationships +]
 
 [? if sapd_formed: SAPD - Sozialistische Arbeiterpartei Deutschlands (Socialist Worker's Party of Germany) - a party recently formed in a split from the SPD, the SAPD is essentially an agglomeration of various left-wing splinter groups between the SPD and KPD. ?]
 
 **NSDAP** - *Nationalsozialistische Deutsche Arbeiterpartei* - (National Socialist German Worker's Party, or Nazis) - a far-right nationalist and antisemitic party. Led by Adolf Hitler, they attempted a coup in 1923, and were banned for it, but have since been legalized.
 
-Current relations: [+ nsdap_relation : relationships +]
+Current relations: [+ afd_relation : relationships +]
 
 **Other parties** - there is a multitude of small, mostly conservative parties, such as the Economic Party of the German Middle Class, the Farmer's Party, the Agricultural League, and others. Their political position usually lies between the DVP and DNVP. 
 
 @paramilitaries
 on-arrival: {!
-Q.rb_strength = Math.round(Q.rb_strength);
-Q.sh_strength = Math.round(Q.sh_strength);
-Q.sa_strength = Math.round(Q.sa_strength); 
+Q.demo_strength = Math.round(Q.demo_strength);
+Q.bauern_strength = Math.round(Q.bauern_strength);
+Q.rechts_strength = Math.round(Q.rechts_strength); 
 !}
 go-to: menu
 
@@ -247,33 +247,33 @@ go-to: menu
 
 **Reichsbanner Schwarz-Rot-Gold**: The Reichsbanner is an organization affiliated with all of the democratic parties - the SPD, Z, and DDP, but primarily with the SPD. Historically, this has been an unarmed organization.
 
-Strength: [+ rb_strength +] thousand
+Strength: [+ demo_strength +] thousand
 
-Militarization: [+ rb_militancy : militancy +]
+Militarization: [+ demo_radicalism : militancy +]
 
 **Rotfrontkämpferbund (RFB)**: The "Red Front Fighter's League" is associated with the KPD.
 
-Strength: [+ rfb_strength +] thousand
+Strength: [+ klima_strength +] thousand
 
-Militarization: [+ rfb_militancy : militancy +]
+Militarization: [+ klima_radicalism : militancy +]
 
 **Der Stahlhelm**: A right-wing nationalist organization of primarily Great War veterans, descended from the *Freikorps* that emerged after the war. Associated with the DNVP.
 
-Strength: [+ sh_strength +] thousand
+Strength: [+ bauern_strength +] thousand
 
-Militarization: [+ sh_militancy : militancy +]
+Militarization: [+ bauern_radicalism : militancy +]
 
 **Sturmabteilung (SA)**: This is the nazi paramilitary group.
 
-Strength: [+ sa_strength +] thousand
+Strength: [+ rechts_strength +] thousand
 
-Militarization: [+ sa_militancy : militancy +]
+Militarization: [+ rechts_radicalism : militancy +]
 
 **Official military/paramilitary groups:**
 
-**Reichswehr**: [+ reichswehr_strength +] thousand troops. This is Germany's military.
+**Reichswehr**: [+ bundeswehr_strength +] thousand troops. This is Germany's military.
 
-Loyalty: [+ reichswehr_loyalty : loyalty +]
+Loyalty: [+ bundeswehr_loyalty : loyalty +]
 
 **Prussian police**: [+ prussian_police_strength +] thousand members.
 
@@ -335,14 +335,14 @@ Dissent: [+ neorevisionist_dissent : dissent +]
 @figures
 title: Figures and Charts
 go-to: menu
-on-arrival: z_minus_bvp_r = z_r - 3;
+on-arrival: union_minus_bvp_r = union_r - 3;
 on-display: {!
 data = [
     {
-        "id": "kpd",
-        "legend": "KPD",
-        "name": "KPD",
-        "seats": Q.kpd_r*5,
+        "id": "linke",
+        "legend": "Linke",
+        "name": "Linke",
+        "seats": Q.linke_r*5,
     }];
 if (Q.sapd_formed && Q.sapd_r) {
     data.push({
@@ -370,16 +370,16 @@ if (Q.srpd_formed && Q.srpd_r) {
 
 data = data.concat([
     {
-        "id": "ddp",
-        "legend": "DDP",
-        "name": "DDP",
-        "seats": Q.ddp_r*5,
+        "id": "gruene",
+        "legend": "Grüne",
+        "name": "Grüne",
+        "seats": Q.gruene_r*5,
     },
     {
-        "id": "z",
+        "id": "union",
         "legend": "Center",
         "name": "Center",
-        "seats": (Q.z_r - 3)*5,
+        "seats": (Q.union_r - 3)*5,
     },
     {
         "id": "bvp",
@@ -388,10 +388,10 @@ data = data.concat([
         "seats": 3*5,
     },
     {
-        "id": "dvp",
-        "legend": "DVP",
-        "name": "DVP",
-        "seats": Q.dvp_r*5,
+        "id": "fdp",
+        "legend": "FDP",
+        "name": "FDP",
+        "seats": Q.fdp_r*5,
     },
     {
         "id": "other",
@@ -400,16 +400,16 @@ data = data.concat([
         "seats": Q.other_r*5,
     },
     {
-        "id": "dnvp",
-        "legend": "DNVP",
-        "name": "DNVP",
-        "seats": Q.dnvp_r*5,
+        "id": "bsw",
+        "legend": "BSW",
+        "name": "BSW",
+        "seats": Q.bsw_r*5,
     },
     {
-        "id": "nsdap",
-        "legend": "NSDAP",
-        "name": "NSDAP",
-        "seats": Q.nsdap_r*5,
+        "id": "afd",
+        "legend": "AfD",
+        "name": "AfD",
+        "seats": Q.afd_r*5,
     },
 ]);
 if (d3 && window) {
@@ -430,8 +430,8 @@ if (d3 && window) {
 
     var lines = d3.linegraph(false, false,
             Q.parties,
-            {'spd': '#E3000F', 'kpd': '#8B0000', 'ddp': '#DCCA4A', 'z': '#000', 'dvp': '#D5AC27', 'dnvp': '#3f7bc1', 'nsdap': '#954B00', 'other': '#a0a0a0', 'sapd': '#c40000', 'srpd': '#F4A460'},
-            {'spd': 'SPD', 'kpd': 'KPD', 'ddp': Q.ddp_name, 'z': 'Z + BVP', 'dvp': 'DVP', 'dnvp': 'DNVP', 'nsdap': 'NSDAP', 'other': 'Others', 'sapd': 'SAPD', 'srpd': 'SRPD'});
+            {'spd': '#E3000F', 'linke': '#8B0000', 'gruene': '#DCCA4A', 'union': '#000', 'fdp': '#D5AC27', 'bsw': '#3f7bc1', 'afd': '#954B00', 'other': '#a0a0a0', 'sapd': '#c40000', 'srpd': '#F4A460'},
+            {'spd': 'SPD', 'linke': 'Linke', 'gruene': Q.gruene_name, 'union': 'Z + BVP', 'fdp': 'FDP', 'bsw': 'BSW', 'afd': 'AfD', 'other': 'Others', 'sapd': 'SAPD', 'srpd': 'SRPD'});
     lines.width(width).height(400);
     //var svg = lines(Q.election_records);
     if (Q.election_records.length > 0) {
@@ -443,8 +443,8 @@ if (d3 && window) {
     if (!Q.historical_mode || Q.game_over) {
         var lines_2 = d3.linegraph(true, true,
             Q.parties,
-            {'spd': '#E3000F', 'kpd': '#8B0000', 'ddp': '#DCCA4A', 'z': '#000', 'dvp': '#D5AC27', 'dnvp': '#3f7bc1', 'nsdap': '#954B00', 'other': '#a0a0a0', 'sapd': '#c40000', 'srpd': '#F4A460'},
-            {'spd': 'SPD', 'kpd': 'KPD', 'ddp': Q.ddp_name, 'z': 'Z + BVP', 'dvp': 'DVP', 'dnvp': 'DNVP', 'nsdap': 'NSDAP', 'other': 'Others', 'sapd': 'SAPD', 'srpd': 'SRPD'});
+            {'spd': '#E3000F', 'linke': '#8B0000', 'gruene': '#DCCA4A', 'union': '#000', 'fdp': '#D5AC27', 'bsw': '#3f7bc1', 'afd': '#954B00', 'other': '#a0a0a0', 'sapd': '#c40000', 'srpd': '#F4A460'},
+            {'spd': 'SPD', 'linke': 'Linke', 'gruene': Q.gruene_name, 'union': 'Z + BVP', 'fdp': 'FDP', 'bsw': 'BSW', 'afd': 'AfD', 'other': 'Others', 'sapd': 'SAPD', 'srpd': 'SRPD'});
         lines_2.width(width).height(400);
         d3.select("#party_support_history").datum(Q.party_support_records).call(lines_2);
     }
@@ -472,21 +472,21 @@ if (d3 && window) {
 
 [? if srpd_formed : {!<tr><td><div class="box" style='background-color:#F4A460'> </div></td<td> !}SRPD: {!</td><td>!} [+ srpd_r +]% {!</td><td>!} [+ str_change_srpd +] {!</td></tr>!} ?]
 
-{!<tr><td><div class="box" style='background-color:#8B0000'> </div></td> <td>!}KPD: {!</td><td>!} [+ kpd_r +]% {!</td></tr>!}
+{!<tr><td><div class="box" style='background-color:#8B0000'> </div></td> <td>!}KPD: {!</td><td>!} [+ linke_r +]% {!</td></tr>!}
 
-{!<tr><td><div class="box" style='background-color:#DCCA4A'> </div></td><td>!} [+ ddp_name +]: {!</td><td>!} [+ ddp_r +]% {!</td></tr>!}
+{!<tr><td><div class="box" style='background-color:#DCCA4A'> </div></td><td>!} [+ gruene_name +]: {!</td><td>!} [+ gruene_r +]% {!</td></tr>!}
 
-{!<tr><td><div class="box" style='background-color:#000'> </div></td><td>!} Z: {!</td><td>!} [+ z_minus_bvp_r +]% {!</td></tr>!}
+{!<tr><td><div class="box" style='background-color:#000'> </div></td><td>!} Z: {!</td><td>!} [+ union_minus_bvp_r +]% {!</td></tr>!}
 
 {!<tr><td><div class="box" style='background-color:#69A2BE'> </div></td><td>!} BVP: {!</td><td>!} 3% {!</td></tr>!}
 
-{!<tr><td><div class="box" style='background-color:#D5AC27'> </div></td><td>!} DVP: {!</td><td>!} [+ dvp_r +]% {!</td></tr>!}
+{!<tr><td><div class="box" style='background-color:#D5AC27'> </div></td><td>!} DVP: {!</td><td>!} [+ fdp_r +]% {!</td></tr>!}
 
 {!<tr><td><div class="box" style='background-color:#a0a0a0'> </div></td><td>!} Other parties: {!</td><td>!} [+ other_r +] % {!</td></tr>!}
 
-{!<tr><td><div class="box" style='background-color:#3f7bc1'> </div></td><td>!} DNVP: {!</td><td>!} [+ dnvp_r +]% {!</td></tr>!}
+{!<tr><td><div class="box" style='background-color:#3f7bc1'> </div></td><td>!} DNVP: {!</td><td>!} [+ bsw_r +]% {!</td></tr>!}
 
-{!<tr><td><div class="box" style='background-color:#954B00'> </div></td><td>!} NSDAP: {!</td><td>!} [+ nsdap_r +]% {!</td></tr>!}
+{!<tr><td><div class="box" style='background-color:#954B00'> </div></td><td>!} NSDAP: {!</td><td>!} [+ afd_r +]% {!</td></tr>!}
 {!</table>!}
 
 = Election history

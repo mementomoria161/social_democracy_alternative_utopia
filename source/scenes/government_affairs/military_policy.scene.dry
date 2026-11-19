@@ -1,47 +1,47 @@
-title: Military Policy
+title: Verteidigungspolitik
 new-page: true
 is-card: true
 tags: govt_affairs, cabinet
 on-arrival: military_policy_timer += 6; month_actions += 1
-view-if: spd_in_government = 1 and reichswehr_minister_party = "SPD" and military_policy_timer <= 0
-card-image: img/portraits/LeberJulius.jpg
-#subtitle: Dealing with the Reichswehr.
+view-if: spd_in_government = 1 and bundeswehr_minister_party = "SPD" and military_policy_timer <= 0
+card-image: img/portraits/Pistorius.jpg
+#subtitle: Bundeswehr, Wehrdienst und NATO-Ziel.
 
-= Military Policy
+= Verteidigungspolitik
 
-The Reichswehr is a deeply reactionary institution that has been generally hostile to any notion of socialism or democracy. However, we now control the military as part of the government. What should we do to reform it?
+Seit der Zeitenwende 2022 fließen Milliarden in die Bundeswehr, die NATO verlangt bis 2035 fünf Prozent der Wirtschaftsleistung für Verteidigung und Infrastruktur, und der neue Wehrdienst soll die Truppe vergrößern. Doch die Bundeswehr kämpft mit Personalmangel, Bürokratie und immer wieder mit Rechtsextremisten in den eigenen Reihen. In unserer Partei sind viele skeptisch gegenüber der Aufrüstung. Was tun wir?
 
-- @increase_funding: Increase funding for the military to purchase its loyalty.
-- @decrease_funding: Reduce funding for the military so we have more for social spending.
-- @reform: Conduct a thorough reform of the ranks, reducing the influence of reactionaries and making it more hospitable to us.
-- @root: No change to military policy.
+- @increase_funding: Den Verteidigungsetat weiter erhöhen.
+- @decrease_funding: Bei der Rüstung sparen, um mehr für Soziales zu haben.
+- @reform: Die Innere Führung stärken und Extremisten konsequent aus der Truppe entfernen.
+- @root: Die Verteidigungspolitik nicht ändern.
 - @easy_discard
 - @cancel_advisor_action
 
 @increase_funding
-subtitle: -1 budget
+subtitle: -1 Haushaltsspielraum
 choose-if: budget >= 1
-unavailable-subtitle: We do not have the budget.
-on-arrival: budget -= 1; coalition_dissent -= 1 if coalition_dissent > 0; reichswehr_loyalty += 0.07 if reichswehr_loyalty < 1; reichswehr_strength += 20; left_dissent += 5; kpd_coalition_dissent += 1; west_relation -= 1; east_relation -= 1; reparations_negotiation -= 1; eu_progress -= 1; economic_growth += 0.1
+unavailable-subtitle: Dafür fehlt uns der Haushaltsspielraum.
+on-arrival: budget -= 1; coalition_dissent -= 1 if coalition_dissent > 0; bundeswehr_loyalty += 0.07 if bundeswehr_loyalty < 1; bundeswehr_strength += 20; left_dissent += 5; linke_coalition_dissent += 1; west_relation -= 1; east_relation -= 1; reparations_negotiation -= 1; eu_progress -= 1; economic_growth += 0.1
 
-The military and the center-right parties are pleasantly surprised that we would increase military funding. Our membership tends to be anti-military, and is less enthused. Germany's neighbors are watching our military buildup with worry. [? if reparations >= 0 : This is not good for the reparations negotiations. ?]
+Bundeswehr und Union sind angenehm überrascht, wie entschlossen wir aufrüsten. Unsere Mitglieder sind weniger begeistert, die Friedensbewegung in der Partei ist empört. Und in Paris und Warschau fragen sich manche, ob Deutschland mit der größten Armee Europas nicht zu viel Gewicht bekommt, zumal wir das Geld lieber national ausgeben als in gemeinsame europäische Projekte. [? if reparations >= 0 : Für die Verhandlungen über die EU-Schuldenregeln ist das nicht hilfreich. ?]
 
 @decrease_funding
-subtitle: +1 budget
-unavailable-subtitle: There is nothing left to cut.
-choose-if: reichswehr_strength > 0
-on-arrival: budget += 1; coalition_dissent += 1 if in_grand_coalition == 1; dvp_relation -= 8; reichswehr_militancy -= 1; reichswehr_strength -= 20; sh_strength += 15; sa_strength += 5; sh_militancy += 0.05; reichswehr_loyalty -= 0.05 if reichswehr_loyalty > 0; coup_progress += 1; coup_progress += 1 if reichswehr_loyalty < 0.2; coup_progress += 1 if reichswehr_loyalty < 0.1; coup_progress += 1 if reichswehr_loyalty <= 0; reichswehr_goal_completed = 1; economic_growth -= 0.1; hindenburg_dissent += 1; hindenburg_relation -= 5
+subtitle: +1 Haushaltsspielraum
+unavailable-subtitle: Hier gibt es nichts mehr zu kürzen.
+choose-if: bundeswehr_strength > 0
+on-arrival: budget += 1; coalition_dissent += 1 if in_grand_coalition == 1; fdp_relation -= 8; bundeswehr_radicalism -= 1; bundeswehr_strength -= 20; bauern_strength += 15; rechts_strength += 5; bauern_radicalism += 0.05; bundeswehr_loyalty -= 0.05 if bundeswehr_loyalty > 0; coup_progress += 1; coup_progress += 1 if bundeswehr_loyalty < 0.2; coup_progress += 1 if bundeswehr_loyalty < 0.1; coup_progress += 1 if bundeswehr_loyalty <= 0; bundeswehr_goal_completed = 1; economic_growth -= 0.1; hindenburg_dissent += 1; hindenburg_relation -= 5
 
-The military has fewer guns and fewer soldiers. There is no hint of a coup yet, but we do not know where the line will be drawn. The center-right parties are committed to the military and deeply opposed to our budget cuts.
+Wir strecken Beschaffungsprojekte und verkleinern den Wehrdienst. In der Truppe wächst der Frust, und Union und Wirtschaft werfen uns vor, die Sicherheit des Landes aufs Spiel zu setzen.
 
-Many demobilized soldiers have joined the right-wing paramilitaries such as the Stahlhelm and SA, and weapons are missing from our stockpiles.
+Manche frustrierte Soldaten und Reservisten wenden sich den Protestbewegungen und rechten Netzwerken zu, und aus Depots verschwinden Waffen und Munition.
 
 @reform
-subtitle: -1 budget
-choose-if: budget >= 1 and reichswehr_loyalty < 1
-unavailable-subtitle: [? if budget < 1 : We do not have the budget. ?][? if reichswehr_loyalty >= 1 : The Reichswehr is already fully loyal to the democratic government. ?]
-on-arrival: coalition_dissent += 1 if in_grand_coalition == 1; reichswehr_loyalty += 0.15; reichswehr_militancy -= 0.5 if reichswehr_loyalty < 0.5; budget -= 1; coup_progress += 1; dvp_relation -= 5; pacifism += 1; democratization += 1; hindenburg_dissent += 1; hindenburg_relation -= 5
+subtitle: -1 Haushaltsspielraum
+choose-if: budget >= 1 and bundeswehr_loyalty < 1
+unavailable-subtitle: [? if budget < 1 : Dafür fehlt uns der Haushaltsspielraum. ?][? if bundeswehr_loyalty >= 1 : Die Bundeswehr steht bereits voll hinter der demokratischen Ordnung. ?]
+on-arrival: coalition_dissent += 1 if in_grand_coalition == 1; bundeswehr_loyalty += 0.15; bundeswehr_radicalism -= 0.5 if bundeswehr_loyalty < 0.5; budget -= 1; coup_progress += 1; fdp_relation -= 5; pacifism += 1; democratization += 1; hindenburg_dissent += 1; hindenburg_relation -= 5
 
-Our efforts are at least somewhat successful; we have changed the recruiting and training patterns so that more soldiers from non-reactionary backgrounds can join, hopefully changing the culture of the forces. We have also removed some of the officers who supported the previous Kapp putsch.
+Unsere Reform zeigt Wirkung: Der Militärische Abschirmdienst bekommt mehr Personal, Bewerber\*innen werden gründlicher überprüft, und politische Bildung wird fester Teil der Ausbildung. Nach den Skandalen beim KSK entfernen wir Offiziere, die mit Reichsbürgern oder Rechtsextremisten sympathisieren.
 
-The center-right parties are committed to the military and deeply suspicious of our efforts to reform it.
+Union und FDP fürchten, wir würden die Truppe unter Generalverdacht stellen.

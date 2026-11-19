@@ -3,7 +3,7 @@ subtitle: An investigation into a long-running corruption scandal in Berlin
 new-page: true
 view-if: (year = 1929 and month >= 11) and spd_prussia
 max-visits: 1
-on-arrival: sklarek_affair_seen = 1; workers_spd -= 1; new_middle_spd -= 1; old_middle_spd -= 1; rural_spd -= 1; catholics_spd -= 1; unemployed_spd -= 1; new_middle_ddp -= 2; pro_republic -= 2
+on-arrival: sklarek_affair_seen = 1; workers_spd -= 1; new_middle_spd -= 1; old_middle_spd -= 1; rural_spd -= 1; rentner_spd -= 1; unemployed_spd -= 1; new_middle_gruene -= 2; pro_republic -= 2
 tags: event
 face-image: img/sklarek.jpg
 
@@ -29,7 +29,7 @@ We cooperate with the investigation fully, expelling any party member who has be
 
 @downplay
 title: Downplay the affair.
-on-arrival: workers_spd -= 1; new_middle_spd -= 2; old_middle_spd -= 2; rural_spd -= 2; catholics_spd -= 2; unemployed_spd -= 2; new_middle_ddp -= 2; pro_republic -= 2
+on-arrival: workers_spd -= 1; new_middle_spd -= 2; old_middle_spd -= 2; rural_spd -= 2; rentner_spd -= 2; unemployed_spd -= 2; new_middle_gruene -= 2; pro_republic -= 2
 
 In our media outlets, we downplay the Sklarek affair, and we act only when we have been forced to. The standing of our party has been seriously damaged by the affair, and people are increasingly disillusioned about the Republic.
 
@@ -37,7 +37,7 @@ In our media outlets, we downplay the Sklarek affair, and we act only when we ha
 title: The Sklareks also ingratiated themselves with the DNVP; turn the attacks back against the right.
 choose-if: judicial_reform > 1 and prussian_police_loyalty > 0.5
 unavailable-subtitle: The judiciary and police are set against us.
-on-arrival: new_middle_spd -= 1; old_middle_spd -= 1; rural_spd -= 1; catholics_spd -= 1; new_middle_ddp -= 1; workers_dnvp -= 1; new_middle_dnvp -= 1; old_middle_dnvp -= 1; rural_dnvp -= 1; pro_republic -= 2
+on-arrival: new_middle_spd -= 1; old_middle_spd -= 1; rural_spd -= 1; rentner_spd -= 1; new_middle_gruene -= 1; workers_bsw -= 1; new_middle_bsw -= 1; old_middle_bsw -= 1; rural_bsw -= 1; pro_republic -= 2
 
 The investigation has uncovered that the Sklareks' corruption had no party lines; the parties of the right are just as implicated as the Weimar Coalition. We turn the propaganda against them.
 

@@ -1,16 +1,16 @@
-title: Foreign Policy
+title: Außenpolitik
 new-page: true
 is-card: true
 tags: govt_affairs, cabinet
 on-arrival: month_actions += 1; foreign_policy_timer += 8
 view-if: spd_in_government = 1 and foreign_minister_party = "SPD" and  foreign_policy_timer <= 0
-card-image: img/portraits/BreitscheidRudolf.jpg
+card-image: img/international.jpg
 go-to: fp_menu
-#subtitle: International relations and dealing with Versailles.
+#subtitle: Europa, Ukraine, Russland und die USA.
 
-= Foreign Policy
+= Außenpolitik
 
-What should our foreign policy priority be?
+Russlands Krieg gegen die Ukraine, eine unberechenbare US-Regierung, Zölle und eine zerstrittene EU: Die Welt ist unsicherer geworden. Was soll unsere außenpolitische Priorität sein?
 
 @fp_menu
 
@@ -27,177 +27,176 @@ What should our foreign policy priority be?
 - @concordat
 - @support_austria
 - @support_austria_2
-- @root: Do not enact any policies for now.
+- @root: Vorerst nichts unternehmen.
 - @easy_discard
 - @cancel_advisor_action
 
 @improve_west
-title: Improve our relations with the Western Allies.
+title: Die Beziehungen zu Frankreich und unseren EU-Partnern vertiefen.
 on-arrival: west_relation += 2; reparations_negotiation += 1
 
-The key to peace in Europe is a rapproachment between France and Germany. We are taking steps towards that rapproachment. [? if young_plan_seen == 0 : This is difficult to do when France is occupying a major portion of Germany's territory, but we are working on that part. ?]
+Ohne einen deutsch-französischen Motor kommt Europa nicht voran. Wir stimmen uns enger mit Paris ab, beleben das Weimarer Dreieck mit Polen und gehen auf die Wünsche der Südeuropäer nach mehr gemeinsamen Investitionen zu. [? if young_plan_seen == 0 : Das ist nicht leicht, solange Berlin in Brüssel als Bremser bei Schuldenregeln und Mercosur gilt, aber wir arbeiten daran. ?]
 
 @improve_east
-title: Improve our relations with our eastern neighbors.
+title: Die Beziehungen zu Polen, dem Baltikum und der Ukraine stärken.
 on-arrival: east_relation += 2;
 
-We also aim to improve relations with our eastern neighbors, Poland and Czechoslovakia, who are righfully terrified of German aggression. Hopefully we can convince them of our peaceful intentions.
+Unsere östlichen Nachbarn haben Deutschland lange vorgeworfen, Russland gegenüber naiv gewesen zu sein, Stichwort Nord Stream. Mit regelmäßigen Regierungskonsultationen, gemeinsamer Rüstungsbeschaffung und der Brigade in Litauen wollen wir zeigen, dass wir aus unseren Fehlern gelernt haben.
 
 @improve_soviet
-title: Improve our relations with the Soviet Union.
-subtitle: We could also broach the question of the KPD...
+title: Eine Friedensinitiative für die Ukraine vorantreiben.
+subtitle: Dabei ließe sich auch das Verhältnis zur Linken ansprechen …
 
-The Soviet Union also suffered from the international order created by the Treaty of Versailles; they have been participating in our secret rearmament program. The Treaty of Rapallo in 1922 affirmed our friendly relations.
+Viele in unserer Partei wollen, dass Deutschland nicht nur Waffen liefert, sondern auch diplomatisch Wege zu einem Waffenstillstand sucht. Gemeinsam mit Partnern im Globalen Süden könnten wir Gesprächskanäle öffnen und einen Wiederaufbaufonds für die Ukraine auflegen.
 
-The Soviets are asking for economic and developmental assistance. They are still a poor country on the whole, and are desperately trying to catch up to the western powers. There is a chance that our anti-communist coalition partners would be upset, but we could assuage them by asking the Soviets for secret assistance in training and equiping the Reichswehr.
+Die Union und unsere Verbündeten im Osten fürchten, das könnte als Schwäche ausgelegt werden. Wir könnten sie beruhigen, indem wir die Initiative mit festen Sicherheitsgarantien und einer Beteiligung der Bundeswehr an deren Absicherung verbinden.
 
-- @soviet_economic_aid_yes_mil: Provide aid, in exchange for Reichswehr assistance.
-- @soviet_economic_aid_yes: Provide aid, in exchange for only good relations.
-- @soviet_economic_aid_no: Don't provide aid.
+- @soviet_economic_aid_yes_mil: Wiederaufbaufonds plus Sicherheitsgarantien mit Bundeswehr-Beteiligung.
+- @soviet_economic_aid_yes: Wiederaufbaufonds und Vermittlung, ohne militärische Komponente.
+- @soviet_economic_aid_no: Keine eigene Initiative starten.
 
 @soviet_economic_aid_yes_mil
 choose-if: budget >= 1
-subtitle: -1 budget
-on-arrival: budget -= 1; soviet_relation += 1; reichswehr_militancy += 0.2; reichswehr_loyalty += 0.05; foreign_goal_completed += 1
+subtitle: -1 Haushaltsspielraum
+on-arrival: budget -= 1; soviet_relation += 1; bundeswehr_radicalism += 0.2; bundeswehr_loyalty += 0.05; foreign_goal_completed += 1
 
-The Soviets are pleased that we have sent them aid, and have agreed to help train our military. The Reichswehr appreciates our support.
+Die Ukraine begrüßt den Wiederaufbaufonds, und die Bundeswehr soll sich im Fall eines Waffenstillstands an dessen Absicherung beteiligen. In der Truppe kommt das Vertrauen der Regierung gut an.
 
 @soviet_economic_aid_yes
 choose-if: budget >= 1
-subtitle: -1 budget
+subtitle: -1 Haushaltsspielraum
 on-arrival: budget -= 1; soviet_relation += 2; coalition_dissent += 1; foreign_goal_completed += 1
 
-The Soviets are pleased that we have sent them aid, and have not asked for anything specific in exchange. Our coalition partners are less pleased.
+Wir legen den Wiederaufbaufonds auf und bieten uns als Vermittler an, ohne militärische Zusagen. Kyjiw ist dankbar, in Teilen der Union spricht man dagegen von „Appeasement“.
 
-- @kpd: Ask if Moscow could help repair our relations with the KPD.
-- @wittorf: Do the Soviets know about the Wittorf Affair? Do they know that we know?
-- @root: Do not mention the KPD.
+- @kpd: Die Linke in die Friedensinitiative einbinden.
+- @wittorf: Der Linken vertrauliche Lagebilder zu russischer Einflussnahme vorlegen.
+- @root: Die Linke nicht ansprechen.
 
 @soviet_economic_aid_no
 
-The Soviets are slightly upset, but they seemed to expect this answer.
+Kyjiw ist enttäuscht, hatte aber mit dieser Antwort gerechnet.
 
 
 @kpd
-on-arrival: kpd_relation += 8*(1-dissent); communist_coalition += 1 if kpd_foreign_seen == 0; kpd_foreign_seen = 1
+on-arrival: linke_relation += 8*(1-dissent); communist_coalition += 1 if linke_foreign_seen == 0; linke_foreign_seen = 1
 
-We also mention the KPD in our conversations with the Soviet ambassador. They claim that the KPD is entirely independent of the Soviet government, and that the conflict is Thälmann's doing. But, soon after our conversation we notice a slight improvement in attitudes from the KPD.
+Wir laden die Linke zu Gesprächen über die Friedensinitiative ein. Jan van Aken betont, die Linke lasse sich nicht vereinnahmen und lehne Waffenlieferungen weiter ab. Trotzdem wird der Ton zwischen unseren Fraktionen spürbar freundlicher.
 
 @wittorf
-view-if: wittorf_secret = 1 and ((year = 1929 and month < 6) or year = 1928) and wittorf_soviet_union = 0
-unavailable-subtitle: It is impossible that Stalin and the Comintern could be moved on their policy.
-on-arrival: wittorf_soviet_union = 1; kpd_relation += 6*(1-dissent); kpd_foreign_seen = 1
+view-if: wittorf_secret = 1 and ((year = 2027 and month < 6) or year = 2026) and wittorf_soviet_union = 0
+unavailable-subtitle: Daran würde auch kein Lagebild etwas ändern.
+on-arrival: wittorf_soviet_union = 1; linke_relation += 6*(1-dissent); linke_foreign_seen = 1
 max-visits: 1
 
-Of course Stalin and the various leaders of the Comintern know about the Wittorf Affair, but they do not seem to know that we know as well. The Comintern was planning to build a narrative around the affair that absolves Thälmann, but perhaps now they will be less inclined to defend him.
+Wir zeigen der Linken-Spitze vertraulich, wie russische Kampagnen die Friedensbewegung für sich instrumentalisieren wollen. Die Linke grenzt sich daraufhin deutlicher von prorussischen Positionen ab, und die Gespräche mit uns werden ernsthafter.
 
 
 @customs_union
-title: Form a customs union with Austria?
-subtitle: This will likely incur the wrath of France.
-unavailable-subtitle: This is superseded by the European Union.
+title: Ein eigenes Handelsabkommen mit den USA anstreben?
+subtitle: Das würde einen offenen Bruch mit Brüssel bedeuten.
+unavailable-subtitle: Das ist durch die Europäische Föderation überholt.
 choose-if: eu = 0
 view-if: black_thursday_seen = 1 and customs_union = 0
 
-The right has long desired closer ties with Austria, with the eventual goal of the merger of the two German-speaking countries. A customs union with Austria is the first step towards this goal. Additionally, many believe that a union with Austria would improve our current economic circumstances.
+Die Wirtschaftsverbände, die Union und die Autoindustrie drängen darauf, den US-Zöllen durch einen eigenen Deal mit Washington zu entgehen, notfalls an der gemeinsamen EU-Handelspolitik vorbei. Viele glauben, das würde Arbeitsplätze in der Industrie retten.
 
-However, the Allies, especially France, are likely to object. This agreement would break the terms of the Versailles Treaty, and could lead to economic sanctions, further hurting our economy.
+Frankreich und unsere östlichen Nachbarn würden das als Verrat an Europa sehen. Ein Alleingang verstößt gegen die EU-Verträge und könnte Gegenmaßnahmen und Unruhe an den Finanzmärkten auslösen.
 
-- @customs_union_2: Yes, do it!
-- @fp_menu: No, we should do something else.
+- @customs_union_2: Ja, machen wir!
+- @fp_menu: Nein, lieber etwas anderes.
 
 @customs_union_2
-on-arrival: banking_crisis_timer = 2; customs_union = 1; west_relation -= 2; east_relation -= 2; z_relation += 6; dvp_relation += 6; coalition_dissent -= 1 if coalition_dissent > 0; coup_progress -= 1
+on-arrival: banking_crisis_timer = 2; customs_union = 1; west_relation -= 2; east_relation -= 2; union_relation += 6; fdp_relation += 6; coalition_dissent -= 1 if coalition_dissent > 0; coup_progress -= 1
 max-visits: 1
 
-We have formed a customs union with Austria! The right-wing parties are praising us for this unexpected turn of events.
+Wir verhandeln direkt mit Washington über Zollerleichterungen für deutsche Autos und Maschinen. Union und FDP loben den „Pragmatismus“.
 
-Immediately, France and other neighboring countries lodge their protests. The longer-term response is yet to be seen.
+Paris, Warschau und die EU-Kommission protestieren scharf. Wie die Märkte reagieren, wird sich zeigen.
 
 
 @negotiate
-title: Negotiate regarding our remaining obligations from the Treaty of Versailles.
-subtitle: [? if young_plan_seen == 1 : After passing the Young Plan, France has committed to withdrawing from the Rhineland. Now, we must see if they can reduce our reparations further, given the economic depression. ?]
+title: Über die EU-Schuldenregeln verhandeln.
+subtitle: [? if young_plan_seen == 1 : Die Ausnahme für Verteidigungsausgaben ist beschlossen. Jetzt geht es darum, ob auch Investitionen in Klima und Infrastruktur ausgenommen werden. ?]
 view-if: reparations > -2 and reparations_negotiation < 3
 on-arrival: west_relation += 1; reparations_negotiation += 1; reparations_negotiation += 1 if pacifism >= 3; reparations_negotiations += 1 if nationalism <= 50; reparations_negotiation += 1 if west_relation >= 3
 
-Negotiations procede smoothly for the most part. The Western powers are convinced of Germany's sincerity and goodwill. [? if nationalism <= 50 or pacifism >= 3 : They are pleased to see that we are renouncing militarism. ?]
+Die Verhandlungen in Brüssel laufen überwiegend gut. Unsere Partner nehmen uns ab, dass Deutschland nicht mehr nur auf Sparsamkeit pocht, sondern gemeinsame Investitionen will. [? if nationalism <= 50 or pacifism >= 3 : Dass wir nicht nur über Rüstung reden, kommt besonders gut an. ?]
 
 
 @reduce_reparations
-title: The Western Allies are finally willing to pause our reparations payments!
-subtitle: Our negotiations have been successful.
+title: Die EU einigt sich auf eine Investitionsausnahme!
+subtitle: Unsere Verhandlungen waren erfolgreich.
 view-if: reparations_negotiation >= 3 and black_thursday_seen == 1 and reparations > -2
 on-arrival: west_relation += 1; reparations = -2; budget += 2 if hoover_memorandum_seen == 0; budget += 1 if hoover_memorandum_seen == 1; coalition_dissent -= 1 if coalition_dissent > 0; workers_spd += 8*(1-dissent); old_middle_spd += 5*(1-dissent); new_middle_spd += 5*(1-dissent); rural_spd += 5*(1-dissent); coup_progress -= 2 if coup_progress > 2; economic_growth += 0.7; economic_growth += 0.5 if economic_growth < 0
 max-visits: 1
 
-Finally, given both the economic circumstances and our continued negotiations, the Western Allies are willing to pause our reparations payments! Much of the credit must go to American president Hoover, who has been friendlier towards us than the Europeans.
+Angesichts der Wirtschaftskrise und unserer beharrlichen Verhandlungen einigt sich die EU auf neue Regeln: Investitionen in Klimaschutz, Netze und Verkehr zählen nicht mehr voll gegen die Defizitgrenzen, und ein gemeinsamer Investitionsfonds wird aufgelegt. Viel Lob geht an die Südeuropäer, die lange dafür gekämpft haben.
 
-This has reduced tensions within our government, and our party has gotten credit for the achievement.
+Das entspannt die Haushaltslage, und unsere Partei bekommt Anerkennung für den Erfolg.
 
 @expose
-title: Expose the secret rearmament plans of the previous foreign ministry!
+title: Die Rüstungsexporte der Vorgängerregierungen offenlegen!
 view-if: rearmament_exposed == 0
 on-arrival: west_relation += 2; east_relation += 1; nationalism -= 5*(1-dissent); pro_republic += 5*(1-dissent); coalition_dissent += 1; rearmament_exposed += 1; reparations_negotiation += 3; coup_progress += 2; hindenburg_relation -= 15; hindenburg_dissent += 2
 
-The previous foreign ministry, despite its benevolent and peaceful face, was secretly helping the Reichswehr to build up its forces, in contravention of the Treaty of Versailles.
+Wir veröffentlichen, welche Rüstungsexporte frühere Regierungen trotz Menschenrechtsbedenken genehmigt haben, und bringen ein Rüstungsexportkontrollgesetz mit Verbandsklagerecht ein.
 
-The Allies are grateful of our exposure and repudiation of militarism. Our partners in the coalition are less supportive.
+Menschenrechtsorganisationen und viele EU-Partner loben die Transparenz. Rüstungsindustrie und Teile der Koalition sind empört.
 
 
 @concordat_negotiate
-title: Negotiate a Concordat between the Germany and the Vatican.
+title: Mit den Kirchen über die Ablösung der Staatsleistungen verhandeln.
 view-if: prussian_concordat = 1 and reichskonkordat = 0 and reichskonkordat_progress < 4
-on-arrival: reichskonkordat_progress += 2; reichskonkordat_progress -= 1 if abortion_rights; reichskonkordat_progress -= 1 if family_law; z_relation += 3*(1-dissent)
+on-arrival: reichskonkordat_progress += 2; reichskonkordat_progress -= 1 if abortion_rights; reichskonkordat_progress -= 1 if family_law; union_relation += 3*(1-dissent)
 
-The Roman Catholic Church is interested in furthering relations with the German Republic, seeing us as preferable to the old anti-Catholic policies of the Empire. We are working towards the signing of a Concordat, an agreement between the Vatican and the Republic that formally recognizes the Church's rights and interests in the country. The Center Party is especially interested in making this agreement.
+Seit 1919 verlangt die Verfassung, die historischen Staatsleistungen an die Kirchen abzulösen, doch geschehen ist es nie. Nachdem einige Länder vorangegangen sind, verhandeln wir mit katholischer und evangelischer Kirche über einen bundesweiten Vertrag, der zugleich die Arbeit von Caritas und Diakonie langfristig absichert. Die Union legt großen Wert auf eine einvernehmliche Lösung.
 
-[? if family_law : Our liberalized divorce policies make it difficult to build relations with the Vatican. ?] [? if abortion : Our legalization of abortion make it difficult to connect with the Church. ?]
+[? if family_law : Unsere Reform des Familienrechts belastet die Gespräche mit der katholischen Kirche. ?] [? if abortion_rights : Die Streichung des §218 macht die Verhandlungen mit der Kirche schwierig. ?]
 
 @concordat
-title: We can sign a Concordat with the Vatican!
+title: Wir können den Staatskirchenvertrag unterzeichnen!
 view-if: reichskonkordat_progress >= 4 and reichskonkordat = 0
-on-arrival: reichskonkordat = 1; z_relation += 15*(1-dissent); catholics_spd += 8*(1-dissent); catholics_z += 5 if in_weimar_coalition or in_grand_coalition or in_popular_front;
+on-arrival: reichskonkordat = 1; union_relation += 15*(1-dissent); rentner_spd += 8*(1-dissent); rentner_union += 5 if in_weimar_coalition or in_grand_coalition or in_popular_front;
 achievement: reichskonkordat
 
-We have successfully signed a Concordat between Germany and the Roman Catholic Church! This treaty defines a formal relationship between the Church and the German state, guaranteeing freedom of worship for Catholics, and the right of the church to appoint their own clergy. Catholics in Germany are pleased, as are their representatives in the Center Party.
+Der Vertrag ist unterzeichnet: Die Staatsleistungen werden gegen eine einmalige Entschädigung abgelöst, und die kirchlichen Sozialträger erhalten verlässliche Rahmenbedingungen für Kitas, Pflege und Beratungsstellen. Kirchennahe Wählerinnen und Wähler, vor allem ältere, sind zufrieden, ebenso die Union.
 
 @support_austria
-title: Diplomatically support Austrian democracy against the Dollfuß dictatorship.
+title: Österreichs Demokratie diplomatisch gegen die FPÖ-Regierung unterstützen.
 view-if: austrian_parliament_seen = 1 and austrian_civil_war_seen = 0
 on-arrival: sdapo_strength += 1; left_dissent -= 3; center_dissent -= 3
 
-We provide verbal backing to Austrian democracy, wage a war of words against Austrofascism, and promulgate additional trade sanctions. Time will tell if it will be enough.
+Wir stellen uns öffentlich hinter die österreichische Zivilgesellschaft und die freie Presse, drängen in Brüssel auf ein Rechtsstaatsverfahren und unterstützen die Opposition politisch. Ob das reicht, wird sich zeigen.
 
 @support_austria_2
-title: Provide material support to Austrian democracy against the Dollfuß dictatorship.
-subtitle: -1 budget
+title: Die demokratischen Kräfte in Österreich auch materiell unterstützen.
+subtitle: -1 Haushaltsspielraum
 choose-if: budget >= 1
 view-if: austrian_parliament_seen = 1 and austrian_civil_war_seen = 0
 on-arrival: budget -= 1; sdapo_strength += 3; left_dissent -= 6; center_dissent -= 6
 
-In public, we provide verbal backing to Austrian democracy, wage a war of words against Austrofascism, and promulgate additional trade sanctions. Privately, we provide financial and various forms of "support" to our comrades in Austria in their struggle against dictatorship.
+Öffentlich stellen wir uns hinter die österreichische Demokratie und drängen auf ein Rechtsstaatsverfahren. Über parteinahe Stiftungen fördern wir zusätzlich unabhängige Medien, Gewerkschaften und unsere Genossinnen und Genossen von der SPÖ.
 
 @european_union
-title: Take steps to form a "European Union".
-subtitle: Is a "United States of Europe" possible?
-unavailable-subtitle: [? if west_relation < 5 : Our relations with the West are not good enough. ?] [? if east_relation < 4 : Our relations with the East are not good enough. ?]
+title: Schritte zu einer Europäischen Föderation einleiten.
+subtitle: Sind die „Vereinigten Staaten von Europa“ möglich?
+unavailable-subtitle: [? if west_relation < 5 : Unsere Beziehungen zu den westlichen Partnern sind nicht gut genug. ?] [? if east_relation < 4 : Unsere Beziehungen zu den östlichen Partnern sind nicht gut genug. ?]
 view-if: reparations <= -2 and eu_progress < 2 and eu = 0
 choose-if: west_relation >= 5 and east_relation >= 4
 on-arrival: eu_progress += 1; west_relation += 1
 
-Forming a "United States of Europe" has long been part of the Social Democratic foreign program. Finally, we are taking steps towards it. Given our positive relations with the other countries of Europe, we can begin to hold multilateral negotiations for more European federalism. It will take time to hammer out the exact shape of this future "European Union", however.
+Die „Vereinigten Staaten von Europa“ stehen seit dem Heidelberger Programm von 1925 im Programm der SPD. Jetzt gehen wir konkrete Schritte: Mit unseren Partnern verhandeln wir über eine Fiskalunion, eine gemeinsame Verteidigung und Mehrheitsentscheidungen statt Einstimmigkeit. Bis die Form dieser Föderation feststeht, wird es dauern.
 
 
 @european_union_2
-title: We can sign a treaty to form a European Union!
+title: Wir können den Vertrag über eine Europäische Föderation unterzeichnen!
 view-if: west_relation >= 5 and east_relation >= 4 and eu_progress >= 2 and eu = 0
-on-arrival: eu = 1; unemployed -= 2 if unemployed >= 10; inflation += 2 if inflation <= -2; inflation -= 1 if inflation >= 4.5; workers_spd += 5*(1-dissent); new_middle_spd += 5*(1-dissent); old_middle_spd += 5*(1-dissent); rural_spd += 4*(1-dissent); catholics_spd += 4*(1-dissent); unemployed_spd += 4*(1-dissent); pro_republic += 5; nationalism -= 5; budget += 1; economic_growth += 1; economic_growth += 1 if economic_growth < 3
+on-arrival: eu = 1; unemployed -= 2 if unemployed >= 10; inflation += 2 if inflation <= -2; inflation -= 1 if inflation >= 4.5; workers_spd += 5*(1-dissent); new_middle_spd += 5*(1-dissent); old_middle_spd += 5*(1-dissent); rural_spd += 4*(1-dissent); rentner_spd += 4*(1-dissent); unemployed_spd += 4*(1-dissent); pro_republic += 5; nationalism -= 5; budget += 1; economic_growth += 1; economic_growth += 1 if economic_growth < 3
 max-visits: 1
-achievement: eu
 
-Along with France, Great Britain, and many other states of Western and Eastern Europe, we have signed a treaty to form a European Union! It is hoped that Europe has learned the lessons of the Great War; never again will there be another war that tears the continent apart.
+Gemeinsam mit Frankreich, Polen, Spanien, Italien und vielen weiteren Staaten haben wir den Vertrag über eine Europäische Föderation unterzeichnet! Die Mitgliedstaaten bekommen einen gemeinsamen Haushalt mit eigenen Einnahmen, eine europäische Arbeitslosenrückversicherung und eine gemeinsame Verteidigungsunion.
 
-A major component of the union is the free movement of people and goods across the countries of Europe, as well as the stabilization of currency exchange rates. This provides new markets for German products and new sources of investment.
+Das schafft Investitionen, stabilisiert die Konjunktur und macht Europa unabhängiger von Washington und Peking.
 
-Fascist Italy remains a problem, and the Soviet Union also lies outside the system. But for now, there is new hope for peace and prosperity throughout the continent.
+Ungarn und die Slowakei bleiben vorerst außen vor, und Russland bleibt eine Bedrohung. Doch für den Moment gibt es neue Hoffnung auf Frieden und Wohlstand auf dem Kontinent.

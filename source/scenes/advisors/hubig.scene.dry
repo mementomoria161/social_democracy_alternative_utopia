@@ -1,0 +1,33 @@
+title: Stefanie Hubig
+is-pinned-card: true
+tags: advisor
+card-image: img/portraits/Hubig.jpg
+view-if: hubig_advisor = 1
+new-page: true
+
+= Stefanie Hubig
+
+Hubig ist seit 2025 Bundesministerin der Justiz und für Verbraucherschutz. Die Juristin war zuvor Bildungsministerin in Rheinland-Pfalz und Staatssekretärin im Bundesjustizministerium. Sie gilt als nüchterne Fachpolitikerin, die den Rechtsstaat gegen seine Feinde wappnen will.
+
+
+- @judiciary_
+- @constitutional_reform_
+- @root: Zurück
+
+
+@judiciary_
+title: Rechtspolitik
+subtitle: Reformen in Justiz und Rechtsstaat umsetzen.
+choose-if: advisor_action_timer = 0 and spd_in_government and justice_minister_party = "SPD"
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if not spd_in_government : Die SPD ist nicht an der Regierung beteiligt. ?][? if justice_minister_party != "SPD" : Die SPD stellt nicht die Justizministerin bzw. den Justizminister. ?]
+on-arrival: advisor_action_timer = 6; judiciary_timer -= 6; last_advisor_action = 1
+go-to: judiciary
+
+
+@constitutional_reform_
+title: Das Grundgesetz wetterfest machen
+subtitle: Verfassungsorgane wie das Bundesverfassungsgericht gegen Angriffe absichern.
+choose-if: advisor_action_timer = 0 and spd_in_government and justice_minister_party = "SPD" and ((in_weimar_coalition) or (in_spd_majority) or (in_left_front) or (in_popular_front) or (in_grand_coalition)) and judicial_reform >= 2
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if not spd_in_government : Die SPD ist nicht an der Regierung beteiligt. ?] [? if justice_minister_party != "SPD" : Die SPD stellt nicht die Justizministerin bzw. den Justizminister. ?] [? if judicial_reform < 2: Die Vorarbeiten für eine Verfassungsreform fehlen noch. ?] [? if not ((in_weimar_coalition) or (in_spd_majority) or (in_left_front) or (in_popular_front) or (in_grand_coalition)) : Unsere Koalition wird keine Verfassungsänderungen mittragen. ?]
+on-arrival: advisor_action_timer = 6; last_advisor_action = 1; constitutional_reform_timer -= 12
+go-to: constitutional_reform

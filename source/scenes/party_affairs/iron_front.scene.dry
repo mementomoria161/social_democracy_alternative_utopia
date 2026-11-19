@@ -1,57 +1,56 @@
-title: The Iron Front
+title: Bündnis für Demokratie
 new-page: true
 is-card: true
 view-if: iron_front_formed == 1 and iron_front_timer = 0
-on-arrival: iron_front_timer = 7; month_actions += 1; rb_militarization_cost = 2 if rb_militancy > 0.1 else rb_militarization_cost = 1; rb_militarization_cost = 3 if rb_militancy > 0.25
-card-image: img/iron_front.png
+on-arrival: iron_front_timer = 7; month_actions += 1; demo_militarization_cost = 2 if demo_radicalism > 0.1 else demo_militarization_cost = 1; demo_militarization_cost = 3 if demo_radicalism > 0.25
+card-image: img/buendnis_demokratie.jpg
 frequency: 200
 tags: party_affairs, antifascism
 
-= The Iron Front
+= Bündnis für Demokratie
 
-The Iron Front is our new antifascist coordination front, consisting of the SPD, the trade unions, and the Reichsbanner. How should we use the Iron Front?
+Das Bündnis für Demokratie bringt SPD, DGB-Gewerkschaften und die Demokratiebewegung zusammen. Wofür setzen wir es diesmal ein?
 
-[? if workers_spd < 45 or workers_spd < workers_nsdap or workers_spd < workers_kpd : Unfortunately, the Iron Front's effectiveness is dragged down by the SPD's unpopularity, as the SPD is no longer the dominant party among the workers. Many Reichsbanner members have left, and many workers are not interested. ?]
+[? if workers_spd < 15 or workers_spd < workers_afd or workers_spd < workers_linke : Leider leidet das Bündnis unter der Schwäche der SPD unter Beschäftigten. In vielen Betrieben ist die AfD inzwischen stärker als wir, und dort stößt das Bündnis auf Desinteresse oder offene Ablehnung. ?]
 
-- @defense: Rally for defense against the fascists with the Reichsbanner.
-- @pacifism: Rally for pacifism, against nationalism and war.
-- @republic: Rally to save the democratic republic against dictatorship.
-- @wtb: Rally for economic change and the WTB-Plan.
+- @defense: Für den Schutz von Demokratinnen und Demokraten mobilisieren.
+- @pacifism: Für Frieden und gegen Nationalismus mobilisieren.
+- @republic: Für das Grundgesetz und gegen seine Feinde mobilisieren.
+- @wtb: Für Investitionen und sichere Arbeitsplätze mobilisieren.
 - @antisemitism
 - @easy_discard
 
 @defense
-subtitle: -[+ rb_militarization_cost +] resources
-choose-if: resources >= rb_militarization_cost
-on-arrival: resources -= rb_militarization_cost; rb_strength += 50; rb_militancy += 0.05; z_relation -= 5 if historical_mode
+subtitle: -[+ demo_militarization_cost +] Ressourcen
+choose-if: resources >= demo_militarization_cost
+on-arrival: resources -= demo_militarization_cost; demo_strength += 50; demo_radicalism += 0.05; union_relation -= 5 if historical_mode
 
-The Iron Front rallies for the militant defense of the republic against the fascist paramilitaries, strengthening the Reichsbanner.
+Kommunalpolitiker werden bedroht, Wahlkampfstände angegriffen, CSD-Paraden gestört. Das Bündnis organisiert Schutzbegleitung, Mahnwachen und schnelle Gegenproteste. Die Demokratiebewegung wird entschlossener.
 
-[? if historical_mode : The Center Party decries the militarization of the Reichsbanner and Iron Front, and its members are leaving the republican organization. ?]
+[? if historical_mode : Die Union kritisiert das Bündnis als „linke Vorfeldorganisation“ und hält sich fern. ?]
 
 
 @pacifism
 on-arrival: pacifism += 1; nationalism -= 5 if pacifism >= 3; workers_spd += 5*(1-dissent) if pacifism >= 4; unemployed_spd += 4*(1-dissent) if pacifism >= 4; new_middle_spd += 4*(1-dissent) if pacifism >= 4
 
-The Iron Front rallies against nationalism and war.
+Das Bündnis ruft zu Friedenskundgebungen gegen Nationalismus und Hetze auf.
 
 @republic
 on-arrival: pro_republic += 5*(1-dissent); democratization += 1; workers_spd += 5*(1-dissent) if democratization >= 4; unemployed_spd += 4*(1-dissent) if democratization >= 4; new_middle_spd += 4*(1-dissent) if democratization >= 4
 
-The Iron Front rallies in defense of the democratic republic and against dictatorship.
+Am Verfassungstag gehen Zehntausende für das Grundgesetz auf die Straße.
 
 @wtb
 choose-if: return_to_normalcy = 0
-unavailable-subtitle: The economic crisis is largely over now, and the public is no longer interested in hearing about it.
+unavailable-subtitle: Die Wirtschaftskrise ist weitgehend überwunden, und das Thema zieht nicht mehr.
 view-if: wtb_adopted == 1
 on-arrival: workers_spd += 8*(1-dissent); unemployed_spd += 8*(1-dissent); new_middle_spd += 5*(1-dissent); old_middle_spd += 3*(1-dissent); rural_spd += 3*(1-dissent);
 
-The WTB-Plan is the rallying point for the entire SPD and its affiliated organizations, including the Iron Front.
+Gewerkschaften und SPD werben gemeinsam für die Investitionsoffensive. Die Botschaft: Wer gute Arbeit hat, fällt nicht auf Rattenfänger herein.
 
 @antisemitism
-title: Rally against antisemitism and in defense of Jewish Germans.
+title: Gegen Antisemitismus und für jüdisches Leben in Deutschland.
 view-if: confronting_antisemitism > 1
-on-arrival: nationalism -= 4*(1-dissent); pro_republic += 3*(1-dissent); confronting_antisemitism += 1; workers_nsdap -= 4*(1-dissent); unemployed_nsdap -= 4*(1-dissent);
+on-arrival: nationalism -= 4*(1-dissent); pro_republic += 3*(1-dissent); confronting_antisemitism += 1; workers_afd -= 4*(1-dissent); unemployed_afd -= 4*(1-dissent);
 
-# TODO
-The Nazis and other far-right political movements are increasingly turning their hatred against the Jewish community of Germany. The Iron Front rallies in defense of individual Jews and the broader community against violence.
+Seit dem 7. Oktober 2023 haben antisemitische Straftaten in Deutschland stark zugenommen, von rechts, von links und aus islamistischen Milieus. Das Bündnis stellt sich schützend vor Synagogen, jüdische Schulen und Gemeinden.

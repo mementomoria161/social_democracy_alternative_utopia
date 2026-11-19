@@ -2,7 +2,7 @@ title: Agricultural Revolt
 subtitle: Small farmers are in revolt over debts and taxes...
 view-if: ((year = 1929 and month >= 2)) and spd_in_government and agricultural_finance < 2
 max-visits: 1
-on-arrival: agricultural_crisis_seen = 1; rural_dnvp -= 2; rural_spd -= 2; rural_nsdap += 2
+on-arrival: agricultural_crisis_seen = 1; rural_bsw -= 2; rural_spd -= 2; rural_afd += 2
 new-page: true
 tags: event
 face-image: img/Kollwitz_bauernkrieg.jpg
@@ -28,14 +28,14 @@ What should we do?
 # 3. Increase agricultural financing
 
 @nothing
-on-arrival: rural_nsdap += 3; rural_spd -= 2; rural_ddp -= 2; pro_republic -= 3
+on-arrival: rural_afd += 3; rural_spd -= 2; rural_gruene -= 2; pro_republic -= 3
 
 There is nothing we can do. The peasant unrest rages on, only tempered by its own internal dissention. More and more, the peasant movement is being coopted by the growing Nazi party, who channel their grievances into demands for the overthrow of the Republic.
 
 @suppress
 unavailable-subtitle: The police are largely unwilling to take the action needed.
 choose-if: prussian_police_loyalty >= 0.6 or interior_police_loyalty >= 0.6
-on-arrival: rural_spd -= 4; rural_ddp -= 4; rural_nsdap -= 2
+on-arrival: rural_spd -= 4; rural_gruene -= 4; rural_afd -= 2
 
 The police are able to suppress the farmer unrest, preventing them from threatening the state. However, the peasants' economic circumstances remain poor, and they will only curse the SPD more and more.
 
@@ -56,6 +56,6 @@ on-arrival: budget -= 2; rural_spd += 2*(1-dissent); coalition_dissent += 1; cen
 go-to: financing_done
 
 @financing_done
-on-arrival: rural_spd += 3*(1-dissent); rural_ddp += 2 if ddp_in_government
+on-arrival: rural_spd += 3*(1-dissent); rural_gruene += 2 if gruene_in_government
 
 In response to the unrest, we have substantially increased financial support for small farmers. On the one hand, the *Landvolkbewegung* is largely appeased by the increased funding, even if some Nazi infiltration remains. However, some in our coalition see it as an act of weakness and capitulation to terrorism, as well as a sign of budget indiscipline.

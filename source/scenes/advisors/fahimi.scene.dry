@@ -1,0 +1,42 @@
+title: Yasmin Fahimi
+is-pinned-card: true
+tags: advisor, labor
+card-image: img/portraits/Fahimi.jpg
+view-if: fahimi_advisor = 1
+new-page: true
+
+= Yasmin Fahimi
+
+Fahimi ist seit 2022 Vorsitzende des Deutschen Gewerkschaftsbundes. Die Chemikerin war früher Gewerkschaftssekretärin der IG BCE, Generalsekretärin der SPD und Bundestagsabgeordnete. Sie verbindet Partei und Gewerkschaften wie kaum jemand sonst – und scheut den Konflikt mit der Regierung nicht.
+
+- @organizing
+- @depression
+- @union_unity
+- @root: Zurück
+
+@organizing
+title: Beschäftigte organisieren
+subtitle: Unsere Stellung unter Arbeitnehmerinnen und Arbeitnehmern verbessern.
+choose-if: advisor_action_timer <= 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; workers_spd += 4*(1-dissent); workers_spd += 3*(1-dissent) if wtb_adopted == 1; labor_strength += 2;
+
+Gewerkschaften und SPD werben gemeinsam in Betrieben und Betriebsratswahlen. [? if wtb_adopted == 1 : Die Investitionsoffensive ist dabei unser stärkstes Argument. ?]
+
+@depression
+title: Einen Weg aus der Krise finden
+subtitle: Einen Plan gegen Deindustrialisierung und Stagnation entwickeln.
+choose-if: advisor_action_timer <= 0 and wtb_adopted = 0 and black_thursday_seen
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if black_thursday_seen == 0 : Wir befinden uns derzeit nicht in einer Wirtschaftskrise. ?][? if wtb_adopted > 0 : Wir haben die Investitionsoffensive bereits beschlossen. ?]
+on-arrival: advisor_action_timer = 6; wtb_support += 2; center_dissent += 10; labor_strength += 1
+
+Der DGB fordert eine Investitionsoffensive für Industrie, Infrastruktur und Klimaschutz, finanziert über Kredite statt Kürzungen. Fahimi wirbt in Partei und Gewerkschaften dafür.
+
+@union_unity
+title: Partei und Gewerkschaften abstimmen
+subtitle: Verringert den Unmut im Gewerkschaftsflügel.
+choose-if: advisor_action_timer <= 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; labor_dissent -= 5; labor_strength += 5
+
+Die Spannungen mit dem Gewerkschaftsflügel haben nachgelassen, und sein Einfluss in der Partei ist gewachsen.

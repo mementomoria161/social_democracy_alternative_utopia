@@ -1,0 +1,41 @@
+title: Manuela Schwesig
+is-pinned-card: true
+tags: advisor, reformist
+card-image: img/portraits/Schwesig.jpg
+view-if: schwesig_advisor = 1
+new-page: true
+
+= Manuela Schwesig
+
+Schwesig [? if spd_prussia = 1 : ist ?][? if spd_prussia = 0 : war ?] seit 2017 Ministerpräsidentin von Mecklenburg-Vorpommern und davor Bundesfamilienministerin. Sie ist die profilierteste ostdeutsche Stimme der SPD – und muss sich im September 2026 in einer Landtagswahl gegen eine AfD behaupten, die in den Umfragen weit vorne liegt.
+
+- @coalition
+- @prussian_bulwark
+- @snap_election
+- @root: Zurück
+
+@coalition
+title: Brücken bauen
+subtitle: Schwesig kann über die Länder die Beziehungen zu Union und Grünen verbessern.
+choose-if: advisor_action_timer <= 0 and (spd_prussia or in_weimar_coalition or in_grand_coalition or in_popular_front)
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?] [? if not spd_prussia : Die SPD hat ihre starke Stellung in den Ländern verloren. ?]
+on-arrival: advisor_action_timer = 6; coalition_dissent -= 1 if spd_in_government = 1 and coalition_dissent > 0; union_relation += 6; gruene_relation += 6; fdp_relation += 2; fdp_relation += 3 if in_grand_coalition
+
+Über die Ministerpräsidentenkonferenz und den Bundesrat hat Schwesig die Beziehungen zu Union und Grünen verbessert. Die Spannungen in der Koalition haben nachgelassen.
+
+@prussian_bulwark
+title: Die Länder als Bollwerk
+subtitle: Als Ministerpräsidentin verfügt Schwesig über Verwaltung, Polizei und Schulen ihres Landes.
+choose-if: advisor_action_timer <= 0 and spd_prussia = 1
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if spd_prussia == 0 : Die SPD hat ihre starke Stellung in den Ländern verloren. ?]
+on-arrival: advisor_action_timer = 6; prussian_affairs_timer -= 6; last_advisor_action = 1
+go-to: prussian_affairs
+
+@snap_election
+title: Die Vertrauensfrage stellen
+subtitle: Über die Vertrauensfrage nach Art. 68 GG Neuwahlen herbeiführen.
+unavailable-subtitle: [? if chancellor != "Schwesig" : Schwesig muss Bundeskanzlerin sein. ?][? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+choose-if: advisor_action_timer == 0 and chancellor == "Schwesig"
+on-arrival: advisor_action_timer = 6; next_election_time = time + 3 if next_election_time > time+3; next_election_month = month + 3 if next_election_time >= time+3; next_election_year = year if next_election_time >= time+3; next_election_year += 1 if next_election_month > 12; next_election_month -= 12 if next_election_month > 12;
+
+Die Bundeskanzlerin verliert die Vertrauensfrage wie geplant. Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt.

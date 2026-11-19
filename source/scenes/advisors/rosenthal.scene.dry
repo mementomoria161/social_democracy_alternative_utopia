@@ -1,0 +1,39 @@
+title: Jessica Rosenthal
+is-pinned-card: true
+tags: advisor, left
+card-image: img/portraits/Rosenthal.jpg
+view-if: rosenthal_advisor = 1
+new-page: true
+
+= Jessica Rosenthal
+
+Rosenthal war von 2021 bis 2023 Bundesvorsitzende der Jusos. Die Bonner Lehrerin kennt den Alltag an Schulen mit Lehrermangel, maroden Gebäuden und wachsenden Klassen aus eigener Erfahrung und streitet für gleiche Bildungschancen und eine friedensorientierte Außenpolitik.
+
+- @campaign_pacifism
+- @structure_
+- @curriculum_
+- @root: Zurück
+
+@campaign_pacifism
+title: Für Abrüstung und Diplomatie werben
+subtitle: Gegen Aufrüstung und für eine Friedenspolitik mobilisieren.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6;
+go-to: rally.pacifism
+
+
+@curriculum_
+title: Die Lehrpläne verändern
+choose-if: advisor_action_timer = 0 and spd_in_government and chancellor_party = "SPD" and spd_prussia and curriculum_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if not spd_in_government : Die SPD ist nicht an der Regierung beteiligt. ?][? if chancellor_party != "SPD": Die SPD muss den Kanzler stellen. ?][? if not spd_prussia: Bildung ist Ländersache – die SPD braucht dafür eine starke Stellung in den Ländern. ?][? if curriculum_timer > 0 : Für eine erneute Änderung ist es zu früh. ?]
+on-arrival: advisor_action_timer = 6; last_advisor_action = 1
+go-to: education_science.curriculum
+
+
+@structure_
+title: Bildung neu organisieren und finanzieren
+choose-if: advisor_action_timer = 0 and spd_in_government and chancellor_party = "SPD" and spd_prussia
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if not spd_in_government : Die SPD ist nicht an der Regierung beteiligt. ?][? if chancellor_party != "SPD": Die SPD muss den Kanzler stellen. ?][? if not spd_prussia: Bildung ist Ländersache – die SPD braucht dafür eine starke Stellung in den Ländern. ?]
+on-arrival: advisor_action_timer = 6; last_advisor_action = 1
+go-to: education_science.structure

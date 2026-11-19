@@ -13,8 +13,8 @@ Q.rural_srpd = 1;
 Q.rural_spd -= 2;
 Q.unemployed_srpd = 2;
 Q.unemployed_spd -= 3;
-Q.catholics_srpd = 1;
-Q.catholics_spd -= 2;
+Q.rentner_srpd = 1;
+Q.rentner_spd -= 2;
 
 if (Q.unions_independent) {
     Q.workers_srpd += 5;

@@ -1,0 +1,53 @@
+title: Anke Rehlinger
+is-pinned-card: true
+tags: advisor, centrist
+card-image: img/portraits/Rehlinger.jpg
+view-if: rehlinger_advisor = 1
+new-page: true
+
+= Anke Rehlinger
+
+Rehlinger ist seit 2022 Ministerpräsidentin des Saarlandes, wo die SPD bei der Landtagswahl die absolute Mehrheit gewann. Die frühere Leichtathletin und Juristin ist stellvertretende Parteivorsitzende und gilt als Beweis, dass die SPD noch Volkspartei sein kann: bodenständig, industrienah und mehrheitsfähig.
+
+- @support_peoples_party
+- @build_peoples_party
+- @campaigning_peoples_party
+- @womens_rights_
+- @root: Zurück
+
+@support_peoples_party
+title: Für eine neue Volkspartei werben
+subtitle: Kann die SPD wieder Wählerinnen und Wähler weit über ihr Milieu hinaus erreichen?
+view-if: peoples_party = 0
+choose-if: peoples_party_support <= 4 and advisor_action_timer = 0 and peoples_party = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if peoples_party_support > 4: Die Idee hat bereits breite Unterstützung. ?]
+on-arrival: advisor_action_timer = 6; peoples_party_support += 1; reformist_strength += 5;
+
+Die Idee einer neuen, breiten Volkspartei gewinnt in der SPD an Unterstützung.
+
+@build_peoples_party
+title: Die Volkspartei erneuern
+subtitle: Die SPD wieder zu einer Partei für die Breite der Gesellschaft machen.
+view-if: peoples_party = 0
+choose-if: peoples_party_support >= 3 and advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if peoples_party_support < 3: Dafür gibt es in der Partei noch nicht genug Rückhalt. ?]
+on-arrival: advisor_action_timer = 6;
+go-to: peoples_party
+
+@campaigning_peoples_party
+title: Als Volkspartei Wahlkampf machen
+subtitle: Um Gruppen werben, die die SPD lange vernachlässigt hat.
+view-if: peoples_party = 1
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6;
+go-to: peoples_party_campaigning
+
+
+@womens_rights_
+title: Gleichstellung
+subtitle: Politik für die Gleichstellung von Frauen.
+choose-if: advisor_action_timer = 0 and spd_in_government
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if not spd_in_government : Die SPD ist nicht an der Regierung beteiligt. ?]
+on-arrival: advisor_action_timer = 6; womens_rights_timer -= 10; last_advisor_action = 1
+go-to: womens_rights

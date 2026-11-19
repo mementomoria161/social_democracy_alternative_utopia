@@ -1,276 +1,276 @@
-title: Shuffle Leadership
+title: Führung umbilden
 new-page: true
 is-card: true
 tags: party_affairs
 view-if: shuffle_leadership_timer = 0 and difficulty >= 0
 on-arrival: month_activities += 1; shuffle_leadership_timer = 8;
-card-image: img/vorwarts_2.jpg
+card-image: img/parteitag.jpg
 go-to: rm_main
 
-Changing the leadership of the party is painful, but perhaps it is necessary to adapt to changing circumstances.
+Ein Wechsel an der Spitze tut immer weh, doch vielleicht ist er nötig, um auf neue Umstände zu reagieren.
 
-Removing advisors will increase dissent from their faction of the party, while selecting advisors will increase a faction's strength.
+Wer Beraterinnen oder Berater verliert, erhöht den Unmut in ihrer Strömung. Wer neu hinzukommt, stärkt die eigene Strömung.
 
-- @rm_main: Remove advisors
-- @add_advisors: Add advisors
-- @remove_none: Don't change advisors.
+- @rm_main: Berater entlassen
+- @add_advisors: Berater hinzufügen
+- @remove_none: Nichts ändern.
 - @easy_discard
 
 
 ###################### removing leaders
 
 @rm_main
-title: Remove advisors.
+title: Berater entlassen.
 tags: center_advisor, left_advisor, reformist_advisor, labor_advisor, neorev_advisor, nonfactional_advisor 
 frequency: 1
 
 - #remove_advisor
-- @add_advisors: Add advisors
+- @add_advisors: Berater hinzufügen
 
 @remove_none
-title: Stop changing advisors.
+title: Keine weiteren Änderungen.
 go-to: root
 tags: remove_advisor
 
 
-@remove_hilferding
-title: Remove Hilferding
-view-if: hilferding_advisor = 1
-on-arrival: hilferding_advisor = 0; center_dissent += 5; n_advisors -= 1
+@remove_miersch
+title: Miersch aus dem Beraterkreis nehmen
+view-if: miersch_advisor = 1
+on-arrival: miersch_advisor = 0; center_dissent += 5; n_advisors -= 1
 tags: remove_advisor
 go-to: rm_main
 
-Hilferding has been removed as an advisor. The Centrist faction disapproves.
+Miersch gehört nicht mehr zum Beraterkreis. Die Parteimitte ist verärgert.
 
-@remove_wels
-title: Remove Wels
-view-if: wels_advisor = 1
+@remove_bas
+title: Bas aus dem Beraterkreis nehmen
+view-if: bas_advisor = 1
 tags: remove_advisor
-on-arrival: wels_advisor = 0; center_dissent += 5; n_advisors -= 1
+on-arrival: bas_advisor = 0; center_dissent += 5; n_advisors -= 1
 go-to: rm_main
 
-Wels has been removed as an advisor. The Centrist faction disapproves.
+Bas gehört nicht mehr zum Beraterkreis. Die Parteimitte ist verärgert.
 
-@remove_muller
-title: Remove Müller
-view-if: muller_advisor = 1
+@remove_klingbeil
+title: Klingbeil aus dem Beraterkreis nehmen
+view-if: klingbeil_advisor = 1
 tags: remove_advisor
-on-arrival: muller_advisor = 0; center_dissent += 5; n_advisors -= 1
+on-arrival: klingbeil_advisor = 0; center_dissent += 5; n_advisors -= 1
 go-to: rm_main
 
-Müller has been removed as an advisor. The Centrist faction disapproves.
+Klingbeil gehört nicht mehr zum Beraterkreis. Die Parteimitte ist verärgert.
 
 
-@remove_breitscheid
-title: Remove Breitscheid
-view-if: breitscheid_advisor = 1
+@remove_muetzenich
+title: Mützenich aus dem Beraterkreis nehmen
+view-if: muetzenich_advisor = 1
 tags: remove_advisor
-on-arrival: breitscheid_advisor = 0; center_dissent += 5; n_advisors -= 1
+on-arrival: muetzenich_advisor = 0; center_dissent += 5; n_advisors -= 1
 go-to: rm_main
 
-Breitscheid has been removed as an advisor. The Centrist faction disapproves.
+Mützenich gehört nicht mehr zum Beraterkreis. Die Parteimitte ist verärgert.
 
 # reformists
 
 
-@remove_severing
-title: Remove Severing
-view-if: severing_advisor = 1
+@remove_pistorius
+title: Pistorius aus dem Beraterkreis nehmen
+view-if: pistorius_advisor = 1
 tags: remove_advisor
-on-arrival: severing_advisor = 0; reformist_dissent += 5; n_advisors -= 1
+on-arrival: pistorius_advisor = 0; reformist_dissent += 5; n_advisors -= 1
 go-to: rm_main
 
-Severing has been removed as an advisor. The Reformist faction disapproves.
+Pistorius gehört nicht mehr zum Beraterkreis. Der Seeheimer Kreis ist verärgert.
 
-@remove_braun
-title: Remove Braun
-view-if: braun_advisor = 1
+@remove_schwesig
+title: Schwesig aus dem Beraterkreis nehmen
+view-if: schwesig_advisor = 1
 tags: remove_advisor
-on-arrival: braun_advisor = 0; reformist_dissent += 5; n_advisors -= 1
+on-arrival: schwesig_advisor = 0; reformist_dissent += 5; n_advisors -= 1
 go-to: rm_main
 
-Braun has been removed as an advisor. The Reformist faction disapproves.
+Schwesig gehört nicht mehr zum Beraterkreis. Der Seeheimer Kreis ist verärgert.
 
-@remove_juchacz
-title: Remove Juchacz
-view-if: juchacz_advisor = 1
+@remove_midyatli
+title: Midyatli aus dem Beraterkreis nehmen
+view-if: midyatli_advisor = 1
 tags: remove_advisor
-on-arrival: juchacz_advisor = 0; reformist_dissent += 5; n_advisors -= 1
+on-arrival: midyatli_advisor = 0; reformist_dissent += 5; n_advisors -= 1
 go-to: rm_main
 
-Juchacz has been removed as an advisor. The Reformist faction disapproves.
+Midyatli gehört nicht mehr zum Beraterkreis. Der Seeheimer Kreis ist verärgert.
 
-@remove_pfulf
-title: Remove Pfülf
-view-if: pfulf_advisor = 1
+@remove_rehlinger
+title: Rehlinger aus dem Beraterkreis nehmen
+view-if: rehlinger_advisor = 1
 tags: remove_advisor
-on-arrival: pfulf_advisor = 0; reformist_dissent += 5; n_advisors -= 1
+on-arrival: rehlinger_advisor = 0; reformist_dissent += 5; n_advisors -= 1
 go-to: rm_main
 
-Pfülf has been removed as an advisor. The Reformist faction disapproves.
+Rehlinger gehört nicht mehr zum Beraterkreis. Der Seeheimer Kreis ist verärgert.
 
 
 # labor
 
-@remove_leipart
-title: Remove Leipart
-view-if: leipart_advisor = 1
+@remove_fahimi
+title: Fahimi aus dem Beraterkreis nehmen
+view-if: fahimi_advisor = 1
 tags: remove_advisor
-on-arrival: leipart_advisor = 0; labor_dissent += 5; n_advisors -= 1
+on-arrival: fahimi_advisor = 0; labor_dissent += 5; n_advisors -= 1
 go-to: rm_main
 
-Leipart has been removed as an advisor. The Labor faction disapproves.
+Fahimi gehört nicht mehr zum Beraterkreis. Der Gewerkschaftsflügel ist verärgert.
 
-@remove_aufhauser
-title: Remove Aufhäuser
-view-if: aufhauser_advisor = 1
+@remove_hubertz
+title: Hubertz aus dem Beraterkreis nehmen
+view-if: hubertz_advisor = 1
 tags: remove_advisor
-on-arrival: aufhauser_advisor = 0; labor_dissent += 5; n_advisors -= 1
+on-arrival: hubertz_advisor = 0; labor_dissent += 5; n_advisors -= 1
 go-to: rm_main
 
-Aufhäuser has been removed as an advisor. The Labor faction disapproves.
+Hubertz gehört nicht mehr zum Beraterkreis. Der Gewerkschaftsflügel ist verärgert.
 
-@remove_wissell
-title: Remove Wissell
-view-if: wissell_advisor = 1
+@remove_heil
+title: Heil aus dem Beraterkreis nehmen
+view-if: heil_advisor = 1
 tags: remove_advisor
-on-arrival: wissell_advisor = 0; labor_dissent += 3; n_advisors -= 1
+on-arrival: heil_advisor = 0; labor_dissent += 3; n_advisors -= 1
 go-to: rm_main
 
-Wissell has been removed as an advisor. The Labor faction disapproves.
+Heil gehört nicht mehr zum Beraterkreis. Der Gewerkschaftsflügel ist verärgert.
 
 
-@remove_woytinsky
-title: Remove Woytinsky
-view-if: woytinsky_advisor = 1
+@remove_suedekum
+title: Südekum aus dem Beraterkreis nehmen
+view-if: suedekum_advisor = 1
 tags: remove_advisor
-on-arrival: woytinsky_advisor = 0; labor_dissent += 3; n_advisors -= 1
+on-arrival: suedekum_advisor = 0; labor_dissent += 3; n_advisors -= 1
 go-to: rm_main
 
-Woytinsky has been removed as an advisor. The Labor faction disapproves.
+Südekum gehört nicht mehr zum Beraterkreis. Der Gewerkschaftsflügel ist verärgert.
 
 # left
 
-@remove_levi
-title: Remove Levi
-view-if: levi_advisor = 1
+@remove_stegner
+title: Stegner aus dem Beraterkreis nehmen
+view-if: stegner_advisor = 1
 tags: remove_advisor
-on-arrival: levi_advisor = 0; left_dissent += 5; n_advisors -= 1
+on-arrival: stegner_advisor = 0; left_dissent += 5; n_advisors -= 1
 go-to: rm_main
 
-Levi has been removed as an advisor. The Leftist faction disapproves.
+Stegner gehört nicht mehr zum Beraterkreis. The Leftist faction disapproves.
 
-@remove_sender
-title: Remove Sender
-view-if: sender_advisor = 1
+@remove_esken
+title: Esken aus dem Beraterkreis nehmen
+view-if: esken_advisor = 1
 tags: remove_advisor
-on-arrival: sender_advisor = 0; left_dissent += 3; n_advisors -= 1
+on-arrival: esken_advisor = 0; left_dissent += 3; n_advisors -= 1
 go-to: rm_main
 
-Sender has been removed as an advisor. The Leftist faction disapproves.
+Esken gehört nicht mehr zum Beraterkreis. The Leftist faction disapproves.
 
-@remove_rosenfeld
-title: Remove Rosenfeld
-view-if: rosenfeld_advisor = 1
+@remove_tuermer
+title: Türmer aus dem Beraterkreis nehmen
+view-if: tuermer_advisor = 1
 tags: remove_advisor
-on-arrival: rosenfeld_advisor = 0; left_dissent += 3; n_advisors -= 1
+on-arrival: tuermer_advisor = 0; left_dissent += 3; n_advisors -= 1
 go-to: rm_main
 
-Rosenfeld has been removed as an advisor. The Leftist faction disapproves.
+Türmer gehört nicht mehr zum Beraterkreis. The Leftist faction disapproves.
 
-@remove_seydewitz
-title: Remove Seydewitz
-view-if: seydewitz_advisor = 1
+@remove_kuehnert
+title: Kühnert aus dem Beraterkreis nehmen
+view-if: kuehnert_advisor = 1
 tags: remove_advisor
-on-arrival: seydewitz_advisor = 0; left_dissent += 3; n_advisors -= 1
+on-arrival: kuehnert_advisor = 0; left_dissent += 3; n_advisors -= 1
 go-to: rm_main
 
-Seydewitz has been removed as an advisor. The Leftist faction disapproves.
+Kühnert gehört nicht mehr zum Beraterkreis. The Leftist faction disapproves.
 
-@remove_siemsen
-title: Remove Siemsen
-view-if: siemsen_advisor = 1
+@remove_rosenthal
+title: Rosenthal aus dem Beraterkreis nehmen
+view-if: rosenthal_advisor = 1
 tags: remove_advisor
-on-arrival: siemsen_advisor = 0; left_dissent += 3; n_advisors -= 1
+on-arrival: rosenthal_advisor = 0; left_dissent += 3; n_advisors -= 1
 go-to: rm_main
 
-Siemsen has been removed as an advisor. The Leftist faction disapproves.
+Rosenthal gehört nicht mehr zum Beraterkreis. The Leftist faction disapproves.
 
 
 
 
 # neorevisionists
 
-@remove_mierendorff
-title: Remove Mierendorff
-view-if: mierendorff_advisor = 1
+@remove_grote
+title: Grote aus dem Beraterkreis nehmen
+view-if: grote_advisor = 1
 tags: remove_advisor
-on-arrival: mierendorff_advisor = 0; neorevisionist_dissent += 5; n_advisors -= 1
+on-arrival: grote_advisor = 0; neorevisionist_dissent += 5; n_advisors -= 1
 go-to: rm_main
 
-Mierendorff has been removed as an advisor. The Neorevisionist faction disapproves.
+Grote gehört nicht mehr zum Beraterkreis. Der Dänische Kurs ist verärgert.
 
-@remove_leber
-title: Remove Leber
-view-if: leber_advisor = 1
+@remove_wiese
+title: Wiese aus dem Beraterkreis nehmen
+view-if: wiese_advisor = 1
 tags: remove_advisor
-on-arrival: leber_advisor = 0; neorevisionist_dissent += 3; n_advisors -= 1
+on-arrival: wiese_advisor = 0; neorevisionist_dissent += 3; n_advisors -= 1
 go-to: rm_main
 
-Leber has been removed as an advisor. The Neorevisionist faction disapproves.
+Wiese gehört nicht mehr zum Beraterkreis. Der Dänische Kurs ist verärgert.
 
-@remove_schumacher
-title: Remove Schumacher
-view-if: schumacher_advisor = 1
+@remove_fiedler
+title: Fiedler aus dem Beraterkreis nehmen
+view-if: fiedler_advisor = 1
 tags: remove_advisor
-on-arrival: schumacher_advisor = 0; neorevisionist_dissent += 3; n_advisors -= 1
+on-arrival: fiedler_advisor = 0; neorevisionist_dissent += 3; n_advisors -= 1
 go-to: rm_main
 
-Schumacher has been removed as an advisor. The Neorevisionist faction disapproves.
+Fiedler gehört nicht mehr zum Beraterkreis. Der Dänische Kurs ist verärgert.
 
 
 ## nonfactional
 
 # tbh I'm not sure if Baade should be a reformist or nonfactional. same for stampfer. they were vaguely reformist-aligned but had pretty different ideas from the other reformists here. so they're non-factional.
 
-@remove_baade
-title: Remove Baade
-view-if: baade_advisor = 1
+@remove_woidke
+title: Woidke aus dem Beraterkreis nehmen
+view-if: woidke_advisor = 1
 tags: remove_advisor
-on-arrival: baade_advisor = 0; n_advisors -= 1
+on-arrival: woidke_advisor = 0; n_advisors -= 1
 go-to: rm_main
 
-Baade has been removed as an advisor.
+Woidke gehört nicht mehr zum Beraterkreis.
 
 #The Reformist faction disapproves.
 
 
-@remove_hirschfeld
-title: Remove Hirschfeld
-view-if: hirschfeld_advisor = 1
+@remove_drossmann
+title: Droßmann aus dem Beraterkreis nehmen
+view-if: drossmann_advisor = 1
 tags: remove_advisor
-on-arrival: hirschfeld_advisor = 0; n_advisors -= 1
+on-arrival: drossmann_advisor = 0; n_advisors -= 1
 go-to: rm_main
 
-Hirschfeld has been removed as an advisor. 
+Droßmann gehört nicht mehr zum Beraterkreis. 
 
-@remove_stampfer
-title: Remove Stampfer
-view-if: stampfer_advisor = 1
+@remove_kluessendorf
+title: Klüssendorf aus dem Beraterkreis nehmen
+view-if: kluessendorf_advisor = 1
 tags: remove_advisor
-on-arrival: stampfer_advisor = 0; n_advisors -= 1
+on-arrival: kluessendorf_advisor = 0; n_advisors -= 1
 go-to: rm_main
 
-Stampfer has been removed as an advisor. 
+Klüssendorf gehört nicht mehr zum Beraterkreis. 
 
-@remove_radbruch
-title: Remove Radbruch
-view-if: radbruch_advisor = 1
+@remove_hubig
+title: Hubig aus dem Beraterkreis nehmen
+view-if: hubig_advisor = 1
 tags: remove_advisor
-on-arrival: radbruch_advisor = 0; n_advisors -= 1
+on-arrival: hubig_advisor = 0; n_advisors -= 1
 go-to: rm_main
 
-Radbruch has been removed as an advisor. 
+Hubig gehört nicht mehr zum Beraterkreis. 
 
 
 
@@ -279,25 +279,25 @@ Radbruch has been removed as an advisor.
 ####################### adding advisors
 
 @add_advisors
-title: Add advisors
+title: Berater hinzufügen
 choose-if: n_advisors < 3
-unavailable-subtitle: Maximum of 3 advisors.
+unavailable-subtitle: Höchstens 3 Beraterinnen und Berater.
 go-to: advisor_menu
 
 @advisor_menu
-title: Add other advisors.
+title: Weitere Berater hinzufügen.
 tags: center_advisor, left_advisor, reformist_advisor, labor_advisor, neorev_advisor, nonfactional_advisor
 frequency: 1
 
 
-- @centrist: Add Centrists
-- @left: Add Leftists
-- @reformist: Add Reformists
-- @labor: Add Labor
-- @neorev: Add Neorevisionists
-- @nonfactional: Add non-factional advisors
-- @rm_main: Remove advisors instead.
-- @remove_none: Stop changing advisors.
+- @centrist: Aus der Parteimitte
+- @left: Aus der SPD-Linken
+- @reformist: Aus dem Seeheimer Kreis
+- @labor: Aus dem Gewerkschaftsflügel
+- @neorev: Vom Dänischen Kurs
+- @nonfactional: Ohne Strömungszugehörigkeit
+- @rm_main: Stattdessen Berater entlassen.
+- @remove_none: Keine weiteren Änderungen.
 
 @centrist
 view-if: n_advisors < 3
@@ -329,313 +329,313 @@ view-if: n_advisors < 3
 
 - #nonfactional_advisor
 
-@add_hilferding
-title: Rudolf Hilferding
-subtitle: Rudolf Hilferding is an economist and one of our chief Marxist theoreticians. {!<br><br>!}Actions - Against Right and Left, Defending Toleration, Fiscal Policy, Economic Democracy
+@add_miersch
+title: Matthias Miersch
+subtitle: Matthias Miersch – Fraktionsvorsitzender und Vermittler zwischen den Flügeln. {!<br><br>!}Aktionen: Fraktion zusammenhalten, Tolerierung verteidigen, Haushaltspolitik, Wirtschaftsdemokratie
 is-card: true
-card-image: img/portraits/HilferdingRudolf.jpg
+card-image: img/portraits/Miersch.jpg
 tags: center_advisor
-view-if: hilferding_advisor = 0 and n_advisors < 3 and centrists_resign = 0
-on-arrival: hilferding_advisor = 1; n_advisors += 1
+view-if: miersch_advisor = 0 and n_advisors < 3 and centrists_resign = 0
+on-arrival: miersch_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 
-Rudolf Hilferding is now an advisor.
+Matthias Miersch gehört nun zum Beraterkreis.
 
-@add_wels
-title: Otto Wels
-subtitle: Otto Wels is a long-time party organizer and member of the leadership, serving under Friedrich Ebert. {!<br><br>!}Actions -  Clear the Agenda, Party Discipline, Emergency Fundraising
+@add_bas
+title: Bärbel Bas
+subtitle: Bärbel Bas – Parteivorsitzende und Arbeitsministerin aus Duisburg. {!<br><br>!}Aktionen: Agenda leeren, Geschlossenheit, Spendenaufruf
 is-card: true
-card-image: img/portraits/WelsRudolf.jpg
+card-image: img/portraits/Bas.jpg
 tags: center_advisor
-view-if: wels_advisor = 0 and n_advisors < 3 and centrists_resign = 0
-on-arrival: wels_advisor = 1; n_advisors += 1
+view-if: bas_advisor = 0 and n_advisors < 3 and centrists_resign = 0
+on-arrival: bas_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 
-Otto Wels is now an advisor.
+Bärbel Bas gehört nun zum Beraterkreis.
 
-@add_muller
-title: Hermann Müller
-subtitle: Hermann Müller is the last Social Democratic Chancellor. {!<br><br>!}Actions - Negotiating with the Coalition, Defending Toleration
+@add_klingbeil
+title: Lars Klingbeil
+subtitle: Lars Klingbeil – Parteivorsitzender, Vizekanzler und Finanzminister. {!<br><br>!}Aktionen: Koalitionsausschuss, Tolerierung verteidigen
 is-card: true
-card-image: img/portraits/MüllerHermann.jpg
+card-image: img/portraits/Klingbeil.jpg
 tags: center_advisor
-view-if: muller_advisor = 0 and muller_dead = 0 and n_advisors < 3 and centrists_resign = 0
-on-arrival: muller_advisor = 1; n_advisors += 1
+view-if: klingbeil_advisor = 0 and klingbeil_dead = 0 and n_advisors < 3 and centrists_resign = 0
+on-arrival: klingbeil_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 
-Hermann Müller is now an advisor.
+Lars Klingbeil gehört nun zum Beraterkreis.
 
-@add_breitscheid
-title: Rudolf Breitscheid
-subtitle: Rudolf Breitscheid comes from a well-educated background and is one of our foreign policy leaders. {!<br><br>!}Actions - International Relations, Foreign Policy, Party Discipline
+@add_muetzenich
+title: Rolf Mützenich
+subtitle: Rolf Mützenich – Friedensforscher und langjähriger Fraktionschef. {!<br><br>!}Aktionen: Internationale Kontakte, Außenpolitik, Geschlossenheit
 is-card: true
-card-image: img/portraits/BreitscheidRudolf.jpg
-view-if: breitscheid_advisor = 0 and n_advisors < 3
-on-arrival: breitscheid_advisor = 1; n_advisors += 1
+card-image: img/portraits/Muetzenich.jpg
+view-if: muetzenich_advisor = 0 and n_advisors < 3
+on-arrival: muetzenich_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 tags: center_advisor
 
-Rudolf Breitscheid is now an advisor.
+Rolf Mützenich gehört nun zum Beraterkreis.
 
 # reformist
 
 
-@add_severing
-title: Carl Severing
-subtitle: Carl Severing is a one-time Prussian interior minister and police reformer. {!<br><br>!}Actions - Prussian Bulwark, Police Affairs
+@add_pistorius
+title: Boris Pistorius
+subtitle: Boris Pistorius – Verteidigungsminister und beliebtester Politiker des Landes. {!<br><br>!}Aktionen: Verteidigungspolitik, Innere Sicherheit, Länder einbinden
 is-card: true
-card-image: img/portraits/SeveringCarl.jpg
+card-image: img/portraits/Pistorius.jpg
 tags: reformist_advisor
-view-if: severing_advisor = 0 and n_advisors < 3
-on-arrival: severing_advisor = 1; n_advisors += 1; reformist_strength += 5
+view-if: pistorius_advisor = 0 and n_advisors < 3
+on-arrival: pistorius_advisor = 1; n_advisors += 1; reformist_strength += 5
 go-to: advisor_menu
 
-Carl Severing is now an advisor.
+Boris Pistorius gehört nun zum Beraterkreis.
 
-@add_braun
-title: Otto Braun
-subtitle: Otto Braun is the Minister-President of Prussia, and one of the most recognizable and well-known Social Democratic leaders. {!<br><br>!}Actions - Prussian Bulwark, Negotiating with the Coalition
+@add_schwesig
+title: Manuela Schwesig
+subtitle: Manuela Schwesig – Ministerpräsidentin von Mecklenburg-Vorpommern. {!<br><br>!}Aktionen: Brücken bauen, Länder als Bollwerk
 is-card: true
-card-image: img/portraits/BraunOtto.jpg
+card-image: img/portraits/Schwesig.jpg
 tags: reformist_advisor
-view-if: braun_advisor = 0 and n_advisors < 3
-on-arrival: braun_advisor = 1; n_advisors += 1; reformist_strength += 5
+view-if: schwesig_advisor = 0 and n_advisors < 3
+on-arrival: schwesig_advisor = 1; n_advisors += 1; reformist_strength += 5
 go-to: advisor_menu
 
-Otto Braun is now an advisor.
+Manuela Schwesig gehört nun zum Beraterkreis.
 
-@add_juchacz
-title: Marie Juchacz
-subtitle: Marie Juchacz is the founder of Worker's Welfare, a mutual-aid organization. {!<br><br>!}Actions - Emergency Fundraising, Worker's Welfare, Organizing Women
+@add_midyatli
+title: Serpil Midyatli
+subtitle: Serpil Midyatli – Landesvorsitzende in Schleswig-Holstein, eng mit der AWO verbunden. {!<br><br>!}Aktionen: Spendenaufruf, Arbeiterwohlfahrt, Frauen ansprechen
 is-card: true
-card-image: img/portraits/JuchaczMarie.jpg
-view-if: juchacz_advisor = 0 and n_advisors < 3
-on-arrival: juchacz_advisor = 1; n_advisors += 1; reformist_strength += 5
-go-to: advisor_menu
-tags: reformist_advisor
-
-Marie Juchacz is now an advisor.
-
-@add_pfulf
-title: Antonie Pfülf
-subtitle: Antonie Pfülf is a leader in social policy and women's rights. {!<br><br>!}Actions - Support a People's Party, Women's Rights
-is-card: true
-card-image: img/portraits/PfülfAntonie.jpg
-view-if: pfulf_advisor = 0 and n_advisors < 3
-on-arrival: pfulf_advisor = 1; n_advisors += 1
+card-image: img/portraits/Midyatli.jpg
+view-if: midyatli_advisor = 0 and n_advisors < 3
+on-arrival: midyatli_advisor = 1; n_advisors += 1; reformist_strength += 5
 go-to: advisor_menu
 tags: reformist_advisor
 
-Antonie Pfülf is now an advisor.
+Serpil Midyatli gehört nun zum Beraterkreis.
+
+@add_rehlinger
+title: Anke Rehlinger
+subtitle: Anke Rehlinger – Ministerpräsidentin des Saarlandes mit absoluter Mehrheit. {!<br><br>!}Aktionen: Volkspartei, Gleichstellung
+is-card: true
+card-image: img/portraits/Rehlinger.jpg
+view-if: rehlinger_advisor = 0 and n_advisors < 3
+on-arrival: rehlinger_advisor = 1; n_advisors += 1
+go-to: advisor_menu
+tags: reformist_advisor
+
+Anke Rehlinger gehört nun zum Beraterkreis.
 
 
 
 # left
 
-@add_levi
-title: Paul Levi
-subtitle: Paul Levi is a former KPD leader who was purged for criticizing Communist policies. {!<br><br>!}Actions - Building the Left, Cooperation with the KPD
+@add_stegner
+title: Ralf Stegner
+subtitle: Ralf Stegner – Bekanntes Gesicht der Parteilinken. {!<br><br>!}Aktionen: SPD-Linke stärken, Gespräche mit der Linken
 is-card: true
-card-image: img/portraits/LeviPaul.jpg
-view-if: levi_advisor = 0 and levi_dead = 0 and n_advisors < 3 and left_split = 0
-on-arrival: levi_advisor = 1; n_advisors += 1; left_strength += 5
+card-image: img/portraits/Stegner.jpg
+view-if: stegner_advisor = 0 and stegner_dead = 0 and n_advisors < 3 and left_split = 0
+on-arrival: stegner_advisor = 1; n_advisors += 1; left_strength += 5
 go-to: advisor_menu
 tags: left_advisor
 
-Paul Levi is now an advisor.
+Ralf Stegner gehört nun zum Beraterkreis.
 
-@add_sender
-title: Toni Sender
-subtitle: Toni Sender is an anti-war and womens' rights advocate, and Reichstag member. {!<br><br>!}Actions - Left-Center Unity, Organizing Women, Against Toleration, Addressing the Economic Crisis
+@add_esken
+title: Saskia Esken
+subtitle: Saskia Esken – Ehemalige Parteivorsitzende mit starkem Rückhalt an der Basis. {!<br><br>!}Aktionen: Flügel versöhnen, junge Frauen gewinnen, Tolerierung aufkündigen, linkes Krisenprogramm
 is-card: true
-card-image: img/portraits/SenderToni.jpg
-view-if: sender_advisor = 0 and n_advisors < 3
-on-arrival: sender_advisor = 1; n_advisors += 1; left_strength += 5
+card-image: img/portraits/Esken.jpg
+view-if: esken_advisor = 0 and n_advisors < 3
+on-arrival: esken_advisor = 1; n_advisors += 1; left_strength += 5
 go-to: advisor_menu
 tags: left_advisor
 
-Toni Sender is now an advisor.
+Saskia Esken gehört nun zum Beraterkreis.
 
-@add_rosenfeld
-title: Kurt Rosenfeld
-subtitle: Kurt Rosenfeld is a lawyer, anti-militarist activist, and Reichstag member. {!<br><br>!}Actions - Building the Left, Cooperation with the KPD, Against Toleration
+@add_tuermer
+title: Philipp Türmer
+subtitle: Philipp Türmer – Juso-Vorsitzender und lautester Kritiker des Koalitionskurses. {!<br><br>!}Aktionen: SPD-Linke stärken, offen für Rot-Grün-Rot, Tolerierung aufkündigen
 is-card: true
-card-image: img/portraits/RosenfeldKurt.jpg
-view-if: rosenfeld_advisor = 0 and n_advisors < 3 and left_split = 0
-on-arrival: rosenfeld_advisor = 1; n_advisors += 1; left_strength += 5
+card-image: img/portraits/Tuermer.jpg
+view-if: tuermer_advisor = 0 and n_advisors < 3 and left_split = 0
+on-arrival: tuermer_advisor = 1; n_advisors += 1; left_strength += 5
 go-to: advisor_menu
 tags: left_advisor
 
-Kurt Rosenfeld is now an advisor.
+Philipp Türmer gehört nun zum Beraterkreis.
 
-@add_seydewitz
-title: Max Seydewitz
-subtitle: Max Seydewitz is a former leader of the youth wing, current supporter of the left wing of the SPD, and advocates for class struggle. {!<br><br>!}Actions - Rally for Class Struggle, Socialist Youth, Against Toleration
+@add_kuehnert
+title: Kevin Kühnert
+subtitle: Kevin Kühnert – Ehemaliger Generalsekretär und begabter Rhetoriker der Parteilinken. {!<br><br>!}Aktionen: Verteilungskampf, Jusos stärken, Tolerierung aufkündigen
 is-card: true
-card-image: img/portraits/SeydewitzMax.jpg
-view-if: seydewitz_advisor = 0 and n_advisors < 3 and left_split = 0
-on-arrival: seydewitz_advisor = 1; n_advisors += 1; left_strength += 5
+card-image: img/portraits/Kuehnert.jpg
+view-if: kuehnert_advisor = 0 and n_advisors < 3 and left_split = 0
+on-arrival: kuehnert_advisor = 1; n_advisors += 1; left_strength += 5
 go-to: advisor_menu
 tags: left_advisor
 
-Max Seydewitz is now an advisor.
+Kevin Kühnert gehört nun zum Beraterkreis.
 
-@add_siemsen
-title: Anna Siemsen
-subtitle: Anna Siemsen is an and educational reform advocate and pacifist, who was one of the few German women to receive a PhD in the pre-war period. {!<br><br>!}Actions - Rally for Pacifism, Educational Curriculum, Educational Structure
+@add_rosenthal
+title: Jessica Rosenthal
+subtitle: Jessica Rosenthal – Ehemalige Juso-Vorsitzende und Lehrerin. {!<br><br>!}Aktionen: Friedenspolitik, Lehrpläne, Bildungsfinanzierung
 is-card: true
-card-image: img/portraits/SiemsenAnna.jpg
-view-if: siemsen_advisor = 0 and n_advisors < 3 and left_split = 0
-on-arrival: siemsen_advisor = 1; n_advisors += 1; left_strength += 5
+card-image: img/portraits/Rosenthal.jpg
+view-if: rosenthal_advisor = 0 and n_advisors < 3 and left_split = 0
+on-arrival: rosenthal_advisor = 1; n_advisors += 1; left_strength += 5
 go-to: advisor_menu
 tags: left_advisor
 
-Anna Siemsen is now an advisor.
+Jessica Rosenthal gehört nun zum Beraterkreis.
 
 
 
 # labor
 
-@add_leipart
-title: Theodor Leipart
-subtitle: Theodor Leipart is the leader of the ADGB, the German Trade Union Federation. {!<br><br>!}Actions - Organizing Workers, Addressing the Economic Crisis
+@add_fahimi
+title: Yasmin Fahimi
+subtitle: Yasmin Fahimi – Vorsitzende des Deutschen Gewerkschaftsbundes. {!<br><br>!}Aktionen: Beschäftigte organisieren, Investitionsoffensive, Gewerkschaften
 is-card: true
-card-image: img/portraits/LeipartTheodor.jpg
+card-image: img/portraits/Fahimi.jpg
 tags: labor_advisor
-view-if: leipart_advisor = 0 and n_advisors < 3 and unions_independent = 0
-on-arrival: leipart_advisor = 1; n_advisors += 1; labor_strength += 5
+view-if: fahimi_advisor = 0 and n_advisors < 3 and unions_independent = 0
+on-arrival: fahimi_advisor = 1; n_advisors += 1; labor_strength += 5
 go-to: advisor_menu
 
-Theodor Leipart is now an advisor.
+Yasmin Fahimi gehört nun zum Beraterkreis.
 
-@add_aufhauser
-title: Siegfried Aufhäuser
-subtitle: Siegfried Aufhäuser is the leader of the AfA-Bund, the white-collar trade union federation. {!<br><br>!}Actions - Organizing White-Collar Workers, Union-Party Coordination, Addressing the Economic Crisis
+@add_hubertz
+title: Verena Hubertz
+subtitle: Verena Hubertz – Bauministerin und Gründerin aus Trier. {!<br><br>!}Aktionen: Akademische Mittelschicht, Bau-Offensive, Reformplan
 is-card: true
-card-image: img/portraits/AufhäuserSiegfried.jpg
+card-image: img/portraits/Hubertz.jpg
 tags: labor_advisor
-view-if: aufhauser_advisor = 0 and n_advisors < 3
-on-arrival: aufhauser_advisor = 1; n_advisors += 1; labor_strength += 5
+view-if: hubertz_advisor = 0 and n_advisors < 3
+on-arrival: hubertz_advisor = 1; n_advisors += 1; labor_strength += 5
 go-to: advisor_menu
 
-Siegfried Aufhäuser is now an advisor.
+Verena Hubertz gehört nun zum Beraterkreis.
 
-@add_wissell
-title: Rudolf Wissell
-subtitle: Rudolf Wissell is an economist who has been the Labor Minister, and is an advocate for the interests of labor within the government. {!<br><br>!}Actions - Union-Party Coordination, Labor Rights
+@add_heil
+title: Hubertus Heil
+subtitle: Hubertus Heil – Ehemaliger Arbeitsminister, unter ihm kamen Bürgergeld und Mindestlohnerhöhung. {!<br><br>!}Aktionen: Arbeitnehmerrechte, Gewerkschaften
 is-card: true
-card-image: img/portraits/WissellRudolf.jpg
+card-image: img/portraits/Heil.jpg
 tags: labor_advisor
-view-if: wissell_advisor = 0 and n_advisors < 3 and unions_independent = 0
-on-arrival: wissell_advisor = 1; n_advisors += 1; labor_strength += 3
+view-if: heil_advisor = 0 and n_advisors < 3 and unions_independent = 0
+on-arrival: heil_advisor = 1; n_advisors += 1; labor_strength += 3
 go-to: advisor_menu
 
-Rudolf Wissell is now an advisor.
+Hubertus Heil gehört nun zum Beraterkreis.
 
 
-@add_woytinsky
-title: Wladimir Woytinsky
-subtitle: Wladimir Woytinsky is a former Russian Menshevik who is now the lead trade union economist. {!<br><br>!}Actions - Addressing the Economic Crisis, Carrying Out the Economic Plan
+@add_suedekum
+title: Jens Südekum
+subtitle: Jens Südekum – Ökonom und Berater des Finanzministers. {!<br><br>!}Aktionen: Investitionsoffensive beschließen und umsetzen
 is-card: true
-card-image: img/portraits/WoytinskyWladimir.jpg
+card-image: img/portraits/Suedekum.jpg
 tags: labor_advisor
-view-if: woytinsky_advisor = 0 and n_advisors < 3 and unions_independent = 0
-on-arrival: woytinsky_advisor = 1; n_advisors += 1; labor_strength += 3
+view-if: suedekum_advisor = 0 and n_advisors < 3 and unions_independent = 0
+on-arrival: suedekum_advisor = 1; n_advisors += 1; labor_strength += 3
 go-to: advisor_menu
 
-Wladimir Woytinsky is now an advisor.
+Jens Südekum gehört nun zum Beraterkreis.
 
 
 # neorevisionist leaders
 
-@add_mierendorff
-title: Carlo Mierendorff
-subtitle: Carlo Mierendorff is one of the youngest members of the Reichstag, and the originator of the "Neo-Revisionist" movement. He is an anti-Nazi strategist. {!<br><br>!}Actions - Build the Iron Front, Warning About the Nazis
+@add_grote
+title: Andy Grote
+subtitle: Andy Grote – Hamburger Innensenator, Verfechter der wehrhaften Demokratie. {!<br><br>!}Aktionen: Bündnis für Demokratie, Warnung vor der AfD
 is-card: true
-card-image: img/portraits/MierendorffCarlo.jpg
-view-if: mierendorff_advisor = 0 and n_advisors < 3
-on-arrival: mierendorff_advisor = 1; n_advisors += 1; neorevisionist_strength += 5
+card-image: img/portraits/Grote.jpg
+view-if: grote_advisor = 0 and n_advisors < 3
+on-arrival: grote_advisor = 1; n_advisors += 1; neorevisionist_strength += 5
 go-to: advisor_menu
 tags: neorev_advisor
 
-Carlo Mierendorff is now an advisor.
+Andy Grote gehört nun zum Beraterkreis.
 
-@add_schumacher
-title: Kurt Schumacher
-subtitle: Kurt Schumacher is a Great War veteran and energetic speaker for the social-democratic cause, and favors reformist policies. {!<br><br>!}Actions - Emergency Fundraising, Building the Reichsbanner, Addressing the Economic Crisis
+@add_fiedler
+title: Sebastian Fiedler
+subtitle: Sebastian Fiedler – Kriminalbeamter und Sicherheitspolitiker. {!<br><br>!}Aktionen: Spendenaufruf, Demokratiebewegung, Innere Sicherheit
 is-card: true
-card-image: img/portraits/SchumacherKurt.jpg
+card-image: img/portraits/Fiedler.jpg
 tags: neorev_advisor
-view-if: schumacher_advisor = 0 and n_advisors < 3
-on-arrival: schumacher_advisor = 1; n_advisors += 1; neorevisionist_strength += 5
+view-if: fiedler_advisor = 0 and n_advisors < 3
+on-arrival: fiedler_advisor = 1; n_advisors += 1; neorevisionist_strength += 5
 go-to: advisor_menu
 
-Kurt Schumacher is now an advisor.
+Sebastian Fiedler gehört nun zum Beraterkreis.
 
-@add_leber
-title: Julius Leber
-subtitle: Julius Leber is a former Reichswehr officer who resigned in opposition to the Kapp coup attempt. {!<br><br>!}Actions - Rally for Democracy, Military Affairs, Building a People's Party
+@add_wiese
+title: Dirk Wiese
+subtitle: Dirk Wiese – Parlamentarischer Geschäftsführer aus dem Sauerland. {!<br><br>!}Aktionen: Für die Demokratie werben, Volkspartei
 is-card: true
-card-image: img/portraits/LeberJulius.jpg
-view-if: leber_advisor = 0 and n_advisors < 3
-on-arrival: leber_advisor = 1; n_advisors += 1; neorevisionist_strength += 5
+card-image: img/portraits/Wiese.jpg
+view-if: wiese_advisor = 0 and n_advisors < 3
+on-arrival: wiese_advisor = 1; n_advisors += 1; neorevisionist_strength += 5
 go-to: advisor_menu
 tags: neorev_advisor
 
-Julius Leber is now an advisor.
+Dirk Wiese gehört nun zum Beraterkreis.
 
 # Nonfactional advisors
 
-@add_baade
-title: Fritz Baade
-subtitle: Fritz Baade is one of the few agricultural policy experts in the SPD. {!<br><br>!}Actions - Agricultural Policy, Rural Campaigning, Addressing the Economic Crisis
+@add_woidke
+title: Dietmar Woidke
+subtitle: Dietmar Woidke – Ministerpräsident von Brandenburg. {!<br><br>!}Aktionen: Agrarpolitik, Wahlkampf auf dem Land, Investitionsoffensive
 is-card: true
-card-image: img/portraits/BaadeFritz.jpg
-view-if: baade_advisor = 0 and n_advisors < 3
-on-arrival: baade_advisor = 1; n_advisors += 1
+card-image: img/portraits/Woidke.jpg
+view-if: woidke_advisor = 0 and n_advisors < 3
+on-arrival: woidke_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 tags: nonfactional_advisor
 
-Fritz Baade is now an advisor.
+Dietmar Woidke gehört nun zum Beraterkreis.
 
 
-@add_hirschfeld
-title: Magnus Hirschfeld
-subtitle: Magnus Hirschfeld is the founder of the Institut für Sexualwissenschaft and an advocate for the rights of sexual minorities. {!<br><br>!}Actions - Homosexual Rights, Women's Rights, Science Funding
+@add_drossmann
+title: Falko Droßmann
+subtitle: Falko Droßmann – Hamburger Abgeordneter und Queerpolitiker. {!<br><br>!}Aktionen: Queere Rechte, Gleichstellung, Forschung
 is-card: true
-card-image: img/portraits/HirschfeldMagnus.jpg
-view-if: hirschfeld_advisor = 0 and n_advisors < 3
-on-arrival: hirschfeld_advisor = 1; n_advisors += 1
+card-image: img/portraits/Drossmann.jpg
+view-if: drossmann_advisor = 0 and n_advisors < 3
+on-arrival: drossmann_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 tags: nonfactional_advisor
 
-Magnus Hirschfeld is now an advisor.
+Falko Droßmann gehört nun zum Beraterkreis.
 
 # TODO: add radbruch, stampfer
 
-@add_radbruch
-title: Gustav Radbruch
-subtitle: Gustav Radbruch is a renowned legal scholar and long-time SPD justice minister. {!<br><br>!}Actions - Judicial Affairs, Constitutional Reform
+@add_hubig
+title: Stefanie Hubig
+subtitle: Stefanie Hubig – Bundesjustizministerin. {!<br><br>!}Aktionen: Rechtspolitik, Grundgesetz absichern
 is-card: true
-card-image: img/portraits/RadbruchGustav.jpg
-view-if: radbruch_advisor = 0 and n_advisors < 3
-on-arrival: radbruch_advisor = 1; n_advisors += 1
+card-image: img/portraits/Hubig.jpg
+view-if: hubig_advisor = 0 and n_advisors < 3
+on-arrival: hubig_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 tags: nonfactional_advisor
 
-Gustav Radbruch is now an advisor.
+Stefanie Hubig gehört nun zum Beraterkreis.
 
 
-@add_stampfer
-title: Friedrich Stampfer
-subtitle: Friedrich Stampfer is the long-time editor-in-chief of Vorwärts, our party newspaper. {!<br><br>!}Actions - Media, Editorial Line, Cooperation with the KPD
+@add_kluessendorf
+title: Tim Klüssendorf
+subtitle: Tim Klüssendorf – Generalsekretär der SPD. {!<br><br>!}Aktionen: Medien, inhaltliche Linie, Gesprächskanäle zur Linken
 is-card: true
-card-image: img/portraits/StampferFriedrich.jpg
-view-if: stampfer_advisor = 0 and n_advisors < 3
-on-arrival: stampfer_advisor = 1; n_advisors += 1
+card-image: img/portraits/Kluessendorf.jpg
+view-if: kluessendorf_advisor = 0 and n_advisors < 3
+on-arrival: kluessendorf_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 tags: nonfactional_advisor
 
-Friedrich Stampfer is now an advisor.
+Tim Klüssendorf gehört nun zum Beraterkreis.
 
 

@@ -1,134 +1,116 @@
-title: Constitutional Reform
+title: Grundgesetzreform
 new-page: true
 is-card: true
 view-if: spd_in_government = 1 and justice_minister_party = "SPD" and constitutional_reform_timer = 0 and judicial_reform >= 4 and neorevisionism and ((in_weimar_coalition) or (in_spd_majority) or (in_left_front) or (in_popular_front)) and constitutional_reform < 3
 frequency: 25
-on-arrival: month_actions += 1; constitutional_reform_timer += 12; pass_threshold = 0.51; pass_threshold = 0.6 if pro_republic < 65;
-card-image: img/portraits/RadbruchGustav.jpg
+on-arrival: month_actions += 1; constitutional_reform_timer += 12; pass_threshold = 0.67; pass_threshold = 0.7 if pro_republic < 65;
+card-image: img/portraits/Hubig.jpg
 go-to: reforms_menu
 tags: govt_affairs, cabinet
-#subtitle: Major changes to government.
+#subtitle: Große Änderungen am Grundgesetz.
 
-# technically you could do some trickery to get a 2/3 quorum in the Reichstag by stopping some people from attending... if the NSDAP is boycotting the Reichstag, or if the NSDAP or DNVP are banned in the aftermath of a coup atempt...
+# Die Weimarer Reformen (5-%-Hürde, konstruktives Misstrauensvotum, schwacher Präsident) stehen seit 1949 im Grundgesetz.
+# Deshalb hier drei Reformen der Gegenwart, die Optionen-IDs bleiben erhalten.
 
-# alternatively, a constitutional referendum can be initiated, that requires a simple majority of voters to pass (as I understand article 76). This should depend on support for the republic and for democracy, and the relationships with the other parties (more similar to the presidential election).
+= Grundgesetzreform
 
-= Constitutional Reform
+Das Grundgesetz hat sich bewährt, doch auch eine gute Verfassung muss mit der Zeit gehen. Seit Jahren liegen Vorschläge auf dem Tisch, die nie eine Mehrheit fanden: das Wahlalter 16, Kinderrechte, mehr direkte Demokratie.
 
-# the ideas for constitutional reform here are based on the bundesrepublik basic law... I'm not sure if it's totally realistic to what someone like Mierendorff would've wanted.
-
-Many neorevisionists consider the Weimar Constitution to be inadequate. They believe that the clauses of the constitution are in part responsible for the instability of the country, and must change in order to build a more stable democratic republic. Ideas from both socialists and liberals
-
-A constitutional reform requires either a two-thirds supermajority in the Reichstag, or a constitutional referendum with support from a majority of the electorate. If we do not have a supermajority in the Reichstag, we must be assured of strong support from the other parties for the constitutional referendum.
+Jede Grundgesetzänderung braucht eine Zweidrittelmehrheit in Bundestag und Bundesrat. Ohne breite Unterstützung der anderen Parteien geht nichts. [? if pro_republic < 65 : Weil im Bundesrat auch Länder mit AfD- oder BSW-Beteiligung mitreden, brauchen wir zusätzlichen Spielraum. ?]
 
 @reforms_menu
 
-- @vote_threshold: Change the vote threshold.
-- @constructive_vonc: Ban non-constructive votes of no confidence.
-- @presidential_powers: Reduce presidential powers.
-- @as_is: Do not pursue constitutional reform.
+- @vote_threshold: Das Wahlalter bei Bundestagswahlen auf 16 senken.
+- @constructive_vonc: Kinderrechte ins Grundgesetz aufnehmen.
+- @presidential_powers: Bundesweite Volksentscheide einführen.
+- @as_is: Keine Grundgesetzänderung anstreben.
 - @easy_discard
 - @cancel_advisor_action
-#- @constitutional_bans: Allow the banning of anti-constitutional parties.
 
 @vote_threshold
-subtitle: Change the vote threshold to 5% for parties to be represented in the Reichstag.
+subtitle: In vielen Ländern und bei der Europawahl dürfen 16-Jährige schon wählen, im Bund nicht.
 on-arrival: {!
-Q.reform_support = Q.spd_normalized;
-if (Q.z_relation > 30) {
-    Q.reform_support += Q.z_normalized - 0.03;
-}
-if (Q.kpd_relation > 50 && Q.kpd_normalized >= 0.1) {
-    Q.reform_support += Q.kpd_normalized;
-}
-if (Q.nsdap_normalized >= 0.2 ) {
-    Q.reform_support += Q.nsdap_normalized;
+Q.reform_support = Q.spd_normalized + Q.gruene_normalized + Q.linke_normalized + Q.fdp_normalized;
+if (Q.union_relation > 50) {
+    Q.reform_support += Q.union_normalized - 0.05;
 }
 !}
-view-if: electoral_threshold = 0
+view-if: voting_age_16 = 0
 
-# The left is opposed to this.
+Bei der Europawahl 2024 durften 16-Jährige erstmals bundesweit wählen, und in mehreren Ländern ist das Wahlalter 16 längst normal. Für die Bundestagswahl müsste Artikel 38 des Grundgesetzes geändert werden.
 
-Some political thinkers believe that the proliferation of minor parties is responsible for the instability of the republic. They believe that a higher electoral threshold will reduce the influence of small radical parties. Parties that win a plurality in a constituency will maintain their representation, a gift to regional parties such as the BVP. 
+[+ gruene_name +], Linke und FDP unterstützen die Reform. [? if union_relation > 50 : Die Union zögert, ein Teil ihrer Abgeordneten ist aber bereit, mitzustimmen. ?] [? if union_relation <= 50 : Die Union lehnt die Reform ab. ?] Auch die AfD ist dagegen.
 
-The smaller parties will obviously oppose this reform. [? if z_relation > 30 : The Center Party supports this reform, while their BVP partners oppose it. ?] [? if kpd_relation > 50 and kpd_normalized >= 0.1 : Perhaps surprisingly, the KPD supports this reform. ?] [? if nsdap_normalized >= 0.2 : The NSDAP supports this reform, as they believe they have something to gain. ?]
-
-The SPD Left opposes this change, as they believe it to be anti-democratic.
-
-- @vote_threshold_2: Call a constitutional referendum to pass the reform!
-- @reforms_menu: See other reform options.
+- @vote_threshold_2: Die Grundgesetzänderung zur Abstimmung stellen!
+- @reforms_menu: Andere Reformen ansehen.
 
 
 @vote_threshold_2
 choose-if: reform_support >= pass_threshold
-unavailable-subtitle: We do not have enough support for this policy. [? if pro_republic < 65 : We should have an additional margin for the referendum since we need a majority of voters, and many voters who do not support the republic will not participate. ?] [? if z_relation <= 30 : The Center Party does not trust us enough to support this policy. ?]
-on-arrival: constitutional_reform += 1; electoral_threshold = 5; ddp_relation -= 25; dvp_relation -= 25; left_dissent += 20; workers_dnvp += workers_other*0.4; workers_nsdap += workers_other*0.4; workers_other *= 0.1; new_middle_dvp += new_middle_other*0.3; new_middle_nsdap += new_middle_other*0.3; new_middle_other *= 0.1; old_middle_dvp += 0.3*old_middle_other; old_middle_nsdap += 0.3*old_middle_other; old_middle_dnvp += 0.3*old_middle_other; old_middle_other *= 0.1; rural_dnvp += 0.5*rural_other; rural_nsdap += 0.4*rural_other; rural_other *= 0.1; unemployed_nsdap += 0.3*unemployed_other; unemployed_kpd += 0.4*unemployed_other; unemployed_other *= 0.2; catholics_z += 0.6*catholics_other; catholics_other *= 0.1;
+unavailable-subtitle: Dafür fehlt uns die Zweidrittelmehrheit. [? if pro_republic < 65 : Im Bundesrat brauchen wir zusätzlichen Spielraum. ?] [? if union_relation <= 50 : Die Union vertraut uns nicht genug, um mitzustimmen. ?]
+on-arrival: constitutional_reform += 1; voting_age_16 = 1; union_relation -= 5; gruene_relation += 5; left_dissent -= 5; new_middle_spd += 2*(1-dissent); new_middle_gruene += 2; workers_linke += 1
 achievement: verfassungsreform
 
-# this should result in a redistribution of votes - other parties should not get so many votes anymore. maybe ddp and dvp get a recovery of middle-class votes? or maybe they flow to the others.
-
-We have passed a constitutional amendment to increase the electoral threshold to 5%. This is likely to benefit the larger parties and harm the smaller ones.
+Das Grundgesetz ist geändert: Ab der nächsten Bundestagswahl dürfen 16-Jährige wählen. Ob das uns nützt, ist offen. Junge Menschen haben zuletzt vor allem Linke und AfD gewählt.
 
 
 
 @constructive_vonc
-subtitle: Votes of no confidence can only be called if an alternative plan for government formation can be passed, greatly reducing their incidence.
+subtitle: Kinder sollen eigene Grundrechte bekommen: auf Förderung, Schutz und Beteiligung.
 on-arrival: {!
-Q.reform_support = Q.spd_normalized + Q.ddp_normalized;
-if (Q.z_relation >= 30) {
-    Q.reform_support += Q.z_normalized - 0.03;
-}
-if (!Q.stresemann_dead) {
-    Q.reform_support += Q.dvp_normalized;
+Q.reform_support = Q.spd_normalized + Q.gruene_normalized + Q.linke_normalized + Q.fdp_normalized;
+if (Q.union_relation >= 30) {
+    Q.reform_support += Q.union_normalized - 0.03;
 }
 !}
-view-if: constructive_vonc = 0
+view-if: kinderrechte_gg = 0
 
-[? if z_relation >= 30 : The Weimar Coalition parties, the [+ ddp_name +] and Center Party, support this reform, which will greatly improve the stability of the government. ?] [? if z_relation < 30 : The [+ ddp_name +] supports this reform, but the Center Party does not trust us enough to support the constitutional referendum. ?] The more conservative and radical right-wing parties and the KPD are in opposition, as they seem to relish in the republican system's instability.
+Über Kinderrechte im Grundgesetz wird seit Jahrzehnten gestritten; 2021 scheiterte ein Kompromiss knapp. [? if union_relation >= 30 : Die Union ist diesmal grundsätzlich bereit, auch wenn Teile der CSU fürchten, der Staat mische sich zu sehr in die Erziehung ein. ?] [? if union_relation < 30 : [+ gruene_name +], Linke und FDP sind dafür, doch die Union vertraut uns nicht genug, um mitzustimmen. ?] Die AfD spricht von einem „Angriff auf das Elternrecht“.
 
-- @constructive_vonc_2: Call a constitutional referendum to pass the reform!
-- @reforms_menu: See other reform options.
+- @constructive_vonc_2: Die Grundgesetzänderung zur Abstimmung stellen!
+- @reforms_menu: Andere Reformen ansehen.
 
 @constructive_vonc_2
 choose-if: reform_support >= pass_threshold
-unavailable-subtitle: We do not have enough support for this policy. [? if pro_republic < 65 : We should have an additional margin for the referendum since we need a majority of voters, and many voters who do not support the republic will not participate. ?] [? if z_relation <= 30 : The Center Party does not trust us enough to support this policy. ?]
-on-arrival: constitutional_reform += 1; constructive_vonc = 1
+unavailable-subtitle: Dafür fehlt uns die Zweidrittelmehrheit. [? if pro_republic < 65 : Im Bundesrat brauchen wir zusätzlichen Spielraum. ?] [? if union_relation < 30 : Die Union vertraut uns nicht genug, um mitzustimmen. ?]
+on-arrival: constitutional_reform += 1; kinderrechte_gg = 1; workers_spd += 2*(1-dissent); new_middle_spd += 2*(1-dissent); pro_republic += 2
 achievement: verfassungsreform
 
-We have successfully passed a constitutional amendment to ban votes of no confidence when a new government cannot be formed. Hopefully this increases the stability of our governments.
+Kinderrechte stehen jetzt im Grundgesetz. Bei allen staatlichen Entscheidungen, die Kinder betreffen, muss ihr Wohl künftig angemessen berücksichtigt werden.
 
 @presidential_powers
-subtitle: The president can no longer dissolve the Reichstag at will, or call a *Reichsexekution* on state governments.
+subtitle: Bürgerinnen und Bürger sollen per Volksbegehren und Volksentscheid auch im Bund Gesetze beschließen können.
 on-arrival: {!
-Q.reform_support = Q.spd_normalized + Q.ddp_normalized + Q.kpd_normalized;
-if (Q.z_relation > 49 && (Q.president == "Hindenburg" || Q.president == "Eckener")) {
-    Q.reform_support += Q.z_normalized;
-} else if (Q.president == "Braun") {
-    Q.reform_support += Q.z_normalized - 0.03;
+Q.reform_support = Q.spd_normalized + Q.gruene_normalized + Q.linke_normalized;
+if (Q.afd_normalized >= 0.2) {
+    Q.reform_support += Q.afd_normalized;
+}
+if (Q.union_relation > 49) {
+    Q.reform_support += Q.union_normalized - 0.05;
 }
 !}
-view-if: presidential_powers = 0
+view-if: volksentscheide = 0
 
-The wide-ranging presidential powers promised by the constitution are a potential gateway to authoritarianism. Thus, we can support reforms that limit the powers of the president, ending his power to unilaterally terminate an elected government and to remove state governments.
+Bundesweite Volksentscheide stehen seit Langem im Programm der SPD, wurden aber nie umgesetzt. In allen Ländern gibt es sie längst. Kritiker warnen, Populisten könnten das Instrument für Kampagnen gegen Minderheiten oder die EU nutzen; die Reform soll deshalb Grundrechte, Haushalt und Völkerrecht ausnehmen.
 
-The KPD is in favor of this reform, having been victims of the *Reichsexekution* in the past (when KPD-supported state governments in Thuringia and Saxony were removed). The democrats of the [+ ddp_name +] also support this. [? if president == "Hindenburg": However, the opposition from conservatives is vehement, as they see a reduction in presidential powers as disrespectful to Hindenburg. ?] [? if z_relation <= 49 and president == "Hindenburg" : Thus, the Center Party has been influenced to oppose these reforms. ?] [? if z_relation > 49 and president == "Hindenburg" : Despite this, the Center Party supports the proposed reform. ?] [? if president == "Braun" : The Center Party supports this reform. ?]
+Linke und [+ gruene_name +] sind dafür. [? if afd_normalized >= 0.2 : Ausgerechnet die AfD würde mitstimmen, was viele in unserer eigenen Partei misstrauisch macht. ?] [? if union_relation > 49 : Die Union ist skeptisch, will sich einer Debatte aber nicht verschließen. ?] [? if union_relation <= 49 : Die Union lehnt die Reform ab. ?]
 
-- @presidential_powers_2: Call a constitutional referendum to pass the reform!
-- @reforms_menu: See other reform options.
+- @presidential_powers_2: Die Grundgesetzänderung zur Abstimmung stellen!
+- @reforms_menu: Andere Reformen ansehen.
 
 @presidential_powers_2
 choose-if: reform_support >= pass_threshold
-unavailable-subtitle: We do not have enough support for this policy. [? if pro_republic < 65 : We should have an additional margin for the referendum since we need a majority of voters, and many voters who do not support the republic will not participate. ?] [? if z_relation <= 49 and president != "Braun" : The Center Party does not trust us enough to support this policy. ?]
-on-arrival: constitutional_reform += 1; presidential_powers = 1
+unavailable-subtitle: Dafür fehlt uns die Zweidrittelmehrheit. [? if pro_republic < 65 : Im Bundesrat brauchen wir zusätzlichen Spielraum. ?] [? if union_relation <= 49 : Die Union vertraut uns nicht genug, um mitzustimmen. ?]
+on-arrival: constitutional_reform += 1; volksentscheide = 1; pro_republic += 3; left_dissent -= 5; reformist_dissent += 5
 achievement: verfassungsreform
 
-We have successfully passed a constitutional amendment to limit presidential powers! Hopefully this results in a less authoritarian Germany.
+Das Grundgesetz kennt jetzt bundesweite Volksentscheide, mit hohen Quoren und klaren Grenzen zum Schutz der Grundrechte. Viele hoffen, dass sich Menschen so weniger ohnmächtig fühlen. Andere fürchten, dass genau das Gegenteil passiert.
 
 
 
 @constitutional_bans
 
-# Temporarily disable this for now - how would this interact with the already-extant law for the protection of the republic? This 
+# Vorerst deaktiviert.
 
 
 @as_is

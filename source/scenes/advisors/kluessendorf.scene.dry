@@ -1,0 +1,75 @@
+title: Tim Klüssendorf
+is-pinned-card: true
+tags: advisor
+card-image: img/portraits/Kluessendorf.jpg
+view-if: kluessendorf_advisor = 1
+new-page: true
+
+= Tim Klüssendorf
+
+Klüssendorf ist seit 2025 Generalsekretär der SPD. Der Lübecker Volkswirt kommt aus der Parlamentarischen Linken und verantwortet die Kommunikation der Partei, die Kampagnen und den „Vorwärts“. Er soll die SPD nach dem Wahldebakel neu aufstellen.
+
+- @media_
+- @faction_support_
+- @linke_cooperation
+- @root: Zurück
+
+
+@media_
+title: Medien und Kommunikation
+subtitle: Die Kommunikation der Partei steuern, von Social Media bis zum „Vorwärts“.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; media_timer -= 6; last_advisor_action = 1
+go-to: media
+
+
+@faction_support_
+title: Die inhaltliche Linie bestimmen
+subtitle: Die Parteikommunikation auf eine Strömung ausrichten.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6
+
+Welche Strömung sollen wir stärken?
+
+- @support_left: SPD-Linke
+- @support_center: Parteimitte
+- @support_labor: Gewerkschaftsflügel
+- @support_reform: Seeheimer Kreis
+- @support_neorev: Dänischer Kurs
+
+@support_left
+on-arrival: left_dissent -= 8; left_strength += 8
+
+Die Parteikommunikation setzt auf Umverteilung und soziale Gerechtigkeit.
+
+@support_center
+on-arrival: center_dissent -= 8; center_strength += 8
+
+Die Parteikommunikation setzt auf Verlässlichkeit und Regierungserfolge.
+
+@support_labor
+on-arrival: labor_dissent -= 8; labor_strength += 8
+
+Die Parteikommunikation setzt auf gute Arbeit, Tarifbindung und sichere Industriejobs.
+
+@support_reform
+on-arrival: reformist_dissent -= 8; reformist_strength += 8;
+
+Die Parteikommunikation setzt auf Wirtschaftskompetenz und solide Finanzen.
+
+@support_neorev
+view-if: neorevisionism
+on-arrival: neorevisionist_dissent -= 8; neorevisionist_strength += 8
+
+Die Parteikommunikation setzt auf Sicherheit, Ordnung und einen starken Sozialstaat.
+
+@linke_cooperation
+title: Gesprächskanäle zur Linken
+subtitle: Können wir unser Verhältnis zur Linken verbessern?
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; left_strength += 2; linke_relation += 4*(1-dissent); reformist_dissent += 2
+
+Klüssendorf verzichtet auf scharfe Angriffe gegen die Linke und sucht über die Generalsekretariate den Kontakt.

@@ -1,0 +1,27 @@
+# Abhängigkeiten (werden per `npm install` geholt)
+node_modules/
+
+# Build-Ausgabe von `dendrynexus make-html` (baut die CI-Pipeline selbst)
+out/game.json
+out/html/game.json
+out/html/core.js
+out/html/jquery-*.min.js
+
+# Python
+__pycache__/
+*.pyc
+
+# Lokale Editor-/Tool-Einstellungen
+.vscode/settings.json
+.claude/settings.local.json
+*.swp
+*~
+
+# Betriebssystem
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+npm-debug.log*
+*.log

@@ -1,0 +1,41 @@
+title: Jens Südekum
+is-pinned-card: true
+tags: advisor, labor
+card-image: img/portraits/Suedekum.jpg
+view-if: suedekum_advisor = 1
+new-page: true
+
+= Jens Südekum
+
+Südekum ist Professor für Volkswirtschaftslehre in Düsseldorf und seit 2025 persönlicher Beauftragter des Bundesfinanzministers für gesamtwirtschaftliche Fragen. Er gehört zu den Ökonomen, die die Schuldenbremse für ein Investitionshindernis halten, und hat das Sondervermögen für Infrastruktur mit vorgedacht.
+
+- @plan
+- @carry_out_policy
+- @depression
+- @root: Zurück
+
+@plan
+title: Die Investitionsoffensive beschließen!
+subtitle: Die Partei auf einen großen Investitionsplan verpflichten.
+choose-if: advisor_action_timer <= 0 and wtb_adopted == 0 and wtb_support >= 3 and black_thursday_seen and (not historical_mode or ((labor_strength >= center_strength) and (labor_strength >= left_strength) and (labor_strength >= reformist_strength)))
+on-arrival: advisor_action_timer = 6;
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if black_thursday_seen == 0 : Wir befinden uns derzeit nicht in einer Wirtschaftskrise. ?][? if wtb_adopted > 0 : Wir haben die Investitionsoffensive bereits beschlossen. ?][? if wtb_support < 3 : Die Investitionsoffensive hat noch nicht genug Unterstützung. ?][? if (labor_strength < center_strength or labor_strength < left_strength or labor_strength < reformist_strength) and historical_mode : Der Gewerkschaftsflügel ist nicht stark genug. ?]
+go-to: crisis_program.plan_adopted
+
+@carry_out_policy
+title: Die Investitionsoffensive umsetzen
+subtitle: In der Regierung können wir den Plan in die Tat umsetzen.
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if wtb_adopted == 0 : Wir haben noch keinen Wirtschaftsplan beschlossen. ?][? if spd_in_government == 0 : Die SPD ist nicht an der Regierung beteiligt. ?][? if works_program >= 2 : Die Umsetzung hat bereits begonnen. ?]
+choose-if: advisor_action_timer <= 0 and wtb_adopted and spd_in_government and wtb_implemented <= 1
+on-arrival: advisor_action_timer = 6; economic_policy_timer -= 12
+go-to: economic_policy
+
+
+@depression
+title: Einen Weg aus der Krise finden
+subtitle: Einen Plan gegen Deindustrialisierung und Stagnation entwickeln.
+choose-if: advisor_action_timer <= 0 and wtb_adopted == 0 and black_thursday_seen == 1 and wtb_support <= 3
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if black_thursday_seen == 0 : Wir befinden uns derzeit nicht in einer Wirtschaftskrise. ?][? if wtb_adopted > 0 : Wir haben die Investitionsoffensive bereits beschlossen. ?]
+on-arrival: advisor_action_timer = 6; wtb_support += 2; center_dissent += 10; labor_strength += 1
+
+Südekum legt ein Konzept vor: Hunderte Milliarden für Netze, Schiene, Schulen und Energie, kreditfinanziert, solange die Zinsen es erlauben. Gewerkschaften und Teile der Partei sind begeistert, die Haushälter in der Parteimitte nervös.

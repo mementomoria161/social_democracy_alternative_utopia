@@ -555,39 +555,38 @@ table {
 }
 
 /* Styles for parties */
-.seat.kpd {
-    fill: #8B0000;
+.seat.linke {
+    fill: #BE3075;
 }
 .seat.spd {
     fill: #E3000F;
     stroke: var(--border-color);
     stroke-width: 1.5px;
 }
-.seat.ddp {
-    fill: #DCCA4A;
+.seat.gruene {
+    fill: #46962B;
 }
-.seat.z {
-    fill: #000;
+.seat.union {
+    fill: #151518;
 }
-.seat.bvp {
-    fill: #69A2BE;
+.seat.csu {
+    fill: #0080C8;
 }
-.seat.dvp {
-    fill: #D5AC27;
+.seat.fdp {
+    fill: #FFED00;
 }
 .seat.other {
     fill: #909090;
 }
-.seat.dnvp {
-    fill: #3F7BC1;
+.seat.bsw {
+    fill: #7D254F;
 }
-.seat.nsdap {
-    fill: #954B00;
+.seat.afd {
+    fill: #009EE0;
 }
 .seat.sapd {
     fill: #C40000;
 }
-/* Giving them NDP colors, idk */
 .seat.srpd {
     fill: #F4A460;
 }

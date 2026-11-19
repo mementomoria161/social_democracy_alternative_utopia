@@ -1,57 +1,57 @@
-title: Agricultural Policy
+title: Agrarpolitik
 new-page: true
 is-card: true
 on-arrival: agricultural_policy_timer += 6; month_actions += 1
 view-if: spd_in_government = 1 and (agriculture_minister_party = "SPD") and agricultural_policy_timer == 0
-card-image: img/portraits/BaadeFritz.jpg
+card-image: img/landwirtschaft.jpg
 tags: govt_affairs, cabinet
-#subtitle: Issues of farmer financing, grain purchasing, and land reform.
+#subtitle: Höfesterben, Bodenpreise, Lebensmittelpreise und Agrarwende.
 
-= Agricultural Policy
+= Agrarpolitik
 
-While agricultural policy has historically not been the domain of the SPD, there is much need for policy in this area. Our urban constituencies hope for cheaper and more stable food supplies, while small farmers need economic relief. There is also the movement for land reform, to break up the large aristocratic estates and redistribute land to peasants.
+Landwirtschaft war nie das Kernthema der SPD, doch der Handlungsbedarf ist groß. Jedes Jahr geben tausende Höfe auf, Investmentfonds kaufen Ackerland auf, und die Bodenpreise im Osten haben sich vervielfacht. Die Städte wollen bezahlbare Lebensmittel, die Bäuerinnen und Bauern faire Erzeugerpreise statt Diktat der großen Handelsketten. Seit den Traktorblockaden von 2024 ist der ländliche Raum ein Pulverfass, das die AfD gezielt anzündet.
 
 - @land_reform
 - @agricultural_finance
 - @pro_consumer
 - @state_buyer
-- @root: Do not enact any policies for now.
+- @root: Vorerst nichts unternehmen.
 - @easy_discard
 - @cancel_advisor_action
 
 @land_reform
-title: Land Reform
-subtitle: -1 budget - Break up the large aristocratic estates and give land to landless workers.
-unavailable-subtitle: [? if budget <= 0 : Requires 1 budget. ?] [? if judicial_reform < 2 : The judiciary would never allow this. ?]
+title: Agrarstrukturgesetz
+subtitle: -1 Haushaltsspielraum – Bodenspekulation stoppen und Land an junge und kleine Betriebe bringen.
+unavailable-subtitle: [? if budget <= 0 : Benötigt 1 Haushaltsspielraum. ?] [? if judicial_reform < 2 : Ohne Rückhalt in der Justiz würde das Gesetz in Karlsruhe scheitern. ?]
 choose-if: judicial_reform >= 2 and budget > 0
-on-arrival: budget -= 1; land_reform += 1; coalition_dissent += 1; rural_spd += 5*(1-dissent); rural_nsdap -= 4*(1-dissent); unemployed -= 1 if unemployed >= 5; dvp_relation -= 5; z_relation -= 4; left_strength += 8; left_dissent -= 5; rural_sol += 3; rural_policy += 1; coup_progress += 1; agriculture_goal_completed += 1; hindenburg_dissent += 2
+on-arrival: budget -= 1; land_reform += 1; coalition_dissent += 1; rural_spd += 5*(1-dissent); rural_afd -= 4*(1-dissent); unemployed -= 1 if unemployed >= 4; fdp_relation -= 5; union_relation -= 4; left_strength += 8; left_dissent -= 5; rural_sol += 3; rural_policy += 1; coup_progress += 1; agriculture_goal_completed += 1; hindenburg_dissent += 2
 max-visits: 4
 
-With our policy of land reform, we are acquiring farmland from large estates, and giving the land to farmworkers' associations and small peasants. In essence, this brings class struggle to the countryside, breaking the semi-feudal property relations present in East Prussia and other areas with large estates. The bourgeois parties and large farmers despise our intrusion into the sacredness of private property, while leftists are cautiously optimistic.
+Mit einem bundesweiten Agrarstrukturgesetz bekommen Länder und Landgesellschaften ein Vorkaufsrecht gegen Share Deals und Investoren. Land aus ehemaligem Treuhandbesitz geht bevorzugt an Junglandwirt\*innen, Genossenschaften und ökologische Betriebe. Die Agrarholdings und ihre Lobby toben, Union und FDP sprechen vom „Angriff auf das Eigentum“. Die Parteilinke ist vorsichtig begeistert.
 
 
 @agricultural_finance
-title: Agricultural Financing
-subtitle: -1 budget - Increase financing for agricultural credit and insurance.
+title: Höfe sichern
+subtitle: -1 Haushaltsspielraum – Investitionsförderung, Risikoausgleich und Agrardiesel-Ausgleich für kleine Betriebe.
 choose-if: budget >= 1
-on-arrival: budget -= 1; agricultural_finance += 1; rural_spd += 5*(1-dissent); rural_nsdap -= 3*(1-dissent); peoples_party_support += 1; center_dissent += 5; left_dissent += 4; rural_sol += 4; rural_policy += 1; economic_growth += 0.2;
+on-arrival: budget -= 1; agricultural_finance += 1; rural_spd += 5*(1-dissent); rural_afd -= 3*(1-dissent); peoples_party_support += 1; center_dissent += 5; left_dissent += 4; rural_sol += 4; rural_policy += 1; economic_growth += 0.2;
 
-We have increased financial support for small farmers, providing access to credit and insurance, saving them from privation. The left and center of our party are opposed to our rural policy, seeing these policies as giveaways to petit-bourgeois farmers.
+Wir legen ein Förderprogramm für kleine und mittlere Höfe auf: günstige Kredite für Stallumbau, eine staatlich gestützte Versicherung gegen Dürre und Starkregen und einen Ausgleich für den gestrichenen Agrardiesel. Viele Betriebe atmen auf. Parteilinke und Parteimitte murren, das sei Klientelpolitik für eine Wählergruppe, die uns ohnehin nicht wählt.
 
 
 @pro_consumer
-title: Food Procurement
-subtitle: -1 budget - Provide inexpensive food for workers.
+title: Lebensmittel bezahlbar machen
+subtitle: -1 Haushaltsspielraum – Mehrwertsteuer auf Grundnahrungsmittel senken.
 choose-if: budget >= 1
 on-arrival: budget -= 1; pro_consumer += 1; workers_spd += 4*(1-dissent); unemployed_spd += 4*(1-dissent); workers_sol += 4; coalition_dissent += 1 if black_thursday_seen; economic_growth += 0.2;
 
-We have increased state purchasing of food staples to provide to urban workers and the poor. This benefits workers more than it benefits farmers, as we are negotiating for lower purchase prices. [? if black_thursday_seen and (in_weimar_coalition or in_grand_coalition) : Our coalition partners consider this policy to be a wasteful handout. ?]
+Obst, Gemüse, Brot und Milchprodukte werden von der Mehrwertsteuer befreit. Für Familien mit wenig Geld ist das eine spürbare Entlastung an der Supermarktkasse. Die Bauern profitieren kaum, die Handelsketten umso mehr, falls sie die Senkung nicht weitergeben. [? if black_thursday_seen and (in_weimar_coalition or in_grand_coalition) : Unsere Koalitionspartner halten das in der Haushaltskrise für teure Symbolpolitik. ?]
 
 @state_buyer
-title: State Buyer
-subtitle: -2 budget - Create a state monopoly for grain purchases, guaranteeing prices for farmers and stable prices for consumers. [? if judicial_reform < 2 : The judiciary would never allow this. ?]
+title: Fairer Preis per Gesetz
+subtitle: -2 Haushaltsspielraum – Eine Preisbeobachtungsstelle und ein Verbot von Einkauf unter Produktionskosten, abgesichert durch eine staatliche Abnahmegarantie. [? if judicial_reform < 2 : Ohne Rückhalt in der Justiz würde das Gesetz in Karlsruhe scheitern. ?]
 choose-if: budget >= 2 and judicial_reform >= 2
-on-arrival: budget -= 2; state_buyer = 1; rural_spd += 5*(1-dissent); rural_nsdap -= 3*(1-dissent); workers_spd += 4*(1-dissent); unemployed_spd += 5*(1-dissent); coalition_dissent += 1 if (in_grand_coalition or in_weimar_coalition); dvp_relation -= 5; z_relation -= 3; peoples_party_support += 1; rural_policy += 2; capital_strike_progress += 1; economic_growth += 0.4;
+on-arrival: budget -= 2; state_buyer = 1; rural_spd += 5*(1-dissent); rural_afd -= 3*(1-dissent); workers_spd += 4*(1-dissent); unemployed_spd += 5*(1-dissent); coalition_dissent += 1 if (in_grand_coalition or in_weimar_coalition); fdp_relation -= 5; union_relation -= 3; peoples_party_support += 1; rural_policy += 2; capital_strike_progress += 1; economic_growth += 0.4;
 max-visits: 1
 
-Our new purchasing agency guarantees fair prices for farmers, while also providing lower food prices for workers and the urban poor. This policy necessitates heavy spending and an unprecedented level of state intervention in the economy, raising the ire of conservative economists.
+Nach spanischem Vorbild dürfen Molkereien und Handelsketten nicht mehr unter den Produktionskosten einkaufen. Eine staatliche Stelle garantiert Mindestpreise für Milch und Getreide und gibt Überschüsse günstig an Tafeln, Kitas und Schulkantinen ab. Die Höfe bekommen Planungssicherheit, die Verbraucher stabile Preise. Ökonomen der Arbeitgeberseite sprechen von „Planwirtschaft im Kühlregal“.

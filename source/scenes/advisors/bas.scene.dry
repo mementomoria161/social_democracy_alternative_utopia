@@ -1,0 +1,61 @@
+title: Bärbel Bas
+is-pinned-card: true
+tags: advisor, centrist
+card-image: img/portraits/Bas.jpg
+view-if: bas_advisor = 1
+new-page: true
+
+= Bärbel Bas
+
+Bas ist seit Juni 2025 Co-Vorsitzende der SPD und Bundesministerin für Arbeit und Soziales. Die frühere Bundestagspräsidentin stammt aus Duisburg, hat als Sozialversicherungsfachangestellte gearbeitet und gilt als eine, die die Sprache der Beschäftigten spricht.
+
+- @clear_agenda
+- @party_discipline
+- @emergency_fundraising
+- @snap_election
+- @root: Zurück
+
+@clear_agenda
+title: Die Agenda leeren
+subtitle: Entfernt alle Karten von der Hand.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: {!
+Q.advisor_action_timer = 6;
+if (Q.difficulty >= 0) {
+    window.dendryUI.dendryEngine.state.currentHands['main'] = [];
+} else {
+    window.dendryUI.dendryEngine.state.currentHands['main.main_easy'] = [];
+}
+!}
+
+Alle Punkte auf unserer Agenda wurden gestrichen.
+
+@party_discipline
+title: Geschlossenheit einfordern
+subtitle: Verringert den Unmut in allen Strömungen.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; left_dissent -= 5; labor_dissent -= 10; center_dissent -= 10; reformist_dissent -= 10; neorevisionist_dissent -= 5
+
+Bas schwört die Partei auf Geschlossenheit ein. Der Unmut in allen Strömungen sinkt.
+
+@emergency_fundraising
+title: Spendenaufruf
+view-if: difficulty < 1
+subtitle: Eine kurzfristige Finanzspritze für die Partei.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; resources += dues
+
+Wir haben +[+ dues +] Ressourcen eingenommen.
+
+@snap_election
+title: Die Vertrauensfrage stellen
+subtitle: Über die Vertrauensfrage nach Art. 68 GG Neuwahlen herbeiführen.
+unavailable-subtitle: [? if chancellor != "Bas" : Bas muss Bundeskanzlerin sein. ?][? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+choose-if: advisor_action_timer == 0 and (chancellor == "Bas")
+on-arrival: advisor_action_timer = 6; time_to_election = 3
+call: set_next_election_time
+
+Die Bundeskanzlerin verliert die Vertrauensfrage wie geplant. Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt.

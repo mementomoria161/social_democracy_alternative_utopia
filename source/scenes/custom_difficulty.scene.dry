@@ -32,21 +32,21 @@ if (Q.starting_dissent == 0) {
 
 Q.starting_relations = Number.parseInt(document.getElementById("starting_relations").value); 
 if (Q.starting_relations == 0) {
-    Q.kpd_relation = 29;
-    Q.z_relation = 54;
-    Q.dvp_relation = 49;
+    Q.linke_relation = 29;
+    Q.union_relation = 54;
+    Q.fdp_relation = 49;
 } else if (Q.starting_relations == 1) {
-    Q.kpd_relation = 25;
-    Q.z_relation = 50;
-    Q.dvp_relation = 35;
+    Q.linke_relation = 25;
+    Q.union_relation = 50;
+    Q.fdp_relation = 35;
 } else {
-    Q.kpd_relation = 16;
-    Q.z_relation = 41;
-    Q.dvp_relation = 31;
+    Q.linke_relation = 16;
+    Q.union_relation = 41;
+    Q.fdp_relation = 31;
 }
 
-Q.starting_rb_strength = Number.parseInt(document.getElementById("starting_rb_strength").value);
-Q.rb_strength = Q.starting_rb_strength;
+Q.starting_demo_strength = Number.parseInt(document.getElementById("starting_demo_strength").value);
+Q.demo_strength = Q.starting_demo_strength;
 
 Q.hand_size = Number.parseInt(document.getElementById("hand_size").value);
 
@@ -110,7 +110,7 @@ Starting inter-party relations: {! <select name="starting_relations" id="startin
 </select> !}
 
 # default: 1 (normal)
-Starting Reichsbanner strength: {! <select name="starting_rb_strength" id="starting_rb_strength"> 
+Starting Reichsbanner strength: {! <select name="starting_demo_strength" id="starting_demo_strength"> 
 <option value="1000">1000</option>
 <option value="2000" selected>2000</option>
 <option value="2500">2500</option>
@@ -160,4 +160,4 @@ Returning cards to hand: {! <select name="discard_disabled" id="discard_disabled
 - @done: Done
 
 @done
-go-to: root.1928_main
+go-to: root.2026_main

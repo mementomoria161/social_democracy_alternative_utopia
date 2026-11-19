@@ -1,0 +1,32 @@
+title: Ralf Stegner
+is-pinned-card: true
+tags: advisor, left
+card-image: img/portraits/Stegner.jpg
+view-if: stegner_advisor = 1
+new-page: true
+
+= Ralf Stegner
+
+Stegner ist eines der bekanntesten Gesichter der Parteilinken: früher Landesvorsitzender in Schleswig-Holstein und stellvertretender Parteivorsitzender, heute Bundestagsabgeordneter. 2025 unterzeichnete er ein umstrittenes „Manifest“, das mehr Diplomatie gegenüber Russland forderte.
+
+- @building_the_left
+- @linke_cooperation
+- @root: Zurück
+
+@building_the_left
+title: Die Linke in der SPD stärken
+subtitle: Die SPD nach links rücken.
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; left_strength += 10; left_dissent -= 8; reformist_dissent += 3
+
+Die SPD-Linke hat an Einfluss gewonnen. Im Seeheimer Kreis wächst die Sorge.
+
+@linke_cooperation
+title: Gespräche mit der Linken
+subtitle: Jede Zusammenarbeit erfordert Kompromisse auf beiden Seiten.
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; left_strength += 5; linke_relation += 6*(1-dissent); reformist_dissent += 3; communist_coalition += 1 if linke_cooperation_seen <= 1; linke_cooperation_seen += 1
+
+Stegner lädt Abgeordnete der Linken zu vertraulichen Gesprächen ein. Bei Mieten, Mindestlohn und Vermögensteuer gibt es mehr Gemeinsamkeiten als gedacht.

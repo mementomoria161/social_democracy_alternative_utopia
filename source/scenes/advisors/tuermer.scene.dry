@@ -1,0 +1,45 @@
+title: Philipp Türmer
+is-pinned-card: true
+tags: advisor, left
+card-image: img/portraits/Tuermer.jpg
+view-if: tuermer_advisor = 1
+new-page: true
+
+= Philipp Türmer
+
+Türmer ist seit 2023 Bundesvorsitzender der Jusos. Der Hesse ist die lauteste Stimme gegen den Koalitionskurs mit der Union: gegen Kürzungen beim Bürgergeld, gegen schärfere Migrationsgesetze, für eine Vermögensteuer und eine SPD, die wieder Haltung zeigt.
+
+- @building_the_left
+- @linke_cooperation
+- @against_toleration
+- @root: Zurück
+
+@building_the_left
+title: Die Linke in der SPD stärken
+subtitle: Die SPD nach links rücken.
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; left_strength += 6; left_dissent -= 8; reformist_dissent += 2
+
+Die Jusos mobilisieren auf Parteitagen und in den Ortsvereinen. Die SPD-Linke gewinnt an Einfluss.
+
+@linke_cooperation
+title: Offen für Rot-Grün-Rot
+subtitle: Die Partei für eine Zusammenarbeit mit der Linken öffnen.
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; left_strength += 5; linke_relation += 4*(1-dissent); reformist_dissent += 2; communist_coalition += 1 if linke_cooperation_seen <= 1; linke_cooperation_seen += 1
+
+Jusos und Linksjugend organisieren gemeinsame Veranstaltungen zu Mieten und Ausbildung. Die Gräben zwischen den Parteien werden flacher.
+
+@against_toleration
+title: Die Tolerierung aufkündigen
+view-if: not constructive_vonc
+subtitle: Die Tolerierung beenden und Neuwahlen erzwingen.
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?] [? if spd_toleration == 0 : Die SPD toleriert derzeit keine Regierung. ?]
+choose-if: advisor_action_timer == 0 and spd_toleration
+on-arrival: advisor_action_timer = 6; next_election_time = time + 3 if next_election_time > time+3; next_election_month = month + 3 if next_election_time >= time + 3; next_election_year = year if next_election_time >= time + 3; next_election_year += 1 if next_election_month > 12; next_election_month -= 12 if next_election_month > 12; spd_toleration = 0; left_strength += 8; pro_republic -= 4; new_middle_spd -= 3; rural_spd -= 3; old_middle_spd -= 3; rentner_spd -= 3; reformist_dissent += 8
+
+Wir sind der Tolerierung überdrüssig und kündigen sie auf. Die Minderheitsregierung hat keine Mehrheit mehr.
+
+Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt.

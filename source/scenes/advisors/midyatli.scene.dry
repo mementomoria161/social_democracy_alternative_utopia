@@ -1,0 +1,45 @@
+title: Serpil Midyatli
+is-pinned-card: true
+tags: advisor, reformist
+card-image: img/portraits/Midyatli.jpg
+view-if: midyatli_advisor = 1
+new-page: true
+
+= Serpil Midyatli
+
+Midyatli führt die SPD in Schleswig-Holstein und deren Landtagsfraktion in Kiel. Die gebürtige Kielerin kämpft gegen Kinderarmut und für Familien mit wenig Geld und ist eng mit den Sozialverbänden und der Arbeiterwohlfahrt vernetzt.
+
+- @emergency_fundraising
+- @welfare
+- @organizing_women
+- @root: Zurück
+
+@emergency_fundraising
+title: Spendenaufruf
+subtitle: Eine kurzfristige Finanzspritze für die Partei.
+view-if: difficulty < 1
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; resources += dues
+
+Wir haben +[+ dues +] Ressourcen eingenommen.
+
+@welfare
+title: Die Arbeiterwohlfahrt unterstützen
+subtitle: -1 Ressourcen
+choose-if: resources > 0 and advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if resources <= 0: Nicht genug Ressourcen. ?]
+on-arrival: resources -= 1; workers_aid += 1; unemployed_spd += 5*(1 - dissent); workers_spd += 3*(1-dissent); workers_spd += 2*(1-dissent) if unemployed > 7; advisor_action_timer = 6;
+
+Wir unterstützen Tafeln, Sozialberatung und Kitas der AWO vor Ort. [? if unemployed > 7 : In Zeiten steigender Arbeitslosigkeit hilft das, Vertrauen bei Menschen zurückzugewinnen, die sich von der Politik vergessen fühlen. ?]
+
+@organizing_women
+title: Frauen ansprechen
+subtitle: Midyatli wirbt um Mütter, Alleinerziehende und Frauen in Teilzeit.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: womens_rights += 1; workers_spd += 4*(1-dissent); rural_spd += 3*(1-dissent); old_middle_spd += 3*(1-dissent); advisor_action_timer = 6
+
+Midyatlis Kampagne richtet sich an Frauen, die Familie, Pflege und Job unter einen Hut bringen müssen: Kita-Plätze, Ganztagsschulen, gleicher Lohn und eine Rente, die zum Leben reicht.
+
+[? if spd_r < 50 : Bei jungen Männern bleibt die SPD dagegen schwach – viele von ihnen wählen inzwischen AfD. ?]

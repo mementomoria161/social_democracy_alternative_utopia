@@ -1,40 +1,39 @@
-title: Fundraising
+title: Parteifinanzen
 new-page: true
 view-if: fundraising_timer <= 0 and (not historical_mode)
 on-arrival: fundraising_timer = 6; month_actions += 1
 frequency: 300
 is-card: true
-card-image: img/poster_2.jpg
+card-image: img/parteifinanzen.jpg
 tags: party_affairs
 
-= Fundraising
+= Parteifinanzen
 
-For better or for worse, the party cannot exist without money.
+Ob es uns gefällt oder nicht: Ohne Geld kann keine Partei arbeiten. Kampagnen, Geschäftsstellen und Veranstaltungen müssen bezahlt werden.
 
-- @maintain: Maintain our current dues.
-- @reduce: Reduce dues.
-- @increase: Increase dues.
+- @maintain: Die Mitgliedsbeiträge beibehalten.
+- @reduce: Die Mitgliedsbeiträge senken.
+- @increase: Die Mitgliedsbeiträge erhöhen.
 - @easy_discard
 
 @maintain
-subtitle: [+ dues +] resources gained.
+subtitle: [+ dues +] Ressourcen gewonnen.
 on-arrival: resources += dues;
 
-We maintain our current dues.
+Wir behalten die bisherigen Beiträge bei.
 
 @reduce
-subtitle: [+ dues - 1 +] resources gained.
+subtitle: [+ dues - 1 +] Ressourcen gewonnen.
 choose-if: dues > 1
 on-arrival: dues -= 1; resources += dues; left_dissent -= 8; center_dissent -= 8; reformist_dissent -= 8; labor_dissent -= 8
 
-Our current members appreciate this, but no one decides to join a party because of the low dues.
+Die Mitglieder freuen sich. Allerdings tritt niemand wegen niedriger Beiträge in eine Partei ein.
 
 @increase
-subtitle: [+ dues + 1 +] resources gained. [? if unemployed >= 15 : Given the present economic situation, this may be painful. ?][? if dues >= 4 : Dues are already rather high; increasing them might reduce our membership. ?]
-on-arrival: dues += 1; resources += dues; workers_spd -= 3; unemployed_spd -= 3; workers_spd -= 10 if unemployed >= 15; unemployed_spd -= 10 if unemployed >= 15; workers_spd -= 3*dues if dues >= 5; unemployed_spd -= 3*dues if dues >= 5
+subtitle: [+ dues + 1 +] Ressourcen gewonnen. [? if unemployed >= 8 : Bei der aktuellen Wirtschaftslage wird das wehtun. ?][? if dues >= 4 : Die Beiträge sind schon recht hoch; eine weitere Erhöhung könnte Mitglieder kosten. ?]
+on-arrival: dues += 1; resources += dues; workers_spd -= 3; unemployed_spd -= 3; workers_spd -= 10 if unemployed >= 8; unemployed_spd -= 10 if unemployed >= 8; workers_spd -= 3*dues if dues >= 5; unemployed_spd -= 3*dues if dues >= 5
 view-if: dues <= 4
 
-Our members grumble at this, and some of the less committed members leave. But now, we have access to additional resources. 
+Die Mitglieder murren, und einige weniger überzeugte treten aus. Dafür haben wir jetzt mehr Geld zur Verfügung.
 
-[? if unemployed >= 15 : Because of the presently high unemployment, our members are feeling the extra burden hard. ?]
-
+[? if unemployed >= 8 : Bei der hohen Arbeitslosigkeit trifft die Erhöhung viele Mitglieder hart. ?]

@@ -1,17 +1,17 @@
-title: Cabinet
+title: Kabinett
 is-pinned-card: true
 tags: advisor
-card-image: img/muller_cabinet.jpg
+card-image: img/kabinett.jpg
 view-if: (difficulty < 0 or cabinet_enabled = 1) and spd_in_government and chancellor_party = "SPD"
 on-arrival: last_cabinet_action = 1
 new-page: true 
 
-= Cabinet
+= Kabinett
 
-With an SPD chancellor and SPD cabinet members, we can direct the affairs of the national government.
+Mit einer SPD-Kanzlerschaft und eigenen Ministerinnen und Ministern können wir die Arbeit der Bundesregierung direkt steuern.
 
 - #cabinet
-- @back: Return to main
+- @back: Zurück
 
 @back
 on-arrival: last_cabinet_action = 0

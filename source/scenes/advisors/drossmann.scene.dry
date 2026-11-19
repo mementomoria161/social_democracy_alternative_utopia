@@ -1,0 +1,42 @@
+title: Falko Droßmann
+is-pinned-card: true
+tags: advisor
+card-image: img/portraits/Drossmann.jpg
+view-if: drossmann_advisor = 1
+new-page: true
+
+= Falko Droßmann
+
+Droßmann ist Bundestagsabgeordneter aus Hamburg, ehemaliger Offizier der Bundeswehr und früherer Bezirksamtsleiter in Hamburg-Mitte. Als offen schwuler Politiker setzt er sich für die Rechte queerer Menschen ein – gerade in einer Zeit, in der CSDs immer häufiger von Rechtsextremen angegriffen werden.
+
+
+- @homosexual_rights_
+- @womens_rights_
+- @science_funding
+- @root: Zurück
+
+
+@homosexual_rights_
+title: Queere Rechte
+subtitle: Politik für die Rechte queerer Menschen umsetzen.
+choose-if: advisor_action_timer = 0 and spd_in_government and progressive_coalition >= 50
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if not spd_in_government : Die SPD ist nicht an der Regierung beteiligt. ?][? if progressive_coalition < 50 : SPD, Grüne und Linke haben dafür keine Mehrheit. ?]
+on-arrival: advisor_action_timer = 6; homosexual_rights_timer -= 11; last_advisor_action = 1
+go-to: homosexual_rights
+
+
+@womens_rights_
+title: Gleichstellung
+subtitle: Politik für die Gleichstellung von Frauen.
+choose-if: advisor_action_timer = 0 and spd_in_government
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if not spd_in_government : Die SPD ist nicht an der Regierung beteiligt. ?]
+on-arrival: advisor_action_timer = 6; womens_rights_timer -= 10; last_advisor_action = 1
+go-to: womens_rights
+
+@science_funding
+title: Forschung fördern
+subtitle: Mehr Geld für Wissenschaft und Forschung.
+choose-if: advisor_action_timer = 0 and spd_in_government and economic_minister_party = "SPD" and chancellor_party = "SPD"
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if not spd_in_government : Die SPD ist nicht an der Regierung beteiligt. ?][? if economic_minister_party != "SPD": Dafür brauchen wir das Wirtschaftsministerium. ?][? if chancellor_party != "SPD": Die SPD muss den Kanzler stellen. ?]
+on-arrival: advisor_action_timer = 6; last_advisor_action = 1
+go-to: education_science.increase_science

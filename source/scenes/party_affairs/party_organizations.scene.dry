@@ -1,71 +1,68 @@
-title: Party Organizations
+title: Parteiorganisationen
 new-page: true
 is-card: true
 tags: party_affairs
 view-if: party_organizations_timer <= 0
 on-arrival: month_actions += 1; party_organizations_timer = 6;
-card-image: img/Mann_der_Arbeit.jpg
+card-image: img/ortsverein.jpg
 max-visits: 6
-#subtitle: Outside of electoral politics, the SPD runs a social world onto itself.
 
-= Party Organizations
+= Parteiorganisationen
 
-In addition to being a political party, the SPD is a social world onto itself, with a vast array of associated organizations which serve the social needs of their members from cradle to grave.
+Die SPD ist mehr als eine Wahlkampfmaschine. Zu ihr gehören Ortsvereine, die Arbeiterwohlfahrt, die Falken, Bildungswerke, der „Vorwärts“ und zahllose Ehrenamtliche. Doch die Mitglieder werden älter, und vielerorts schließen Ortsvereine.
 
-- @newspapers: Fund more newspapers and journalists.
-- @welfare: Fund more mutual aid and welfare programs.
-- @culture: Fund sports leagues, educational, and cultural programs.
-- @rb: Fund the Reichsbanner, our self-defense organization.
-- @youth: We have the reputation of being a party for old men. Support the youth organizations.
-- @nothing: Do not increase funding for any program.
+- @newspapers: In Medien und Social Media investieren.
+- @welfare: Die Arbeiterwohlfahrt und Sozialberatung stärken.
+- @culture: Kultur-, Bildungs- und Sportangebote fördern.
+- @rb: Die Demokratiebewegung vor Ort unterstützen.
+- @youth: Die Jusos und die Jugendarbeit fördern.
+- @nothing: Nichts zusätzlich finanzieren.
 - @easy_discard
 
 @newspapers
 choose-if: resources > 0
-unavailable-subtitle: Not enough resources.
-subtitle: -1 resources
+unavailable-subtitle: Nicht genug Ressourcen.
+subtitle: -1 Ressourcen
 on-arrival: resources -= 1; media_timer = 0;
 go-to: media
-
-# TODO: differing outcomes based on whether you've seen media, and what kind of media you've supported.
 
 
 @welfare
 choose-if: resources > 0
-unavailable-subtitle: Not enough resources.
-subtitle: -1 resources
+unavailable-subtitle: Nicht genug Ressourcen.
+subtitle: -1 Ressourcen
 on-arrival: resources -= 1; workers_aid += 1; unemployed_spd += 5*(1 - dissent);
 
-We have increased funding to Workers' Welfare. [? if black_thursday_seen > 0 : In an age of economic crisis, this will be helpful for improving our standing among the unemployed. ?]
+Wir unterstützen Tafeln, Schuldnerberatung und Sozialsprechstunden. [? if unemployed > 7 : In Zeiten steigender Arbeitslosigkeit stärkt das unser Ansehen bei Menschen ohne Arbeit. ?]
 
 @culture
 choose-if: resources > 0
-unavailable-subtitle: Not enough resources.
-subtitle: -1 resources
+unavailable-subtitle: Nicht genug Ressourcen.
+subtitle: -1 Ressourcen
 on-arrival: resources -= 1; cultural_organizations += 1; left_dissent -= 6; center_dissent -= 6; labor_dissent -= 6; reformist_dissent -= 6; neorevisionist_dissent -= 6
 
-It is not enough for the SPD to solely be a political party. The Worker Singer's League, Worker's Sports, and our schools and libraries are crucial to our members' lives. Funding these organizations makes our members more committed to the party, even when our policies might not be to their liking.
+Sommerfeste, Lesekreise, Fußballturniere und Bildungsfahrten: Eine Partei lebt davon, dass Menschen sich in ihr zu Hause fühlen. Wer sich in seinem Ortsverein wohlfühlt, bleibt auch dann, wenn ihm die Politik in Berlin nicht gefällt.
 
-[? if sa_strength > 500 : However, it feels frivolous to spend on sports and choirs when the fascists are murdering us in the streets. ?]
+[? if rechts_strength > 150 : Angesichts rechter Aufmärsche wirkt es allerdings seltsam, Geld in Sommerfeste zu stecken. ?]
 
 @rb
 choose-if: resources > 0
-unavailable-subtitle: Not enough resources.
-subtitle: -1 resources
-on-arrival: resources -= 1; rb_strength  += 100; rb_militancy += 0.01; reichsbanner_timer = 0; funded_reichsbanner += 1
+unavailable-subtitle: Nicht genug Ressourcen.
+subtitle: -1 Ressourcen
+on-arrival: resources -= 1; demo_strength  += 100; demo_radicalism += 0.01; reichsbanner_timer = 0; funded_reichsbanner += 1
 
-We have increased recruiting to the Reichsbanner.
+Wir unterstützen lokale Bündnisse gegen Rechts mit Geld, Räumen und Organisation. Die Demokratiebewegung wächst.
 
 @youth
 choose-if: resources > 0
-unavailable-subtitle: Not enough resources.
-subtitle: -1 resources
-on-arrival: resources -= 1; rb_strength += 50; rb_militancy += 0.02; young_socialists += 1; left_strength += 5; neorevisionist_strength += 5; radicalization += 1;
+unavailable-subtitle: Nicht genug Ressourcen.
+subtitle: -1 Ressourcen
+on-arrival: resources -= 1; demo_strength += 50; demo_radicalism += 0.02; young_socialists += 1; left_strength += 5; neorevisionist_strength += 5; radicalization += 1;
 
-Our new youth members flock to the left or neorevisionist wings of the party, and also bring new radicalism to the Reichsbanner.
+Junge Mitglieder strömen in die Partei, die meisten zur SPD-Linken, manche zum Dänischen Kurs. Sie bringen frischen Wind und neue Lautstärke in die Demokratiebewegung.
 
 @nothing
 
-We do not fund any party organizations.
+Wir finanzieren diesmal keine Parteiorganisationen.
 
-- @return: Continue...
+- @return: Weiter …

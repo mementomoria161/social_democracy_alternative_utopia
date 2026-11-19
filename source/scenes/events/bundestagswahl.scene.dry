@@ -1,0 +1,811 @@
+title: Bundestagswahl
+new-page: true
+tags: event
+priority: -1
+view-if: (year = next_election_year and month >= next_election_month) or (year > next_election_year)
+on-departure: month_actions += 1; in_election = 0; next_election_year = year + 4; next_election_month = month; n_elections += 1; next_election_time = time + 48;
+set-jump: post_election
+face-image: img/bundestagswahl.jpg
+
+# the low priority means that this event is only seen after all other events are resolved for the month.
+
+= Bundestagswahl, [+ month : month +] [+ year +]
+
+Heute wird der Bundestag gewählt. Die Wahllokale schließen um 18 Uhr, dann kommen die ersten Prognosen.
+
+- @election_algorithm: Wir haben getan, was wir konnten.
+
+@post_election
+on-arrival: {!
+// 5% threshold (Sperrklausel): parties below it and "Sonstige" get no seats.
+// Banned parties get no seats.
+var new_party_sum = 0;
+var all_parties = Q.parties.slice();
+if (Q.sapd_formed) {
+    all_parties.push('sapd');
+}
+for (var party of all_parties) {
+    Q['old_' + party + '_r'] = Q[party + '_r'] || 0;
+    var votes = Q[party + '_votes_dec'] || Q[party + '_votes'] || 0;
+    if (votes < Q.electoral_threshold || party == 'other' || Q[party + '_banned']) {
+        Q[party + '_r'] = 0;
+    } else {
+        Q[party + '_r'] = votes;
+    }
+    new_party_sum += Q[party + '_r'];
+}
+for (var party of all_parties) {
+    if (Q[party + '_r'] > 0) {
+        Q[party + '_r'] = Math.round(Q[party + '_r']*1000/new_party_sum)/10;
+    }
+    Q[party + '_r_disp'] = Q[party + '_r'].toFixed(1);
+    var change = Math.round((Q[party + '_r'] - Q['old_' + party + '_r'])*10)/10;
+    Q['change_' + party + '_r'] = change;
+    Q['str_change_' + party] = (change > 0 ? '+' : '') + change.toFixed(1);
+    // vote share (not seat share) for the results table
+    Q[party + '_vote_disp'] = Number(Q[party + '_votes_dec'] || Q[party + '_votes'] || 0).toFixed(1);
+}
+
+// largest party
+Q.largest_party = 'SPD';
+var names = {'spd': 'SPD', 'linke': 'Linke', 'union': 'Union', 'gruene': 'Grüne', 'fdp': 'FDP', 'bsw': 'BSW', 'afd': 'AfD', 'other': 'Sonstige', 'sapd': 'Soziale Linke'};
+var max_r = -1;
+for (var party of all_parties) {
+    if (Q[party + '_r'] > max_r) {
+        max_r = Q[party + '_r'];
+        Q.largest_party = names[party];
+    }
+}
+
+var sapd = Q.sapd_formed ? (Q.sapd_r || 0) : 0;
+var srpd = Q.srpd_r || 0;
+// coalitions (in % of seats)
+// Schwarz-Rot
+Q.grand_coalition = Q.spd_r + Q.union_r + srpd;
+// Kenia
+Q.weimar_coalition = Q.spd_r + Q.union_r + Q.gruene_r + srpd;
+// Ampel
+Q.ampel_coalition = Q.fdp_r > 0 ? Q.spd_r + Q.gruene_r + Q.fdp_r + srpd : 0;
+// Rot-Grün
+Q.rotgruen_coalition = Q.spd_r + Q.gruene_r + srpd;
+// Rot-Grün-Rot
+Q.popular_front_coalition = Q.spd_r + Q.gruene_r + Q.linke_r + sapd + srpd;
+// Rot-Rot
+Q.left_coalition = Q.spd_r + Q.linke_r + sapd;
+// all democratic parties of the center (without Linke, BSW, AfD)
+Q.neo_weimar_coalition = Q.spd_r + Q.union_r + Q.gruene_r + Q.fdp_r + srpd;
+// coalitions without the SPD
+Q.schwarz_gruen_coalition = Q.union_r + Q.gruene_r;
+Q.bourgeois_coalition = Q.union_r + Q.gruene_r + Q.fdp_r;
+Q.right_coalition = Q.union_r + Q.fdp_r;
+// AfD + BSW
+Q.far_right_coalition = Q.afd_r + Q.bsw_r;
+Q.anti_democratic_coalition = Q.afd_r + Q.bsw_r;
+// Union + AfD (the "Brandmauer" falls)
+Q.hitler_right_coalition = Q.union_r + Q.afd_r;
+// SPD + Grüne + Linke: needed for progressive social reforms
+Q.progressive_coalition = Q.spd_r + Q.linke_r + Q.gruene_r + sapd;
+
+Q.leverage = Math.round(Q.spd_r);
+
+Q.grand_coalition_failed = 0;
+// reset the government
+Q.coalition_dissent = 0;
+Q.linke_coalition_dissent = 0;
+Q.spd_in_government = 0;
+Q.union_in_government = 0;
+Q.gruene_in_government = 0;
+Q.fdp_in_government = 0;
+Q.linke_in_government = 0;
+Q.bsw_in_government = 0;
+Q.afd_in_government = 0;
+Q.in_weimar_coalition = 0;
+Q.in_grand_coalition = 0;
+Q.in_left_front = 0;
+Q.in_popular_front = 0;
+Q.in_right_coalition = 0;
+Q.in_emergency_government = 0;
+Q.in_minority_government = 0;
+Q.in_unity_government = 0;
+Q.spd_toleration = 0;
+Q.spd_caretaker = 0;
+Q.coalition_name = "keine";
+Q.partner_party = "Union";
+
+// reset Linke goals
+Q.linke_goals_seen = 0;
+Q.linke_ultimatum_seen = 0;
+Q.welfare_goal = 0;
+Q.agriculture_goal = 0;
+Q.economy_goal = 0;
+Q.finance_goal = 0;
+Q.labor_goal = 0;
+Q.foreign_goal = 0;
+Q.interior_goal = 0;
+Q.bundeswehr_goal = 0;
+
+Q.welfare_goal_completed = 0;
+Q.agriculture_goal_completed = 0;
+Q.economy_goal_completed = 0;
+Q.finance_goal_completed = 0;
+Q.labor_goal_completed = 0;
+Q.foreign_goal_completed = 0;
+Q.interior_goal_completed = 0;
+Q.bundeswehr_goal_completed = 0;
+
+Q.strike_term_seen = 0;
+
+if (Q.afd_r >= 25) {
+    Q.understanding_enemy_timer = 2;
+}
+
+var election_result = {'date': new Date(Q.year, Q.month - 1)};
+for (var party of Q.parties) {
+    election_result[party] = Q[party + '_r'];
+}
+Q.election_records.push(election_result);
+!}
+on-departure: nazi_urgency = 3 if (nazi_urgency < 3 and afd_r >= 25)
+on-display: {!
+var data = [
+    {"id": "linke", "legend": "Linke", "name": "Linke", "seats": Math.round(Q.linke_r*6.3)}
+];
+if (Q.sapd_formed && Q.sapd_r) {
+    data.push({"id": "sapd", "legend": "Soziale Linke", "name": "Soziale Linke", "seats": Math.round(Q.sapd_r*6.3)});
+}
+data.push({"id": "spd", "legend": "SPD", "name": "SPD", "seats": Math.round(Q.spd_r*6.3)});
+if (Q.srpd_formed && Q.srpd_r) {
+    data.push({"id": "srpd", "legend": "SRPD", "name": "SRPD", "seats": Math.round(Q.srpd_r*6.3)});
+}
+data = data.concat([
+    {"id": "gruene", "legend": Q.gruene_name, "name": Q.gruene_name, "seats": Math.round(Q.gruene_r*6.3)},
+    {"id": "bsw", "legend": "BSW", "name": "BSW", "seats": Math.round(Q.bsw_r*6.3)},
+    {"id": "fdp", "legend": "FDP", "name": "FDP", "seats": Math.round(Q.fdp_r*6.3)},
+    {"id": "union", "legend": "CDU/CSU", "name": "CDU/CSU", "seats": Math.round(Q.union_r*6.3)},
+    {"id": "afd", "legend": "AfD", "name": "AfD", "seats": Math.round(Q.afd_r*6.3)},
+]);
+
+if (window && d3) {
+    var width = 500;
+    var height = 500;
+    var screenWidth = document.getElementById('content').offsetWidth;
+    if (screenWidth < width - 50) {
+        width = screenWidth - 50;
+        height = width;
+        document.getElementById("reichstag").style.height = screenWidth/2 + "px";
+    }
+
+    var parliament = d3.parliament();
+    parliament.width(width).height(height).innerRadiusCoef(0.4);
+    parliament.enter.fromCenter(true).smallToBig(true);
+    parliament.exit.toCenter(false).bigToSmall(true);
+    d3.select("#reichstag").datum(data).call(parliament);
+}
+!}
+go-to: coalition_menu
+
+= Wahlergebnis
+
+{!<svg id="reichstag" style="width: 500px; height: 250px;"> </svg>!}
+
+{!<table>!}
+{!<tr><td>Partei</td><td>Stimmen</td><td>Sitzanteil</td><td>Veränderung</td></tr>!}
+{!<tr><td><div class="box" style='background-color:#E3000F; outline: 2px; outline-style: solid;'> </div> !} **SPD:** {!</td><td>!} **[+ spd_vote_disp +]%** {!</td><td>!} **[+ spd_r_disp +]%** {!</td><td>!} **[+ str_change_spd +]** {!</td></tr>!}
+
+[? if sapd_formed : {!<tr><td><div class="box" style='background-color:#C40000'> </div> !}Soziale Linke: {!</td><td>!} [+ sapd_vote_disp +]% {!</td><td>!} [+ sapd_r_disp +]% {!</td><td>!} [+ str_change_sapd +] {!</td></tr>!} ?]
+
+{!<tr><td><div class="box" style='background-color:#151518'> </div> !} CDU/CSU: {!</td><td>!} [+ union_vote_disp +]% {!</td><td>!} [+ union_r_disp +]% {!</td><td>!} [+ str_change_union +] {!</td></tr>!}
+
+{!<tr><td><div class="box" style='background-color:#009EE0'> </div> !} AfD: {!</td><td>!} [+ afd_vote_disp +]% {!</td><td>!} [+ afd_r_disp +]% {!</td><td>!} [+ str_change_afd +] {!</td></tr>!}
+
+{!<tr><td><div class="box" style='background-color:#46962B'> </div> !} [+ gruene_name +]: {!</td><td>!} [+ gruene_vote_disp +]% {!</td><td>!} [+ gruene_r_disp +]% {!</td><td>!} [+ str_change_gruene +] {!</td></tr>!}
+
+{!<tr><td><div class="box" style='background-color:#BE3075'> </div> !} Linke: {!</td><td>!} [+ linke_vote_disp +]% {!</td><td>!} [+ linke_r_disp +]% {!</td><td>!} [+ str_change_linke +] {!</td></tr>!}
+
+{!<tr><td><div class="box" style='background-color:#FFED00'> </div> !} FDP: {!</td><td>!} [+ fdp_vote_disp +]% {!</td><td>!} [+ fdp_r_disp +]% {!</td><td>!} [+ str_change_fdp +] {!</td></tr>!}
+
+{!<tr><td><div class="box" style='background-color:#7D254F'> </div> !} BSW: {!</td><td>!} [+ bsw_vote_disp +]% {!</td><td>!} [+ bsw_r_disp +]% {!</td><td>!} [+ str_change_bsw +] {!</td></tr>!}
+
+{!<tr><td><div class="box" style='background-color:#a0a0a0'> </div> !} Sonstige: {!</td><td>!} [+ other_vote_disp +]% {!</td><td>!} – {!</td><td>!} {!</td></tr>!}
+{!</table>!}
+
+Parteien unter fünf Prozent ziehen nicht in den Bundestag ein. Stärkste Kraft: **[+ largest_party +]**.
+
+**Mögliche Koalitionen (Sitzanteil):**
+
+Schwarz-Rot (Union + SPD): [+ grand_coalition +]%
+
+Kenia (Union + SPD + Grüne): [+ weimar_coalition +]%
+
+[? if fdp_r > 0 : Ampel (SPD + Grüne + FDP): [+ ampel_coalition +]% ?]
+
+Rot-Grün-Rot (SPD + Grüne + Linke): [+ popular_front_coalition +]%
+
+Schwarz-Grün (Union + Grüne): [+ schwarz_gruen_coalition +]%
+
+[? if fdp_r > 0 : Schwarz-Gelb (Union + FDP): [+ right_coalition +]% ?]
+
+[? if nazi_urgency < 3 and afd_r >= 25 : Das Ergebnis der AfD ist ein Schock. Ein Viertel des Parlaments gehört nun einer Partei, die der Verfassungsschutz in Teilen als gesichert rechtsextrem einstuft. ?]
+
+[? if hitler_right_coalition >= 50 : Union und AfD hätten zusammen eine Mehrheit. Alles hängt davon ab, ob die Brandmauer hält. ?]
+
+[? if anti_democratic_coalition >= 34 : AfD und BSW verfügen zusammen über eine Sperrminorität: Ohne sie sind keine Grundgesetzänderungen mehr möglich. ?]
+
+Die Sondierungen beginnen.
+
+@coalition_menu
+
+- @spd_majority
+- @rotgruen_coalition
+- @ampel_coalition
+- @weimar_coalition
+- @grand_coalition
+- @popular_front_coalition
+- @left_coalition
+- @new_grand_coalition
+- @far_right_coalition
+- @brandmauer_coalition
+- @right_coalition
+- @no_majority
+
+
+@spd_majority
+title: Absolute Mehrheit für die SPD
+subtitle: SPD: [+ spd_r +]%
+view-if: spd_r >= 50
+on-arrival: chancellor_party = "SPD"; spd_in_government = 1; in_spd_majority = 1; coalition_name = "SPD-Alleinregierung"; pro_republic += 5; foreign_minister_party = "SPD"; foreign_minister = "Mützenich"; interior_minister_party = "SPD"; interior_minister = "Fiedler"; justice_minister_party = "SPD"; justice_minister = "Hubig"; labor_minister_party = "SPD"; labor_minister = "Bas"; bundeswehr_minister_party = "SPD"; bundeswehr_minister = "Pistorius"; economic_minister_party = "SPD"; economic_minister = "Hubertz"; finance_minister_party = "SPD"; finance_minister = "Klingbeil"; agriculture_minister_party = "SPD"; agriculture_minister = "Miersch";
+achievement: majority_party
+
+Zum ersten Mal in der Geschichte der Bundesrepublik regiert eine Partei allein. Die SPD hat die absolute Mehrheit der Sitze gewonnen. Wir brauchen keinen Koalitionsvertrag und keine Kompromisse – aber wir tragen auch die ganze Verantwortung.
+
+Wer soll Kanzler\*in werden?
+
+- @klingbeil_majority_chancellor: Lars Klingbeil wird Bundeskanzler.
+- @pistorius_majority_chancellor: Boris Pistorius wird Bundeskanzler.
+- @schwesig_majority_chancellor: Manuela Schwesig wird Bundeskanzlerin.
+- @bas_majority_chancellor: Bärbel Bas wird Bundeskanzlerin.
+
+@klingbeil_majority_chancellor
+on-arrival: chancellor = "Klingbeil"
+
+Lars Klingbeil wird mit den Stimmen der SPD-Fraktion zum Bundeskanzler gewählt.
+
+@pistorius_majority_chancellor
+on-arrival: chancellor = "Pistorius"; reformist_dissent -= 5; left_dissent += 5
+
+Boris Pistorius, seit Jahren der beliebteste Politiker des Landes, wird zum Bundeskanzler gewählt. Das Verteidigungsministerium übernimmt ein Vertrauter.
+
+@schwesig_majority_chancellor
+on-arrival: chancellor = "Schwesig"
+
+Manuela Schwesig wechselt aus Schwerin nach Berlin und wird die erste sozialdemokratische Bundeskanzlerin.
+
+@bas_majority_chancellor
+on-arrival: chancellor = "Bas"; labor_dissent -= 5
+
+Bärbel Bas wird zur Bundeskanzlerin gewählt. Für viele Gewerkschafterinnen und Gewerkschafter ist es ein Signal: Eine von ihnen führt das Land.
+
+
+@rotgruen_coalition
+title: Rot-Grün ist möglich.
+subtitle: SPD + [+ gruene_name +] ([+ rotgruen_coalition +]%)
+view-if: rotgruen_coalition >= 50 and spd_r < 50
+choose-if: gruene_relation >= 35
+unavailable-subtitle: SPD + [+ gruene_name +] ([+ rotgruen_coalition +]%) – Unser Verhältnis zu den Grünen ist zu schlecht.
+on-arrival: leverage += 10; in_weimar_coalition = 1; spd_in_government = 1; gruene_in_government = 1; coalition_name = "Rot-Grün"; partner_party = "Grüne"; foreign_minister_party = "Grüne"; foreign_minister = "Brantner"; interior_minister_party = "Grüne"; interior_minister = "von Notz"; justice_minister_party = "Grüne"; justice_minister = "Haßelmann"; labor_minister_party = "Grüne"; labor_minister = "Banaszak"; bundeswehr_minister_party = "Grüne"; bundeswehr_minister = "Nouripour"; economic_minister_party = "Grüne"; economic_minister = "Dröge"; finance_minister_party = "Grüne"; finance_minister = "Kellner"; agriculture_minister_party = "Grüne"; agriculture_minister = "Özdemir";
+achievement: weimar_coalition
+go-to: spd_chancellor_choice if spd_r >= gruene_r; gruene_lead if spd_r < gruene_r
+
+Zum ersten Mal seit 2005 reicht es wieder für Rot-Grün. Das Projekt, das Gerhard Schröder und Joschka Fischer begonnen haben, bekommt eine zweite Chance.
+
+
+@ampel_coalition
+title: Eine neue Ampel?
+subtitle: SPD + [+ gruene_name +] + FDP ([+ ampel_coalition +]%)
+view-if: ampel_coalition >= 50 and rotgruen_coalition < 50
+choose-if: gruene_relation >= 35 and fdp_relation >= 30
+unavailable-subtitle: SPD + [+ gruene_name +] + FDP ([+ ampel_coalition +]%) – [? if fdp_relation < 30 : Die FDP will nach dem Bruch von 2024 nicht mit uns regieren. ?][? if gruene_relation < 35 : Unser Verhältnis zu den Grünen ist zu schlecht. ?]
+on-arrival: in_weimar_coalition = 1; spd_in_government = 1; gruene_in_government = 1; fdp_in_government = 1; coalition_dissent = 1; coalition_name = "Ampel"; partner_party = "Grüne"; foreign_minister_party = "Grüne"; foreign_minister = "Brantner"; interior_minister_party = "Grüne"; interior_minister = "von Notz"; justice_minister_party = "FDP"; justice_minister = "Kubicki"; labor_minister_party = "Grüne"; labor_minister = "Banaszak"; bundeswehr_minister_party = "FDP"; bundeswehr_minister = "Strack-Zimmermann"; economic_minister_party = "Grüne"; economic_minister = "Dröge"; finance_minister_party = "FDP"; finance_minister = "Dürr"; agriculture_minister_party = "Grüne"; agriculture_minister = "Özdemir";
+achievement: weimar_coalition
+go-to: spd_chancellor_choice if spd_r >= gruene_r; gruene_lead if spd_r < gruene_r
+
+Nach dem Scheitern der letzten Ampel im November 2024 schwor man sich auf allen Seiten: nie wieder. Doch die Arithmetik ist gnadenlos. Die FDP verlangt diesmal das Finanzministerium und eine Garantie für die Schuldenbremse.
+
+
+@weimar_coalition
+title: Eine Kenia-Koalition ist möglich.
+subtitle: Union + SPD + [+ gruene_name +] ([+ weimar_coalition +]%)
+view-if: weimar_coalition >= 50 and grand_coalition < 50 and rotgruen_coalition < 50
+choose-if: gruene_relation >= 30 and union_relation >= 30
+unavailable-subtitle: Union + SPD + [+ gruene_name +] ([+ weimar_coalition +]%) – [? if union_relation < 30 : Die Union verweigert sich. ?][? if gruene_relation < 30 : Die Grünen verweigern sich. ?]
+on-arrival: in_weimar_coalition = 1; spd_in_government = 1; union_in_government = 1; gruene_in_government = 1; coalition_dissent = 1; coalition_name = "Kenia"; partner_party = "Union"; foreign_minister_party = "Union"; foreign_minister = "Wadephul"; interior_minister_party = "Union"; interior_minister = "Dobrindt"; justice_minister_party = "Grüne"; justice_minister = "Haßelmann"; labor_minister_party = "Union"; labor_minister = "Linnemann"; bundeswehr_minister_party = "Union"; bundeswehr_minister = "Kiesewetter"; economic_minister_party = "Grüne"; economic_minister = "Dröge"; finance_minister_party = "Union"; finance_minister = "Spahn"; agriculture_minister_party = "Union"; agriculture_minister = "Rainer";
+achievement: weimar_coalition
+go-to: spd_chancellor_choice if spd_r > union_r; union_lead if spd_r <= union_r
+
+Schwarz-Rot allein hat keine Mehrheit mehr. Nur mit den Grünen reicht es für eine Regierung der demokratischen Mitte – in Sachsen, Brandenburg und Sachsen-Anhalt hat dieses Bündnis bereits regiert.
+
+
+@grand_coalition
+title: Schwarz-Rot hat eine Mehrheit.
+view-if: grand_coalition >= 50 and grand_coalition_failed == 0 and spd_r < 50
+subtitle: Union + SPD ([+ grand_coalition +]%)
+on-arrival: coalition_name = "Schwarz-Rot"; partner_party = "Union"; foreign_minister_party = "Union"; foreign_minister = "Wadephul"; interior_minister_party = "Union"; interior_minister = "Dobrindt"; justice_minister_party = "Union"; justice_minister = "Krings"; labor_minister_party = "Union"; labor_minister = "Linnemann"; bundeswehr_minister_party = "Union"; bundeswehr_minister = "Kiesewetter"; economic_minister_party = "Union"; economic_minister = "Reiche"; finance_minister_party = "Union"; finance_minister = "Spahn"; agriculture_minister_party = "Union"; agriculture_minister = "Rainer";
+go-to: grand_coalition_spd_lead if spd_r > union_r; grand_coalition_union_lead if spd_r <= union_r
+
+@grand_coalition_spd_lead
+on-arrival: in_grand_coalition = 1; spd_in_government = 1; union_in_government = 1; coalition_dissent = 1; coalition_name = "Rot-Schwarz"
+go-to: spd_chancellor_choice
+
+Die SPD ist stärker als die Union. Zum ersten Mal seit 2021 stellen wir den Anspruch aufs Kanzleramt – und die Union muss als Juniorpartner in eine Regierung unter unserer Führung eintreten.
+
+@grand_coalition_union_lead
+go-to: grand_coalition_union_lead_2 if union_relation >= 25; grand_coalition_fail if union_relation < 25
+
+@grand_coalition_union_lead_2
+
+Die Union ist stärkste Kraft der beiden. [+ union_leader +] lädt uns zu Koalitionsverhandlungen ein. [? if austerity >= 2 : Nach den Kürzungen der letzten Jahre sind viele unserer Mitglieder skeptisch. Manche wollen lieber eine Minderheitsregierung der Union tolerieren, andere fordern den Gang in die Opposition. ?]
+
+Ohne uns gibt es keine Mehrheit jenseits der AfD. [? if hitler_right_coalition >= 50 : Wenn wir ablehnen, wächst in der Union der Druck, es mit der AfD zu versuchen. ?]
+
+- @join_union: In die Koalition eintreten.
+- @union_oppo: In die Opposition gehen.
+- @toleration_union: Eine Minderheitsregierung der Union tolerieren.
+
+@grand_coalition_fail
+on-arrival: grand_coalition_failed = 1
+
+Die Union lehnt eine weitere Koalition mit uns ab. Zu tief sind die Gräben der letzten Jahre, zu groß das Misstrauen.
+
+- @coalition_menu: Welche anderen Möglichkeiten gibt es?
+
+@join_union
+view-if: grand_coalition >= 50 or weimar_coalition >= 50
+on-arrival: spd_in_government = 1; union_in_government = 1; gruene_in_government = 1 if in_weimar_coalition; spd_toleration = 0; in_grand_coalition = 1 if in_weimar_coalition == 0; chancellor = union_leader; chancellor_party = "Union"; leverage = 25 if leverage >= 25; coalition_dissent = 1;
+go-to: ministries
+
+[+ union_leader +] wird zum Bundeskanzler gewählt. Nun verhandeln wir über die Ministerien.
+
+@union_lead
+
+Die Union ist die stärkste Partei der Koalition und stellt den Kanzler.
+
+- @join_union: In die Koalition eintreten.
+- @union_oppo: In die Opposition gehen.
+
+@union_oppo
+on-arrival: spd_in_government = 0; spd_toleration = 0; in_grand_coalition = 0; in_weimar_coalition = 0; grand_coalition_failed = 1; reformist_dissent += 10; center_dissent += 5
+go-to: coalition_menu
+
+Wir verweigern uns einer Koalition unter Führung der Union. Viele in der Partei atmen auf, andere fürchten, dass wir damit das Land der AfD ausliefern.
+
+@toleration_union
+title: Eine Minderheitsregierung der Union tolerieren.
+choose-if: union_r + gruene_r + fdp_r + spd_r >= 50
+unavailable-subtitle: Selbst mit unserer Tolerierung hätte eine Unionsregierung keine stabile Mehrheit.
+on-arrival: spd_in_government = 0; spd_toleration = 1; minority_government = 1; union_in_government = 1; chancellor = union_leader; chancellor_party = "Union"; coalition_name = "Unions-Minderheitsregierung"; foreign_minister_party = "Union"; interior_minister_party = "Union"; justice_minister_party = "Union"; labor_minister_party = "Union"; bundeswehr_minister_party = "Union"; economic_minister_party = "Union"; finance_minister_party = "Union"; agriculture_minister_party = "Union"; pro_republic -= 3; new_middle_spd -= 2; workers_spd -= 2;
+
+Wir tolerieren eine Minderheitsregierung der Union. Wir stellen keine Ministerinnen und Minister, verhindern aber, dass die Regierung von der AfD abhängig wird. Jedes Gesetz müssen wir einzeln aushandeln.
+
+@gruene_lead
+on-arrival: chancellor = "Brantner"; chancellor_party = "Grüne"; leverage += 5
+go-to: ministries
+
+Die Grünen sind stärker als wir und stellen die Kanzlerin. Franziska Brantner wird zur Bundeskanzlerin gewählt. Immerhin: Wir bekommen dafür mehr Ministerien.
+
+
+@spd_chancellor_choice
+
+Wer soll für die SPD ins Kanzleramt?
+
+- @klingbeil
+- @pistorius
+- @schwesig
+- @bas
+- @muetzenich_coalition_chancellor
+- @union_chancellor
+
+@klingbeil
+title: Lars Klingbeil wird Kanzler.
+subtitle: Als Parteivorsitzender hat Klingbeil den ersten Zugriff. Er gilt als verlässlich und kompromissfähig.
+on-arrival: spd_in_government = 1; chancellor = "Klingbeil"; chancellor_party = "SPD"
+go-to: ministries
+
+Lars Klingbeil wird zum Bundeskanzler gewählt.
+
+@pistorius
+title: Boris Pistorius wird Kanzler.
+subtitle: Der beliebteste Politiker des Landes. Die SPD-Linke ist skeptisch, die Union beruhigt.
+on-arrival: spd_in_government = 1; chancellor = "Pistorius"; chancellor_party = "SPD"; left_dissent += 5; reformist_dissent -= 5; union_relation += 3
+go-to: ministries
+
+Boris Pistorius wird zum Bundeskanzler gewählt.
+
+@schwesig
+title: Manuela Schwesig wird Kanzlerin.
+subtitle: Die Ministerpräsidentin ist populär, vor allem im Osten. Die Partner verlangen dafür mehr Ministerien.
+view-if: not historical_mode
+on-arrival: spd_in_government = 1; chancellor = "Schwesig"; chancellor_party = "SPD"; leverage -= 5
+go-to: ministries
+
+Manuela Schwesig wird zur ersten sozialdemokratischen Bundeskanzlerin gewählt.
+
+@bas
+title: Bärbel Bas wird Kanzlerin.
+subtitle: Die Parteivorsitzende genießt das Vertrauen der Gewerkschaften.
+on-arrival: spd_in_government = 1; chancellor = "Bas"; chancellor_party = "SPD"; labor_dissent -= 5
+go-to: ministries
+
+Bärbel Bas wird zur Bundeskanzlerin gewählt.
+
+@muetzenich_coalition_chancellor
+title: Rolf Mützenich wird Kanzler.
+subtitle: Mützenich ist der Parteilinken und den Linken vermittelbar, der Union dagegen kaum.
+view-if: in_popular_front or in_left_front
+on-arrival: spd_in_government = 1; chancellor = "Mützenich"; chancellor_party = "SPD"; linke_relation += 5; left_dissent -= 5
+go-to: ministries
+
+Rolf Mützenich wird zum Bundeskanzler gewählt.
+
+@union_chancellor
+title: Der Union das Kanzleramt überlassen.
+subtitle: Unerwartet und in der Partei umstritten, aber es verschafft uns mehr Ministerien.
+view-if: union_in_government
+on-arrival: left_dissent += 5; center_dissent += 5; labor_dissent += 5; union_relation += 10; linke_relation -= 5; chancellor = union_leader; chancellor_party = "Union"; leverage += 5
+go-to: ministries
+
+Obwohl wir vorne liegen, überlassen wir [+ union_leader +] das Kanzleramt. Viele in der Partei verstehen diese Entscheidung nicht.
+
+
+@popular_front_coalition
+title: Rot-Grün-Rot
+subtitle: SPD + [+ gruene_name +] + Linke [? if sapd_formed: + Soziale Linke ?] ([+ popular_front_coalition +]%)
+unavailable-subtitle: SPD + [+ gruene_name +] + Linke ([+ popular_front_coalition +]%) – [? if linke_relation < 45 : Unser Verhältnis zur Linken ist zu schlecht. ?][? if gruene_relation < 40 : Unser Verhältnis zu den Grünen ist zu schlecht. ?][? if reformist_strength > 40 : Der Seeheimer Kreis blockiert ein Bündnis mit der Linken. ?]
+view-if: popular_front_coalition >= 50 and rotgruen_coalition < 50
+choose-if: linke_relation >= 45 and gruene_relation >= 40 and reformist_strength <= 40
+
+Rot-Grün-Rot – auf Bundesebene seit Jahrzehnten diskutiert, nie gewagt. In Berlin, Bremen und Thüringen hat es solche Bündnisse gegeben. Doch die Linke stellt Bedingungen: Kein weiteres Aufrüsten, eine Vermögensteuer, ein Mietendeckel. Die Grünen bestehen auf Westbindung und Unterstützung der Ukraine.
+
+Die Union und die Wirtschaftsverbände warnen bereits vor einem „Linksruck“.
+
+- @popular_front_resources
+- @popular_front_democracy
+- @coalition_menu: Das wird nichts. Andere Möglichkeiten prüfen.
+
+@popular_front_resources
+title: Mit Zugeständnissen und Ressourcen den Weg ebnen.
+unavailable-subtitle: Benötigt: 3 Ressourcen
+subtitle: -3 Ressourcen
+choose-if: resources >= 3
+on-arrival: resources -= 3
+go-to: popular_front_success
+
+@popular_front_democracy
+title: Die Linke auf einen gemeinsamen außenpolitischen Kurs verpflichten.
+unavailable-subtitle: Unser Verhältnis zur Linken ist nicht gut genug.
+choose-if: linke_relation >= 60 or linke_party_leader == "Reformer"
+go-to: popular_front_success
+
+@popular_front_success
+on-arrival: spd_in_government = 1; in_popular_front = 1; gruene_in_government = 1; linke_in_government = 1; coalition_name = "Rot-Grün-Rot"; partner_party = "Grüne"; linke_relation += 10; capital_strike_progress += 2; coup_progress += 1; in_left_front = 0; in_weimar_coalition = 0; in_grand_coalition = 0; coalition_dissent = 0; linke_goals_seen = 0; foreign_minister_party = "Grüne"; foreign_minister = "Brantner"; interior_minister_party = "Grüne"; interior_minister = "von Notz"; justice_minister_party = "Grüne"; justice_minister = "Haßelmann"; labor_minister_party = "Linke"; labor_minister = "Reichinnek"; bundeswehr_minister_party = "Grüne"; bundeswehr_minister = "Nouripour"; economic_minister_party = "Grüne"; economic_minister = "Dröge"; finance_minister_party = "Grüne"; finance_minister = "Kellner"; agriculture_minister_party = "Linke"; agriculture_minister = "van Aken";
+achievement: volksfront
+go-to: spd_chancellor_choice if spd_r >= gruene_r; gruene_lead if spd_r < gruene_r
+
+Nach wochenlangen Verhandlungen steht der Koalitionsvertrag. Die erste rot-grün-rote Bundesregierung kann ihre Arbeit aufnehmen. Die Börsen reagieren nervös, die Gewerkschaften jubeln.
+
+
+@left_coalition
+title: Rot-Rot?
+subtitle: SPD + Linke [? if sapd_formed: + Soziale Linke ?] ([+ left_coalition +]%)
+unavailable-subtitle: SPD + Linke ([+ left_coalition +]%) – [? if linke_relation < 55 : Unser Verhältnis zur Linken ist nicht gut genug. ?][? if communist_coalition < 2 : Die Partei ist für ein Bündnis allein mit der Linken nicht bereit. ?]
+view-if: left_coalition >= 50 and popular_front_coalition >= 50
+choose-if: linke_relation >= 55 and communist_coalition >= 2
+
+Es reicht für eine Koalition allein mit der Linken. Wirtschaft, Union und große Teile der Presse laufen Sturm. Auch in unserer Partei fragen viele, ob das klug ist.
+
+- @left_coalition_success: Rot-Rot wagen.
+- @coalition_menu: Lieber andere Möglichkeiten prüfen.
+
+@left_coalition_success
+on-arrival: spd_in_government = 1; in_left_front = 1; linke_in_government = 1; coalition_name = "Rot-Rot"; partner_party = "Linke"; chancellor_party = "SPD"; capital_strike_progress += 3; coup_progress += 2; in_popular_front = 0; in_grand_coalition = 0; in_weimar_coalition = 0; linke_relation += 10; linke_goals_seen = 0; foreign_minister_party = "SPD"; interior_minister_party = "SPD"; justice_minister_party = "SPD"; labor_minister_party = "Linke"; labor_minister = "Reichinnek"; bundeswehr_minister_party = "SPD"; economic_minister_party = "Linke"; economic_minister = "van Aken"; finance_minister_party = "SPD"; agriculture_minister_party = "Linke"; agriculture_minister = "Schwerdtner"; reformist_dissent += 15
+achievement: einheitsfront
+go-to: spd_chancellor_choice
+
+Die erste rot-rote Bundesregierung ist gebildet. Die Linke übernimmt Arbeit, Wirtschaft und Landwirtschaft, wir den Rest.
+
+
+@new_grand_coalition
+title: Eine Koalition aller Parteien der Mitte?
+subtitle: SPD + Union + [+ gruene_name +] + FDP ([+ neo_weimar_coalition +]%)
+view-if: neo_weimar_coalition >= 50 and weimar_coalition < 50
+choose-if: union_relation >= 40 and fdp_relation >= 25 and gruene_relation >= 30
+unavailable-subtitle: SPD + Union + [+ gruene_name +] + FDP ([+ neo_weimar_coalition +]%) – [? if union_relation < 40 : Die Union verweigert sich. ?][? if fdp_relation < 25 : Die FDP verweigert sich. ?][? if gruene_relation < 30 : Die Grünen verweigern sich. ?]
+
+Nur ein Bündnis aller Parteien der demokratischen Mitte hätte eine Mehrheit. Vier Parteien, die sich in fast allen Fragen widersprechen – vereint allein durch die Angst vor der AfD.
+
+- @use_resources
+- @toleration_union: Lieber eine Minderheitsregierung tolerieren.
+- @new_elections: Neuwahlen anstreben.
+
+@use_resources
+title: Mit Ressourcen und Zugeständnissen eine „Deutschland-Koalition“ schmieden.
+subtitle: -2 Ressourcen
+unavailable-subtitle: Nicht genug Ressourcen (2 benötigt).
+choose-if: resources >= 2
+on-arrival: resources -= 2; spd_in_government = 1; union_in_government = 1; gruene_in_government = 1; fdp_in_government = 1; in_grand_coalition = 1; in_unity_government = 1; coalition_name = "Koalition der Mitte"; coalition_dissent = 2; left_dissent += 4; leverage = 15 if leverage > 15; foreign_minister_party = "Union"; foreign_minister = "Wadephul"; interior_minister_party = "Union"; interior_minister = "Dobrindt"; justice_minister_party = "FDP"; justice_minister = "Kubicki"; labor_minister_party = "Union"; labor_minister = "Linnemann"; bundeswehr_minister_party = "Union"; bundeswehr_minister = "Kiesewetter"; economic_minister_party = "Grüne"; economic_minister = "Dröge"; finance_minister_party = "FDP"; finance_minister = "Dürr"; agriculture_minister_party = "Union"; agriculture_minister = "Rainer";
+achievement: constitutional_coalition
+go-to: spd_chancellor_choice if spd_r > union_r; join_union if spd_r <= union_r
+
+Nach zähen Verhandlungen steht die Koalition der Mitte. Die Parteilinke murrt, aber die Alternative wäre schlimmer gewesen.
+
+
+@far_right_coalition
+title: AfD und BSW haben eine Mehrheit.
+subtitle: AfD + BSW ([+ far_right_coalition +]%)
+view-if: far_right_coalition >= 50
+priority: 2
+go-to: afd_takes_power
+
+Das Undenkbare ist eingetreten. AfD und BSW verfügen gemeinsam über eine Mehrheit im Bundestag. [+ afd_leader +] lässt sich zur Kanzlerin wählen.
+
+@brandmauer_coalition
+title: Die Brandmauer fällt.
+subtitle: Union + AfD ([+ hitler_right_coalition +]%)
+view-if: hitler_right_coalition >= 50 and brandmauer = 0 and far_right_coalition < 50
+priority: 2
+on-arrival: spd_in_government = 0; union_in_government = 1; afd_in_government = 1; coalition_name = "Schwarz-Blau"; pro_republic -= 10; coup_progress += 3; demo_strength += 500; foreign_minister_party = "Union"; interior_minister_party = "AfD"; interior_minister = "Chrupalla"; justice_minister_party = "AfD"; justice_minister = "Brandner"; labor_minister_party = "Union"; bundeswehr_minister_party = "Union"; economic_minister_party = "Union"; finance_minister_party = "Union"; agriculture_minister_party = "AfD"; agriculture_minister = "Protschka"
+go-to: afd_takes_power if afd_r > union_r; brandmauer_union_lead if afd_r <= union_r
+
+Die Union hat entschieden: Sie regiert mit der AfD. Die Brandmauer, über Jahre beschworen, ist gefallen.
+
+@brandmauer_union_lead
+on-arrival: chancellor = union_leader; chancellor_party = "Union"
+
+[+ union_leader +] wird mit den Stimmen der AfD zum Bundeskanzler gewählt. Die AfD erhält das Innen- und das Justizministerium. Hunderttausende gehen noch am selben Abend auf die Straße. Für uns beginnt die schwerste Zeit in der Opposition seit 1949.
+
+
+@right_coalition
+title: In die Opposition gehen und anderen die Regierung überlassen.
+subtitle: [? if schwarz_gruen_coalition >= 50 : Schwarz-Grün ([+ schwarz_gruen_coalition +]%) ?][? if schwarz_gruen_coalition < 50 and right_coalition >= 50 : Schwarz-Gelb ([+ right_coalition +]%) ?][? if schwarz_gruen_coalition < 50 and right_coalition < 50 : Jamaika ([+ bourgeois_coalition +]%) ?]
+view-if: bourgeois_coalition >= 50 and fdp_r + gruene_r > 0
+
+Es gibt eine Mehrheit ohne uns. [? if largest_party == "SPD" : Als stärkste Kraft würden wir damit allerdings unserer Verantwortung ausweichen. ?]
+
+- @right_coalition_sure: Ja, wir gehen in die Opposition und erneuern uns dort.
+- @coalition_menu: Lieber doch nach einer Regierungsbeteiligung suchen.
+
+@right_coalition_sure
+subtitle: Das wird in der Partei für Streit sorgen.
+on-arrival: center_dissent += 10; labor_dissent += 10; reformist_dissent += 20; neorevisionist_dissent += 10; left_dissent -= 10; spd_in_government = 0; spd_toleration = 0; union_in_government = 1; chancellor = union_leader; chancellor_party = "Union"; in_right_coalition = 1; gruene_in_government = 1 if schwarz_gruen_coalition >= 50 or right_coalition < 50; fdp_in_government = 1 if schwarz_gruen_coalition < 50; coalition_name = "Schwarz-Grün" if schwarz_gruen_coalition >= 50; coalition_name = "Schwarz-Gelb" if schwarz_gruen_coalition < 50 and right_coalition >= 50; coalition_name = "Jamaika" if schwarz_gruen_coalition < 50 and right_coalition < 50; foreign_minister_party = "Union"; interior_minister_party = "Union"; justice_minister_party = "Union"; labor_minister_party = "Union"; bundeswehr_minister_party = "Union"; economic_minister_party = "Grüne" if gruene_in_government; economic_minister_party = "FDP" if gruene_in_government == 0; finance_minister_party = "Union"; agriculture_minister_party = "Union"
+
+Eine Regierung ohne die SPD wird gebildet. [+ union_leader +] wird Bundeskanzler. Wir haben nun die Chance, uns in der Opposition zu erneuern – und die Pflicht, die stärkste demokratische Stimme gegen die AfD zu sein.
+
+
+@no_majority
+title: Keine dieser Mehrheiten kommt zustande.
+view-if: spd_r < 50
+on-arrival: no_majority_elections += 1
+
+Keine der möglichen Koalitionen kommt zustande. Das Grundgesetz kennt für diesen Fall einen Ausweg: Im dritten Wahlgang genügt die einfache Mehrheit, und der Bundespräsident kann eine Minderheitsregierung ernennen – oder den Bundestag auflösen.
+
+[? if afd_r > union_r and afd_r > spd_r : Die AfD ist stärkste Kraft und beansprucht das Kanzleramt. Doch keine andere Partei will ihre Kandidatin wählen. ?]
+
+- @toleration_union
+- @spd_minority: Eine SPD-geführte Minderheitsregierung versuchen.
+- @new_grand_coalition
+- @new_elections: Den Bundespräsidenten um Neuwahlen bitten.
+
+@spd_minority
+title: Eine SPD-geführte Minderheitsregierung.
+subtitle: Riskant: Jedes Gesetz braucht wechselnde Mehrheiten.
+choose-if: spd_r >= union_r and spd_r + gruene_r >= afd_r
+unavailable-subtitle: Wir sind dafür nicht stark genug.
+on-arrival: spd_in_government = 1; in_minority_government = 1; gruene_in_government = 1 if gruene_relation >= 40; coalition_name = "Minderheitsregierung"; partner_party = "Grüne"; chancellor_party = "SPD"; foreign_minister_party = "SPD"; interior_minister_party = "SPD"; justice_minister_party = "SPD"; labor_minister_party = "SPD"; bundeswehr_minister_party = "SPD"; economic_minister_party = "SPD"; finance_minister_party = "SPD"; agriculture_minister_party = "SPD"; leverage = 0
+achievement: minderheitsregierung
+go-to: spd_chancellor_choice
+
+Im dritten Wahlgang erhält unsere Kandidatin bzw. unser Kandidat die meisten Stimmen. Der Bundespräsident ernennt eine SPD-geführte Minderheitsregierung. Ob sie hält, wird sich zeigen.
+
+@new_elections
+on-arrival: {!
+Q.next_election_month = Q.month + 3;
+Q.next_election_time = Q.time + 3;
+if (Q.next_election_month > 12) {
+    Q.next_election_month -= 12;
+    Q.next_election_year = Q.year + 1;
+} else {
+    Q.next_election_year = Q.year;
+}
+Q.in_election = 1;
+Q.spd_caretaker = Q.spd_in_government ? 1 : 0;
+Q.pro_republic -= 6;
+Q.workers_spd -= 3;
+Q.new_middle_spd -= 3;
+Q.old_middle_spd -= 3;
+Q.rural_spd -= 3;
+Q.rentner_spd -= 2;
+Q.workers_afd += 4;
+Q.old_middle_afd += 4;
+Q.new_middle_afd += 3;
+Q.rural_afd += 4;
+Q.unemployed_afd += 4;
+if (Q.pro_republic < 45) {
+    Q.workers_spd -= 4;
+    Q.workers_afd += 4;
+    Q.rural_afd += 4;
+}
+if (Q.far_right_coalition >= 40) {
+    Q.rechts_strength += 30;
+    Q.coup_progress += 2;
+}
+!}
+
+Der Bundespräsident löst den Bundestag auf. Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt. Bis dahin bleibt die bisherige Regierung geschäftsführend im Amt.
+
+Das Vertrauen in die Demokratie ist erschüttert. Die AfD nutzt die Lage: „Die Altparteien können es nicht.“
+
+
+@ministries
+
+Wir verhandeln über die Ministerien. Jedes Ressort, das wir besetzen, gibt uns direkten Einfluss auf die Politik in diesem Bereich. Verhandlungsmasse: [+ leverage +]. [? if in_left_front : Ressorts, die wir abgeben, übernimmt die Linke. ?]
+
+- #mins_bund
+- #drop_mins_bund
+
+@labor
+title: Arbeit und Soziales
+subtitle: Das Arbeitsministerium gilt als unser Stammressort.
+unavailable-subtitle: Unsere Verhandlungsmasse reicht nicht.
+tags: mins_bund
+choose-if: leverage >= 5
+view-if: labor_minister_party != "SPD"
+on-arrival: leverage -= 5; labor_minister_party = "SPD"; labor_minister = "Bas"
+go-to: ministries
+
+Bärbel Bas wird Ministerin für Arbeit und Soziales.
+
+@interior
+title: Inneres
+subtitle: Das Innenministerium ist für Polizei, Verfassungsschutz und Migration zuständig.
+unavailable-subtitle: Unsere Verhandlungsmasse reicht nicht.
+tags: mins_bund
+choose-if: leverage >= 10
+view-if: interior_minister_party != "SPD"
+on-arrival: leverage -= 10; interior_minister_party = "SPD"; interior_minister = "Fiedler"
+go-to: ministries
+
+Sebastian Fiedler wird Bundesinnenminister.
+
+@finance
+title: Finanzen
+subtitle: Das Finanzministerium verantwortet Haushalt, Steuern und Schuldenbremse.
+unavailable-subtitle: Unsere Verhandlungsmasse reicht nicht.
+tags: mins_bund
+choose-if: leverage >= 10
+view-if: finance_minister_party != "SPD"
+on-arrival: leverage -= 10; finance_minister_party = "SPD"; finance_minister = "Klingbeil"
+go-to: ministries
+
+Lars Klingbeil wird Bundesfinanzminister.
+
+@economic
+title: Wirtschaft und Energie
+subtitle: Das Wirtschaftsministerium verantwortet Industrie- und Energiepolitik.
+unavailable-subtitle: Unsere Verhandlungsmasse reicht nicht.
+tags: mins_bund
+choose-if: leverage >= 10
+view-if: economic_minister_party != "SPD"
+on-arrival: leverage -= 10; economic_minister_party = "SPD"; economic_minister = "Hubertz"
+go-to: ministries
+
+Verena Hubertz wird Bundeswirtschaftsministerin.
+
+@justice
+title: Justiz
+subtitle: Das Justizministerium verantwortet Rechtspolitik und Verbraucherschutz.
+unavailable-subtitle: Unsere Verhandlungsmasse reicht nicht.
+tags: mins_bund
+choose-if: leverage >= 5
+view-if: justice_minister_party != "SPD"
+on-arrival: leverage -= 5; justice_minister_party = "SPD"; justice_minister = "Hubig"
+go-to: ministries
+
+Stefanie Hubig wird Bundesjustizministerin.
+
+@foreign
+title: Auswärtiges Amt
+subtitle: Das Außenministerium ist traditionell ein Prestigeressort des größeren Partners.
+unavailable-subtitle: Unsere Verhandlungsmasse reicht nicht.
+tags: mins_bund
+choose-if: leverage >= 10
+view-if: foreign_minister_party != "SPD"
+on-arrival: leverage -= 10; foreign_minister_party = "SPD"; foreign_minister = "Mützenich"
+go-to: ministries
+
+Rolf Mützenich wird Bundesaußenminister.
+
+@agriculture
+title: Landwirtschaft, Ernährung und Heimat
+subtitle: Nicht unser übliches Terrain, aber wichtig für den ländlichen Raum.
+unavailable-subtitle: Unsere Verhandlungsmasse reicht nicht.
+choose-if: leverage >= 5
+view-if: agriculture_minister_party != "SPD"
+on-arrival: leverage -= 5; agriculture_minister_party = "SPD"; agriculture_minister = "Miersch"
+go-to: ministries
+tags: mins_bund
+
+Matthias Miersch wird Bundeslandwirtschaftsminister.
+
+@reichswehr
+title: Verteidigung
+subtitle: Seit 2023 hat Boris Pistorius das Verteidigungsministerium zu einem Aushängeschild der SPD gemacht.
+unavailable-subtitle: Unsere Verhandlungsmasse reicht nicht.
+tags: mins_bund
+choose-if: leverage >= 10
+view-if: bundeswehr_minister_party != "SPD"
+on-arrival: leverage -= 10; bundeswehr_minister_party = "SPD"; bundeswehr_minister = "Pistorius"
+go-to: ministries
+
+Boris Pistorius wird Bundesverteidigungsminister.
+
+@no_more
+title: Keine weiteren Ministerien.
+subtitle: [? if leverage >= 10 : Wir hätten noch Verhandlungsmasse für weitere Ressorts. ?][? if leverage < 10 : Unsere Verhandlungsmasse ist weitgehend aufgebraucht. ?]
+tags: mins_bund
+
+Der Koalitionsvertrag ist unterschrieben. Die Ressortverteilung ist für alle Partner tragbar.
+
+@drop_labor
+title: Arbeit und Soziales abgeben.
+view-if: labor_minister_party = "SPD"
+on-arrival: {! Q.leverage += 5; Q.labor_minister_party = Q.partner_party; Q.labor_minister = {'Union': 'Linnemann', 'Grüne': 'Banaszak', 'Linke': 'Reichinnek', 'FDP': 'Vogel'}[Q.partner_party] || 'N. N.'; !}
+tags: drop_mins_bund
+go-to: ministries
+
+@drop_interior
+title: Inneres abgeben.
+view-if: interior_minister_party = "SPD"
+on-arrival: {! Q.leverage += 10; Q.interior_minister_party = Q.partner_party; Q.interior_minister = {'Union': 'Dobrindt', 'Grüne': 'von Notz', 'Linke': 'Schwerdtner', 'FDP': 'Kubicki'}[Q.partner_party] || 'N. N.'; !}
+tags: drop_mins_bund
+go-to: ministries
+
+@drop_finance
+title: Finanzen abgeben.
+view-if: finance_minister_party = "SPD"
+on-arrival: {! Q.leverage += 10; Q.finance_minister_party = Q.partner_party; Q.finance_minister = {'Union': 'Spahn', 'Grüne': 'Kellner', 'Linke': 'van Aken', 'FDP': 'Dürr'}[Q.partner_party] || 'N. N.'; !}
+tags: drop_mins_bund
+go-to: ministries
+
+@drop_economic
+title: Wirtschaft und Energie abgeben.
+view-if: economic_minister_party = "SPD"
+on-arrival: {! Q.leverage += 10; Q.economic_minister_party = Q.partner_party; Q.economic_minister = {'Union': 'Reiche', 'Grüne': 'Dröge', 'Linke': 'van Aken', 'FDP': 'Dürr'}[Q.partner_party] || 'N. N.'; !}
+tags: drop_mins_bund
+go-to: ministries
+
+@drop_justice
+title: Justiz abgeben.
+view-if: justice_minister_party = "SPD"
+on-arrival: {! Q.leverage += 5; Q.justice_minister_party = Q.partner_party; Q.justice_minister = {'Union': 'Krings', 'Grüne': 'Haßelmann', 'Linke': 'Schwerdtner', 'FDP': 'Kubicki'}[Q.partner_party] || 'N. N.'; !}
+tags: drop_mins_bund
+go-to: ministries
+
+@drop_foreign
+title: Das Auswärtige Amt abgeben.
+view-if: foreign_minister_party = "SPD"
+on-arrival: {! Q.leverage += 10; Q.foreign_minister_party = Q.partner_party; Q.foreign_minister = {'Union': 'Wadephul', 'Grüne': 'Brantner', 'Linke': 'van Aken', 'FDP': 'Lambsdorff'}[Q.partner_party] || 'N. N.'; !}
+tags: drop_mins_bund
+go-to: ministries
+
+@drop_agriculture
+title: Landwirtschaft abgeben.
+view-if: agriculture_minister_party = "SPD"
+on-arrival: {! Q.leverage += 5; Q.agriculture_minister_party = Q.partner_party; Q.agriculture_minister = {'Union': 'Rainer', 'Grüne': 'Özdemir', 'Linke': 'Schwerdtner', 'FDP': 'Vogel'}[Q.partner_party] || 'N. N.'; !}
+tags: drop_mins_bund
+go-to: ministries
+
+@drop_bundeswehr
+title: Verteidigung abgeben.
+view-if: bundeswehr_minister_party = "SPD"
+on-arrival: {! Q.leverage += 10; Q.bundeswehr_minister_party = Q.partner_party; Q.bundeswehr_minister = {'Union': 'Kiesewetter', 'Grüne': 'Nouripour', 'Linke': 'van Aken', 'FDP': 'Strack-Zimmermann'}[Q.partner_party] || 'N. N.'; !}
+tags: drop_mins_bund
+go-to: ministries

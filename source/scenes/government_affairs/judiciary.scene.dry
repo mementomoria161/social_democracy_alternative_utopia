@@ -1,37 +1,37 @@
-title: Judiciary Reform
+title: Rechtsstaat absichern
 new-page: true
 is-card: true
 view-if: spd_in_government = 1 and justice_minister_party = "SPD" and judiciary_timer = 0
 on-arrival: month_actions += 1; judiciary_timer += 6
-card-image: img/portraits/RadbruchGustav.jpg
+card-image: img/portraits/Hubig.jpg
 tags: govt_affairs, cabinet
 
-= Judiciary Reform
+= Rechtsstaat absichern
 
-The Judiciary is one of the most reactionary components of the government, along with the military. Many jurists have held office since the days of the Emperor. They give violent fascists like Adolf Hitler laughably light sentences, while ruthlessly persecuting leftists and pacifists for lesser crimes.
+Die Justiz ist die letzte Verteidigungslinie der Demokratie. Ende 2024 wurde das Bundesverfassungsgericht im Grundgesetz abgesichert, doch die Landesverfassungsgerichte hängen weiter an einfachen Gesetzen, und in Ländern, in denen die AfD eine Sperrminorität hat, lassen sich Richterwahlen blockieren. Wie schnell Gerichte unter Druck geraten, haben Polen und Ungarn gezeigt. Die gescheiterte Richterwahl im Sommer 2025 hat außerdem gezeigt, wie leicht sich Wahlen nach Karlsruhe durch Kampagnen torpedieren lassen. Hinzu kommen überlastete Gerichte, Personalmangel in der Justiz und Richter\*innen mit Verbindungen ins extrem rechte Milieu.
 
-[? if judicial_reform <= 0 : There is great demand in our membership for reforming the judiciary, although this may bring us into a collision course with our coalition allies. ?]
-[? if judicial_reform == 1 : We have started on the path to judicial reform. While some of the most antideluvian and biased justices have been replaced, many still remain. More should be done. ?]
-[? if judicial_reform >= 2 : We have successfully reformed the judiciary, to some extent. At the very least, the courts will not actively obstruct our attempts to prosecute crimes committed by the far-right. ?]
+[? if judicial_reform <= 0 : In der Partei und bei den Verbänden ist der Ruf nach einer Absicherung der Justiz laut, auch wenn das Konflikte mit unseren Koalitionspartnern bedeutet. ?]
+[? if judicial_reform == 1 : Wir haben erste Schritte unternommen. Der Pakt für den Rechtsstaat ist beschlossen, doch die Gerichte in den Ländern sind noch nicht krisenfest. ?]
+[? if judicial_reform >= 2 : Bundes- und Landesverfassungsgerichte sind gegen Blockaden abgesichert, und die Justiz ist besser ausgestattet. Zumindest werden die Gerichte unsere Maßnahmen gegen Verfassungsfeinde nicht ausbremsen. ?]
 
-- @reform: Carry out substantial judicial reforms.
-- @minor_reforms: Carry out minor judicial reforms.
-- @as_is: Leave the judiciary as it is.
+- @reform: Die Justiz umfassend krisenfest machen.
+- @minor_reforms: Kleinere Reformen: Pakt für den Rechtsstaat, mehr Personal.
+- @as_is: Die Justiz so lassen, wie sie ist.
 - @easy_discard
 - @cancel_advisor_action
 
 @reform
-subtitle: -1 budget
-unavailable-subtitle: Not enough budget.
+subtitle: -1 Haushaltsspielraum
+unavailable-subtitle: Nicht genug Haushaltsspielraum.
 choose-if: budget >= 1
 on-arrival: budget -= 1; democratization += 2; coalition_dissent += 1 if in_grand_coalition == 1; workers_spd += 5*(1-dissent) if democratization >= 3; judicial_reform += 2; pro_republic += 5*(1-dissent); coup_progress += 1; coalition_dissent += 1 if historical_mode; hindenburg_dissent += 1; hindenburg_relation -= 5
 
-We investigate jurists who have shown themselves to have biased or corrupt behavior, and try to remove them, replacing them with more democratically-oriented jurists. This obviously raises quite a great deal of ire in conservative circles, including within our coalition. 
+Gemeinsam mit den Ländern schaffen wir einen Mustervertrag, mit dem die Landesverfassungsgerichte nach dem Vorbild Karlsruhes abgesichert werden: Blockiert eine Sperrminorität die Richterwahl, geht das Wahlrecht an ein anderes Gremium über. Dazu kommen Disziplinarverfahren gegen Richter\*innen, die sich offen extremistisch betätigen, und tausende neue Stellen in Justiz und Staatsanwaltschaften. Die AfD tobt, und auch in der Union murren manche, wir hätten das Thema zu weit getrieben.
 
 @minor_reforms
 on-arrival: democratization += 1; workers_spd += 3*(1-dissent) if democratization >= 3; judicial_reform += 1; pro_republic += 3*(1-dissent); judiciary_timer += 6
 
-We try to remove the most obviously biased and corrupt jurists, while leaving most of the system intact. It is slow work reforming the judiciary.
+Wir bringen den Pakt für den Rechtsstaat auf den Weg: mehr Geld für Personal und Digitalisierung, schnellere Verfahren. An die Strukturen der Gerichte wagen wir uns noch nicht. Es ist mühsame Arbeit, den Rechtsstaat wetterfest zu machen.
 
 @as_is
 go-to: root

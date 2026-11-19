@@ -1,25 +1,23 @@
-title: Party Disunity
+title: Streit in der Partei
 new-page: true
 is-card: true
 view-if: party_disunity_timer = 0 and (dissent >= 0.3 or (reformist_dissent > 30 and not reformists_resign) or (center_dissent > 30 and not centrists_resign) or (left_dissent > 30 and not sapd_formed) or (labor_dissent > 30 and not unions_independent) or (neorevisionist_dissent > 30 and neorevisionism))
 on-arrival: month_actions += 1; party_disunity_timer = 4
-card-image: img/Reichstagsfraktion_der_SPD.jpg
+card-image: img/spd_fraktion.jpg
 frequency: 200
 tags: party_affairs
 
-# TODO: party dissent events for every faction, have a good image for this... 
+= Streit in der Partei
 
-= Party Disunity
+Die Partei zerfleischt sich. Unzufrieden mit Führung und Kurs, sticheln die Strömungen gegeneinander, stechen Interna an die Presse durch und sabotieren sich gegenseitig. Das kostet Stimmen und lähmt unsere Arbeit.
 
-The party is being torn apart by internal dissent. Upset at the leadership and general direction, factions have started sabotaging their rivals, hampering our efforts to win votes and carry out our policies.
+[? if reformist_dissent > 30 : Der Seeheimer Kreis ist mit unserem Kurs unzufrieden. ?]
+[? if center_dissent > 30 : Die Parteimitte ist mit der Richtung der Partei unzufrieden. ?]
+[? if labor_dissent > 30 : Die Gewerkschafter sind mit unserem Kurs nicht einverstanden. ?]
+[? if left_dissent > 30: In der SPD-Linken wird offen über eine Abspaltung gesprochen. ?]
+[? if neorevisionist_dissent > 30 and neorevisionism = 1 : Die Anhänger des Dänischen Kurses fühlen sich übergangen. ?]
 
-[? if reformist_dissent > 30 : The reformists are upset at our direction.  ?]
-[? if center_dissent > 30 : The centrists are displeased with the direction of our party. ?]
-[? if labor_dissent > 30 : The trade unions disagree with our present course of action. ?]
-[? if left_dissent > 30: Leftists are making noises about another party split. ?]
-[? if neorevisionist_dissent > 30 and neorevisionism = 1 : Neorevisionists are in disagreement about our political direction. ?]
-
-Something must be done to reinforce party unity.
+Wir müssen etwas für den Zusammenhalt tun.
 
 - @enforce_unity
 - @concessions_reformists
@@ -31,71 +29,65 @@ Something must be done to reinforce party unity.
 
 
 @enforce_unity
-title: Enforce party discipline.
+title: Parteidisziplin durchsetzen.
 on-arrival: reformist_dissent -= 5; center_dissent -= 5; labor_dissent -= 5; left_dissent -= 5; neorevisionist_dissent -= 5; workers_spd -= 4; new_middle_spd -= 2; unemployed_spd -= 2
 
-Enforcing party discipline reduces dissent, but it could lead to an exit of dissenting members.
-
-# enforcing party discipline applies to all parties.
-
-# each party has a concessions action and an expulsions action.
+Parteidisziplin dämpft den Streit, kann aber dazu führen, dass Unzufriedene austreten.
 
 @concessions_reformists
-title: Give concessions to the reformists.
+title: Dem Seeheimer Kreis entgegenkommen.
 view-if: reformist_dissent > 30
 on-arrival: reformist_dissent -= 7; left_dissent += 5
 
-We have promised to adopt a more reformist posture. This may alienate the left, however.
+Wir versprechen einen pragmatischeren, wirtschaftsnäheren Kurs. Das könnte die SPD-Linke verärgern.
 
 @concessions_center
-title: Give concessions to the centrists.
+title: Der Parteimitte entgegenkommen.
 view-if: center_dissent > 30
 on-arrival: center_dissent -= 7; reformist_dissent += 2; left_dissent += 2; neorevisionist_dissent += 2
 
-We have promised to take more policy suggestions from the centrists. Both the left and reformist wings of the party might be displeased.
+Wir versprechen, mehr auf die Parteimitte zu hören. Die Flügel links und rechts davon sind darüber nicht glücklich.
 
 @concessions_left
-title: Give concessions to the left.
+title: Der SPD-Linken entgegenkommen.
 view-if: left_dissent > 30
 on-arrival: left_dissent -= 7; reformist_dissent += 5
 
-We have promised that we will listen to the left wing of the party. Of course, this leads to increased dissent from the centrists.
+Wir versprechen, die SPD-Linke stärker einzubinden. Der Seeheimer Kreis reagiert verärgert.
 
 @concessions_labor
-title: Give concessions to labor.
+title: Den Gewerkschaftern entgegenkommen.
 view-if: labor_dissent > 30
 on-arrival: labor_dissent -= 7; center_dissent += 5
 
-The trade unions will be granted more influence in party decision making. This upsets the centrists, who would prefer to centralize political decision making within the party.
+Die Gewerkschaften erhalten mehr Einfluss auf die Entscheidungen der Partei. Die Parteimitte, die lieber selbst entscheidet, ist verstimmt.
 
 @concessions_neorevisionists
-title: Give concessions to the neorevisionists.
+title: Dem Dänischen Kurs entgegenkommen.
 view-if: neorevisionist_dissent > 30 and neorevisionism = 1
-on-arrival: neorevisionist_dissent -= 7; center_dissent += 5;
+on-arrival: neorevisionist_dissent -= 7; center_dissent += 5; left_dissent += 3
 
-Giving the neorevisionists more influence will cause increased dissent from the centrists.
+Mehr Einfluss für die Anhänger des Dänischen Kurses verärgert Parteimitte und SPD-Linke.
 
 
 @do_nothing
-title: Let the factions argue with themselves.
+title: Die Strömungen streiten lassen.
 on-arrival: labor_dissent += 1; left_dissent += 1; center_dissent += 1; reformist_dissent += 1
 
-Let the factions bicker; perhaps dissent is healthy for the party.
-
-# TODO: should we be allowed to preemptively expel factions?
+Sollen sie streiten. Vielleicht ist ein bisschen Streit ja gesund für die Partei.
 
 @expel_reformists
-title: Expel the dissident reformists.
+title: Die Abweichler im Seeheimer Kreis ausschließen.
 view-if: reformist_dissent > 30
 
 @expel_left
-title: Expel the dissident leftists.
+title: Die Abweichler in der SPD-Linken ausschließen.
 view-if: left_dissent > 30
 
 @expel_center
-title: Expel the centrists.
+title: Die Abweichler in der Parteimitte ausschließen.
 view-if: center_dissent > 30
 
 @expel_labor
-title: Expel the labor supporters.
+title: Die Abweichler im Gewerkschaftsflügel ausschließen.
 view-if: labor_dissent > 30

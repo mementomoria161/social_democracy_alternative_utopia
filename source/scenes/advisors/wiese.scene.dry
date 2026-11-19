@@ -1,0 +1,53 @@
+title: Dirk Wiese
+is-pinned-card: true
+tags: advisor, neorevisionist
+card-image: img/portraits/Wiese.jpg
+view-if: wiese_advisor = 1
+new-page: true
+
+= Dirk Wiese
+
+Wiese stammt aus dem Sauerland, ist einer der Sprecher des Seeheimer Kreises gewesen und organisiert seit 2025 als Erster Parlamentarischer Geschäftsführer die Mehrheiten der Fraktion. Er gehört zu denen, die meinen, die SPD habe die Menschen in Kleinstädten und auf dem Land zu lange der Union und der AfD überlassen.
+
+- @democratic_rally
+- @support_peoples_party
+- @build_peoples_party
+- @campaigning_peoples_party
+- @root: Zurück
+
+@democratic_rally
+title: Für die Demokratie werben
+subtitle: Partei und Land für die Verteidigung von Demokratie und Freiheit gewinnen.
+choose-if: advisor_action_timer == 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; pro_republic += 5; democratization += 1; neorevisionist_strength += 5; reformist_strength += 3; workers_spd += 4*(1-dissent) if democratization >= 4; new_middle_spd += 3*(1-dissent) if democratization >= 4
+
+Mit Bürgerdialogen in Schützenhallen und Vereinsheimen werben wir für die Demokratie – dort, wo die AfD am stärksten ist.
+
+@support_peoples_party
+title: Für eine neue Volkspartei werben
+subtitle: Kann die SPD wieder Wählerinnen und Wähler weit über ihr Milieu hinaus erreichen?
+view-if: peoples_party = 0
+choose-if: peoples_party_support <= 4 and advisor_action_timer = 0 and peoples_party == 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if peoples_party_support > 4: Die Idee hat bereits breite Unterstützung. ?]
+on-arrival: advisor_action_timer = 6; peoples_party_support += 1
+
+Die Idee einer neuen, breiten Volkspartei gewinnt in der SPD an Unterstützung.
+
+@build_peoples_party
+title: Die Volkspartei erneuern
+subtitle: Die SPD wieder zu einer Partei für die Breite der Gesellschaft machen.
+view-if: peoples_party == 0
+choose-if: peoples_party_support >= 3 and advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if peoples_party_support < 3: Dafür gibt es in der Partei noch nicht genug Rückhalt. ?]
+on-arrival: advisor_action_timer = 6; last_advisor_action = 1
+go-to: peoples_party
+
+@campaigning_peoples_party
+title: Als Volkspartei Wahlkampf machen
+subtitle: Um Gruppen werben, die die SPD lange vernachlässigt hat.
+view-if: peoples_party = 1
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6;
+go-to: peoples_party_campaigning

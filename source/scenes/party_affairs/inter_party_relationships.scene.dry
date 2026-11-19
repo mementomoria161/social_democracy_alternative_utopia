@@ -1,120 +1,113 @@
-title: Inter-Party Relationships
+title: Beziehungen zu anderen Parteien
 new-page: true
-view-if: year <= 1932 and inter_party_relationships_timer <= 0
+view-if: year <= 2029 and inter_party_relationships_timer <= 0
 tags: party_affairs
 is-card: true
 on-arrival: month_actions += 1; inter_party_relationships_timer = 6;
-card-image: img/weimar_coalition_2.jpg
+card-image: img/bundestag_plenum.jpg
 max-visits: 12
-#subtitle: Building relations with the other political parties of Germany.
 
-= Inter-Party Relationships
+= Beziehungen zu anderen Parteien
 
-The SPD cannot govern by itself yet. Because we do not have an electoral majority, we need the support of other parties. Recently, our governments have consisted of the Weimar Coalition of the SPD, Center, and Democratic parties. We can reach out and build additional connections with these parties, or perhaps we can stand alone.
+Die SPD kann nicht allein regieren. Ohne Partner gibt es keine Mehrheit. Wir können die Beziehungen zu anderen Parteien pflegen – oder vorerst allein unseren Weg gehen.
 
-- @liberals: Strengthen our bonds with the left-liberal German Democratic Party and conservative-liberal German People's Party.
-- @center: Strengthen our bonds with the Catholic Center Party.
-- @kpd: Work towards repairing relationships with the Communist Party.
-- @spd_alone: The SPD can stand alone for now.
+- @liberals: Die Beziehungen zu den Grünen und zur FDP pflegen.
+- @center: Die Beziehungen zur Union pflegen.
+- @kpd: Die Beziehungen zur Linken verbessern.
+- @spd_alone: Die SPD steht vorerst für sich.
 - @easy_discard
 
 
 @kpd
-subtitle: -1 resources
+subtitle: -1 Ressourcen
 choose-if: resources >= 1
-unavailable-subtitle: Not enough resources.
-on-arrival: resources -= 1; kpd_inter_party_seen += 1
-go-to: kpd_blutmai if blutmai = 1; kpd_1 if blutmai = 0 and kpd_coalition_success = 0 and (kpd_relation < 40 or kpd_rectified_history = 1); kpd_rectification_of_history if kpd_relation >= 40 and kpd_rectified_history = 0; kpd_2 if kpd_coalition_success = 1 and kpd_rectified_history = 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; linke_inter_party_seen += 1
+go-to: linke_blutmai if blutmai = 1; linke_1 if blutmai = 0 and linke_coalition_success = 0 and (linke_relation < 40 or linke_rectified_history = 1); linke_rectification_of_history if linke_relation >= 40 and linke_rectified_history = 0; linke_2 if linke_coalition_success = 1 and linke_rectified_history = 1
 
-@kpd_1
-on-arrival: kpd_relation += 6*(1 - dissent); communist_coalition += 1 if kpd_inter_party_seen <= 1; reformist_dissent += 2; z_relation -= 2; dvp_relation -= 3
+@linke_1
+on-arrival: linke_relation += 6*(1 - dissent); communist_coalition += 1 if linke_inter_party_seen <= 1; reformist_dissent += 2; union_relation -= 2; fdp_relation -= 3
 
-The communists are suspicious of our overtures, especially the Stalinist leadership, who persist in calling us "social fascists". However, connections are made at the grassroots and local levels.
+Die Linke bleibt misstrauisch – zu oft habe die SPD links geblinkt und rechts regiert. Doch in Kommunen und Landtagen entstehen neue Kontakte.
 
-@kpd_rectification_of_history
+@linke_rectification_of_history
 
-One stumbling block for our relations with the KPD is our history of conflict, dating back to 1918 and 1919. The KPD is especially contemptuous of Gustav Noske, the SPD "bloodhound" who reportedly ordered the violent suppression of the Spartacist uprising and other KPD revolts. They also blame us for the deaths of Rosa Luxemburg and Karl Liebknecht, two SPD-turned-KPD leaders who were killed during the suppression of the uprising.
+Ein großes Hindernis für bessere Beziehungen ist die Geschichte. Die Linke ist zum Teil aus dem Protest gegen die Agenda 2010 entstanden, und für viele ihrer Mitglieder steht Gerhard Schröder für alles, was an der SPD falsch ist – erst Hartz IV, dann die Nähe zu Putin und die Posten bei russischen Energiekonzernen. Ein Parteiausschluss scheiterte 2023.
 
-For further improvements in KPD relations, it might be necessary to expel Noske, and hold some sort of commemoration for Luxemburg and Liebknecht.
+Für einen echten Neuanfang müssten wir uns von der Agenda 2010 offen distanzieren und Schröders Ausschluss erneut betreiben.
 
-- @yes_history: Yes, we must apologize for our past actions.
-- @no_history: No, we have no need to apologize.
+- @yes_history: Ja, wir müssen mit dieser Vergangenheit brechen.
+- @no_history: Nein, dafür müssen wir uns nicht entschuldigen.
 
 @yes_history
-on-arrival: reformist_dissent += 12; reformist_strength -= 2; neorevisionist_dissent += 5; left_dissent -= 6; left_strength += 5; kpd_rectified_history = 1; z_relation -= 6; dvp_relation -= 6; ddp_relation -= 4; kpd_relation += 8*(1-dissent); coalition_dissent += 1
+on-arrival: reformist_dissent += 12; reformist_strength -= 2; neorevisionist_dissent += 5; left_dissent -= 6; left_strength += 5; linke_rectified_history = 1; union_relation -= 6; fdp_relation -= 6; gruene_relation -= 2; linke_relation += 8*(1-dissent); coalition_dissent += 1
 
-As part of normalizing relations with the KPD, we have to acknowledge the wrongdoings of our past. We have expelled Noske, and have held public commemorations for those killed by troops during the uprisings.
-
-This leads to tensions with the moderates and reformists within our party, and criticism from the conservative and liberal parties.
+Ein Parteitag erklärt die Agenda 2010 offiziell zu einem Irrweg, und die Parteiführung beantragt erneut Schröders Ausschluss. Der Seeheimer Kreis ist empört, Union und FDP spotten über die „Rückkehr der Klassenkämpfer“.
 
 @no_history
-on-arrival: kpd_relation -= 3
+on-arrival: linke_relation -= 3
 
-We have no need to apologize for the actions of Ebert and Noske; it is the Communists' fault for launching a violent insurrection.
+Die Agenda 2010 hat Deutschland vom „kranken Mann Europas“ zum Jobwunder gemacht. Dafür entschuldigen wir uns nicht.
 
 
-@kpd_2
-on-arrival: kpd_relation += 8*(1 - dissent); communist_coalition += 1 if kpd_inter_party_seen <= 1; reformist_dissent += 2; z_relation -= 3; dvp_relation -= 3
+@linke_2
+on-arrival: linke_relation += 8*(1 - dissent); communist_coalition += 1 if linke_inter_party_seen <= 1; reformist_dissent += 2; union_relation -= 3; fdp_relation -= 3
 
-After the success of the coalition government with the KPD, they are much more amenable to us.
+Nach der erfolgreichen Zusammenarbeit in der Regierung ist die Linke uns gegenüber deutlich aufgeschlossener.
 
-@kpd_blutmai
-on-arrival: kpd_relation += 3*(1 - dissent); reformist_dissent += 1
+@linke_blutmai
+on-arrival: linke_relation += 3*(1 - dissent); reformist_dissent += 1
 
-After the events of Blütmai, reconciling with the Communists is difficult, if not impossible. Nevertheless, we must try.
+Nach den Ereignissen der letzten Zeit ist eine Annäherung an die Linke schwierig. Trotzdem müssen wir es versuchen.
 
 @center
-subtitle: -1 resources
+subtitle: -1 Ressourcen
 choose-if: resources >= 1
-unavailable-subtitle: Not enough resources.
-on-arrival: resources -= 1; z_relation += 2 if z_party_leader == "Joos"
-go-to: center_op if z_in_government = 1 and spd_in_government = 0 and chancellor != "Brüning"; center_coalition if spd_in_government = 1 and z_in_government = 1; center_bruning if chancellor = "Brüning"
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; union_relation += 2 if union_party_leader == "Wüst"
+go-to: center_op if union_in_government = 1 and spd_in_government = 0 and afd_in_government = 0; center_coalition if spd_in_government = 1 and union_in_government = 1; center_bruning if afd_in_government = 1; center_op if union_in_government = 0
 
 @center_op
-on-arrival: z_relation += 5*(1 - dissent)
+on-arrival: union_relation += 5*(1 - dissent)
 
-We are currently in opposition to the Center-led government, but that does not preclude the general building of feelings of good will.
+Wir stehen in Konkurrenz zur Union, aber zwischen Demokraten muss Gesprächsbereitschaft möglich sein.
 
 @center_coalition
-on-arrival: z_relation += 8*(1 - dissent)
+on-arrival: union_relation += 8*(1 - dissent)
 
-We are currently coalition partners with them, so improving relations comes naturally.
+Als Koalitionspartner ergibt sich die Pflege der Beziehungen fast von selbst: gemeinsame Abendessen, kurze Wege, ein Vertrauensvorschuss.
 
 @center_bruning
-on-arrival: z_relation += 5*(1 - dissent)
+on-arrival: union_relation += 3*(1 - dissent)
 
-The Brüning semi-autocratic regime makes building friendly relations difficult, but not impossible.
+Mit einer Union, die gemeinsam mit der AfD regiert, ist echtes Vertrauen kaum möglich. Doch mit den Gegnern dieses Kurses in der CDU halten wir Kontakt.
 
 @liberals
-subtitle: -1 resources
+subtitle: -1 Ressourcen
 choose-if: resources >= 1
-unavailable-subtitle: Not enough resources.
-on-arrival: resources -= 1; ddp_relation += 5*(1 - dissent)
-go-to: dvp_stresemann if stresemann_dead = 0; dvp_loss if stresemann_dead = 1 and year <= 1930; dvp_moribund if year > 1930
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; gruene_relation += 5*(1 - dissent)
+go-to: fdp_stresemann if fdp_r > 0; fdp_loss if fdp_r == 0 and fdp_votes >= 4; fdp_moribund if fdp_r == 0 and fdp_votes < 4
 
-The [+ ddp_name +] has been one of our closest allies through the course of the Republic.
+Die Grünen sind seit Jahrzehnten unser natürlicher Partner – auch wenn wir um dieselben Wählerinnen und Wähler konkurrieren.
 
-@dvp_stresemann
-on-arrival: dvp_relation += 8*(1 - dissent)
+@fdp_stresemann
+on-arrival: fdp_relation += 8*(1 - dissent)
 
-Gustav Stresemann, the leader of the DVP, is one of the best foreign policy leaders of the republic, and while he has previously expressed monarchist tendencies, he has been friendly towards us.
+Die FDP sitzt wieder im Bundestag. Die Wunden aus dem Bruch der Ampel heilen langsam, und für manche Mehrheit könnte sie gebraucht werden.
 
-@dvp_loss
-on-arrival: dvp_relation += 5*(1 - dissent)
+@fdp_loss
+on-arrival: fdp_relation += 5*(1 - dissent)
 
-With the death of Gustav Stresemann, the DVP is much less likely to be accommodating of us. In addition, the liberal parties are electorally in decline, so perhaps our efforts are best spent elsewhere.
+Die FDP sitzt nicht im Bundestag, hofft aber auf ein Comeback. In den Ländern und in der Wirtschaft hat sie weiter Einfluss.
 
-However, given the influence of the DVP among the other right-leaning parties [? if president == "Hindenburg": and with President Hindenburg ?], it can still be helpful to influence them.
+@fdp_moribund
+on-arrival: fdp_relation += 5*(1 - dissent)
 
-@dvp_moribund
-on-arrival: dvp_relation += 5*(1 - dissent)
-
-The liberal parties (both the [+ ddp_name +] and DVP) are electorally moribund, so perhaps our efforts are best spent elsewhere.
-
-However, given the influence of the DVP among the other right-leaning parties[? if president == "Hindenburg": and with President Hindenburg ?], it can still be helpful to influence them.
+Die FDP kämpft ums politische Überleben. Vielleicht sollten wir unsere Mühe lieber anderswo investieren.
 
 @spd_alone
 
-Whether it is because we *cannot* or *will not*, we do not make ties with other parties at this moment.
+Ob wir es nicht *können* oder nicht *wollen*: Wir knüpfen derzeit keine Bande zu anderen Parteien.
 
-- @return: Continue...
+- @return: Weiter …

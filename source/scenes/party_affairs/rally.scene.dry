@@ -1,121 +1,121 @@
-title: Political Rally
+title: Kundgebung
 new-page: true
 is-card: true
 tags: party_affairs
 view-if: rally_timer <= 0
 on-arrival: month_actions += 1; rally_timer = 6
-card-image: img/protest.jpg
-go-to: main_rally; sa_disrupt if sa_strength > 180 and not sa_banned and not return_to_normalcy
+card-image: img/kundgebung.jpg
+go-to: main_rally; rechts_disrupt if rechts_strength > 135 and not rechts_banned and not return_to_normalcy
 
-@sa_disrupt
+@rechts_disrupt
 
-The Nazi SA has disrupted our rally! Their street troops are preventing us from meeting.
+Rechtsextreme haben unsere Kundgebung ins Visier genommen! Eine aufgeheizte Menge blockiert den Platz, brüllt Parolen und bedrängt unsere Rednerinnen und Redner.
 
-- @police_protect: Call the police to protect our rally.
-- @rb_protect: Use the Reichsbanner to protect our rally.
-- @both_protect: The police and Reichsbanner should work together to protect our rally.
-- @cancel: Cancel the rally.
+- @police_protect: Die Polizei um Schutz bitten.
+- @demo_protect: Die Demokratiebewegung zu einer Gegenkundgebung aufrufen.
+- @both_protect: Polizei und Demokratiebewegung sollen gemeinsam für Sicherheit sorgen.
+- @cancel: Die Kundgebung absagen.
 
 @police_protect
 view-if: spd_prussia == 1
-on-arrival: police_protect_success = prussian_police_loyalty * prussian_police_militancy * prussian_police_strength*2 - sa_militancy*sa_strength;
+on-arrival: police_protect_success = prussian_police_loyalty * prussian_police_radicalism * prussian_police_strength*2 - rechts_radicalism*rechts_strength;
 go-to: police_protect_win if police_protect_success >= 0; police_protect_lose if police_protect_success < 0
 
 @police_protect_win
 go-to: main_rally
 
-The police successfully protected our rally, so it can go ahead as usual.
+Die Polizei sichert den Platz. Die Kundgebung kann wie geplant stattfinden.
 
 @police_protect_lose
-on-arrival: strife += 1; workers_nsdap += 3
+on-arrival: strife += 1; workers_afd += 3
 
-Unfortunately, the police were unable or unwilling to hold back the SA mob. The Nazis have won this show of strength.
+Die Polizei ist zu schwach vertreten oder greift zu zögerlich ein. Die Rechten haben das Kräftemessen gewonnen, und die Bilder gehen durch die sozialen Netzwerke.
 
-@rb_protect
-on-arrival: rb_success = rb_strength*rb_militancy - sa_strength*sa_militancy; strife += 1
-go-to: rb_protect_win if rb_success >= 0; rb_protect_lose if rb_success < 0
+@demo_protect
+on-arrival: demo_success = demo_strength*demo_radicalism - rechts_strength*rechts_radicalism; strife += 1
+go-to: demo_protect_win if demo_success >= 0; demo_protect_lose if demo_success < 0
 
-@rb_protect_win
+@demo_protect_win
 go-to: main_rally
 
-The Reichsbanner has successfully protected our rally against the SA! Our meeting can go ahead as usual.
+Tausende folgen dem Aufruf der Demokratiebewegung und umringen den Platz friedlich. Die Rechten ziehen ab, und unsere Kundgebung kann stattfinden.
 
-@rb_protect_lose
-on-arrival: workers_nsdap += 3; rb_strength -= 50
+@demo_protect_lose
+on-arrival: workers_afd += 3; demo_strength -= 50
 
-Unfortunately, the Reichsbanner was not able to hold back the SA mob. The Nazis have won this show of strength.
+Zu wenige folgen dem Aufruf. Die Rechten behaupten den Platz, und unsere Unterstützer gehen entmutigt nach Hause.
 
 @both_protect
 view-if: spd_prussia
 choose-if: prussian_police_training > 0
-unavailable-subtitle: The loyal sections of the police have never coordinated with the Reichsbanner before.
-on-arrival: rb_success = rb_strength*rb_militancy - sa_strength*sa_militancy + prussian_police_loyalty*prussian_police_militancy*prussian_police_strength*2; strife += 1
-go-to: both_protect_win if rb_success >= 0; both_protect_lose if rb_success < 0
+unavailable-subtitle: Polizei und Zivilgesellschaft haben noch nie gemeinsam für die Sicherheit einer Veranstaltung gesorgt.
+on-arrival: demo_success = demo_strength*demo_radicalism - rechts_strength*rechts_radicalism + prussian_police_loyalty*prussian_police_radicalism*prussian_police_strength*2; strife += 1
+go-to: both_protect_win if demo_success >= 0; both_protect_lose if demo_success < 0
 
 @both_protect_win
 go-to: main_rally
 
-The police and Reichsbanner have successfully protected our rally against the SA! Our meeting can go ahead as usual.
+Polizei und Demokratiebewegung sorgen gemeinsam dafür, dass unsere Kundgebung stattfinden kann.
 
 @both_protect_lose
-on-arrival: workers_nsdap += 3; rb_strength -= 50
+on-arrival: workers_afd += 3; demo_strength -= 50
 
-Unfortunately, the police and Reichsbanner were not able to hold back the SA mob. The Nazis have won this show of strength.
+Selbst gemeinsam gelingt es nicht, den Platz zu sichern. Die Rechten haben das Kräftemessen gewonnen.
 
 
 @cancel
-on-arrival: workers_nsdap += 3;
+on-arrival: workers_afd += 3;
 
-The SA have won this show of strength.
+Wir sagen die Kundgebung ab. Die Rechten feiern das als Sieg.
 
 @main_rally
 
-Mass rallies are a common feature of social democratic life, especially in the lead-up to an election. What is the primary theme of this rally?
+Kundgebungen auf Marktplätzen und vor Werkstoren gehören zur SPD wie die rote Nelke. Was soll das Thema dieser Kundgebung sein?
 
-- @class_struggle: The class struggle of the proletariat against the bourgeoisie.
-- @welfare: Sozialpolitik - the maintenance and expansion of social welfare programs.
-- @democracy: Expanding our nascent democracy and defending it against dictatorship and fascism.
-- @pacifism: Opposing war, nationalism, and militarism at all costs.
-- @wtb: Support the WTB plan!
-- @local: A mixture of various local and national concerns that resonate most with the audience.
+- @class_struggle: Umverteilung: Wem gehört dieses Land?
+- @welfare: Der Sozialstaat: sichere Renten, gute Pflege, starke Kommunen.
+- @democracy: Unsere Demokratie verteidigen – gegen ihre Feinde.
+- @pacifism: Diplomatie und Abrüstung statt Aufrüstung.
+- @wtb: Für die Investitionsoffensive!
+- @local: Eine Mischung aus lokalen und bundespolitischen Themen, je nach Publikum.
 - @easy_discard
 
 @class_struggle
 on-arrival: workers_spd += 4*(1-dissent); unemployed_spd += 3*(1-dissent) if left_strength > reformist_strength; workers_spd += 4*(1-dissent) if nationalization_progress > 0; unemployed_spd += 3*(1-dissent) if nationalization_progress > 0; left_strength += 5; left_dissent -= 5; old_middle_spd -= 3; new_middle_spd -= 2;
 
-Our message of class struggle appeals to the left wing of the working class, while potentially alienating the middle class. [? if nationalization_progress > 0 : Our achievements in nationalization have assisted our messaging. ?]
+Vermögensteuer, Erbschaften, Mieten: Die Botschaft kommt bei Beschäftigten mit kleinen Einkommen an, schreckt aber Teile der Mittelschicht ab. [? if nationalization_progress > 0 : Unsere Erfolge bei der Vergesellschaftung machen die Botschaft glaubwürdig. ?]
 
 @welfare
-on-arrival: workers_spd += 3*(1-dissent); workers_spd += 3*(1-dissent) if welfare > 0; unemployed_spd += 3*(1-dissent) if welfare > 0; unemployed_spd += 4*(1-dissent) if welfare > 1; reformist_strength += 3; labor_strength += 4; reformist_dissent -= 3; labor_dissent -= 3;
+on-arrival: workers_spd += 3*(1-dissent); workers_spd += 3*(1-dissent) if welfare > 0; unemployed_spd += 3*(1-dissent) if welfare > 0; unemployed_spd += 4*(1-dissent) if welfare > 1; reformist_strength += 3; labor_strength += 4; reformist_dissent -= 3; labor_dissent -= 3; rentner_spd += 2*(1-dissent)
 
-The reformist message appeals to the organized workers, whose benefits are the accomplishments of social democracy. [? if welfare > 1 : Our achievements in expanding welfare have made this message more effective. ?]
+Rente, Pflege, Kita: Der Sozialstaat ist die große Errungenschaft der Sozialdemokratie, und viele wissen das zu schätzen. [? if welfare > 1 : Unsere Erfolge in der Sozialpolitik machen die Botschaft glaubwürdig. ?]
 
 @democracy
-on-arrival: democratization += 1; pro_republic += 2*(1 - dissent); workers_spd += 4*(1-dissent) if democratization >= 3; unemployed_spd += 3*(1-dissent) if democratization >= 3; pro_republic += 4*(1 - dissent) if democratization >= 3; new_middle_spd += 4*(1-dissent) if democratization >= 3 
+on-arrival: democratization += 1; pro_republic += 2*(1 - dissent); workers_spd += 4*(1-dissent) if democratization >= 3; unemployed_spd += 3*(1-dissent) if democratization >= 3; pro_republic += 4*(1 - dissent) if democratization >= 3; new_middle_spd += 4*(1-dissent) if democratization >= 3
 
-Our speakers defend the republican system and rail against the monarchists and authoritarians who threaten it.
+Unsere Rednerinnen und Redner verteidigen das Grundgesetz und warnen vor denen, die es abschaffen wollen.
 
-[? if democratization < 3 : Talk of democracy does not excite the workers as much as more practical issues. But that may change; part of our job is to provide political education to the proletariat. ?]
-[? if democratization >= 3 : Since we have consistently made democratization a theme of our campaign, the workers are enthusiastic about our message. ?]
+[? if democratization < 3 : Viele Zuhörer interessieren sich mehr für Mieten und Löhne als für Verfassungsfragen. Aber das kann sich ändern; auch politische Bildung gehört zu unseren Aufgaben. ?]
+[? if democratization >= 3 : Weil wir die Verteidigung der Demokratie immer wieder zum Thema gemacht haben, ist das Publikum begeistert. ?]
 
 @pacifism
-on-arrival: pacifism += 1; nationalism -= 2*(1 - dissent); workers_spd += 4*(1 - dissent) if pacifism >= 3; unemployed_spd += 3*(1-dissent) if pacifism >= 3; nationalism -= 3*(1-dissent) if pacifism >= 3; new_middle_spd += 4*(1-dissent) if pacifism >= 3
+on-arrival: pacifism += 1; nationalism -= 2*(1 - dissent); workers_spd += 4*(1 - dissent) if pacifism >= 3; unemployed_spd += 3*(1-dissent) if pacifism >= 3; nationalism -= 3*(1-dissent) if pacifism >= 3; new_middle_spd += 4*(1-dissent) if pacifism >= 3; reformist_dissent += 3
 
-Our speakers denounce the military establishment and all the spending entering that black hole. Some adventurous speakers question the responsibility of the military elites in organizing the Great War.
+Unsere Rednerinnen und Redner kritisieren das Wettrüsten und fordern mehr Diplomatie. Im Seeheimer Kreis und bei Boris Pistorius ist man darüber wenig erfreut.
 
-[? if pacifism < 3 : Given the volume of nationalist indoctrination in our society, it is difficult to argue so vehemently against the military. ?]
-[? if pacifism >= 3 : Since we have consistently made pacifism a theme of our campaign, the workers are enthusiastic about our message. ?]
+[? if pacifism < 3 : Angesichts des russischen Angriffskriegs ist es schwer, gegen höhere Verteidigungsausgaben zu argumentieren. ?]
+[? if pacifism >= 3 : Weil wir Frieden und Abrüstung immer wieder zum Thema gemacht haben, findet die Botschaft Anklang. ?]
 
 @wtb
 view-if: wtb_adopted = 1
 choose-if: return_to_normalcy = 0
-unavailable-subtitle: The economic crisis is largely over now, and the public is no longer interested in hearing about it.
+unavailable-subtitle: Die Wirtschaftskrise ist weitgehend überwunden, und das Thema zieht nicht mehr.
 on-arrival: wtb_support += 1; workers_spd += 6*(1-dissent); unemployed_spd += 6*(1-dissent); rural_spd += 3*(1-dissent); new_middle_spd += 3*(1-dissent); old_middle_spd += 3*(1-dissent);
 
-The WTB plan has become a popular rallying cry for our party. The workers are eager to go back to work, and that is exactly what the plan promises.
+Die Investitionsoffensive ist zum Schlachtruf der SPD geworden: neue Brücken, neue Schienen, neue Fabriken – und sichere Arbeitsplätze.
 
 
 @local
 on-arrival: workers_spd += 3*(1-dissent); old_middle_spd += 1*(1-dissent); new_middle_spd += 2*(1-dissent); unemployed_spd += 3*(1-dissent);
 
-Our speakers have gauged the mood and are speaking to the issues that seem to most affect the workers in this moment.
+Unsere Rednerinnen und Redner haben vorher zugehört und sprechen über das, was die Menschen vor Ort gerade bewegt: das geschlossene Krankenhaus, die ausgefallene Buslinie, die Nebenkostenabrechnung.

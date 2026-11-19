@@ -25,106 +25,6 @@
       ui.loadGame(url);
   };
 
-  window.loadGerman = function() {
-      ui.loadGame('game-de.json');
-      dendryUI.language = "de";
-      localStorage[game.title + '_language'] = "de";
-      var text_label_map_ids = {
-          // top-level
-          'main_tab': "Haupt",
-          'politics_tab': "Politik",
-          'paramilitary_tab': "Militär",
-          'poll_tab': "Wahl",
-          'stats-link': "Bibliothek",
-          'save-link': "Speichern/Laden",
-          'options-link': "Einstellungen",
-          // options
-          "currently_playing_text": "Momentan spielt:",
-          "music_header_text": "Musik",
-          "next_song_text": "Nächstes Lied",
-          "settings_text": "Einstellung",
-          "backgrounds_text": "Hintergründe:",
-          "event_images_text": "Ereignisbilder:",
-          "animations_text": "Animationen:",
-          "music_text": "Musik:",
-          "color_scheme_text": "Farbschema:",
-          "light_mode_label": "Hell",
-          "dark_mode_label": "Dunkel",
-          "font_size_text": "Schriftgröße:",
-          "decrease_font_button": "- verkleinern",
-          "increase_font_button": "+ vergrößern",
-          // save/load menu
-          "import_save_label": "Importiere Speicherstand:"
-      };
-      var text_label_map_classes = {
-          //"save_button":"Speichern",
-          "delete_button": "Löschen",
-          "export_button": "Exportieren",
-          "load_button": "Laden",
-          "label_on": "An",
-          "label_off": "Aus",
-          "close_button": "Schließen"
-      }
-      for (var elementId in text_label_map_ids) {
-          document.getElementById(elementId).textContent = text_label_map_ids[elementId];
-      }
-      for (var className in text_label_map_classes) {
-          for (var element of document.getElementsByClassName(className)) {
-              element.textContent = text_label_map_classes[className];
-          }
-      }
-  };
-
-  window.loadEnglish = function() {
-      ui.loadGame('game.json');
-      dendryUI.language = "en";
-      localStorage[game.title + '_language'] = "en";
-      var text_label_map_ids = {
-          // top-level
-          'main_tab': "Main",
-          'politics_tab': "Politics",
-          'paramilitary_tab': "Defense",
-          'poll_tab': "Polls",
-          'stats-link': "Library",
-          'save-link': "Save/Load",
-          'options-link': "Options",
-          // options
-          "currently_playing_text": "Currently playing:",
-          "music_header_text": "Music",
-          "next_song_text": "Next song",
-          "settings_text": "Settings",
-          "backgrounds_text": "Backgrounds:",
-          "event_images_text": "Event images:",
-          "animations_text": "Animations:",
-          "music_text": "Music:",
-          "color_scheme_text": "Color scheme:",
-          "light_mode_label": "Light mode",
-          "dark_mode_label": "Dark mode",
-          "font_size_text": "Font size:",
-          "decrease_font_button": "- decrease",
-          "increase_font_button": "+ increase",
-          // save/load menu
-          "import_save_label": "Import save file:"
-      };
-      var text_label_map_classes = {
-          //"save_button":"Save",
-          "delete_button": "Delete",
-          "export_button": "Export",
-          "load_button": "Load",
-          "label_on": "On",
-          "label_off": "Off",
-          "close_button": "Close"
-      }
-      for (var elementId in text_label_map_ids) {
-          document.getElementById(elementId).textContent = text_label_map_ids[elementId];
-      }
-      for (var className in text_label_map_classes) {
-          for (var element of document.getElementsByClassName(className)) {
-              element.textContent = text_label_map_classes[className];
-          }
-      }
-  };
-
   // save/load buttons
   window.updateSaveButtons = function() {
       if (window.dendryUI.language && window.dendryUI.language == "de") {
@@ -213,7 +113,7 @@
             window.dendryUI.currentAudio.pause();
             document.getElementById('play-button-image').style.display = "inline";
             document.getElementById('pause-button-image').style.display = "none";
-            document.getElementById('pause-button-text').textContent = "Play";
+            document.getElementById('pause-button-text').textContent = "Abspielen";
           }
       }
   };
@@ -332,15 +232,6 @@
     } else {
         $('#light_mode')[0].checked = true;
     }
-    if (window.dendryUI.language) {
-        if (window.dendryUI.language == "de") {
-            $('#german')[0].checked = true;
-        } else {
-            $('#english')[0].checked = true;
-        }
-    } else {
-        $('#english')[0].checked = true;
-    }
   };
 
   
@@ -376,7 +267,7 @@
 
   window.changeTab = function(newTab, tabId) {
       if (tabId == 'poll_tab' && dendryUI.dendryEngine.state.qualities.historical_mode) {
-          window.alert('Polls are not available in historical mode.');
+          window.alert('Im historischen Modus sind keine Umfragen verfügbar.');
           return;
       }
       var tabButton = document.getElementById(tabId);
@@ -452,13 +343,13 @@
 
   window.onload = function() {
     window.dendryUI.loadSettings({show_portraits: false});
-    if (localStorage[game.title + '_language']) {
-        if (localStorage[game.title + '_language'] == "de") {
-            window.loadGerman();
-        }
-    }
+    window.dendryUI.language = "de";
     if (window.dendryUI.dark_mode) {
         document.body.classList.add('dark-mode');
+    }
+    // fresh browser profiles have no saved font size yet
+    if (typeof window.dendryUI.font_size !== 'number') {
+        window.dendryUI.font_size = 1.1;
     }
     if (window.dendryUI.font_size != 1.1) {
         var fs = window.dendryUI.font_size;
@@ -467,7 +358,7 @@
         document.getElementById("stats_sidebar").setAttribute("style", "font-size: " + sidebar_fs + "em;");
     }
     document.getElementById('font_size_value').textContent = window.dendryUI.font_size.toFixed(1) + "em";
-    window.pinnedCardsDescription = "Advisor cards - actions are only usable once per 6 months.";
+    window.pinnedCardsDescription = "Beraterkarten: Aktionen sind nur alle 6 Monate nutzbar.";
   };
 
 }());

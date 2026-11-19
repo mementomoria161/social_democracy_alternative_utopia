@@ -1,24 +1,23 @@
-title: Building a People's Party
+title: Zurück zur Volkspartei
 new-page: true
 is-card: true
-card-image: img/poster_0.jpg
+card-image: img/volkspartei.jpg
 view-if: neorevisionism > 0 and peoples_party_support >= 3 and peoples_party = 0 and peoples_party_timer == 0
 on-arrival: peoples_party_timer = 6
 tags: party_affairs
 max-visits: 4
-#subtitle: Can the SPD move beyond the working class?
 
-= Building a People's Party
+= Zurück zur Volkspartei
 
-Contrary to orthodox Marxist predictions, the industrial proletariat is not constantly increasing in size. The rapid growth of the "new middle class" of white-collar workers and the persistence of small farmers and the peasantry confound predictions of a working-class majority.
+Seit dem Godesberger Programm von 1959 versteht sich die SPD als Volkspartei. Doch bei 16 Prozent ist davon wenig übrig. In Großstädten und Universitätsvierteln wählen viele inzwischen Grüne oder Linke, in Kleinstädten, Dörfern und Arbeitervierteln AfD oder Union.
 
-In order to build a socialist majority, many reformists and neorevisionists are calling for our party to move beyond the urban working class, to embrace the concerns of the middle class, farmers, and women of all classes. We can create a new and inclusive vision of the party that encompasses all people who work for a living, which is almost everyone in the country save the aristocrats and top capitalists.
+Der Seeheimer Kreis und die Anhänger des Dänischen Kurses fordern eine radikale Kurskorrektur: weniger Debatten über Gendersprache und Lastenräder, mehr über Löhne, Sicherheit, Heizkosten und den Arzt im Ort. Die SPD solle wieder die Partei der „hart arbeitenden Mitte“ werden – auch wenn das Teile des urbanen Milieus kostet. SPD-Linke und Parteimitte warnen vor einem Ausverkauf der eigenen Werte.
 
-- @support_peoples_party: Yes, we must become a people's party!
-- @build_support: We must build additional support before becoming a people's party.
-- @support_peoples_party_hard: Despite strong opposition from the Center and Left factions, we will become a people's party.
-- @no_new_ideas: No, we will always be a party of the working class.
-- @root: Perhaps we can discuss this at a later time.
+- @support_peoples_party: Ja, wir werden wieder Volkspartei!
+- @build_support: Wir müssen zuerst mehr Unterstützung in der Partei gewinnen.
+- @support_peoples_party_hard: Gegen den Widerstand von Parteimitte und SPD-Linker setzen wir den Kurswechsel durch.
+- @no_new_ideas: Nein, wir bleiben bei unserem Kurs.
+- @root: Darüber reden wir ein anderes Mal.
 - @easy_discard
 - @cancel_advisor_action
 
@@ -26,85 +25,85 @@ In order to build a socialist majority, many reformists and neorevisionists are 
 view-if: (neorevisionist_strength + reformist_strength < left_strength + center_strength) or peoples_party_support < 5
 on-arrival: peoples_party_support += 1; neorevisionist_strength += 5; left_strength -= 5; left_dissent += 5
 
-Within our party, we are pushing forward proposals for a people's party against the Left and Center.
+In Ortsvereinen und Landesverbänden werben wir gegen den Widerstand von SPD-Linker und Parteimitte für den Kurswechsel.
 
 
 @support_peoples_party
 choose-if: (neorevisionist_strength + reformist_strength >= left_strength + center_strength) and peoples_party_support >= 4
-unavailable-subtitle: The opposition is too strong.
-on-arrival: neorevisionist_strength += 15; reformist_strength += 15; neorevisionist_dissent -= 10; reformist_dissent -= 10; peoples_party = 1; workers_spd -= 12; rural_spd += 10; new_middle_spd += 10; old_middle_spd += 8; catholics_spd += 8; left_dissent += 25; center_dissent += 20; kpd_relation -= 10; kpd_coalition_dissent += 1; coalition_dissent -= 1; z_relation += 5*(1-dissent); dvp_relation += 5*(1-dissent)
+unavailable-subtitle: Der Widerstand ist zu groß.
+on-arrival: neorevisionist_strength += 15; reformist_strength += 15; neorevisionist_dissent -= 10; reformist_dissent -= 10; peoples_party = 1; new_middle_spd -= 10; new_middle_gruene += 4; new_middle_linke += 4; rural_spd += 10; workers_spd += 4; old_middle_spd += 8; rentner_spd += 8; left_dissent += 25; center_dissent += 20; linke_relation -= 10; linke_coalition_dissent += 1; coalition_dissent -= 1; union_relation += 5*(1-dissent); fdp_relation += 5*(1-dissent)
 achievement: volkspartei
 
-In an emergency conference, we have decided to become a people's party that encompasses all of the regular people of Germany, not just the workers and urban poor. The Left and Center claim that our new party platform is a betrayal of our founding principles, a turn away from Marxism towards bourgeois opportunism. Whatever the case, we are now a party representing all of the people, not just the proletariat.
+Ein Sonderparteitag beschließt den Kurswechsel: Die SPD will wieder Partei der breiten Mitte sein, von der Pflegekraft bis zum Handwerksmeister, von der Großstadt bis ins Dorf. Die Parteilinke spricht von Verrat, und in den Universitätsstädten treten Mitglieder aus. Aber auf dem Land hört man uns wieder zu.
 
-Should we run a new campaign to publicize our new platform?
+Sollen wir den neuen Kurs mit einer Kampagne bekannt machen?
 
 - @campaign_workers
 - @campaign_middle
 - @campaign_rural
 - @campaign_unemployed
 - @campaign_women
+- @campaign_rentner
 
 
 
 @support_peoples_party_hard
-subtitle: This will increase dissent.
+subtitle: Das wird den Unmut in der Partei erhöhen.
 view-if: (neorevisionist_strength + reformist_strength < left_strength + center_strength) or (peoples_party_support < 4)
-on-arrival: neorevisionist_strength += 10; reformist_strength += 8; peoples_party = 1; workers_spd -= 15; rural_spd += 10; new_middle_spd += 10; old_middle_spd += 8; catholics_spd += 8; left_dissent += 40; center_dissent += 40; kpd_relation -= 10; kpd_coalition_dissent += 1; coalition_dissent -= 1
+on-arrival: neorevisionist_strength += 10; reformist_strength += 8; peoples_party = 1; new_middle_spd -= 12; new_middle_gruene += 5; new_middle_linke += 5; rural_spd += 10; workers_spd += 2; old_middle_spd += 8; rentner_spd += 8; left_dissent += 40; center_dissent += 40; linke_relation -= 10; linke_coalition_dissent += 1; coalition_dissent -= 1
 achievement: volkspartei
 
-It is an arduous and contentious process, but we have pushed through the proposal to become a people's party. The Left and Center claim that our new party platform is a betrayal of our founding principles, a turn away from Marxism towards bourgeois opportunism. Whatever the case, we are now a party representing all of the people, not just the proletariat.
+Nach einem erbitterten Parteitag setzen wir den Kurswechsel knapp durch. SPD-Linke und Parteimitte sprechen von Verrat an den eigenen Werten, und in den Universitätsstädten treten Mitglieder aus. Aber die SPD ist nun wieder entschlossen, Volkspartei zu sein.
 
-Should we run a new campaign to publicize our new platform?
+Sollen wir den neuen Kurs mit einer Kampagne bekannt machen?
 
 - @campaign_workers
 - @campaign_middle
 - @campaign_rural
 - @campaign_unemployed
 - @campaign_women
-- @campaign_catholics
+- @campaign_rentner
 
 @campaign_workers
-title: Campaign among the workers, to assuage their doubts about our changes.
+title: Um Beschäftigte werben, die sich von uns abgewandt haben.
 on-arrival: workers_spd += 6*(1-dissent);
 
-The workers are still a key part of our constituency, and we must not alienate them in the transformation of our party.
+Facharbeiter, Paketboten, Pflegekräfte: Sie sind der Kern der Volkspartei, und wir holen sie zurück.
 
 @campaign_middle
-title: Campaign among the middle classes.
+title: Um die Mittelschicht werben.
 on-arrival: old_middle_spd += 5*(1-dissent); new_middle_spd += 6*(1-dissent)
 
-As a people's party, we represent the employees and small businesspeople of the middle class, and they are becoming receptive to our messages.
+Als Volkspartei sprechen wir Angestellte, Selbstständige und Handwerk gleichermaßen an. Viele hören uns wieder zu.
 
 @campaign_rural
-title: Campaign in rural areas.
+title: Auf dem Land werben.
 choose-if: rural_policy > 0
-unavailable-subtitle: We have not enacted any rural policies yet.
+unavailable-subtitle: Wir haben noch keine Politik für den ländlichen Raum vorzuweisen.
 on-arrival: rural_spd += 7*(1-dissent)
 
-As a people's party, we represent farmers and rural workers as well, and they are becoming receptive to our messages.
+Als Volkspartei sind wir auch für Dörfer und Kleinstädte da. Die Menschen dort nehmen das langsam wahr.
 
 @campaign_unemployed
-title: Campaign among the unemployed.
+title: Um Arbeitslose werben.
 on-arrival: unemployed_spd += 6*(1-dissent);
 
-As a people's party, the urban poor are still a key part of our constituency.
+Auch als Volkspartei vergessen wir nicht die, die ihre Arbeit verloren haben.
 
 @campaign_women
-title: Campaign among women of all classes.
+title: Um Frauen aller Schichten werben.
 on-arrival: workers_spd += 3*(1-dissent); new_middle_spd += 3*(1-dissent); old_middle_spd += 3*(1-dissent); rural_spd += 3*(1-dissent); unemployed_spd += 3*(1-dissent);
 
-As a people's party, we represent women of all classes.
+Als Volkspartei vertreten wir Frauen in allen Lebenslagen.
 
-@campaign_catholics
-title: Campaign among political Catholics.
-on-arrival: catholics_spd += 7*(1-dissent);
+@campaign_rentner
+title: Um Rentnerinnen und Rentner werben.
+on-arrival: rentner_spd += 7*(1-dissent);
 
-Catholics have historically been tied to the Center Party, but there is no reason why our party cannot appeal to them. The Prussian Concordat in particular is a sign of our friendship with Catholicism.
+Die Generation, die das Land aufgebaut hat, verdient eine stabile Rente. Das ist seit jeher unser Versprechen – und es kommt an.
 
 
 @no_new_ideas
 on-arrival: neorevisionist_strength -= 6; neorevisionist_dissent += 5; center_strength += 8; left_strength += 3; peoples_party = 0; peoples_party_support -= 3
 
-The Social Democrats have been and will always be a party of the working class.
-
+Wir bleiben bei unserem Kurs. Eine SPD, die anderen Parteien hinterherläuft, wird niemand wählen.

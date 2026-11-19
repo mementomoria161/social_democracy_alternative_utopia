@@ -1,0 +1,42 @@
+title: Andy Grote
+is-pinned-card: true
+tags: advisor
+card-image: img/portraits/Grote.jpg
+view-if: grote_advisor = 1
+new-page: true
+
+= Andy Grote
+
+Grote ist seit 2016 Innensenator in Hamburg. Er setzt auf eine Doppelstrategie: hartes Vorgehen gegen Extremisten und Kriminalität, verbunden mit einer starken Zivilgesellschaft. Für ihn ist die wehrhafte Demokratie keine Floskel, sondern Verwaltungsalltag.
+
+- @iron_front_buildup
+- @form_iron_front
+- @nazi_urgency
+- @root: Zurück
+
+@iron_front_buildup
+title: Das Bündnis für Demokratie ausbauen
+subtitle: Mit Kampagnen mehr Menschen für die Demokratiebewegung gewinnen.
+choose-if: advisor_action_timer == 0 and iron_front_formed
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if iron_front_formed == 0 : Das Bündnis für Demokratie wurde noch nicht gegründet. ?]
+on-arrival: advisor_action_timer = 6; demo_strength += 200*workers_spd/(workers_spd+workers_linke+workers_afd+workers_union+workers_bsw+workers_other);
+
+Die Demokratiebewegung hat neue Unterstützerinnen und Unterstützer gewonnen.
+
+
+@form_iron_front
+title: Das Bündnis für Demokratie gründen
+choose-if: advisor_action_timer == 0 and iron_front_formed == 0 and nazi_urgency >= 2
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if iron_front_formed : Das Bündnis für Demokratie besteht bereits. ?][? if nazi_urgency < 2 : Die Partei unterschätzt die Gefahr von rechts noch. ?]
+on-arrival: advisor_action_timer = 6; demo_strength += 50; nazi_urgency += 1
+go-to: confronting_nazis.iron_front
+
+
+@nazi_urgency
+title: Vor der AfD warnen
+subtitle: Mit einer Aufklärungskampagne unsere Mitglieder und Wähler aufrütteln.
+choose-if: advisor_action_timer == 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; nazi_urgency += 1; demo_radicalism += 0.01; workers_afd -= 4*(1-dissent);
+
+Wir zeigen, was im AfD-Programm wirklich steht: Rentenkürzungen, Austritt aus der EU, Angriffe auf Gewerkschaften. Manche Beschäftigte, die mit der AfD geliebäugelt haben, werden nachdenklich.

@@ -1,0 +1,52 @@
+title: Rolf Mützenich
+is-pinned-card: true
+tags: advisor, centrist
+card-image: img/portraits/Muetzenich.jpg
+new-page: true
+view-if: muetzenich_advisor = 1
+
+= Rolf Mützenich
+
+Mützenich war von 2019 bis 2025 Vorsitzender der SPD-Bundestagsfraktion. Der promovierte Friedensforscher aus Köln steht für Diplomatie und Abrüstung und ist mit seinem Ruf nach Verhandlungen im Ukrainekrieg oft angeeckt. In der Parteilinken genießt er hohes Ansehen.
+
+- @muetzenich_international
+- @muetzenich_foreign
+- @party_discipline
+- @snap_election
+- @root: Zurück
+
+@muetzenich_international
+title: Internationale Kontakte
+subtitle: Mützenich pflegt enge Kontakte zu sozialdemokratischen Parteien in ganz Europa.
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+choose-if: advisor_action_timer == 0
+on-arrival: advisor_action_timer = 6; international_relations_timer -= 12; last_advisor_action = 1
+go-to: international_relations
+
+@muetzenich_foreign
+title: Außenpolitik
+subtitle: Mit dem Auswärtigen Amt kann die SPD die Außenpolitik bestimmen.
+unavailable-subtitle: [? if not spd_in_government: Die SPD ist nicht an der Regierung beteiligt. ?] [? if foreign_minister_party != "SPD" : Die SPD stellt nicht den Außenminister. ?][? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+choose-if: advisor_action_timer == 0 and spd_in_government and foreign_minister_party == "SPD"
+on-arrival: advisor_action_timer = 6; foreign_policy_timer -= 8; last_advisor_action = 1
+go-to: foreign_policy
+
+
+@party_discipline
+title: Geschlossenheit einfordern
+subtitle: Verringert den Unmut in allen Strömungen.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; left_dissent -= 5; labor_dissent -= 10; center_dissent -= 10; reformist_dissent -= 10; neorevisionist_dissent -= 5
+
+Mützenich ruft die Partei zur Geschlossenheit auf. Der Unmut in allen Strömungen sinkt.
+
+
+@snap_election
+title: Die Vertrauensfrage stellen
+subtitle: Über die Vertrauensfrage nach Art. 68 GG Neuwahlen herbeiführen.
+unavailable-subtitle: [? if chancellor != "Mützenich" : Mützenich muss Bundeskanzler sein. ?][? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+choose-if: advisor_action_timer == 0 and chancellor == "Mützenich"
+on-arrival: advisor_action_timer = 6; next_election_time = time + 3 if next_election_time > time+3; next_election_month = month + 3 if next_election_time >= time + 3; next_election_year = year if next_election_time >= time+3; next_election_year += 1 if next_election_month > 12; next_election_month -= 12 if next_election_month > 12;
+
+Der Bundeskanzler verliert die Vertrauensfrage wie geplant. Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt.

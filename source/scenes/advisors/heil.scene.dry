@@ -1,0 +1,32 @@
+title: Hubertus Heil
+is-pinned-card: true
+tags: advisor, labor
+card-image: img/portraits/Heil.jpg
+view-if: heil_advisor = 1
+new-page: true
+
+= Hubertus Heil
+
+Heil war von 2018 bis 2025 Bundesminister für Arbeit und Soziales. Unter ihm kamen der Mindestlohn von 12 Euro, das Bürgergeld und die Grundrente. Seit dem Regierungswechsel ist er „nur“ noch Abgeordneter, doch in Sozialpolitik und Arbeitsrecht kennt sich niemand in der SPD besser aus.
+
+- @labor_rights_
+- @union_unity
+- @root: Zurück
+
+@labor_rights_
+title: Arbeitnehmerrechte
+subtitle: Mit dem Arbeitsministerium können wir die Arbeitsbedingungen verbessern.
+choose-if: advisor_action_timer <= 0 and spd_in_government and labor_minister_party = "SPD"
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if labor_minister_party != "SPD" : Die SPD stellt nicht die Arbeitsministerin bzw. den Arbeitsminister. ?]
+on-arrival: advisor_action_timer = 6; labor_rights_timer -= 10; last_advisor_action = 1
+go-to: labor_rights
+
+
+@union_unity
+title: Partei und Gewerkschaften abstimmen
+subtitle: Verringert den Unmut im Gewerkschaftsflügel.
+choose-if: advisor_action_timer <= 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; labor_dissent -= 5; labor_strength += 5
+
+Die Spannungen mit dem Gewerkschaftsflügel haben nachgelassen, und sein Einfluss in der Partei ist gewachsen.

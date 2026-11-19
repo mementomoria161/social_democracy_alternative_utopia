@@ -1,0 +1,39 @@
+title: Boris Pistorius
+is-pinned-card: true
+tags: advisor, reformist
+card-image: img/portraits/Pistorius.jpg
+view-if: pistorius_advisor = 1
+new-page: true
+
+= Boris Pistorius
+
+Pistorius ist seit 2023 Bundesminister der Verteidigung und seit Jahren der beliebteste Politiker Deutschlands. Zuvor war er zehn Jahre Innenminister in Niedersachsen. Er steht für „Kriegstüchtigkeit“, einen neuen Wehrdienst und eine handfeste, unaufgeregte Art, die weit über die SPD hinaus ankommt.
+
+- @military_affairs
+- @police_affairs
+- @prussian_bulwark
+- @root: Zurück
+
+@military_affairs
+title: Verteidigungspolitik
+subtitle: Mit dem Verteidigungsministerium können wir die Sicherheitspolitik gestalten.
+choose-if: advisor_action_timer == 0 and spd_in_government and bundeswehr_minister_party == "SPD"
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if not spd_in_government : Die SPD ist nicht an der Regierung beteiligt. ?][? if bundeswehr_minister_party != "SPD": Die SPD stellt nicht den Verteidigungsminister. ?]
+on-arrival: advisor_action_timer = 6; last_advisor_action = 1
+go-to: military_policy
+
+@police_affairs
+title: Innere Sicherheit
+subtitle: Mit dem Innenministerium können wir Polizei und Verfassungsschutz lenken.
+choose-if: advisor_action_timer == 0 and spd_in_government and interior_minister_party == "SPD"
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if not spd_in_government : Die SPD ist nicht an der Regierung beteiligt. ?][? if interior_minister_party != "SPD": Die SPD stellt nicht den Innenminister. ?]
+on-arrival: advisor_action_timer = 6; police_timer -= 6; last_advisor_action = 1
+go-to: police
+
+@prussian_bulwark
+title: Die Länder einbinden
+subtitle: Als früherer Landesinnenminister hat Pistorius gute Drähte in die SPD-geführten Länder.
+choose-if: advisor_action_timer <= 0 and spd_prussia = 1
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if not spd_prussia : Die SPD hat ihre starke Stellung in den Ländern verloren. ?]
+on-arrival: advisor_action_timer = 6; prussian_affairs_timer -= 6; last_advisor_action = 1
+go-to: prussian_affairs

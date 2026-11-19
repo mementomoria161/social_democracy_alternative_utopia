@@ -9,7 +9,7 @@ Q.new_middle_sapd = 1;
 Q.old_middle_sapd = 0;
 Q.rural_sapd = 0;
 Q.unemployed_sapd = 2;
-Q.catholics_sapd = 0;
+Q.rentner_sapd = 0;
 
 Q.workers_other -= 5;
 

@@ -1,32 +1,33 @@
-title: Neorevisionism: a new idea
+title: Der Dänische Kurs: eine neue Idee
 new-page: true
 is-card: true
-card-image: img/portraits/MierendorffCarlo.jpg
-view-if: nazi_urgency > 0 and neorevisionism == 0 and (nsdap_r >= 10 or nsdap_normalized >= 0.15)
+card-image: img/kopenhagen.jpg
+view-if: nazi_urgency > 0 and neorevisionism == 0 and (afd_r >= 25 or afd_normalized >= 0.25)
 on-arrival: shuffle_leadership_timer = 0;
 tags: party_affairs
 frequency: 400
 max-visits: 1
 
-= Neorevisionism: A New Idea
+= Der Dänische Kurs: eine neue Idee
 
-Several young socialists, led by Carlo Mierendorff, are calling for a "new revisionism" in response to the Nazi threat. This political tendency calls for a mass movement in favor of democracy in order to counter the Nazi and Communist movements, and to update our rhetoric and imagery to appeal to emotion and not just reason.
+Eine Gruppe von Abgeordneten und Kommunalpolitikern, vor allem aus Ostdeutschland und dem Ruhrgebiet, schaut nach Kopenhagen. Dort haben die Sozialdemokraten unter Mette Frederiksen die Rechtspopulisten kleingehalten – mit einer harten Migrations- und Sicherheitspolitik, verbunden mit einem starken Sozialstaat.
 
-#- @shuffle_leadership: It's time to change our advisors to take into account new ideas.
-- @support_neo: Support the neorevisionist movement.
-- @no_new_ideas: We don't need new ideas.
+Ihr Argument: Die SPD habe ihre Stammwählerschaft verloren, weil sie über Migration und Sicherheit nicht offen reden wollte. Ihre Kritiker halten dagegen: Wer die Sprache der Rechten übernimmt, macht sie nur stärker.
+
+- @support_neo: Den neuen Kurs unterstützen.
+- @no_new_ideas: Das ist der falsche Weg.
 - @easy_discard
 
 @support_neo
-on-arrival: neorevisionist_strength += 10; nazi_urgency += 1; neorevisionism = 1; peoples_party_support += 1
+on-arrival: neorevisionist_strength += 10; nazi_urgency += 1; neorevisionism = 1; peoples_party_support += 1; left_dissent += 10; nationalism += 2
 
-We support the new leaders, and start using new-style propaganda techniques in our campaigns. The results are uncertain so far...
+Wir geben der neuen Strömung Raum. Ihre Vertreter dürfen auf dem Parteitag reden und in Talkshows für den neuen Kurs werben. Wie die Wähler reagieren, ist noch offen.
 
-- @shuffle_leadership: We should use this opportunity to change the party's leadership.
-- @root: Continue...
+- @shuffle_leadership: Wir sollten die Gelegenheit nutzen, die Parteiführung neu aufzustellen.
+- @root: Weiter …
 
 
 @no_new_ideas
-on-arrival: neorevisionist_strength -= 5; center_strength += 5; neorevisionism = -1
+on-arrival: neorevisionist_strength -= 5; center_strength += 5; neorevisionism = -1; left_dissent -= 5
 
-We do not need these new ideas; they seem to imitate too closely those of the Nazis and Communists.
+Wir brauchen diese Ideen nicht. Wer der AfD hinterherläuft, verliert seine eigene Glaubwürdigkeit.

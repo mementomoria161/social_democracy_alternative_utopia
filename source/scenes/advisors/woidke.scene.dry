@@ -1,0 +1,42 @@
+title: Dietmar Woidke
+is-pinned-card: true
+tags: advisor, reformist
+card-image: img/portraits/Woidke.jpg
+view-if: woidke_advisor = 1
+new-page: true
+
+= Dietmar Woidke
+
+Woidke ist seit 2013 Ministerpräsident von Brandenburg. Der Agrarwissenschaftler aus der Lausitz hat 2024 die Landtagswahl knapp vor der AfD gewonnen, indem er alles auf seine Person setzte. Er kennt den ländlichen Raum und den Strukturwandel nach dem Kohleausstieg wie kaum ein anderer in der SPD.
+
+- @agriculture
+- @rural_campaign
+- @depression
+- @root: Zurück
+
+@agriculture
+title: Agrarpolitik
+subtitle: Mit dem Landwirtschaftsministerium können wir die Agrarpolitik gestalten.
+choose-if: advisor_action_timer <= 0 and spd_in_government and agriculture_minister_party == "SPD"
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if not spd_in_government : Die SPD ist nicht an der Regierung beteiligt. ?][? if agriculture_minister_party != "SPD": Die SPD stellt nicht den Landwirtschaftsminister. ?]
+on-arrival: advisor_action_timer = 6; agricultural_policy_timer -= 6; last_advisor_action = 1
+go-to: agricultural_policy
+
+
+@rural_campaign
+title: Wahlkampf auf dem Land
+subtitle: Um die Menschen in Dörfern und Kleinstädten werben.
+choose-if: advisor_action_timer == 0 and rural_policy > 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if rural_policy == 0 : Wir haben noch keine Politik für den ländlichen Raum vorzuweisen. ?]
+on-arrival: advisor_action_timer = 6; rural_spd += 5*(1-dissent); peoples_party_support += 1
+
+Woidke tourt durch Dorfgemeinschaftshäuser und Feuerwehrfeste. Wo Bus, Arztpraxis und Bankfiliale verschwunden sind, hört man ihm zu.
+
+@depression
+title: Einen Weg aus der Krise finden
+subtitle: Einen Plan gegen Deindustrialisierung und Stagnation entwickeln.
+choose-if: advisor_action_timer <= 0 and wtb_adopted = 0 and black_thursday_seen
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if black_thursday_seen == 0 : Wir befinden uns derzeit nicht in einer Wirtschaftskrise. ?][? if wtb_adopted > 0 : Wir haben die Investitionsoffensive bereits beschlossen. ?]
+on-arrival: advisor_action_timer = 6; wtb_support += 2; center_dissent += 10; labor_strength += 1
+
+Woidke wirbt in der Partei für eine große Investitionsoffensive: Netze, Schiene, Wasserstoff und Ansiedlungen wie in der Lausitz. Gewerkschaften und Ökonomen unterstützen den Plan, die Haushälter in der Parteimitte sind skeptisch.

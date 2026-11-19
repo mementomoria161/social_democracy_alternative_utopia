@@ -1,0 +1,56 @@
+title: Saskia Esken
+is-pinned-card: true
+tags: advisor, left
+card-image: img/portraits/Esken.jpg
+view-if: esken_advisor = 1
+new-page: true
+
+= Saskia Esken
+
+Esken war von 2019 bis 2025 Co-Vorsitzende der SPD. Die Informatikerin aus Baden-Württemberg kam als Kandidatin der Parteibasis gegen das Establishment an die Spitze und hat die Partei in der Ampel-Zeit zusammengehalten. Nach der Wahlniederlage wurde sie aus der Führung gedrängt, doch an der Basis hat sie viele Unterstützerinnen und Unterstützer.
+
+- @left_unity
+- @organizing_women
+- @against_toleration
+- @crisis
+- @root: Zurück
+
+@left_unity
+title: Die Flügel versöhnen
+subtitle: Die Zusammenarbeit zwischen Parteilinken und Parteimitte fördern.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; left_dissent -= 10; labor_dissent -= 5; center_dissent -= 10; reformist_dissent -= 10; neorevisionist_dissent -= 5
+
+Der Unmut zwischen den Strömungen der Partei hat abgenommen.
+
+@organizing_women
+title: Junge Frauen gewinnen
+subtitle: Esken wirbt um junge, berufstätige Frauen.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: womens_rights += 1; workers_spd += 3*(1-dissent); new_middle_spd += 5*(1-dissent); advisor_action_timer = 6
+
+Equal Pay, Schutz vor Gewalt, digitale Selbstbestimmung: Eskens Botschaft kommt bei jungen Frauen in Dienstleistung und Wissensberufen gut an.
+
+[? if spd_r < 50 : Viele junge Frauen wählen trotzdem lieber Grüne oder Linke. ?]
+
+@against_toleration
+title: Die Tolerierung aufkündigen
+view-if: not constructive_vonc
+subtitle: Die Tolerierung beenden und Neuwahlen erzwingen.
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?] [? if spd_toleration == 0 : Die SPD toleriert derzeit keine Regierung. ?]
+choose-if: advisor_action_timer == 0 and spd_toleration
+on-arrival: advisor_action_timer = 6; next_election_time = time + 3 if next_election_time > time+3; next_election_month = month + 3 if next_election_time >= time + 3; next_election_year = year if next_election_time >= time + 3; next_election_year += 1 if next_election_month > 12; next_election_month -= 12 if next_election_month > 12; spd_toleration = 0; left_strength += 8; pro_republic -= 4; new_middle_spd -= 3; rural_spd -= 3; old_middle_spd -= 3; rentner_spd -= 3; reformist_dissent += 8
+
+Wir sind der Tolerierung überdrüssig und kündigen sie auf. Die Minderheitsregierung hat keine Mehrheit mehr.
+
+Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt.
+
+@crisis
+title: Ein linkes Krisenprogramm
+subtitle: Esken unterstützt ein linkes Wirtschaftsprogramm.
+choose-if: advisor_action_timer <= 0 and nationalization_adopted == 0 and black_thursday_seen == 1 and nationalization_support <= 3
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if black_thursday_seen == 0 : Wir befinden uns derzeit nicht in einer Wirtschaftskrise. ?][? if nationalization_adopted > 0 : Wir haben das linke Programm bereits beschlossen. ?]
+on-arrival: advisor_action_timer = 6;
+go-to: crisis_program.support_left

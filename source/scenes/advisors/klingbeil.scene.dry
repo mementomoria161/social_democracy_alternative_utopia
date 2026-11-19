@@ -1,0 +1,43 @@
+title: Lars Klingbeil
+is-pinned-card: true
+tags: advisor, centrist
+card-image: img/portraits/Klingbeil.jpg
+new-page: true
+view-if: klingbeil_advisor = 1
+
+= Lars Klingbeil
+
+Klingbeil ist seit 2021 Parteivorsitzender und seit Mai 2025 Vizekanzler und Bundesfinanzminister[? if chancellor = "Klingbeil": – und inzwischen Bundeskanzler ?]. Der Niedersachse gilt als Stratege der Parteimitte, der nach der Wahlniederlage 2025 die Macht in Partei und Regierung auf sich vereint hat.
+
+- @coalition
+- @toleration
+- @snap_election
+- @root: Zurück
+
+@coalition
+title: Gespräche im Koalitionsausschuss
+subtitle: Klingbeil kann die Beziehungen zu unseren Partnern verbessern.
+choose-if: advisor_action_timer <= 0 and spd_in_government = 1
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if not spd_in_government: Die SPD ist nicht an der Regierung beteiligt. ?]
+on-arrival: advisor_action_timer = 6; coalition_dissent -= 1 if spd_in_government = 1 and coalition_dissent > 0; union_relation += 5; gruene_relation += 5; fdp_relation += 5
+
+Nach langen Abenden im Kanzleramt sind die Beziehungen zu Union, Grünen und FDP besser geworden, und die Spannungen in der Koalition haben nachgelassen.
+
+
+@toleration
+title: Die Tolerierung verteidigen
+subtitle: Klingbeil wirbt in der Partei für die Tolerierung der Minderheitsregierung.
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if not spd_toleration: Die SPD toleriert derzeit keine Regierung. ?]
+choose-if: spd_in_government = 0 and spd_toleration = 1 and advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; left_dissent -= 8; neorevisionist_dissent -= 8; center_dissent -= 5;
+
+Der Unmut der Tolerierungsgegner in der Partei hat nachgelassen.
+
+@snap_election
+title: Die Vertrauensfrage stellen
+subtitle: Über die Vertrauensfrage nach Art. 68 GG Neuwahlen herbeiführen.
+unavailable-subtitle: [? if chancellor != "Klingbeil" : Klingbeil muss Bundeskanzler sein. ?][? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+choose-if: advisor_action_timer == 0 and chancellor == "Klingbeil"
+on-arrival: advisor_action_timer = 6; next_election_time = time + 3 if next_election_time > time+3; next_election_month = month + 3 if next_election_time >= time+3; next_election_year = year if next_election_time >= time+3; next_election_year += 1 if next_election_month > 12; next_election_month -= 12 if next_election_month > 12;
+
+Der Bundeskanzler verliert die Vertrauensfrage wie geplant, und der Bundespräsident löst den Bundestag auf. Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt.

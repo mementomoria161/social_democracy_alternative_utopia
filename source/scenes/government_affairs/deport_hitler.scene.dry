@@ -1,29 +1,31 @@
-title: We can deport Hitler.
-subtitle: He is a foreign citizen and a criminal, after all.
-unavailable-subtitle: [? if judicial_reform < 2 : Unfortunately, the reactionary judiciary will not cooperate. ?] [? if presidential_election_seen == 1 : Hitler has already been made a citizen of Germany, in the run-up to the presidential election. ?] [? if not spd_prussia : We cannot do this without the cooperation of the Prussian police, who are not currently in our control. ?]
-view-if: nazi_urgency >= 3 and hitler_deported = 0 and chancellor != "Papen" and chancellor != "Schleicher" and investigate_far_right >= 2
-choose-if: judicial_reform >= 2 and presidential_election_seen == 0 and spd_prussia == 1
+title: Wir können ein AfD-Verbotsverfahren einleiten.
+subtitle: Der Verfassungsschutz stuft die Partei als gesichert rechtsextremistisch ein.
+unavailable-subtitle: [? if judicial_reform < 2 : Ohne eine krisenfeste Justiz ist das Risiko zu groß, dass das Verfahren scheitert. ?] [? if not spd_prussia : Ohne die SPD-Länder im Bundesrat fehlt uns die nötige Unterstützung. ?]
+view-if: nazi_urgency >= 3 and hitler_deported = 0 and chancellor_party != "AfD" and investigate_far_right >= 2
+choose-if: judicial_reform >= 2 and spd_prussia == 1
 
-Is it really that simple? Won't his supporters react violently to this suggestion? And even if the deportation does succeed, won't he just re-enter the country, or perhaps organize from Austria? And, some people consider this to be an anti-democratic abuse of power, using the law in order to target a political opponent.
+# Statt Ausweisung: Antrag nach Art. 21 GG. Mindestens ein Verbot von Teilorganisationen und der Ausschluss von der Parteienfinanzierung (Art. 21 Abs. 3 GG).
 
-- @deport: Deport him!
-- @no_deport: No, we must not.
+Ist es wirklich so einfach? Die Hürden in Karlsruhe sind hoch: Das NPD-Verfahren scheiterte 2017, weil die Partei zu unbedeutend war. Die AfD ist alles andere als unbedeutend, doch genau deshalb werden Millionen ihrer Wählerinnen und Wähler das Verfahren als Angriff auf ihre Stimme sehen. Wird die Partei sich als Opfer inszenieren? Und viele Demokrat\*innen fragen, ob man eine Partei mit Gerichten statt mit Argumenten bekämpfen darf.
+
+- @deport: Den Antrag stellen!
+- @no_deport: Nein, das tun wir nicht.
 
 @deport
-go-to: deport_violence if sa_strength >= 200; deport_success if sa_strength < 200
+go-to: deport_violence if rechts_strength >= 200; deport_success if rechts_strength < 200
 
 @deport_violence
 
-When the police approach, he is surrounded by his SA guards, preventing him from being extricated! We can attempt to force a confrontation, but that may have negative consequences. The Reichsbanner may also attempt to draw off the SA.
+Kaum ist der Antrag gestellt, mobilisiert die rechte Szene. Zehntausende ziehen vor das Bundesverfassungsgericht und die Landtage, Richter\*innen und Abgeordnete werden bedroht. Wenn wir jetzt einknicken, hat die Straße gewonnen. Die Polizei und die Demokratiebewegung könnten dagegenhalten.
 
-- @force_approach: Force the approach!
-- @no_deport: Cancel the deportation.
+- @force_approach: Standhalten!
+- @no_deport: Den Antrag zurückziehen.
 
 @force_approach
 on-arrival: {!
-var total_allied_strength = Q.rb_strength*Q.rb_militancy + Q.prussian_police_strength*Q.prussian_police_militancy*Q.prussian_police_loyalty;
-var enemy_strength = Q.sa_strength*Q.sa_militancy;
-console.log('Deporting Hitler - force approach');
+var total_allied_strength = Q.demo_strength*Q.demo_radicalism + Q.prussian_police_strength*Q.prussian_police_radicalism*Q.prussian_police_loyalty;
+var enemy_strength = Q.rechts_strength*Q.rechts_radicalism;
+console.log('AfD-Verbotsverfahren - Standhalten');
 console.log(total_allied_strength, enemy_strength);
 
 if (total_allied_strength > enemy_strength) {
@@ -35,27 +37,27 @@ if (total_allied_strength > enemy_strength) {
 go-to: force_fail if deportation_success == 0; force_success if deportation_success = 1
 
 @force_fail
-on-arrival: sa_strength += 50; workers_nsdap += 5; unemployed_nsdap += 5; new_middle_nsdap += 5; old_middle_nsdap += 5; rural_nsdap += 5; coup_progress += 3
+on-arrival: rechts_strength += 50; workers_afd += 5; unemployed_afd += 5; new_middle_afd += 5; old_middle_afd += 5; rural_afd += 5; coup_progress += 3
 
-Unfortunately, our forces fail to disloge the SA from their positions surrounding Hitler. He is seen as both a strong and powerful leader and a victim, further reinforcing his image. The Nazis are left stronger than ever.
+Die Gegendemonstrationen bleiben klein, die Polizei ist überfordert, und unter dem Druck der Straße bröckelt die Mehrheit im Bundesrat. Der Antrag wird zurückgezogen. Die AfD feiert sich als Opfer eines „Verbotsversuchs der Altparteien“ und steht stärker da als je zuvor.
 
 @force_success
-on-arrival: hitler_deported = 1; sa_strength = sa_strength/2; workers_nsdap -= 10; new_middle_nsdap -= 10; old_middle_nsdap -= 10; rural_nsdap -= 10; unemployed_nsdap -= 10; sa_banned = 1; coup_progress -= 2; nsdap_leader = "Goebbels"
+on-arrival: hitler_deported = 1; rechts_strength = rechts_strength/2; workers_afd -= 10; new_middle_afd -= 10; old_middle_afd -= 10; rural_afd -= 10; unemployed_afd -= 10; rechts_banned = 1; coup_progress -= 2
 achievement: deport_hitler
 
-The confrontation ends with the police and Reichsbanner prevailing, capturing Hitler so he can be deported! This is a sign of weakness, and his physical distance makes organizing difficult, impeding the Nazi effort to win more votes.
+Hunderttausende stellen sich bei den Demonstrationen für die Demokratie den rechten Aufmärschen entgegen, die Polizei sichert Gericht und Parlamente. Nach monatelanger Verhandlung entscheidet das Bundesverfassungsgericht: Die besonders radikalen Landesverbände und die Jugendorganisation werden verboten, die Partei verliert ihre staatliche Finanzierung.
 
-In Hitler's absence, Joseph Goebbels has become the temporary leader of the Nazi party, with substantial influence from Hermann Göring.
+Die AfD ist schwer angeschlagen. Ohne Geld und mit verbotenen Strukturen fällt es ihr schwer, Wahlkampf zu führen, und viele Mitglieder treten aus.
 
 @deport_success
-on-arrival: hitler_deported = 1; sa_strength = sa_strength/2; workers_nsdap -= 10; new_middle_nsdap -= 10; old_middle_nsdap -= 10; rural_nsdap -= 10; unemployed_nsdap -= 10; coup_progress -= 2; nsdap_leader = "Goebbels"
+on-arrival: hitler_deported = 1; rechts_strength = rechts_strength/2; workers_afd -= 10; new_middle_afd -= 10; old_middle_afd -= 10; rural_afd -= 10; unemployed_afd -= 10; coup_progress -= 2
 achievement: deport_hitler
 
-Somehow, the plan worked! There was minimal resistance to Hitler's deportation. This is a sign of weakness, and his physical distance makes organizing difficult, impeding the Nazi effort to win more votes.
+Erstaunlich: Der Widerstand auf der Straße bleibt gering. Nach monatelanger Verhandlung entscheidet das Bundesverfassungsgericht: Die besonders radikalen Landesverbände und die Jugendorganisation werden verboten, die Partei verliert ihre staatliche Finanzierung.
 
-In Hitler's absence, Joseph Goebbels has become the temporary leader of the Nazi party, with substantial influence from Hermann Göring.
+Die AfD ist schwer angeschlagen. Ohne Geld und mit verbotenen Strukturen fällt es ihr schwer, Wahlkampf zu führen, und viele Mitglieder treten aus.
 
 @no_deport
 go-to: root
 
-We will not be deporting Hitler.
+Wir stellen keinen Verbotsantrag.
