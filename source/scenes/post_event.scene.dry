@@ -318,6 +318,20 @@ if (Q.month_actions >= 1) {
         }
     }
 
+    ////////////////////////// Linke game: less attention for a small opposition party (Durchgang 4.3)
+    // In opposition, gains of the player slot since the last month change count only with LK_GAIN (losses fully).
+    // Calibrated with node tools/sim.js . 60 linke (random play): 2025 election about 9.5 % of the votes / 11 % of the
+    // seats (real 8.8 / 10.2), Dec 2025 and Nov 2026 about 12.5-13 % (real 10.6 / about 11). Without it: 10.8, 15.6, 17.2.
+    var LK_GAIN = 0.4;
+    if (Q.player == 'linke' && Q.lk_prev_support && !Q.spd_in_government) {
+        for (var c of Q.classes) {
+            var prev = Q.lk_prev_support[c];
+            if (prev !== undefined && Q[c + '_spd'] > prev) {
+                Q[c + '_spd'] = prev + LK_GAIN * (Q[c + '_spd'] - prev);
+            }
+        }
+    }
+
     ////////////////////////// historische Schwerkraft, November 2024 - Januar 2026
     // Real monthly means of all institutes (state after the change into that month), order:
     // Union, AfD, SPD, Grüne, Linke, BSW, FDP, Sonstige. Sources: de.wikipedia.org/wiki/Bundestagswahl_2025/Umfragen_und_Prognosen
@@ -349,6 +363,12 @@ if (Q.month_actions >= 1) {
             }
         });
     }
+    if (Q.player == 'linke') {
+        Q.lk_prev_support = {};
+        for (var c of Q.classes) {
+            Q.lk_prev_support[c] = Math.round(Q[c + '_spd'] * 100) / 100;
+        }
+    }
     // growth: 2024 -0.2 %, 2025 +0.2 % (Destatis; the US tariffs in events/zollstreit_2025 take another 0.2), forecast 2026 +0.8 %
     if (Q.year == 2025 && Q.month == 1) {
         Q.economic_growth += 0.6;
@@ -362,6 +382,8 @@ if (Q.month_actions >= 1) {
     // reference (average of all institutes): Jan 2026 Union 26, AfD 25, SPD 15, Grüne 11, Linke 10
     //                                         Nov 2026 Union 20, AfD 28, SPD 14, Grüne 15, Linke 10
     // (from February on: January 2026 is still covered by the gravity table above)
+    // the real SPD and Linke sit in swapped slots when the Linke is played
+    var SPD = Q.player == 'linke' ? 'linke' : 'spd', LINKE = Q.player == 'linke' ? 'spd' : 'linke';
     if (Q.year == 2026 && Q.month > 1) {
         Q.rentner_union -= 7/12;
         Q.workers_union -= 6/12;
@@ -381,8 +403,8 @@ if (Q.month_actions >= 1) {
         Q.rechts_strength += 10/12;
         Q.bauern_strength += 10/12;
         if (!Q.works_program) {
-            Q.workers_spd -= 2/12;
-            Q.rentner_spd -= 2/12;
+            Q['workers_' + SPD] -= 2/12;
+            Q['rentner_' + SPD] -= 2/12;
             Q.workers_afd += 1/12;
             Q.unemployed += 0.2/12;
         }
@@ -397,8 +419,8 @@ if (Q.month_actions >= 1) {
             Q.workers_afd += 3/12;
             Q.unemployed_afd += 3/12;
             Q.old_middle_afd += 2/12;
-            Q.workers_linke += 2/12;
-            Q.workers_spd -= 2/12;
+            Q['workers_' + LINKE] += 2/12;
+            Q['workers_' + SPD] -= 2/12;
             Q.unemployed += 0.3/12;
             Q.rechts_strength += 10/12;
         } else if (Q.unemployed > 7) {
@@ -415,8 +437,8 @@ if (Q.month_actions >= 1) {
             Q.unemployed_afd += 3/12;
             Q.rural_afd += 3/12;
             Q.new_middle_afd += 2/12;
-            Q.workers_linke += 2/12;
-            Q.unemployed_linke += 2/12;
+            Q['workers_' + LINKE] += 2/12;
+            Q['unemployed_' + LINKE] += 2/12;
             Q.rechts_strength += 15/12;
         } else if (Q.unemployed > 8) {
             Q.rural_afd += 2/12;

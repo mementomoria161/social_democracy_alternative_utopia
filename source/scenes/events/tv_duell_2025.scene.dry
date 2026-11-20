@@ -1,17 +1,20 @@
 title: Das TV-Duell
-subtitle: [+ spd_candidate +] gegen Merz, live in ARD und ZDF.
+subtitle: Das Kanzlerduell, live in ARD und ZDF.
 new-page: true
 tags: event
 view-if: tv_duell_seen = 0 and bundestag_dissolved = 1 and n_elections = 0 and year = next_election_year and month = next_election_month
 max-visits: 1
 priority: 0
 on-arrival: tv_duell_seen = 1
-go-to: linke if player = "linke"
+go-to: linke if player = "linke"; spd if player = "spd"
 face-image: img/medien.jpg
 
 # Prolog: TV-Duell im Wahlmonat (historisch 09.02.2025, Scholz gegen Merz). Wird vor der Bundestagswahl (priority -1) gezeigt.
 
 = Das TV-Duell
+
+# Gemeinsame Kopfzeile oben; dieser Text nur im SPD-Spiel (die Engine zeigt den Text vor einem go-to an).
+@spd
 
 Zwei Wochen vor der Wahl stehen sich [+ spd_candidate +] und Friedrich Merz im Fernsehstudio gegenüber. Millionen schauen zu. [? if brandmauer_tested : Kaum ein Thema ist so heikel wie die Abstimmung mit den Stimmen der AfD. ?][? if spd_candidate = "Scholz" : Der Kanzler liegt weit zurück; nur ein klarer Sieg könnte das Rennen noch drehen. ?][? if spd_candidate = "Pistorius" : Pistorius ist der beliebtere Kandidat, doch Merz hat die stärkere Partei hinter sich. ?]
 

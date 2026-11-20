@@ -6,7 +6,7 @@ view-if: sondervermoegen_seen = 0 and n_elections = 1 and year = 2025 and time >
 max-visits: 1
 priority: 1
 on-arrival: sondervermoegen_seen = 1
-go-to: linke if player = "linke" and not spd_in_government
+go-to: linke if player = "linke" and not spd_in_government; spd if player = "spd" or spd_in_government
 face-image: img/reichstag_2.jpg
 
 # Prolog nach der Wahl (einen Monat danach). Setzt sondervermoegen (0/1/2) und den Haushaltsspielraum (budget).
@@ -15,6 +15,9 @@ face-image: img/reichstag_2.jpg
 # Verteidigungsausgaben über 1 Prozent des BIP von der Schuldenbremse ausgenommen, 0,35 Prozent Defizit für die Länder.
 
 = Billionen-Paket im alten Bundestag?
+
+# Gemeinsame Kopfzeile oben; dieser Text nur im SPD-Spiel (die Engine zeigt den Text vor einem go-to an).
+@spd
 
 # party-ok: SPD (die reale SPD im historischen Ablauf, in beiden Spielen richtig)
 

@@ -6,7 +6,7 @@ view-if: wahlprogramm_seen = 0 and bundestag_dissolved = 1 and n_elections = 0
 max-visits: 1
 priority: 0
 on-arrival: wahlprogramm_seen = 1
-go-to: linke if player = "linke"
+go-to: linke if player = "linke"; spd if player = "spd"
 face-image: img/parteitag.jpg
 
 # SPD-spezifisch (Wahlprogramm und Parteitag). Setzt wahlkampf_thema.
@@ -14,6 +14,9 @@ face-image: img/parteitag.jpg
 # Steuerentlastung für 95 Prozent, Deutschlandfonds, Reform der Schuldenbremse, Mehrwertsteuer auf Lebensmittel 5 Prozent).
 
 = Womit gehen wir in den Wahlkampf?
+
+# Gemeinsame Kopfzeile oben; dieser Text nur im SPD-Spiel (die Engine zeigt den Text vor einem go-to an).
+@spd
 
 Für ein neues Programm bleiben nur wenige Wochen. Auf einem außerordentlichen Parteitag soll [+ spd_candidate +] offiziell nominiert und das Wahlprogramm beschlossen werden. Alle wollen alles hineinschreiben, doch eine Kampagne braucht ein Thema, das hängen bleibt.
 

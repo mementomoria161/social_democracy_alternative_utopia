@@ -7,7 +7,7 @@ max-visits: 1
 priority: 3
 on-arrival: ampel_aus_seen = 1
 face-image: img/reichstag_2.jpg
-go-to: linke if player = "linke"
+go-to: linke if player = "linke"; spd if player = "spd"
 
 # Prolog, Schritt 1 (November 2024): wird direkt aus root.intro_main bzw. root.intro_linke aufgerufen.
 # Linke: Unterszene @linke (der Termin ist der historische, die Linke entscheidet ihn nicht).
@@ -15,6 +15,9 @@ go-to: linke if player = "linke"
 # Historisch: Vertrauensfrage am 16.12.2024, Auflösung am 27.12.2024, Wahl am 23.02.2025.
 
 = Das Ende der Ampel
+
+# Gemeinsame Kopfzeile oben; dieser Text nur im SPD-Spiel (die Engine zeigt den Text vor einem go-to an).
+@spd
 
 # party-ok: SPD (die reale SPD im historischen Ablauf, in beiden Spielen richtig)
 

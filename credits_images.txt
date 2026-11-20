@@ -228,3 +228,15 @@ portraits/Pantisano.jpg: Fyrtaarn. „Luigi Pantisano 727igste Montagsdemo gegen
 karl_liebknecht_haus.jpg: Jörg Zägel. „Berlin, Mitte, Weydingerstrasse 14-16, Karl-Liebknecht-Haus.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Berlin,_Mitte,_Weydingerstrasse_14-16,_Karl-Liebknecht-Haus.jpg. Lizenz: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0
 
 linke_parteitag.jpg: Ferran Cornellà. „Hallescher Parteitag - Die Vorsitzenden 06.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Hallescher_Parteitag_-_Die_Vorsitzenden_06.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
+
+linke_infostand.jpg: Olaf Kosinsky. „2016-09-02 LINKE Rostock by Olaf Kosinsky-5.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2016-09-02_LINKE_Rostock_by_Olaf_Kosinsky-5.jpg. Lizenz: CC BY-SA 3.0 de https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+
+linke_wahlkampf.jpg: Steffen Prößdorf. „2025-01-30 Politik, Mission Silberlocke, Wahlkampf Die Linke; Dietmar Bartsch, Gregor Gysi und Bodo Ramelow in Erfurt STP 7862.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2025-01-30_Politik,_Mission_Silberlocke,_Wahlkampf_Die_Linke;_Dietmar_Bartsch,_Gregor_Gysi_und_Bodo_Ramelow_in_Erfurt_STP_7862.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
+
+linke_fraktion.jpg: Uwe Steinert (Fraktion DIE LINKE. im Bundestag). „Irak-Konferenz der Fraktion DIE LINKE. im Bundestag Foto Uwe Steinert (8568691064).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Irak-Konferenz_der_Fraktion_DIE_LINKE._im_Bundestag_Foto_Uwe_Steinert_(8568691064).jpg. Lizenz: CC BY 2.0 https://creativecommons.org/licenses/by/2.0
+
+mietendemo.jpg: Leonhard Lenz. „Mietenwahnsinn demonstration Berlin 2020-06-20 03.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Mietenwahnsinn_demonstration_Berlin_2020-06-20_03.jpg. Lizenz: CC0 http://creativecommons.org/publicdomain/zero/1.0/deed.en
+
+ostermarsch.jpg: Bernd.Brincken. „Ostermarsch Berlin 20180331 133450b.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Ostermarsch_Berlin_20180331_133450b.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
+
+bundesrat.jpg: Photo: Andreas Praefcke. „Bundesrat Plenarsaal 1.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesrat_Plenarsaal_1.jpg. Lizenz: CC BY 3.0 https://creativecommons.org/licenses/by/3.0

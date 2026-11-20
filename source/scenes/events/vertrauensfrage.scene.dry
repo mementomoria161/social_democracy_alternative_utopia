@@ -7,12 +7,15 @@ max-visits: 1
 priority: 0
 on-arrival: vertrauensfrage_seen = 1; bundestag_dissolved = 1
 face-image: img/bundestag_plenum.jpg
-go-to: linke if player = "linke"
+go-to: linke if player = "linke"; spd if player = "spd"
 
 # Prolog: Vertrauensfrage nach Art. 68 GG und Auflösung des Bundestags. Setzt bundestag_dissolved (Wahlkampf-Events).
 # Historisch (16.12.2024): 207 Ja, 394 Nein, 116 Enthaltungen; Auflösung durch Steinmeier am 27.12.2024.
 
 = Die Vertrauensfrage
+
+# Gemeinsame Kopfzeile oben; dieser Text nur im SPD-Spiel (die Engine zeigt den Text vor einem go-to an).
+@spd
 
 # party-ok: SPD (die reale SPD im historischen Ablauf, in beiden Spielen richtig)
 

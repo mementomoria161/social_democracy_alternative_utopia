@@ -136,11 +136,17 @@ go-to: menu
 
 **2009**: Mit 11,9 Prozent erzielt die Linke ihr bestes Bundestagsergebnis.
 
-**2014–2024**: Bodo Ramelow wird in Thüringen der erste Ministerpräsident der Linken; 2019 wird die Linke dort mit 31,0 Prozent stärkste Kraft. In Berlin, Brandenburg, Bremen und Mecklenburg-Vorpommern regiert sie mit.
+**2014–2024**: Bodo Ramelow wird in Thüringen der erste Ministerpräsident der Linken; 2019 wird die Linke dort mit 31,0 Prozent stärkste Kraft. In Berlin, Brandenburg, Bremen und Mecklenburg-Vorpommern regiert sie zeitweise mit.
 
 **2021**: Mit 4,9 Prozent scheitert die Linke an der Fünf-Prozent-Hürde, zieht aber dank drei Direktmandaten in Fraktionsstärke ein (Grundmandatsklausel).
 
-**2022–2024**: Russlands Überfall auf die Ukraine verschärft den Streit in der Partei. Im Oktober 2023 treten Sahra Wagenknecht und neun weitere Abgeordnete aus und gründen im Januar 2024 das BSW; die Bundestagsfraktion löst sich auf, übrig bleibt eine Gruppe. Bei der Europawahl im Juni 2024 kommt die Linke auf 2,7 Prozent. Im Oktober 2024 wählt der Parteitag in Halle Ines Schwerdtner und Jan van Aken zu Vorsitzenden.
+**2022–2024**: Russlands Überfall auf die Ukraine verschärft den Streit in der Partei. Im Oktober 2023 treten Sahra Wagenknecht und neun weitere Abgeordnete aus und gründen im Januar 2024 das BSW; die Bundestagsfraktion löst sich auf, übrig bleibt eine Gruppe. Bei der Europawahl im Juni 2024 kommt die Linke auf 2,7 Prozent.
+
+**September 2024**: Bei den Landtagswahlen im Osten bricht die Linke ein: In Thüringen stürzt sie von 31,0 auf 13,1 Prozent, Bodo Ramelow regiert nur noch geschäftsführend; in Sachsen bleibt sie mit 4,5 Prozent nur dank zweier Direktmandate im Landtag, in Brandenburg fliegt sie mit 3,0 Prozent hinaus.
+
+**Oktober 2024**: Der Parteitag in Halle wählt Ines Schwerdtner und Jan van Aken zu Vorsitzenden. Kurz darauf treten mehrere bekannte Berliner Linke, darunter der frühere Kultursenator Klaus Lederer, aus der Partei aus; sie werfen ihr einen zu laxen Umgang mit Antisemitismus vor.
+
+**6. November 2024**: Scholz entlässt Finanzminister Christian Lindner, die Ampel zerbricht. In den Umfragen liegt die Linke bei drei bis vier Prozent. Hier beginnt das Spiel.
 
 @demographics
 # party-ok: SPD (Wählergruppen der realen Parteien)
@@ -182,7 +188,7 @@ go-to: menu
 
 **Wahlprognose** (wenn am Sonntag Bundestagswahl wäre):
 
-SPD: [+ spd_votes +] %
+[+ pp_name +]: [+ spd_votes +] %
 
 [? if sapd_formed: Soziale Linke: [+ sapd_votes +] % ?]
 
@@ -194,7 +200,7 @@ AfD: [+ afd_votes +] %
 
 [+ gruene_name +]: [+ gruene_votes +] %
 
-Die Linke: [+ linke_votes +] %
+[+ op_name +]: [+ linke_votes +] %
 
 FDP: [+ fdp_votes +] %
 
@@ -204,17 +210,17 @@ Sonstige: [+ other_votes +] %
 
 **Ergebnisse nach Wählergruppen**
 
-Arbeitnehmer\*innen: SPD [+ workers_spd_display +] %, Union [+ workers_union_display +] %, AfD [+ workers_afd_display +] %, [+ gruene_name +] [+ workers_gruene_display +] %, Linke [+ workers_linke_display +] %, FDP [+ workers_fdp_display +] %, BSW [+ workers_bsw_display +] %, Sonstige [+ workers_other_display +] % [? if sapd_formed: Soziale Linke [+ workers_sapd_display +] % ?]
+Arbeitnehmer\*innen: [+ pp_name +] [+ workers_spd_display +] %, Union [+ workers_union_display +] %, AfD [+ workers_afd_display +] %, [+ gruene_name +] [+ workers_gruene_display +] %, [+ op_name +] [+ workers_linke_display +] %, FDP [+ workers_fdp_display +] %, BSW [+ workers_bsw_display +] %, Sonstige [+ workers_other_display +] % [? if sapd_formed: Soziale Linke [+ workers_sapd_display +] % ?]
 
-Akademische Mittelschicht: SPD [+ new_middle_spd_display +] %, Union [+ new_middle_union_display +] %, AfD [+ new_middle_afd_display +] %, [+ gruene_name +] [+ new_middle_gruene_display +] %, Linke [+ new_middle_linke_display +] %, FDP [+ new_middle_fdp_display +] %, BSW [+ new_middle_bsw_display +] %, Sonstige [+ new_middle_other_display +] % [? if sapd_formed: Soziale Linke [+ new_middle_sapd_display +] % ?]
+Akademische Mittelschicht: [+ pp_name +] [+ new_middle_spd_display +] %, Union [+ new_middle_union_display +] %, AfD [+ new_middle_afd_display +] %, [+ gruene_name +] [+ new_middle_gruene_display +] %, [+ op_name +] [+ new_middle_linke_display +] %, FDP [+ new_middle_fdp_display +] %, BSW [+ new_middle_bsw_display +] %, Sonstige [+ new_middle_other_display +] % [? if sapd_formed: Soziale Linke [+ new_middle_sapd_display +] % ?]
 
-Selbstständige & Mittelstand: SPD [+ old_middle_spd_display +] %, Union [+ old_middle_union_display +] %, AfD [+ old_middle_afd_display +] %, [+ gruene_name +] [+ old_middle_gruene_display +] %, Linke [+ old_middle_linke_display +] %, FDP [+ old_middle_fdp_display +] %, BSW [+ old_middle_bsw_display +] %, Sonstige [+ old_middle_other_display +] % [? if sapd_formed: Soziale Linke [+ old_middle_sapd_display +] % ?]
+Selbstständige & Mittelstand: [+ pp_name +] [+ old_middle_spd_display +] %, Union [+ old_middle_union_display +] %, AfD [+ old_middle_afd_display +] %, [+ gruene_name +] [+ old_middle_gruene_display +] %, [+ op_name +] [+ old_middle_linke_display +] %, FDP [+ old_middle_fdp_display +] %, BSW [+ old_middle_bsw_display +] %, Sonstige [+ old_middle_other_display +] % [? if sapd_formed: Soziale Linke [+ old_middle_sapd_display +] % ?]
 
-Ländlicher Raum: SPD [+ rural_spd_display +] %, Union [+ rural_union_display +] %, AfD [+ rural_afd_display +] %, [+ gruene_name +] [+ rural_gruene_display +] %, Linke [+ rural_linke_display +] %, FDP [+ rural_fdp_display +] %, BSW [+ rural_bsw_display +] %, Sonstige [+ rural_other_display +] % [? if sapd_formed: Soziale Linke [+ rural_sapd_display +] % ?]
+Ländlicher Raum: [+ pp_name +] [+ rural_spd_display +] %, Union [+ rural_union_display +] %, AfD [+ rural_afd_display +] %, [+ gruene_name +] [+ rural_gruene_display +] %, [+ op_name +] [+ rural_linke_display +] %, FDP [+ rural_fdp_display +] %, BSW [+ rural_bsw_display +] %, Sonstige [+ rural_other_display +] % [? if sapd_formed: Soziale Linke [+ rural_sapd_display +] % ?]
 
-Arbeitslose & Grundsicherung: SPD [+ unemployed_spd_display +] %, Union [+ unemployed_union_display +] %, AfD [+ unemployed_afd_display +] %, [+ gruene_name +] [+ unemployed_gruene_display +] %, Linke [+ unemployed_linke_display +] %, FDP [+ unemployed_fdp_display +] %, BSW [+ unemployed_bsw_display +] %, Sonstige [+ unemployed_other_display +] % [? if sapd_formed: Soziale Linke [+ unemployed_sapd_display +] % ?]
+Arbeitslose & Grundsicherung: [+ pp_name +] [+ unemployed_spd_display +] %, Union [+ unemployed_union_display +] %, AfD [+ unemployed_afd_display +] %, [+ gruene_name +] [+ unemployed_gruene_display +] %, [+ op_name +] [+ unemployed_linke_display +] %, FDP [+ unemployed_fdp_display +] %, BSW [+ unemployed_bsw_display +] %, Sonstige [+ unemployed_other_display +] % [? if sapd_formed: Soziale Linke [+ unemployed_sapd_display +] % ?]
 
-Rentner\*innen: SPD [+ rentner_spd_display +] %, Union [+ rentner_union_display +] %, AfD [+ rentner_afd_display +] %, [+ gruene_name +] [+ rentner_gruene_display +] %, Linke [+ rentner_linke_display +] %, FDP [+ rentner_fdp_display +] %, BSW [+ rentner_bsw_display +] %, Sonstige [+ rentner_other_display +] % [? if sapd_formed: Soziale Linke [+ rentner_sapd_display +] % ?]
+Rentner\*innen: [+ pp_name +] [+ rentner_spd_display +] %, Union [+ rentner_union_display +] %, AfD [+ rentner_afd_display +] %, [+ gruene_name +] [+ rentner_gruene_display +] %, [+ op_name +] [+ rentner_linke_display +] %, FDP [+ rentner_fdp_display +] %, BSW [+ rentner_bsw_display +] %, Sonstige [+ rentner_other_display +] % [? if sapd_formed: Soziale Linke [+ rentner_sapd_display +] % ?]
 
 @parties
 go-to: menu
@@ -569,4 +575,4 @@ Unmut: [+ reformist_dissent : dissent +]
 
 [? if neorevisionism > 0 : Linkskonservative Mitglieder, die dem BSW nicht gefolgt sind. Sie wollen Verhandlungen mit Russland, keine Waffenlieferungen und eine restriktivere Migrationspolitik. Stärke: [+ neorevisionist_strength : strength +], Unmut: [+ neorevisionist_dissent : dissent +] ?]
 
-Quer zu allen Strömungen verläuft der Streit um Nahost: Wo endet Kritik an der israelischen Regierung, wo beginnt Antisemitismus? Seit dem Parteitag in Chemnitz 2025 gilt die Jerusalemer Erklärung als Arbeitsdefinition. [? if palestine_debate >= 3 : Der Konflikt ist derzeit heftig und kostet die Partei Kraft. ?][? if palestine_debate >= 1 and palestine_debate < 3 : Der Konflikt schwelt. ?]
+Quer zu allen Strömungen verläuft der Streit um Nahost: Wo endet Kritik an der israelischen Regierung, wo beginnt Antisemitismus? [? if linke_parteitag_2025_seen : Seit dem Parteitag in Chemnitz gilt die Jerusalemer Erklärung als Arbeitsdefinition. ?] [? if palestine_debate >= 3 : Der Konflikt ist derzeit heftig und kostet die Partei Kraft. ?][? if palestine_debate >= 1 and palestine_debate < 3 : Der Konflikt schwelt. ?]

@@ -691,6 +691,7 @@ Q.bv_right = 0;
 // to the Palestine movement), Berlin-Wahl 2026 (berlin_2026: 0 = not yet, 1 = Linke strongest, 2 = Linke in a coalition, 3 = opposition)
 Q.haustuer_seen = 0; Q.mitgliederboom = 0; Q.neumitglieder_integriert = 0; Q.mietenkampagne = 0; Q.gehaltsdeckel = 0;
 Q.palestine_debate = 0; Q.palestine_stance = 0; Q.palestine_debate_seen = 0; Q.berlin_2026 = 0; Q.lk_sw_in = 0;
+Q.lk_prev_support = null; // Linke game: player support per group at the last month change (post_event, LK_GAIN)
 !}
 set-bg: img/map_2.jpg
 new-page: true
