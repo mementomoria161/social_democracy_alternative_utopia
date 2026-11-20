@@ -3,4 +3,5 @@
 (1..1) gering
 (2..2) mittel
 (3..3) hoch
-(4..) sehr hoch
+(4..4) sehr hoch
+(5..) kritisch

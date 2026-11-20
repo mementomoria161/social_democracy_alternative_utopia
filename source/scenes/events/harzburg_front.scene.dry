@@ -1,14 +1,14 @@
 title: Die Brandmauer wackelt
 subtitle: Rechte Kräfte schließen sich gegen die Regierung zusammen.
 new-page: true
-on-arrival: harzburg_front_seen = 1; brandmauer = 0; bauern_strength += 100; rechts_strength += 100; old_middle_afd += 5; unemployed_afd += 5; rural_afd += 5; nazi_urgency += 1; iron_front_timer = 0
+on-arrival: harzburg_front_seen = 1; brandmauer = 0 if union_party_leader == "Spahn" or union_relation < 35 or afd_r >= union_r + 12; bauern_strength += 100; rechts_strength += 100; old_middle_afd += 5; unemployed_afd += 5; rural_afd += 5; nazi_urgency += 1; iron_front_timer = 0
 tags: event
 view-if: (year = 2028 and month >= 10 and chancellor_party != "AfD") or (coup_progress >= 6)
 max-visits: 1
 
 = Die Brandmauer wackelt
 
-Bei einer Großkundgebung in Ostdeutschland treten AfD-Spitzen, Wortführer der Bauern- und Mittelstandsproteste und Aktivisten der rechten Straßenmobilisierung gemeinsam auf und erklären, die Regierung „mit allen Mitteln“ ablösen zu wollen. Kurz darauf wählt die CDU in einem Landtag mit den Stimmen der AfD einen Ministerpräsidenten. In der Bundes-Union fordern immer mehr Stimmen, die Brandmauer aufzugeben, und die Parteiführung widerspricht nur noch halbherzig.
+Bei einer Großkundgebung in Ostdeutschland treten AfD-Spitzen, Wortführer der Bauern- und Mittelstandsproteste und Aktivisten der rechten Straßenmobilisierung gemeinsam auf und erklären, die Regierung „mit allen Mitteln“ ablösen zu wollen. Kurz darauf wählt die CDU in einem Landtag mit den Stimmen der AfD einen Ministerpräsidenten. In der Bundes-Union fordern immer mehr Stimmen, die Brandmauer aufzugeben. [? if brandmauer == 0 : Die Parteiführung widerspricht nur noch halbherzig: Eine Zusammenarbeit mit der AfD im Bund ist nicht mehr ausgeschlossen. ?][? if brandmauer == 1 : Noch hält die Parteiführung dagegen und schließt jede Zusammenarbeit im Bund aus. Doch der Druck wächst. ?]
 
 - @strategy: Wir brauchen eine klare Strategie gegen die Rechte.
 - @confronting_nazis.iron_front: Wir müssen ein breites Bündnis für Demokratie schmieden!

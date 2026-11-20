@@ -2,7 +2,7 @@ title: Koalitionsbruch! Unser Partner will die Regierung platzen lassen.
 subtitle: Wir haben unsere Koalitionspartner zu sehr verärgert …
 new-page: true
 on-arrival: tried_supporting_linke = 0
-view-if: spd_in_government = 1 and ((in_grand_coalition = 1 or in_popular_front = 1 or in_minority_government = 1) and coalition_dissent >= 3) or (in_weimar_coalition = 1 and coalition_dissent >= 4) and spd_r < 50
+view-if: spd_in_government = 1 and year >= 2027 and (((in_grand_coalition = 1 or in_popular_front = 1 or in_minority_government = 1) and coalition_dissent >= 5) or (in_weimar_coalition = 1 and coalition_dissent >= 6)) and spd_r < 50
 tags: event
 go-to: vonc_menu
 

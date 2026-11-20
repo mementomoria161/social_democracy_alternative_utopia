@@ -1,167 +1,112 @@
+Bildnachweise für „Sozialdemokratie 2026“ (Port von Social Democracy: An Alternate History).
+Alle Bilder stammen von Wikimedia Commons und stehen unter freien Lizenzen (CC BY, CC BY-SA, CC0 oder gemeinfrei).
+Verwendet werden verkleinerte Fassungen (960 px Breite); die Bilder wurden sonst nicht verändert.
+Die Bildnachweise des Originalspiels (Weimarer Republik) wurden entfernt, da diese Bilder im Port nicht mehr verwendet werden.
 
+bankenviertel.jpg: Jorge Franganillo. „Frankfurt Bankenviertel (50569447522).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Frankfurt_Bankenviertel_(50569447522).jpg. Lizenz: CC BY 2.0 https://creativecommons.org/licenses/by/2.0
 
-= Images (general):
+boerse.jpg: Ank Kumar. „Frankfurt Stock Exchange (Ank Kumar) 04.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Frankfurt_Stock_Exchange_(Ank_Kumar)_04.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
-map.jpg, map_2.jpg: Anonymous. Meyers Blitz-Lexikon. English:  scanned by User:LA2 in September 2005, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:LA2-Blitz-0083.jpg. Accessed 3 Feb. 2024. Public Domain
+buendnis_demokratie.jpg: Lucas Werkmeister. „Demo gegen Rechts Berlin 2024-01-14 - Lucas Werkmeister - 5.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Demo_gegen_Rechts_Berlin_2024-01-14_-_Lucas_Werkmeister_-_5.jpg. Lizenz: CC BY 4.0 https://creativecommons.org/licenses/by/4.0
 
-reichstag_2.jpg: ---. Berlin, Reichstag, Verfassungsfeier. 11 Aug. 1932. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_102-13744,_Berlin,_Reichstag,_Verfassungsfeier.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+bundestag_plenum.jpg: Times. „Deutscher Bundestag Plenarsaal Seitenansicht.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Deutscher_Bundestag_Plenarsaal_Seitenansicht.jpg. Lizenz: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0
 
-reichstag_3.jpg: ---. Berlin, Sitzung Des Reichstages. 12 Sept. 1932. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_102-13850,_Berlin,_Sitzung_des_Reichstages.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+bundestagswahl.jpg: Steffen2. „Bundestagswahl 2025 Stimmzettel zur Bundestagswahl im Wahlkreis 261 Esslingen.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundestagswahl_2025_Stimmzettel_zur_Bundestagswahl_im_Wahlkreis_261_Esslingen.jpg. Lizenz: CC BY 4.0 https://creativecommons.org/licenses/by/4.0
 
-protest.jpg: ---. Berlin, Versammlung Der Republikaner. 7 July 1932. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_102-13624,_Berlin,_Versammlung_der_Republikaner.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+bundesversammlung.jpg: Berlinschneid. „Am Tag vor der Bundesversammlung auf dem Friedrich-Ebert-Platz.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Am_Tag_vor_der_Bundesversammlung_auf_dem_Friedrich-Ebert-Platz.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
-arbeiterbew.jpg: ---. Deutsch:  Köpfe Der Frühen Deutschen Arbeiterbewegung: Unknown dateUnknown date. scan (aus Sozialdemokratie im Wandel, S.27), Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Arbeiterbew.jpg. Public Domain
+csd.jpg: Leonhard Lenz. „Trucks of Christopher Street Day Berlin 2023-07-22 26.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Trucks_of_Christopher_Street_Day_Berlin_2023-07-22_26.jpg. Lizenz: CC0 http://creativecommons.org/publicdomain/zero/1.0/deed.en
 
-iron_front_rally.jpg: Berlin, Aufmarsch Der “Eisernen Front.” 3 Mar. 1932. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_102-13201A,_Berlin,_Aufmarsch_der_%22Eisernen_Front%22.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+demo_gegen_rechts.jpg: Lucas Werkmeister. „Demo gegen Rechts Berlin 2024-01-14 - Lucas Werkmeister - 2.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Demo_gegen_Rechts_Berlin_2024-01-14_-_Lucas_Werkmeister_-_2.jpg. Lizenz: CC BY 4.0 https://creativecommons.org/licenses/by/4.0
 
-blutmai_2.jpg: Berlin, Blutmai, Straßenbarrikade. 5 May 1929. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_B_145_Bild-P046278,_Berlin,_Blutmai,_Stra%C3%9Fenbarrikade.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+gegenprotest.jpg: Martin Heinlein / DIE LINKE. „Protest gegen die AfD im Bundestag (37190261554).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Protest_gegen_die_AfD_im_Bundestag_(37190261554).jpg. Lizenz: CC BY 2.0 https://creativecommons.org/licenses/by/2.0
 
-reichsbanner.jpg: Berlin, Kundgebung Des Reichsbanners Im Lustgarten. 3 Mar. 1928. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_102-05611,_Berlin,_Kundgebung_des_Reichsbanners_im_Lustgarten.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+international.jpg: Diliff. „European Parliament Strasbourg Hemicycle - Diliff.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:European_Parliament_Strasbourg_Hemicycle_-_Diliff.jpg. Lizenz: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0
 
-stahlhelm.jpg: Berlin, Lustgarten, Stahlhelmaufmarsch. 3 Mar. 1931. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_102-11416,_Berlin,_Lustgarten,_Stahlhelmaufmarsch.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+jobcenter.jpg: Sebastian Wallroth. „Agentur für Arbeit und Jobcenter Frankfurt (Oder) 2024 001.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Agentur_f%C3%BCr_Arbeit_und_Jobcenter_Frankfurt_(Oder)_2024_001.jpg. Lizenz: CC BY 4.0 https://creativecommons.org/licenses/by/4.0
 
-danat_bank.jpg: Ceccaldi, Julie. English:  Darmstädter Und Nationalbank KGaA (DANAT-Bank) Stock Certificate for 100 Reichsmark, Issued in October 1928 in Berlin. 4 Apr. 2023. „Sammlung Commodore“, Rüdiger K. Weng, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Darmstaedter_und_Nationalbank_1928.jpg.
+kabinett.jpg: Timbslip. „Kabinettssaal Bundeskanzleramt.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Kabinettssaal_Bundeskanzleramt.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
-mann_der_arbeit.jpg: credited, Poet: Georg Herwegh, artist not. Mann Der Arbeit, Aufgewacht! Und Erkenne Deine Macht! Alle Räder Stehen Still, Wenn Dein Starker Arm Es Will, Postkarte. Druck Und Verlag: Rauh Und Pohle, Leipzig. circa 1910date QS:P,+ - -00T00:00:00Z/9,P1480,Q5727902 1910. ebay, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Mann_der_Arbeit,_aufgewacht!_Postkarte,_c._1910.jpg. Public Domain
+kampfjet.jpg: Julian Herzog (Website). „30+68 German Air Force Eurofighter Typhoon EF2000 ILA Berlin 2016 06.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:30%2B68_German_Air_Force_Eurofighter_Typhoon_EF2000_ILA_Berlin_2016_06.jpg. Lizenz: CC BY 4.0 https://creativecommons.org/licenses/by/4.0
 
-zentrum.png: “File:Logo of the German Centre Party.Svg.” Wikipedia, 9 Dec. 2023. Wikipedia, https://en.wikipedia.org/w/index.php?title=File:Logo_of_the_German_Centre_Party.svg&oldid=1189025539. Public Domain
+kopenhagen.jpg: Moahim. „2018 - Christiansborg from the Marble Bridge.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2018_-_Christiansborg_from_the_Marble_Bridge.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
-freiheit_und_arbeit.jpg: Ganss [Verl, Unknown authorUnknown authorHeedt &. English:  Freiheit Und Arbeit! [Mit Dem Symbol Der “Eisernen Front” Über Dem Hakenkreuz]. Darmstadt: Heedt & Ganss, [1932]. 1932. http://tudigit.ulb.tu-darmstadt.de/show/Plak10_02, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Freiheit_und_Arbeit!_(Mit_dem_Symbol_der_%22Eisernen_Front%22_%C3%BCber_dem_Hakenkreuz).jpg. Public Domain
+kundgebung.jpg: Magnussen, Friedrich (1914-1987). „Maikundgebung des Deutschen Gewerkschaftsbundes (DGB) (Kiel 66.004).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Maikundgebung_des_Deutschen_Gewerkschaftsbundes_(DGB)_(Kiel_66.004).jpg. Lizenz: CC BY-SA 3.0 de https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
 
-international.jpg: ---. Français :  Drapeau Genevois de l’Association Internationale Des Travailleurs. 1 Jan. 1864. https://bge-geneve.ch/iconographie/oeuvre/vg-1131317, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Drapeau_genevois_de_l%27Association_Internationale_des_travailleurs.png. Public Domain
+map_2.jpg: Botaurus-stellaris. „Deutschland topo.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Deutschland_topo.jpg. Lizenz: CC BY-SA 3.0 http://creativecommons.org/licenses/by-sa/3.0/
 
-sapd.jpg: Giannisfl. Das Logo von SAP. 25 Dec. 2022. https://imgur.com/gallery/bQejNsc, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Sozialistische_Arbeiterpartei_Deutschlands-01.svg. CC-BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0/deed.en
+medien.jpg: Ansgar Koreng. „141101 Haus der Bundespressekonferenz.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:141101_Haus_der_Bundespressekonferenz.jpg. Lizenz: CC BY-SA 3.0 de https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
 
-spartakus.jpg: Leipzig, Verlag J. J. Weber in. Deutsch:  Barrikade Während Des Spartakusaufstandes. 12 Jan. 1919. Illustrirte Zeitung, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Spartakusaufstand_Barrikaden.jpg. Public Domain
+ortsverein.jpg: Nicor. „Eschelbronn Bank SPD-Ortsverein 01.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Eschelbronn_Bank_SPD-Ortsverein_01.jpg. Lizenz: CC BY 3.0 https://creativecommons.org/licenses/by/3.0
 
-workers.jpg: Marcus, Otto. Français :  "Prolétaires de Tous Les Pays, Unissez-Vous! 1901. http://cjouneau1.free.fr/4eme/mvt_ouvriers/socialisme.html, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Proletarier_aller_L%C3%A4nder,_vereinigt_euch_(cropped).jpg. Public Domain
+parteifinanzen.jpg: Christoph Scholz. „Euro-Geld auf Scheinen und Banknoten - 1 Euro Fokus mit Stapel.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Euro-Geld_auf_Scheinen_und_Banknoten_-_1_Euro_Fokus_mit_Stapel.jpg. Lizenz: CC BY-SA 2.0 https://creativecommons.org/licenses/by-sa/2.0
 
-reichsbanner_flag.jpg: Michel, Der. Flagge Des Reichsbanners Schwarz-Rot-Gold, Bund Aktiver Demokraten. 15 June 2013. Own work, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Flagge_Reichsbanner_2013.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/deed.en
+parteitag.jpg: Moritz Kosinsky. „SPD Bundesparteitag Leipzig 2013 by Moritz Kosinsky 121.JPG“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:SPD_Bundesparteitag_Leipzig_2013_by_Moritz_Kosinsky_121.JPG. Lizenz: CC BY-SA 3.0 de https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
 
-bankrun.jpg: Berlin, Bankenkrach, Andrang Bei Der Sparkasse. 13 July 1931. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_102-12023,_Berlin,_Bankenkrach,_Andrang_bei_der_Sparkasse.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+plakatwand.jpg: Mictlancihuatl. „Wahlplakate für Volt Partei Bonn 2021.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Wahlplakate_f%C3%BCr_Volt_Partei_Bonn_2021.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
-spd_logo.jpg: Nicklaarakkers. Deutsch:  Selbst Gemacht Logo Der SPD in Den 1930er Jahren. 15 June 2008. Own work, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Sozialdemokratische_Partei_Deutschlands,_Logo_um_1930.jpg. Public Domain
+portraits/Bas.jpg: Fotografin des Bildes ist Angelika Kohlmeier, uneingeschränktes Nutzungsrecht liegt dem Büro Bärbel Bas vor. „BaerbelBas.JPG“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:BaerbelBas.JPG. Lizenz: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0
 
-panzerkreuzer.jpg: Seized, 1675-1958, Heinrich Hoffman Collection, U. S. National Archives Collection of Foreign Records. The German “Pocket Battleship” Deutschland with Her Crew Manning the Rails, 1935. This Ship Was Reclassified as a Heavy Cruiser and Renamed Lützow in 1939. 1935. Photograph 242-HB-14598a34 from the Hoffman collection in the U.S. National Archives from the U.S. Navy Naval History and Heritage Command, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:German_cruiser_Deutschland_in_1935.jpg. Public Domain
+portraits/Drossmann.jpg: photothek.net. „Falko Droßmann (2021).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Falko_Dro%C3%9Fmann_(2021).jpg. Lizenz: CC BY 4.0 https://creativecommons.org/licenses/by/4.0
 
-blutmai.jpg: Sturkow. Berlin, Mai-Unruhen. 5 May 1929. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_102-07717,_Berlin,_Mai-Unruhen.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+portraits/Esken.jpg: Olaf Kosinsky. „2019-09-10 SPD Regionalkonferenz Team Esken Walter-Borjans by OlafKosinsky MG 0453 (cropped).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2019-09-10_SPD_Regionalkonferenz_Team_Esken_Walter-Borjans_by_OlafKosinsky_MG_0453_(cropped).jpg. Lizenz: CC BY-SA 3.0 de https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
 
-comintern_logo.png: Thespoondragon. English:  Logo of the Comintern World Congress, Based on the Photo on This Page: Http://Www.Orlandofiges.Info/section13_RevolutionforExport/TheComintern.Php  Similar Logo: Https://Www.Pikfox.Com/Media/Bubevp1BiG5. 3 Oct. 2018. Own work, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Comintern_Logo.svg. CC-BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0/deed.en
+portraits/Fiedler.jpg: Kennycolis. „FiedlerinMülheim.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:FiedlerinM%C3%BClheim.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
-reichstag_1.jpg: Unknown. Berlin, Reichstag, Reichsgründungsfeier. Jan. 1931. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_102-11057A,_Berlin,_Reichstag,_Reichsgr%C3%BCndungsfeier.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+portraits/Grote.jpg: Sandro Halank, Wikimedia Commons. „2018-09-26 Andy Grote (WLP Hamburg) by Sandro Halank–2.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2018-09-26_Andy_Grote_(WLP_Hamburg)_by_Sandro_Halank%E2%80%932.jpg. Lizenz: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0
 
-flags.jpg: UnknownUnknown. Berlin, Maidemonstration Der SPD. 1 May 1930. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_102-09700,_Berlin,_Maidemonstration_der_SPD.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+portraits/Heil.jpg: Olaf Kosinsky. „2020-07-02 Bundesminister Hubertus Heil by OlafKosinsky MG 1922.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2020-07-02_Bundesminister_Hubertus_Heil_by_OlafKosinsky_MG_1922.jpg. Lizenz: CC BY-SA 3.0 de https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
 
-reichsbanner_2.jpg: Verfassungsfeier, Hörsing Vor Dem Berliner Schloss. 11 Aug. 1929. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_102-08218,_Verfassungsfeier,_H%C3%B6rsing_vor_dem_Berliner_Schloss.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+portraits/Hubertz.jpg: Sandro Halank, Wikimedia Commons. „2025-05-05 Unterzeichnung des Koalitionsvertrages der 21. Wahlperiode des Bundestages by Sandro Halank–034.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2025-05-05_Unterzeichnung_des_Koalitionsvertrages_der_21._Wahlperiode_des_Bundestages_by_Sandro_Halank%E2%80%93034.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
-iron_front.png: Warddr, FusslkoppSVG-version made by. Symbol of the Iron Front. 17 Oct. 2004. http://de.wikipedia.org/wiki/Bild:Eiserne_Front_Symbol.png, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Eiserne_Front_Symbol.svg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/deed.en
+portraits/Hubig.jpg: Sven Teschke. „2016-11-17 - Stefanie Hubig - 0363.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2016-11-17_-_Stefanie_Hubig_-_0363.jpg. Lizenz: CC BY-SA 3.0 de https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
 
-kpd.jpg: Weinrother, Carl. Berlin, Liebknecht-Haus Am Bülowplatz. 1932date QS:P571,+ - -00T00:00:00Z/9 1932. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_B_145_Bild-P046279,_Berlin,_Liebknecht-Haus_am_B%C3%BClowplatz.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+portraits/Klingbeil.jpg: Raimond Spekking. „Wahlkampf Landtagswahl NRW 2022 - SPD - Roncalliplatz Köln 2022-05-13-4265 (cropped).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Wahlkampf_Landtagswahl_NRW_2022_-_SPD_-_Roncalliplatz_K%C3%B6ln_2022-05-13-4265_(cropped).jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
-union_2.jpg: Werbekarte Des Deutschen Holzarbeiterverbands. 1900. Self-scanned, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Deutscher_Holzarbeiter_Verband_Werbekarte_um_1900.jpg. Public Domain
+portraits/Kluessendorf.jpg: Antonwww23. „Foto Tim Klüssendorf (cropped).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Foto_Tim_Kl%C3%BCssendorf_(cropped).jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
-rfkb_logo.png: РОСТа“, Пётр Лидов, Telegram-канал „Окна. Русский:  Членские Знаки Союза Красных Фронтовиков Делятся На Два Типа: 31 Jan. 2023. https://t.me/okna_rosta, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesabzeichen_1924-1926.png. Public Domain
+portraits/Kuehnert.jpg: photothek.net. „Kevin Kühnert (2021) (cropped).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Kevin_K%C3%BChnert_(2021)_(cropped).jpg. Lizenz: CC BY 4.0 https://creativecommons.org/licenses/by/4.0
 
-redfront.jpg: author, Unknown authorUnknown. Berlin, Pfingstreffen Der Rot-Front-Kämpfer. 5 May 1928. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_102-05977,_Berlin,_Pfingstreffen_der_Rot-Front-K%C3%A4mpfer.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+portraits/Merz.jpg: Steffen Prößdorf. „2024-08-21 Friedrich Merz in Erfurt 2024 STP 3041 by Stepro (3x4 cropped).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2024-08-21_Friedrich_Merz_in_Erfurt_2024_STP_3041_by_Stepro_(3x4_cropped).jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
-generalstrike.jpg: ---. Vorwärts1918. photo, 26 Mar. 2013. Flickr, https://www.flickr.com/photos/s-t-r-e-e-t-l-i-v-e/8593159825/. CC-BY-ND 2.0 https://creativecommons.org/licenses/by-nd/2.0/
+portraits/Midyatli.jpg: Gerd Seidel (Rob Irgendwer). „1940-ri-171-Serpil Midyatli SPD.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:1940-ri-171-Serpil_Midyatli_SPD.jpg. Lizenz: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0
 
-hirschfeld.jpg: author, Unknown. From Left, Bernhardt (Bernard) Schapiro, Magnus Hirschfeld, Tao Lee. Location Berlin, Germany. circa 1920. https://collections.ushmm.org/search/catalog/pa1136956, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bernhard_Schapiro,_Magnus_Hirschfeld,_Tao_Lee.jpg. Public Domain
+portraits/Miersch.jpg: Foto-AG Gymnasium Melle. „Miersch, Matthias-8903.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Miersch,_Matthias-8903.jpg. Lizenz: CC BY 3.0 https://creativecommons.org/licenses/by/3.0
 
+portraits/Muetzenich.jpg: Olaf Kosinsky. „Rolf Mützenich.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Rolf_M%C3%BCtzenich.jpg. Lizenz: CC BY-SA 3.0 de https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
 
-= Images (posters):
+portraits/Pistorius.jpg: Sandro Halank, Wikimedia Commons. „2025-05-05 Unterzeichnung des Koalitionsvertrages der 21. Wahlperiode des Bundestages by Sandro Halank–036.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2025-05-05_Unterzeichnung_des_Koalitionsvertrages_der_21._Wahlperiode_des_Bundestages_by_Sandro_Halank%E2%80%93036.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
-poster_3.jpg: ---. English:  Liste 2 [Zwei]. Wählt Sozialdemokraten. [Mit Dem Symbol Der Eisernen Front]. Berlin: Kriedemann, [1932]. 1932. http://tudigit.ulb.tu-darmstadt.de/show/Plak12_27, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Liste_2._W%C3%A4hlt_Sozialdemokraten.jpg. Public Domain
+portraits/Rehlinger.jpg: Sandro Halank, Wikimedia Commons. „2022-03-27 Wahlabend Saarland by Sandro Halank–061 (cropped).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2022-03-27_Wahlabend_Saarland_by_Sandro_Halank%E2%80%93061_(cropped).jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
-weimar_coalition.jpg: CDU. Unter Diesen Farben Für  Einheit Freiheit Vaterland!  Wählt:  Sozialdemokraten  Oder  Demokraten  Oder  Zentrum!Abbildung:Schwarz-Rot-Goldene Fahne Mit  AdlermotivKommentar:Reichstagswahl 1924Plakatart:Motiv-/TextplakatKünstler_Grafiker:H. Klaer-G.Drucker_Druckart_Druckort:Offsetdruck Hermann Baswitz, Berlin S 42Objekt-Signatur:10-043 : 8Bestand:Plakatsammlung Weimarer Republik/NS-Zeit (10-043)GliederungBestand10-18:ZentrumLizenz:KAS/ACDP 10-043 : 8 CC-BY-SA 3.0 DE. 1924. This file was provided to Wikimedia Commons by the Konrad-Adenauer-Stiftung, a German political foundation, as part of a cooperation project., Wikimedia Commons, https://commons.wikimedia.org/wiki/File:KAS-Weimarer_Koalition-Bild-15731-1.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+portraits/Rosenthal.jpg: Erdbeerbluetexxx. „Portrait Jessica Rosenthal.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Portrait_Jessica_Rosenthal.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
-weimar_coalition_2.jpg: CDU. Helft Aufbauen! Wählt: Sozialdemokraten, Demokraten, Zentrum!Abbildung:Strichmännchen Richten Aus Trümmern  Vor Aufgehender Strahlender Sonne  Bauklötze in Nationalfarben aufKommentar:Datum Unsicher; Weitere Plakate von H. Klaer-G. Siehe: 10-043:008, 10-043:009, 10-043:010Plakatart:Motiv-/TextplakatKünstler_Grafiker:H. Klaer-G.Drucker_Druckart_Druckort:Offsetdruck Hermann Baswitz, BerlinObjekt-Signatur:10-043 : 20Bestand:Plakatsammlung Weimarer Republik/NS-Zeit (10-043)GliederungBestand10-18:ZentrumLizenz:KAS/ACDP 10-043 : 20 CC-BY-SA 3.0 DE. 1924. This file was provided to Wikimedia Commons by the Konrad-Adenauer-Stiftung, a German political foundation, as part of a cooperation project., Wikimedia Commons, https://commons.wikimedia.org/wiki/File:KAS-Wiederaufbau-Bild-35026-1.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+portraits/Schwesig.jpg: Dr. Frank Gaeth. „Manuela Schwesig 2023.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Manuela_Schwesig_2023.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
-zentrum_poster.jpg: ---. Wählt  Die Führer Der Deutschen Zentrumspartei Die Männer Der Tat Der Wahrheit Und Der Verantwortung Die Bürgen Des Aufbaues Die Gegner Der Phrase Und Der Radikalen Verhetzung Des Volkes! Wählt Liste 3 (Zentrumspartei)Abbildung:PorträtzeichnungenPlakatart:Kandidaten-/Personenplakat Mit PorträtDrucker_Druckart_Druckort:Görres-Druckerei (Koblenzer Volkszeitung)Objekt-Signatur:10-043 : 2Bestand:Plakatsammlung Weimarer Republik/NS-Zeit (10-043)GliederungBestand10-18:ZentrumLizenz:KAS/ACDP 10-043 : 2 CC-BY-SA 3.0 DE. 1930. This file was provided to Wikimedia Commons by the Konrad-Adenauer-Stiftung, a German political foundation, as part of a cooperation project. Deutsch | English | français | македонски | русский | +/−, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:KAS-Br%C3%BCning,_Heinrich_Kaas,_Ludwig-Bild-15724-1.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+portraits/Stegner.jpg: Olaf Kosinsky. „2019-09-10 SPD Regionalkonferenz Ralf Stegner by OlafKosinsky MG 2444.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2019-09-10_SPD_Regionalkonferenz_Ralf_Stegner_by_OlafKosinsky_MG_2444.jpg. Lizenz: CC BY-SA 3.0 de https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
 
-zentrum_poster_2.jpg: ---. Zurück Zu Brüning Gegen Brudermord Für Ordnung u. Aufbau . Arbeit Und Brot 4 Liste 4Abbildung:Porträtzeichnung, Arbeiter, Pflügender Bauer, FamilieKommentar:Das Plakat Liegt Nur Als Kleinbilddia von Schlechter Bildqualität Vor.Plakatart:Kandidaten-/Personenplakat Mit PorträtObjekt-Signatur:10-043 : 1Bestand:Plakatsammlung Weimarer Republik/NS-Zeit (10-043)GliederungBestand10-18:ZentrumLizenz:KAS/ACDP 10-043 : 1 CC-BY-SA 3.0 DE. This file was provided to Wikimedia Commons by the Konrad-Adenauer-Stiftung, a German political foundation, as part of a cooperation project. Deutsch | English | français | македонски | русский | +/−, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:KAS-Br%C3%BCning,_Heinrich-Bild-15720-1.jpg. Accessed 4 Feb. 2024. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+portraits/Suedekum.jpg: Raimond Spekking. „Hart aber fair 2023-08-21-40219.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Hart_aber_fair_2023-08-21-40219.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
-1932-kpd.jpg: Deni, Viktor. Русский:  Постер КПГ «Конец Этой Системе». Mk:Податотека:1932-Kpd.Jpg. 1932. http://www.lsg.musin.de/Geschichte/Quellen/Plakate/Plakate%20-%20Weimar/plakate_zur_geschichte_der_weima.htm, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:1932-kpd.jpg. Public Domain
+portraits/Tuermer.jpg: Gabriel Hanika. „Philipp Türmer Portrait.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Philipp_T%C3%BCrmer_Portrait.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
-poster_4.jpg: Deutsch:  Schützt Eure Demokratischen Volksrechte – Wählt Liste 2 – Sozialdemokratie. 1932. https://www.baden18-45.de/filter/sozialdemokratische-partei-deutschlands-spd/ (Baden 1918 bis 1945 Das Geschichtsportal des projekts Lernort Kislau), Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Sch%C3%BCtz_Eure_demokratischen_Volksrechte_W%C3%A4hlt_Liste_2_Sozialdemokratie_Wahlplakat_Anti-Faschismus_SPD_1932-11-06_Plakat_SPD_Volksrechte_StadtA_MA_P_318_01_Social_Democratic_Party_Anti-nazi-communist_election_poster_Unknown_artist_No.jpg. CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0/deed.en
+portraits/Wiese.jpg: Steffen Prößdorf. „2020-02-13 Deutscher Bundestag IMG 3039 by Stepro.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2020-02-13_Deutscher_Bundestag_IMG_3039_by_Stepro.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
-Vorwaerts_nr_1.png: de.wikipedia, User Akl on. Beschreibung: Titelseite Des de:Vorwärts Vom 1. Oktober 1876 (Erstausgabe). 19 June 2006. Originally from de.wikipedia; description page is (was) here 21:58, 12. Apr 2004 Akl 445 x 600 (100.894 Byte) (Titelseite des [[:de:Vorwärts]] vom 1. Oktober 1876 (Erstausgabe), Urheberrechte abgelaufen), Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Vorwaerts_nr_1.png. Public Domain
+portraits/Woidke.jpg: Olaf Kosinsky. „2017-03-19 Dietmar Woidke SPD Parteitag by Olaf Kosinsky-1.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2017-03-19_Dietmar_Woidke_SPD_Parteitag_by_Olaf_Kosinsky-1.jpg. Lizenz: CC BY-SA 3.0 de https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
 
-kpd_2.jpg: Druckwerkstätten [Verl, Unknown authorUnknown authorSchneller, Ernst; Neue. English:  Rote Einheitsfront Unter Führung Der KPD. Arbeit, Brot, Freiheit, Sozialismus Gegen Imperialistischen Krieg. Wählt Thälmann. Hrsg. Und Verantwortlich: Ernst Schneller, Berlin; Sign.: W [Entwurf]. Leipzig: Neue Druckwerkstätten [1932]. 1932. http://tudigit.ulb.tu-darmstadt.de/show/Plak12_13, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Rote_Einheitsfront_unter_F%C3%BChrung_der_KPD._Arbeit,_Brot,_Freiheit,_Sozialismus_gegen_imperialistischen_Krieg.jpg. Public Domain
+reichstag_2.jpg: Jörg Braukmann. „Reichstagsgebäude (Westfassade).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Reichstagsgeb%C3%A4ude_(Westfassade).jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
-1925_Workers'_Summer_Olympiad_poster.jpg: “File:1925 Workers’ Summer Olympiad Poster.Jpg.” Wikipedia, 4 Jan. 2021. Wikipedia, https://en.wikipedia.org/w/index.php?title=File:1925_Workers%27_Summer_Olympiad_poster.jpg&oldid=998175748. Public Domain
+sozialstaat.jpg: Klugschnacker. „2005-09-29, Stralsund, Logo Deutsche Rentenversicherung am Gebäude der Deutschen Rentenversicherung Bund.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2005-09-29,_Stralsund,_Logo_Deutsche_Rentenversicherung_am_Geb%C3%A4ude_der_Deutschen_Rentenversicherung_Bund.jpg. Lizenz: CC BY 2.5 https://creativecommons.org/licenses/by/2.5
 
-poster_2.jpg: File:Plakat Sozialdemokraten 1928.Jpg - Wikimedia Commons. https://commons.wikimedia.org/wiki/File:Plakat_Sozialdemokraten_1928.jpg. Accessed 3 Feb. 2024. Public Domain
+spd_fraktion.jpg: ireas. „2014-09-09 0961 Sitzungssaal SPD-Bundestagsfraktion.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2014-09-09_0961_Sitzungssaal_SPD-Bundestagsfraktion.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
-THree_Arrows_election_poster.png: Fritz, Plakatsammlung Karl. English:  Election Poster of the Social Democratic Party of Germany, 1932, with Three Arrows Symbol Representing Resistance against Reactionary Conservatism, Nazism and Communism, with the Slogan “Gegen [Against] Papen, Hitler, Thälmann.” 23 Mar. 2021. https://www.europeana.eu/en/item/00735/plink__f_5_197016, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Three_Arrows_election_poster_of_the_Social_Democratic_Party_of_Germany,_1932_-_Gegen_Papen,_Hitler,_Th%C3%A4lmann.png. CC-BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0/deed.en
+streik.jpg: Frank Vincentz. „Witten - IG Metall Warnstreik 2012 07 ies.JPG“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Witten_-_IG_Metall_Warnstreik_2012_07_ies.JPG. Lizenz: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0
 
-poster_0.jpg: Kirchbach, Design Fritz Gottfried. English:  Gleiche Rechte Gleiche Pflichten. German Social Democrat Party Election Poster 1919. 1919. http://www.dhm.de/ausstellungen/grundrechte/kap1_2.htm, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Gleiche_Rechte_Gleiche_Pflichten,_social_democrat_party_poster_1919.jpg. Public Domain
+synagoge.jpg: Ansgar Koreng. „Neue Synagoge, Berlin-Mitte, 160328, ako.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Neue_Synagoge,_Berlin-Mitte,_160328,_ako.jpg. Lizenz: CC BY 3.0 de https://creativecommons.org/licenses/by/3.0/de/deed.en
 
-braun.jpg: Kirchbach, Poster artist: Fritz Gottfried. Plakat Der SPD Zur Reichstagswahl. 3 Mar. 1925. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_102-01196,_Plakat_der_SPD_zur_Reichstagswahl.jpg. Public Domain
+traktorblockade.jpg: H-stt. „München Bauernproteste 2024-01-08 2043.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:M%C3%BCnchen_Bauernproteste_2024-01-08_2043.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
-vorwarts_2.jpg: Julie Wolfthorn - VORWÄRTS. Mark 1,10 pro Monat; Frei Ins Haus. Farblithographie, 1360 Mm x 930 Mm, Vor 1902, Druck: Kunstanstalt Hollerbaum & Schmidt, Berlin. before 1902date QS:P,+ - -00T00:00:00Z/7,P1326,+1902-00-00T00:00:00Z/9 1902. http://www.kulturpool.at/plugins/kulturpool/showitem.action?itemId=4296109451, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Julie_Wolfthorn_-_VORW%C3%84RTS._Mark_1,10_pro_Monat;_frei_ins_Haus.jpg. Public Domain
+volkspartei.jpg: Ansgar Koreng. „Willy-Brandt-Haus (Berlin), 151024, ako.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Willy-Brandt-Haus_(Berlin),_151024,_ako.jpg. Lizenz: CC BY-SA 3.0 de https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
 
-sangerbund.jpg: Reibetantz, Curt. Deutsch:  Plakat von Curt Reibetantz Für Das Erste Deutsche Arbeitersängerbundesfest Vom 16. Bis 18. Juni 1928 in Hannover. Mehrfarbdruck Durch Die Buchdruckerwerkstätte GmbH in Berlin in Den Maßen 88 x 59,2 Cm ... 1929. https://www.plakatkontor.de/plakatkatalog-14/nr-70---77/index.html, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:1928_Curt_Reibetantz_Plakat_Hannover_1928_Erstes_Deutsches_Arbeiter_S%C3%A4ngerbundesfest.jpg. Public Domain
+wahlkampf.jpg: PantheraLeo1359531. „Wahlkampf zur Bundestagswahl 2025 in der Hofer Altstadt 20250208 HOF3325 RAW-Export cens.png“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Wahlkampf_zur_Bundestagswahl_2025_in_der_Hofer_Altstadt_20250208_HOF3325_RAW-Export_cens.png. Lizenz: CC BY 4.0 https://creativecommons.org/licenses/by/4.0
 
-poster_1.png: Riemer, Walter. English:  “Worker, Open Your Eyes!” Workers Are Supposed to Become Political Active to Defend Social Democracy against Forces from the Left (Communist, USPD) and the Right (Monarchist, Militarisitc). 1 Jan. 1919. href="http://digital.slub-dresden.de/id446234842-19210090", Wikimedia Commons, https://commons.wikimedia.org/wiki/File:SPD-1919--Wahlwerbung-Walter-Riemer.png. CC-BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0/deed.en
-
-hindenburg_election.jpg: UnknownUnknown. For Documentary Purposes the German Federal Archive Often Retained the Original Image Captions, Which May Be Erroneous, Biased, Obsolete or Politically Extreme. Berlin, Wahlplakat Für Hindenburg. 3 Mar. 1932. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-R99203,_Berlin,_Wahlplakat_f%C3%BCr_Hindenburg.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
-
-
-= Images (People)
-
-ThälmannErnst.jpg: Agence de presse Meurisse. German Politician Ernst Thälmann (1886-1944). 1932. Bibliothèque nationale de France, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Ernst_Th%C3%A4lmann_1932.jpg. Public Domain
-
-CrispienArthur.jpg: author, Unknown authorUnknown. Arthur Crispien. 13 Oct. 1931. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Arthur_Crispien_crop.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
-
-MüllerHermann.jpg: ---. Hermann Müller. 1928date QS:P571,+ - -00T00:00:00Z/9 1928. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_146-1979-122-28A,_Hermann_M%C3%BCller.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
-
-BraunOtto.jpg: ---. Otto Braun Und Rudolf Breitscheid. 4 Apr. 1932. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_102-13412,_Otto_Braun_und_Rudolf_Breitscheid.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
-
-WelsOtto.jpg: ---. Otto Wels [1873 - 1939], Deutscher Politiker (SPD). 22 Nov. 2006. http://germanhistorydocs.ghi-dc.org/images/highres_10002240%20copy.jpg, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Ottowelsportait.jpg. CC-BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0/deed.en
-
-BaadeFritz.jpg: “BaadeFritz.jpg.” Wikipedia, 5 Apr. 2012. Wikipedia, https://de.wikipedia.org/w/index.php?title=Datei:BaadeFritz.jpg&oldid=101696578.  Public Domain
-
-BreitscheidRudolf.jpg: “BreitscheidRudolf.jpg.” Wikipedia, 28 Mar. 2013. Wikipedia, https://de.wikipedia.org/w/index.php?title=Datei:BreitscheidRudolf.jpg&oldid=116089615. Public Domain
-
-KautskyKarl.jpg: Collection, George Grantham Bain. English:  German Marxist Karl Kautsky (1884-1938). Unrecorded. This image  is available from the United States Library of Congress’s Prints and Photographs division under the digital ID ggbain.30969., Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Karl_Kautsky_01.jpg. Public Domain
-
-LeberJulius.jpg: “Datei:LeberJulius.jpg.” Wikipedia, 7 Jan. 2024. Wikipedia, https://de.wikipedia.org/w/index.php?title=Datei:LeberJulius.jpg&oldid=240958104. Public Domain
-
-MierendorffCarlo.jpg: “Datei:MierendorffCarlo.jpg.” Wikipedia, 24 Feb. 2010. Wikipedia, https://de.wikipedia.org/w/index.php?title=Datei:MierendorffCarlo.jpg&oldid=71088897. Public Domain
-
-RosenfeldKurt.jpg: “Datei:RosenfeldKurt.jpg.” Wikipedia, 18 Aug. 2011. Wikipedia, https://de.wikipedia.org/w/index.php?title=Datei:RosenfeldKurt.jpg&oldid=92597570. Public Domain
-
-HilferdingRudolf.jpg: “HilferdingRudolf.jpg.” Wikipedia, 31 Jan. 2018. Wikipedia, https://de.wikipedia.org/w/index.php?title=Datei:HilferdingRudolf.jpg&oldid=173508706. Public Domain
-
-PfülfAntonie.jpg: Kester, Philipp. Fotografie von Toni Pfülf. Unknown. Münchner Stadtmuseum, Sammlung Fotografie, Archiv Kester, Inv. Nr. FM-87/61.053.2, Ankauf 1987, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Philipp_Kester,_Toni_Pf%C3%BClf.jpg. CC-BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0/deed.en
-
-SchumacherKurt.jpg: OCCW, US Army photographers on behalf of the OUSCCPAC or its successor organisation, the. English:  Former Concentration Camp Inmate Kurt Schumacher as a Witness during the Nuremberg Trials. between   and 1948date QS:P,+1945- -00T00:00:00Z/8,P1319,+1945-00-00T00:00:00Z/9,P1326,+1948-00-00T00:00:00Z/9 1945. https://forum.axishistory.com/viewtopic.php?p=1142184#p1142184, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:K.Schumacher.jpg. Public Domain
-
-muller_cabinet.jpg: Ruge, Willi. Kabinett Müller. 6 June 1928. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_146-1986-014-10,_Kabinett_M%C3%BCller.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
-
-JuchaczMarie.jpg: Saracleg. Español:  Marie Juchacz En 1919. 28 Jan. 2022. Own work, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:JuchaczMarie.jpg. CC-BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0/deed.en
-
-SchleicherKurt.jpg: Sennecke, Robert. El General Kurt von Scheleicher En 1932. 1932. Bibliothèque nationale de France, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:KurtVonScheleicherEn1932.jpeg. Public Domain
-
-AufhäuserSiegfried.jpg: “Siegfried Aufhäuser 1928.jpg.” Wikipedia, 6 Nov. 2023. Wikipedia, https://de.wikipedia.org/w/index.php?title=Datei:Siegfried_Aufh%C3%A4user_1928.jpg&oldid=238853315. Public Domain
-
-SenderToni.jpg: S-T-R-E-E-T-L-I-V-E. Toni-Sender. photo, 26 Mar. 2013. Flickr, https://www.flickr.com/photos/s-t-r-e-e-t-l-i-v-e/8593056537/. CC-BY-ND 2.0 https://creativecommons.org/licenses/by-nd/2.0/
-
-RadbruchGustav.jpg: Unbekannt, English: UnknownDeutsch: Deutsch:  Gustav Radbruch (* 21. November 1878 in Lübeck; † 23. November 1949 in Heidelberg) Deutscher Politiker (SPD). English:   or earlierDeutsch: 1920 oder früher 1920. Deutsch:  Büro des Reichstags (Hg.): Reichstags-Handbuch 1920, I. Wahlperiode, Verlag der Reichsdruckerei, Berlin 1920, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:RadbruchGustav.jpg. Public Domain
-
-LeviPaul.jpg: ---. Picture of Paul Levi. between circa   and circa 1925date QS:P,+1920- -00T00:00:00Z/8,P1319,+1920-00-00T00:00:00Z/9,P1326,+1925-00-00T00:00:00Z/9,P1480,Q5727902 1920. עברית:  הספרייה הלאומית, אוסף שבדרון English:  National Library of Israel, Schwadron collection, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Paul_Levi_-_Schwadron.jpg. CC-BY 3.0 https://creativecommons.org/licenses/by/3.0/deed.en
-
-WissellRudolf.jpg: ---. Rudolf Wissel. 3 Mar. 1930. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_102-09381,_Rudolf_Wissel_(cropped).jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
-
-SeveringCarl.jpg: ---. SeveringCarl. 1919date QS:P571,+ - -00T00:00:00Z/9 1919. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-R11405,_Carl_Severing.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
-
-StresemannGustav.jpg: Gustav Stresemann. circa 1928. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_146-1989-040-27,_Gustav_Stresemann.jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
-
-PapenFranz.jpg: ---. Franz v. Papen. 23 Sept. 1933. German Federal Archives, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-1988-0113-500,_Franz_v._Papen_(cropped)(2).jpg. CC-BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
-
-StegerwaldAdam.jpg: Verlag, Herder. Deutsch:  Adam Stegerwald, Preußischer Minister, Reichstagsabgeordneter, Zentrum. 1931. Der Große Herder, Band 11, Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Adam_Stegerwald_JS2.jpg. Public Domain
-
-LeipartTheodor.jpg: Portrait Theodor Leipart 1926. Die Arbeit (1924 - 1933)- Zeitschrift Für Gewerkschaftspolitik Und Wirtschaftskunde : Online-Edition Der Bibliothek Der Friedrich-Ebert-Stiftung. https://library.fes.de/arbeit/bild-leipart2.html. Accessed 6 Apr. 2024. Public Domain
-
-WoytinskyWladimir.jpg: author, Unknown authorUnknown. Español:  Socialistas En Irkutsk, En El Exilio Interior. Entre Ellos, de Izquierda a Derecha: Fiódor Dan, Irakli Tsereteli, Voitinski y Abraham Gots, 1914-1915. Scanned from ISBN 069105567X   Ziva Galili: The Menshevik Leaders in the Russian Revolution: Social Realities and Political Strategies Princeton, N.J. : Princeton University Press, 1989, after page 142. Galili’s source is en:Hoover Institution., Wikimedia Commons, https://commons.wikimedia.org/wiki/File:SocialistasEnIrkutskDanTsereteliVoitinskiDan19141915.png. Public Domain
+werksschliessung.jpg: Dietmar Rabich. „Duisburg, Landschaftspark Duisburg-Nord, Hochofen 5, Ausblick -- 2024 -- 4241.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Duisburg,_Landschaftspark_Duisburg-Nord,_Hochofen_5,_Ausblick_--_2024_--_4241.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0

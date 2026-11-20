@@ -343,6 +343,19 @@
 
   window.onload = function() {
     window.dendryUI.loadSettings({show_portraits: false});
+    // Engine-Texte (dendrynexus) ins Deutsche übertragen
+    var alertDE = {'Saved.': 'Gespeichert.', 'Loaded.': 'Geladen.', 'No save available.': 'Kein Spielstand vorhanden.',
+                   'Saving and loading is currently disabled.': 'Speichern und Laden ist derzeit deaktiviert.'};
+    var origAlert = window.alert.bind(window);
+    window.alert = function(msg) { origAlert(alertDE[msg] || msg); };
+    var origPopulate = window.dendryUI.populateSaveSlots;
+    window.dendryUI.populateSaveSlots = function() {
+      origPopulate.apply(this, arguments);
+      var de = {'Load': 'Laden', 'Save': 'Speichern', 'Empty': 'Leer'};
+      document.querySelectorAll('[id^=save_button_], [id^=save_info_]').forEach(function(el) {
+        if (de[el.textContent]) { el.textContent = de[el.textContent]; }
+      });
+    };
     window.dendryUI.language = "de";
     if (window.dendryUI.dark_mode) {
         document.body.classList.add('dark-mode');
@@ -361,4 +374,7 @@
     window.pinnedCardsDescription = "Beraterkarten: Aktionen sind nur alle 6 Monate nutzbar.";
   };
 
+  window.handDescription = "Hand – klicke auf eine Karte, um sie auszuspielen.";
+  window.deckDescription = "Stapel – klicke auf einen Stapel, um eine Karte zu ziehen.";
+  window.pinnedCardsDescription = window.pinnedCardsDescription || "Beraterkarten: Aktionen sind nur alle 6 Monate nutzbar.";
 }());

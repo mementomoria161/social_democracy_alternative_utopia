@@ -144,10 +144,10 @@ if (Q.month_actions >= 1) {
         }
     }
     // deflation is bad
-    if (Q.inflation < -0.5 && Q.inflation > -3 && Q.unemployed < 12) {
+    if (Q.inflation < -0.5 && Q.inflation > -3 && Q.unemployed < 10) {
         Q.unemployed += 0.1;
     }
-    if (Q.inflation <= -3 && Q.unemployed < 15) {
+    if (Q.inflation <= -3 && Q.unemployed < 11) {
         Q.unemployed += 0.2;
     }
     // economic growth and unemployment
@@ -158,7 +158,7 @@ if (Q.month_actions >= 1) {
     if (Q.economic_growth < -0.5 && Q.unemployed <= 10) {
         Q.unemployed += 0.08;
     }
-    if (Q.economic_growth < -3 && Q.unemployed <= 14) {
+    if (Q.economic_growth < -3 && Q.unemployed <= 11) {
         Q.unemployed += 0.1;
     }
     if (Q.economic_growth >= 1.5 && Q.unemployed >= 5) {

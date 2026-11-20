@@ -2,8 +2,8 @@ title: 2028
 subtitle: Ein neues Jahr
 on-arrival: {!
 // Krisenjahr: Zollkrieg wirkt nach
-Q.unemployed += 2.5;
-Q.inflation -= 1.5;
+Q.unemployed += 1.5;
+Q.inflation -= 0.5;
 if (Q.budget > 0) {
     Q.budget -= 1;
 }

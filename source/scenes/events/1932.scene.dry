@@ -8,8 +8,8 @@ if (Q.works_program && Q.works_program >= 2) {
     Q.economic_growth += 0.4;
 }
 if (!Q.works_program) {
-    Q.unemployed += 2;
-    Q.inflation -= 0.8;
+    Q.unemployed += 1;
+    Q.inflation -= 0.3;
     Q.economic_growth -= 0.4;
 }
 // moved demographic changes to post_event

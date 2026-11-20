@@ -2,13 +2,13 @@ title: 2029
 subtitle: Ein neues Jahr
 on-arrival: {!
 // TODO: if a public works program has started, unemployment is not so bad.
-Q.unemployed += 2.4;
-Q.inflation -= 2;
+Q.unemployed += 1.2;
+Q.inflation -= 0.5;
 // leave some economic decline for the banking crisis event
 Q.economic_growth -= 2;
 if (Q.works_program) {
-    Q.unemployed -= 1.6;
-    Q.inflation += 1.2;
+    Q.unemployed -= 0.8;
+    Q.inflation += 0.4;
     Q.economic_growth += 1.4;
 }
 if (Q.works_program && Q.works_program > 1) {
