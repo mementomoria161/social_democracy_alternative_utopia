@@ -1,10 +1,10 @@
 title: Wahlsimulation
 set-jump: post_election
 
-# Testwerkzeug: simuliert eine Bundestagswahl mit den aktuellen Startwerten (Januar 2026).
+# Testwerkzeug: simuliert eine Bundestagswahl mit den aktuellen Startwerten (November 2024).
 # Die Weimarer Szenarien 1928/1930/1932 wurden entfernt.
 
-- @aktuell: Bundestagswahl mit den Umfragewerten vom Januar 2026 simulieren
+- @aktuell: Bundestagswahl mit den Umfragewerten vom November 2024 simulieren
 
 @aktuell
 go-to: election_algorithm

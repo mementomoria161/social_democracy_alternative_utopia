@@ -1,0 +1,99 @@
+title: Was geht noch durch den Bundestag?
+subtitle: Die Minderheitsregierung sucht Mehrheiten.
+new-page: true
+tags: event
+view-if: restgesetze_seen = 0 and ampel_aus_seen = 1 and n_elections = 0 and ((year = 2024 and month = 12) or (year = vf_year and month = vf_month))
+max-visits: 1
+priority: 1
+on-arrival: restgesetze_seen = 1
+face-image: img/bundestag_plenum.jpg
+go-to: menu
+
+# Prolog: Gesetze der rot-grünen Minderheitsregierung vor der Auflösung. prolog_laws (aus ampel_aus) begrenzt die Zahl.
+# Historisch beschlossen (Dezember 2024): Kindergeld/kalte Progression, Deutschlandticket 2025, Schutz des Bundesverfassungsgerichts.
+# Gescheitert: Rentenpaket II, Verlängerung der Mietpreisbremse.
+
+= Was geht noch durch den Bundestag?
+
+SPD und Grüne haben im Bundestag keine Mehrheit mehr. Jedes Gesetz braucht jetzt Stimmen der Union oder der FDP. [? if union_relation < 30 : Die Union hat angekündigt, vor der Vertrauensfrage keinem Gesetz der Regierung zuzustimmen. ?][? if fdp_relation < 10 : Die FDP will der Regierung, die ihren Vorsitzenden entlassen hat, keinen Erfolg gönnen. ?]
+
+Bis zur Auflösung des Bundestags bleibt Zeit für noch [+ prolog_laws +] Vorhaben.
+
+@menu
+
+- @kindergeld
+- @deutschlandticket
+- @bverfg
+- @rente
+- @miete
+- @fertig
+
+@kindergeld
+title: Kindergeld erhöhen und die kalte Progression ausgleichen.
+subtitle: Braucht die Stimmen der FDP oder der Union.
+choose-if: prolog_laws >= 1 and (fdp_relation >= 10 or union_relation >= 30)
+unavailable-subtitle: [? if prolog_laws < 1 : Bis zur Auflösung bleibt dafür keine Zeit. ?][? if prolog_laws >= 1 : Weder FDP noch Union machen mit. ?]
+max-visits: 1
+on-arrival: prolog_laws -= 1; workers_spd += 1*(1-dissent); new_middle_spd += 0.5*(1-dissent); fdp_relation += 2
+go-to: menu
+
+Mit den Stimmen der FDP beschließt der Bundestag ein höheres Kindergeld und einen höheren Grundfreibetrag. Die schleichende Steuererhöhung durch die Inflation wird ausgeglichen. Für Familien ist das ein spürbares Plus im neuen Jahr.
+
+@deutschlandticket
+title: Das Deutschlandticket für 2025 sichern.
+subtitle: Braucht die Stimmen der FDP oder der Union.
+choose-if: prolog_laws >= 1 and (fdp_relation >= 10 or union_relation >= 30)
+unavailable-subtitle: [? if prolog_laws < 1 : Bis zur Auflösung bleibt dafür keine Zeit. ?][? if prolog_laws >= 1 : Weder FDP noch Union machen mit. ?]
+max-visits: 1
+on-arrival: prolog_laws -= 1; new_middle_spd += 1*(1-dissent); workers_spd += 0.5*(1-dissent); gruene_relation += 2
+go-to: menu
+
+Der Bundestag sichert die Finanzierung des Deutschlandtickets für 2025. Millionen Pendlerinnen und Pendler können aufatmen, auch wenn der Preis auf 58 Euro steigt.
+
+@bverfg
+title: Das Bundesverfassungsgericht im Grundgesetz absichern.
+subtitle: Grundgesetzänderung: braucht Union und FDP.
+choose-if: prolog_laws >= 1 and union_relation >= 30 and fdp_relation >= 5
+unavailable-subtitle: [? if prolog_laws < 1 : Bis zur Auflösung bleibt dafür keine Zeit. ?][? if prolog_laws >= 1 : Ohne die Union gibt es keine Zweidrittelmehrheit. ?]
+max-visits: 1
+on-arrival: prolog_laws -= 1; pro_republic += 2; union_relation += 2; nazi_urgency += 1 if nazi_urgency < 3
+go-to: menu
+
+Mit großer Mehrheit schreiben SPD, Union, Grüne und FDP Amtszeit, Altersgrenze und Zahl der Richterinnen und Richter am Bundesverfassungsgericht ins Grundgesetz. Eine künftige Mehrheit kann das Gericht nicht mehr mit einfachem Gesetz umbauen, wie es in Polen und Ungarn geschah. Die AfD stimmt dagegen.
+
+@rente
+title: Das Rentenpaket II zur Abstimmung stellen.
+subtitle: Haltelinie von 48 Prozent. Union und FDP sind dagegen.
+choose-if: prolog_laws >= 1
+unavailable-subtitle: Bis zur Auflösung bleibt dafür keine Zeit.
+max-visits: 1
+on-arrival: prolog_laws -= 1
+go-to: rente_ok if union_relation >= 55 or fdp_relation >= 40; rente_fail if union_relation < 55 and fdp_relation < 40
+
+@rente_ok
+on-arrival: rentner_spd += 2*(1-dissent); workers_spd += 1*(1-dissent); labor_dissent -= 5; welfare += 1; budget -= 1 if budget >= 1
+go-to: menu
+
+Zur Überraschung vieler findet sich eine Mehrheit: Das Rentenniveau wird bis 2039 bei 48 Prozent gesichert. Die Gewerkschaften jubeln, Arbeitgeberverbände warnen vor steigenden Beiträgen.
+
+@rente_fail
+on-arrival: rentner_spd += 0.5*(1-dissent); labor_dissent -= 3; union_relation -= 2
+go-to: menu
+
+Das Rentenpaket findet keine Mehrheit. Wir machen die Haltelinie zum Wahlkampfthema: Wer eine stabile Rente will, muss SPD wählen.
+
+@miete
+title: Die Mietpreisbremse verlängern.
+subtitle: Sie läuft 2025 aus. Die Union zögert, die FDP blockiert.
+choose-if: prolog_laws >= 1 and union_relation >= 45
+unavailable-subtitle: [? if prolog_laws < 1 : Bis zur Auflösung bleibt dafür keine Zeit. ?][? if prolog_laws >= 1 : Die Union will die Verlängerung erst nach der Wahl. ?]
+max-visits: 1
+on-arrival: prolog_laws -= 1; new_middle_spd += 1*(1-dissent); unemployed_spd += 1*(1-dissent); left_dissent -= 3
+go-to: menu
+
+Die Mietpreisbremse wird bis 2029 verlängert. Mieterbund und Gewerkschaften sind erleichtert.
+
+@fertig
+title: Genug verhandelt. Jetzt beginnt der Wahlkampf.
+
+Was wir nicht mehr durch den Bundestag bringen, tragen wir in den Wahlkampf. Für 2025 gilt die vorläufige Haushaltsführung: Der Bund darf nur ausgeben, wozu er rechtlich verpflichtet ist. Neue Projekte müssen warten.

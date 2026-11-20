@@ -1,0 +1,35 @@
+title: Bundesparteitag 2025
+subtitle: Neue Doppelspitze, alte Wunden.
+new-page: true
+tags: event
+view-if: year = 2025 and month = 6 and spd_parteitag_2025_seen = 0
+max-visits: 1
+on-arrival: spd_parteitag_2025_seen = 1; esken_advisor = 0; bas_advisor = 1
+face-image: img/parteitag.jpg
+
+# SPD-spezifisch (Parteitag, Beraterwechsel Esken -> Bas, wie im Januar 2026).
+# Historisch: Parteitag 27.-29.06.2025 in Berlin, Bas mit 95 Prozent gewählt, Klingbeil mit 64,9 Prozent bestätigt,
+# Beschluss zur Vorbereitung eines AfD-Verbotsverfahrens.
+
+= Bundesparteitag 2025
+
+Saskia Esken tritt nach sechs Jahren an der Spitze nicht wieder an. Für den Parteivorsitz kandidiert Bärbel Bas, die frühere Bundestagspräsidentin aus Duisburg[? if labor_minister = "Bas" : und heutige Arbeitsministerin ?]. Sie wird mit 95 Prozent gewählt. Spannender ist die Frage, wie die Delegierten mit Lars Klingbeil umgehen, der nach der Wahl [? if finance_minister = "Klingbeil" : Vizekanzler und Finanzminister geworden ist ?][? if finance_minister != "Klingbeil" : die Macht in Partei und Fraktion auf sich vereint hat ?]. Viele werfen ihm vor, sich nach der Niederlage selbst belohnt zu haben.
+
+- @geschlossen: Für Klingbeil werben: Die Partei muss Geschlossenheit zeigen.
+- @denkzettel: Den Denkzettel zulassen. Die Basis soll sich Luft machen.
+- @afd_verbot: Ein anderes Signal setzen: Der Parteitag fordert ein AfD-Verbotsverfahren.
+
+@geschlossen
+on-arrival: center_dissent -= 4; left_dissent += 4
+
+Nach eindringlichen Appellen der Parteiführung erhält Klingbeil ein respektables Ergebnis. Die Kritik verstummt nicht, sie wandert nur in die Hinterzimmer.
+
+@denkzettel
+on-arrival: left_dissent -= 5; center_dissent += 3
+
+Klingbeil erhält nur 64,9 Prozent, eines der schlechtesten Ergebnisse eines SPD-Vorsitzenden. Er nimmt es als „Auftrag“ an. Die Delegierten fühlen sich gehört.
+
+@afd_verbot
+on-arrival: nazi_urgency += 1 if nazi_urgency < 4; demo_strength += 100; left_dissent -= 3; union_relation -= 2; new_middle_spd += 0.5*(1-dissent)
+
+Mit großer Mehrheit beschließt der Parteitag, ein Verbotsverfahren gegen die AfD vorzubereiten, sobald die Beweislage es trägt. Die Union reagiert zurückhaltend, Bündnisse gegen Rechts begrüßen den Beschluss. Klingbeils Ergebnis geht in den Schlagzeilen unter.

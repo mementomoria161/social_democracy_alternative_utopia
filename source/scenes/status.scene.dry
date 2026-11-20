@@ -31,7 +31,7 @@ Innerparteilicher Unmut: [+ dissent_percent : dissent +]
 
 [? if spd_in_government = 1 : Haushaltsspielraum: [+ budget +] ?]
 
-Nächste Bundestagswahl: [+ next_election_month : month +] [+ next_election_year +]
+Nächste Bundestagswahl: [? if election_scheduled : [+ next_election_month : month +] [+ next_election_year +] ?][? if not election_scheduled : noch nicht terminiert (regulär [+ next_election_month : month +] [+ next_election_year +]) ?]
 
 = Wirtschaft
 
@@ -70,7 +70,7 @@ var card = function(role, name, party, big) {
         '<div class="gov_name">' + (name || '–') + '</div><div class="gov_party">' + label(party) + '</div></div>';
 };
 var PERSON = {'Steinmeier': 'SPD', 'Lammert': 'Union', 'Schwesig': 'SPD', 'Trabert': 'parteilos', 'Chrupalla': 'AfD',
-    'Klöckner': 'Union', 'Ortleb': 'SPD', 'Nouripour': 'Grüne', 'Ramelow': 'Linke'};
+    'Klöckner': 'Union', 'Ortleb': 'SPD', 'Nouripour': 'Grüne', 'Ramelow': 'Linke', 'Bas': 'SPD'};
 
 // Kabinett
 var posts = [['foreign', 'Auswärtiges'], ['interior', 'Inneres'], ['justice', 'Justiz'], ['labor', 'Arbeit und Soziales'],
@@ -100,12 +100,14 @@ document.getElementById('regierung_view').innerHTML = '<div class="gov_chart">' 
     '<div class="gov_line"></div>' +
     '<div class="gov_cabinet">' + cabinet + '</div></div>';
 
-// Bundestag: 630 Sitze nach größtem Rest
+// Bundestag: 733 Sitze bis zur Wahl 2025 (20. Wahlperiode), danach 630; Verteilung nach größtem Rest
+var seats = Q.bundestag_seats || 630;
+var needed = Math.floor(seats / 2) + 1;
 var order = ['linke', 'sapd', 'spd', 'srpd', 'gruene', 'other', 'bsw', 'fdp', 'union', 'afd'];
 var rows = order.filter(function(p) { return Q[p + '_r'] > 0; }).map(function(p) { return {id: p, r: Q[p + '_r']}; });
 var total = rows.reduce(function(s, x) { return s + x.r; }, 0);
-rows.forEach(function(x) { x.exact = x.r / total * 630; x.seats = Math.floor(x.exact); });
-var rest = 630 - rows.reduce(function(s, x) { return s + x.seats; }, 0);
+rows.forEach(function(x) { x.exact = x.r / total * seats; x.seats = Math.floor(x.exact); });
+var rest = seats - rows.reduce(function(s, x) { return s + x.seats; }, 0);
 rows.slice().sort(function(a, b) { return (b.exact - b.seats) - (a.exact - a.seats); }).slice(0, rest).forEach(function(x) { x.seats++; });
 
 var govSeats = 0;
@@ -116,7 +118,8 @@ rows.forEach(function(x) {
 });
 table += '</table>';
 document.getElementById('bundestag_table').innerHTML = table +
-    'Regierungsparteien (fett): <b>' + govSeats + '</b> von 630 Sitzen, ' + (govSeats >= 316 ? 'eigene Mehrheit' : 'keine eigene Mehrheit') + ' (316 nötig).';
+    'Regierungsparteien (fett): <b>' + govSeats + '</b> von ' + seats + ' Sitzen, ' + (govSeats >= needed ? 'eigene Mehrheit' : 'keine eigene Mehrheit') + ' (' + needed + ' nötig).' +
+    (seats != 630 ? ' „Sonstige“: fraktionslose Abgeordnete, darunter der SSW.' : '');
 
 var width = document.getElementById('qualities').offsetWidth;
 var svg = document.getElementById('bundestag_sidebar');

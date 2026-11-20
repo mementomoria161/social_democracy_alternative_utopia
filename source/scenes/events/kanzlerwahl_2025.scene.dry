@@ -1,0 +1,50 @@
+title: Die Kanzlerwahl
+subtitle: Der neue Bundestag wählt die Regierungschefin oder den Regierungschef.
+new-page: true
+tags: event
+view-if: kanzlerwahl_seen = 0 and n_elections = 1 and year = 2025 and time >= last_election_time + 3 and chancellor_party != "AfD"
+max-visits: 1
+priority: 1
+on-arrival: kanzlerwahl_seen = 1; muetzenich_advisor = 0; miersch_advisor = 1
+face-image: img/bundestag_plenum.jpg
+
+# Prolog, Abschluss (drei Monate nach der Wahl). Historisch: 06.05.2025, Merz scheitert im ersten Wahlgang mit
+# 310 Stimmen (316 nötig) und wird im zweiten Wahlgang mit 325 Stimmen gewählt.
+# SPD-spezifisch: Beraterwechsel Mützenich -> Miersch (Fraktionsvorsitz), wie im Januar 2026.
+
+= Die Kanzlerwahl
+
+Der neue Bundestag mit seinen 630 Abgeordneten tritt zur Kanzlerwahl zusammen. Gewählt ist, wer die Mehrheit der Mitglieder hinter sich bringt: 316 Stimmen. Die Wahl ist geheim.
+
+[? if spd_in_government : In der SPD-Fraktion hat Matthias Miersch den Vorsitz übernommen; Rolf Mützenich, der die Fraktion seit 2019 geführt hat, zieht sich zurück. ?][? if not spd_in_government and not spd_toleration : Die SPD geht in die Opposition. ?][? if spd_toleration : Die SPD wird die neue Regierung tolerieren, ohne ihr anzugehören. ?][? if not spd_in_government : Matthias Miersch übernimmt den Fraktionsvorsitz von Rolf Mützenich. ?]
+
+- @disziplin: Die eigene Fraktion vorher auf Linie bringen.
+- @vertrauen: Auf die Abgeordneten vertrauen.
+- @opposition: Die Wahl verfolgen.
+
+@disziplin
+subtitle: -1 Ressource
+view-if: spd_in_government
+choose-if: resources >= 1
+unavailable-subtitle: Dafür fehlen uns die Mittel.
+on-arrival: resources -= 1; union_relation += 2 if chancellor_party = "Union"; left_dissent += 2
+
+In langen Einzelgesprächen sorgen die Fraktionsspitzen dafür, dass niemand ausschert. [+ chancellor +] wird im ersten Wahlgang gewählt und vom Bundespräsidenten ernannt. Am Nachmittag erhalten die Ministerinnen und Minister ihre Urkunden.
+
+@vertrauen
+view-if: spd_in_government
+go-to: vertrauen_fail if historical_mode or left_dissent >= 18 or coalition_dissent >= 2; vertrauen_ok if not historical_mode and left_dissent < 18 and coalition_dissent < 2
+
+@vertrauen_ok
+
+Die Mehrheit steht. [+ chancellor +] wird im ersten Wahlgang gewählt und vom Bundespräsidenten ernannt. Die neue Regierung kann beginnen.
+
+@vertrauen_fail
+on-arrival: pro_republic -= 1; coalition_dissent += 1; union_relation -= 3 if chancellor_party = "Union"; center_dissent += 3
+
+Im ersten Wahlgang fehlen [+ chancellor +] sechs Stimmen. Im Saal herrscht ungläubige Stille, an den Börsen fallen die Kurse, die AfD jubelt. Erst am Nachmittag, im zweiten Wahlgang, reicht es. Wer die Abweichler waren, wird nie geklärt, doch der Fehlstart hängt der Koalition lange nach.
+
+@opposition
+view-if: not spd_in_government
+
+[+ chancellor +] wird gewählt[? if spd_toleration : , auch mit unseren Stimmen ?]. [? if spd_toleration : Wir tolerieren die Minderheitsregierung und werden uns jede Unterstützung teuer bezahlen lassen. ?][? if not spd_toleration : Für uns beginnt die Arbeit in der Opposition: Wir müssen zeigen, dass die SPD auch dort gebraucht wird. ?]

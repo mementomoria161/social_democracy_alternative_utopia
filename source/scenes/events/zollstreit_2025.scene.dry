@@ -1,0 +1,34 @@
+title: Trumps Zölle
+subtitle: Die USA erklären dem Rest der Welt den Handelskrieg.
+new-page: true
+tags: event
+view-if: year = 2025 and month = 4 and zollstreit_2025_seen = 0
+max-visits: 1
+on-arrival: zollstreit_2025_seen = 1; economic_growth -= 0.2
+face-image: img/boerse.jpg
+
+# Ereignis 2025. Historisch: 02.04.2025 Zollankündigung („Liberation Day“, 20 Prozent auf EU-Waren, 25 Prozent auf Autos),
+# 90-tägige Aussetzung auf 10 Prozent; Juli 2025 Einigung EU-USA auf 15 Prozent. Der spätere Zollkrieg 2027 ist black_thursday.
+
+= Trumps Zölle
+
+Im Rosengarten des Weißen Hauses hält Donald Trump eine Tafel mit Zollsätzen für fast alle Länder der Welt in die Kamera. Auf Waren aus der EU sollen 20 Prozent fällig werden, auf Autos schon jetzt 25 Prozent. An den Börsen brechen die Kurse ein, in Wolfsburg, Stuttgart und München herrscht Alarmstimmung. Eine Woche später setzt Trump die meisten Zölle für 90 Tage aus. Die EU-Kommission verhandelt für alle Mitgliedstaaten, doch Berlin hat großen Einfluss darauf, welchen Kurs Brüssel einschlägt.
+
+- @gegenzoelle: Auf entschlossene Gegenzölle der EU drängen.
+- @deal: Einen schnellen Kompromiss suchen, um die Autoindustrie zu schützen.
+- @europa: Den Binnenmarkt stärken und neue Handelspartner suchen.
+
+@gegenzoelle
+on-arrival: tariffs += 1; west_relation += 1; workers_spd += 1*(1-dissent); economic_growth -= 0.1; union_relation -= 1
+
+Wir lassen uns nicht erpressen. Die EU bereitet Gegenzölle auf amerikanische Industriegüter und Digitalkonzerne vor. In den Gewerkschaften kommt das gut an, die Exportwirtschaft fürchtet eine Eskalation.
+
+@deal
+on-arrival: economic_growth += 0.1; union_relation += 2; old_middle_spd += 0.5*(1-dissent); left_dissent += 3
+
+Wir drängen Brüssel zu einem schnellen Abkommen. Am Ende stehen Zölle von 15 Prozent auf die meisten Waren. Das ist schmerzhaft, aber berechenbar. Kritikerinnen sprechen von einer Kapitulation.
+
+@europa
+on-arrival: eu_progress += 1; new_middle_spd += 1*(1-dissent); rural_spd -= 0.5; economic_growth += 0.05
+
+Wir setzen auf Europa: Binnenmarkt vertiefen, das Mercosur-Abkommen abschließen, mit Indien und Kanada verhandeln. Die Landwirte protestieren gegen Mercosur, die Industrie hofft auf neue Märkte.

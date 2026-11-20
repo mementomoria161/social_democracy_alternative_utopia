@@ -267,7 +267,7 @@
       window.drawPolls();
   };
 
-  // Umfrage-Tab: Verlauf seit der Bundestagswahl 2025, gesamt oder je Wählergruppe
+  // Umfrage-Tab: Verlauf seit der Bundestagswahl 2021, gesamt oder je Wählergruppe
   if (window.d3) {
       d3.timeFormatDefaultLocale({dateTime: '%A, der %e. %B %Y, %X', date: '%d.%m.%Y', time: '%H:%M:%S',
           periods: ['AM', 'PM'], days: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
@@ -275,28 +275,31 @@
           months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
           shortMonths: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez']});
   }
-  // Realer Verlauf vor Spielbeginn: amtliches Endergebnis vom 23.02.2025 (Zweitstimmen), danach Monatsmittel
-  // aller Institute aus de.wikipedia.org/wiki/Wahl_zum_22._Deutschen_Bundestag/Umfragen_und_Prognosen
-  // (Stand Nov. 2026). BSW/FDP gemittelt über die Umfragen, die sie ausweisen; Sonstige = Rest auf 100.
-  // Wählergruppen liegen dafür nicht vor.
+  // Realer Verlauf vor Spielbeginn (6. November 2024): amtliches Endergebnis der Bundestagswahl vom 26.09.2021
+  // (Zweitstimmen, Bundeswahlleiterin) als Anker, dann Monatsmittel aller Institute Januar bis Oktober 2024 aus
+  // de.wikipedia.org/wiki/Bundestagswahl_2025/Umfragen_und_Prognosen (Linke aus den Einzelumfragen gemittelt,
+  // BSW ab der Gründung im Januar 2024). Sonstige = Rest auf 100. Ab November 2024 Spielverlauf
+  // (bis Januar 2026 mit der Umfrageschwerkraft aus post_event). Wählergruppen liegen dafür nicht vor.
   var REAL_POLLS = [
-      // Monat 2025, Union, AfD, SPD, Grüne, Linke, BSW, FDP, Sonstige
-      [2.75, 28.6, 20.8, 16.4, 11.6, 8.8, 5.0, 4.3, 4.5],
-      [3, 27.6, 22.3, 15.4, 11.7, 10.2, 4.3, 3.5, 5.1],
-      [4, 25.3, 24.5, 15.3, 11.4, 10.0, 4.2, 3.5, 5.7],
-      [5, 25.9, 24.1, 15.6, 11.3, 10.1, 3.9, 3.6, 5.4],
-      [6, 27.7, 23.2, 15.3, 11.4, 10.0, 3.9, 3.5, 5.0],
-      [7, 27.2, 24.0, 14.2, 11.4, 10.8, 4.0, 3.3, 5.0],
-      [8, 26.1, 24.9, 14.3, 11.4, 10.4, 4.0, 3.4, 5.6],
-      [9, 25.5, 25.6, 14.6, 11.3, 10.8, 3.8, 3.2, 5.2],
-      [10, 24.9, 25.9, 14.3, 11.4, 11.1, 4.0, 3.4, 5.1],
-      [11, 25.3, 25.9, 14.6, 11.6, 10.6, 3.7, 3.2, 5.1],
-      [12, 25.0, 25.9, 14.1, 11.6, 10.6, 3.7, 3.6, 5.4]
+      // Jahr, Monat, Union, AfD, SPD, Grüne, Linke, BSW, FDP
+      [2021, 9.85, 24.1, 10.3, 25.7, 14.8, 4.9, null, 11.5],
+      [2024, 1, 30.8, 21.7, 14.5, 13.2, 3.9, 5.4, 4.8],
+      [2024, 2, 30.5, 18.9, 15.0, 13.4, 3.2, 6.3, 4.3],
+      [2024, 3, 30.3, 18.3, 15.4, 13.4, 3.1, 5.9, 4.8],
+      [2024, 4, 30.2, 17.8, 15.6, 13.2, 3.4, 6.0, 4.9],
+      [2024, 5, 30.6, 16.8, 15.6, 13.1, 3.4, 6.2, 5.0],
+      [2024, 6, 30.4, 16.5, 15.3, 12.3, 3.0, 7.3, 5.1],
+      [2024, 7, 30.6, 17.2, 14.7, 11.5, 3.0, 8.2, 5.1],
+      [2024, 8, 31.1, 17.4, 15.2, 11.3, 3.0, 8.3, 4.9],
+      [2024, 9, 32.3, 18.1, 14.7, 10.8, 2.9, 8.6, 4.0],
+      [2024, 10, 31.5, 18.0, 15.9, 10.7, 3.0, 7.9, 3.9]
   ].map(function(r) {
-      // Monatsmittel in der Monatsmitte, die Wahl (2.75) am 23. Februar
-      var date = r[0] == 2.75 ? new Date(2025, 1, 23) : new Date(2025, r[0] - 1, 15);
-      return {'date': date, 'union': r[1], 'afd': r[2], 'spd': r[3], 'gruene': r[4], 'linke': r[5],
-              'bsw': r[6], 'fdp': r[7], 'other': r[8]};
+      // Monatsmittel in der Monatsmitte, die Wahl (9.85) am 26. September 2021
+      var date = r[1] == 9.85 ? new Date(2021, 8, 26) : new Date(r[0], r[1] - 1, 15);
+      var rec = {'date': date, 'union': r[2], 'afd': r[3], 'spd': r[4], 'gruene': r[5], 'linke': r[6],
+                 'bsw': r[7], 'fdp': r[8]};
+      rec.other = Math.round((100 - r.slice(2).reduce(function(s, x) { return s + (x || 0); }, 0)) * 10) / 10;
+      return rec;
   });
   var POLL_COLORS = {'spd': '#E3000F', 'linke': '#BE3075', 'gruene': '#46962B', 'union': '#151518', 'fdp': '#E6C800',
                      'bsw': '#7D254F', 'afd': '#009EE0', 'other': '#a0a0a0', 'sapd': '#c40000', 'srpd': '#F4A460'};
@@ -365,12 +368,12 @@
           return v;
       };
 
-      var html = '<label class="poll_select">Verlauf seit der Bundestagswahl 2025: <select onchange="window.pollGroup = this.value; window.drawPolls();">' +
+      var html = '<label class="poll_select">Verlauf seit der Bundestagswahl 2021: <select onchange="window.pollGroup = this.value; window.drawPolls();">' +
           '<option value="">Alle Wähler*innen</option>' + groups.map(function(c) {
               return '<option value="' + c + '"' + (c == group ? ' selected' : '') + '>' + POLL_GROUPS[c] + '</option>';
           }).join('') + '</select></label>' +
           '<svg id="poll_graph"></svg>' +
-          '<p class="poll_note">Bis Dezember 2025 reale Umfragen (Monatsmittel aller Institute, Quelle: Wikipedia), ab Januar 2026 Spielverlauf.</p>' +
+          '<p class="poll_note">Bundestagswahl 2021 und Januar bis Oktober 2024 reale Umfragen (Monatsmittel aller Institute, Quelle: Wikipedia), ab November 2024 Spielverlauf.</p>' +
           '<h3 class="poll_heading">Aktuell' + (group ? ': ' + POLL_GROUPS[group] : '') + '</h3>' +
           bars(group ? groupValues(group) : now) +
           '<h3 class="poll_heading">Nach Wählergruppen</h3>' +

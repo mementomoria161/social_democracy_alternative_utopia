@@ -1,0 +1,43 @@
+title: Streit um eine Verfassungsrichterin
+subtitle: Die Union lässt eine abgesprochene Wahl platzen.
+new-page: true
+tags: event
+view-if: year = 2025 and month = 7 and spd_in_government and union_in_government and verfassungsrichterwahl_seen = 0
+max-visits: 1
+on-arrival: verfassungsrichterwahl_seen = 1; coalition_dissent += 1
+face-image: img/untersuchungsausschuss.jpg
+
+# Ereignis 2025 (Schwarz-Rot oder Kenia). Historisch: Wahl am 11.07.2025 von der Tagesordnung genommen,
+# Frauke Brosius-Gersdorf zieht ihre Kandidatur am 07.08.2025 zurück, im September wird Sigrid Emmenegger gewählt.
+
+= Streit um eine Verfassungsrichterin
+
+Für das Bundesverfassungsgericht hat die SPD die Potsdamer Staatsrechtlerin Frauke Brosius-Gersdorf vorgeschlagen; im Wahlausschuss hatte die Unionsspitze zugestimmt. Dann beginnt im Netz eine Kampagne gegen sie, vor allem wegen ihrer Haltung zum Schwangerschaftsabbruch, später kommen haltlose Plagiatsvorwürfe hinzu. Dutzende Unionsabgeordnete kündigen an, sie nicht zu wählen. Am Morgen der Abstimmung nimmt die Koalition die Wahl von der Tagesordnung. Die Juristin spricht von einer Hetzjagd.
+
+- @festhalten: An der Kandidatin festhalten und die Union an ihre Zusage erinnern.
+- @neu: Eine neue Kandidatin vorschlagen, um die Koalition zu retten.
+- @druck: Gemeinsam mit Grünen und Linken öffentlich Druck machen.
+
+@festhalten
+on-arrival: left_dissent -= 5; coalition_dissent += 1; union_relation -= 5; pro_republic -= 1
+go-to: festhalten_ok if union_relation >= 50; festhalten_fail if union_relation < 50
+
+@festhalten_ok
+on-arrival: pro_republic += 2
+
+Nach wochenlangem Ringen setzt sich die Unionsspitze in ihrer Fraktion durch. Brosius-Gersdorf wird im September gewählt. Die Koalition hat gehalten, aber es hat Kraft gekostet.
+
+@festhalten_fail
+on-arrival: left_dissent += 3; coalition_dissent += 1
+
+Die Union bewegt sich nicht. Im August zieht Brosius-Gersdorf ihre Kandidatur zurück, um weiteren Schaden vom Gericht abzuwenden. Wir haben uns nicht verbogen, aber verloren.
+
+@neu
+on-arrival: left_dissent += 6; union_relation += 1; reformist_dissent -= 2
+
+Brosius-Gersdorf zieht zurück, und wir schlagen die Bundesrichterin Sigrid Emmenegger vor, die im September gewählt wird. Die Koalition ist gerettet. Viele in der Partei fragen, warum wir eine hoch angesehene Juristin einer Kampagne geopfert haben.
+
+@druck
+on-arrival: linke_relation += 4; gruene_relation += 3; union_relation -= 3; coalition_dissent += 1; reformist_dissent += 4; left_dissent -= 3
+
+Mit Grünen und Linken erinnern wir die Union daran, dass Verfassungsrichterinnen bisher immer über Parteigrenzen hinweg gewählt wurden. Die Zivilgesellschaft steht hinter uns. In der Koalition sprechen manche von Erpressung.

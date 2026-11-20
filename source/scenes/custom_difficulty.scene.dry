@@ -33,16 +33,16 @@ if (Q.starting_dissent == 0) {
 Q.starting_relations = Number.parseInt(document.getElementById("starting_relations").value); 
 if (Q.starting_relations == 0) {
     Q.linke_relation = 29;
-    Q.union_relation = 54;
-    Q.fdp_relation = 49;
+    Q.union_relation = 40;
+    Q.fdp_relation = 20;
 } else if (Q.starting_relations == 1) {
     Q.linke_relation = 25;
-    Q.union_relation = 50;
-    Q.fdp_relation = 35;
+    Q.union_relation = 35;
+    Q.fdp_relation = 15;
 } else {
     Q.linke_relation = 16;
-    Q.union_relation = 41;
-    Q.fdp_relation = 31;
+    Q.union_relation = 30;
+    Q.fdp_relation = 10;
 }
 
 Q.starting_demo_strength = Number.parseInt(document.getElementById("starting_demo_strength").value);
@@ -92,7 +92,7 @@ Einnahmen aus Spenden: {! <input type="number" id="fundraising_income" name="fun
 Jährliches Einkommen der Partei: {! <input type="number" id="annual_income" name="annual_income" value="0" min="0" max="5"></input>!}
 
 # default: 4
-Haushaltsspielraum zu Beginn: {! <input type="number" id="budget" name="budget" min="0" max="10" value="4"></input>!}
+Haushaltsspielraum zu Beginn: {! <input type="number" id="budget" name="budget" min="0" max="10" value="2"></input>!}
 
 # default: 1 (normal)
 Unmut in der Partei zu Beginn: {! <select name="starting_dissent" id="starting_dissent"> 
@@ -160,4 +160,4 @@ Karten auf die Hand zurücklegen: {! <select name="discard_disabled" id="discard
 - @done: Fertig
 
 @done
-go-to: root.2026_main
+go-to: root.intro_main

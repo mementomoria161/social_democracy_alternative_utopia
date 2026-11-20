@@ -1,0 +1,39 @@
+title: Die Vertrauensfrage
+subtitle: Der Kanzler stellt sie, um sie zu verlieren.
+new-page: true
+tags: event
+view-if: vertrauensfrage_seen = 0 and ampel_aus_seen = 1 and n_elections = 0 and year = vf_year and month = vf_month
+max-visits: 1
+priority: 0
+on-arrival: vertrauensfrage_seen = 1; bundestag_dissolved = 1
+face-image: img/bundestag_plenum.jpg
+
+# Prolog: Vertrauensfrage nach Art. 68 GG und Auflösung des Bundestags. Setzt bundestag_dissolved (Wahlkampf-Events).
+# Historisch (16.12.2024): 207 Ja, 394 Nein, 116 Enthaltungen; Auflösung durch Steinmeier am 27.12.2024.
+
+= Die Vertrauensfrage
+
+Olaf Scholz tritt ans Rednerpult des Bundestags und bittet die Abgeordneten, ihm das Vertrauen auszusprechen, in der Erwartung, dass sie es nicht tun. Es ist der Weg, den das Grundgesetz zu vorgezogenen Neuwahlen lässt. Die SPD-Fraktion stimmt für ihren Kanzler, die Grünen enthalten sich, Union, FDP, AfD, Linke und BSW stimmen mit Nein. Die Vertrauensfrage ist verloren, wie geplant.
+
+Wenige Tage später löst Bundespräsident Frank-Walter Steinmeier den Bundestag auf. Die Neuwahl findet am [+ election_date_text +] statt. Bis dahin bleibt die Regierung im Amt.[? if spd_candidate = "Pistorius" : Als Kanzlerkandidat steht Boris Pistorius schon bereit. ?]
+
+Wie nutzen wir die Debatte?
+
+- @angriff: Mit einer kämpferischen Rede gegen Merz und Lindner den Wahlkampf eröffnen.
+- @bilanz: Staatsmännisch bleiben und das Erreichte betonen.
+- @selbstkritik: Die Fehler der Ampel offen eingestehen.
+
+@angriff
+on-arrival: workers_spd += 1*(1-dissent); left_dissent -= 3; union_relation -= 4; fdp_relation -= 3
+
+Die Rede ist eine Abrechnung mit der FDP und eine Kampfansage an Friedrich Merz. Die eigenen Leute sind begeistert, die Union empört. Die Leitartikel sprechen von einer Wahlkampfrede, nicht der eines Kanzlers.
+
+@bilanz
+on-arrival: rentner_spd += 1*(1-dissent); old_middle_spd += 0.5*(1-dissent); union_relation += 2
+
+Mindestlohn, Bürgergeld, Unterstützung der Ukraine, die Energieversorgung nach dem russischen Gasstopp: Die Bilanz kann sich sehen lassen, sagt die SPD. Viele Bürgerinnen und Bürger erinnern sich vor allem an den Streit.
+
+@selbstkritik
+on-arrival: new_middle_spd += 1*(1-dissent); pro_republic += 1; center_dissent += 3
+
+Ungewohnt offen räumt die SPD ein, dass der ewige Streit der Ampel dem Land geschadet hat. Im Kanzleramt ist man darüber nicht glücklich, doch in Kommentaren wird die Ehrlichkeit gelobt.

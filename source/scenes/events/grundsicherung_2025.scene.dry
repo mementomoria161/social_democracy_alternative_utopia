@@ -1,0 +1,34 @@
+title: Aus Bürgergeld wird Grundsicherung
+subtitle: Die Koalition verschärft die Regeln für Arbeitsuchende.
+new-page: true
+tags: event
+view-if: year = 2025 and month = 10 and spd_in_government and union_in_government and grundsicherung_2025_seen = 0
+max-visits: 1
+on-arrival: grundsicherung_2025_seen = 1
+face-image: img/jobcenter.jpg
+
+# Ereignis 2025 (Regierung mit der Union). Historisch: Koalitionsausschuss am 09.10.2025, „Neue Grundsicherung“ mit
+# strengeren Mitwirkungspflichten und Sanktionen bis zur vollständigen Streichung der Leistungen; Kritik von Jusos und SPD-Linken.
+
+= Aus Bürgergeld wird Grundsicherung
+
+Im Koalitionsausschuss setzt die Union durch, was sie im Wahlkampf versprochen hat: Das Bürgergeld soll einer „Neuen Grundsicherung“ weichen. Wer Termine im Jobcenter wiederholt versäumt, soll im äußersten Fall gar keine Leistungen mehr bekommen; Ersparnisse werden schneller angerechnet. Die Einsparungen sind gering, die Symbolik ist groß. [? if labor_minister_party = "SPD" : Die Reform muss [+ labor_minister +] als Arbeitsministerin oder Arbeitsminister vertreten. ?] Jusos und Sozialverbände laufen Sturm.
+
+- @mittragen: Die Reform mittragen: Fördern und Fordern.
+- @entschaerfen: Härtefälle und Kinder schützen, die Sanktionen begrenzen.
+- @blockieren: Die Verschärfungen blockieren.
+
+@mittragen
+on-arrival: welfare -= 1; union_relation += 3; left_dissent += 8; unemployed_spd -= 2; old_middle_spd += 0.5*(1-dissent); rural_spd += 0.5*(1-dissent); coalition_dissent -= 1 if coalition_dissent > 0
+
+Die SPD stimmt zu. Wer arbeiten kann, soll arbeiten, sagt die Parteiführung. In der Partei sammeln Kritikerinnen und Kritiker Unterschriften für ein Mitgliederbegehren gegen die Reform.
+
+@entschaerfen
+on-arrival: left_dissent += 2; union_relation -= 2; coalition_dissent += 1; unemployed_spd -= 0.5
+
+In zähen Verhandlungen setzen wir Schutzklauseln durch: Wohnkosten werden nicht gestrichen, Familien mit Kindern und psychisch Kranke sind ausgenommen. Die Union ist verärgert, die Kritik in der Partei bleibt leiser als befürchtet.
+
+@blockieren
+on-arrival: left_dissent -= 5; union_relation -= 6; coalition_dissent += 2; unemployed_spd += 1*(1-dissent); old_middle_spd -= 1; rural_spd -= 0.5
+
+Wir sagen Nein. Die Union spricht von Vertragsbruch, die Boulevardpresse von der „Partei der Arbeitsverweigerer“. Sozialverbände und Gewerkschaften stellen sich hinter uns.

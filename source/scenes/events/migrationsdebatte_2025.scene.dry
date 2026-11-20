@@ -1,0 +1,37 @@
+title: Ein Wahlkampf über Migration
+subtitle: Nach Magdeburg und Aschaffenburg verschiebt sich die Debatte.
+new-page: true
+tags: event
+view-if: year = 2025 and month = 1 and n_elections = 0 and migrationsdebatte_seen = 0
+max-visits: 1
+priority: 1
+on-arrival: migrationsdebatte_seen = 1
+face-image: img/medien.jpg
+
+# Prolog (Januar 2025). Anschläge sachlich benennen, keine Sensationalisierung.
+# Magdeburg: 20.12.2024, sechs Tote, über 300 Verletzte. Aschaffenburg: 22.01.2025, zwei Tote.
+
+= Ein Wahlkampf über Migration
+
+Kurz vor Weihnachten rast ein Mann mit einem Auto über den Weihnachtsmarkt in Magdeburg. Sechs Menschen sterben, Hunderte werden verletzt. Der Täter, ein seit Jahren in Deutschland lebender Arzt aus Saudi-Arabien, war den Behörden als islamfeindlich und verschwörungsgläubig aufgefallen. Im Januar tötet in Aschaffenburg ein psychisch kranker, ausreisepflichtiger Mann aus Afghanistan zwei Menschen in einem Park, darunter ein kleines Kind.
+
+Die Trauer ist groß, und schnell geht es nicht mehr um Behördenversagen und psychiatrische Versorgung, sondern fast nur noch um Migration. Friedrich Merz kündigt an, als Kanzler am ersten Tag dauerhafte Grenzkontrollen und Zurückweisungen anzuordnen. Die AfD legt in den Umfragen zu.
+
+- @haerte: Härte zeigen: mehr Abschiebungen, Grenzkontrollen, ein schärferes Sicherheitspaket.
+- @behoerden: Die Fehler der Behörden aufklären: besserer Datenaustausch, psychiatrische Versorgung, Waffenverbote.
+- @zusammenhalt: Vor Pauschalurteilen warnen und für Zusammenhalt werben.
+
+@haerte
+on-arrival: rural_spd += 1*(1-dissent); workers_spd += 1*(1-dissent); new_middle_spd -= 1; left_dissent += 5; neorevisionist_strength += 3; gruene_relation -= 3
+
+Wir überbieten die Union nicht, aber wir halten mit: mehr Rückführungen, verlängerte Grenzkontrollen, mehr Befugnisse für die Polizei. In der Parteilinken und bei den Grünen wächst der Unmut.
+
+@behoerden
+on-arrival: pro_republic += 1; center_dissent -= 2; old_middle_spd += 0.5*(1-dissent); rentner_spd += 0.5*(1-dissent)
+
+Wir lenken den Blick auf das, was der Staat tun kann: Warnungen ernst nehmen, Daten zwischen Ländern und Bund austauschen, kranke Menschen behandeln. Das ist sachlich und richtig, dringt im Lärm des Wahlkampfs aber nur schwer durch.
+
+@zusammenhalt
+on-arrival: new_middle_spd += 1*(1-dissent); workers_spd -= 1; rural_spd -= 1; left_dissent -= 3; gruene_relation += 2; nazi_urgency += 1 if nazi_urgency < 4
+
+Wir erinnern daran, dass der Täter von Magdeburg selbst ein Feind des Islam war und dass Millionen Eingewanderte dieses Land mittragen. In den Städten findet das Zuspruch, anderswo heißt es, wir nähmen die Sorgen der Menschen nicht ernst.

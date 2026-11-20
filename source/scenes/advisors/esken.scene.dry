@@ -7,7 +7,7 @@ new-page: true
 
 = Saskia Esken
 
-Esken war von 2019 bis 2025 Co-Vorsitzende der SPD. Die Informatikerin aus Baden-Württemberg kam als Kandidatin der Parteibasis gegen das Establishment an die Spitze und hat die Partei in der Ampel-Zeit zusammengehalten. Nach der Wahlniederlage wurde sie aus der Führung gedrängt, doch an der Basis hat sie viele Unterstützerinnen und Unterstützer.
+[? if spd_parteitag_2025_seen : Esken war von 2019 bis 2025 Co-Vorsitzende der SPD. ?][? if not spd_parteitag_2025_seen : Esken ist seit 2019 Co-Vorsitzende der SPD. ?] Die Informatikerin aus Baden-Württemberg kam als Kandidatin der Parteibasis gegen das Establishment an die Spitze und hat die Partei in der Ampel-Zeit zusammengehalten. [? if spd_parteitag_2025_seen : Nach der Wahlniederlage wurde sie aus der Führung gedrängt, doch an der Basis ?][? if not spd_parteitag_2025_seen : In der Parteiführung ist sie umstritten, doch an der Basis ?] hat sie viele Unterstützerinnen und Unterstützer.
 
 - @left_unity
 - @organizing_women

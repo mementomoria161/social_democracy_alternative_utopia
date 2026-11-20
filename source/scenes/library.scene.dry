@@ -10,7 +10,7 @@ Hier findest du Informationen über das politische System und die Politik der Bu
 @menu
 
 - @government: Das politische System
-- @weimar_timeline: Chronik der SPD und der Bundesrepublik bis 2025
+- @weimar_timeline: Chronik der SPD und der Bundesrepublik bis 2024
 - @curr_gov: Aktuelle Regierung
 - @demographics: Wählergruppen
 - @parties: Parteien
@@ -34,7 +34,7 @@ Deutschland besteht aus 16 Ländern, die für Polizei, Schulen und vieles mehr z
 @weimar_timeline
 go-to: menu
 
-= Chronik der SPD und der Bundesrepublik (bis 2025)
+= Chronik der SPD und der Bundesrepublik (bis November 2024)
 
 **1863/1875**: Ferdinand Lassalle gründet den Allgemeinen Deutschen Arbeiterverein; 1875 vereinigt er sich mit der Partei von August Bebel und Wilhelm Liebknecht zur späteren SPD.
 
@@ -54,9 +54,11 @@ go-to: menu
 
 **2005–2021**: Mit Unterbrechung regiert die SPD als Juniorpartnerin in Großen Koalitionen unter Angela Merkel. Der Mindestlohn wird 2015 eingeführt. 2013 zieht die AfD fast, 2017 erstmals in den Bundestag ein.
 
-**2021–2024**: Olaf Scholz führt eine Ampelkoalition. Nach Russlands Überfall auf die Ukraine 2022 ruft er die Zeitenwende aus. Im November 2024 zerbricht die Koalition.
+**2021**: Mit 25,7 Prozent wird die SPD unter Olaf Scholz stärkste Kraft. Scholz wird Kanzler einer Ampelkoalition mit Grünen und FDP.
 
-**2025**: Bei der vorgezogenen Bundestagswahl im Februar fällt die SPD auf rund 16 Prozent, ihr schlechtestes Ergebnis seit 1887. Die AfD wird zweitstärkste Kraft. Friedrich Merz wird Kanzler einer Koalition aus Union und SPD, Lars Klingbeil Vizekanzler und Finanzminister.
+**2022–2024**: Nach Russlands Überfall auf die Ukraine ruft Scholz die Zeitenwende aus: 100 Milliarden Euro für die Bundeswehr, Ende der Abhängigkeit von russischem Gas. Mindestlohn von 12 Euro, Bürgergeld und Deutschlandticket werden eingeführt. Nach dem Haushaltsurteil des Bundesverfassungsgerichts im November 2023 fehlen Milliarden, der Streit in der Koalition wird zum Dauerzustand. Im Januar 2024 demonstrieren Millionen gegen Rechtsextremismus; im September wird die AfD in Thüringen stärkste Kraft.
+
+**6. November 2024**: Scholz entlässt Finanzminister Christian Lindner. Die Ampel zerbricht. Hier beginnt das Spiel.
 
 @curr_gov
 go-to: cabinet if spd_in_government; menu if not spd_in_government
@@ -186,25 +188,25 @@ Rentner\*innen: SPD [+ rentner_spd_display +] %, Union [+ rentner_union_display 
 @parties
 go-to: menu
 
-**SPD** – *Sozialdemokratische Partei Deutschlands*. Das sind wir: die älteste Partei Deutschlands, Partei der Arbeit, der sozialen Gerechtigkeit und der Demokratie. Nach dem Absturz von 2025 kämpfen wir darum, wieder Volkspartei zu werden.
+**SPD** – *Sozialdemokratische Partei Deutschlands*. Das sind wir: die älteste Partei Deutschlands, Partei der Arbeit, der sozialen Gerechtigkeit und der Demokratie. In Umfragen liegen wir weit unter dem Wahlergebnis von 2021, und wir kämpfen darum, wieder Volkspartei zu werden.
 
-**CDU/CSU** – *Union*. Christdemokratisch und konservativ, stärkste Kraft im Bundestag und unser Koalitionspartner zu Spielbeginn. Kanzler Friedrich Merz führt die CDU, Markus Söder die CSU. Die Union hat jede Zusammenarbeit mit der AfD ausgeschlossen, die sogenannte Brandmauer. [? if not brandmauer : Inzwischen ist sie gefallen. ?]
+**CDU/CSU** – *Union*. Christdemokratisch und konservativ, in den Umfragen seit Langem klar stärkste Kraft. Friedrich Merz führt die CDU und ist Kanzlerkandidat, Markus Söder führt die CSU. Die Union hat jede Zusammenarbeit mit der AfD ausgeschlossen, die sogenannte Brandmauer. [? if not brandmauer : Inzwischen ist sie gefallen. ?]
 
 Aktuelles Verhältnis: [+ union_relation : relationships +]
 
-**Bündnis 90/Die Grünen** – ökologisch und linksliberal, stark in der akademischen Mittelschicht und in den Städten. Nach dem Ende der Ampel in der Opposition.
+**Bündnis 90/Die Grünen** – ökologisch und linksliberal, stark in der akademischen Mittelschicht und in den Städten. Bis zur Neuwahl mit uns in einer Minderheitsregierung; Robert Habeck ist ihr Kanzlerkandidat.
 
 Aktuelles Verhältnis: [+ gruene_relation : relationships +]
 
-**FDP** – *Freie Demokratische Partei*. Wirtschaftsliberal. 2025 an der Fünf-Prozent-Hürde gescheitert, kämpft sie um die Rückkehr in den Bundestag.
+**FDP** – *Freie Demokratische Partei*. Wirtschaftsliberal. Nach dem Bruch der Ampel unter Christian Lindner in der Opposition; in den Umfragen bangt sie um den Wiedereinzug in den Bundestag.
 
 Aktuelles Verhältnis: [+ fdp_relation : relationships +]
 
-**BSW** – *Bündnis Sahra Wagenknecht*. Linkskonservativ und populistisch: sozialpolitisch links, gesellschaftspolitisch konservativ, gegen Waffenlieferungen an die Ukraine. 2025 knapp an der Fünf-Prozent-Hürde gescheitert.
+**BSW** – *Bündnis Sahra Wagenknecht*. Linkskonservativ und populistisch: sozialpolitisch links, gesellschaftspolitisch konservativ, gegen Waffenlieferungen an die Ukraine. 2024 als Abspaltung der Linken gegründet und auf Anhieb in drei Landtage eingezogen.
 
 Aktuelles Verhältnis: [+ bsw_relation : relationships +]
 
-**Die Linke** – demokratisch-sozialistisch. Nach Jahren der Krise 2025 überraschend stark in den Bundestag zurückgekehrt, vor allem dank junger Wählerinnen und Wähler. Möglicher Partner für Rot-Grün-Rot.
+**Die Linke** – demokratisch-sozialistisch. Nach der Abspaltung des BSW in einer tiefen Krise; mit Ines Schwerdtner und Jan van Aken an der Spitze und Heidi Reichinnek als Spitzenkandidatin will sie zurück in den Bundestag. Möglicher Partner für Rot-Grün-Rot.
 
 Aktuelles Verhältnis: [+ linke_relation : relationships +]
 
@@ -212,7 +214,7 @@ Aktuelles Verhältnis: [+ linke_relation : relationships +]
 
 [? if srpd_formed: **Neue Mitte** – eine Abspaltung des Seeheimer Kreises, sozialliberal und pragmatisch. ?]
 
-**AfD** – *Alternative für Deutschland*. Rechtspopulistisch bis rechtsextrem; der Verfassungsschutz stuft sie als gesichert rechtsextremistisch ein (die Einstufung ist gerichtlich umstritten). Seit 2025 zweitstärkste Kraft im Bundestag, in Umfragen zeitweise stärkste.
+**AfD** – *Alternative für Deutschland*. Rechtspopulistisch bis rechtsextrem; der Verfassungsschutz stuft sie als gesichert rechtsextremistisch ein (die Einstufung ist gerichtlich umstritten). In Umfragen zweitstärkste Kraft, im Osten vielerorts die stärkste.
 
 Aktuelles Verhältnis: [+ afd_relation : relationships +]
 
@@ -465,7 +467,7 @@ if (d3 && window) {
 
 = Wahlergebnisse
 
-[? if year = 2026 and month < 3 : Noch keine neuen Wahlen. ?]
+[? if n_elections = 0 : Noch keine neuen Wahlen. ?]
 
 {!<svg id="election_history" style="width: 500px; height: 400px;"> </svg>!}
 

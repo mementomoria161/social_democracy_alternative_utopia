@@ -2,7 +2,7 @@ title: Stromsteuer-Streit
 subtitle: Wer wird bei den Strompreisen entlastet?
 new-page: true
 tags: event
-view-if: year = 2026 and month >= 4 and month <= 6 and spd_in_government
+view-if: year = 2025 and month >= 7 and month <= 9 and spd_in_government and union_in_government
 max-visits: 1
 on-arrival: stromsteuer_seen = 1
 

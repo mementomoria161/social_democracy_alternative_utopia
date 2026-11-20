@@ -1,0 +1,40 @@
+title: Scholz oder Pistorius?
+subtitle: Wer führt die SPD in die Neuwahl?
+new-page: true
+tags: event
+view-if: year = 2024 and month = 11 and ampel_aus_seen = 1
+max-visits: 1
+priority: 2
+on-arrival: k_frage_seen = 1
+face-image: img/portraits/Pistorius.jpg
+
+# SPD-spezifisch (Kanzlerkandidatur). Setzt spd_candidate ("Scholz" oder "Pistorius"), das in Wahlkampftexten erscheint.
+# Historisch: Pistorius verzichtet am 21.11.2024, der Parteivorstand nominiert Scholz am 25.11.2024.
+
+= Scholz oder Pistorius?
+
+Olaf Scholz will wieder antreten. Doch in den Umfragen ist er der unbeliebteste Kanzler seit Jahrzehnten, während Verteidigungsminister Boris Pistorius seit Monaten die Liste der beliebtesten Politikerinnen und Politiker anführt. Abgeordnete und Kommunalpolitiker fordern öffentlich einen Wechsel, Ortsvereine schreiben Briefe an den Parteivorstand. Pistorius selbst sagt, er sei loyal, schließt aber nichts aus. Saskia Esken und Lars Klingbeil müssen entscheiden, bevor die Debatte die Partei zerreißt.
+
+- @scholz: Hinter dem Kanzler bleiben.
+- @pistorius: Boris Pistorius zum Kanzlerkandidaten machen.
+- @mitglieder: Die Mitglieder entscheiden lassen.
+
+@scholz
+subtitle: Geschlossenheit und Amtsbonus. Die Seeheimer murren.
+on-arrival: spd_candidate = "Scholz"; reformist_dissent += 5; center_dissent -= 3
+
+Pistorius erklärt in einem Video, er stehe nicht zur Verfügung; Olaf Scholz sei der richtige Kanzlerkandidat. Wenige Tage später nominiert der Parteivorstand den Kanzler einstimmig. Die Debatte ist beendet, der Ärger in Teilen der Partei nicht.
+
+@pistorius
+subtitle: Ein populärer Kandidat, aber ein beschädigter Kanzler und eine skeptische Parteilinke.
+on-arrival: spd_candidate = "Pistorius"; workers_spd += 2*(1-dissent); rentner_spd += 2*(1-dissent); rural_spd += 2*(1-dissent); old_middle_spd += 1*(1-dissent); new_middle_spd -= 1; left_dissent += 8; reformist_dissent -= 8; center_dissent += 5; union_relation += 2; pacifism -= 1
+
+Nach einem nächtlichen Gespräch im Kanzleramt verzichtet Olaf Scholz auf die Kandidatur. Er bleibt bis zur Wahl Kanzler, aber das Gesicht der Kampagne ist ab sofort Boris Pistorius. Die Umfragewerte der SPD ziehen an. Die Parteilinke fürchtet einen Wahlkampf, der nur noch von Aufrüstung handelt, und manche im Kanzleramt sprechen von einem „Putsch“.
+
+@mitglieder
+subtitle: -1 Ressource. Basisdemokratisch, aber es kostet Zeit und Geld.
+choose-if: resources >= 1
+unavailable-subtitle: Für eine Mitgliederbefragung fehlen uns die Mittel.
+on-arrival: resources -= 1; spd_candidate = "Pistorius"; workers_spd += 2*(1-dissent); rentner_spd += 1.5*(1-dissent); rural_spd += 2*(1-dissent); new_middle_spd += 0.5*(1-dissent); left_dissent += 3; reformist_dissent -= 8; center_dissent -= 2; democratization += 1
+
+In einer Blitzbefragung stimmt eine klare Mehrheit der Mitglieder für Boris Pistorius. Olaf Scholz akzeptiert das Ergebnis und bleibt bis zur Wahl Kanzler. Weil die Basis entschieden hat, trägt auch die Parteilinke die Entscheidung mit.

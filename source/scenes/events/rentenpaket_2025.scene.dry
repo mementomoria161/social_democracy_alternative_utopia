@@ -1,0 +1,35 @@
+title: Aufstand der Jungen Gruppe
+subtitle: Das Rentenpaket wackelt.
+new-page: true
+tags: event
+view-if: year = 2025 and month >= 11 and spd_in_government and union_in_government and rentenpaket_2025_seen = 0
+max-visits: 1
+on-arrival: rentenpaket_2025_seen = 1
+face-image: img/sozialstaat.jpg
+
+# Ereignis 2025 (Regierung mit der Union). Historisch: 18 Abgeordnete der Jungen Gruppe der Union drohen mit Ablehnung
+# der Haltelinie von 48 Prozent bis 2031; Beschluss am 05.12.2025 mit Kanzlermehrheit, Enthaltung der Linken senkt
+# die nötige Mehrheit; eine Rentenkommission wird eingesetzt (Folgeereignis: rentenkommission 2027).
+
+= Aufstand der Jungen Gruppe
+
+Das Rentenpaket der Koalition soll das Rentenniveau bis 2031 bei 48 Prozent halten. Doch 18 junge Unionsabgeordnete wollen nicht zustimmen: Der Gesetzestext lege ein höheres Rentenniveau auch für die Zeit danach fest, das koste die Jüngeren Milliarden. Ohne sie hat die Koalition keine eigene Mehrheit. [? if chancellor_party = "Union" : Der Kanzler stellt sich hinter das Paket, aber seine Fraktion murrt. ?]
+
+- @hart: Hart bleiben: Das Rentenpaket kommt unverändert.
+- @kommission: Das Gesetz retten mit einem Begleittext und einer Rentenkommission für die Zeit nach 2031.
+- @nachgeben: Der Jungen Gruppe entgegenkommen und die Haltelinie nach 2031 offenlassen.
+
+@hart
+on-arrival: rentner_spd += 1*(1-dissent); labor_dissent -= 5; union_relation -= 3; coalition_dissent += 1
+
+Wir bleiben hart, und die Unionsspitze setzt ihre Abgeordneten unter Druck. Weil sich die Linke enthält, reicht am Ende die Mehrheit. Die Rentnerinnen und Rentner haben Planungssicherheit, die Koalition eine offene Wunde.
+
+@kommission
+on-arrival: union_relation += 1; left_dissent += 2; labor_dissent -= 2
+
+Ein Begleitbeschluss und eine Rentenkommission, die bis 2027 Vorschläge für die Zeit nach 2031 machen soll, beruhigen die Kritiker. Das Paket wird mit knapper Mehrheit beschlossen. Der Streit ist vertagt, nicht gelöst.
+
+@nachgeben
+on-arrival: rentner_spd -= 1.5; labor_dissent += 8; union_relation += 3; welfare -= 1
+
+Die Haltelinie gilt nur bis 2031, über alles Weitere wird später entschieden. Die Junge Gruppe feiert sich, die Gewerkschaften werfen uns vor, die Rentnerinnen und Rentner von morgen preisgegeben zu haben.

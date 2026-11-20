@@ -1,0 +1,42 @@
+title: Womit gehen wir in den Wahlkampf?
+subtitle: Die SPD beschließt ihr Wahlprogramm.
+new-page: true
+tags: event
+view-if: wahlprogramm_seen = 0 and bundestag_dissolved = 1 and n_elections = 0
+max-visits: 1
+priority: 0
+on-arrival: wahlprogramm_seen = 1
+face-image: img/parteitag.jpg
+
+# SPD-spezifisch (Wahlprogramm und Parteitag). Setzt wahlkampf_thema.
+# Historisch: Parteitag am 11.01.2025, Programm „Mehr für Dich. Besser für Deutschland.“ (Mindestlohn 15 Euro,
+# Steuerentlastung für 95 Prozent, Deutschlandfonds, Reform der Schuldenbremse, Mehrwertsteuer auf Lebensmittel 5 Prozent).
+
+= Womit gehen wir in den Wahlkampf?
+
+Für ein neues Programm bleiben nur wenige Wochen. Auf einem außerordentlichen Parteitag soll [+ spd_candidate +] offiziell nominiert und das Wahlprogramm beschlossen werden. Alle wollen alles hineinschreiben, doch eine Kampagne braucht ein Thema, das hängen bleibt.
+
+- @investitionen: Investitionen: ein Deutschlandfonds und die Reform der Schuldenbremse.
+- @entlastung: Entlastung: niedrigere Steuern für 95 Prozent, 15 Euro Mindestlohn, günstigere Lebensmittel.
+- @frieden: Besonnenheit: die Ukraine unterstützen, aber keine Taurus-Marschflugkörper und kein Risiko eines Krieges.
+- @sicherheit: Sicherheit: eine starke Bundeswehr und ein handlungsfähiger Staat.
+
+@investitionen
+on-arrival: wahlkampf_thema = "Investitionen"; wtb_support += 1; new_middle_spd += 1*(1-dissent); workers_spd += 0.5*(1-dissent); old_middle_spd -= 0.5; union_relation -= 2; gruene_relation += 2; labor_dissent -= 3
+
+Die Botschaft: Brücken, Schulen, Bahn und Stromnetze dürfen nicht länger an einer starren Schuldenbremse scheitern. Ökonominnen und Gewerkschaften applaudieren. Die Union warnt vor „Schulden ohne Ende“.
+
+@entlastung
+on-arrival: wahlkampf_thema = "Entlastung"; workers_spd += 1.5*(1-dissent); rentner_spd += 0.5*(1-dissent); unemployed_spd += 1*(1-dissent); labor_dissent -= 3; left_dissent -= 2
+
+Auf den Plakaten stehen Zahlen, die jede und jeder versteht: 15 Euro Mindestlohn, weniger Steuern für fast alle, fünf statt sieben Prozent Mehrwertsteuer auf Lebensmittel. Wer das bezahlen soll, sagen wir auch: die oberen ein Prozent.
+
+@frieden
+on-arrival: wahlkampf_thema = "Frieden"; rentner_spd += 1.5*(1-dissent); workers_spd += 0.5*(1-dissent); workers_bsw -= 1; unemployed_bsw -= 1; new_middle_spd -= 0.5; pacifism += 1; reformist_dissent += 5; left_dissent -= 3; gruene_relation -= 3
+
+„Besonnenheit“ wird zum Leitwort. Viele ältere Wählerinnen und Wähler, gerade im Osten, fühlen sich verstanden. Grüne und Union werfen uns vor, mit der Angst vor dem Krieg Wahlkampf zu machen.
+
+@sicherheit
+on-arrival: wahlkampf_thema = "Sicherheit"; old_middle_spd += 1*(1-dissent); rural_spd += 1*(1-dissent); rentner_spd += 0.5*(1-dissent); new_middle_spd -= 0.5; left_dissent += 4; reformist_dissent -= 5; pacifism -= 1
+
+Die SPD präsentiert sich als Partei der inneren und äußeren Sicherheit. [? if spd_candidate = "Pistorius" : Mit Boris Pistorius an der Spitze wirkt das glaubwürdig. ?][? if spd_candidate = "Scholz" : Das Gesicht dieser Botschaft ist allerdings eher der Verteidigungsminister als der Kanzler. ?] In der Parteilinken ist man skeptisch.

@@ -1,0 +1,30 @@
+title: Bürgerschaftswahl in Hamburg
+subtitle: Ein Lichtblick für die SPD?
+new-page: true
+tags: event
+view-if: year = 2025 and month = 3 and hamburg_2025_seen = 0
+max-visits: 1
+on-arrival: hamburg_2025_seen = 1
+face-image: img/wahlkampf.jpg
+
+# Ereignis 2025. Bürgerschaftswahl Hamburg am 02.03.2025: SPD 33,5, CDU 19,8, Grüne 18,5, Linke 11,2, AfD 7,5 Prozent;
+# Peter Tschentscher bleibt Erster Bürgermeister (Rot-Grün).
+
+= Bürgerschaftswahl in Hamburg
+
+In Hamburg wird die Bürgerschaft gewählt. Die SPD von Bürgermeister Peter Tschentscher kommt auf 33,5 Prozent, mehr als doppelt so viel wie im Bund. Die CDU landet knapp vor den Grünen, die Linke legt deutlich zu, die AfD bleibt einstellig. Tschentscher setzt die rot-grüne Koalition fort.
+
+Das Hamburger Rezept: solide Finanzen, viel Wohnungsbau, ein verlässlicher Bürgermeister ohne große Gesten.
+
+- @lernen: Vom Hamburger Weg lernen: pragmatisch, wirtschaftsnah, verlässlich.
+- @feiern: Den Erfolg feiern und der Partei Mut machen.
+
+@lernen
+on-arrival: reformist_strength += 2; center_dissent -= 2; left_dissent += 2; peoples_party_support += 1
+
+Die Parteiführung lädt Tschentscher ein, seine Erfahrungen zu teilen. Wohnungsbau und solide Verwaltung rücken weiter nach oben auf der Agenda.
+
+@feiern
+on-arrival: center_dissent -= 3; left_dissent -= 2
+
+Für einen Abend ist die Stimmung im Willy-Brandt-Haus gelöst. Es gibt sie noch, die Orte, an denen die SPD Volkspartei ist.

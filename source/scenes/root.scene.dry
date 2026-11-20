@@ -21,8 +21,9 @@ on-arrival: {!
 Q.started = 1;
 // time elapsed (in months)
 Q.time = 1;
-Q.year = 2026;
-Q.month = 1;
+// Spielstart: Bruch der Ampel am 6./7. November 2024 (time 1 = November 2024, time 15 = Januar 2026)
+Q.year = 2024;
+Q.month = 11;
 // how many actions have been taken this month?
 Q.month_actions = 0;
 
@@ -62,14 +63,16 @@ Q.dissent_percent = 8;
 // left = SPD-Linke (PL, Jusos, DL21); center = Parteimitte/Netzwerk; labor = Gewerkschaftsflügel;
 // reformist = Seeheimer Kreis; neorevisionist = "Dänischer Kurs" (hidden at start)
 Q.factions = ['left', 'center', 'labor', 'reformist', 'neorevisionist'];
+// November 2024: after the end of the Ampel the party closes ranks behind the chancellor,
+// but the Seeheimer and parts of the base would rather campaign with Pistorius.
 Q.left_strength = 25;
-Q.left_dissent = 20;
-Q.center_strength = 27;
+Q.left_dissent = 15;
+Q.center_strength = 28;
 Q.center_dissent = 0;
 Q.labor_strength = 20;
 Q.labor_dissent = 10;
-Q.reformist_strength = 23;
-Q.reformist_dissent = 5;
+Q.reformist_strength = 22;
+Q.reformist_dissent = 10;
 Q.neorevisionist_strength = 5;
 Q.neorevisionist_dissent = 10;
 
@@ -84,7 +87,7 @@ Q.neorevisionism = 0;
 
 // crisis_urgency: how seriously the SPD takes the economic/industrial crisis - scale from 0 to 10.
 Q.crisis_urgency = 1;
-// the industrial crisis is already underway in 2026 (legacy name from the Weimar version: Black Thursday)
+// the industrial crisis has been underway since 2023 (legacy name from the Weimar version: Black Thursday)
 Q.black_thursday_seen = 1;
 // nazi_urgency: how seriously the SPD takes the threat from the AfD - scale from 0 to 10.
 Q.nazi_urgency = 2;
@@ -92,7 +95,7 @@ Q.nazi_urgency = 2;
 Q.radicalization = 0;
 // Support for an investment offensive (Investitionsoffensive) - successor of the WTB plan
 Q.wtb_support = 0;
-// Support for a peace-oriented foreign policy within the SPD relative to 2026
+// Support for a peace-oriented foreign policy within the SPD relative to the start
 Q.pacifism = 0;
 // Support for democratic reform within the SPD relative to 2026
 Q.democratization = 0;
@@ -113,11 +116,12 @@ Q.nationalization_adopted = 0;
 Q.moderate_plan_support = 0;
 Q.moderate_plan_adopted = 0;
 
-// inter-party relations
-Q.union_relation = 45;
+// inter-party relations (November 2024: the Union pushes for immediate elections,
+// the Greens stay in the remaining minority government, the FDP has just left it)
+Q.union_relation = 35;
 Q.linke_relation = 25;
-Q.gruene_relation = 45;
-Q.fdp_relation = 25;
+Q.gruene_relation = 55;
+Q.fdp_relation = 15;
 // BSW and AfD are hostile
 Q.bsw_relation = 10;
 Q.afd_relation = 0;
@@ -130,6 +134,10 @@ Q.linke_party_leader = "Schwerdtner";
 Q.union_leader = "Merz";
 Q.union_party_leader = "Merz";
 Q.afd_leader = "Weidel";
+// Kanzlerkandidat der Grünen 2025 (Robert Habeck); the Union candidate is union_leader
+Q.gruene_leader = "Habeck";
+// SPD-Spitzenkandidat*in for the early election (set in events/k_frage, SPD-specific)
+Q.spd_candidate = "Scholz";
 
 // relationship with the Bundespräsident
 Q.hindenburg_relation = 60;
@@ -186,7 +194,7 @@ Q.nationalism = 55;
 // socialism: Umverteilung vs Markt
 Q.socialism = 45;
 // pro_republic: Vertrauen in die Demokratie (support for the democratic parties)
-Q.pro_republic = 60;
+Q.pro_republic = 62;
 
 Q.emergency_rule = 0;
 
@@ -210,26 +218,27 @@ Q.afd_banned = 0;
 Q.coup_progress = 0;
 Q.capital_strike_progress = 0;
 
-Q.starting_budget = 4;
-Q.budget = 4;
+// November 2024: no budget for 2025 (vorläufige Haushaltsführung); the Sondervermögen of 2025 adds room later
+Q.starting_budget = 2;
+Q.budget = 2;
 
 // Proportion of the different voter groups (they overlap; the results are normalized)
 Q.workers = 30; // Arbeitnehmer*innen ohne Hochschulabschluss
 Q.old_middle = 8; // Selbstständige & Mittelstand
 Q.new_middle = 22; // akademische Mittelschicht
 Q.rural = 16; // ländlicher Raum
-// unemployment rate (Bundesagentur für Arbeit, Januar 2026: ca. 6,3 %) - doubles as the size of the group
-Q.unemployed = 6.3;
+// unemployment rate (Bundesagentur für Arbeit, Jahresdurchschnitt 2024: 6,0 %) - doubles as the size of the group
+Q.unemployed = 6.0;
 Q.rentner = 32; // Rentner*innen
 
 // average gross income in euros/month (Destatis 2025, Vollzeit)
 Q.income = 4600;
 
-// inflation (Verbraucherpreisindex, Ende 2025: ca. 2 %)
-Q.inflation = 2.1;
+// inflation (Destatis, Verbraucherpreisindex November 2024: 2,2 %)
+Q.inflation = 2.2;
 
-// economic growth (forecast 2026)
-Q.economic_growth = 0.8;
+// economic growth (Destatis, BIP 2024: -0,2 % in der ersten Schätzung vom Januar 2025, später auf -0,5 % revidiert)
+Q.economic_growth = -0.2;
 
 // economic expansion timer
 Q.economic_expansion = 0;
@@ -247,83 +256,88 @@ Q.parties = ['spd', 'linke', 'union', 'gruene', 'fdp', 'bsw', 'afd', 'other'];
 // possible left split from the SPD
 Q.sapd_formed = 0;
 
-// Support for party by social group (calibrated to the polls of January 2026:
-// Union 26, AfD 25, SPD 15, Grüne 11, Linke 10, BSW 4, FDP 4, Sonstige 4)
-// they don't have to sum to 100 since the electoral calculations will be normalized.
-Q.workers_spd = 14;
-Q.workers_linke = 10;
-Q.workers_union = 19;
+// Support for party by social group, calibrated to the polls of November 2024
+// (monthly mean of all institutes, de.wikipedia.org/wiki/Bundestagswahl_2025/Umfragen_und_Prognosen):
+// Union 32.6, AfD 18.1, SPD 15.4, Grüne 11.3, BSW 6.6, FDP 4.1, Linke 3.5, Sonstige 8.4
+// (fitted with the normalization from post_event, structure taken from the 2026 values).
+// They don't have to sum to 100 since the electoral calculations will be normalized.
+// post_event pulls them towards the real monthly means until January 2026 ("historische Schwerkraft").
+Q.workers_spd = 14.1;
+Q.workers_linke = 3.6;
+Q.workers_union = 24;
 Q.workers_gruene = 5;
 Q.workers_fdp = 3;
-Q.workers_bsw = 5;
-Q.workers_afd = 38;
-Q.workers_other = 5;
+Q.workers_bsw = 7.5;
+Q.workers_afd = 27.1;
+Q.workers_other = 10;
 
-Q.old_middle_spd = 8;
-Q.old_middle_linke = 4;
-Q.old_middle_union = 32;
+Q.old_middle_spd = 8.1;
+Q.old_middle_linke = 1.5;
+Q.old_middle_union = 40.4;
 Q.old_middle_gruene = 12;
-Q.old_middle_fdp = 9;
-Q.old_middle_bsw = 3;
-Q.old_middle_afd = 26;
-Q.old_middle_other = 6;
+Q.old_middle_fdp = 8.9;
+Q.old_middle_bsw = 4.5;
+Q.old_middle_afd = 18.6;
+Q.old_middle_other = 12;
 
-Q.new_middle_spd = 14;
-Q.new_middle_linke = 15;
-Q.new_middle_union = 21;
-Q.new_middle_gruene = 26;
+Q.new_middle_spd = 14.1;
+Q.new_middle_linke = 5.4;
+Q.new_middle_union = 26.5;
+Q.new_middle_gruene = 25.9;
 Q.new_middle_fdp = 5;
-Q.new_middle_bsw = 3;
-Q.new_middle_afd = 12;
-Q.new_middle_other = 5;
+Q.new_middle_bsw = 4.5;
+Q.new_middle_afd = 8.6;
+Q.new_middle_other = 10;
 
-Q.rural_spd = 13;
-Q.rural_linke = 6;
-Q.rural_union = 31;
+Q.rural_spd = 13.1;
+Q.rural_linke = 2.2;
+Q.rural_union = 39.1;
 Q.rural_gruene = 8;
 Q.rural_fdp = 4;
-Q.rural_bsw = 4;
-Q.rural_afd = 30;
-Q.rural_other = 4;
+Q.rural_bsw = 6;
+Q.rural_afd = 21.4;
+Q.rural_other = 8;
 
-Q.unemployed_spd = 12;
-Q.unemployed_linke = 17;
-Q.unemployed_union = 12;
+Q.unemployed_spd = 12.1;
+Q.unemployed_linke = 6.2;
+Q.unemployed_union = 15.1;
 Q.unemployed_gruene = 6;
 Q.unemployed_fdp = 2;
-Q.unemployed_bsw = 6;
-Q.unemployed_afd = 39;
-Q.unemployed_other = 6;
+Q.unemployed_bsw = 9;
+Q.unemployed_afd = 27.8;
+Q.unemployed_other = 12;
 
-Q.rentner_spd = 21;
-Q.rentner_linke = 7;
-Q.rentner_union = 35;
+Q.rentner_spd = 21.2;
+Q.rentner_linke = 2.5;
+Q.rentner_union = 44.2;
 Q.rentner_gruene = 10;
 Q.rentner_fdp = 4;
-Q.rentner_bsw = 5;
-Q.rentner_afd = 16;
-Q.rentner_other = 2;
+Q.rentner_bsw = 7.5;
+Q.rentner_afd = 11.4;
+Q.rentner_other = 4;
 
-// Current Bundestag composition (% of seats after the election of 23 February 2025)
-// 630 seats: CDU/CSU 208, AfD 152, SPD 120, Grüne 85, Linke 64, SSW 1. FDP and BSW failed the 5% threshold.
-Q.spd_r = 19;
-Q.linke_r = 10;
-Q.union_r = 33;
-Q.gruene_r = 13.5;
-Q.fdp_r = 0;
-Q.bsw_r = 0;
-Q.afd_r = 24;
-Q.other_r = 0.5;
+// Bundestag of the 20th Wahlperiode (elected 26 September 2021), composition at the end of 2024 (% of 733 seats,
+// de.wikipedia.org/wiki/Liste_der_Mitglieder_des_Deutschen_Bundestages_(20._Wahlperiode)):
+// SPD 207, CDU/CSU 196, Grüne 117, FDP 90, AfD 76, Gruppe Die Linke 28, Gruppe BSW 10, fraktionslos incl. SSW 9.
+Q.bundestag_seats = 733; // 630 from the next election on (Wahlrechtsreform 2023), set in bundestagswahl
+Q.spd_r = 28.24;
+Q.linke_r = 3.82;
+Q.union_r = 26.74;
+Q.gruene_r = 15.96;
+Q.fdp_r = 12.28;
+Q.bsw_r = 1.36;
+Q.afd_r = 10.37;
+Q.other_r = 1.23;
 
-// diff from prev (Bundestag 2021-2025)
-Q.old_spd_r = 28;
-Q.old_linke_r = 4;
-Q.old_union_r = 27;
-Q.old_gruene_r = 16;
-Q.old_fdp_r = 12.5;
-Q.old_bsw_r = 1.5;
-Q.old_afd_r = 11;
-Q.old_other_r = 0;
+// diff from prev (shown after the next election)
+Q.old_spd_r = 28.24;
+Q.old_linke_r = 3.82;
+Q.old_union_r = 26.74;
+Q.old_gruene_r = 15.96;
+Q.old_fdp_r = 12.28;
+Q.old_bsw_r = 1.36;
+Q.old_afd_r = 10.37;
+Q.old_other_r = 1.23;
 
 // a left split from the SPD isn't formed yet, but it may be formed
 Q.sapd_r = 0;
@@ -339,14 +353,15 @@ Q.party_support_records = [];
 // inflation and unemployment records
 Q.economic_records = [];
 
-// State of the government: cabinet Merz (CDU/CSU + SPD), since May 2025
+// State of the government: cabinet Scholz after the dismissal of Christian Lindner (7 November 2024):
+// minority government of SPD and Grüne, Wissing stays as minister without party
 Q.president = "Steinmeier";
-Q.bundestag_president = "Klöckner";
-Q.chancellor = "Merz";
-Q.chancellor_party = 'Union';
+Q.bundestag_president = "Bas";
+Q.chancellor = "Scholz";
+Q.chancellor_party = 'SPD';
 Q.spd_in_government = 1;
-Q.union_in_government = 1;
-Q.gruene_in_government = 0;
+Q.union_in_government = 0;
+Q.gruene_in_government = 1;
 Q.fdp_in_government = 0;
 Q.bsw_in_government = 0;
 Q.linke_in_government = 0;
@@ -355,13 +370,13 @@ Q.afd_in_government = 0;
 // coalitions (legacy variable names from the Weimar version):
 // in_right_coalition = government without the SPD (Union + Grüne/FDP)
 Q.in_right_coalition = 0;
-// in_weimar_coalition = Kenia (SPD + Union + Grüne)
-Q.in_weimar_coalition = 0;
+// in_weimar_coalition = Kenia, Ampel or Rot-Grün (SPD + Grüne [+ Union/FDP])
+Q.in_weimar_coalition = 1;
 // in_grand_coalition = Schwarz-Rot (SPD + Union)
-Q.in_grand_coalition = 1;
+Q.in_grand_coalition = 0;
 // display name of the current coalition and the main coalition partner (used when the SPD gives up ministries)
-Q.coalition_name = "Schwarz-Rot";
-Q.partner_party = "Union";
+Q.coalition_name = "Rot-Grün (Minderheit)";
+Q.partner_party = "Grüne";
 // does the Union refuse any cooperation with the AfD? (1 = yes)
 Q.brandmauer = 1;
 // in_popular_front = Rot-Grün-Rot (SPD + Grüne + Linke)
@@ -373,7 +388,7 @@ Q.in_emergency_government = 0;
 Q.in_spd_majority = 0;
 Q.grand_coalition_failed = 0;
 // if the SPD is ruling as part of a minority government
-Q.in_minority_government = 0;
+Q.in_minority_government = 1;
 
 // if you're in a coalition, this is an incremental counter for how much dissent there is from the coalition partners.
 Q.coalition_dissent = 1;
@@ -384,25 +399,26 @@ Q.linke_coalition_dissent = 0;
 Q.spd_toleration = 0;
 
 // is the current government a minority government?
-Q.minority_government = 0;
+Q.minority_government = 1;
 
-// ministries - which parties control the ministries? (cabinet Merz)
-Q.foreign_minister = 'Wadephul';
-Q.foreign_minister_party = 'Union';
-Q.interior_minister = 'Dobrindt';
-Q.interior_minister_party = 'Union';
-Q.justice_minister = 'Hubig';
-Q.justice_minister_party = 'SPD';
-Q.labor_minister = 'Bas';
+// ministries - which parties control the ministries? (cabinet Scholz, November 2024;
+// after the election post_event replaces these names by the default ministers of the new parties)
+Q.foreign_minister = 'Baerbock';
+Q.foreign_minister_party = 'Grüne';
+Q.interior_minister = 'Faeser';
+Q.interior_minister_party = 'SPD';
+Q.justice_minister = 'Wissing';
+Q.justice_minister_party = 'parteilos';
+Q.labor_minister = 'Heil';
 Q.labor_minister_party = 'SPD';
 Q.bundeswehr_minister = 'Pistorius';
 Q.bundeswehr_minister_party = 'SPD';
-Q.economic_minister = 'Reiche';
-Q.economic_minister_party = 'Union';
-Q.finance_minister = 'Klingbeil';
+Q.economic_minister = 'Habeck';
+Q.economic_minister_party = 'Grüne';
+Q.finance_minister = 'Kukies';
 Q.finance_minister_party = 'SPD';
-Q.agriculture_minister = 'Rainer';
-Q.agriculture_minister_party = 'Union';
+Q.agriculture_minister = 'Özdemir';
+Q.agriculture_minister_party = 'Grüne';
 
 // Events: what has occurred?
 Q.panzerkreuzer_seen = 0;
@@ -545,22 +561,65 @@ Q.march_on_berlin_timer = 0;
 Q.hindenburg_dismissal_timer = 0;
 
 
-// the next Bundestag election is due in early 2029 (46-48 months after the first session of 25 March 2025)
+// the next Bundestag election is not scheduled yet: regularly it would be due in September 2025;
+// events/ampel_aus sets the early election (historically 23 February 2025).
+// After each election bundestagswahl sets the next one four years later (early 2029).
 Q.in_election = 0;
-Q.next_election_year = 2029;
-Q.next_election_month = 2;
-Q.next_election_time = 38;
+Q.election_scheduled = 0;
+Q.election_date_text = "";
+Q.next_election_year = 2025;
+Q.next_election_month = 9;
+Q.next_election_time = 11;
+// time of the last Bundestag election (prologue events count months from it)
+Q.last_election_time = 0;
 
-// Advisors (SPD 2026)
+// Prolog November 2024 - Mai 2025 (events/ampel_aus ... events/kanzlerwahl_2025)
+// month and year of the Vertrauensfrage, set in ampel_aus
+Q.vf_year = 0;
+Q.vf_month = 0;
+// how many laws the minority government can still pass before the dissolution
+Q.prolog_laws = 0;
+Q.bundestag_dissolved = 0;
+// main campaign theme 2025 (wahlprogramm_2025)
+Q.wahlkampf_thema = "";
+// Grundgesetzänderung März 2025: 0 = abgelehnt/nicht erfolgt, 1 = nur Verteidigung, 2 = Sondervermögen 500 Mrd.
+Q.sondervermoegen = 0;
+// result of the SPD-Mitgliedervotum on the coalition agreement (yes share in %)
+Q.mv_result = 0;
+// did the Union pass a motion with AfD votes in January 2025 (brandmauer_januar_2025)?
+Q.brandmauer_tested = 0;
+Q.mv_base = 0;
+// prologue and 2025 events already seen
+Q.ampel_aus_seen = 0;
+Q.k_frage_seen = 0;
+Q.restgesetze_seen = 0;
+Q.vertrauensfrage_seen = 0;
+Q.wahlprogramm_seen = 0;
+Q.migrationsdebatte_seen = 0;
+Q.brandmauer_januar_seen = 0;
+Q.tv_duell_seen = 0;
+Q.sondervermoegen_seen = 0;
+Q.mitgliedervotum_seen = 0;
+Q.kanzlerwahl_seen = 0;
+Q.hamburg_2025_seen = 0;
+Q.zollstreit_2025_seen = 0;
+Q.spd_parteitag_2025_seen = 0;
+Q.verfassungsrichterwahl_seen = 0;
+Q.kommunalwahl_nrw_2025_seen = 0;
+Q.grundsicherung_2025_seen = 0;
+Q.rentenpaket_2025_seen = 0;
+
+// Advisors (SPD, November 2024). Changes in the prologue: kanzlerwahl_2025 swaps Mützenich for Miersch
+// (Fraktionsvorsitz), spd_parteitag_2025 swaps Esken for Bas (Parteivorsitz) - as in January 2026.
 // centrist: party leadership
-Q.bas_advisor = 1; // Bärbel Bas, Parteivorsitzende, Arbeitsministerin
-Q.klingbeil_advisor = 1; // Lars Klingbeil, Parteivorsitzender, Vizekanzler, Finanzminister
+Q.bas_advisor = 0; // Bärbel Bas, Bundestagspräsidentin, ab Juni 2025 Parteivorsitzende
+Q.klingbeil_advisor = 1; // Lars Klingbeil, Parteivorsitzender
 Q.klingbeil_dead = 0; // legacy flag (Weimar version: death of Hermann Müller); never set
 Q.crispien_advisor = 0; // unused
-Q.miersch_advisor = 1; // Matthias Miersch, Fraktionsvorsitzender
+Q.miersch_advisor = 0; // Matthias Miersch, Generalsekretär, ab Mai 2025 Fraktionsvorsitzender
 
 // left advisors
-Q.esken_advisor = 0; // Saskia Esken
+Q.esken_advisor = 1; // Saskia Esken, Parteivorsitzende bis Juni 2025
 Q.stegner_advisor = 0; // Ralf Stegner
 Q.stegner_dead = 0; // legacy flag; never set
 Q.tuermer_advisor = 0; // Philipp Türmer, Juso-Vorsitzender
@@ -568,7 +627,7 @@ Q.kuehnert_advisor = 0; // Kevin Kühnert
 
 // centrist alternate advisors
 Q.rehlinger_advisor = 0; // Anke Rehlinger
-Q.muetzenich_advisor = 0; // Rolf Mützenich
+Q.muetzenich_advisor = 1; // Rolf Mützenich, Fraktionsvorsitzender bis Februar 2025
 
 // Reformist advisors
 Q.pistorius_advisor = 0; // Boris Pistorius
@@ -600,25 +659,25 @@ new-page: true
 
  - Willy Brandt, 1992
 
-Dies ist ein Spiel über eine mögliche Zukunft. Es beginnt im Januar 2026 mit der realen politischen Lage und erzählt von dort aus eine alternative Geschichte. Jede Abweichung vom tatsächlichen Verlauf ist notwendigerweise Fiktion. Die dargestellten Personen sind reale Politikerinnen und Politiker; ihre Handlungen im Spiel sind erfunden.
+Dies ist ein Spiel über eine mögliche Zukunft. Es beginnt am 6. November 2024, am Abend, an dem die Ampelkoalition zerbricht, mit der realen politischen Lage, und erzählt von dort aus eine alternative Geschichte. Was bis zu diesem Tag geschehen ist, ist belegt; alles, was die Spielerin oder der Spieler danach entscheidet, ist Fiktion, auch wenn sich manche Ereignisse am tatsächlichen Verlauf orientieren. Die dargestellten Personen sind reale Politikerinnen und Politiker; ihre Handlungen im Spiel sind erfunden.
 
 Mehr zu Parteien, Institutionen und Hintergründen findet sich in der „Bibliothek“ oben links. Beim ersten Spiel lohnt sich ein Blick hinein.
 
-- @2026_easy: Beginnen (leicht)
-- @2026_main: Beginnen (normal)
-- @2026_hard: Beginnen (schwer)
-- @2026_historical: Beginnen (historischer Modus)
-- @2026_custom: Schwierigkeit anpassen
+- @intro_easy: Beginnen (leicht)
+- @intro_main: Beginnen (normal)
+- @intro_hard: Beginnen (schwer)
+- @intro_historical: Beginnen (historischer Modus)
+- @intro_custom: Schwierigkeit anpassen
 
-@2026_easy
-on-arrival: difficulty = -1; resources = 4; dues = 3; starting_demo_strength = 2000; demo_strength = 2000; left_dissent = 10; linke_relation = 29; union_relation = 50; fdp_relation = 30; starting_budget = 5; budget = 5; hand_size = 4; starting_dissent = 0; starting_relations = 0;
-go-to: 2026_main
+@intro_easy
+on-arrival: difficulty = -1; resources = 4; dues = 3; starting_demo_strength = 2000; demo_strength = 2000; left_dissent = 10; linke_relation = 29; union_relation = 40; gruene_relation = 60; fdp_relation = 20; starting_budget = 3; budget = 3; hand_size = 4; starting_dissent = 0; starting_relations = 0;
+go-to: intro_main
 
-@2026_hard
-on-arrival: difficulty = 1; resources = 0; starting_resources = 0; dues = 1; starting_demo_strength = 1000; demo_strength = 1000; reformist_dissent = 25; left_dissent = 30; labor_dissent = 25; center_dissent = 25; union_relation = 38; linke_relation = 16; fdp_relation = 20; starting_budget = 3; budget = 3; discard_disabled = 1; starting_dissent = 2; starting_relations = 2;
-go-to: 2026_main
+@intro_hard
+on-arrival: difficulty = 1; resources = 0; starting_resources = 0; dues = 1; starting_demo_strength = 1000; demo_strength = 1000; reformist_dissent = 25; left_dissent = 30; labor_dissent = 25; center_dissent = 25; union_relation = 30; gruene_relation = 50; linke_relation = 16; fdp_relation = 10; starting_budget = 1; budget = 1; discard_disabled = 1; starting_dissent = 2; starting_relations = 2;
+go-to: intro_main
 
-@2026_historical
+@intro_historical
 subtitle: Speichern, Laden und Umfragen sind deaktiviert. [? if not achievement_game_completed: Nicht für das erste Spiel empfohlen. ?]
 on-arrival: {!
 Q.hand_size = 3;
@@ -635,27 +694,32 @@ Q.left_dissent = 30;
 Q.labor_dissent = 25;
 Q.center_dissent = 25;
 Q.starting_relations = 2;
-Q.union_relation = 38;
+Q.union_relation = 30;
+Q.gruene_relation = 50;
 Q.linke_relation = 16;
-Q.fdp_relation = 20;
-Q.budget = 2;
+Q.fdp_relation = 10;
+Q.budget = 1;
 Q.fundraising_disabled = 1;
 Q.saves_disabled = 1;
 this.state.disableSaves = true;
 !}
-go-to: 2026_main
+go-to: intro_main
 
-@2026_custom
+@intro_custom
 go-to: custom_difficulty
 
-@2026_main
+@intro_main
 new-page: true
-go-to: main if hand_size == 3; main.main_easy if hand_size == 4
+face-image: img/portraits/Scholz.jpg
 
-= Januar 2026
+= 6. November 2024
 
-Seit Mai 2025 regiert in Berlin eine Koalition aus CDU/CSU und SPD unter Bundeskanzler Friedrich Merz. Für die SPD war die Bundestagswahl ein historischer Tiefpunkt: 16,4 Prozent, das schlechteste Ergebnis seit 1887. Trotzdem sitzt sie wieder am Kabinettstisch, mit Lars Klingbeil als Vizekanzler und Finanzminister, mit Bärbel Bas als Arbeitsministerin und Boris Pistorius im Verteidigungsministerium.
+Am Morgen ist klar geworden, dass Donald Trump wieder Präsident der Vereinigten Staaten wird. Am Abend tritt Olaf Scholz im Kanzleramt vor die Kameras. Er hat Finanzminister Christian Lindner entlassen. Lindner habe sein Vertrauen zu oft gebrochen, sagt der Kanzler; mit der FDP sei keine verantwortliche Regierung mehr zu machen. Am nächsten Tag ziehen sich auch die übrigen FDP-Minister zurück, nur Verkehrsminister Volker Wissing bleibt, tritt aus seiner Partei aus und übernimmt zusätzlich das Justizministerium. Jörg Kukies, bisher Staatssekretär im Kanzleramt, wird Finanzminister.
 
-Die Lage ist ernst. Die Wirtschaft stagniert im dritten Jahr, die Industrie baut Arbeitsplätze ab, und die AfD liegt in den Umfragen gleichauf mit der Union. Im Osten könnte sie im Herbst ganze Länder gewinnen. In der eigenen Partei wächst der Unmut über Kompromisse mit der Union, und viele fragen, wofür die SPD eigentlich noch steht.
+Die Ampel ist Geschichte. SPD und Grüne regieren weiter, aber ohne eigene Mehrheit im Bundestag. Für 2025 gibt es keinen beschlossenen Haushalt.
 
-Bis zur nächsten Bundestagswahl im Frühjahr 2029 bleibt wenig Zeit. Jetzt muss die Sozialdemokratie zeigen, dass sie gebraucht wird.
+Scholz hat angekündigt, am 15. Januar die Vertrauensfrage zu stellen; Neuwahlen gäbe es dann spätestens Ende März. Friedrich Merz und die Union verlangen, dass er sie sofort stellt. Wirtschaftsverbände warnen vor monatelangem Stillstand, die Bundeswahlleiterin vor einer überstürzten Wahl. In der SPD fragen sich viele, ob dieser Kanzler die Partei noch einmal in einen Wahlkampf führen kann.
+
+Die SPD liegt in den Umfragen bei 15 Prozent, die Union bei über 30, die AfD bei fast 18. Was jetzt entschieden wird, prägt die nächsten Jahre.
+
+- @ampel_aus: Wie geht es weiter?

@@ -3,7 +3,7 @@ new-page: true
 tags: event
 priority: -1
 view-if: (year = next_election_year and month >= next_election_month) or (year > next_election_year)
-on-departure: month_actions += 1; in_election = 0; next_election_year = year + 4; next_election_month = month; n_elections += 1; next_election_time = time + 48;
+on-departure: month_actions += 1; in_election = 0; next_election_year = year + 4; next_election_month = month; n_elections += 1; next_election_time = time + 48; last_election_time = time; election_scheduled = 1; bundestag_dissolved = 0; bundestag_seats = 630;
 set-jump: post_election
 face-image: img/bundestagswahl.jpg
 
@@ -11,7 +11,7 @@ face-image: img/bundestagswahl.jpg
 
 = Bundestagswahl, [+ month : month +] [+ year +]
 
-Heute wird der Bundestag gewählt. Die Wahllokale schließen um 18 Uhr, dann kommen die ersten Prognosen.
+Heute wird der Bundestag gewählt. Die Wahllokale schließen um 18 Uhr, dann kommen die ersten Prognosen.[? if n_elections = 0 : Für die SPD tritt [+ spd_candidate +] als Kanzlerkandidat an, für die Union Friedrich Merz, für die Grünen Robert Habeck, für die AfD Alice Weidel. Zum ersten Mal gilt das neue Wahlrecht: Der Bundestag schrumpft von 733 auf 630 Sitze. ?]
 
 - @election_algorithm: Wir haben getan, was wir konnten.
 
@@ -57,7 +57,8 @@ for (var party of all_parties) {
     }
 }
 // Bundestagspräsidium: by custom the strongest group except the AfD (whose candidates fail) provides the president
-var btp_candidates = {'union': 'Klöckner', 'spd': 'Ortleb', 'gruene': 'Nouripour', 'linke': 'Ramelow'};
+// after the first election of the game the SPD would keep Bärbel Bas in office
+var btp_candidates = {'union': 'Klöckner', 'spd': Q.n_elections <= 1 ? 'Bas' : 'Ortleb', 'gruene': 'Nouripour', 'linke': 'Ramelow'};
 var btp_party = null;
 for (var party of all_parties) {
     if (party != 'afd' && (btp_party === null || Q[party + '_r'] > Q[btp_party + '_r'])) {
@@ -271,10 +272,17 @@ Zum ersten Mal in der Geschichte der Bundesrepublik regiert eine Partei allein. 
 
 Wer soll Kanzler\*in werden?
 
+- @scholz_majority_chancellor: Olaf Scholz bleibt Bundeskanzler.
 - @klingbeil_majority_chancellor: Lars Klingbeil wird Bundeskanzler.
 - @pistorius_majority_chancellor: Boris Pistorius wird Bundeskanzler.
 - @schwesig_majority_chancellor: Manuela Schwesig wird Bundeskanzlerin.
 - @bas_majority_chancellor: Bärbel Bas wird Bundeskanzlerin.
+
+@scholz_majority_chancellor
+view-if: n_elections = 1 and spd_candidate = "Scholz"
+on-arrival: chancellor = "Scholz"
+
+Olaf Scholz bleibt Bundeskanzler, nun an der Spitze einer SPD-Alleinregierung.
 
 @klingbeil_majority_chancellor
 on-arrival: chancellor = "Klingbeil"
@@ -408,12 +416,22 @@ Die Grünen sind stärker als wir und stellen die Kanzlerin. Franziska Brantner 
 
 Wer soll für die SPD ins Kanzleramt?
 
+- @scholz
 - @klingbeil
 - @pistorius
 - @schwesig
 - @bas
 - @muetzenich_coalition_chancellor
 - @union_chancellor
+
+@scholz
+title: Olaf Scholz bleibt Kanzler.
+subtitle: Der Kanzler hat die Wahl als Spitzenkandidat gewonnen. Die Partei steht hinter ihm, die Partner kennen ihn.
+view-if: n_elections = 1 and spd_candidate = "Scholz"
+on-arrival: spd_in_government = 1; chancellor = "Scholz"; chancellor_party = "SPD"; center_dissent -= 3
+go-to: ministries
+
+Olaf Scholz wird erneut zum Bundeskanzler gewählt. Kaum jemand hatte ihm das im November noch zugetraut.
 
 @klingbeil
 title: Lars Klingbeil wird Kanzler.
@@ -632,7 +650,9 @@ if (Q.next_election_month > 12) {
     Q.next_election_year = Q.year;
 }
 Q.in_election = 1;
-Q.spd_caretaker = Q.spd_in_government ? 1 : 0;
+// the previous government stays in office until the new election
+Q.spd_caretaker = (Q.spd_in_government || Q.chancellor_party == 'SPD') ? 1 : 0;
+Q.coalition_name = 'geschäftsführende Regierung';
 Q.pro_republic -= 6;
 Q.workers_spd -= 3;
 Q.new_middle_spd -= 3;

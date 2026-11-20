@@ -7,7 +7,7 @@ view-if: muetzenich_advisor = 1
 
 = Rolf Mützenich
 
-Mützenich war von 2019 bis 2025 Vorsitzender der SPD-Bundestagsfraktion. Der promovierte Friedensforscher aus Köln steht für Diplomatie und Abrüstung und ist mit seinem Ruf nach Verhandlungen im Ukrainekrieg oft angeeckt. In der Parteilinken genießt er hohes Ansehen.
+[? if n_elections = 0 : Mützenich führt seit 2019 die SPD-Bundestagsfraktion. ?][? if n_elections > 0 : Mützenich war von 2019 bis 2025 Vorsitzender der SPD-Bundestagsfraktion. ?] Der promovierte Friedensforscher aus Köln steht für Diplomatie und Abrüstung und ist mit seinem Ruf nach Verhandlungen im Ukrainekrieg oft angeeckt. In der Parteilinken genießt er hohes Ansehen.
 
 - @muetzenich_international
 - @muetzenich_foreign

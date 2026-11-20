@@ -1,0 +1,34 @@
+title: Das TV-Duell
+subtitle: [+ spd_candidate +] gegen Merz, live in ARD und ZDF.
+new-page: true
+tags: event
+view-if: tv_duell_seen = 0 and bundestag_dissolved = 1 and n_elections = 0 and year = next_election_year and month = next_election_month
+max-visits: 1
+priority: 0
+on-arrival: tv_duell_seen = 1
+face-image: img/medien.jpg
+
+# Prolog: TV-Duell im Wahlmonat (historisch 09.02.2025, Scholz gegen Merz). Wird vor der Bundestagswahl (priority -1) gezeigt.
+
+= Das TV-Duell
+
+Zwei Wochen vor der Wahl stehen sich [+ spd_candidate +] und Friedrich Merz im Fernsehstudio gegenüber. Millionen schauen zu. [? if brandmauer_tested : Kaum ein Thema ist so heikel wie die Abstimmung mit den Stimmen der AfD. ?][? if spd_candidate = "Scholz" : Der Kanzler liegt weit zurück; nur ein klarer Sieg könnte das Rennen noch drehen. ?][? if spd_candidate = "Pistorius" : Pistorius ist der beliebtere Kandidat, doch Merz hat die stärkere Partei hinter sich. ?]
+
+- @angriff: Merz frontal angreifen: Brandmauer, Rente, Sozialstaat.
+- @kompetenz: Ruhig bleiben und mit Erfahrung und Verlässlichkeit punkten.
+- @soziales: Auf Mindestlohn, Mieten und Preise setzen.
+
+@angriff
+on-arrival: workers_spd += 1*(1-dissent); new_middle_spd += 0.5*(1-dissent); new_middle_spd += 0.5 if brandmauer_tested; union_relation -= 3; left_dissent -= 2
+
+[+ spd_candidate +] geht in die Offensive: „Auf Ihr Wort ist kein Verlass.“ Die Blitzumfragen sehen ein knappes Unentschieden. Die eigenen Anhänger sind mobilisiert, die Union verbittert.
+
+@kompetenz
+on-arrival: rentner_spd += 1*(1-dissent); old_middle_spd += 0.5*(1-dissent); rural_spd += 0.5 if spd_candidate = "Pistorius"
+
+Sachlich, kenntnisreich, ohne Ausrutscher. Viele Zuschauerinnen und Zuschauer finden, [+ spd_candidate +] habe das Duell knapp gewonnen. Ob das an den Umfragen etwas ändert, wird sich zeigen.
+
+@soziales
+on-arrival: workers_spd += 1*(1-dissent); unemployed_spd += 1*(1-dissent); old_middle_spd -= 0.5; labor_dissent -= 2
+
+[+ spd_candidate +] spricht über den Wocheneinkauf, die Miete und den Mindestlohn, Merz über Bürokratie und Wachstum. In den Betrieben kommt das an. Wirtschaftsverbände sprechen von „Klassenkampf im Abendprogramm“.

@@ -1,0 +1,41 @@
+title: Das Ende der Ampel
+subtitle: Wann wird neu gewählt?
+new-page: true
+tags: event
+view-if: year = 2024 and month = 11 and ampel_aus_seen = 0
+max-visits: 1
+priority: 3
+on-arrival: ampel_aus_seen = 1
+face-image: img/reichstag_2.jpg
+
+# Prolog, Schritt 1 (November 2024): wird direkt aus root.intro_main aufgerufen.
+# Setzt den Termin der Vertrauensfrage (vf_year/vf_month), den Wahltermin und prolog_laws (Zeit für restgesetze).
+# Historisch: Vertrauensfrage am 16.12.2024, Auflösung am 27.12.2024, Wahl am 23.02.2025.
+
+= Das Ende der Ampel
+
+Am Morgen nach dem Bruch beherrscht eine Frage die Hauptstadt: Wann wird gewählt? Friedrich Merz verlangt, dass der Kanzler die Vertrauensfrage „spätestens nächste Woche“ stellt; bis dahin werde die Union keinem Gesetz der Minderheitsregierung zustimmen. Bundespräsident Steinmeier lässt wissen, dass er den Bundestag rasch auflösen würde, wenn die Parteien sich einigen. Die Bundeswahlleiterin warnt dagegen vor „unabwägbaren Risiken“ einer überstürzten Wahl, von Fristen für die Kandidatenaufstellung bis zum Papier für die Stimmzettel.
+
+In der SPD-Fraktion wollen viele zuerst noch retten, was zu retten ist: höheres Kindergeld, den Ausgleich der kalten Progression, das Deutschlandticket, das Rentenpaket. Andere fürchten, dass ein monatelanges Hinauszögern wie Festkleben am Amt wirkt.
+
+- @spaet: Am Fahrplan des Kanzlers festhalten: Vertrauensfrage am 15. Januar, Neuwahl Ende März.
+- @frueh: Mit der Union einen Termin aushandeln: Vertrauensfrage im Dezember, Neuwahl im Februar.
+- @sofort: Sofort die Vertrauensfrage stellen: Neuwahl schon im Januar.
+
+@spaet
+subtitle: Mehr Zeit für Gesetze und Wahlkampf, aber die Union blockiert und das Land wird ungeduldig.
+on-arrival: vf_year = 2025; vf_month = 1; next_election_year = 2025; next_election_month = 3; next_election_time = 5; election_scheduled = 1; election_date_text = "30. März 2025"; prolog_laws = 3; union_relation -= 8; fdp_relation -= 3; pro_republic -= 2; new_middle_spd -= 1; old_middle_spd -= 1; center_dissent -= 3; reformist_dissent += 5
+
+Der Kanzler bleibt bei seinem Zeitplan. Die Union spricht von „Insolvenzverschleppung“ und kündigt an, bis zur Vertrauensfrage keine Hand zu rühren. Dafür hat die Minderheitsregierung Zeit, im Bundestag noch um Mehrheiten zu werben, und die SPD gewinnt einige Wochen für ihren Wahlkampf. Gewählt wird am 30. März 2025.
+
+@frueh
+subtitle: Ein geordneter Übergang, ausgehandelt mit der Union.
+on-arrival: vf_year = 2024; vf_month = 12; next_election_year = 2025; next_election_month = 2; next_election_time = 4; election_scheduled = 1; election_date_text = "23. Februar 2025"; prolog_laws = 2; union_relation += 3; gruene_relation += 2
+
+Nach einigen Tagen öffentlichen Drucks verständigen sich die Fraktionsspitzen von SPD und Union: Der Kanzler stellt die Vertrauensfrage am 16. Dezember, gewählt wird am 23. Februar 2025. Bis Weihnachten bleibt Zeit für einige Gesetze, bei denen die Union mitziehen will.
+
+@sofort
+subtitle: Klarheit sofort, aber ein überhasteter Wahlkampf und kaum noch Gesetze.
+on-arrival: vf_year = 2024; vf_month = 11; next_election_year = 2025; next_election_month = 1; next_election_time = 3; election_scheduled = 1; election_date_text = "26. Januar 2025"; prolog_laws = 1; union_relation += 6; pro_republic += 1; center_dissent += 5; resources -= 1 if resources >= 1
+
+Wir nehmen der Union den Wind aus den Segeln: Der Kanzler stellt die Vertrauensfrage noch im November. Gewählt wird schon am 26. Januar 2025, mitten im Winter. Die Kommunen müssen die Wahl in Rekordzeit organisieren, und in der Parteizentrale fehlt es an allem: an Plakaten, an Geld, an einem fertigen Programm.
