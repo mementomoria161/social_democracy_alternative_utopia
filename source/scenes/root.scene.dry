@@ -363,8 +363,22 @@ Q.gruene_name = "Grüne";
 Q.election_records = [];
 // party support records for every month
 Q.party_support_records = [];
-// inflation and unemployment records
+// inflation, unemployment, growth and budget records (monthly, post_event)
 Q.economic_records = [];
+// economic sectors (Durchgang 4.4, filled by post_event, order of SECTORS there): real value added in Mrd. Euro (prices of 2024),
+// annual growth rates, reasons as text, monthly records {date, v: [...]}, months of one-time event shocks
+Q.sector_value = [];
+Q.sector_growth = [];
+Q.sector_why = [];
+Q.sector_records = [];
+Q.sector_done = {};
+// interface for events, groups (4.5) and climate (4.6): extra annual growth rate per sector in percentage points (decays 8 % per month)
+Q.shock_industrie = 0; Q.shock_energie = 0; Q.shock_bau = 0; Q.shock_handel = 0; Q.shock_ikt = 0; Q.shock_finanzen = 0;
+Q.shock_wohnen = 0; Q.shock_dienste = 0; Q.shock_oeffentlich = 0; Q.shock_sonstige = 0; Q.shock_agrar = 0;
+// energy price index (2024 = 100), to be moved by the climate model (4.6); above 100 it slows industry
+Q.energy_price = 100;
+// Bau-Offensive (advisor Hubertz): number of housing programmes
+Q.bau_offensive = 0;
 
 // State of the government: cabinet Scholz after the dismissal of Christian Lindner (7 November 2024):
 // minority government of SPD and Grüne, Wissing stays as minister without party

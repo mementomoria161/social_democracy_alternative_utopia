@@ -41,6 +41,16 @@ Arbeitslosenquote: [+ unemployed_2 +]%
 
 Wirtschaftswachstum: [+ economic_growth_2 +]%
 
+Verlauf und Branchen im Reiter „Wirtschaft“.
+
+@economy
+
+= Wirtschaft
+
+[+ month : month +] [+ year +]
+
+{!<div id="econ_view"></div>!}
+
 @government
 on-display: {!
 if (!Q.parties || typeof document === 'undefined') return;

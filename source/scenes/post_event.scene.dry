@@ -128,6 +128,23 @@ if (Q.dissent < 0) {
     Q.dissent = 0.95;
 }
 
+////////////////////////// Wirtschaftssektoren (Durchgang 4.4, Reiter Wirtschaft)
+// Bruttowertschöpfung 2024 in jeweiligen Preisen: 3 979,6 Mrd. Euro (Summe der Quartale; Destatis, Konjunkturindikatoren VGR,
+// destatis.de/.../Volkswirtschaftliche-Gesamtrechnungen/vgr210.html, Stand 30.09.2026). Anteile daraus: Produzierendes Gewerbe
+// ohne Bau 23,4 % (davon Verarbeitendes Gewerbe 19,9 %, destatis.de/Europa, Thema Industrie; Energie/Wasser/Bergbau als Rest 3,5 %),
+// Baugewerbe 5,1 %, Handel/Verkehr/Gastgewerbe 16,3 %; Dienstleistungsbereiche zusammen 70,6 % (Statista nach Destatis), Land- und
+// Forstwirtschaft als Rest 0,9 %. Die Aufteilung der übrigen Dienstleistungsbereiche ist geschätzt (Struktur der Vorjahre, auf 70,6 % abgestimmt).
+// Startraten: reale Veränderung der Bruttowertschöpfung 2024 (Destatis, Pressemitteilung Nr. 017 vom 15.01.2026);
+// Energie, Finanzen, Wohnungswesen und Landwirtschaft dort nicht ausgewiesen (geschätzt).
+// Reihenfolge der Arrays sector_value/sector_growth/sector_why und der Records wie SECTORS (Namen und Texte: out/html/game.js, ECON_SECTORS).
+var SECTORS = ['industrie', 'energie', 'bau', 'handel', 'ikt', 'finanzen', 'wohnen', 'dienste', 'oeffentlich', 'sonstige', 'agrar'];
+if (!Q.sector_value || !Q.sector_value.length) {
+    Q.sector_value = [19.9, 3.5, 5.1, 16.3, 4.9, 3.7, 10.6, 11.5, 19.7, 3.9, 0.9].map(function(s) { return Math.round(s * 39.796 * 10) / 10; });
+    Q.sector_growth = [-4.3, -1.0, -3.8, 0.2, 2.1, 0.5, 0.5, 0.8, 1.2, 1.0, 0];
+    Q.sector_records = [];
+    Q.sector_why = SECTORS.map(function() { return ''; });
+}
+
 // 1. update dates
 if (Q.month_actions >= 1) {
     Q.time += 1;
@@ -156,8 +173,78 @@ if (Q.month_actions >= 1) {
     }
     Q.party_support_records.push(party_support_results);
     Q.economic_records.push({'date': new Date(Q.year, Q.month - 1),
-                             'inflation': Q.inflation,
-                             'unemployment': Q.unemployed});
+                             'inflation': Math.round(Q.inflation * 100) / 100,
+                             'unemployment': Math.round(Q.unemployed * 100) / 100,
+                             'growth': Math.round((Q.economic_growth || 0) * 100) / 100,
+                             'budget': Q.budget});
+
+    // Sektoren: jede Branche hat eine eigene Jahresrate um das Gesamtwachstum (Grundtrend, Konjunkturempfindlichkeit BETA,
+    // Politik und Ereignisse). Danach werden alle Raten so verschoben, dass ihr mit den Anteilen gewichtetes Mittel genau
+    // economic_growth ist. Das Sektormodell wirkt nicht auf economic_growth und die Arbeitslosigkeit zurück (Balancing unverändert).
+    // Schnittstelle für Ereignisse, Gruppen (4.5) und Klima (4.6): shock_<sektor> (Prozentpunkte Jahresrate, klingt mit 8 % im Monat ab),
+    // energy_price (Index, 2024 = 100; teurere Energie bremst die Industrie).
+    var g = Q.economic_growth || 0, cyc = g - 1;
+    var TREND = [-0.8, 0.3, Q.year >= 2026 ? 0.3 : -1.5, 0, 2.0, 0, 0.2, 0.3, 0.8, 0, -0.5];
+    var BETA = [1.7, 0.6, 1.4, 1.2, 0.8, 1.0, 0.3, 1.2, 0.2, 0.8, 0.3];
+    var S = {}; SECTORS.forEach(function(s, i) { S[s] = i; });
+    var pol = SECTORS.map(function() { return 0; }), why = SECTORS.map(function() { return []; });
+    var add = function(s, v, text) { pol[S[s]] += v; why[S[s]].push(text); };
+    // one-time shocks when an event happened first (Q.sector_done: flag -> month of the event)
+    var ONE_TIME = [['industriekrise_seen', 'Industriekrise', {industrie: -2.5}],
+                    ['zollstreit_2025_seen', 'US-Zölle 2025', {industrie: -1.5}],
+                    ['black_thursday_seen', 'Zollkrieg', {industrie: -3, handel: -1.5, finanzen: -1}],
+                    ['banking_crisis_seen', 'Bankenkrise', {finanzen: -4, bau: -1.5, wohnen: -1}],
+                    ['capital_strike_seen', 'Investitionsstreik', {industrie: -3, bau: -2, dienste: -1.5}],
+                    ['ukraine_ceasefire_seen', 'Waffenstillstand in der Ukraine', {industrie: 1, bau: 1, energie: 0.5}]];
+    Q.sector_done = Q.sector_done || {};
+    ONE_TIME.forEach(function(e) {
+        if (!Q[e[0]]) return;
+        if (Q.sector_done[e[0]] === undefined) {
+            Q.sector_done[e[0]] = Q.time;
+            for (var s in e[2]) Q['shock_' + s] = (Q['shock_' + s] || 0) + e[2][s];
+        }
+        if (Q.time - Q.sector_done[e[0]] < 18) {
+            for (var s in e[2]) why[S[s]].push((e[2][s] < 0 ? 'Nachwirkung: ' : 'Auftrieb: ') + e[1]);
+        }
+    });
+    if (Q.tariffs > 0) add('industrie', -0.6 * Math.min(Q.tariffs, 3), 'Zölle belasten den Export');
+    if (Q.sondervermoegen == 2 && Q.year >= 2026) {
+        add('bau', 1.0, 'Sondervermögen Infrastruktur');
+        add('industrie', 0.3, 'Sondervermögen Infrastruktur');
+    }
+    if (Q.sondervermoegen >= 1 && Q.year >= 2026) add('industrie', 0.4, 'Rüstungsaufträge');
+    if (Q.works_program > 0) {
+        add('bau', 0.6 * Math.min(Q.works_program, 3), 'Investitionsoffensive');
+        add('industrie', 0.2 * Math.min(Q.works_program, 3), 'Investitionsoffensive');
+    }
+    if (Q.bau_offensive > 0) {
+        add('bau', 0.6 * Math.min(Q.bau_offensive, 2), 'Bau-Offensive im Wohnungsbau');
+        add('wohnen', 0.2, 'Bau-Offensive im Wohnungsbau');
+    }
+    if (Q.welfare > 0) add('oeffentlich', 0.25 * Math.min(Q.welfare, 4), 'Ausbau des Sozialstaats');
+    if (Q.science_bonus > 0) {
+        add('ikt', 0.2 * Q.science_bonus, 'Forschung und Bildung');
+        add('dienste', 0.05 * Q.science_bonus, 'Forschung und Bildung');
+    }
+    var ep = Q.energy_price || 100;
+    if (Math.abs(ep - 100) >= 5) {
+        add('industrie', -0.03 * (ep - 100), ep > 100 ? 'hohe Energiepreise' : 'günstigere Energie');
+        add('energie', 0.01 * (ep - 100), ep > 100 ? 'hohe Energiepreise' : 'günstigere Energie');
+    }
+    if (Q.inflation > 4) add('handel', -0.5, 'hohe Inflation dämpft den Konsum');
+    var rate = Q.sector_growth.map(function(r, i) {
+        var shock = Q['shock_' + SECTORS[i]] || 0;
+        if (shock && Math.abs(shock) < 0.05) shock = 0;
+        Q['shock_' + SECTORS[i]] = Math.round(shock * 0.92 * 100) / 100;
+        var target = Math.max(-15, Math.min(15, g + TREND[i] + (BETA[i] - 1) * cyc + pol[i] + shock));
+        return r + 0.2 * (target - r);
+    });
+    var total = Q.sector_value.reduce(function(a, b) { return a + b; }, 0);
+    var mean = rate.reduce(function(a, r, i) { return a + r * Q.sector_value[i] / total; }, 0);
+    Q.sector_growth = rate.map(function(r) { return Math.round((r + g - mean) * 100) / 100; });
+    Q.sector_value = Q.sector_value.map(function(v, i) { return Math.round(v * (1 + Q.sector_growth[i] / 1200) * 100) / 100; });
+    Q.sector_why = why.map(function(a) { return a.join('; '); });
+    Q.sector_records.push({'date': new Date(Q.year, Q.month - 1), 'v': Q.sector_value.map(function(v) { return Math.round(v * 10) / 10; })});
     // change economic stats...
     // we're basically implicity drawing a Philips curve, scaled to the German economy of the 2020s
     // budget deficits lead to some inflation

@@ -291,6 +291,212 @@
       $('#qualities').append(dendryUI.contentToHTML.convert(displayContent));
       dendryUI.dendryEngine._runActions(scene.onDisplay);
       window.drawPolls();
+      window.drawEconomy();
+  };
+
+  // Wirtschafts-Reiter (Durchgang 4.4)
+  // Reale Jahreswerte vor dem Spielstart: Arbeitslosenquote der Bundesagentur für Arbeit (Jahresdurchschnitt, bezogen auf alle
+  // zivilen Erwerbspersonen), Verbraucherpreisindex (Destatis, Veränderung zum Vorjahr), BIP preisbereinigt (Destatis:
+  // 2019-2022 Pressemitteilung Nr. 017 vom 15.01.2026, 2023/2024 Inlandsprodukt-Tabelle Stand 30.09.2026 nach der Sommerrevision 2026).
+  var REAL_ECON = [
+      // Jahr, Arbeitslosenquote, Inflation, Wachstum
+      [2019, 5.0, 1.4, 1.0], [2020, 5.9, 0.5, -4.1], [2021, 5.7, 3.1, 3.9],
+      [2022, 5.3, 6.9, 1.8], [2023, 5.7, 5.9, -1.0], [2024, 6.0, 2.2, 0.0]
+  ].map(function(r) {
+      return {'date': new Date(r[0], 6, 1), 'unemployment': r[1], 'inflation': r[2], 'growth': r[3], 'real': true};
+  });
+  var GAME_START = new Date(2024, 10, 6);
+  // Reihenfolge wie SECTORS in post_event (dort Modell und Quellen der Anteile). share = Anteil an der Bruttowertschöpfung 2024 in %,
+  // jobs = Erwerbstätige 2024 in Tausend (Destatis, Arbeitnehmer und Erwerbstätige nach Wirtschaftsbereichen, Stand 18.08.2026;
+  // Energie = Produzierendes Gewerbe ohne Bau minus Verarbeitendes Gewerbe; Öffentliche und Sonstige Dienstleister geschätzt aufgeteilt).
+  // group = Farbgruppe in der Zusammensetzung (höchstens acht Farben, der Rest als „Übrige“).
+  var ECON_SECTORS = [
+      {id: 'industrie', name: 'Industrie', share: 19.9, jobs: 7415, group: 0,
+       text: 'Verarbeitendes Gewerbe: Fahrzeugbau, Maschinenbau, Chemie und Pharma, Metall und Elektro. Exportabhängig und konjunkturempfindlich; belastet durch hohe Energiepreise, Konkurrenz aus China und den Umbruch zum Elektroauto.'},
+      {id: 'energie', name: 'Energie, Wasser, Bergbau', share: 3.5, jobs: 649, group: 7,
+       text: 'Energie- und Wasserversorgung, Entsorgung, Bergbau. Wächst mit dem Ausbau von Netzen und erneuerbaren Energien.'},
+      {id: 'bau', name: 'Baugewerbe', share: 5.1, jobs: 2613, group: 1,
+       text: 'Hoch- und Tiefbau, Ausbaugewerbe. Seit dem Zinsanstieg 2022 im Abschwung; öffentliche Investitionen und Wohnungsbau beleben ihn.'},
+      {id: 'handel', name: 'Handel, Verkehr, Gastgewerbe', share: 16.3, jobs: 10079, group: 2,
+       text: 'Einzel- und Großhandel, Logistik, Verkehr, Hotels und Gaststätten. Hängt am privaten Konsum und an den Reallöhnen.'},
+      {id: 'ikt', name: 'Information und Kommunikation', share: 4.9, jobs: 1572, group: 6,
+       text: 'Software, IT-Dienste, Telekommunikation, Verlage und Medien. Wächst strukturell durch die Digitalisierung.'},
+      {id: 'finanzen', name: 'Finanzen und Versicherungen', share: 3.7, jobs: 1086, group: 7,
+       text: 'Banken und Versicherungen; anfällig für Finanzkrisen.'},
+      {id: 'wohnen', name: 'Grundstücks- und Wohnungswesen', share: 10.6, jobs: 523, group: 4,
+       text: 'Vermietung und Immobilienwirtschaft, einschließlich des selbst genutzten Wohneigentums (unterstellte Mieten). Wenige Beschäftigte, kaum konjunkturabhängig.'},
+      {id: 'dienste', name: 'Unternehmensdienstleister', share: 11.5, jobs: 6248, group: 5,
+       text: 'Beratung, Recht und Steuern, Ingenieurbüros, Forschung, Werbung, Zeitarbeit, Gebäudereinigung. Folgt der Industrie und der Konjunktur.'},
+      {id: 'oeffentlich', name: 'Öffentliche Dienste, Erziehung, Gesundheit', share: 19.7, jobs: 11900, group: 3,
+       text: 'Verwaltung, Verteidigung, Schulen und Kitas, Krankenhäuser und Pflege. Wächst mit der alternden Gesellschaft und kaum abhängig von der Konjunktur.'},
+      {id: 'sonstige', name: 'Sonstige Dienstleister', share: 3.9, jobs: 3310, group: 7,
+       text: 'Kunst, Kultur, Sport, Vereine, Friseure und andere persönliche Dienstleistungen.'},
+      {id: 'agrar', name: 'Land- und Forstwirtschaft', share: 0.9, jobs: 565, group: 7,
+       text: 'Landwirtschaft, Forstwirtschaft und Fischerei.'}
+  ];
+  var ECON_GROUPS = ['Industrie', 'Bau', 'Handel, Verkehr, Gastgewerbe', 'Öffentliche Dienste, Erziehung, Gesundheit',
+                     'Grundstücks- und Wohnungswesen', 'Unternehmensdienstleister', 'Information und Kommunikation',
+                     'Übrige (Energie, Finanzen, Landwirtschaft, Sonstige)'];
+  // [Feld, Name, kurzer Name für die Beschriftung am Linienende]
+  var ECON_LINES = [['growth', 'Wachstum', 'Wachstum'], ['unemployment', 'Arbeitslosenquote', 'Arbeitslose'], ['inflation', 'Inflation', 'Inflation']];
+  var econNum = function(x, digits) {
+      return (x < 0 ? '−' : '') + Math.abs(x).toFixed(digits === undefined ? 1 : digits).replace('.', ',');
+  };
+  var econDate = function(d) { return d3.timeFormat('%b %Y')(new Date(d)); };
+  window.econOpen = {};
+
+  window.drawEconomy = function() {
+      var box = document.getElementById('econ_view');
+      var Q = dendryUI.dendryEngine.state.qualities;
+      if (!box || !window.d3 || Q.year === undefined) return;
+      var now = {'date': new Date(Q.year, Q.month - 1), 'unemployment': Q.unemployed || 0, 'inflation': Q.inflation || 0,
+                 'growth': Q.economic_growth || 0, 'budget': Q.budget || 0};
+      var records = (Q.economic_records || []).filter(function(r) {
+          return new Date(r.date).getTime() != now.date.getTime();
+      });
+      var game = records.concat([now]);
+
+      // Kacheln: Wert jetzt und Veränderung gegenüber dem Vorjahresmonat (im ersten Spieljahr gegenüber dem realen Vorjahresmittel)
+      var yearAgo = records.filter(function(r) {
+          var d = new Date(r.date);
+          return d.getFullYear() == Q.year - 1 && d.getMonth() == Q.month - 1;
+      })[0] || REAL_ECON.filter(function(r) { return r.date.getFullYear() == Q.year - 1; })[0] || {};
+      var tile = function(label, value, prev, unit, digits, better, note) {
+          var trend = '';
+          if (prev !== undefined && prev !== null) {
+              var d = value - prev;
+              var good = better(d);
+              trend = Math.abs(d) < 0.05 ? '<span class="econ_trend">► wie im Vorjahr</span>' :
+                  '<span class="econ_trend ' + (good ? 'good' : 'bad') + '">' + (d > 0 ? '▲ ' : '▼ ') +
+                  (d > 0 ? '+' : '') + econNum(d, digits) + (unit ? ' Pkt.' : '') + ' ggü. Vorjahr</span>';
+          }
+          return '<div class="econ_tile"><div class="econ_label">' + label + '</div><div class="econ_value">' +
+              econNum(value, digits) + unit + '</div>' + trend + (note ? '<div class="econ_trend">' + note + '</div>' : '') + '</div>';
+      };
+      var html = '<div class="econ econ_tiles">' +
+          tile('Wachstum (Jahresrate)', now.growth, yearAgo.growth, ' %', 1, function(d) { return d > 0; }) +
+          tile('Arbeitslosenquote', now.unemployment, yearAgo.unemployment, ' %', 1, function(d) { return d < 0; }) +
+          tile('Inflation', now.inflation, yearAgo.inflation, ' %', 1,
+               function(d) { return Math.abs(now.inflation - 2) < Math.abs(now.inflation - d - 2); }) +
+          tile('Haushaltsspielraum', now.budget, yearAgo.budget, '', 0, function(d) { return d > 0; },
+               now.budget < 0 ? 'im Defizit' : '') +
+          '</div>';
+
+      // Verlauf
+      html += '<h3 class="poll_heading">Verlauf seit 2019</h3><div class="econ_legend">' + ECON_LINES.map(function(l, i) {
+          return '<span><span class="econ_swatch s' + (i + 1) + '"></span>' + l[1] + '</span>';
+      }).join('') + '</div><svg id="econ_graph" class="econ"></svg>' +
+          '<div id="econ_readout" class="poll_note">Zeige auf das Diagramm für einzelne Werte.</div>' +
+          '<p class="poll_note">2019 bis 2024 reale Jahreswerte (Destatis, Bundesagentur für Arbeit), ab dem Spielstart im November 2024 Monatswerte des Spielverlaufs. Inflationsspitze real: 8,8 % im Oktober 2022.</p>';
+
+      // Sektoren
+      var started = Q.sector_value && Q.sector_value.length == ECON_SECTORS.length;
+      var values = started ? Q.sector_value : ECON_SECTORS.map(function(s) { return s.share * 39.796; });
+      var rates = started ? Q.sector_growth : ECON_SECTORS.map(function() { return null; });
+      var total = values.reduce(function(a, b) { return a + b; }, 0);
+      var srec = Q.sector_records || [];
+      var lastYear = srec.filter(function(r) {
+          var d = new Date(r.date);
+          return d.getFullYear() == Q.year - 1 && d.getMonth() == Q.month - 1;
+      })[0];
+      var rows = ECON_SECTORS.map(function(s, i) {
+          var start = s.share * 39.796;
+          return {s: s, i: i, value: values[i], share: 100 * values[i] / total, rate: rates[i],
+                  yoy: lastYear ? 100 * (values[i] / lastYear.v[i] - 1) : null,
+                  jobs: s.jobs * (1 + 0.5 * (values[i] / start - 1)), why: (Q.sector_why || [])[i] || ''};
+      });
+      var maxRate = Math.max(3, d3.max(rows, function(r) { return Math.abs(r.rate || 0); }));
+      html += '<h3 class="poll_heading">Wachstum der Wirtschaftsbereiche</h3>' +
+          '<p class="poll_note">Aktuelle Jahresrate der realen Wertschöpfung, sortiert. Klicke auf einen Bereich für Details.</p>' +
+          '<div class="econ">' + rows.slice().sort(function(a, b) { return (b.rate || 0) - (a.rate || 0); }).map(function(r) {
+          var w = r.rate === null ? 0 : 50 * Math.abs(r.rate) / maxRate;
+          var bar = '<span class="econ_div"><span class="econ_zero"></span><span class="' + (r.rate < 0 ? 'neg' : 'pos') +
+              '" style="width:' + w + '%;' + (r.rate < 0 ? 'right:50%' : 'left:50%') + '"></span></span>';
+          return '<details class="poll_group"' + (window.econOpen[r.s.id] ? ' open' : '') +
+              ' ontoggle="window.econOpen[\'' + r.s.id + '\'] = this.open;"><summary class="econ_row" title="' + r.s.name + ': ' +
+              (r.rate === null ? '' : econNum(r.rate) + ' % Wachstum, ') + econNum(r.share) + ' % der Wertschöpfung">' +
+              '<span class="econ_name">' + r.s.name + '</span>' + bar +
+              '<span class="econ_val">' + (r.rate === null ? '–' : (r.rate > 0 ? '+' : '') + econNum(r.rate) + ' %') + '</span></summary>' +
+              '<div class="econ_detail">Anteil an der Bruttowertschöpfung: <b>' + econNum(r.share) + ' %</b> (2024: ' + econNum(r.s.share) + ' %), ' +
+              'rund ' + econNum(r.value, 0) + ' Mrd. Euro (Preise von 2024)<br>' +
+              (r.yoy !== null ? 'Veränderung gegenüber dem Vorjahresmonat: ' + (r.yoy > 0 ? '+' : '') + econNum(r.yoy) + ' %<br>' : '') +
+              'Erwerbstätige: rund ' + econNum(r.jobs / 1000) + ' Mio. (2024: ' + econNum(r.s.jobs / 1000) + ' Mio.)<br>' +
+              (r.why ? 'Einflüsse: ' + r.why + '<br>' : '') + '<span class="poll_note">' + r.s.text + '</span></div></details>';
+      }).join('') + '</div>';
+
+      // Zusammensetzung: ein gestapelter Balken je Jahr (Dezemberwert, im laufenden Jahr der aktuelle Stand)
+      var shareBar = function(vals) {
+          var sum = vals.reduce(function(a, b) { return a + b; }, 0);
+          var groups = ECON_GROUPS.map(function() { return 0; });
+          vals.forEach(function(v, i) { groups[ECON_SECTORS[i].group] += 100 * v / sum; });
+          return '<span class="econ_stack">' + groups.map(function(g, k) {
+              return '<span class="g' + (k + 1) + '" title="' + ECON_GROUPS[k] + ': ' + econNum(g) + ' %" style="flex-grow:' + g + '"></span>';
+          }).join('') + '</span>';
+      };
+      var years = [['2024', ECON_SECTORS.map(function(s) { return s.share; })]];
+      for (var y = 2025; y < Q.year; y++) {
+          var dec = srec.filter(function(r) { var d = new Date(r.date); return d.getFullYear() == y && d.getMonth() == 11; })[0];
+          if (dec) years.push([String(y), dec.v]);
+      }
+      if (started && Q.year > 2024) years.push([econDate(now.date), values]);
+      html += '<h3 class="poll_heading">Anteile an der Wertschöpfung</h3><div class="econ">' + years.map(function(y) {
+          return '<div class="econ_year"><span class="econ_year_label">' + y[0] + '</span>' + shareBar(y[1]) + '</div>';
+      }).join('') + '<div class="econ_legend">' + ECON_GROUPS.map(function(g, k) {
+          return '<span><span class="econ_swatch g' + (k + 1) + '"></span>' + g + '</span>';
+      }).join('') + '</div></div>' +
+          '<p class="poll_note">2024 Anteile in jeweiligen Preisen (Destatis, teils geschätzt), danach Spielmodell: Jeder Bereich wächst mit eigenem Trend um das Gesamtwachstum; Krisen, Zölle, Investitionen und Energiepreise verschieben die Gewichte.</p>';
+      box.innerHTML = html;
+
+      // Liniendiagramm
+      var data = REAL_ECON.concat(game);
+      var width = box.clientWidth, height = Math.min(260, Math.max(190, width * 0.5));
+      var m = {top: 12, right: 96, bottom: 26, left: 30};
+      var svg = d3.select('#econ_graph').attr('width', width).attr('height', height);
+      var x = d3.scaleTime([new Date(2019, 0, 1), d3.max(data, function(d) { return new Date(d.date); })], [m.left, width - m.right]);
+      var lo = Math.min(-1, d3.min(data, function(d) { return Math.min(d.growth, d.inflation, d.unemployment); }));
+      var hi = d3.max(data, function(d) { return Math.max(d.growth, d.inflation, d.unemployment); }) + 0.5;
+      var yS = d3.scaleLinear([Math.floor(lo), Math.ceil(hi)], [height - m.bottom, m.top]);
+      var x0 = x(GAME_START);
+      svg.append('rect').attr('class', 'econ_real_band').attr('x', m.left).attr('y', m.top)
+          .attr('width', Math.max(0, x0 - m.left)).attr('height', height - m.top - m.bottom);
+      svg.append('text').attr('class', 'econ_band_label').attr('x', m.left + 4).attr('y', m.top + 11).text('real');
+      svg.append('text').attr('class', 'econ_band_label').attr('x', x0 + 4).attr('y', m.top + 11).text('Spiel');
+      svg.append('line').attr('class', 'econ_start').attr('x1', x0).attr('x2', x0).attr('y1', m.top).attr('y2', height - m.bottom);
+      svg.append('g').attr('class', 'econ_axis').attr('transform', 'translate(0,' + (height - m.bottom) + ')')
+          .call(d3.axisBottom(x).ticks(Math.max(3, Math.floor((width - m.left - m.right) / 55))).tickFormat(d3.timeFormat('%Y')).tickSizeOuter(0));
+      svg.append('g').attr('class', 'econ_axis').attr('transform', 'translate(' + m.left + ',0)')
+          .call(d3.axisLeft(yS).ticks(6).tickFormat(function(v) { return econNum(v, 0); }).tickSize(-(width - m.left - m.right)))
+          .call(function(g) { g.select('.domain').remove(); });
+      svg.append('line').attr('class', 'econ_zero_line').attr('x1', m.left).attr('x2', width - m.right).attr('y1', yS(0)).attr('y2', yS(0));
+      var labels = [];
+      ECON_LINES.forEach(function(l, i) {
+          var series = data.filter(function(d) { return d[l[0]] !== undefined && d[l[0]] !== null; });
+          svg.append('path').attr('class', 'econ_line s' + (i + 1))
+              .attr('d', d3.line().x(function(d) { return x(new Date(d.date)); }).y(function(d) { return yS(d[l[0]]); })(series));
+          svg.selectAll(null).data(series.filter(function(d) { return d.real; })).enter().append('circle')
+              .attr('class', 'econ_dot s' + (i + 1)).attr('r', 4)
+              .attr('cx', function(d) { return x(d.date); }).attr('cy', function(d) { return yS(d[l[0]]); });
+          var last = series[series.length - 1];
+          labels.push({i: i, text: l[2] + ' ' + econNum(last[l[0]]), y: yS(last[l[0]]) + 4});
+      });
+      labels.sort(function(a, b) { return a.y - b.y; });
+      for (var k = 1; k < labels.length; k++) labels[k].y = Math.max(labels[k].y, labels[k - 1].y + 12);
+      labels.forEach(function(lb) {
+          svg.append('text').attr('class', 'econ_end_label').attr('x', width - m.right + 6).attr('y', lb.y).text(lb.text);
+      });
+      // Hover: Fadenkreuz und Werte des nächstgelegenen Monats bzw. Jahres
+      var rule = svg.append('line').attr('class', 'econ_rule').attr('y1', m.top).attr('y2', height - m.bottom).style('display', 'none');
+      var readout = document.getElementById('econ_readout');
+      var bisect = d3.bisector(function(d) { return new Date(d.date); }).center;
+      svg.append('rect').attr('x', m.left).attr('y', 0).attr('width', width - m.left - m.right).attr('height', height)
+          .attr('fill', 'transparent')
+          .on('pointermove', function(ev) {
+              var d = data[bisect(data, x.invert(d3.pointer(ev)[0]))];
+              rule.attr('x1', x(new Date(d.date))).attr('x2', x(new Date(d.date))).style('display', null);
+              readout.textContent = (d.real ? new Date(d.date).getFullYear() + ' (real, Jahresmittel)' : econDate(d.date)) + ': ' +
+                  ECON_LINES.filter(function(l) { return typeof d[l[0]] == 'number'; }).map(function(l) { return l[1] + ' ' + econNum(d[l[0]]) + ' %'; }).join(', ');
+          })
+          .on('pointerleave', function() { rule.style('display', 'none'); });
   };
 
   // Umfrage-Tab: Verlauf seit der Bundestagswahl 2021, gesamt oder je Wählergruppe

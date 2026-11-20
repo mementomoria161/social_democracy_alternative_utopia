@@ -58,7 +58,7 @@ for (let run = 0; run < runs; run++) {
       if (k === '2025-2' || k === '2025-12' || k === '2026-11' || k === '2027-12' || k === '2029-3' || k === '2030-6') snap[k] = snap[k] || [Q.spd_votes, Q.union_votes, Q.afd_votes, Q.gruene_votes, Q.linke_votes, (+Q.unemployed).toFixed(1)].join('/');
     }
     const Q = e.state.qualities;
-    summary.push({ run, player: Q.player, smart, end: Q.year + '-' + Q.month, steps, snap, chancellor: Q.chancellor + '(' + Q.chancellor_party + ')', president: Q.president, btw1: (Q.election_records[0] ? ['spd','union','afd','gruene','linke','bsw','fdp'].map(p => Math.round(Q.election_records[0][p]*10)/10).join('/') + '@' + new Date(Q.election_records[0].date).toISOString().slice(0,7) : ''), dm: Q.direct_mandates, coalition: Q.coalition_name, events: events.size, trig: [...end].filter(x=>x[0]=='@').slice(0,6) });
+    summary.push({ run, player: Q.player, smart, end: Q.year + '-' + Q.month, steps, snap, chancellor: Q.chancellor + '(' + Q.chancellor_party + ')', president: Q.president, btw1: (Q.election_records[0] ? ['spd','union','afd','gruene','linke','bsw','fdp'].map(p => Math.round(Q.election_records[0][p]*10)/10).join('/') + '@' + new Date(Q.election_records[0].date).toISOString().slice(0,7) : ''), dm: Q.direct_mandates, coalition: Q.coalition_name, growth: (+Q.economic_growth).toFixed(1), sectors: (Q.sector_growth || []).map(r => r.toFixed(1)).join(','), industry_share: Q.sector_value && Q.sector_value.length ? (100 * Q.sector_value[0] / Q.sector_value.reduce((a, b) => a + b, 0)).toFixed(1) : '', events: events.size, trig: [...end].filter(x=>x[0]=='@').slice(0,6) });
     global.__events = (global.__events || new Set()); events.forEach(x => __events.add(x));
   });
 }
