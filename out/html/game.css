@@ -1048,3 +1048,77 @@ body.dark-mode .grp_party.union { fill: #888; }
 .grp_trend.up { color: var(--econ-good); }
 .grp_trend.down { color: var(--econ-bad); }
 .grp_rel { width: 1.8em; text-align: right; font-variant-numeric: tabular-nums; }
+
+/* Klima-Reiter (Durchgang 4.6): Strommix-Farben nach Energieträger, Ampel, Pfade. Hell und dunkel über CSS-Variablen. */
+body {
+  --kl-m1: #2a78d6; --kl-m2: #e8b100; --kl-m3: #5a9e2f; --kl-m4: #1baf9a; --kl-m5: #9cc97a;
+  --kl-m6: #eb6834; --kl-m7: #4b4b4b; --kl-m8: #8b6a3e; --kl-m9: #a8a69f;
+  --kl-real: #555; --kl-game: #c03030; --kl-ksg: #6250d6; --kl-paris: #0a7d0a;
+  --kl-red: #c03030; --kl-amber: #c98500; --kl-green: #0a7d0a; --kl-fill: #8a8a8a;
+}
+body.dark-mode {
+  --kl-m1: #3987e5; --kl-m2: #e0b42a; --kl-m3: #6fb544; --kl-m4: #22c2ab; --kl-m5: #a8d888;
+  --kl-m6: #d95926; --kl-m7: #9a9a9a; --kl-m8: #a9824f; --kl-m9: #77756f;
+  --kl-real: #bbb; --kl-game: #ff7b7b; --kl-ksg: #9085e9; --kl-paris: #3cc43c;
+  --kl-red: #ff7b7b; --kl-amber: #e0b42a; --kl-green: #3cc43c; --kl-fill: #9a9a9a;
+}
+.kl_status {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6em;
+  border: 1px solid var(--card-border-color);
+  border-left-width: 6px;
+  border-radius: 4px;
+  padding: 0.5em 0.6em;
+  margin: 0.5em 0;
+  line-height: 1.35;
+}
+.kl_status.kl_s0 { border-left-color: var(--kl-red); }
+.kl_status.kl_s1 { border-left-color: var(--kl-amber); }
+.kl_status.kl_s2 { border-left-color: var(--kl-green); }
+.kl_light { flex-shrink: 0; width: 1em; height: 1em; border-radius: 50%; margin-top: 0.15em; }
+.kl_s0 .kl_light { background: var(--kl-red); }
+.kl_s1 .kl_light { background: var(--kl-amber); }
+.kl_s2 .kl_light { background: var(--kl-green); }
+.kl_small { font-size: 0.85em; }
+.kl_warn { font-size: 0.85em; border-left: 3px solid var(--kl-amber); padding-left: 0.5em; }
+#kl_graph { display: block; overflow: visible; }
+.kl_line { fill: none; stroke-width: 2; stroke-linejoin: round; }
+.kl_line.kl_real { stroke: var(--kl-real); }
+.kl_line.kl_game { stroke: var(--kl-game); stroke-width: 2.5; }
+.kl_line.kl_proj { stroke: var(--kl-game); stroke-dasharray: 5 3; opacity: 0.8; }
+.kl_line.kl_ksg { stroke: var(--kl-ksg); stroke-dasharray: 2 3; }
+.kl_line.kl_paris { stroke: var(--kl-paris); stroke-dasharray: 6 3 1 3; }
+.kl_dot { fill: var(--kl-real); stroke: var(--content-bg-color); stroke-width: 1.5; }
+.kl_target { fill: var(--content-bg-color); stroke: var(--kl-ksg); stroke-width: 2; }
+.kl_key { display: inline-block; width: 1.4em; height: 0; border-top: 2px solid; margin-right: 0.3em; vertical-align: 0.25em; }
+.kl_key.kl_real { border-color: var(--kl-real); }
+.kl_key.kl_game { border-color: var(--kl-game); border-top-width: 3px; }
+.kl_key.kl_proj { border-color: var(--kl-game); border-top-style: dashed; }
+.kl_key.kl_ksg { border-color: var(--kl-ksg); border-top-style: dotted; }
+.kl_key.kl_paris { border-color: var(--kl-paris); border-top-style: dashed; }
+.kl_bar { position: relative; flex-grow: 1; height: 0.9em; }
+.kl_fill { position: absolute; left: 0; top: 0; height: 100%; background: var(--kl-fill); border-radius: 0 4px 4px 0; }
+.kl_fill.ok { background: var(--kl-green); }
+.kl_mark { position: absolute; top: -0.25em; bottom: -0.25em; border-left: 2px solid currentColor; }
+.kl_mark.prev { opacity: 0.35; }
+.kl_mixbox { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6em; }
+.kl_mixlegend { flex: 1 1 10em; }
+.kl_arc { stroke: var(--content-bg-color); stroke-width: 1; }
+.kl_donut_big { fill: currentColor; font-size: 1.3em; font-weight: bold; }
+.kl_donut_small { fill: currentColor; font-size: 0.75em; opacity: 0.8; }
+.kl_m1 { background: var(--kl-m1); fill: var(--kl-m1); } .kl_m2 { background: var(--kl-m2); fill: var(--kl-m2); }
+.kl_m3 { background: var(--kl-m3); fill: var(--kl-m3); } .kl_m4 { background: var(--kl-m4); fill: var(--kl-m4); }
+.kl_m5 { background: var(--kl-m5); fill: var(--kl-m5); } .kl_m6 { background: var(--kl-m6); fill: var(--kl-m6); }
+.kl_m7 { background: var(--kl-m7); fill: var(--kl-m7); } .kl_m8 { background: var(--kl-m8); fill: var(--kl-m8); }
+.kl_m9 { background: var(--kl-m9); fill: var(--kl-m9); }
+.kl_prices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5em; margin: 0.5em 0; }
+.kl_pval { font-size: 1.25em; font-weight: bold; font-variant-numeric: tabular-nums; }
+.kl_spark { display: block; width: 100%; height: 34px; overflow: visible; }
+.kl_spark_line { fill: none; stroke: var(--kl-game); stroke-width: 1.5; }
+.kl_spark_base { stroke: currentColor; stroke-dasharray: 2 2; opacity: 0.4; }
+.kl_measures { font-size: 0.9em; }
+.kl_measure { display: flex; justify-content: space-between; gap: 0.5em; padding: 0.15em 0; border-bottom: 1px solid var(--card-border-color); }
+.kl_pill { border-radius: 1em; padding: 0 0.5em; white-space: nowrap; font-size: 0.9em; border: 1px solid var(--card-border-color); }
+.kl_pill.p0 { color: var(--kl-red); border-color: var(--kl-red); }
+.kl_pill.p2 { color: var(--kl-green); border-color: var(--kl-green); }

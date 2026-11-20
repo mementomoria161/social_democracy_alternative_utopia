@@ -1,0 +1,65 @@
+title: Klimakampagne
+subtitle: Klimaschutz auf die Straße, ins Parlament und in die Kohleregionen tragen.
+new-page: true
+is-card: true
+tags: party_affairs
+view-if: klimakampagne_timer <= 0 and year >= 2025
+on-arrival: klimakampagne_timer = 6; month_actions += 1
+card-image: img/klimastreik.jpg
+
+# Durchgang 4.6 (beide Parteien): Kampagnen zur Klimapolitik. In der Opposition erhöht der Druck auf die Regierung cl_pressure
+# (ab 2 verhindert er Rückschritte in events/klima_heizungsgesetz). Werte im Reiter „Klima“ und „Gruppen“.
+
+= Klimakampagne
+
+[? if cl_status = 2 : Deutschland ist auf Paris-Kurs, ?][? if cl_status = 1 : Das Klimaziel 2030 ist in Reichweite, für die Pariser Ziele reicht es noch nicht, ?][? if cl_status = 0 : Deutschland verfehlt seine Klimaziele deutlich, ?] und die Klimabewegung zählt rund [+ klima_strength +] Tausend Aktive. [? if spd_in_government : In der Regierung müssen wir liefern, aber Druck von der Straße kann helfen, Vorhaben gegen Koalitionspartner durchzusetzen. ?][? if not spd_in_government : In der Opposition können wir Druck machen und zeigen, wie Klimaschutz und soziale Gerechtigkeit zusammengehen. ?]
+
+- @antrag
+- @bewegung
+- @sozial
+- @revier
+- @druck
+- @easy_discard
+
+@antrag
+title: Im Bundestag Anträge für Tempolimit, Klimageld und ein Sofortprogramm stellen.
+subtitle: Kostenlos; zeigt Profil.
+view-if: not spd_in_government
+on-arrival: new_middle_spd += 1*(1-dissent); gruene_relation += 2; gr_klima += 4; gr_umwelt += 4; cl_pressure += 0.5
+
+Unsere Anträge werden abgelehnt, aber die Debatte zwingt die Koalition, Farbe zu bekennen. [? if player = "linke" : Unsere Rede über „Klimaschutz für alle statt für Porschefahrer“ wird im Netz viel geteilt. ?][? if player = "spd" : Unser Fraktionsvize erinnert die Union an die Klimaziele, die sie selbst mitbeschlossen hat. ?]
+
+@bewegung
+title: Mit der Klimabewegung auf die Straße gehen.
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; klima_strength += 60; gr_klima += 10; gr_umwelt += 4; gr_kohle -= 4; left_strength += 2; left_dissent -= 3; new_middle_spd += 1.5*(1-dissent); labor_dissent += 2; cl_pressure += 1
+
+Beim nächsten Klimastreik laufen unsere Abgeordneten und viele Mitglieder mit. Die Bilder von Hunderttausenden auf den Straßen zeigen: Klimaschutz ist nicht nur ein Thema der Grünen. Manche Gewerkschafter\*innen in der Partei fragen, ob wir die Beschäftigten in der Industrie vergessen.
+
+@sozial
+title: Eine Kampagne „Klimaschutz, den sich alle leisten können“: Klimageld, Sozialtarife, günstiger Nahverkehr.
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; workers_spd += 1.5*(1-dissent); unemployed_spd += 1.5*(1-dissent); new_middle_spd += 1*(1-dissent); gr_vdk += 4; gr_klima += 4; gr_mieter += 3; left_dissent -= 2; labor_dissent -= 2; cl_pressure += 0.5
+
+Wir rechnen vor, was der CO2-Preis eine Familie kostet und was sie mit Klimageld und Sozialtarifen zurückbekäme. Sozialverbände und Klimagruppen tragen die Kampagne gemeinsam, an Infoständen sprechen wir Menschen an, die mit „Klima“ sonst wenig anfangen können.
+
+@revier
+title: Eine Tour durch Lausitz und Rheinisches Revier: Arbeitsplätze zuerst.
+subtitle: Kostenlos. Freut die Kohleregionen, verärgert die Klimabewegung.
+on-arrival: gr_kohle += 10; gm_kohle -= 1; workers_spd += 1*(1-dissent); rural_spd += 1*(1-dissent); gr_klima -= 5; labor_dissent -= 3; left_dissent += 2; reformist_dissent -= 1
+
+In Cottbus, Weißwasser und Grevenbroich hören wir zu: Wer seit 30 Jahren im Tagebau arbeitet, will keine Belehrung, sondern eine Perspektive. Wir versprechen Strukturhilfen, neue Industrie und eine Jobgarantie. Die Klimabewegung wirft uns vor, den Kohleausstieg zu verschleppen.
+
+@druck
+title: Mit Umweltverbänden und Klimabewegung gegen Rückschritte mobil machen.
+subtitle: -1 Ressourcen. Wirkt nur, wenn die Bewegung stark ist.
+view-if: not spd_in_government
+choose-if: resources >= 1 and (g_klima >= 50 or g_umwelt >= 55)
+unavailable-subtitle: Dafür fehlen Ressourcen oder eine starke Bewegung (Klimabewegung ab 50 oder Umweltverbände ab 55).
+on-arrival: resources -= 1; cl_pressure += 2; gr_umwelt += 8; gr_klima += 6; klima_strength += 30; new_middle_spd += 1*(1-dissent)
+
+Gemeinsam mit BUND, NABU, Greenpeace und Fridays for Future starten wir eine Kampagne gegen die Abschwächung von Heizungsgesetz und Klimazielen. Unterschriften, Demonstrationen vor dem Kanzleramt, Klagedrohungen: In der Koalition werden die ersten nervös.

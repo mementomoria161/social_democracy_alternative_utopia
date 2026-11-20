@@ -1,0 +1,267 @@
+title: Klima (Daten)
+is-special: true
+on-arrival: {!
+// Klima und Energie (Durchgang 4.6): einzige Quelle für Modell (post_event), Startwerte (root.start), Prognose und den
+// Reiter „Klima“ (out/html/game.js, drawClimate). Geladen mit:
+//   if (!this.game.CLIM) this._runActions(this.game.scenes.climate_data.onArrival);  (legt this.game.CLIM an)
+//
+// Quellen der Startwerte (Stand November 2026):
+// - Treibhausgase nach KSG-Sektoren 2024 (revidiert) und 2025: UBA/BMUKN, Pressemitteilung 08/2026 vom 14.03.2026
+//   („Treibhausgasdaten zeigen: Klimaschutz braucht neuen Schub“): 2025 648,9 Mt, Energiewirtschaft 189,1 (-0,6), Industrie 144,1 (-5,6),
+//   Gebäude 103,4 (+3,4, kühle Heizperiode), Verkehr 146,3 (+2,1); 2024 damit 649,8 Mt. Landwirtschaft/Abfall aus der UBA-Meldung 2025
+//   (61 bzw. rund 5 Mt). Projektionen 2026 (Maßnahmen bis Nov. 2025): 2030 -62,6 % ggü. 1990, Ziel -65 % (KSG, rund 438 Mt).
+// - Jahreswerte 1990-2023: UBA, Treibhausgas-Emissionen in Deutschland (Datentabelle, gerundet).
+// - Strommix (Bruttostromerzeugung): AG Energiebilanzen, Infografik 02/2026: 2024 Braunkohle 15,7 %, Steinkohle 5,4, Erdgas 16,3,
+//   Wind 27,7, Photovoltaik 15,0, Biomasse 8,7, Wasser 4,5, sonstige Erneuerbare 1,1, Sonstige 5,5; 2025 (507,5 TWh) 14,6/5,8/17,0/
+//   26,3/18,0/8,4/3,3/1,1/5,4. Erneuerbare am Bruttostromverbrauch 2024 54,4 %, 2025 55,1 % (Nettoimport).
+// - Leistung Ende 2025: Bundesnetzagentur, PM 08.01.2026: Wind an Land 68,1 GW (+4,6), auf See 9,5 GW (+0,3), Photovoltaik 117 GW (+17,6).
+//   Ziele EEG 2023 für 2030: 115 / 30 / 215 GW, 80 % Erneuerbare am Bruttostromverbrauch.
+// - Kohle: Kohleverstromungsbeendigungsgesetz (spätestens 2038; Rheinisches Revier 2030; 2030 noch rund 9 GW Braunkohle, 8 GW Steinkohle).
+// - Preise: BDEW-Strompreisanalyse (Haushalte 2024 rund 41 ct/kWh, 2026 37,0; Industrie 2026 rund 17 ct/kWh), Gas Haushalte 2024 rund
+//   12 ct/kWh. CO2-Preis national (BEHG) 2024 45 Euro, 2025 55 Euro, 2026 Korridor 55-65 Euro; EU-ETS 2 nach dem EU-Beschluss vom
+//   November 2025 erst ab 2028; EU-ETS 1 2025 im Mittel rund 72 Euro.
+// - Paris-Budget: SRU (Stellungnahme 2022, „Wie viel CO2 darf Deutschland maximal noch ausstoßen?“): für 1,75 Grad mit 67 % ab 2022
+//   noch 6,1 Gt CO2; abzüglich 2022/23 rund 4,8 Gt ab dem 1.1.2024. ANNAHME des Spiels: Budget 4 800 Mt CO2 ab 2024, CO2-Anteil
+//   an den Treibhausgasen = 0,96 x (Gesamt - 0,9 x Landwirtschaft); nach 2045 Netto-Null (Restemissionen durch Senken ausgeglichen).
+//
+// Modell (Spielmodell, keine Prognose der Wirklichkeit): Strom aus Kapazitäten x Volllaststunden x Wetter, Abregelung bei viel Wind
+// und Sonne, der Rest kommt fossil (Braunkohle nach Kapazität und CO2-Preis, Steinkohle nach Gas-/CO2-Preis, dann Erdgas).
+// Übrige Sektoren: strukturelle Minderung pro Jahr (Grundtrend + Maßnahmen kp_* + CO2-Preis), Industrie dazu konjunkturabhängig,
+// Gebäude wetterabhängig. Die Prognose rechnet dasselbe Modell mit den beschlossenen Maßnahmen, normalem Wetter und einer
+// Erholung der Industrie bis 2045 fort.
+//
+// Qualities (alle in root.start über CLIM.init; alte Spielstände: CLIM.month legt sie beim nächsten Monatswechsel an):
+//   cl_st      Zustand {on, off, pv (GW), bio (TWh), dem (TWh Bruttostromerzeugung), rest (Mt, übrige Energiewirtschaft),
+//              s: [Industrie, Gebäude, Verkehr, Landwirtschaft, Abfall] strukturell in Mt, tl: Tempolimit schon gewirkt}
+//   cl_sec     Emissionen je Sektor (Jahresrate, Mt) wie SECTORS; cl_total Summe; cl_konj Mt, die nur durch Produktionsrückgang fehlen
+//   cl_mix     Anteile an der Stromerzeugung in % wie MIX; cl_ee Erneuerbare in %; cl_cap [Wind an Land, auf See, Solar, Braunkohle, Steinkohle] GW
+//   cl_price   [Haushaltsstrom ct/kWh, Gas Haushalte ct/kWh, Industriestrom ct/kWh, CO2 national/ETS 2 €/t, CO2 EU-ETS 1 €/t, Großhandel €/MWh]
+//   cl_wl, cl_gwl geglättete Großhandelspreise Strom/Gas; cl_gas_shock Gaspreisaufschlag €/MWh (klingt ab); cl_wx Wetter [Wind, Sonne, Wasser, Kälte]
+//   cl_cum     CO2 seit 1.1.2024 (Mt); cl_proj [[Jahr, Mt], ...] Prognose; cl_p2030, cl_gap2030 (Mt über dem Ziel), cl_budget_year
+//              (Jahr, in dem das Paris-Budget aufgebraucht ist, 0 = bis 2045 nicht), cl_status (0 rot, 1 gelb, 2 grün), cl_y2030 (Mittel 2030)
+//   cl_why     Einflüsse je Sektor (Text), cl_records monatlich {date, e, s, m, p}
+//   Maßnahmen (Karte government_affairs/klimapolitik, Ereignisse): kp_kohle (Kohleausstieg 2030; kp_kohle_t Zeitpunkt), kp_ee
+//   (-1 gebremst, 0, 1, 2 Ausbau-Beschleunigung), kp_netz (Netze und Speicher), kp_waerme (-1 GEG entschärft, 0, 1 sozial gestaffelte
+//   Förderung, 2 plus Wärmenetze), kp_bahn (0-2), kp_tempolimit, kp_eauto (-1 Verbrenner-Aus aufgeweicht, 0, 1 Social Leasing),
+//   kp_industrie (0-2 Klimaschutzverträge/Industriestrompreis), kp_h2 (Wasserstoff), kp_co2 (-1 gedeckelt, 0, 1 höherer Pfad),
+//   kp_klimageld, stromsteuer_alle (Stromsteuer für alle gesenkt), cl_bremse (Monate mit Energiepreisbremse).
+//   Ereignisse: cl_pressure (Druck der Opposition gegen Rückschritte), duerre_year/flut_year (Extremwetter), cl_gaskrise (Jahr eines
+//   Gaspreisschocks), cl_court (Klimaurteil des Bundesverfassungsgerichts).
+var clamp = function(x, a, b) { return Math.max(a, Math.min(b, x)); };
+var r1 = function(x) { return Math.round(x * 10) / 10; };
+var pos = function(x) { return Math.max(0, x || 0); };
+var interp = function(pts, x) {
+    if (x <= pts[0][0]) return pts[0][1];
+    for (var i = 1; i < pts.length; i++) {
+        if (x <= pts[i][0]) return pts[i - 1][1] + (pts[i][1] - pts[i - 1][1]) * (x - pts[i - 1][0]) / (pts[i][0] - pts[i - 1][0]);
+    }
+    return pts[pts.length - 1][1];
+};
+var CLIM = {
+    // KSG-Sektoren; t2030 = Jahresemissionsmenge 2030 nach Anlage 2 KSG 2021 (Orientierung; seit der Novelle 2024 zählt die Gesamtmenge)
+    SECTORS: [{id: 'energie', name: 'Energiewirtschaft', t2030: 108}, {id: 'industrie', name: 'Industrie', t2030: 118},
+              {id: 'gebaeude', name: 'Gebäude', t2030: 67}, {id: 'verkehr', name: 'Verkehr', t2030: 85},
+              {id: 'landwirtschaft', name: 'Landwirtschaft', t2030: 56}, {id: 'abfall', name: 'Abfall und Sonstiges', t2030: 4}],
+    START: [189.7, 149.7, 100.0, 144.2, 61.1, 5.1],
+    // Restemissionen bei Klimaneutralität (grob nach Agora, Klimaneutrales Deutschland 2045): rund 60 Mt, durch Senken ausgeglichen
+    FLOOR: [2, 12, 1, 2, 38, 3],
+    MIX: ['Wind', 'Photovoltaik', 'Biomasse', 'Wasser', 'Sonstige Erneuerbare', 'Erdgas', 'Steinkohle', 'Braunkohle', 'Sonstige'],
+    MIX_2024: [27.7, 15.0, 8.7, 4.5, 1.1, 16.3, 5.4, 15.7, 5.5],
+    BASE_1990: 1251, TARGET_2030: 438, BUDGET: 4800,
+    REAL: [[1990, 1251], [1995, 1124], [2000, 1045], [2005, 993], [2010, 942], [2015, 907], [2016, 909], [2017, 897], [2018, 858],
+           [2019, 797], [2020, 730], [2021, 760], [2022, 748], [2023, 673], [2024, 650]],
+    // KSG-Pfad: zulässige Jahresmenge 2025 (661,6 Mt, UBA 2026), 2030 -65 %, 2040 -88 %, 2045 netto null (brutto rund 60 Mt Rest)
+    KSG: [[2025, 662], [2030, 438], [2040, 150], [2045, 60]],
+    // Kohlekapazität (GW) nach dem Kohleausstiegsgesetz
+    LIG: [[2024.8, 15.6], [2026, 14.8], [2028, 12.6], [2029, 12.0], [2030.25, 9.0], [2034, 6.0], [2038, 0]],
+    HC: [[2024.8, 16.0], [2026, 14.0], [2028, 11.0], [2030, 8.0], [2038, 0]],
+    // Preise im Startjahr (Basis des Index energy_price = 100)
+    P0: [40.9, 12.3, 17.2],
+    t: function(Q) { return Q.year + (Q.month - 1) / 12; },
+    co2Ets: function(t) { return t < 2025 ? 65 : t < 2026 ? 72 : Math.min(160, 78 + 6 * (Math.floor(t) - 2026)); },
+    co2Nat: function(Q, t) {
+        var y = Math.floor(t), p = y < 2025 ? 45 : y == 2025 ? 55 : y == 2026 ? 60 : y == 2027 ? 65 : Math.min(130, 70 + 7 * (y - 2028));
+        if (Q.kp_co2 < 0 && y >= 2026) p = Math.min(p, 60 + 2 * (y - 2026));
+        if (Q.kp_co2 > 0 && y >= 2027) p += 15 + 5 * (y - 2027);
+        return p;
+    },
+    gasPath: function(t) {
+        return interp([[2024.8, 44], [2025.0, 47], [2025.2, 42], [2025.4, 36], [2025.6, 33], [2026, 30], [2027, 28]], t);
+    },
+    ligCap: function(Q, t) {
+        var v = interp(CLIM.LIG, t);
+        if (Q.kp_kohle && Q.kp_kohle_t) v = Math.min(v, Math.max(0, interp(CLIM.LIG, Q.kp_kohle_t) * (2031 - t) / (2031 - Q.kp_kohle_t)));
+        return v;
+    },
+    hcCap: function(Q, t) {
+        var v = interp(CLIM.HC, t);
+        if (Q.kp_kohle && Q.kp_kohle_t) v = Math.min(v, Math.max(0, interp(CLIM.HC, Q.kp_kohle_t) * (2031 - t) / (2031 - Q.kp_kohle_t)));
+        return v;
+    },
+    co2Of: function(sec) { return 0.96 * (sec.reduce(function(a, b) { return a + b; }, 0) - 0.9 * sec[4]); },
+    init: function(Q) {
+        Q.cl_st = {on: 63.0, off: 9.1, pv: 96.7, bio: 43.1, dem: 495, rest: 50.9, s: CLIM.START.slice(1), tl: 0};
+        Q.cl_sec = CLIM.START.slice(); Q.cl_total = 649.8; Q.cl_konj = 0;
+        Q.cl_mix = CLIM.MIX_2024.slice(); Q.cl_ee = 57.0; Q.cl_cap = [63.0, 9.1, 96.7, 15.6, 16.0];
+        Q.cl_price = [40.9, 12.3, 17.2, 45, 65, 75]; Q.cl_wl = 75; Q.cl_gwl = 34; Q.cl_gas_shock = 0; Q.cl_wx = [1, 1, 1, 1];
+        // CO2 Januar bis Oktober 2024
+        Q.cl_cum = Math.round(CLIM.co2Of(CLIM.START) * 10 / 12);
+        Q.cl_proj = []; Q.cl_p2030 = 0; Q.cl_gap2030 = 0; Q.cl_budget_year = 0; Q.cl_status = 0; Q.cl_y2030 = 0;
+        Q.cl_why = ['', '', '', '', '', '']; Q.cl_records = [];
+        ['kp_kohle', 'kp_kohle_t', 'kp_ee', 'kp_netz', 'kp_waerme', 'kp_bahn', 'kp_tempolimit', 'kp_eauto', 'kp_industrie', 'kp_h2',
+         'kp_co2', 'kp_klimageld', 'stromsteuer_alle', 'cl_bremse', 'cl_pressure', 'duerre_year', 'flut_year', 'cl_gaskrise'].forEach(function(k) { if (Q[k] === undefined) Q[k] = 0; });
+        if (Q.timers && Q.timers.indexOf('klimapolitik') < 0) Q.timers.push('klimapolitik', 'klimakampagne');
+        if (Q.klimapolitik_timer === undefined) Q.klimapolitik_timer = 0;
+        if (Q.klimakampagne_timer === undefined) Q.klimakampagne_timer = 0;
+        CLIM.project(Q);
+    },
+    // Ein Schritt von dt Jahren zur Zeit t. wx: Wetter [Wind, Sonne, Wasser, Kälte], ind: Industrieproduktion relativ zum Trend,
+    // why: Array für Erklärungstexte (nur beim echten Monatsschritt). Gibt Emissionen je Sektor und die Stromerzeugung zurück.
+    step: function(Q, st, t, dt, wx, ind, why) {
+        var early = t < 2026, ee = Q.kp_ee || 0, co2e = CLIM.co2Ets(t), co2n = CLIM.co2Nat(Q, t);
+        var W = function(i, s) { if (why) why[i].push(s); };
+        // Ausbau Strom
+        st.on = Math.min(160, st.on + dt * (t < 2025 ? 3.3 : early ? 4.6 : 5.5 + 1.5 * ee));
+        st.off = Math.min(70, st.off + dt * (t < 2025 ? 0.7 : early ? 0.3 : t < 2027 ? 1.5 : t < 2028 ? 2.0 : 2.5 + 0.75 * pos(ee)));
+        st.pv = Math.min(400, st.pv + dt * (t < 2025 ? 16.2 : early ? 17.6 : 15 + 4 * ee));
+        st.bio = Math.max(25, st.bio + dt * (early ? -0.5 : -0.8));
+        st.dem += dt * (t < 2025 ? 0 : early ? 12.5 : 6 + 2 * pos(Q.kp_waerme) + 2 * pos(Q.kp_eauto) + (Q.kp_h2 && t >= 2028 ? 3 : 0));
+        // Erzeugung in TWh: Wind an Land 1 700 h, auf See 3 000 h, Photovoltaik 800 h; Abregelung ab 45 % Wind und Sonne
+        var dem = st.dem * (1 + 0.25 * (ind - 1));
+        var wind = (st.on * 1.7 + st.off * 3.0) * wx[0], pv = st.pv * 0.8 * wx[1];
+        var curt = 1 - Math.max(0, (wind + pv) / dem - 0.45) * (Q.kp_netz ? 0.25 : 0.5);
+        wind *= curt; pv *= curt;
+        var bio = st.bio, hydro = 22.3 * wx[2], see = 5.5, other = 27;
+        var fossil = Math.max(10, dem - wind - pv - bio - hydro - see - other);
+        var lc = CLIM.ligCap(Q, t), hcc = CLIM.hcCap(Q, t), gas_w = CLIM.gasPath(t) + (Q.cl_gas_shock || 0);
+        var lig = Math.min(lc * 5.0 * clamp(1 - (co2e - 65) / 260, 0.35, 1.1), 0.85 * fossil);
+        var hcf = clamp(0.25 * (hcc / 16) * Math.pow(Math.max(5, gas_w) / 34, 0.7) * (1 - (co2e - 65) / 300), 0, 0.6);
+        var hc = hcf * (fossil - lig), gas = fossil - lig - hc;
+        st.rest = Math.max(6, st.rest + dt * (t < 2025 ? 0 : -1.5 - (Q.kp_waerme >= 2 ? 1 : 0) - 0.02 * pos(co2e - 75)));
+        var e_energy = 1.12 * lig + 0.86 * hc + 0.36 * gas + st.rest;
+        // übrige Sektoren: strukturelle Minderung in Mt pro Jahr, kurz vor dem Rest langsamer
+        var s = st.s, tap = function(i) { return clamp((s[i] - CLIM.FLOOR[i + 1]) / ((CLIM.START[i + 1] - CLIM.FLOOR[i + 1]) * 0.3), 0, 1); };
+        var r = [t < 2025 ? 0 : -3, t < 2025 ? -2.3 : 0, t < 2025 ? -2 : 2.1, t < 2025 ? -0.8 : 0, -0.1];
+        if (!early) r = [-4.5 - 0.04 * pos(co2e - 75), -3.5 - 0.05 * pos(co2n - 55), -3 - 0.04 * pos(co2n - 55), -0.6, -0.2];
+        // Maßnahmen (wirken auch schon 2025)
+        r[0] += -2.5 * pos(Q.kp_industrie) - (Q.kp_h2 && t >= 2028 ? 3 : 0);
+        r[1] += -2.5 * pos(Q.kp_waerme) + (Q.kp_waerme < 0 ? 1.5 : 0);
+        r[2] += -1.5 * pos(Q.kp_bahn) - 1.5 * pos(Q.kp_eauto) + (Q.kp_eauto < 0 ? 1 : 0);
+        for (var i = 0; i < 5; i++) s[i] = Math.max(CLIM.FLOOR[i + 1], s[i] + dt * r[i] * (r[i] < 0 ? tap(i) : 1));
+        if (Q.kp_tempolimit && !st.tl) { s[2] -= 6.7; st.tl = 1; }
+        var sec = [e_energy, s[0] * Math.pow(clamp(ind, 0.6, 1.3), 0.8), s[1] * wx[3], s[2], s[3], s[4]];
+        if (why) {
+            if (Q.kp_kohle) W(0, 'Kohleausstieg 2030 beschlossen');
+            if (ee > 0) W(0, 'Ausbau von Wind und Solar beschleunigt'); else if (ee < 0) W(0, 'Ausbau gebremst');
+            if (Q.kp_netz) W(0, 'Netze und Speicher: weniger Abregelung');
+            if (curt < 0.97) W(0, 'Abregelung: ' + Math.round(100 * (1 - curt)) + ' % des Wind- und Solarstroms');
+            if (wx[0] < 0.96) W(0, 'windschwaches Jahr'); else if (wx[0] > 1.03) W(0, 'windreiches Jahr');
+            W(0, 'CO2-Preis im EU-Emissionshandel ' + Math.round(co2e) + ' €/t');
+            if (ind < 0.97) W(1, 'Produktionsrückgang senkt die Emissionen (kein Klimaschutz)');
+            if (Q.kp_industrie) W(1, 'Klimaschutzverträge' + (Q.kp_industrie >= 2 ? ' und Industriestrompreis' : ''));
+            if (Q.kp_h2 && t >= 2028) W(1, 'grüner Wasserstoff in Stahl und Chemie');
+            if (wx[3] > 1.015) W(2, 'kalte Heizperiode'); else if (wx[3] < 0.985) W(2, 'milde Heizperiode');
+            if (Q.kp_waerme > 0) W(2, 'Wärmepumpen-Förderung sozial gestaffelt' + (Q.kp_waerme >= 2 ? ', Wärmenetze' : ''));
+            if (Q.kp_waerme < 0) W(2, 'Heizungsgesetz entschärft');
+            if (co2n > 55) W(2, 'CO2-Preis ' + Math.round(co2n) + ' €/t');
+            if (Q.kp_tempolimit) W(3, 'Tempolimit 130');
+            if (Q.kp_bahn) W(3, 'Deutschlandticket und Bahn' + (Q.kp_bahn >= 2 ? ' (Ausbauoffensive)' : ''));
+            if (Q.kp_eauto > 0) W(3, 'Social Leasing für E-Autos'); else if (Q.kp_eauto < 0) W(3, 'Verbrenner-Aus aufgeweicht');
+            if (early && t >= 2025) W(3, 'mehr Verkehr 2025 (real +2,1 Mt)');
+        }
+        return {sec: sec, mix: [wind, pv, bio, hydro, see, gas, hc, lig, other], dem: dem, curt: curt, lig: lc, hc: hcc, gas_w: gas_w, co2e: co2e, co2n: co2n};
+    },
+    // Prognose bis 2045: dasselbe Modell, beschlossene Maßnahmen, normales Wetter, Industrie erholt sich
+    project: function(Q) {
+        var st = JSON.parse(JSON.stringify(Q.cl_st)), t = CLIM.t(Q), out = [[r1(t), r1(Q.cl_total || 649.8)]];
+        var cum = Q.cl_cum || 0, prevT = t, prevC = CLIM.co2Of(Q.cl_sec || CLIM.START), year = 0;
+        for (var k = 0; k < 40 && t < 2045.95; k++) {
+            var dt = Math.min(0.5, 2046 - t);
+            t += dt;
+            var res = CLIM.step(Q, st, t, dt, [1, 1, 1, 1], 1, null), tot = res.sec.reduce(function(a, b) { return a + b; }, 0);
+            var c = CLIM.co2Of(res.sec);
+            cum += (c + prevC) / 2 * (t - prevT);
+            if (!year && cum > CLIM.BUDGET) year = Math.floor(t);
+            prevT = t; prevC = c;
+            out.push([r1(t), r1(tot)]);
+        }
+        Q.cl_proj = out;
+        Q.cl_cum_2045 = Math.round(cum);
+        Q.cl_budget_year = (Q.cl_cum || 0) > CLIM.BUDGET ? Q.year : year;
+        var now = CLIM.t(Q);
+        Q.cl_p2030 = Math.round(now >= 2030.9 ? Q.cl_y2030 || Q.cl_total : interp(out, 2030.5));
+        Q.cl_gap2030 = Math.round(Q.cl_p2030 - CLIM.TARGET_2030);
+        // ganzzahlige Anzeigewerte für Szenentexte
+        Q.cl_total_i = Math.round(Q.cl_total || 0); Q.cl_y2030_i = Math.round(Q.cl_y2030 || 0);
+        Q.cl_status = cum <= CLIM.BUDGET ? 2 : (Q.cl_gap2030 <= 10 || cum <= 1.15 * CLIM.BUDGET) ? 1 : 0;
+    },
+    // monatliche Fortschreibung (post_event, nach dem Monatswechsel)
+    month: function(Q) {
+        if (!Q.cl_st) CLIM.init(Q);
+        var t = CLIM.t(Q);
+        // Wetter: neues Jahr; 2025 real (schwacher Wind, viel Sonne, trocken, kühle Heizperiode)
+        if (Q.month == 1) {
+            var rnd = function(a, b) { return r1(a + Math.random() * (b - a)) ; };
+            Q.cl_wx = Q.year == 2025 ? [0.93, 1.06, 0.75, 1.034] : [rnd(0.92, 1.06), rnd(0.95, 1.07), rnd(0.85, 1.1), rnd(0.96, 1.04)];
+            // Extremwetter (events/klima_extremwetter): Dürresommer 30 %, Hochwasser 20 % je Jahr ab 2026
+            if (Q.year >= 2026 && Math.random() < 0.3) Q.duerre_year = Q.year;
+            else if (Q.year >= 2026 && Math.random() < 0.2) Q.flut_year = Q.year;
+            if (Q.duerre_year == Q.year) { Q.cl_wx[1] = 1.08; Q.cl_wx[2] = 0.7; }
+        }
+        // Gaspreisschock im Winter (events/klima_gaspreis), höchstens einmal, ab Herbst 2027
+        if (Q.month == 10 && Q.year >= 2027 && !Q.klima_gaspreis_seen && !Q.cl_gaskrise && Math.random() < 0.3) Q.cl_gaskrise = Q.year;
+        // Industrieproduktion relativ zum Trend (-0,8 % im Jahr) aus dem Sektormodell (4.4)
+        var ind = 1;
+        if (Q.sector_value && Q.sector_value.length) ind = clamp(Q.sector_value[0] / (19.9 * 39.796 * Math.pow(0.992, t - 2024.83)), 0.6, 1.3);
+        var why = [[], [], [], [], [], []];
+        var res = CLIM.step(Q, Q.cl_st, t, 1 / 12, Q.cl_wx, ind, why);
+        Q.cl_sec = res.sec.map(r1);
+        Q.cl_total = r1(res.sec.reduce(function(a, b) { return a + b; }, 0));
+        Q.cl_konj = r1(Math.max(0, Q.cl_st.s[0] - res.sec[1]));
+        Q.cl_mix = res.mix.map(function(x) { return r1(100 * x / res.dem); });
+        Q.cl_ee = r1(Q.cl_mix.slice(0, 5).reduce(function(a, b) { return a + b; }, 0));
+        Q.cl_cap = [r1(Q.cl_st.on), r1(Q.cl_st.off), r1(Q.cl_st.pv), r1(res.lig), r1(res.hc)];
+        Q.cl_why = why.map(function(a) { return a.join('; '); });
+        Q.cl_cum = Math.round((Q.cl_cum || 0) + CLIM.co2Of(res.sec) / 12);
+        // Preise: Großhandel = Gaskraftwerk (2 x Gas + 0,37 x CO2) je nach fossilem Anteil, Beschaffung geglättet
+        Q.cl_gas_shock = Math.abs(Q.cl_gas_shock || 0) < 0.5 ? 0 : r1(Q.cl_gas_shock * 0.93);
+        var fshare = (res.mix[5] + res.mix[6] + res.mix[7]) / res.dem;
+        var whole = 18 + (2 * res.gas_w + 0.37 * res.co2e - 18) * clamp(0.4 + fshare, 0.3, 1);
+        Q.cl_wl = r1(Q.cl_wl + 0.12 * (whole - Q.cl_wl));
+        Q.cl_gwl = r1(Q.cl_gwl + 0.15 * (res.gas_w - Q.cl_gwl));
+        var y26 = Q.year >= 2026, brake = Q.cl_bremse > 0;
+        var extra = (Q.kp_kohle ? (Q.kp_netz ? 0.4 : 0.8) : 0) + (Q.kp_netz ? 0.5 : 0);
+        var sh = 0.119 * Q.cl_wl + 31.4 - (y26 ? 2.4 : 0) - (Q.stromsteuer_alle ? 2.3 : 0) + extra;
+        var gh = 1.19 * (Q.cl_gwl / 10 + res.co2n * 0.0202) + 7.2 - (y26 ? 0.3 : 0);
+        var si = 0.105 * Q.cl_wl + 9.3 - (y26 ? 0.6 : 0) - (Q.kp_industrie >= 2 ? 1.5 : Q.kp_industrie ? 0.5 : 0) + extra * 0.7;
+        if (brake) { sh = Math.min(sh, 40); gh = Math.min(gh, 12); si = Math.min(si, 17); Q.cl_bremse -= 1; }
+        Q.cl_price = [r1(sh), r1(gh), r1(si), Math.round(res.co2n), Math.round(res.co2e), Math.round(whole)];
+        var old_ep = Q.energy_price || 100;
+        Q.energy_price = r1(100 * (0.35 * si / CLIM.P0[2] + 0.35 * sh / CLIM.P0[0] + 0.3 * gh / CLIM.P0[1]));
+        // milde Kopplung an die Inflation (Energie im Warenkorb rund 7 %, mit Weitergabe)
+        var dep = Q.energy_price - old_ep;
+        if (Math.abs(dep) > 0.2) Q.inflation = (Q.inflation || 0) + clamp(0.03 * dep, -0.3, 0.3);
+        // hohe Energiepreise kosten die Regierung Zustimmung (mit Klimageld nur halb so viel)
+        if (Q.spd_in_government && Q.energy_price > 105) {
+            var d = Math.min(0.08, (Q.energy_price - 105) * 0.004) * (Q.kp_klimageld ? 0.5 : 1);
+            ['workers', 'rentner', 'rural'].forEach(function(c) { Q[c + '_spd'] = Math.max(0, Q[c + '_spd'] - d); });
+            Q.workers_afd += d / 2; Q.rural_afd += d / 2;
+        }
+        // Klimabewegung wächst, wenn das Ziel verfehlt wird, und schrumpft, wenn die Politik liefert
+        if (Q.year >= 2026 && Q.cl_gap2030 > 30 && Q.klima_strength < 1500 && !Q.klima_banned) Q.klima_strength = Math.round(Q.klima_strength + 2);
+        if (Q.cl_status == 2 && Q.klima_strength > 150) Q.klima_strength = Math.round(Q.klima_strength - 1);
+        if (Q.year == 2030) Q.cl_y2030 = r1(((Q.cl_y2030 || 0) * (Q.month - 1) + Q.cl_total) / Q.month);
+        Q.cl_records = Q.cl_records || [];
+        Q.cl_records.push({date: new Date(Q.year, Q.month - 1), e: Q.cl_total, s: Q.cl_sec, m: Q.cl_mix,
+                           p: Q.cl_price.slice(0, 4)});
+        CLIM.project(Q);
+    },
+    // Text für Status und Szenen
+    statusText: function(Q) {
+        return ['nicht auf Kurs', 'Ziel 2030 in Reichweite, Paris verfehlt', 'auf Paris-Kurs'][Q.cl_status || 0];
+    }
+};
+this.game.CLIM = CLIM;
+!}
+
+# Datenszene ohne Inhalt; wird nie angezeigt.

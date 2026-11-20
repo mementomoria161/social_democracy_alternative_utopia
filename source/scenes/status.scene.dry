@@ -8,6 +8,8 @@ if (Q.unemployed) {
 if (Q.inflation) {
     Q.inflation_2 = Q.inflation.toFixed(1);
 }
+Q.cl_status_text = ['nicht auf Kurs', 'Ziel 2030 in Reichweite, Paris verfehlt', 'auf Paris-Kurs'][Q.cl_status || 0];
+Q.cl_ee_i = Math.round(Q.cl_ee || 0);
 Q.economic_growth_2 = '0';
 if (Q.economic_growth) {
     Q.economic_growth_2 = Q.economic_growth.toFixed(1);
@@ -43,6 +45,16 @@ Wirtschaftswachstum: [+ economic_growth_2 +]%
 
 Verlauf und Branchen im Reiter „Wirtschaft“.
 
+= Klima
+
+Treibhausgase: [+ cl_total_i +] Mio. t im Jahr (Ziel 2030: 438)
+
+Erneuerbare am Strom: [+ cl_ee_i +]%
+
+Klimakurs: [+ cl_status_text +]
+
+Emissionen, Strommix, Energiepreise und Prognose im Reiter „Klima“.
+
 @economy
 
 = Wirtschaft
@@ -50,6 +62,14 @@ Verlauf und Branchen im Reiter „Wirtschaft“.
 [+ month : month +] [+ year +]
 
 {!<div id="econ_view"></div>!}
+
+@klima
+
+= Klima und Energie
+
+[+ month : month +] [+ year +]
+
+{!<div id="klima_view"></div>!}
 
 @government
 on-display: {!

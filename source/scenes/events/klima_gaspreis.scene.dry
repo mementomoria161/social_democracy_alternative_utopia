@@ -1,0 +1,61 @@
+title: Der Gaspreis explodiert
+subtitle: Kalter Winter, leere Speicher, ausfallende Lieferungen.
+new-page: true
+tags: event
+view-if: cl_gaskrise = year and month >= 11 and chancellor_party != "AfD"
+max-visits: 1
+on-arrival: klima_gaspreis_seen = 1; cl_gas_shock += 30; gm_mittelstand += 2; gm_vdk += 1
+face-image: img/waermepumpe.jpg
+
+# Durchgang 4.6 (Klima), FIKTIV: Gaspreisschock (climate_data: cl_gaskrise, 30 % je Herbst ab 2027, höchstens einmal). Erhöht den
+# Börsenpreis für Gas um 30 Euro je MWh (klingt ab) und damit über das Klimamodell Strom- und Gaspreise, energy_price und Inflation.
+# Reale Erinnerung: Energiekrise 2022 mit Gas- und Strompreisbremse (2023).
+
+= Der Gaspreis explodiert
+
+Ein früher Kälteeinbruch, Ausfälle bei Flüssiggaslieferungen und knappe Speicher: Der Gaspreis an der Börse verdoppelt sich binnen Wochen. Stadtwerke kündigen Preiserhöhungen an, energieintensive Betriebe drosseln die Produktion. Die Bilder von 2022 sind wieder da. Wer mit Gas heizt, fürchtet die nächste Abrechnung. Wer schon eine Wärmepumpe hat, ist fein raus.
+
+[? if spd_in_government : Die Regierung muss handeln, aber jede Entlastung kostet Milliarden. ?][? if not spd_in_government : Die Regierung zögert. ?]
+
+- @bremse: Eine Energiepreisbremse für den Grundverbrauch, wie 2023.
+- @sozial: Gezielte Hilfen: Sozialtarife und Heizkostenzuschuss für kleine Einkommen.
+- @markt: Keine Eingriffe. Hohe Preise sind ein Anreiz zum Sparen und Umsteigen.
+- @opp_bremse: Eine Preisbremse fordern.
+- @opp_raus: Raus aus dem Gas: Wärmepumpen und Erneuerbare statt Abhängigkeit.
+
+@bremse
+view-if: spd_in_government
+subtitle: -2 Haushaltsspielraum. Deckelt sechs Monate lang die Preise.
+choose-if: budget >= 2
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: cl_bremse = 6; budget -= 2; workers_spd += 2*(1-dissent); rentner_spd += 2*(1-dissent); old_middle_spd += 1*(1-dissent); gr_mittelstand += 4; gr_vdk += 3; gr_umwelt -= 2
+
+Für 80 Prozent des Vorjahresverbrauchs gilt ein Höchstpreis, den Rest zahlt der Bund. Die Menschen sind erleichtert, Ökonom\*innen warnen vor den Kosten.
+
+@sozial
+view-if: spd_in_government
+subtitle: -1 Haushaltsspielraum
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: budget -= 1; unemployed_spd += 2*(1-dissent); workers_spd += 1*(1-dissent); rentner_spd += 0.5*(1-dissent); gr_vdk += 5; old_middle_spd -= 0.5; gr_mittelstand -= 2
+
+Wohngeldbeziehende, Rentner\*innen mit Grundsicherung und Studierende bekommen einen Heizkostenzuschuss, Stadtwerke bieten Sozialtarife an. Der Mittelstand fühlt sich übergangen.
+
+@markt
+view-if: spd_in_government
+subtitle: Kostet nichts, die Inflation steigt.
+on-arrival: workers_spd -= 1; rentner_spd -= 1.5; old_middle_spd -= 1; inflation += 0.3; gr_vdk -= 4; gr_mittelstand -= 3; left_dissent += 4; labor_dissent += 3
+
+Wir greifen nicht ein. Die Inflation zieht an, und die Heizkostenabrechnungen werden für viele zum Schock.
+
+@opp_bremse
+view-if: not spd_in_government
+on-arrival: workers_spd += 1*(1-dissent); rentner_spd += 1*(1-dissent); old_middle_spd += 0.5*(1-dissent)
+
+Wir fordern eine sofortige Preisbremse und werfen der Regierung vor, die Menschen im Stich zu lassen.
+
+@opp_raus
+view-if: not spd_in_government
+on-arrival: new_middle_spd += 1*(1-dissent); gr_umwelt += 4; gr_ee_branche += 4; gr_klima += 2; rentner_spd -= 0.5
+
+Wir sagen: Die beste Preisbremse ist der Umstieg. Ein Förderprogramm für Wärmepumpen und schnellere Erneuerbare würde die Abhängigkeit vom Gas beenden. Kurzfristig hilft das niemandem, der jetzt friert, kritisieren manche.

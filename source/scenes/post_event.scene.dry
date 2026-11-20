@@ -249,6 +249,10 @@ if (Q.month_actions >= 1) {
     // Tabelle, Treiber und Wirkungen: groups_data.scene.dry (GRP.month).
     if (!this.game.GRP) this._runActions(this.game.scenes.groups_data.onArrival);
     this.game.GRP.month(Q);
+    // Klima und Energie (Durchgang 4.6): Strommix, Emissionen, Energiepreise (speist energy_price), Prognose, Paris-Budget.
+    // Modell und Quellen: climate_data.scene.dry (CLIM.month). Läuft vor der Phillips-Kurve, damit die Energiepreise auf die Inflation wirken.
+    if (!this.game.CLIM) this._runActions(this.game.scenes.climate_data.onArrival);
+    this.game.CLIM.month(Q);
     // change economic stats...
     // we're basically implicity drawing a Philips curve, scaled to the German economy of the 2020s
     // budget deficits lead to some inflation

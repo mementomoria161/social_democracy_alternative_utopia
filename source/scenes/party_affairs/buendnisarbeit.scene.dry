@@ -18,14 +18,17 @@ Stärke, Konjunktur und Verhältnis aller Gruppen zeigt der Reiter „Gruppen“
 
 - @w_dgb
 - @w_verdi
+- @w_kohle
 - @w_vdk
 - @w_mieter
 - @w_sozialprotest
 - @w_bda
 - @w_mittelstand
+- @w_eigentuemer
 - @w_autolobby
 - @w_umwelt
 - @w_klima
+- @w_ee_branche
 - @w_demo
 - @w_frieden
 - @w_palaestina
@@ -34,20 +37,24 @@ Stärke, Konjunktur und Verhältnis aller Gruppen zeigt der Reiter „Gruppen“
 - @w_bauern
 - @easy_discard
 
+
 @menu
 
 Mit wem stattdessen?
 
 - @w_dgb
 - @w_verdi
+- @w_kohle
 - @w_vdk
 - @w_mieter
 - @w_sozialprotest
 - @w_bda
 - @w_mittelstand
+- @w_eigentuemer
 - @w_autolobby
 - @w_umwelt
 - @w_klima
+- @w_ee_branche
 - @w_demo
 - @w_frieden
 - @w_palaestina
@@ -218,4 +225,25 @@ title: Bauern- und Mittelstandsproteste
 subtitle: Protestbewegung
 view-if: ga_bauern = 1
 on-arrival: grp_target = "bauern"; grp_rel_now = gr_bauern
+go-to: aktion
+
+@w_ee_branche
+title: Erneuerbaren-Branche (BEE, Windenergie, Solarwirtschaft)
+subtitle: Umwelt und Klima
+view-if: ga_ee_branche = 1
+on-arrival: grp_target = "ee_branche"; grp_rel_now = gr_ee_branche
+go-to: aktion
+
+@w_kohle
+title: Kohleregionen und IG BCE
+subtitle: Gewerkschaften
+view-if: ga_kohle = 1
+on-arrival: grp_target = "kohle"; grp_rel_now = gr_kohle
+go-to: aktion
+
+@w_eigentuemer
+title: Haus & Grund und Eigentümerverbände
+subtitle: Arbeitgeber und Wirtschaft
+view-if: ga_eigentuemer = 1
+on-arrival: grp_target = "eigentuemer"; grp_rel_now = gr_eigentuemer
 go-to: aktion

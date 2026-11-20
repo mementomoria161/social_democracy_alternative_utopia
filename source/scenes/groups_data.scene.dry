@@ -82,6 +82,22 @@ var GRP = {
              return d;
          },
          demand: function(Q) { return 'keine Vermögensteuer, Bürokratieabbau und Hilfe gegen den Fachkräftemangel'; }},
+        // Durchgang 4.6 (Klima): Eigentümerverbände gegen Heizungsgesetz und CO2-Preis
+        {id: 'eigentuemer', name: 'Haus & Grund und Eigentümerverbände', short: 'Haus & Grund', camp: 'wirt', base: 35, start: 38,
+         rel: {spd: 25, linke: 5}, parties: ['Union', 'FDP', 'AfD'], voters: ['old_middle', 'rentner'],
+         infl: {spd: {reformist: 0.4}, linke: {reformist: 0.1}},
+         desc: 'Haus & Grund mit rund 950 000 Mitgliedern und weitere Verbände privater Eigentümer*innen und Vermieter*innen. Seit dem Streit um das Heizungsgesetz 2023 laut gegen Heizungsvorschriften, Sanierungspflichten und einen steigenden CO2-Preis.',
+         drive: function(Q, why) {
+             var d = 0;
+             if (Q.kp_waerme >= 1) { d += 8 + 4 * (Q.kp_waerme - 1); why.push('Heizungsgesetz mit 65-Prozent-Regel'); }
+             if (Q.kp_waerme < 0) { d -= 8; why.push('Heizungsgesetz entschärft'); }
+             if (Q.kp_ee >= 2) { d += 3; why.push('Solarpflicht'); }
+             var co2 = (Q.cl_price || [])[3] || 55;
+             if (co2 > 65) { d += Math.min(10, (co2 - 65) / 4); why.push('steigender CO2-Preis auf Heizöl und Gas'); }
+             if (Q.year == 2026 && Q.month <= 6 && Q.union_in_government) { d += 6; why.push('Streit um die Abschaffung des Heizungsgesetzes'); }
+             return d;
+         },
+         demand: function(Q) { return Q.kp_waerme >= 1 ? 'die 65-Prozent-Regel abschaffen und Sanierungen freiwillig fördern statt vorschreiben' : 'Technologieoffenheit beim Heizen und keinen weiteren Anstieg des CO2-Preises'; }},
         {id: 'bauern', link: 'bauern', name: 'Bauern- und Mittelstandsproteste', short: 'Bauernproteste', camp: 'rechts', base: 40,
          rel: {spd: 15, linke: 10}, parties: ['Union', 'AfD', 'BSW'], voters: ['rural'],
          infl: {spd: {reformist: 0.3, neorevisionist: 0.3}, linke: {neorevisionist: 0.3}},
@@ -124,12 +140,41 @@ var GRP = {
          rel: {spd: 45, linke: 45}, parties: ['Grüne'], voters: ['new_middle'],
          infl: {spd: {left: 0.4}, linke: {center: 0.4}},
          desc: 'Große Umwelt- und Naturschutzverbände mit zusammen über einer Million Mitgliedern: klagen, beraten und mobilisieren für Klima- und Naturschutz.',
+         drive: function(Q, why) {
+             var d = 0;
+             if (Q.year >= 2026 && Q.cl_gap2030 > 20) { d += Math.min(10, Q.cl_gap2030 / 6); why.push('Klimaziel 2030 in Gefahr'); }
+             if (Q.kp_waerme < 0 || Q.kp_eauto < 0 || Q.kp_co2 < 0) { d += 6; why.push('Rückschritte beim Klimaschutz'); }
+             if (Q.duerre_year == Q.year || Q.flut_year == Q.year) { d += 4; why.push('Dürre und Hochwasser'); }
+             if (Q.cl_court) { d += 3; why.push('Klimaurteil aus Karlsruhe'); }
+             return d;
+         },
          demand: function(Q) { return 'das Klimaschutzgesetz einhalten, Naturschutz statt Beschleunigung um jeden Preis'; }},
         {id: 'klima', link: 'klima', name: 'Klimabewegung', short: 'Klima', camp: 'umwelt', base: 55,
          rel: {spd: 35, linke: 55}, parties: ['Grüne', 'Linke'], voters: ['new_middle'],
          infl: {spd: {left: 0.6}, linke: {center: 0.6, left: 0.3}},
          desc: 'Fridays for Future, Letzte Generation (seit 2025 „Neue Generation“) und lokale Klimagruppen. Nach den Massenprotesten 2019 kleiner geworden, aber gut organisiert.',
-         demand: function(Q) { return 'ein Sofortprogramm für den Klimaschutz und ein sozial gerechtes Klimageld'; }},
+         drive: function(Q, why) {
+             if (Q.cl_gap2030 > 30 && Q.year >= 2026) why.push('Klimaziel 2030 wird deutlich verfehlt');
+             if (Q.kp_waerme < 0 || Q.kp_eauto < 0 || Q.kp_co2 < 0) why.push('Rückschritte beim Klimaschutz');
+             if (Q.duerre_year == Q.year || Q.flut_year == Q.year) why.push('Extremwetter in diesem Jahr');
+             return 0;
+         },
+         demand: function(Q) { return Q.cl_status == 2 ? 'den Paris-Kurs halten und sozial absichern' : 'ein Sofortprogramm für den Klimaschutz und ein sozial gerechtes Klimageld'; }},
+        // Durchgang 4.6 (Klima): Branche der erneuerbaren Energien
+        {id: 'ee_branche', name: 'Erneuerbaren-Branche (BEE, Windenergie, Solarwirtschaft)', short: 'Erneuerbare', camp: 'umwelt', base: 40, start: 42,
+         rel: {spd: 50, linke: 30}, parties: ['Grüne', 'SPD'], voters: [],
+         infl: {spd: {center: 0.3, left: 0.2}, linke: {reformist: 0.2}},
+         desc: 'Bundesverband Erneuerbare Energie, Bundesverband WindEnergie und Bundesverband Solarwirtschaft: Hersteller, Projektierer, Stadtwerke und Handwerk mit rund 400 000 Beschäftigten. Für schnellen Ausbau, gegen Kürzungen bei der Förderung.',
+         drive: function(Q, why) {
+             var d = 0;
+             if (Q.kp_ee > 0) { d += 5 * Q.kp_ee; why.push('Ausbau beschleunigt'); }
+             if (Q.kp_ee < 0) { d += 8; why.push('Kürzungen beim Ausbau: die Branche wehrt sich'); }
+             if (Q.kp_netz) { d += 3; why.push('Netzausbau'); }
+             if (Q.kp_kohle) { d += 3; why.push('Kohleausstieg 2030'); }
+             if ((Q.cl_ee || 0) > 65) { d += 4; why.push('Erneuerbare liefern ' + Math.round(Q.cl_ee) + ' % des Stroms'); }
+             return d;
+         },
+         demand: function(Q) { return Q.kp_ee < 0 ? 'die Einspeisevergütung für kleine Solaranlagen erhalten und die Ausschreibungen nicht kürzen' : 'schnellere Genehmigungen, mehr Netze und Speicher und Flächen für Windkraft'; }},
         {id: 'frieden', name: 'Friedensbewegung', short: 'Frieden', camp: 'zivil', base: 25, start: 25,
          rel: {spd: 30, linke: 55}, parties: ['BSW', 'Linke'], voters: ['rentner'],
          infl: {spd: {left: 0.6, reformist: -0.4}, linke: {neorevisionist: 0.8, left: 0.5}},
@@ -204,7 +249,21 @@ var GRP = {
              if (Q.welfare < 0) { d += 5; why.push('Sparkurs bei Kommunen und Kliniken'); }
              return d;
          },
-         demand: function(Q) { return (Q.inflation || 0) > 3 ? 'deutliche Lohnerhöhungen zum Inflationsausgleich' : 'mehr Personal in Pflege und Kitas und eine Entlastung der Kommunen'; }}
+         demand: function(Q) { return (Q.inflation || 0) > 3 ? 'deutliche Lohnerhöhungen zum Inflationsausgleich' : 'mehr Personal in Pflege und Kitas und eine Entlastung der Kommunen'; }},
+        // Durchgang 4.6 (Klima): Beschäftigte in Kohle und Energieindustrie
+        {id: 'kohle', name: 'Kohleregionen und IG BCE', short: 'IG BCE/Kohle', camp: 'gew', base: 35, start: 38,
+         rel: {spd: 55, linke: 35}, parties: ['SPD', 'Union'], voters: ['workers', 'rural'],
+         infl: {spd: {labor: 0.6, reformist: 0.3}, linke: {labor: 0.4, reformist: 0.4}},
+         desc: 'Industriegewerkschaft Bergbau, Chemie, Energie (rund 580 000 Mitglieder) und die Menschen in Lausitz, Mitteldeutschem und Rheinischem Revier. In der Lausitz hängen noch Tausende Arbeitsplätze an Tagebauen und Kraftwerken.',
+         drive: function(Q, why) {
+             var d = 0;
+             if (Q.kp_kohle) { d += 15; why.push('Kohleausstieg 2030'); }
+             if (Q.klima_kohle_ost_choice == 1) { d -= 8; why.push('Strukturhilfen für die Reviere'); }
+             if (Q.kp_industrie) { d -= 3; why.push('Klimaschutzverträge für die Chemie'); }
+             if ((Q.cl_price || [])[4] > 100) { d += 4; why.push('hoher CO2-Preis drückt die Kohlekraftwerke aus dem Markt'); }
+             return d;
+         },
+         demand: function(Q) { return Q.kp_kohle ? 'Jobgarantien, neue Industrie in den Revieren und keinen Ausstieg ohne Ersatz' : 'den Kohlekompromiss einhalten: Ausstieg spätestens 2038, nicht früher'; }}
     ],
     // Bündnisse (+1) und Gegnerschaften (-1) zwischen Gruppen
     links: [
@@ -214,7 +273,9 @@ var GRP = {
         ['umwelt', 'klima', 1], ['klima', 'autolobby', -1], ['umwelt', 'autolobby', -1], ['umwelt', 'bauern', -1],
         ['demo', 'rechts', -1], ['demo', 'kirchen', 1], ['demo', 'dgb', 1], ['israel', 'demo', 1], ['israel', 'rechts', -1],
         ['palaestina', 'israel', -1], ['palaestina', 'frieden', 1], ['palaestina', 'klima', 1], ['frieden', 'kirchen', 1],
-        ['klima', 'demo', 1]
+        ['klima', 'demo', 1],
+        ['ee_branche', 'umwelt', 1], ['ee_branche', 'klima', 1], ['kohle', 'dgb', 1], ['kohle', 'klima', -1], ['kohle', 'ee_branche', -1],
+        ['eigentuemer', 'mittelstand', 1], ['eigentuemer', 'mieter', -1], ['eigentuemer', 'umwelt', -1]
     ],
     // Mobilisierung der alten Protestbewegungen (Tsd. Menschen) auf 0-100: 10 Tsd. = 0, 3 Mio. = 100 (logarithmisch)
     fromThousands: function(k) { return r1(clamp(100 * Math.log10(Math.max(10, k || 0) / 10) / Math.log10(300), 0, 100)); },

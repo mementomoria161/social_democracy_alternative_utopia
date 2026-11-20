@@ -1,0 +1,64 @@
+title: [? if duerre_year = year : Dürresommer ?][? if duerre_year != year : Hochwasser an Elbe und Donau ?]
+subtitle: Die Klimakrise ist auch in Deutschland angekommen.
+new-page: true
+tags: event
+view-if: year >= 2026 and month >= 7 and month <= 9 and (duerre_year = year or flut_year = year) and extremwetter_last_year != year and chancellor_party != "AfD"
+max-visits: 3
+on-arrival: {!
+Q.klima_extremwetter_seen += 1; Q.extremwetter_last_year = Q.year;
+Q.klima_strength += 40; Q.gm_umwelt += 2;
+if (Q.duerre_year == Q.year) { Q.shock_agrar -= 3; Q.shock_industrie -= 0.3; }
+else { Q.shock_bau += 0.5; Q.shock_handel -= 0.3; }
+!}
+face-image: img/hochwasser.jpg
+
+# Durchgang 4.6 (Klima), fiktiv: zufälliges Extremwetter (climate_data: duerre_year 30 %, flut_year 20 % je Jahr ab 2026).
+# Reale Bezüge: Ahrtal-Hochwasser Juli 2021 (über 180 Tote in Deutschland), Dürresommer 2018/2019/2022, Niedrigwasser am Rhein 2018 und 2022.
+
+= [? if duerre_year = year : Dürresommer ?][? if duerre_year != year : Hochwasser an Elbe und Donau ?]
+
+[? if duerre_year = year : Seit Wochen kein Regen, Temperaturen über 35 Grad: In Brandenburg, Sachsen und im Harz brennen die Wälder, Landwirt\*innen melden Ernteausfälle, und am Rhein ist der Pegel so niedrig, dass Frachtschiffe nur noch halb beladen fahren können. Krankenhäuser und Pflegeheime kämpfen mit der Hitze. ?][? if duerre_year != year : Nach tagelangem Starkregen treten Elbe, Donau und ihre Nebenflüsse über die Ufer. Ganze Ortschaften stehen unter Wasser, Tausende Menschen müssen ihre Häuser verlassen. Viele denken an die Flut im Ahrtal im Juli 2021, bei der in Deutschland mehr als 180 Menschen starben. Diesmal halten die meisten Deiche, doch die Schäden gehen in die Milliarden. ?]
+
+Die Klimaforschung ist eindeutig: Solche Extreme werden mit der Erderhitzung häufiger und heftiger. [? if spd_in_government : Von der Regierung wird jetzt schnelle Hilfe erwartet und die Frage gestellt, wie sich das Land besser schützt. ?][? if not spd_in_government : Die Regierung verspricht schnelle Hilfe. Was sagen wir? ?]
+
+- @hilfe: Schnelle Soforthilfen für Betroffene.
+- @anpassung: Ein Klimaanpassungsprogramm: Pflichtversicherung gegen Elementarschäden, Hitzeschutz, Entsiegelung.
+- @laender: Die Hilfen über die Länder laufen lassen.
+- @opp_vorort: Vor Ort mit anpacken und zuhören.
+- @opp_klima: Klar sagen: Klimaschutz ist auch Katastrophenschutz.
+
+@hilfe
+view-if: spd_in_government
+subtitle: -1 Haushaltsspielraum
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: budget -= 1; rural_spd += 2*(1-dissent); rentner_spd += 1*(1-dissent); pro_republic += 1
+
+Der Bund stellt Milliarden für Betroffene, Landwirtschaft und Kommunen bereit, unbürokratisch und schnell. In den betroffenen Regionen wird das anerkannt.
+
+@anpassung
+view-if: spd_in_government
+subtitle: -1 Haushaltsspielraum, Umweltverbände +
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: budget -= 1; gr_umwelt += 5; gr_eigentuemer -= 3; new_middle_spd += 1*(1-dissent); rural_spd += 1*(1-dissent); pro_republic += 1; coalition_dissent += 1 if fdp_in_government
+
+Neben Soforthilfen beschließen wir eine Pflichtversicherung gegen Elementarschäden, Hitzeschutzpläne für Städte, Kliniken und Pflegeheime und mehr Geld für Deiche, Auen und Entsiegelung. Eigentümerverbände klagen über die Versicherungskosten.
+
+@laender
+view-if: spd_in_government
+on-arrival: rural_spd -= 1; gr_umwelt -= 2
+
+Wir verweisen auf die Zuständigkeit der Länder und bestehende Programme. In den betroffenen Gebieten fühlen sich viele allein gelassen.
+
+@opp_vorort
+view-if: not spd_in_government
+on-arrival: rural_spd += 1*(1-dissent); pro_republic += 0.5
+
+Unsere Abgeordneten helfen beim Sandsäcke-Schleppen und hören zu, ohne Kameras im Gepäck. Das spricht sich herum.
+
+@opp_klima
+view-if: not spd_in_government
+on-arrival: new_middle_spd += 1.5*(1-dissent); rural_spd -= 0.5; gr_klima += 4; gr_umwelt += 4; cl_pressure += 0.5
+
+Wir fordern ein Sofortprogramm für Klimaschutz und Klimaanpassung. Die Klimabewegung stimmt zu, in den betroffenen Dörfern finden manche den Zeitpunkt unpassend.

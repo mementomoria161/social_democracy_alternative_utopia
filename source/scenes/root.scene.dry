@@ -713,6 +713,12 @@ Q.lk_prev_support = null; // Linke game: player support per group at the last mo
 if (!this.game.GRP) this._runActions(this.game.scenes.groups_data.onArrival);
 this.game.GRP.init(Q);
 Q.grp_target = ''; Q.grp_rel_now = 0; Q.grp_name = ''; Q.grp_info = ''; Q.grp_msg = '';
+// Durchgang 4.6: Klima und Energie (Reiter „Klima“). Modell, Quellen und alle Qualities: climate_data.scene.dry (cl_*, kp_*).
+// Legt auch die Timer klimapolitik/klimakampagne an. Ereignisse: *_seen der Klima-Events, duerre_year (Jahr eines Dürresommers).
+if (!this.game.CLIM) this._runActions(this.game.scenes.climate_data.onArrival);
+this.game.CLIM.init(Q);
+Q.duerre_year = 0; Q.klima_heizungsgesetz_seen = 0; Q.klima_extremwetter_seen = 0; Q.klima_expertenrat_seen = 0;
+Q.klima_klage_seen = 0; Q.klima_ets2_seen = 0; Q.klima_kohle_ost_choice = 0; Q.extremwetter_last_year = 0; Q.expertenrat_last_year = 0; Q.klima_kohle_ost_seen = 0; Q.klima_gaspreis_seen = 0; Q.cl_court = 0;
 Q.buendnis_timer = 0;
 // events of 4.5 (events/vw_warnstreiks, resolution_antisemitismus, verdi_tarifrunde, palaestina_proteste, ruestungsexporte_israel,
 // gaza_waffenruhe, arbeitgeber_kampagne, sozialverbaende_protest, mietenstopp_kampagne, gruppen_wandel)

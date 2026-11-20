@@ -1,0 +1,270 @@
+title: Klimaschutz und Energie
+subtitle: Strom, Wärme, Verkehr, Industrie: Wie kommt Deutschland auf den Paris-Pfad?
+new-page: true
+is-card: true
+tags: govt_affairs, cabinet
+on-arrival: klimapolitik_timer = 4; month_actions += 1
+view-if: spd_in_government = 1 and klimapolitik_timer <= 0
+card-image: img/windpark.jpg
+
+# Durchgang 4.6: Maßnahmen setzen die Flags kp_* (Wirkung im Klimamodell climate_data.scene.dry, Anzeige im Reiter „Klima“).
+# Kosten: Haushaltsspielraum, Koalitionsstreit je nach Partner, Wählergruppen, Strömungen, Interessengruppen (gr_*), Sektoren (shock_*).
+
+= Klimaschutz und Energie
+
+Deutschland stößt derzeit rund [+ cl_total_i +] Millionen Tonnen Treibhausgase im Jahr aus. Das Klimaschutzgesetz verlangt bis 2030 höchstens 438 Millionen Tonnen, 65 Prozent weniger als 1990; 2045 soll das Land klimaneutral sein. Mit den beschlossenen Maßnahmen landen wir 2030 bei etwa [+ cl_p2030 +] Millionen Tonnen. [? if cl_gap2030 > 0 : Es fehlen also rund [+ cl_gap2030 +] Millionen Tonnen. ?][? if cl_gap2030 <= 0 : Das Ziel ist in Reichweite. ?] [? if cl_budget_year > 0 : Das Paris-kompatible CO2-Budget wäre etwa [+ cl_budget_year +] aufgebraucht. ?][? if cl_budget_year = 0 : Wir bleiben im Paris-kompatiblen CO2-Budget. ?]
+
+[? if union_in_government : Die Union will „Klimaschutz mit Augenmaß“: Industriestrom und Wasserstoff ja, Tempolimit, schärfere Heizungsregeln und ein früherer Kohleausstieg eher nicht. ?][? if gruene_in_government : Die Grünen drängen auf mehr Tempo und erinnern an das Heizungsgesetz von 2023: Ohne sozialen Ausgleich kippt die Stimmung. ?][? if fdp_in_government : Die FDP setzt auf den CO2-Preis und lehnt Tempolimit und neue Subventionen ab. ?][? if linke_in_government and player = "spd" : Die Linke will Klimaschutz vor allem sozial: Klimageld, Deutschlandticket, Wärmenetze in öffentlicher Hand. ?][? if linke_in_government and player = "linke" : Die SPD achtet auf Industriearbeitsplätze und die Kohleregionen. ?]
+
+Wo setzen wir an? Details zu Strommix, Preisen und Prognose zeigt der Reiter „Klima“.
+
+- @strom: Strom: Kohleausstieg, Wind und Sonne, Netze.
+- @waerme: Wärme und Gebäude.
+- @verkehr: Verkehr.
+- @industrie: Industrie, CO2-Preis und sozialer Ausgleich.
+- @easy_discard
+
+@strom
+
+= Strom
+
+Gut die Hälfte des Stroms kommt schon aus Wind, Sonne, Biomasse und Wasser. Doch Braunkohle- und Gaskraftwerke laufen weiter, die Netze kommen nicht hinterher, und an sonnigen, windigen Tagen wird Ökostrom abgeregelt.
+
+- @kohle2030
+- @ee_1
+- @ee_2
+- @netz_sv
+- @netz
+- @nichts: Vorerst nichts beschließen.
+
+@kohle2030
+title: Den Kohleausstieg auf 2030 vorziehen.
+subtitle: -1 Haushaltsspielraum (Strukturhilfen, Reservekraftwerke). Ärger in der Lausitz und mit der IG BCE.
+view-if: kp_kohle = 0
+choose-if: budget >= 1
+unavailable-subtitle: Ohne Haushaltsspielraum keine Strukturhilfen, und ohne die ist der Ausstieg nicht durchzusetzen.
+on-arrival: {!
+Q.kp_kohle = 1; Q.kp_kohle_t = Q.year + (Q.month - 1) / 12; Q.budget -= 1;
+if (Q.union_in_government) Q.coalition_dissent += 2;
+Q.gr_kohle -= 15; Q.gm_kohle += 2; Q.gr_klima += 10; Q.gr_umwelt += 8; Q.gr_ee_branche += 5;
+var d = 1 - Q.dissent;
+Q.rural_spd -= 2; Q.workers_spd -= 1; Q.new_middle_spd += 2 * d;
+Q.labor_dissent += 5; Q.left_dissent -= 3; Q.gruene_relation += 3; Q.union_relation -= 1; Q.shock_energie += 1;
+!}
+
+Das letzte Braunkohlekraftwerk soll 2030 vom Netz gehen, acht Jahre früher als gesetzlich vorgesehen. Im Rheinischen Revier ist das ohnehin vereinbart, in der Lausitz und im Mitteldeutschen Revier aber fürchten Tausende Beschäftigte um ihre Arbeit. Klimabewegung und Grüne jubeln, die IG BCE spricht von einem „Wortbruch gegenüber dem Osten“.
+
+@ee_1
+title: [? if kp_ee < 0 : Den gebremsten Ausbau wieder anschieben: ?][? if kp_ee = 0 : Wind und Solar beschleunigen: ?] Flächen, Genehmigungen, Ausschreibungen.
+subtitle: -1 Haushaltsspielraum. Mehr Windräder heißt auch mehr Streit vor Ort.
+view-if: kp_ee <= 0
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: kp_ee = 1; budget -= 1; coalition_dissent += 1 if union_in_government; gr_ee_branche += 12; gm_ee_branche += 2; gr_umwelt += 3; rural_spd -= 0.5; new_middle_spd += 1.5*(1-dissent); shock_energie += 0.5; shock_bau += 0.3
+
+Zwei Prozent der Landesfläche für Windkraft, kürzere Genehmigungen, mehr Ausschreibungsvolumen für Solarparks und eine verpflichtende Beteiligung der Gemeinden an den Erlösen. Die Erneuerbaren-Branche spricht von einem „Signal, auf das wir gewartet haben“, Bürgerinitiativen gegen Windräder kündigen Widerstand an.
+
+@ee_2
+title: Eine Ausbauoffensive: Solarpflicht auf Neubauten, Repowering, mehr Wind auf See.
+subtitle: -1 Haushaltsspielraum
+view-if: kp_ee = 1
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: kp_ee = 2; budget -= 1; coalition_dissent += 1 if union_in_government or fdp_in_government; gr_ee_branche += 8; gr_eigentuemer -= 5; new_middle_spd += 1*(1-dissent); old_middle_spd -= 0.5; shock_energie += 0.7; shock_bau += 0.5
+
+Jedes neue Dach bekommt Solarmodule, alte Windräder werden durch leistungsstärkere ersetzt, und vor den Küsten werden zusätzliche Flächen ausgeschrieben. Eigentümerverbände klagen über die Solarpflicht, Handwerk und Industrie freuen sich über volle Auftragsbücher.
+
+@netz_sv
+title: Netze und Speicher ausbauen, finanziert aus dem Sondervermögen Infrastruktur.
+subtitle: Kein zusätzlicher Haushaltsspielraum nötig.
+view-if: kp_netz = 0 and sondervermoegen = 2
+on-arrival: kp_netz = 1; shock_bau += 0.5; shock_energie += 0.5; gr_ee_branche += 5; gr_autolobby += 3; rural_spd += 0.5*(1-dissent); new_middle_spd += 0.5*(1-dissent)
+
+Übertragungsleitungen von Nord nach Süd, Batteriespeicher, intelligente Zähler: Aus dem Sondervermögen fließen Milliarden in das Stromnetz. Weniger Windstrom muss abgeregelt werden, und die Netzentgelte werden gerechter zwischen Nord und Süd, Ost und West verteilt.
+
+@netz
+title: Netze und Speicher ausbauen, Netzentgelte fairer verteilen.
+subtitle: -1 Haushaltsspielraum
+view-if: kp_netz = 0 and sondervermoegen != 2
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: kp_netz = 1; budget -= 1; shock_bau += 0.5; shock_energie += 0.5; gr_ee_branche += 5; gr_autolobby += 3; rural_spd += 0.5*(1-dissent); new_middle_spd += 0.5*(1-dissent)
+
+Übertragungsleitungen, Batteriespeicher, intelligente Zähler: Der Bund investiert in das Stromnetz. Weniger Windstrom muss abgeregelt werden, und die Netzentgelte werden gerechter verteilt.
+
+@nichts
+title: Vorerst nichts beschließen.
+
+Wir vertagen die Entscheidung. Im Reiter „Klima“ können wir verfolgen, wie sich Emissionen, Strommix und Preise entwickeln.
+
+@waerme
+
+= Wärme und Gebäude
+
+Fast jede zweite Wohnung wird mit Gas beheizt, jede vierte mit Öl. Seit dem Streit um das Heizungsgesetz 2023 ist jede Regel für neue Heizungen ein Reizthema, und mit dem CO2-Preis steigen die Heizkosten. Wer zahlt die Wärmewende, Eigentümer\*innen, Mieter\*innen oder der Staat?
+
+- @waerme_1
+- @waerme_2
+- @waerme_minus
+- @nichts: Vorerst nichts beschließen.
+
+@waerme_1
+title: [? if kp_waerme < 0 : Das entschärfte Heizungsgesetz nachbessern: ?][? if kp_waerme = 0 : Die Wärmewende sozial staffeln: ?] Förderung nach Einkommen, Schutz vor Mieterhöhungen.
+subtitle: -1 Haushaltsspielraum. Eigentümerverbände protestieren.
+view-if: kp_waerme <= 0
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: kp_waerme = 1; budget -= 1; coalition_dissent += 1 if union_in_government; gr_eigentuemer -= 8; gm_eigentuemer += 2; gr_mieter += 5; gr_umwelt += 5; gr_vdk += 3; old_middle_spd -= 1.5; rentner_spd -= 1; workers_spd += 1*(1-dissent); new_middle_spd += 1.5*(1-dissent); shock_bau += 0.4; left_dissent -= 2; reformist_dissent += 2
+
+Neue Heizungen sollen zu 65 Prozent mit erneuerbarer Energie laufen, aber wer wenig verdient, bekommt bis zu 70 Prozent der Wärmepumpe bezahlt. Vermieter\*innen dürfen die Kosten nur begrenzt auf die Miete umlegen. Der Mieterbund lobt die Regeln, Haus & Grund spricht von „Enteignung durch die Hintertür“.
+
+@waerme_2
+title: Kommunale Wärmenetze und Gebäudesanierung massiv fördern.
+subtitle: -2 Haushaltsspielraum (mit dem Sondervermögen Infrastruktur -1)
+view-if: kp_waerme = 1
+choose-if: budget >= 2 or (sondervermoegen = 2 and budget >= 1)
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: kp_waerme = 2; budget -= 2 if sondervermoegen != 2 else budget -= 1; shock_bau += 1; gr_eigentuemer += 3; gr_mieter += 3; gr_umwelt += 3; workers_spd += 1*(1-dissent); new_middle_spd += 1*(1-dissent)
+
+Stadtwerke bauen Fernwärme aus Abwärme, Großwärmepumpen und Geothermie aus, der Bund übernimmt einen Großteil der Kosten. Dazu kommt ein Sanierungsprogramm für die schlechtesten Gebäude. Das Bauhandwerk sucht händeringend Fachkräfte.
+
+@waerme_minus
+title: Dem Druck nachgeben und das Heizungsgesetz entschärfen.
+subtitle: Entlastet die Koalition, verärgert Umweltverbände und die eigene Linke.
+view-if: kp_waerme >= 0 and kp_waerme < 2 and (union_in_government or fdp_in_government)
+on-arrival: kp_waerme = -1; coalition_dissent -= 1 if coalition_dissent >= 1; union_relation += 4; fdp_relation += 2; gr_eigentuemer += 10; gr_umwelt -= 10; gr_klima -= 8; left_dissent += 4; old_middle_spd += 1*(1-dissent); rentner_spd += 0.5*(1-dissent); new_middle_spd -= 1.5
+
+Die 65-Prozent-Regel fällt, neue Gasheizungen bleiben erlaubt, wenn sie „wasserstofffähig“ sind. Die Koalitionspartner sind zufrieden. Umweltverbände sprechen von einer „Kostenfalle für Mieter\*innen“, wenn der CO2-Preis steigt, und kündigen Klagen an.
+
+@verkehr
+
+= Verkehr
+
+Im Verkehr sind die Emissionen seit 1990 kaum gesunken. Die Bahn ist marode, das Deutschlandticket ist beliebt, aber jedes Jahr umstritten, und Elektroautos sind für viele noch zu teuer. Dazu kommt die alte Frage nach dem Tempolimit.
+
+- @bahn_1
+- @bahn_2
+- @tempolimit
+- @eauto
+- @verbrenner_lockern
+- @nichts: Vorerst nichts beschließen.
+
+@bahn_1
+title: Das Deutschlandticket dauerhaft sichern und günstiger machen, das Bahnnetz sanieren.
+subtitle: -1 Haushaltsspielraum
+view-if: kp_bahn = 0
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: kp_bahn = 1; budget -= 1; coalition_dissent += 1 if fdp_in_government; workers_spd += 1.5*(1-dissent); new_middle_spd += 1.5*(1-dissent); unemployed_spd += 1*(1-dissent); rentner_spd += 0.5*(1-dissent); gr_verdi += 3; gr_klima += 4; inflation -= 0.1; shock_bau += 0.3
+
+Das Deutschlandticket wird gesetzlich gesichert, der Preis sinkt wieder unter 50 Euro, und der Bund stockt die Mittel für die Sanierung der Schiene auf. Pendler\*innen und Verkehrsverbünde atmen auf.
+
+@bahn_2
+title: Eine Schienenoffensive: Deutschlandtakt, Reaktivierungen, Busse und Bahnen auf dem Land.
+subtitle: -2 Haushaltsspielraum (mit dem Sondervermögen Infrastruktur -1)
+view-if: kp_bahn = 1
+choose-if: budget >= 2 or (sondervermoegen = 2 and budget >= 1)
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: kp_bahn = 2; budget -= 2 if sondervermoegen != 2 else budget -= 1; rural_spd += 2*(1-dissent); workers_spd += 0.5*(1-dissent); gr_verdi += 2; gr_klima += 3; shock_bau += 0.6
+
+Stillgelegte Strecken werden reaktiviert, auf dem Land fährt mindestens jede Stunde ein Bus oder Zug. Die Bauwirtschaft hat Aufträge für Jahre, und viele Kreise, die sich abgehängt fühlen, bekommen wieder Anschluss.
+
+@tempolimit
+title: Ein Tempolimit von 130 km/h auf Autobahnen einführen.
+subtitle: Spart sofort rund 6,7 Mio. t CO2 im Jahr (Umweltbundesamt). Kostenlos, aber umstritten.
+view-if: kp_tempolimit = 0
+choose-if: not fdp_in_government
+unavailable-subtitle: Mit der FDP nicht zu machen.
+on-arrival: kp_tempolimit = 1; coalition_dissent += 2 if union_in_government; old_middle_spd -= 1.5; rural_spd -= 1.5; workers_spd -= 0.5; new_middle_spd += 1.5*(1-dissent); rural_afd += 0.5; gr_autolobby -= 8; gr_klima += 6; gr_umwelt += 5; union_relation -= 1; gruene_relation += 3; reformist_dissent += 2
+
+Deutschland verabschiedet sich als letztes großes Land ohne Tempolimit von der „freien Fahrt“. Das Umweltbundesamt rechnet mit 6,7 Millionen Tonnen weniger CO2 im Jahr und weniger Verkehrstoten. Die AfD macht mit „Freiheit statt Verbote“ Stimmung.
+
+@eauto
+title: Social Leasing: E-Autos für kleine und mittlere Einkommen, mehr Ladesäulen.
+subtitle: -1 Haushaltsspielraum
+view-if: kp_eauto <= 0
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: kp_eauto = 1; budget -= 1; workers_spd += 1.5*(1-dissent); rural_spd += 1*(1-dissent); gr_dgb += 4; gr_autolobby += 3; shock_industrie += 0.5
+
+Nach französischem Vorbild können Haushalte mit kleinen und mittleren Einkommen ein Elektroauto aus europäischer Produktion für unter 150 Euro im Monat leasen. Die IG Metall freut sich über ausgelastete Werke, Pendler\*innen auf dem Land über niedrigere Spritkosten.
+
+@verbrenner_lockern
+title: Beim Verbrenner-Aus nachgeben: Ausnahmen für E-Fuels und Hybride.
+subtitle: Freut Union und Autoindustrie, kostet Glaubwürdigkeit beim Klimaschutz.
+view-if: kp_eauto = 0
+on-arrival: kp_eauto = -1; union_relation += 3; coalition_dissent -= 1 if union_in_government and coalition_dissent >= 1; gr_autolobby += 10; gr_dgb += 3; gr_klima -= 8; gr_umwelt -= 6; left_dissent += 3; labor_dissent -= 2; old_middle_spd += 1*(1-dissent); shock_industrie += 0.3
+
+Wir unterstützen in Brüssel die Aufweichung der CO2-Flottengrenzwerte: Auch nach 2035 dürfen Plug-in-Hybride und Autos mit E-Fuels neu zugelassen werden. Die Autoindustrie atmet auf, Klimaforscher\*innen warnen vor einem „Verlängern der Abhängigkeit vom Öl“.
+
+@industrie
+
+= Industrie, CO2-Preis und sozialer Ausgleich
+
+Stahl, Chemie und Zement brauchen viel Energie und stehen im internationalen Wettbewerb. Gleichzeitig steigt der CO2-Preis auf Heizöl, Gas und Sprit[? if year < 2028 : , ab 2028 im europäischen Emissionshandel für Gebäude und Verkehr ?]. Wer den Preis spürt, braucht einen Ausgleich, sonst kippt die Akzeptanz.
+
+- @industrie_1
+- @industrie_2
+- @h2
+- @co2_hoch
+- @co2_deckel
+- @klimageld
+- @nichts: Vorerst nichts beschließen.
+
+@industrie_1
+title: Klimaschutzverträge für Stahl, Chemie und Zement ausweiten.
+subtitle: -1 Haushaltsspielraum
+view-if: kp_industrie = 0
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: kp_industrie = 1; budget -= 1; gr_dgb += 5; gr_bda += 4; gr_autolobby += 3; labor_dissent -= 3; workers_spd += 1*(1-dissent); shock_industrie += 0.8
+
+Der Bund übernimmt für 15 Jahre die Mehrkosten klimafreundlicher Produktion, etwa für Stahl aus Wasserstoff statt Koks. Im Gegenzug verpflichten sich die Unternehmen auf Standorte und Arbeitsplätze. Gewerkschaften und Arbeitgeber loben das Programm gemeinsam.
+
+@industrie_2
+title: Einen Industriestrompreis einführen, gebunden an Klimaschutz und Standortgarantien.
+subtitle: -2 Haushaltsspielraum. Die eigene Linke murrt über „Subventionen für Konzerne“.
+view-if: kp_industrie = 1
+choose-if: budget >= 2
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: kp_industrie = 2; budget -= 2; gr_dgb += 6; gr_bda += 6; gr_mittelstand += 3; gr_umwelt -= 2; left_dissent += 2; labor_dissent -= 3; union_relation += 2; workers_spd += 1*(1-dissent); shock_industrie += 1.2
+
+Energieintensive Betriebe zahlen für einen Teil ihres Stroms höchstens fünf Cent je Kilowattstunde, wenn sie in Effizienz und Elektrifizierung investieren und Standorte sichern. Das Handwerk fragt, warum nur die Großen entlastet werden.
+
+@h2
+title: Das Wasserstoff-Kernnetz und Elektrolyseure fördern.
+subtitle: -1 Haushaltsspielraum. Wirkt ab 2028.
+view-if: kp_h2 = 0
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: kp_h2 = 1; budget -= 1; gr_dgb += 3; gr_bda += 2; gr_ee_branche += 3; shock_energie += 0.5; shock_industrie += 0.3
+
+Der Bund garantiert den Bau des Wasserstoff-Kernnetzes und fördert Elektrolyseure an den Küsten. Ab 2028 sollen die ersten Stahlwerke mit grünem Wasserstoff arbeiten, der Strombedarf steigt dafür kräftig.
+
+@co2_hoch
+title: Einen verlässlich steigenden CO2-Preis festschreiben.
+subtitle: Bringt Einnahmen (+1 Haushaltsspielraum ohne Klimageld), belastet Heizen und Tanken.
+view-if: kp_co2 <= 0
+on-arrival: kp_co2 = 1; budget += 1 if kp_klimageld = 0; coalition_dissent += 1 if union_in_government; rentner_spd -= 1.5; rural_spd -= 2; workers_spd -= 1; new_middle_spd += 1*(1-dissent); gr_eigentuemer -= 6; gr_umwelt += 6; gr_klima += 4; gr_bda -= 2; fdp_relation += 2; left_dissent += 2 if kp_klimageld = 0
+
+Ein Mindestpreis mit festem Anstiegspfad gibt Planungssicherheit: Wer heute eine Heizung oder ein Auto kauft, weiß, was Öl und Benzin in zehn Jahren kosten. Ökonom\*innen loben das Instrument, Sozialverbände warnen: Ohne Ausgleich zahlen die Ärmsten drauf.
+
+@co2_deckel
+title: Den CO2-Preis deckeln, damit Heizen und Tanken bezahlbar bleiben.
+subtitle: -1 Haushaltsspielraum (weniger Einnahmen). Bremst den Klimaschutz in Gebäuden und Verkehr.
+view-if: kp_co2 >= 0 and year >= 2026
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: kp_co2 = -1; budget -= 1; rural_spd += 1.5*(1-dissent); rentner_spd += 1*(1-dissent); workers_spd += 0.5*(1-dissent); gr_klima -= 10; gr_umwelt -= 8; union_relation += 2; left_dissent += 2; gruene_relation -= 3
+
+Wir setzen uns in Brüssel für eine Preisobergrenze im Emissionshandel ein und gleichen den Rest aus dem Haushalt aus. Heizen und Tanken bleiben bezahlbar, doch der Anreiz zum Umstieg wird schwächer. Die Klimabewegung spricht von einem „Offenbarungseid“.
+
+@klimageld
+title: Ein Klimageld auszahlen: die CO2-Einnahmen pro Kopf zurück an die Bürger\*innen.
+subtitle: -1 Haushaltsspielraum. Wer wenig verbraucht, bekommt unterm Strich mehr zurück.
+view-if: kp_klimageld = 0
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: kp_klimageld = 1; budget -= 1; unemployed_spd += 3*(1-dissent); workers_spd += 2*(1-dissent); rentner_spd += 1*(1-dissent); new_middle_spd += 0.5*(1-dissent); gr_vdk += 6; gr_klima += 5; gr_umwelt += 4; left_dissent -= 3; coalition_dissent += 1 if union_in_government or fdp_in_government
+
+Jede und jeder bekommt einmal im Jahr denselben Betrag überwiesen, finanziert aus dem CO2-Preis. Haushalte mit kleinen Einkommen verbrauchen weniger Energie und haben am Ende mehr in der Tasche. Sozialverbände und Klimabewegung loben das Klimageld gemeinsam, ein seltenes Bündnis.

@@ -6,6 +6,7 @@ view-if: year = 2025 and month >= 7 and month <= 9 and ((player = "spd" and spd_
 go-to: linke if player = "linke" and not spd_in_government
 max-visits: 1
 on-arrival: stromsteuer_seen = 1
+# Durchgang 4.6: @alle setzt stromsteuer_alle (Haushaltsstrom rund 2,3 ct/kWh billiger im Klimamodell), @sozial kp_klimageld.
 
 = Stromsteuer-Streit
 
@@ -19,7 +20,7 @@ Die Koalition hatte versprochen, die Stromsteuer für alle zu senken. Nun reicht
 subtitle: -1 Haushaltsspielraum
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt uns der Haushaltsspielraum.
-on-arrival: budget -= 1; workers_spd += 3*(1-dissent); rentner_spd += 3*(1-dissent); new_middle_spd += 2*(1-dissent); coalition_dissent += 1 if in_grand_coalition; inflation -= 0.2
+on-arrival: stromsteuer_alle = 1; budget -= 1; workers_spd += 3*(1-dissent); rentner_spd += 3*(1-dissent); new_middle_spd += 2*(1-dissent); coalition_dissent += 1 if in_grand_coalition; inflation -= 0.2
 
 Nach zähem Ringen wird die Stromsteuer für alle gesenkt. Die Haushälter der Union sind verärgert, doch bei den Bürgerinnen und Bürgern kommt die Entlastung an.
 
@@ -32,7 +33,7 @@ Wir tragen den Kompromiss mit. Die Wirtschaft ist zufrieden, doch viele Menschen
 subtitle: -1 Haushaltsspielraum
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt uns der Haushaltsspielraum.
-on-arrival: budget -= 1; workers_spd += 2*(1-dissent); unemployed_spd += 4*(1-dissent); left_dissent -= 3; gruene_relation += 4; union_relation -= 3; coalition_dissent += 1 if in_grand_coalition
+on-arrival: kp_klimageld = 1; gr_vdk += 4; gr_klima += 4; budget -= 1; workers_spd += 2*(1-dissent); unemployed_spd += 4*(1-dissent); left_dissent -= 3; gruene_relation += 4; union_relation -= 3; coalition_dissent += 1 if in_grand_coalition
 
 Haushalte mit kleinen Einkommen erhalten ein Klimageld, das die steigenden CO2-Preise ausgleicht. Grüne und Sozialverbände loben uns, die Union spricht von „Umverteilung durch die Hintertür“.
 

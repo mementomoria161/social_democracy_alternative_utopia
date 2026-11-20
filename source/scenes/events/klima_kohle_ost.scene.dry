@@ -1,0 +1,55 @@
+title: Kohleausstieg 2030: Was wird aus der Lausitz?
+subtitle: In den Revieren wächst die Angst vor dem Strukturbruch.
+new-page: true
+tags: event
+view-if: kp_kohle = 1 and spd_in_government and time >= 1 and chancellor_party != "AfD"
+max-visits: 1
+on-arrival: klima_kohle_ost_seen = 1; gm_kohle += 2
+face-image: img/braunkohle.jpg
+
+# Durchgang 4.6 (Klima), fiktiv: Folge der Entscheidung „Kohleausstieg 2030“ (kp_kohle). Real: Lausitz und Mitteldeutsches Revier sollen nach
+# dem Kohleausstiegsgesetz bis spätestens 2038 aussteigen, Strukturhilfen von bis zu 40 Mrd. Euro (Strukturstärkungsgesetz 2020).
+# Setzt klima_kohle_ost_choice (1 Strukturhilfen, 2 Markt, 3 Lausitz-Pakt).
+
+= Kohleausstieg 2030: Was wird aus der Lausitz?
+
+In Cottbus, Spremberg und Weißwasser gehen Tausende auf die Straße. Die Betreiber der Tagebaue und Kraftwerke in der Lausitz und im Mitteldeutschen Revier beschäftigen noch Tausende Menschen, Zulieferer und Handwerk hängen daran. Viele haben die Deindustrialisierung der 1990er Jahre erlebt und trauen keinem Versprechen mehr. Die IG BCE fordert Jobgarantien, die AfD spricht von einem „Anschlag auf den Osten“.
+
+[? if player = "spd" : Ministerpräsident Dietmar Woidke ruft im Kanzleramt an. ?][? if player = "linke" : Unsere ostdeutschen Landesverbände sind alarmiert: Hier sind wir zu Hause. ?]
+
+- @struktur: Ein Strukturpaket: Ansiedlungen, Bundesbehörden, Batterie- und Wasserstoffindustrie, Jobgarantie.
+- @markt: Keine zusätzlichen Hilfen. Der CO2-Preis hätte die Kraftwerke ohnehin bald aus dem Markt gedrängt.
+- @pakt: Mit Dietmar Woidke einen „Lausitz-Pakt“ schmieden.
+- @ost: Mit unseren ostdeutschen Landesverbänden eine Jobgarantie durchsetzen.
+
+@struktur
+subtitle: -1 Haushaltsspielraum
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: klima_kohle_ost_choice = 1; budget -= 1; gr_kohle += 12; rural_spd += 1.5*(1-dissent); workers_spd += 1*(1-dissent); labor_dissent -= 3; union_relation += 1; shock_industrie += 0.3; shock_bau += 0.3
+
+Zum Strukturstärkungsgesetz von 2020 kommt ein neues Paket: Eine Batteriefabrik, ein Wasserstoff-Elektrolyseur und zwei Bundesbehörden ziehen in die Lausitz, und wer im Tagebau arbeitet, bekommt eine Beschäftigungsgarantie bis zur Rente oder eine bezahlte Umschulung. Die Proteste ebben ab.
+
+@markt
+subtitle: Kostet nichts, aber die AfD profitiert.
+on-arrival: klima_kohle_ost_choice = 2; gr_kohle -= 10; rural_spd -= 2; workers_spd -= 1; rural_afd += 1.5; workers_afd += 1; labor_dissent += 5
+
+Wir verweisen auf den steigenden CO2-Preis und die vorhandenen Strukturmittel. In der Lausitz fühlen sich viele bestätigt: Der Westen entscheidet, der Osten zahlt.
+
+@pakt
+view-if: player = "spd"
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: klima_kohle_ost_choice = 3; resources -= 1; gr_kohle += 8; rural_spd += 1*(1-dissent); reformist_dissent -= 2; labor_dissent -= 2
+
+Woidke und wir treten gemeinsam in Cottbus auf: Der Ausstieg kommt, aber niemand fällt ins Bergfreie. Landesregierung, IG BCE und Unternehmen unterschreiben einen Pakt für neue Industriearbeitsplätze.
+
+@ost
+view-if: player = "linke"
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: klima_kohle_ost_choice = 3; resources -= 1; gr_kohle += 8; rural_spd += 1*(1-dissent); reformist_dissent -= 3; labor_dissent -= 2
+
+Mit unseren Landesverbänden aus Brandenburg und Sachsen setzen wir eine Jobgarantie für alle Beschäftigten der Kohle durch, finanziert über einen Transformationsfonds. Viele hatten uns im Osten schon abgeschrieben, jetzt reden die Leute wieder mit uns.

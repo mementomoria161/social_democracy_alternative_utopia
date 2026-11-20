@@ -1,0 +1,72 @@
+title: Expertenrat meldet Zielverfehlung
+subtitle: Das Klimaziel 2030 rückt außer Reichweite.
+new-page: true
+tags: event
+view-if: year >= 2026 and month = 5 and cl_gap2030 > 15 and expertenrat_last_year != year and chancellor_party != "AfD"
+max-visits: 3
+on-arrival: klima_expertenrat_seen += 1; expertenrat_last_year = year; gm_umwelt += 1
+face-image: img/windpark.jpg
+
+# Durchgang 4.6 (Klima). Real: Der Expertenrat für Klimafragen prüft jedes Frühjahr die Projektionsdaten des Umweltbundesamts;
+# nach dem Klimaschutzgesetz (Novelle 2024) muss die Bundesregierung nachsteuern, wenn zwei Jahre in Folge eine Zielverfehlung
+# projiziert wird. Zahlen aus dem Klimamodell (cl_p2030, cl_gap2030); der Inhalt der Prüfberichte ab 2026 ist Fiktion.
+
+= Expertenrat meldet Zielverfehlung
+
+Der Expertenrat für Klimafragen legt seinen Prüfbericht vor. Mit den beschlossenen Maßnahmen lägen die Emissionen 2030 bei rund [+ cl_p2030 +] Millionen Tonnen statt der erlaubten 438, eine Lücke von etwa [+ cl_gap2030 +] Millionen Tonnen. [? if cl_budget_year > 0 : Das Paris-kompatible CO2-Budget wäre um [+ cl_budget_year +] aufgebraucht. ?] Besonders schlecht sieht es bei Verkehr und Gebäuden aus.
+
+[? if klima_expertenrat_seen > 1 : Es ist nicht die erste Warnung: Nach dem Klimaschutzgesetz muss die Bundesregierung jetzt ein Klimaschutzprogramm nachlegen. ?][? if klima_expertenrat_seen = 1 : Umweltverbände kündigen an, die Regierung notfalls vor Gericht zu zwingen. ?]
+
+- @sofort: Ein Sofortprogramm beschließen: schnellerer Ausbau, Wärmewende, Bahn.
+- @klein: Ein kleines Nachsteuerungspaket.
+- @zweifel: Die Prognosen anzweifeln und auf Technologie setzen.
+- @opp_antrag: Ein eigenes Sofortprogramm vorlegen.
+- @opp_klage: Mit den Umweltverbänden eine Klage vorbereiten.
+
+@sofort
+view-if: spd_in_government
+subtitle: -2 Haushaltsspielraum, Koalitionsstreit. Mehrere Maßnahmen auf einmal.
+choose-if: budget >= 2
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: {!
+Q.budget -= 2;
+Q.kp_ee = Math.max(Q.kp_ee || 0, 1); Q.kp_waerme = Math.max(Q.kp_waerme || 0, 1); Q.kp_bahn = Math.max(Q.kp_bahn || 0, 1);
+if (Q.union_in_government || Q.fdp_in_government) Q.coalition_dissent += 1;
+Q.gr_umwelt += 6; Q.gr_klima += 6; Q.gr_ee_branche += 5; Q.gr_eigentuemer -= 4;
+Q.new_middle_spd += 1.5 * (1 - Q.dissent); Q.left_dissent -= 3;
+Q.shock_bau += 0.5; Q.shock_energie += 0.5;
+!}
+
+Wir legen ein Sofortprogramm vor: mehr Flächen und schnellere Genehmigungen für Wind und Sonne, sozial gestaffelte Förderung für Wärmepumpen und ein gesichertes Deutschlandticket. Der Expertenrat nennt das Paket „einen ernsthaften Schritt“.
+
+@klein
+view-if: spd_in_government
+subtitle: -1 Haushaltsspielraum
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: {!
+Q.budget -= 1;
+if (!Q.kp_bahn) Q.kp_bahn = 1; else if (!Q.kp_industrie) Q.kp_industrie = 1; else Q.kp_ee = Math.max(Q.kp_ee || 0, 1);
+Q.gr_umwelt += 2; Q.gr_klima -= 2;
+!}
+
+Ein paar Programme werden aufgestockt, ein paar Fristen verkürzt. Die Umweltverbände sprechen von „Kosmetik“, die Koalition bleibt ruhig.
+
+@zweifel
+view-if: spd_in_government
+subtitle: Umweltverbände und Klimabewegung empört
+on-arrival: gr_umwelt -= 8; gr_klima -= 6; klima_strength += 30; new_middle_spd -= 1; union_relation += 1; left_dissent += 3
+
+Wir verweisen auf Unsicherheiten in den Modellen und auf künftige Technologien wie die CO2-Abscheidung. Die Fachwelt reagiert mit Kopfschütteln, und die Klimabewegung ruft zu Protesten auf.
+
+@opp_antrag
+view-if: not spd_in_government
+on-arrival: new_middle_spd += 1*(1-dissent); gr_umwelt += 4; gr_klima += 3; gruene_relation += 2; cl_pressure += 0.5
+
+Wir legen ein durchgerechnetes Sofortprogramm vor, mit sozialem Ausgleich. Die Koalition lehnt ab, aber die Medien vergleichen unsere Zahlen mit ihren.
+
+@opp_klage
+view-if: not spd_in_government
+on-arrival: gr_umwelt += 8; gr_klima += 4; cl_pressure += 1; old_middle_spd -= 0.5
+
+Gemeinsam mit Umweltverbänden lassen wir prüfen, ob die Bundesregierung gegen das Klimaschutzgesetz und den Klimabeschluss des Bundesverfassungsgerichts von 2021 verstößt. Die Koalition spricht von „Politik über die Gerichte“.

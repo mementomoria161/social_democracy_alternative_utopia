@@ -56,6 +56,14 @@ if (Q.chancellor_party == (Q.player == 'linke' ? 'SPD' : 'Linke') || Q.president
     this.achieve('sohn_seiner_klasse');
 }
 
+// Klima (Durchgang 4.6): Paris-Kurs = die Prognose bleibt im CO2-Budget (climate_data, cl_status 2); Klimaziel 2030 = Mittel 2030 höchstens 438 Mt
+if (Q.year >= 2030 && Q.cl_status == 2) {
+    this.achieve('paris_kurs');
+}
+if (Q.year >= 2030 && Q.cl_y2030 > 0 && Q.cl_y2030 <= 438) {
+    this.achieve('klimaziel_2030');
+}
+
 // calculate normalized class voting for the achievements
 for (var c of Q.classes) {
     var class_votes = 0;
@@ -241,6 +249,30 @@ go-to: eg_menu
 
 Mit unserer Hilfe ist die Linke an die Spitze des Staates gelangt. Sie will Deutschland grundlegend verändern. Wie weit ihr das gelingt, ist offen.
 
+@klima_paris
+title: Deutschland ist auf Paris-Kurs.
+view-if: cl_status = 2 and year >= 2030
+tags: endings
+go-to: eg_menu
+
+Die Emissionen liegen bei [+ cl_total_i +] Millionen Tonnen im Jahr. Wenn Deutschland diesen Weg hält, bleibt es im Paris-kompatiblen CO2-Budget und ist 2045 klimaneutral. Kohleausstieg, Ausbau der Erneuerbaren, Wärme- und Verkehrswende waren teuer und umkämpft, aber sie wirken.
+
+@klima_ksg
+title: Das Klimaziel 2030 ist erreicht, für Paris reicht es nicht.
+view-if: cl_status < 2 and cl_y2030 > 0 and cl_y2030 <= 438
+tags: endings
+go-to: eg_menu
+
+2030 hat Deutschland [+ cl_y2030_i +] Millionen Tonnen Treibhausgase ausgestoßen und das Ziel des Klimaschutzgesetzes eingehalten. Doch das Tempo reicht nicht für die Pariser Ziele: [? if cl_budget_year > 0 : Das CO2-Budget für 1,75 Grad wäre etwa [+ cl_budget_year +] aufgebraucht. ?][? if cl_budget_year = 0 : Es bleibt knapp. ?]
+
+@klima_verfehlt
+title: Deutschland verfehlt seine Klimaziele.
+view-if: cl_status < 2 and (cl_y2030 = 0 or cl_y2030 > 438) and year >= 2028
+tags: endings
+go-to: eg_menu
+
+Die Emissionen liegen bei [+ cl_total_i +] Millionen Tonnen im Jahr, das Ziel für 2030 waren 438. [? if cl_konj > 3 : Ein Teil des Rückgangs kommt nur daher, dass die Industrie weniger produziert, und das ist kein Klimaschutz. ?] [? if cl_budget_year > 0 : Bei diesem Tempo ist Deutschlands Paris-kompatibles CO2-Budget etwa [+ cl_budget_year +] aufgebraucht. ?] Dürren, Hitzewellen und Hochwasser werden die nächste Regierung beschäftigen.
+
 @works_program
 title: Investitionsprogramm umgesetzt!
 view-if: works_program > 0
@@ -378,6 +410,10 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 
 [? if game_achievement_wirtschaftswunder: **Wirtschaftswunder** – ab 2029 weniger Arbeitslosigkeit als zu Spielbeginn, Inflation unter 5 % und Haushaltsspielraum. ?]
 
+[? if game_achievement_paris_kurs: **Auf Paris-Kurs** – am Spielende bleibt die Prognose bis 2045 im Paris-kompatiblen CO2-Budget. ?]
+
+[? if game_achievement_klimaziel_2030: **Klimaziel 2030** – die Emissionen 2030 liegen bei höchstens 438 Mio. t, 65 Prozent unter 1990. ?]
+
 [? if game_achievement_wirtschaftsexperiment: **Wirtschaftsexperiment** – zwei verschiedene Wirtschaftsprogramme umsetzen. ?]
 
 [? if game_achievement_freie_marktwirtschaft: **Freie Marktwirtschaft** – das Spielende ohne Wirtschaftsprogramm erreichen. ?]
@@ -489,6 +525,10 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 
 [? if achievement_wirtschaftswunder: **Wirtschaftswunder** – ab 2029 weniger Arbeitslosigkeit als zu Spielbeginn, Inflation unter 5 % und Haushaltsspielraum. ?]
 
+[? if achievement_paris_kurs: **Auf Paris-Kurs** – am Spielende bleibt die Prognose bis 2045 im Paris-kompatiblen CO2-Budget. ?]
+
+[? if achievement_klimaziel_2030: **Klimaziel 2030** – die Emissionen 2030 liegen bei höchstens 438 Mio. t, 65 Prozent unter 1990. ?]
+
 [? if achievement_wirtschaftsexperiment: **Wirtschaftsexperiment** – zwei verschiedene Wirtschaftsprogramme umsetzen. ?]
 
 [? if achievement_freie_marktwirtschaft: **Freie Marktwirtschaft** – das Spielende ohne Wirtschaftsprogramm erreichen. ?]
@@ -597,6 +637,10 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 [? if not achievement_wirtschaftspolitik: **Wirtschaftspolitik** – ein Wirtschaftsprogramm umsetzen. ?]
 
 [? if not achievement_wirtschaftswunder: **Wirtschaftswunder** – ab 2029 weniger Arbeitslosigkeit als zu Spielbeginn, Inflation unter 5 % und Haushaltsspielraum. ?]
+
+[? if not achievement_paris_kurs: **Auf Paris-Kurs** – am Spielende bleibt die Prognose bis 2045 im Paris-kompatiblen CO2-Budget. ?]
+
+[? if not achievement_klimaziel_2030: **Klimaziel 2030** – die Emissionen 2030 liegen bei höchstens 438 Mio. t, 65 Prozent unter 1990. ?]
 
 [? if not achievement_wirtschaftsexperiment: **Wirtschaftsexperiment** – zwei verschiedene Wirtschaftsprogramme umsetzen. ?]
 
