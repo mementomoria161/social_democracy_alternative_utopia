@@ -14,7 +14,8 @@ Gesamtplan und Entscheidungen: `PORT_2026.md`. Diese Datei hier ist verbindlich.
 3. **Reale Personen** respektvoll und politisch plausibel darstellen; nichts über ihr Privatleben erfinden. Was ab dem Spielstart passiert, ist Fiktion und wird als solche gekennzeichnet.
 4. **Fakten bis heute** (Stand der Arbeit: November 2026) sollen stimmen: Wahlergebnisse, Umfragen, Wirtschafts- und Klimadaten mit Quelle (Destatis, Bundesagentur für Arbeit, Umweltbundesamt, AG Energiebilanzen, Bundeswahlleiterin, Wikipedia-Umfragetabellen). Quellen im Code-Kommentar nennen.
 5. **Git.** Direkt auf `main` committen (das Repo ist ein Fork), ein Commit pro Meilenstein, deutsche Commit-Nachricht. Nicht pushen.
-6. **Vor jedem Commit**: Build, Linkprüfung und Simulation müssen sauber laufen (siehe unten). Keine Laufzeitfehler, keine Endlosschleifen.
+6. **Keine Git-Worktrees mit verlinktem `node_modules`** (Junction/Symlink): `git worktree remove --force` löscht sonst das echte `node_modules`. Für Vorher/Nachher-Vergleiche lieber `git stash` oder einen Build des alten Stands in ein Scratch-Verzeichnis. Lokaler Patch nach `npm ci`: in `node_modules/dendrynexus/lib/cli/utils.js` `sourcePath.replace(/\\/g, '/')` (Windows-Pfade).
+7. **Vor jedem Commit**: Build, Linkprüfung und Simulation müssen sauber laufen (siehe unten). Keine Laufzeitfehler, keine Endlosschleifen.
 
 ## Bauen und testen
 
