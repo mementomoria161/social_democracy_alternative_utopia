@@ -76,7 +76,7 @@ subtitle: -1 Ressourcen
 view-if: player = "linke"
 choose-if: resources >= 1
 unavailable-subtitle: Nicht genug Ressourcen.
-on-arrival: resources -= 1; workers_spd += 3*(1-dissent); unemployed_spd += 4*(1-dissent); new_middle_spd += 1*(1-dissent); center_strength += 2; center_dissent -= 2; dues += 1 if haustuer_seen = 0 and dues < 4; haustuer_seen += 1
+on-arrival: resources -= 1; workers_spd += 3*(1-dissent); unemployed_spd += 4*(1-dissent); new_middle_spd += 1*(1-dissent); center_strength += 2; center_dissent -= 2; dues += 1 if haustuer_seen = 0 and dues < 4; haustuer_seen += 1; lk_orga += 1
 
 # Linke: Haustürwahlkampf nach dem Organizing-Konzept der Parteiführung (2024/25 Hunderttausende Gespräche).
 Hunderte Ehrenamtliche ziehen mit Klemmbrett und Fragebogen durch Hochhaussiedlungen und Altbauviertel. Sie reden nicht über uns, sondern fragen: Was ist Ihr größtes Problem? Meistens lautet die Antwort Miete, Heizkosten oder Lebensmittelpreise. [? if haustuer_seen = 1 : Viele, die an der Tür mit uns geredet haben, werden Mitglied. Die Beiträge der neuen Mitglieder machen sich in der Kasse bemerkbar. ?][? if haustuer_seen > 3 : Unsere Teams kennen ihre Viertel inzwischen gut, aber die erste Begeisterung ist verflogen. ?]

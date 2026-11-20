@@ -1043,6 +1043,17 @@
   window.pollGroup = '';
   window.pollOpen = {};
 
+  // Treiber des Umfragetrends im letzten Monat (post_event, Durchgang 4.7): Q.poll_why = [{t: Text, d: [[Partei, Punkte], ...]}]
+  var pollWhy = function(Q, names) {
+      if (!Q.poll_why || !Q.poll_why.length) return '';
+      var num = function(v) { return (v > 0 ? '+' : '−') + Math.abs(v).toFixed(2).replace('.', ','); };
+      return '<details class="poll_why"' + (window.pollWhyOpen ? ' open' : '') + ' ontoggle="window.pollWhyOpen = this.open;">' +
+          '<summary>Was die Umfragen im letzten Monat bewegt hat</summary><ul>' +
+          Q.poll_why.map(function(x) {
+              return '<li>' + x.t + ': ' + x.d.map(function(e) { return (names[e[0]] || e[0]) + ' ' + num(e[1]); }).join(', ') + '</li>';
+          }).join('') + '</ul><span class="poll_note">Prozentpunkte im Monat, dazu kommen unsere Entscheidungen und Ereignisse.</span></details>';
+  };
+
   window.drawPolls = function() {
       var box = document.getElementById('poll_view');
       var Q = dendryUI.dendryEngine.state.qualities;
@@ -1113,7 +1124,9 @@
               return '<option value="' + c + '"' + (c == group ? ' selected' : '') + '>' + POLL_GROUPS[c] + '</option>';
           }).join('') + '</select></label>' +
           '<svg id="poll_graph"></svg>' +
-          '<p class="poll_note">Bundestagswahl 2021 und Januar bis Oktober 2024 reale Umfragen (Monatsmittel aller Institute, Quelle: Wikipedia), ab November 2024 Spielverlauf.</p>' +
+          '<p class="poll_note">Bundestagswahl 2021 und Januar bis Oktober 2024 reale Umfragen (Monatsmittel aller Institute, Quelle: Wikipedia), ab November 2024 Spielverlauf. ' +
+          'Bis November 2026 folgt er der realen Entwicklung (unsere Abweichungen bleiben), danach bewegen Wirtschaft, Regierungsbilanz, Vertrauen, Klima und Bewegungen die Umfragen (Bibliothek: „Wie sich Umfragen bewegen“).</p>' +
+          pollWhy(Q, names) +
           '<h3 class="poll_heading">Aktuell' + (group ? ': ' + POLL_GROUPS[group] : '') + '</h3>' +
           bars(group ? groupValues(group) : now) +
           '<h3 class="poll_heading">Nach Wählergruppen</h3>' +

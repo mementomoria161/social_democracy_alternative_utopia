@@ -2,18 +2,13 @@ title: Status
 new-page: true
 is-special: true
 on-arrival: {!
-if (Q.unemployed) {
-    Q.unemployed_2 = Q.unemployed.toFixed(1);
-}
-if (Q.inflation) {
-    Q.inflation_2 = Q.inflation.toFixed(1);
-}
+// German decimal comma; 0 must be shown too (it is falsy)
+var de1 = function(x) { return (+x || 0).toFixed(1).replace('.', ',').replace('-', '−'); };
+Q.unemployed_2 = de1(Q.unemployed);
+Q.inflation_2 = de1(Q.inflation);
 Q.cl_status_text = ['nicht auf Kurs', 'Ziel 2030 in Reichweite, Paris verfehlt', 'auf Paris-Kurs'][Q.cl_status || 0];
 Q.cl_ee_i = Math.round(Q.cl_ee || 0);
-Q.economic_growth_2 = '0';
-if (Q.economic_growth) {
-    Q.economic_growth_2 = Q.economic_growth.toFixed(1);
-}
+Q.economic_growth_2 = de1(Q.economic_growth);
 !}
 
 = Status
@@ -37,11 +32,11 @@ Nächste Bundestagswahl: [? if election_scheduled : [+ next_election_month : mon
 
 = Wirtschaft
 
-Inflation: [+ inflation_2 +]%
+Inflation: [+ inflation_2 +] %
 
-Arbeitslosenquote: [+ unemployed_2 +]%
+Arbeitslosenquote: [+ unemployed_2 +] %
 
-Wirtschaftswachstum: [+ economic_growth_2 +]%
+Wirtschaftswachstum: [+ economic_growth_2 +] %
 
 Verlauf und Branchen im Reiter „Wirtschaft“.
 
@@ -104,31 +99,33 @@ var slot = function(p) { return Q.player == 'linke' ? ({'SPD': 'Linke', 'Linke':
 var PERSON = {'Steinmeier': 'SPD', 'Lammert': 'Union', 'Schwesig': 'SPD', 'Trabert': 'parteilos', 'Chrupalla': 'AfD',
     'Klöckner': 'Union', 'Ortleb': 'SPD', 'Nouripour': 'Grüne', 'Ramelow': 'Linke', 'Bas': 'SPD'};
 
-// Kabinett
+// Kabinett (after the 2025 election the old government stays in office until the Kanzlerwahl: snapshot Q.gf_gov from events/bundestagswahl)
+var gf = Q.gf_gov && !Q.kanzlerwahl_seen && Q.time < (Q.last_election_time || 0) + 4;
+var G = gf ? Q.gf_gov : Q;
 var posts = [['foreign', 'Auswärtiges'], ['interior', 'Inneres'], ['justice', 'Justiz'], ['labor', 'Arbeit und Soziales'],
     ['bundeswehr', 'Verteidigung'], ['economic', 'Wirtschaft'], ['finance', 'Finanzen'], ['agriculture', 'Landwirtschaft']];
 var gov = {}, partners = {};
-if (ID[Q.chancellor_party]) gov[ID[Q.chancellor_party]] = 1;
+if (ID[G.chancellor_party]) gov[ID[G.chancellor_party]] = 1;
 var cabinet = '';
 for (var i = 0; i < posts.length; i++) {
-    var party = Q[posts[i][0] + '_minister_party'];
+    var party = G[posts[i][0] + '_minister_party'];
     if (ID[party]) gov[ID[party]] = (gov[ID[party]] || 0) + 1;
-    if (ID[party] && party != Q.chancellor_party) partners[party] = (partners[party] || 0) + 1;
-    cabinet += card(posts[i][1], Q[posts[i][0] + '_minister'], party);
+    if (ID[party] && party != G.chancellor_party) partners[party] = (partners[party] || 0) + 1;
+    cabinet += card(posts[i][1], G[posts[i][0] + '_minister'], party);
 }
 // Vizekanzler*in: strongest partner in the cabinet, preferably from its most important ministry
 var viceParty = Object.keys(partners).sort(function(a, b) { return partners[b] - partners[a]; })[0];
 var vice = '';
 ['finance', 'economic', 'foreign', 'interior', 'labor', 'justice', 'bundeswehr', 'agriculture'].some(function(p) {
-    if (!viceParty || Q[p + '_minister_party'] != viceParty) return false;
-    vice = card('Vizekanzler\*in', Q[p + '_minister'], viceParty);
+    if (!viceParty || G[p + '_minister_party'] != viceParty) return false;
+    vice = card('Vizekanzler\*in', G[p + '_minister'], viceParty);
     return true;
 });
 var btp = Q.bundestag_president || 'Klöckner';
-document.getElementById('regierung_view').innerHTML = '<div class="gov_chart">' +
+document.getElementById('regierung_view').innerHTML = (gf ? '<p class="poll_note">Bis zur Kanzlerwahl bleibt die Regierung ' + G.chancellor + ' geschäftsführend im Amt.' + (Q.coalition_name && Q.coalition_name != 'keine' && Q.coalition_name != 'geschäftsführende Regierung' ? ' Nach der Wahl verhandelt: ' + Q.coalition_name + '.' : '') + '</p>' : '') + '<div class="gov_chart">' +
     '<div class="gov_row">' + card('Bundespräsident\*in', Q.president, slot(PERSON[Q.president])) + card('Bundestagspräsident\*in', btp, slot(PERSON[btp])) + '</div>' +
     '<div class="gov_line"></div>' +
-    '<div class="gov_row">' + card('Bundeskanzler\*in', Q.chancellor, Q.chancellor_party, true) + vice + '</div>' +
+    '<div class="gov_row">' + card('Bundeskanzler\*in', G.chancellor, G.chancellor_party, true) + vice + '</div>' +
     '<div class="gov_line"></div>' +
     '<div class="gov_cabinet">' + cabinet + '</div></div>';
 

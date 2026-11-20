@@ -11,7 +11,7 @@ tags: party_affairs, govt_affairs
 
 Die deutsche Wirtschaft stagniert seit Jahren. Autoindustrie, Chemie und Stahl bauen Zehntausende Stellen ab, die Energiepreise sind hoch, und die Konkurrenz aus China wird übermächtig. Die Partei streitet über die richtige Antwort.
 
-[? if player = "spd" : Die Parteimitte um die Haushälter warnt vor neuen Schulden: Das Sondervermögen von 2025 sei schon gewaltig, nun müsse man es klug ausgeben und die Wettbewerbsfähigkeit stärken, statt neue Programme aufzulegen. ?][? if player = "linke" : Der Parteivorstand will keine großen Pläne, sondern ein Sofortprogramm, das man an jeder Haustür erklären kann: Mietendeckel, Preisdeckel für Strom und Grundnahrungsmittel, 15 Euro Mindestlohn. ?]
+[? if player = "spd" and sondervermoegen = 2 : Die Parteimitte um die Haushälter warnt vor neuen Schulden: Das Sondervermögen von 2025 sei schon gewaltig, nun müsse man es klug ausgeben und die Wettbewerbsfähigkeit stärken, statt neue Programme aufzulegen. ?][? if player = "spd" and sondervermoegen < 2 : Die Parteimitte um die Haushälter warnt vor neuen Schulden: Die Schuldenbremse gelte, man müsse mit dem vorhandenen Geld auskommen und die Wettbewerbsfähigkeit stärken, statt neue Programme aufzulegen. ?][? if player = "linke" : Der Parteivorstand will keine großen Pläne, sondern ein Sofortprogramm, das man an jeder Haustür erklären kann: Mietendeckel, Preisdeckel für Strom und Grundnahrungsmittel, 15 Euro Mindestlohn. ?]
 
 Ökonomen wie Jens Südekum und der DGB fordern dagegen eine große Investitionsoffensive: Hunderte Milliarden für Netze, Schiene, Wohnungen und klimaneutrale Industrie, finanziert über Kredite und eine Reform der Schuldenbremse.
 
@@ -27,7 +27,7 @@ Die deutsche Wirtschaft stagniert seit Jahren. Autoindustrie, Chemie und Stahl b
 - @easy_discard
 
 @support_centrist
-subtitle: [? if player = "spd" : Haushaltsdisziplin wahren und das Sondervermögen klug ausgeben. ?][? if player = "linke" : Ein Sofortprogramm gegen hohe Preise und Mieten. ?]
+subtitle: [? if player = "spd" and sondervermoegen = 2 : Haushaltsdisziplin wahren und das Sondervermögen klug ausgeben. ?][? if player = "spd" and sondervermoegen < 2 : Haushaltsdisziplin wahren und die Wettbewerbsfähigkeit stärken. ?][? if player = "linke" : Ein Sofortprogramm gegen hohe Preise und Mieten. ?]
 on-arrival: center_strength += 5; center_dissent -= 5; labor_dissent += 10; wtb_support -= 1; left_dissent += 10;
 
 [? if player = "spd" : Gewerkschaften und SPD-Linke sind empört: Während Fabriken schließen, verwalte die SPD nur den Mangel. Die Haushälter halten dagegen: Mit neuen Schulden würden falsche Hoffnungen geweckt und die nächste Generation belastet. ?][? if player = "linke" : Gewerkschafter*innen und Sozialistische Linke sind enttäuscht: Während Fabriken schließen, verteile die Partei nur Pflaster. Der Parteivorstand hält dagegen: Wer heute die Miete nicht zahlen kann, hat von einem Fünfjahresplan nichts. ?]

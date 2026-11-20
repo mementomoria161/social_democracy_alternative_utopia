@@ -79,7 +79,7 @@ choose-if: unemployed > 5
 on-arrival: coalition_dissent += 1; coalition_dissent += 1 if historical_mode; coalition_dissent += 1 if chancellor == "Merz"; works_program += 1; budget -= wtb_budget; unemployed -= 2; workers += 2; workers_spd += 8*(1-dissent); unemployed_spd += 8*(1-dissent); capital_strike_progress += 1; wtb_implemented += 1; linke_coalition_dissent += 1; linke_relation -= 5 if in_popular_front or in_left_front; inflation += 3; economic_growth += 3; pro_republic += 3*(1-dissent);
 achievement: wirtschaftspolitik
 
-Wir finanzieren das Programm auf Pump, über das Sondervermögen hinaus. Unsere Koalitionspartner sind entsetzt und reden vom „Bruch der Schuldenbremse“, doch die Offensive wird beschlossen. Das Geld fließt in Bahnstrecken, Brücken, Schulen, Stromnetze und Wohnungsbau.
+Wir finanzieren das Programm auf Pump[? if sondervermoegen = 2 : , über das Sondervermögen hinaus ?]. Unsere Koalitionspartner sind entsetzt und reden vom „Bruch der Schuldenbremse“, doch die Offensive wird beschlossen. Das Geld fließt in Bahnstrecken, Brücken, Schulen, Stromnetze und Wohnungsbau.
 
 [? if player = "spd" and (in_popular_front or in_left_front) : Die Linke lehnt das Programm ab, weil es Konzernen mit Steuergeld Gewinne sichere, statt Schlüsselindustrien in öffentliche Hand zu holen. ?][? if player = "linke" and (in_popular_front or in_left_front) : Die SPD trägt das Programm mit, doch ihre Haushälter warnen vor den Kosten, und die Sozialistische Linke hätte lieber gleich Schlüsselindustrien in öffentliche Hand geholt. ?]
 

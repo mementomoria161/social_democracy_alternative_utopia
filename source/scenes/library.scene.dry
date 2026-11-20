@@ -15,6 +15,7 @@ Hier findest du Informationen über das politische System und die Politik der Bu
 - @demographics: Wählergruppen
 - @parties: Parteien
 - @public_opinion: Stimmung und Wahlprognose
+- @umfragen: Wie sich Umfragen bewegen
 - @paramilitaries: Protestbewegungen und Sicherheitsbehörden
 - @factions: Strömungen in [+ pp_dat +]
 - @figures: Grafiken
@@ -181,6 +182,38 @@ set-jump: election_projections
 
 Zufriedenheit mit der Demokratie: [+ pro_republic_disp +] %
 
+
+@umfragen
+title: Wie sich Umfragen bewegen
+go-to: menu
+
+# Durchgang 4.7: Umfragemodell (post_event: GRAVITY bis November 2026, danach Umfragetrend). Details in PORT_2026.md.
+
+= Wie sich Umfragen bewegen
+
+Wahlen werden im Spiel nicht ausgewürfelt, sondern aus der Stimmung in sechs Wählergruppen berechnet: Arbeitnehmer\*innen, Selbstständige, akademische Mittelschicht, ländlicher Raum, Arbeitslose und Rentner\*innen. Jede Entscheidung und jedes Ereignis verschiebt diese Stimmung.
+
+**Bis November 2026: der reale Verlauf.** Jeden Monat bewegt sich jede Partei um die reale Veränderung im Monatsmittel aller Umfrageinstitute. Was wir anders machen als die reale Politik, bleibt als Abweichung erhalten: Wer klug spielt, liegt über dem realen Wert, wer Fehler macht, darunter.
+
+**Ab Dezember 2026: die offene Zukunft.** Reale Werte gibt es dann nicht mehr. Die Umfragen folgen erklärbaren Treibern, meist nur um Zehntelpunkte im Monat, aber sie summieren sich:
+
+**Wirtschaft.** Arbeitslosigkeit über 6,5 Prozent, Inflation über 2,5 Prozent und schwaches Wachstum (die Reallöhne sinken) kosten die Regierungsparteien Zustimmung. Davon profitiert die Opposition, die AfD am stärksten. In einer tiefen Krise wählt der Protest rechts, erst recht, wenn die Regierung kein Investitionsprogramm auflegt. Eine gute Wirtschaftslage gibt der Regierung Rückenwind.
+
+**Abnutzung im Amt.** Die Partei der Kanzlerin oder des Kanzlers verliert jeden Monat ein wenig.
+
+**Vertrauen in die Demokratie.** Sinkt es unter 45 Prozent, gewinnt die AfD; liegt es über 60 Prozent, verliert sie.
+
+**Klima und Energie.** Eine große Lücke zum Klimaziel 2030 hilft den Grünen in der Opposition und schadet ihnen in der Regierung. Hohe Energiepreise treiben der AfD Wähler\*innen zu, günstige Energie stärkt die Regierung.
+
+**Bewegungen.** Eine starke rechte Mobilisierung stärkt die AfD, Proteste gegen Sozialabbau stärken die linke Opposition.
+
+**Langfristige Lagerstärken.** Die anderen Parteien kehren langsam zu ihren langfristigen Stärken zurück (etwa dem Mittel der Wahlen 2017 bis 2025). Ausreißer nach oben und unten bilden sich also mit der Zeit zurück. Unser eigenes Ergebnis bleibt unsere Leistung.
+
+**Zufall.** Ein wenig Rauschen, wie in echten Umfragen.
+
+[? if player = "linke" : **Aufmerksamkeit.** Als kleine Oppositionspartei bekommt die Linke weniger Aufmerksamkeit als die Regierung: Zugewinne kommen nur zum Teil an. Organisationsarbeit verschafft Gehör: Jede Runde Haustürgespräche, Sozialsprechstunden oder Werbung für den Mietwucher-Rechner lässt mehr davon ankommen. ?]
+
+Die wichtigsten Treiber des letzten Monats zeigt der Reiter „Umfragen“ unter dem Diagramm.
 
 @election_projections
 view-if: (not historical_mode) or game_over
@@ -446,7 +479,7 @@ if (d3 && window) {
     var height = 500;
     var screenWidth = document.getElementById('content').offsetWidth;
     if (screenWidth < width - 50) {
-        width = screenWidth - 50;
+        width = Math.max(200, screenWidth - 50); // the content can be hidden (width 0) while the scene is built
         height = width;
         document.getElementById("reichstag").style.height = screenWidth/2 + "px";
     }

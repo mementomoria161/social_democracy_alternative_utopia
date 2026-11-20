@@ -18,6 +18,8 @@ Als Favorit des konservativen Flügels gilt Jens Spahn, der eine härtere Linie 
 - @kaas: Die CDU wählt Jens Spahn zum Vorsitzenden.
 - @joos: Den Parteitag zugunsten von Hendrik Wüst beeinflussen.
 - @joos_campaign: Gezielt für eine Wahl von Hendrik Wüst werben.
+- @lk_laender: Über die Zusammenarbeit in Thüringen und Sachsen die CDU-Mitte stärken.
+- @lk_appell: Öffentlich an die CDU-Mitte appellieren, die Brandmauer zu halten.
 
 @kaas
 on-arrival: union_party_leader = "Spahn"; union_relation -= 5
@@ -27,6 +29,7 @@ Jens Spahn ist neuer CDU-Vorsitzender. Mit ihm rückt die Partei nach rechts und
 @joos
 unavailable-subtitle: Unser Verhältnis zur Union ist nicht gut genug.
 subtitle: Mit Wüst dürfte die Zusammenarbeit leichter werden als mit Spahn.
+view-if: player = "spd"
 choose-if: union_relation >= 70
 on-arrival: union_party_leader = "Wüst"; rentner_spd += 5; workers_union += 3
 
@@ -34,9 +37,31 @@ on-arrival: union_party_leader = "Wüst"; rentner_spd += 5; workers_union += 3
 
 @joos_campaign
 choose-if: union_relation >= 62 and resources >= 1
-view-if: union_relation < 70
+view-if: player = "spd" and union_relation < 70
 unavailable-subtitle: [? if union_relation <= 62 : Unser Verhältnis zur Union ist nicht gut genug. ?] [? if resources < 1 : Wir haben nicht genug Ressourcen. ?]
 subtitle: -1 Ressource. Mit Wüst dürfte die Zusammenarbeit leichter werden als mit Spahn.
 on-arrival: resources -= 1; union_party_leader = "Wüst"; rentner_spd += 5; workers_union += 3
 
 Mit unseren Kontakten in die Union und einer geschickten Medienstrategie, die Wüst als Garanten der Stabilität erscheinen lässt, setzt er sich auf dem Parteitag durch. Mit ihm wird die Zusammenarbeit leichter, und die CDU spricht wieder stärker Beschäftigte an.
+
+# Linke-Spiel (Durchgang 4.7): Die Schwellen 62/70 gelten für das Verhältnis Union–SPD und sind bei einem Start von 10 unerreichbar
+# (Ende 2028 liegt union_relation im Linke-Spiel meist zwischen -20 und +10). harzburg_front: Linke-Schwelle < 0.
+# Real: In Thüringen (Voigt) und Sachsen (Kretschmer) regiert die CDU seit 2024/25 ohne eigene Mehrheit und braucht
+# für Haushalte Stimmen der Linken. Was am Parteitag 2028 geschieht, ist Fiktion.
+@lk_laender
+view-if: player = "linke"
+choose-if: union_relation >= 0 and resources >= 2
+unavailable-subtitle: [? if union_relation < 0 : Die Union redet nicht mehr mit uns. ?] [? if resources < 2 : Wir haben nicht genug Ressourcen. ?]
+subtitle: -2 Ressourcen. Die Linke-Fraktionen in Erfurt und Dresden machen deutlich, wem sie Mehrheiten verschaffen.
+on-arrival: resources -= 2; union_party_leader = "Wüst"; union_relation += 3; reformist_strength += 2; reformist_dissent -= 3; left_dissent += 4; workers_union += 2
+
+In Thüringen und Sachsen regiert die CDU ohne eigene Mehrheit, und ihre Haushalte hängen an unseren Stimmen. Unsere Landtagsfraktionen erklären vor dem Parteitag nüchtern: Verlässliche Absprachen gibt es nur mit einer CDU, die die Brandmauer hält. Die ostdeutschen CDU-Verbände, bisher Spahns sichere Bank, schwenken um, und Hendrik Wüst gewinnt knapp.
+
+Die Sozialistische Linke murrt, wir hätten der CDU den Parteitag gerettet. Die Reformer\*innen sehen sich bestätigt.
+
+@lk_appell
+view-if: player = "linke"
+on-arrival: union_party_leader = "Wüst" if union_relation >= 5 and afd_votes < union_votes + 12; union_party_leader = "Spahn" if union_relation < 5 or afd_votes >= union_votes + 12; union_relation -= 3 if union_party_leader = "Spahn"
+
+Unsere Fraktionsspitze ruft die CDU-Delegierten in einer viel beachteten Bundestagsrede auf, sich an Angela Merkels Kritik am gemeinsamen Abstimmen mit der AfD im Januar 2025 zu erinnern. [? if union_party_leader = "Wüst" : Der Appell ist nicht entscheidend, aber er hilft: Viele Delegierte wollen nicht als Steigbügelhalter der AfD dastehen, und Hendrik Wüst gewinnt knapp. ?][? if union_party_leader = "Spahn" : Die Delegierten wollen sich von der Linken nichts sagen lassen. Jens Spahn gewinnt deutlich und kündigt eine härtere Gangart an, auch gegenüber „linken Belehrungen“. ?]
+

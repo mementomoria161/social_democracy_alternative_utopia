@@ -22,7 +22,7 @@ Mieten sind das Thema, mit dem die Linke 2025 in die Großstädte zurückgekomme
 subtitle: -1 Ressource
 choose-if: resources >= 1
 unavailable-subtitle: Dafür fehlen uns die Mittel.
-on-arrival: resources -= 1; mietenkampagne += 2; new_middle_spd += 2*(1-dissent); unemployed_spd += 1.5*(1-dissent); workers_spd += 1*(1-dissent); center_strength += 3
+on-arrival: resources -= 1; mietenkampagne += 2; lk_orga += 1; new_middle_spd += 2*(1-dissent); unemployed_spd += 1.5*(1-dissent); workers_spd += 1*(1-dissent); center_strength += 3
 
 Zehntausende Mieter*innen geben ihre Daten ein. In jedem zweiten Fall liegt die Miete über der Mietpreisbremse. Lokalzeitungen berichten über Vermieter, die nach unseren Anzeigen Geld zurückzahlen müssen.
 

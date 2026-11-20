@@ -33,7 +33,7 @@ go-to: media
 choose-if: resources > 0
 unavailable-subtitle: Nicht genug Ressourcen.
 subtitle: -1 Ressourcen
-on-arrival: resources -= 1; workers_aid += 1; unemployed_spd += 4*(1 - dissent); workers_spd += 1*(1 - dissent); rentner_spd += 1*(1 - dissent); mietenkampagne += 1
+on-arrival: resources -= 1; workers_aid += 1; unemployed_spd += 4*(1 - dissent); workers_spd += 1*(1 - dissent); rentner_spd += 1*(1 - dissent); mietenkampagne += 1; lk_orga += 1
 
 In unseren Büros prüfen Ehrenamtliche Nebenkostenabrechnungen, helfen bei Anträgen auf Wohngeld und Bürgergeld und rechnen nach, ob die Miete zu hoch ist. Wer einmal Hilfe bekommen hat, erzählt es weiter. [? if unemployed > 7 : In Zeiten steigender Arbeitslosigkeit sind die Sprechstunden überlaufen. ?]
 

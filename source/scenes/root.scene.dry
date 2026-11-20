@@ -628,6 +628,7 @@ Q.tv_duell_seen = 0;
 Q.sondervermoegen_seen = 0;
 Q.mitgliedervotum_seen = 0;
 Q.kanzlerwahl_seen = 0;
+Q.gf_gov = 0;
 Q.hamburg_2025_seen = 0;
 Q.zollstreit_2025_seen = 0;
 Q.spd_parteitag_2025_seen = 0;
@@ -706,6 +707,7 @@ Q.bv_right = 0;
 Q.haustuer_seen = 0; Q.mitgliederboom = 0; Q.neumitglieder_integriert = 0; Q.mietenkampagne = 0; Q.gehaltsdeckel = 0;
 Q.palestine_debate = 0; Q.palestine_stance = 0; Q.palestine_debate_seen = 0; Q.berlin_2026 = 0; Q.lk_sw_in = 0;
 Q.lk_prev_support = null; // Linke game: player support per group at the last month change (post_event, LK_GAIN)
+Q.lk_orga = 0; // Linke game: organizing actions (Haustür, Sozialsprechstunden, Mietwucher-Rechner) raise LK_GAIN (Durchgang 4.7)
 // Durchgang 4.5: Interessengruppen und Bewegungen (Reiter „Gruppen“). Tabelle und Modell: groups_data.scene.dry.
 // Legt je Gruppe g_<id> (Stärke), gm_<id> (Konjunktur), gr_<id> (Verhältnis zur Spielerpartei), ga_<id> (aktiv) an,
 // dazu grp_hist, grp_why, grp_news, grp_party. root.choose_linke setzt die Verhältnisse für die Linke neu.

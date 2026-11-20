@@ -119,6 +119,16 @@ Q.spd_gruene_coalition = Q.linke_r + Q.gruene_r;
 Q.leverage = Math.round(Q.spd_r);
 
 Q.grand_coalition_failed = 0;
+// first election (prolog): the old government stays in office until the Kanzlerwahl (events/kanzlerwahl_2025);
+// the Regierungs-Reiter shows this snapshot as the caretaker government until then (display only; at most 4 months
+// after the last election, e.g. when a second election follows and the Kanzlerwahl event does not come)
+if (!Q.gf_gov && !Q.kanzlerwahl_seen && Q.year <= 2025) {
+    Q.gf_gov = {chancellor: Q.chancellor, chancellor_party: Q.chancellor_party, coalition_name: Q.coalition_name};
+    for (var post of ['foreign', 'interior', 'justice', 'labor', 'bundeswehr', 'economic', 'finance', 'agriculture']) {
+        Q.gf_gov[post + '_minister'] = Q[post + '_minister'];
+        Q.gf_gov[post + '_minister_party'] = Q[post + '_minister_party'];
+    }
+}
 // reset the government
 Q.coalition_dissent = 0;
 Q.linke_coalition_dissent = 0;
@@ -200,7 +210,7 @@ if (window && d3) {
     var height = 500;
     var screenWidth = document.getElementById('content').offsetWidth;
     if (screenWidth < width - 50) {
-        width = screenWidth - 50;
+        width = Math.max(200, screenWidth - 50); // the content can be hidden (width 0) while the scene is built
         height = width;
         document.getElementById("reichstag").style.height = screenWidth/2 + "px";
     }

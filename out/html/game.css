@@ -720,6 +720,17 @@ body.dark-mode .union.party-node {
   opacity: 0.75;
   margin: 0.2em 0 0 0;
 }
+.poll_why {
+  font-size: 0.85em;
+  margin: 0.4em 0;
+}
+.poll_why summary {
+  cursor: pointer;
+}
+.poll_why ul {
+  margin: 0.3em 0;
+  padding-left: 1.2em;
+}
 .gov_chart {
     text-align: center;
     text-indent: 0;

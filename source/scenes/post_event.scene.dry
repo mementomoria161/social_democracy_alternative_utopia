@@ -417,7 +417,9 @@ if (Q.month_actions >= 1) {
     // In opposition, gains of the player slot since the last month change count only with LK_GAIN (losses fully).
     // Calibrated with node tools/sim.js . 60 linke (random play): 2025 election about 9.5 % of the votes / 11 % of the
     // seats (real 8.8 / 10.2), Dec 2025 and Nov 2026 about 12.5-13 % (real 10.6 / about 11). Without it: 10.8, 15.6, 17.2.
-    var LK_GAIN = 0.4;
+    // Durchgang 4.7: targeted play pays off. Every organizing action (Haustürgespräche, Sozialsprechstunden,
+    // Mietwucher-Rechner: lk_orga) earns attention, from 0.35 up to 0.7 after five of them.
+    var LK_GAIN = Math.min(0.7, 0.35 + 0.07 * (Q.lk_orga || 0));
     if (Q.player == 'linke' && Q.lk_prev_support && !Q.spd_in_government) {
         for (var c of Q.classes) {
             var prev = Q.lk_prev_support[c];
@@ -427,13 +429,16 @@ if (Q.month_actions >= 1) {
         }
     }
 
-    ////////////////////////// historische Schwerkraft, November 2024 - Januar 2026
+    ////////////////////////// historische Schwerkraft, November 2024 - November 2026 (real bis heute)
     // Real monthly means of all institutes (state after the change into that month), order:
     // Union, AfD, SPD, Grüne, Linke, BSW, FDP, Sonstige. Sources: de.wikipedia.org/wiki/Bundestagswahl_2025/Umfragen_und_Prognosen
     // (Nov 2024 - Jan 2025; Linke computed from the single polls), official result of 23 Feb 2025 (Bundeswahlleiterin),
-    // de.wikipedia.org/wiki/Wahl_zum_22._Deutschen_Bundestag/Umfragen_und_Prognosen (Mar - Dec 2025),
-    // January 2026 = the calibrated start values of the original 2026 version.
+    // de.wikipedia.org/wiki/Wahl_zum_22._Deutschen_Bundestag/Umfragen_und_Prognosen (Mar 2025 - Nov 2026, tables
+    // "Monatliche Mittelwerte"/"Ältere Mittelwerte", Stand 20.11.2026; November 2026 = 13 polls 2.-17.11.).
+    // 2026: the page lists BSW only under Sonstige and the FDP only from May; estimated: FDP Jan-Apr 3.5,
+    // BSW 3.4 (Jan-Apr) / 3.3 (from May), Sonstige = listed Sonstige minus these.
     // Each month every party moves by the real change of that month; the player's deviations stay.
+    // From December 2026 on the future is open: Umfragetrend below (Durchgang 4.7).
     var GRAVITY = {
         '2024-11': [32.6, 18.1, 15.4, 11.3, 3.5, 6.6, 4.1, 8.4], '2024-12': [31.8, 18.8, 16.2, 12.7, 3.2, 6.2, 4.0, 7.1],
         '2025-1': [30.2, 20.5, 15.9, 13.5, 3.7, 5.4, 4.1, 6.7], '2025-2': [28.5, 20.8, 16.4, 11.6, 8.8, 5.0, 4.3, 4.6],
@@ -442,7 +447,12 @@ if (Q.month_actions >= 1) {
         '2025-7': [27.2, 24.0, 14.2, 11.4, 10.8, 4.0, 3.3, 5.1], '2025-8': [26.1, 24.9, 14.3, 11.4, 10.4, 4.0, 3.4, 5.5],
         '2025-9': [25.5, 25.6, 14.6, 11.3, 10.8, 3.8, 3.2, 5.2], '2025-10': [24.9, 25.9, 14.3, 11.4, 11.1, 4.0, 3.4, 5.0],
         '2025-11': [25.3, 25.9, 14.6, 11.6, 10.6, 3.7, 3.2, 5.1], '2025-12': [25.0, 25.9, 14.1, 11.6, 10.6, 3.7, 3.6, 5.5],
-        '2026-1': [26.1, 25.0, 15.3, 11.4, 9.5, 4.4, 4.2, 4.1]
+        '2026-1': [25.2, 25.7, 14.5, 11.9, 10.4, 3.4, 3.5, 5.4], '2026-2': [25.5, 24.8, 15.2, 11.7, 10.5, 3.4, 3.5, 5.4],
+        '2026-3': [26.0, 24.7, 14.3, 12.8, 10.4, 3.4, 3.5, 4.9], '2026-4': [24.4, 26.4, 13.2, 13.4, 10.7, 3.4, 3.5, 5.0],
+        '2026-5': [22.8, 27.6, 12.4, 14.1, 10.9, 3.3, 3.7, 5.3], '2026-6': [22.2, 27.9, 12.4, 14.0, 10.7, 3.3, 4.1, 5.4],
+        '2026-7': [21.7, 27.6, 12.3, 13.9, 11.3, 3.3, 4.2, 5.6], '2026-8': [20.8, 28.1, 12.3, 14.3, 11.6, 3.3, 4.6, 5.1],
+        '2026-9': [19.9, 28.2, 13.0, 14.7, 11.0, 3.3, 4.3, 5.6], '2026-10': [19.4, 28.5, 13.6, 14.9, 10.7, 3.3, 4.1, 5.5],
+        '2026-11': [19.9, 27.7, 13.8, 15.4, 10.2, 3.3, 4.3, 5.4]
     };
     var prev_key = Q.month == 1 ? (Q.year - 1) + '-12' : Q.year + '-' + (Q.month - 1);
     var g_new = GRAVITY[Q.year + '-' + Q.month], g_old = GRAVITY[prev_key];
@@ -458,6 +468,97 @@ if (Q.month_actions >= 1) {
             }
         });
     }
+    ////////////////////////// Umfragetrend ab Dezember 2026 (Durchgang 4.7): die Zukunft ist offen
+    // Instead of a fixed annual drift, explainable drivers move the national share of each party (pp per month).
+    // Each party is then scaled in all voter groups like the gravity above, so the group structure stays.
+    // Drivers: economy (unemployment, inflation, growth/real wages), wear in office, trust in democracy,
+    // climate (gap to the 2030 target, energy prices), groups (right-wing mobilisation, social protest),
+    // slow return to long-term camp strengths (AI parties only) and a little chance. Documented in PORT_2026.md
+    // and in the library (Umfragen). Q.poll_why/Q.poll_trend: drivers of the last month for the poll tab.
+    if (Q.year > 2026 || (Q.year == 2026 && Q.month == 12)) {
+        var PT = Q.parties.filter(function(p) { return (Q[p + '_normalized'] || 0) > 0.002; });
+        var sh = {}; PT.forEach(function(p) { sh[p] = 100 * Q[p + '_normalized']; });
+        var has = function(p) { return PT.indexOf(p) >= 0; };
+        var gov = PT.filter(function(p) { return Q[p + '_in_government']; });
+        var CH = {'SPD': 'spd', 'Union': 'union', 'Grüne': 'gruene', 'Linke': 'linke', 'FDP': 'fdp', 'BSW': 'bsw', 'AfD': 'afd'}[Q.chancellor_party];
+        if (CH && has(CH) && gov.indexOf(CH) < 0) gov.push(CH);
+        var opp = PT.filter(function(p) { return gov.indexOf(p) < 0; });
+        var not = function(list) { return PT.filter(function(p) { return list.indexOf(p) < 0; }); };
+        var afd_opp = has('afd') && gov.indexOf('afd') < 0;
+        var de = function(x) { return (+x).toFixed(1).replace('.', ',').replace('-', '−'); };
+        var drv = [];
+        // move `amount` pp from the parties `from` to the parties `to` (by share, or by the weights wto)
+        var shift = function(text, amount, from, to, wto) {
+            from = from.filter(has); to = to.filter(has);
+            if (!(amount > 0.002) || !from.length || !to.length) return;
+            var d = {}, sf = 0, st = 0;
+            from.forEach(function(p) { sf += sh[p]; });
+            to.forEach(function(p) { st += wto ? wto[p] : sh[p]; });
+            if (!sf || !st) return;
+            from.forEach(function(p) { d[p] = (d[p] || 0) - amount * sh[p] / sf; });
+            to.forEach(function(p) { d[p] = (d[p] || 0) + amount * (wto ? wto[p] : sh[p]) / st; });
+            drv.push([text, d]);
+        };
+        // 1. economy: unemployment above 6.5 %, inflation above 2.5 %, growth below 1 % (real wages fall when prices outrun growth)
+        var econ = Math.max(-3, Math.min(4, (Q.unemployed - 6.5) + 0.5 * Math.max(0, Q.inflation - 2.5) - 0.4 * ((Q.economic_growth || 0) - 1)));
+        var etext = 'Wirtschaftslage (Arbeitslosigkeit ' + de(Q.unemployed) + ' %, Inflation ' + de(Q.inflation) + ' %, Wachstum ' + de(Q.economic_growth || 0) + ' %)';
+        if (econ > 0) {
+            // discontent goes to the opposition, the AfD profits 1.5 times as much (as long as it is not governing itself)
+            var w = {}; opp.forEach(function(p) { w[p] = sh[p] * (p == 'afd' ? 1.5 : 1); });
+            shift(etext + ': Unmut über die Regierung', 0.04 * econ, gov, opp, w);
+            if (econ > 2 && afd_opp) shift('Krisenstimmung: Protest wählt rechts', 0.03 * (econ - 2), not(['afd']), ['afd']);
+            if (econ > 2 && !Q.works_program && afd_opp) shift('Kein Investitionsprogramm gegen die Krise', 0.02, gov, ['afd']);
+        } else if (econ < 0) {
+            shift(etext + ': Rückenwind für die Regierung', 0.04 * -econ, opp, gov);
+        }
+        // 2. wear in office: the chancellor's party loses a little every month
+        if (CH && has(CH)) shift('Abnutzung im Amt (Kanzlerpartei)', 0.02, [CH], opp);
+        // 3. trust in democracy (pro_republic; the stronger effect on the AfD above remains)
+        var dem = ['spd', 'union', 'gruene', 'fdp', 'linke', 'sapd', 'srpd'];
+        if (afd_opp && Q.pro_republic < 45) shift('Geringes Vertrauen in die Demokratie (' + Math.round(Q.pro_republic) + ' %)', Math.min(0.06, 0.01 * (45 - Q.pro_republic) / 5), dem, ['afd']);
+        if (afd_opp && Q.pro_republic > 60) shift('Hohes Vertrauen in die Demokratie (' + Math.round(Q.pro_republic) + ' %)', Math.min(0.04, 0.01 * (Q.pro_republic - 60) / 5), ['afd'], dem);
+        // 4. climate: a large gap to the 2030 target helps the Greens in opposition and costs them in government
+        var gap = Q.cl_gap2030 || 0;
+        if (gap > 30 && has('gruene')) {
+            if (gov.indexOf('gruene') < 0) shift('Klimaziel 2030 in Gefahr (Lücke ' + Math.round(gap) + ' Mio. t)', 0.02 * Math.min(1, (gap - 30) / 40) + (Q.klima_strength > 400 ? 0.01 : 0), not(['gruene']), ['gruene']);
+            else shift('Klimaziel verfehlt trotz grüner Regierungsbeteiligung', 0.01, ['gruene'], opp);
+        }
+        // energy prices (index 2024 = 100): expensive energy feeds the AfD, cheap energy helps the government
+        var epi = Q.energy_price || 100;
+        if (epi > 105 && afd_opp) shift('Hohe Energiepreise (Index ' + Math.round(epi) + ')', Math.min(0.04, 0.01 * (epi - 105) / 5), gov.length ? gov : not(['afd']), ['afd']);
+        if (epi < 95 && gov.length) shift('Günstige Energie (Index ' + Math.round(epi) + ')', 0.01, opp, gov);
+        // 5. groups: right-wing mobilisation (base 35) and social protest
+        var grr = Q.g_rechts || 0;
+        if (grr > 45 && afd_opp) shift('Starke rechte Mobilisierung', Math.min(0.04, 0.01 * (grr - 45) / 10 + 0.005), not(['afd']), ['afd']);
+        if (grr < 25 && afd_opp) shift('Schwache rechte Mobilisierung', Math.min(0.03, 0.01 * (25 - grr) / 10 + 0.005), ['afd'], not(['afd']));
+        if (Q.ga_sozialprotest && Q.g_sozialprotest > 20) shift('Proteste gegen Sozialabbau', Math.min(0.03, 0.01 * (Q.g_sozialprotest - 20) / 10), gov, ['spd', 'linke', 'sapd'].filter(function(p) { return gov.indexOf(p) < 0; }));
+        // 6. slow return to long-term camp strengths (about the mean of the elections 2017-2025, scaled to 100),
+        //    only for the AI parties: the player's own result stays the player's achievement
+        var LONG = {union: 28, afd: 19, gruene: 12, bsw: 3, fdp: 7, other: 5};
+        LONG[Q.player == 'linke' ? 'linke' : 'spd'] = 19; LONG[Q.player == 'linke' ? 'spd' : 'linke'] = 7;
+        var rev = {};
+        PT.forEach(function(p) { if (p != 'spd' && LONG[p] !== undefined) rev[p] = 0.008 * (LONG[p] - sh[p]); });
+        drv.push(['Langfristige Lagerstärken: Ausreißer bilden sich langsam zurück', rev]);
+        // 7. a little chance
+        var rnd = {};
+        PT.forEach(function(p) { rnd[p] = (Math.random() - 0.5) * 0.16 * Math.sqrt(sh[p] / 10); });
+        drv.push(['Zufall', rnd]);
+        var tot = {};
+        drv.forEach(function(x) { for (var p in x[1]) tot[p] = (tot[p] || 0) + x[1][p]; });
+        PT.forEach(function(p) {
+            var dp = Math.max(-0.5, Math.min(0.5, tot[p] || 0));
+            var f = Math.max(0.9, Math.min(1.1, (sh[p] + dp) / Math.max(0.5, sh[p])));
+            for (var c of Q.classes) Q[c + '_' + p] *= f;
+        });
+        // the four strongest drivers (without chance) and the total per party, rounded, for the poll tab
+        var size = function(x) { var s = 0; for (var p in x[1]) s += Math.abs(x[1][p]); return s; };
+        Q.poll_why = drv.filter(function(x) { return x[0] != 'Zufall' && size(x) >= 0.02; }).sort(function(a, b) { return size(b) - size(a); }).slice(0, 4).map(function(x) {
+            var parts = Object.keys(x[1]).filter(function(p) { return Math.abs(x[1][p]) >= 0.005; }).sort(function(a, b) { return x[1][b] - x[1][a]; });
+            return {t: x[0], d: parts.map(function(p) { return [p, Math.round(x[1][p] * 100) / 100]; })};
+        }).filter(function(x) { return x.d.length; });
+        Q.poll_trend = {};
+        PT.forEach(function(p) { Q.poll_trend[p] = Math.round((tot[p] || 0) * 100) / 100; });
+    }
     if (Q.player == 'linke') {
         Q.lk_prev_support = {};
         for (var c of Q.classes) {
@@ -472,101 +573,24 @@ if (Q.month_actions >= 1) {
         Q.economic_growth += 0.6;
     }
 
-    ////////////////////////// annual support changes
-    // 2026: the Union loses heavily after broken promises (Schuldenbremse, Stromsteuer), the AfD and the Greens gain.
-    // reference (average of all institutes): Jan 2026 Union 26, AfD 25, SPD 15, Grüne 11, Linke 10
-    //                                         Nov 2026 Union 20, AfD 28, SPD 14, Grüne 15, Linke 10
-    // (from February on: January 2026 is still covered by the gravity table above)
-    // the real SPD and Linke sit in swapped slots when the Linke is played
-    var SPD = Q.player == 'linke' ? 'linke' : 'spd', LINKE = Q.player == 'linke' ? 'spd' : 'linke';
+    ////////////////////////// annual changes outside the polls
+    // (until Durchgang 4.6 this block also held a fixed annual poll drift 2026-2029; replaced by the real
+    //  monthly means up to November 2026 and the Umfragetrend above. Movements and unemployment stay.)
     if (Q.year == 2026 && Q.month > 1) {
-        Q.rentner_union -= 7/12;
-        Q.workers_union -= 6/12;
-        Q.new_middle_union -= 6/12;
-        Q.old_middle_union -= 6/12;
-        Q.rural_union -= 5/12;
-        Q.workers_afd += 4/12;
-        Q.rural_afd += 4/12;
-        Q.old_middle_afd += 3/12;
-        Q.unemployed_afd += 2/12;
-        Q.rentner_afd += 3/12;
-        Q.new_middle_gruene += 6/12;
-        Q.rentner_gruene += 3/12;
-        Q.old_middle_gruene += 3/12;
-        Q.workers_bsw -= 1/12;
-        Q.unemployed_bsw -= 1/12;
         Q.rechts_strength += 10/12;
         Q.bauern_strength += 10/12;
         if (!Q.works_program) {
-            Q['workers_' + SPD] -= 2/12;
-            Q['rentner_' + SPD] -= 2/12;
-            Q.workers_afd += 1/12;
             Q.unemployed += 0.2/12;
         }
     } else if (Q.year == 2027) {
-        // the Union stabilizes somewhat; the AfD keeps growing in a stagnating economy
-        Q.rentner_union += 2/12;
-        Q.old_middle_union += 2/12;
-        Q.workers_afd += 2/12;
-        Q.rural_afd += 2/12;
         Q.rechts_strength += 10/12;
         if (!Q.works_program) {
-            Q.workers_afd += 3/12;
-            Q.unemployed_afd += 3/12;
-            Q.old_middle_afd += 2/12;
-            Q['workers_' + LINKE] += 2/12;
-            Q['workers_' + SPD] -= 2/12;
             Q.unemployed += 0.3/12;
             Q.rechts_strength += 10/12;
-        } else if (Q.unemployed > 7) {
-            Q.workers_afd += 2/12;
-            Q.unemployed_afd += 2/12;
         }
     } else if (Q.year == 2028) {
-        Q.old_middle_other -= 2/12;
-        Q.rural_other -= 2/12;
-        Q.old_middle_afd += 2/12;
-        Q.rural_afd += 2/12;
         if (!Q.works_program) {
-            Q.workers_afd += 3/12;
-            Q.unemployed_afd += 3/12;
-            Q.rural_afd += 3/12;
-            Q.new_middle_afd += 2/12;
-            Q['workers_' + LINKE] += 2/12;
-            Q['unemployed_' + LINKE] += 2/12;
             Q.rechts_strength += 15/12;
-        } else if (Q.unemployed > 8) {
-            Q.rural_afd += 2/12;
-            Q.unemployed_afd += 2/12;
-            Q.old_middle_afd += 2/12;
-        }
-    } else if (Q.year >= 2029) {
-        if (Q.return_to_normalcy) {
-            // a stable economy brings voters back to their traditional parties
-            if (Q.new_middle_gruene_normalized < 25) {
-                Q.new_middle_gruene += 3/12;
-            }
-            if (Q.old_middle_fdp_normalized < 10) {
-                Q.old_middle_fdp += 2/12;
-            }
-            if (Q.old_middle_union_normalized < 35) {
-                Q.old_middle_union += 4/12;
-            }
-            if (Q.rentner_union_normalized < 38) {
-                Q.rentner_union += 4/12;
-            }
-            if (Q.workers_spd_normalized < 25) {
-                Q.workers_spd += 3/12;
-            }
-        }
-        if (Q.unemployed > 9) {
-            Q.rural_afd += 2/12;
-            Q.unemployed_afd += 2/12;
-            Q.old_middle_afd += 2/12;
-            Q.new_middle_afd += 2/12;
-            if (Q.spd_in_government) {
-                Q.workers_spd -= 4/12;
-            }
         }
     }
     // prevent forever support if the economy is bad
