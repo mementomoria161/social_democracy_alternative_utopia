@@ -120,6 +120,9 @@ if (Q.month_actions >= 1) {
     var party_support_results = {'date': new Date(Q.year, Q.month - 1)};
     for (var party of Q.parties) {
         party_support_results[party] = Q[party + '_normalized']*100;
+        for (var c of Q.classes) {
+            party_support_results[c + '_' + party] = Q[c + '_' + party + '_normalized'];
+        }
     }
     Q.party_support_records.push(party_support_results);
     Q.economic_records.push({'date': new Date(Q.year, Q.month - 1),

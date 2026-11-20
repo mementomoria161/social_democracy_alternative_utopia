@@ -595,3 +595,105 @@ table {
     text-decoration: underline;
     text-decoration-style: dotted;
 }
+
+/* wide screens: sidebar and content as two equally wide columns */
+@media screen and (min-width: 1000px) {
+  #mid_panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 1.5em;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 1em;
+  }
+  header, footer {
+    grid-column: 1 / -1;
+    max-width: none;
+  }
+  #tools_wrapper {
+    position: static;
+    max-width: none;
+  }
+  .tools, .tools.left {
+    float: none;
+    width: auto;
+    margin: 0;
+  }
+  #content {
+    max-width: none;
+    margin: 0;
+  }
+}
+
+/* polls tab */
+#poll_graph {
+  display: block;
+  overflow: visible;
+}
+.poll_select select {
+  font-family: inherit;
+  font-size: 1em;
+  margin-left: 0.3em;
+}
+.poll_heading {
+  font-size: 1em;
+  margin: 1em 0 0.4em 0;
+}
+.poll_row {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin: 0.15em 0;
+}
+.poll_name {
+  width: 7.5em;
+  flex-shrink: 0;
+}
+.poll_bar {
+  flex-grow: 1;
+  height: 0.9em;
+}
+.poll_bar span {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+}
+.poll_val {
+  width: 3em;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.poll_group {
+  border-top: 1px solid var(--unavailable-bg-color);
+  padding: 0.3em 0;
+}
+.poll_group summary {
+  cursor: pointer;
+}
+.poll_top {
+  float: right;
+  font-size: 0.9em;
+}
+.poll_stack {
+  display: flex;
+  height: 0.6em;
+  margin: 0.3em 0 0 1.1em;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.poll_group .poll_bars {
+  margin: 0.5em 0 0.5em 1.1em;
+}
+.poll_show {
+  margin-left: 1.1em;
+}
+/* the Union's black is invisible on the dark background */
+body.dark-mode .poll_bar .union, body.dark-mode .poll_stack .union {
+  background: #888 !important;
+}
+body.dark-mode .union.party-line {
+  stroke: #888;
+}
+body.dark-mode .union.party-node {
+  fill: #888;
+}

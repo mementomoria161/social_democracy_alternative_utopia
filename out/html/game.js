@@ -263,6 +263,115 @@
       dendryUI.dendryEngine._runActions(scene.onArrival);
       var displayContent = dendryUI.dendryEngine._makeDisplayContent(scene.content, true);
       $('#qualities').append(dendryUI.contentToHTML.convert(displayContent));
+      window.drawPolls();
+  };
+
+  // Umfrage-Tab: Verlauf seit der Bundestagswahl 2025, gesamt oder je Wählergruppe
+  if (window.d3) {
+      d3.timeFormatDefaultLocale({dateTime: '%A, der %e. %B %Y, %X', date: '%d.%m.%Y', time: '%H:%M:%S',
+          periods: ['AM', 'PM'], days: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+          shortDays: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+          months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+          shortMonths: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez']});
+  }
+  // amtliches Endergebnis vom 23.02.2025 (Zweitstimmen); Wählergruppen liegen dafür nicht vor
+  var BTW_2025 = {'date': new Date(2025, 1, 23), 'spd': 16.4, 'linke': 8.8, 'union': 28.6, 'gruene': 11.6,
+                  'fdp': 4.3, 'bsw': 5.0, 'afd': 20.8, 'other': 4.5};
+  var POLL_COLORS = {'spd': '#E3000F', 'linke': '#BE3075', 'gruene': '#46962B', 'union': '#151518', 'fdp': '#E6C800',
+                     'bsw': '#7D254F', 'afd': '#009EE0', 'other': '#a0a0a0', 'sapd': '#c40000', 'srpd': '#F4A460'};
+  var POLL_GROUPS = {'workers': 'Arbeitnehmer*innen', 'new_middle': 'Akademische Mittelschicht',
+                     'old_middle': 'Selbstständige & Mittelstand', 'rural': 'Ländlicher Raum',
+                     'unemployed': 'Arbeitslose & Grundsicherung', 'rentner': 'Rentner*innen'};
+  window.pollGroup = '';
+  window.pollOpen = {};
+
+  window.drawPolls = function() {
+      var box = document.getElementById('poll_view');
+      var Q = dendryUI.dendryEngine.state.qualities;
+      if (!box || !window.d3 || !Q.classes || !Q.parties) return;
+      var names = {'spd': 'SPD', 'linke': 'Linke', 'gruene': Q.gruene_name || 'Grüne', 'union': 'CDU/CSU', 'fdp': 'FDP',
+                   'bsw': 'BSW', 'afd': 'AfD', 'other': 'Sonstige', 'sapd': 'Soziale Linke', 'srpd': 'Neue Mitte'};
+      var parties = Q.parties;
+      var groups = Q.classes.filter(function(c) { return POLL_GROUPS[c]; });
+
+      // aktueller Stand aus den Rohwerten, gleiche Formel wie in post_event (dort erst nach dem ersten Zug berechnet);
+      // ersetzt einen Monatseintrag mit demselben Datum
+      var now = {'date': new Date(Q.year, Q.month - 1)};
+      var support = {}, total = 0;
+      for (var c of Q.classes) {
+          var classVotes = 0;
+          for (var p of parties) classVotes += Math.max(0, Q[c + '_' + p] || 0);
+          for (var p of parties) {
+              var share = classVotes ? 100 * Math.max(0, Q[c + '_' + p] || 0) / classVotes : 0;
+              now[c + '_' + p] = share;
+              support[p] = (support[p] || 0) + (Q[c] || 0) * (Q.old_demographics ? Math.max(0, Q[c + '_' + p] || 0) : share);
+          }
+      }
+      for (var p of parties) total += support[p];
+      for (var p of parties) now[p] = total ? 100 * support[p] / total : 0;
+      var records = (Q.party_support_records || []).slice();
+      var last = records[records.length - 1];
+      if (last && new Date(last.date).getTime() == now.date.getTime()) records.pop();
+      records = [BTW_2025].concat(records, [now]);
+
+      var group = groups.indexOf(window.pollGroup) >= 0 ? window.pollGroup : '';
+      var data = records.map(function(r) {
+          var d = {'date': r.date};
+          for (var p of parties) d[p] = r[group ? group + '_' + p : p];
+          return d;
+      });
+
+      var bars = function(values) {
+          var sorted = parties.filter(function(p) { return values[p] > 0; })
+              .sort(function(a, b) { return values[b] - values[a]; });
+          var max = values[sorted[0]] || 1;
+          return '<div class="poll_bars">' + sorted.map(function(p) {
+              return '<div class="poll_row"><span class="poll_name">' + names[p] + '</span>' +
+                  '<span class="poll_bar"><span class="' + p + '" style="width:' + (100 * values[p] / max) +
+                  '%;background:' + POLL_COLORS[p] + '"></span></span>' +
+                  '<span class="poll_val">' + Math.round(values[p]) + ' %</span></div>';
+          }).join('') + '</div>';
+      };
+      var stack = function(values) {
+          return '<span class="poll_stack">' + parties.filter(function(p) { return values[p] > 0; }).map(function(p) {
+              return '<span class="' + p + '" title="' + names[p] + ' ' + Math.round(values[p]) + ' %" style="flex-grow:' +
+                  values[p] + ';background:' + POLL_COLORS[p] + '"></span>';
+          }).join('') + '</span>';
+      };
+      var groupValues = function(c) {
+          var v = {};
+          for (var p of parties) v[p] = now[c + '_' + p];
+          return v;
+      };
+
+      var html = '<label class="poll_select">Verlauf seit der Bundestagswahl 2025: <select onchange="window.pollGroup = this.value; window.drawPolls();">' +
+          '<option value="">Alle Wähler*innen</option>' + groups.map(function(c) {
+              return '<option value="' + c + '"' + (c == group ? ' selected' : '') + '>' + POLL_GROUPS[c] + '</option>';
+          }).join('') + '</select></label>' +
+          '<svg id="poll_graph"></svg>' +
+          '<h3 class="poll_heading">Aktuell' + (group ? ': ' + POLL_GROUPS[group] : '') + '</h3>' +
+          bars(group ? groupValues(group) : now) +
+          '<h3 class="poll_heading">Nach Wählergruppen</h3>' +
+          groups.map(function(c) {
+              var v = groupValues(c);
+              var top = parties.reduce(function(a, b) { return v[b] > v[a] ? b : a; });
+              return '<details class="poll_group"' + (window.pollOpen[c] ? ' open' : '') +
+                  ' ontoggle="window.pollOpen[\'' + c + '\'] = this.open;"><summary><span class="poll_group_name">' +
+                  POLL_GROUPS[c] + '</span> <span class="poll_top">' + names[top] + ' ' + Math.round(v[top]) + ' %</span>' +
+                  stack(v) + '</summary>' + bars(v) +
+                  '<button class="b poll_show" onclick="window.pollGroup = \'' + c + '\'; window.drawPolls(); ' +
+                  'document.getElementById(\'poll_view\').scrollIntoView({behavior: \'smooth\'});">' +
+                  (c == group ? 'Wird oben angezeigt' : 'Im Verlauf oben anzeigen') + '</button></details>';
+          }).join('');
+      box.innerHTML = html;
+
+      var width = box.clientWidth;
+      var height = Math.min(360, Math.max(240, width * 0.6));
+      var spanMonths = (now.date - BTW_2025.date) / (30 * 24 * 3600 * 1000);
+      // Platz rechts für die Parteinamen
+      var lines = d3.linegraph(true, false, parties, POLL_COLORS, names, undefined, undefined, Math.ceil(spanMonths * 0.15) + 1);
+      lines.width(width).height(height);
+      d3.select('#poll_graph').attr('width', width).attr('height', height).datum(data).call(lines);
   };
 
   window.changeTab = function(newTab, tabId) {

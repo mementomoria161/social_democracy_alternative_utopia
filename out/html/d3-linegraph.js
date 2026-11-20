@@ -40,11 +40,13 @@ d3.linegraph = function(noTicks, noDots, parties, partyColors, partyNames, dataM
      dataset.each(function (data) {
       const dates = data.map(d => new Date(d.date));
       // Map the data to an array of arrays of {x, y} tuples.
-      const series = parties.map(party => data.map(d => ({'x': new Date(d.date), 'y': d[party], 'series': party})));
+      // missing values (e.g. a party founded later) are skipped
+      const has = v => v != null && !isNaN(v);
+      const series = parties.map(party => data.filter(d => has(d[party])).map(d => ({'x': new Date(d.date), 'y': d[party], 'series': party})));
 
       // Declare the x (horizontal position) scale.
       const maxDate = d3.max(dates);
-      const xScale = d3.scaleUtc([new Date(1928, 0), addMonths(maxDate, additionalMonths)], [marginLeft, width - marginRight]);
+      const xScale = d3.scaleUtc([d3.min(dates), addMonths(maxDate, additionalMonths)], [marginLeft, width - marginRight]);
 
       var xaxis = d3.axisBottom()
         .tickFormat(d3.timeFormat('%b %Y'))
@@ -87,6 +89,7 @@ d3.linegraph = function(noTicks, noDots, parties, partyColors, partyNames, dataM
           .call(d3.axisLeft(yScale));
 
       const partyLine = (party) => d3.line()
+          .defined(d => has(d[party]))
           .x(d => xScale(new Date(d.date)))
           .y(d => yScale(d[party]));
 
@@ -130,6 +133,9 @@ d3.linegraph = function(noTicks, noDots, parties, partyColors, partyNames, dataM
               .attr("r", 4)
               .attr("cx", d => xScale(d.x))
               .attr("cy", d => yScale(d.y))
+              .each(function (d) {
+                  d3.select(this).append("title").text(partyNames[d.series] + ", " + d3.timeFormat('%b %Y')(d.x) + ": " + d.y.toFixed(1) + " %");
+              })
               .on("mouseover", function (d) {
                   const node = d3.select(this);
                   const series = node.attr('series');
@@ -147,16 +153,21 @@ d3.linegraph = function(noTicks, noDots, parties, partyColors, partyNames, dataM
               });
       }
 
-      // draw right-hand labels
+      // draw right-hand labels, pushed apart so they don't overlap
+      const labelY = new Map(series.filter(s => s.length).map(s => [s, yScale(s[s.length - 1].y) + 5]));
+      const labelOrder = Array.from(labelY.keys()).sort((a, b) => labelY.get(a) - labelY.get(b));
+      for (let i = 1; i < labelOrder.length; i++) {
+        labelY.set(labelOrder[i], Math.max(labelY.get(labelOrder[i]), labelY.get(labelOrder[i - 1]) + 11));
+      }
       svg.selectAll(".labels")
-        .data(series)
+        .data(labelOrder)
         .enter().append("text")
         .text(s => partyNames[s[0].series])
         .attr("series", s => s[0].series)
         .attr("font-size", "0.8em")
         .attr("class", s => s[0].series + "-label party-label")
         .attr("x", s => xScale(s[s.length - 1].x) + 15)
-        .attr("y", s => yScale(s[s.length - 1].y) + 5)
+        .attr("y", s => labelY.get(s))
         .on("mouseover", function (d) {
           const text = d3.select(this);
           const series = text.attr('series');
