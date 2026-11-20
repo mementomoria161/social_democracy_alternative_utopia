@@ -247,3 +247,14 @@ if (typeof window !== 'undefined' && window.SD) {
 = Wirtschaft
 
 {!<div id="sd_economy"></div>!}
+
+@climate
+on-display: {!
+if (typeof window !== 'undefined' && window.SD) {
+    window.SD.renderClimate(Q);
+}
+!}
+
+= Klima
+
+{!<div id="sd_climate"></div>!}
