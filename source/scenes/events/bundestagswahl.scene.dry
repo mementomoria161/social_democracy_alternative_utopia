@@ -56,6 +56,17 @@ for (var party of all_parties) {
         Q.largest_party = names[party];
     }
 }
+// Bundestagspräsidium: by custom the strongest group except the AfD (whose candidates fail) provides the president
+var btp_candidates = {'union': 'Klöckner', 'spd': 'Ortleb', 'gruene': 'Nouripour', 'linke': 'Ramelow'};
+var btp_party = null;
+for (var party of all_parties) {
+    if (party != 'afd' && (btp_party === null || Q[party + '_r'] > Q[btp_party + '_r'])) {
+        btp_party = party;
+    }
+}
+if (btp_candidates[btp_party]) {
+    Q.bundestag_president = btp_candidates[btp_party];
+}
 
 var sapd = Q.sapd_formed ? (Q.sapd_r || 0) : 0;
 var srpd = Q.srpd_r || 0;

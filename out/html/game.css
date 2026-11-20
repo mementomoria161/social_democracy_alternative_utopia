@@ -713,3 +713,74 @@ body.dark-mode .union.party-node {
   opacity: 0.75;
   margin: 0.2em 0 0 0;
 }
+.gov_chart {
+    text-align: center;
+    text-indent: 0;
+}
+.gov_row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.6em 1.5em;
+}
+.gov_line {
+    width: 2px;
+    height: 1em;
+    margin: 0.4em auto;
+    background-color: var(--card-border-color);
+}
+.gov_cabinet {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.8em 0.3em;
+    padding-top: 0.8em;
+    border-top: 2px solid var(--card-border-color);
+}
+.gov_card {
+    min-width: 6em;
+    line-height: 1.25;
+    font-size: 0.95em;
+}
+.gov_cabinet .gov_card {
+    min-width: 0;
+}
+.gov_photo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4.2em;
+    height: 4.2em;
+    margin: 0 auto 0.3em auto;
+    border: 3px solid;
+    border-radius: 50%;
+    overflow: hidden;
+    color: #fff;
+    font-size: 1.1em;
+    box-shadow: 0 0 0 1px var(--border-color);
+}
+.gov_card.big .gov_photo {
+    width: 5.6em;
+    height: 5.6em;
+}
+.gov_photo img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+}
+.gov_role, .gov_party {
+    font-size: 0.85em;
+    opacity: 0.75;
+}
+.gov_name {
+    font-weight: bold;
+}
+@media screen and (max-width: 560px) {
+  .gov_cabinet .gov_card {
+      font-size: 0.8em;
+  }
+}

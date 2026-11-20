@@ -341,6 +341,7 @@ Q.economic_records = [];
 
 // State of the government: cabinet Merz (CDU/CSU + SPD), since May 2025
 Q.president = "Steinmeier";
+Q.bundestag_president = "Klöckner";
 Q.chancellor = "Merz";
 Q.chancellor_party = 'Union';
 Q.spd_in_government = 1;

@@ -3,6 +3,28 @@ new-page: true
 on-arrival: {!
 Q.last_advisor_action = 0;
 Q.last_cabinet_action = 0;
+// many events hand a ministry to another party without naming a minister: use that party's default then
+var default_ministers = {
+    'SPD': {foreign: 'Mützenich', interior: 'Fiedler', justice: 'Hubig', labor: 'Bas', bundeswehr: 'Pistorius', economic: 'Hubertz', finance: 'Klingbeil', agriculture: 'Miersch'},
+    'Union': {foreign: 'Wadephul', interior: 'Dobrindt', justice: 'Krings', labor: 'Linnemann', bundeswehr: 'Kiesewetter', economic: 'Reiche', finance: 'Spahn', agriculture: 'Rainer'},
+    'Grüne': {foreign: 'Brantner', interior: 'von Notz', justice: 'Haßelmann', labor: 'Banaszak', bundeswehr: 'Nouripour', economic: 'Dröge', finance: 'Kellner', agriculture: 'Özdemir'},
+    'Linke': {foreign: 'van Aken', interior: 'Schwerdtner', justice: 'Schwerdtner', labor: 'Reichinnek', bundeswehr: 'van Aken', economic: 'van Aken', finance: 'van Aken', agriculture: 'Schwerdtner'},
+    'FDP': {foreign: 'Lambsdorff', interior: 'Kubicki', justice: 'Kubicki', labor: 'Vogel', bundeswehr: 'Strack-Zimmermann', economic: 'Dürr', finance: 'Dürr', agriculture: 'Vogel'},
+    'AfD': {interior: 'Chrupalla', justice: 'Brandner', agriculture: 'Protschka'}
+};
+var minister_party_of = {'Frei': 'Union'};
+for (var mp in default_ministers) {
+    for (var post in default_ministers[mp]) {
+        minister_party_of[default_ministers[mp][post]] = mp;
+    }
+}
+for (var post of ['foreign', 'interior', 'justice', 'labor', 'bundeswehr', 'economic', 'finance', 'agriculture']) {
+    var holder = Q[post + '_minister'];
+    var holder_party = Q[post + '_minister_party'];
+    if (minister_party_of[holder] && minister_party_of[holder] != holder_party) {
+        Q[post + '_minister'] = (default_ministers[holder_party] || {})[post] || 'N. N.';
+    }
+}
 // make sure no stat is below 0.
 for (var c of Q.classes) {
     for (var party of Q.parties) {
