@@ -5,6 +5,8 @@ Die Bildnachweise des Originalspiels (Weimarer Republik) wurden entfernt, da die
 
 bankenviertel.jpg: Jorge Franganillo. „Frankfurt Bankenviertel (50569447522).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Frankfurt_Bankenviertel_(50569447522).jpg. Lizenz: CC BY 2.0 https://creativecommons.org/licenses/by/2.0
 
+bildung.jpg: MaxEmanuel. „Klassenzimmer Münster Mühlenhof.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Klassenzimmer_M%C3%BCnster_M%C3%BChlenhof.jpg. Lizenz: CC0 http://creativecommons.org/publicdomain/zero/1.0/deed.en
+
 boerse.jpg: Ank Kumar. „Frankfurt Stock Exchange (Ank Kumar) 04.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Frankfurt_Stock_Exchange_(Ank_Kumar)_04.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
 buendnis_demokratie.jpg: Lucas Werkmeister. „Demo gegen Rechts Berlin 2024-01-14 - Lucas Werkmeister - 5.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Demo_gegen_Rechts_Berlin_2024-01-14_-_Lucas_Werkmeister_-_5.jpg. Lizenz: CC BY 4.0 https://creativecommons.org/licenses/by/4.0
@@ -33,6 +35,8 @@ kopenhagen.jpg: Moahim. „2018 - Christiansborg from the Marble Bridge.jpg“. 
 
 kundgebung.jpg: Magnussen, Friedrich (1914-1987). „Maikundgebung des Deutschen Gewerkschaftsbundes (DGB) (Kiel 66.004).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Maikundgebung_des_Deutschen_Gewerkschaftsbundes_(DGB)_(Kiel_66.004).jpg. Lizenz: CC BY-SA 3.0 de https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
 
+landwirtschaft.jpg: Michael Gäbler. „The combine Claas Lexion 584 in the wheat harvest.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:The_combine_Claas_Lexion_584_in_the_wheat_harvest.jpg. Lizenz: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0
+
 map_2.jpg: Botaurus-stellaris. „Deutschland topo.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Deutschland_topo.jpg. Lizenz: CC BY-SA 3.0 http://creativecommons.org/licenses/by-sa/3.0/
 
 medien.jpg: Ansgar Koreng. „141101 Haus der Bundespressekonferenz.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:141101_Haus_der_Bundespressekonferenz.jpg. Lizenz: CC BY-SA 3.0 de https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
@@ -50,6 +54,8 @@ portraits/Bas.jpg: Fotografin des Bildes ist Angelika Kohlmeier, uneingeschränk
 portraits/Drossmann.jpg: photothek.net. „Falko Droßmann (2021).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Falko_Dro%C3%9Fmann_(2021).jpg. Lizenz: CC BY 4.0 https://creativecommons.org/licenses/by/4.0
 
 portraits/Esken.jpg: Olaf Kosinsky. „2019-09-10 SPD Regionalkonferenz Team Esken Walter-Borjans by OlafKosinsky MG 0453 (cropped).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2019-09-10_SPD_Regionalkonferenz_Team_Esken_Walter-Borjans_by_OlafKosinsky_MG_0453_(cropped).jpg. Lizenz: CC BY-SA 3.0 de https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+
+portraits/Fahimi.jpg: Bernd Schwabe. „2018-01-08 IHK-Auftakt der Industrie- und Handelskammer Hannover, Congress Centrum (193d) MdB Yasmin Fahimi.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2018-01-08_IHK-Auftakt_der_Industrie-_und_Handelskammer_Hannover,_Congress_Centrum_(193d)_MdB_Yasmin_Fahimi.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
 portraits/Fiedler.jpg: Kennycolis. „FiedlerinMülheim.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:FiedlerinM%C3%BClheim.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
@@ -104,6 +110,8 @@ streik.jpg: Frank Vincentz. „Witten - IG Metall Warnstreik 2012 07 ies.JPG“.
 synagoge.jpg: Ansgar Koreng. „Neue Synagoge, Berlin-Mitte, 160328, ako.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Neue_Synagoge,_Berlin-Mitte,_160328,_ako.jpg. Lizenz: CC BY 3.0 de https://creativecommons.org/licenses/by/3.0/de/deed.en
 
 traktorblockade.jpg: H-stt. „München Bauernproteste 2024-01-08 2043.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:M%C3%BCnchen_Bauernproteste_2024-01-08_2043.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
+
+untersuchungsausschuss.jpg: Lothar Schaack. „Bundesarchiv B 145 Bild-F044088-0011, Bonn, Guillaume Untersuchungsausschuss Bundestag.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Bundesarchiv_B_145_Bild-F044088-0011,_Bonn,_Guillaume_Untersuchungsausschuss_Bundestag.jpg. Lizenz: CC BY-SA 3.0 de https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
 
 volkspartei.jpg: Ansgar Koreng. „Willy-Brandt-Haus (Berlin), 151024, ako.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Willy-Brandt-Haus_(Berlin),_151024,_ako.jpg. Lizenz: CC BY-SA 3.0 de https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
 

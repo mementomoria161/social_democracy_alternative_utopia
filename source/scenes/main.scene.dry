@@ -47,7 +47,7 @@ max-cards: 4
 
 @party
 title: Parteiangelegenheiten
-card-image: img/Vorwaerts_nr_1.png
+card-image: img/ortsverein.jpg
 is-deck: true
 
 - #party_affairs
