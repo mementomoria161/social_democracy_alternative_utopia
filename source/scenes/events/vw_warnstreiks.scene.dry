@@ -1,0 +1,40 @@
+title: Warnstreiks bei Volkswagen
+subtitle: Die IG Metall wehrt sich gegen Werksschließungen und Lohnkürzungen.
+new-page: true
+tags: event
+view-if: year = 2024 and month = 12
+max-visits: 1
+on-arrival: vw_warnstreiks_seen = 1; gm_dgb += 2; g_dgb += 4
+face-image: img/werksschliessung.jpg
+
+# Durchgang 4.5 (Gruppen). Historisch: VW forderte im Herbst 2024 zehn Prozent Lohnkürzung und drohte mit Werksschließungen;
+# Warnstreiks am 2. und 9. Dezember 2024 in fast allen deutschen Werken; Einigung am 20. Dezember 2024 (keine Werksschließung,
+# Abbau von über 35.000 Stellen bis 2030 ohne betriebsbedingte Kündigungen, Lohnerhöhungen ausgesetzt).
+
+= Warnstreiks bei Volkswagen
+
+Anfang Dezember stehen in fast allen deutschen Volkswagen-Werken die Bänder still. Der Konzern verlangt zehn Prozent weniger Lohn und schließt erstmals in seiner Geschichte Werksschließungen nicht aus. Die IG Metall ruft zu Warnstreiks auf, Zehntausende legen die Arbeit nieder. In Wolfsburg, Emden und Zwickau geht es um mehr als einen Tarifvertrag: um die Zukunft der deutschen Autoindustrie.
+
+Mitten im beginnenden Wahlkampf erwarten die Beschäftigten eine klare Ansage von [+ pp_dat +].
+
+- @werkstor: An die Werkstore: Solidarität mit den Beschäftigten.
+- @industrie: Staatliche Hilfe für die Autoindustrie fordern: Kaufprämie für E-Autos und günstiger Strom.
+- @umbau: Mahnen, dass ohne Investitionen in die Elektromobilität auch kein Streik hilft.
+
+@werkstor
+subtitle: Gewerkschaften +, Arbeitgeber −
+on-arrival: gr_dgb += 10; gr_verdi += 3; gr_bda -= 5; gr_autolobby -= 5; labor_dissent -= 4; workers_spd += 1*(1-dissent)
+
+Unsere Abgeordneten stehen mit roten Fahnen und Trillerpfeifen vor dem Werkstor. Die Betriebsräte bedanken sich, die Bilder laufen in den Abendnachrichten. Die Arbeitgeberverbände sprechen von Wahlkampfgetöse.
+
+@industrie
+subtitle: Auto- und Energiewirtschaft +, Umweltverbände −
+on-arrival: gr_autolobby += 10; gr_dgb += 5; gr_umwelt -= 4; reformist_dissent -= 2; labor_dissent -= 2; left_dissent += 2
+
+Eine neue Kaufprämie und ein Industriestrompreis sollen Volkswagen und die Zulieferer stabilisieren. Gewerkschaften und Verband der Automobilindustrie sind ausnahmsweise einer Meinung, die Umweltverbände fragen, warum ausgerechnet die Autoindustrie wieder Steuergeld bekommt.
+
+@umbau
+subtitle: Umweltverbände +, Gewerkschaften −
+on-arrival: gr_umwelt += 6; gr_dgb -= 8; labor_dissent += 4; new_middle_spd += 0.5*(1-dissent)
+
+Wir erinnern daran, dass das Management den Umstieg auf Elektroautos verschlafen hat und nur Investitionen die Jobs sichern. In der akademischen Mittelschicht findet das Zustimmung, in den Werkshallen kommt es als Belehrung an.

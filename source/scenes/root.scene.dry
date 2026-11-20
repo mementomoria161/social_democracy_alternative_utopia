@@ -521,7 +521,7 @@ Q.timers = ['advisor_action', 'confronting_nazis', 'crisis_program',
             'iron_front', 'media', 'enemies',
             'party_organizations', 'rally', 'reichsbanner',
             'shuffle_leadership', 'streetfighting', 'peoples_party',
-            'party_disunity',
+            'party_disunity', 'buendnis',
             // govt
             'agricultural_policy', 'domestic_enemies', 'fiscal_policy',
             'foreign_policy', 'judiciary', 'labor_affairs', 'military_policy',
@@ -706,6 +706,19 @@ Q.bv_right = 0;
 Q.haustuer_seen = 0; Q.mitgliederboom = 0; Q.neumitglieder_integriert = 0; Q.mietenkampagne = 0; Q.gehaltsdeckel = 0;
 Q.palestine_debate = 0; Q.palestine_stance = 0; Q.palestine_debate_seen = 0; Q.berlin_2026 = 0; Q.lk_sw_in = 0;
 Q.lk_prev_support = null; // Linke game: player support per group at the last month change (post_event, LK_GAIN)
+// Durchgang 4.5: Interessengruppen und Bewegungen (Reiter „Gruppen“). Tabelle und Modell: groups_data.scene.dry.
+// Legt je Gruppe g_<id> (Stärke), gm_<id> (Konjunktur), gr_<id> (Verhältnis zur Spielerpartei), ga_<id> (aktiv) an,
+// dazu grp_hist, grp_why, grp_news, grp_party. root.choose_linke setzt die Verhältnisse für die Linke neu.
+// Bündnisarbeit: grp_target (Gruppen-ID), grp_name, grp_info, grp_msg.
+if (!this.game.GRP) this._runActions(this.game.scenes.groups_data.onArrival);
+this.game.GRP.init(Q);
+Q.grp_target = ''; Q.grp_rel_now = 0; Q.grp_name = ''; Q.grp_info = ''; Q.grp_msg = '';
+Q.buendnis_timer = 0;
+// events of 4.5 (events/vw_warnstreiks, resolution_antisemitismus, verdi_tarifrunde, palaestina_proteste, ruestungsexporte_israel,
+// gaza_waffenruhe, arbeitgeber_kampagne, sozialverbaende_protest, mietenstopp_kampagne, gruppen_wandel)
+Q.vw_warnstreiks_seen = 0; Q.resolution_antisemitismus_seen = 0; Q.verdi_tarifrunde_seen = 0; Q.palaestina_proteste_seen = 0;
+Q.ruestungsexporte_israel_seen = 0; Q.gaza_waffenruhe_seen = 0; Q.arbeitgeber_kampagne_seen = 0; Q.sozialverbaende_protest_seen = 0;
+Q.mietenstopp_kampagne_seen = 0;
 !}
 set-bg: img/map_2.jpg
 new-page: true
@@ -850,6 +863,9 @@ Q.starting_resources = Math.max(0, Q.starting_resources - 1);
 Q.klingbeil_advisor = 0; Q.esken_advisor = 0; Q.muetzenich_advisor = 0;
 Q.schwerdtner_advisor = 1; Q.vanaken_advisor = 1; Q.reichinnek_advisor = 1;
 Q.n_advisors = 3;
+// interest groups: relations from the Linke perspective (groups_data)
+if (!this.game.GRP) this._runActions(this.game.scenes.groups_data.onArrival);
+this.game.GRP.initRelations(Q);
 !}
 go-to: intro_linke
 

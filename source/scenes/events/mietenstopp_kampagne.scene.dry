@@ -1,0 +1,39 @@
+title: Kampagne für einen Mietenstopp
+subtitle: Mieterbund, Initiativen und Gewerkschaften sammeln Unterschriften.
+new-page: true
+tags: event
+view-if: year >= 2026 and g_mieter >= 50 and ga_mieter = 1
+max-visits: 1
+on-arrival: mietenstopp_kampagne_seen = 1; gm_mieter += 2
+face-image: img/mietendemo.jpg
+
+# Durchgang 4.5 (Gruppen), fiktiv (nach dem Spielstart; eine Kampagne „Mietenstopp“ von Mieterbund, DGB und Paritätischem
+# gibt es seit 2019). Wird ausgelöst, wenn die Mieterbewegung stark ist (g_mieter, im Linke-Spiel getrieben von mietenkampagne).
+
+= Kampagne für einen Mietenstopp
+
+Ein breites Bündnis aus Mieterbund, Mieterinitiativen, Gewerkschaften und Sozialverbänden sammelt Unterschriften für einen bundesweiten Mietenstopp: sechs Jahre lang sollen die Mieten in angespannten Wohnungsmärkten höchstens mit der Inflation steigen dürfen. Nach wenigen Wochen sind es über eine Million Unterschriften. In München, Berlin, Hamburg und Frankfurt zahlen viele Haushalte inzwischen mehr als ein Drittel ihres Einkommens für die Miete.
+
+Vermieter- und Wirtschaftsverbände warnen, ein Mietenstopp würge den Wohnungsbau ab. Wie positioniert sich [+ pp_full +]?
+
+- @unterstuetzen: Den Mietenstopp unterstützen und im Bundestag beantragen.
+- @mietpreisbremse: Die Mietpreisbremse verschärfen und Schlupflöcher schließen.
+- @bauen: Bauen, bauen, bauen: Nur mehr Wohnungen senken die Mieten.
+
+@unterstuetzen
+subtitle: Mieter\*innen ++, Wirtschaft −
+on-arrival: gr_mieter += 15; gm_mieter += 1; gr_mittelstand -= 5; gr_bda -= 3; left_dissent -= 4 if player = "spd"; labor_dissent -= 3 if player = "linke"; center_dissent -= 3 if player = "linke"; reformist_dissent += 3; workers_spd += 0.5*(1-dissent); new_middle_spd += 0.5*(1-dissent); old_middle_spd -= 0.5; coalition_dissent += 1 if spd_in_government and in_grand_coalition
+
+Wir bringen den Mietenstopp in den Bundestag ein und stehen bei der Übergabe der Unterschriften mit auf der Bühne. Die Mieterbewegung feiert uns, Eigentümerverbände sprechen von Enteignung durch die Hintertür.
+
+@mietpreisbremse
+subtitle: Mieter\*innen +
+on-arrival: gr_mieter += 6; center_dissent -= 2; new_middle_spd += 0.3*(1-dissent)
+
+Wir schlagen vor, die Ausnahmen bei möblierten Wohnungen und Kurzzeitvermietung zu streichen und Verstöße zu bestrafen. Der Mieterbund nennt das einen Anfang, mehr nicht.
+
+@bauen
+subtitle: Mieter\*innen −, Wirtschaft +
+on-arrival: gr_mieter -= 8; gr_mittelstand += 4; gr_bda += 2; reformist_dissent -= 3; left_dissent += 4; labor_dissent += 2 if player = "linke"
+
+Wir setzen auf schnellere Genehmigungen und mehr Neubau. Die Bauwirtschaft lobt uns, die Mieterinitiativen erinnern daran, dass Neubauwohnungen für 20 Euro pro Quadratmeter niemandem helfen.

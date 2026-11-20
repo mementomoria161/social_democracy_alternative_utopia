@@ -271,6 +271,8 @@ Q.rechts_strength = Math.round(Q.rechts_strength);
 go-to: menu
 
 # party-ok: SPD (Nähe der Bewegungen zu realen Parteien)
+Gewerkschaften, Arbeitgeber- und Sozialverbände, Kirchen, Umweltverbände und Bewegungen mit ihrer Stärke, ihrer Konjunktur, ihrem Verhältnis zu uns und ihrem Einfluss auf die Strömungen zeigt der Reiter „Gruppen“ (mit der Karte „Bündnisarbeit“ lässt sich das Verhältnis gestalten). Die vier großen Protestbewegungen gehören dazu:
+
 **Protestbewegungen** (Mobilisierung in Tausend Teilnehmenden):
 
 **Demokratiebewegung**: Die Demonstrationen gegen Rechts, die Omas gegen Rechts und lokale Bündnisse für Demokratie. Nah an SPD, Grünen und Zivilgesellschaft.

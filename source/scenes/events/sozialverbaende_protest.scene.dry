@@ -1,0 +1,41 @@
+title: Sozialverbände gegen Kürzungen
+subtitle: VdK, Paritätischer, Diakonie und Gewerkschaften rufen zu Kundgebungen auf.
+new-page: true
+tags: event
+view-if: year >= 2026 and g_vdk >= 55 and ga_vdk = 1 and (haushaltsluecke_2027_seen = 1 or welfare <= -1)
+max-visits: 1
+on-arrival: sozialverbaende_protest_seen = 1; gm_vdk += 2
+face-image: img/sozialstaat.jpg
+
+# Durchgang 4.5 (Gruppen), fiktiv (nach dem Spielstart). Wird ausgelöst, wenn die Sozialverbände stark sind (g_vdk) und
+# gekürzt wird oder die Haushaltslücke 2027 diskutiert wurde. Starke Sozialverbände machen Kürzungen teuer.
+
+= Sozialverbände gegen Kürzungen
+
+Unter dem Motto „Sozialstaat verteidigen“ gehen in mehr als hundert Städten Zehntausende auf die Straße. Aufgerufen haben der Sozialverband VdK, der Paritätische Wohlfahrtsverband, Diakonie und Caritas, ver.di und der DGB. Sie wenden sich gegen Kürzungen bei der Grundsicherung, in der Pflege und bei sozialen Projekten, mit denen der Bund seine Haushaltslöcher stopfen will.
+
+Auf den Kundgebungen stehen Rentner\*innen neben Pflegekräften und Erwerbslosen. Die Verbände fragen: Auf welcher Seite steht [+ pp_full +]?
+
+- @mitlaufen: Mitdemonstrieren: Keine Kürzungen auf dem Rücken der Schwachen.
+- @erklaeren: Die Haushaltslage erklären und um Verständnis werben.
+- @forderung: Die Proteste nutzen, um die Regierung unter Druck zu setzen.
+
+@mitlaufen
+subtitle: Sozialverbände ++ (in der Regierung: Koalitionsstreit)
+on-arrival: gr_vdk += 12; gr_kirchen += 5; gr_verdi += 4; gm_vdk += 1; left_dissent -= 4; labor_dissent -= 4; rentner_spd += 1*(1-dissent); unemployed_spd += 1*(1-dissent); coalition_dissent += 1 if spd_in_government; reformist_dissent += 3 if spd_in_government
+
+Unsere Leute laufen in den ersten Reihen mit. [? if spd_in_government : Dass eine Regierungspartei gegen die eigenen Sparpläne demonstriert, sorgt im Koalitionsausschuss für Ärger. ?][? if not spd_in_government : Die Verbände bedanken sich, und in den Sozialberatungen spricht sich das herum. ?]
+
+@erklaeren
+view-if: spd_in_government
+subtitle: Sozialverbände −, Parteilinke verärgert
+on-arrival: gr_vdk -= 8; gr_verdi -= 4; reformist_dissent -= 2; center_dissent -= 1; left_dissent += 4; labor_dissent += 3; rentner_spd -= 0.5
+
+Wir werben um Verständnis: Ohne Einsparungen sei der Haushalt nicht verfassungsgemäß. Die Verbände reagieren mit Pfiffen, und [+ pp_youth +] erklärt öffentlich ihre Solidarität mit den Protesten.
+
+@forderung
+view-if: not spd_in_government
+subtitle: Sozialverbände +, Regierung unter Druck
+on-arrival: gr_vdk += 6; gm_vdk += 1; union_relation -= 2; unemployed_spd += 0.5*(1-dissent); rentner_spd += 0.5*(1-dissent)
+
+Wir greifen die Forderungen der Verbände im Bundestag auf und beantragen, die Kürzungen zurückzunehmen. Der Antrag scheitert, aber die Regierung gerät in die Defensive.

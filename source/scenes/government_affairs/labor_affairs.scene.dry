@@ -10,6 +10,8 @@ card-image: img/streik.jpg
 
 In der Stahl- und Autoindustrie eskaliert der Konflikt. Konzerne kündigen den Abbau Zehntausender Stellen und die Schließung ganzer Werke an, die IG Metall ruft zu Warnstreiks auf, und die Arbeitgeber drohen mit Verlagerung ins Ausland. Beide Seiten erwarten, dass das Arbeitsministerium Position bezieht.
 
+[? if g_bda >= 65 : Die Arbeitgeberverbände sind derzeit stark und haben die Union auf ihrer Seite. ?][? if g_dgb >= 65 : Die Gewerkschaften sind mobilisiert wie lange nicht, und in den Betrieben wird genau hingesehen, wo wir stehen. ?]
+
 - @support_labor: Die Gewerkschaften unterstützen.
 - @support_employers: Den Arbeitgebern entgegenkommen.
 - @balance: Einen Kompromiss vermitteln.
@@ -17,13 +19,13 @@ In der Stahl- und Autoindustrie eskaliert der Konflikt. Konzerne kündigen den A
 
 @support_labor
 subtitle: Beliebt bei den Beschäftigten, verärgert aber die Wirtschaft.
-on-arrival: labor_strength += 5; labor_dissent -= 5; left_dissent -= 5; workers_spd += 6*(1-dissent); coalition_dissent += 1; fdp_relation -= 4; capital_strike_progress += 1 if fdp_relation <= 30; capital_strike_progress += 1 if unemployed > 8; capital_strike_progress += 1 if unemployed > 11; labor_goal_completed += 1; inflation += 0.1; pro_labor += 1; strike_term_seen += 1; economic_growth -= 0.1;
+on-arrival: labor_strength += 5; labor_dissent -= 5; left_dissent -= 5; workers_spd += 6*(1-dissent); coalition_dissent += 1; fdp_relation -= 4; capital_strike_progress += 1 if fdp_relation <= 30; capital_strike_progress += 1 if unemployed > 8; capital_strike_progress += 1 if unemployed > 11; labor_goal_completed += 1; inflation += 0.1; pro_labor += 1; strike_term_seen += 1; economic_growth -= 0.1; gr_dgb += 6; gr_verdi += 4; gr_bda -= 6; union_relation -= 2 if g_bda >= 65; capital_strike_progress += 1 if g_bda >= 70; workers_spd += 1.5*(1-dissent) if g_dgb >= 65;
 
 Wir stellen uns hinter die IG Metall und fordern Standortgarantien. In der Partei kommt das gut an, beim Wirtschaftsflügel der Union und bei den Verbänden nicht.
 
 @support_employers
 subtitle: Beliebt bei der Wirtschaft, deutlich weniger bei den Beschäftigten.
-on-arrival: labor_dissent += 8; workers_spd -= 3; coalition_dissent -= 1 if coalition_dissent > 0; fdp_relation += 5; union_relation += 5; workers_linke += 3; linke_coalition_dissent += 1; linke_relation -= 8; capital_strike_progress -= 1 if capital_strike_progress > 1; capital_strike_progress -= 1 if capital_strike_progress > 8; pro_labor -= 1; strike_term_seen += 1
+on-arrival: labor_dissent += 8; workers_spd -= 3; coalition_dissent -= 1 if coalition_dissent > 0; fdp_relation += 5; union_relation += 5; workers_linke += 3; linke_coalition_dissent += 1; linke_relation -= 8; capital_strike_progress -= 1 if capital_strike_progress > 1; capital_strike_progress -= 1 if capital_strike_progress > 8; pro_labor -= 1; strike_term_seen += 1; gr_bda += 6; gr_dgb -= 8; gr_verdi -= 4; labor_dissent += 3 if g_dgb >= 65
 
 Wir werben um Verständnis für die schwierige Lage der Unternehmen. In den Betrieben fühlen sich viele verraten. Die AfD verteilt Flugblätter vor den Werkstoren: „[+ pp_Full +] hat euch aufgegeben.“
 

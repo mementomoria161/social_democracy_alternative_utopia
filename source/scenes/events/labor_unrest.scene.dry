@@ -18,13 +18,13 @@ In der Metall- und Elektroindustrie eskaliert die Tarifrunde. Die Arbeitgeber ve
 
 @support_labor
 subtitle: Das wird die Wirtschaft verärgern.
-on-arrival: labor_strength += 5; labor_dissent -= 5; left_dissent -= 5; workers_spd += 6*(1-dissent); coalition_dissent += 1; fdp_relation -= 4; capital_strike_progress += 1 if fdp_relation <= 30; capital_strike_progress += 1 if unemployed > 8; capital_strike_progress += 1 if unemployed > 11.5; labor_goal_completed += 1; inflation += 0.1; economic_growth -= 0.2
+on-arrival: labor_strength += 5; labor_dissent -= 5; left_dissent -= 5; workers_spd += 6*(1-dissent); coalition_dissent += 1; fdp_relation -= 4; capital_strike_progress += 1 if fdp_relation <= 30; capital_strike_progress += 1 if unemployed > 8; capital_strike_progress += 1 if unemployed > 11.5; labor_goal_completed += 1; inflation += 0.1; economic_growth -= 0.2; gr_dgb += 6; gr_bda -= 6; capital_strike_progress += 1 if g_bda >= 70; workers_spd += 1.5*(1-dissent) if g_dgb >= 65
 
 Die Unterstützung der Beschäftigten kommt in der SPD immer gut an. Der Wirtschaftsflügel der Union und die Arbeitgeberverbände sind weniger begeistert.
 
 @support_employers
 subtitle: Das wird die Beschäftigten verärgern.
-on-arrival: labor_dissent += 8; left_dissent += 8; workers_spd -= 6; coalition_dissent -= 1; fdp_relation += 5; union_relation += 5; coalition_dissent -= 1; workers_linke += 5; linke_coalition_dissent += 1; linke_relation -= 8; capital_strike_progress -= 1 if capital_strike_progress > 1; capital_strike_progress -= 1 if capital_strike_progress > 8
+on-arrival: labor_dissent += 8; left_dissent += 8; workers_spd -= 6; coalition_dissent -= 1; fdp_relation += 5; union_relation += 5; coalition_dissent -= 1; workers_linke += 5; linke_coalition_dissent += 1; linke_relation -= 8; capital_strike_progress -= 1 if capital_strike_progress > 1; capital_strike_progress -= 1 if capital_strike_progress > 8; gr_bda += 6; gr_dgb -= 10
 
 Die meisten Beschäftigten fügen sich zähneknirschend, doch gegen die SPD wächst tiefe Verbitterung, gerade unter Vertrauensleuten und Betriebsräten. Linke und AfD stehen bereit, davon zu profitieren.
 
@@ -44,7 +44,7 @@ Viele Beschäftigte sind mit unserem Kompromiss unzufrieden, doch sie werden hof
 subtitle: -1 Ressourcen
 choose-if: resources >= 1
 unavailable-subtitle: Nicht genug Ressourcen.
-on-arrival: resources -= 1; workers_spd += 3*(1-dissent); labor_strength += 3; labor_dissent -= 5; old_middle_spd -= 1
+on-arrival: resources -= 1; workers_spd += 3*(1-dissent); labor_strength += 3; labor_dissent -= 5; old_middle_spd -= 1; gr_dgb += 10; gm_dgb += 1
 
 Unsere Mitglieder bringen Kaffee und Suppe zu den Streikposten, Kreisverbände sammeln Spenden. Die IG Metall bedankt sich, auch wenn sie offiziell parteipolitisch neutral bleibt.
 

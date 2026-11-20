@@ -1,0 +1,39 @@
+title: Bewegung im Wandel
+subtitle: Eine Gruppe gewinnt an Bedeutung oder verschwindet von der Bildfläche.
+new-page: true
+tags: event
+view-if: grp_news_on = 1
+max-visits: 12
+on-arrival: {!
+// Durchgang 4.5: groups_data (GRP.month) setzt grp_news = "<id>:1" (entsteht, Stärke ab 12) oder "<id>:0" (vergeht, unter 8).
+if (!this.game.GRP) this._runActions(this.game.scenes.groups_data.onArrival);
+var parts = (Q.grp_news || '').split(':'), g = this.game.GRP.byId(parts[0]);
+Q.grp_news_on = 0; Q.grp_news = '';
+Q.grp_news_up = parts[1] == '1' ? 1 : 0;
+Q.grp_target = g ? g.id : '';
+Q.grp_name = g ? g.name : 'Eine Gruppe';
+Q.grp_info = g ? g.desc : '';
+Q.grp_msg = g && Q.grp_why && Q.grp_why[g.id] ? 'Antrieb: ' + Q.grp_why[g.id] + '.' : '';
+!}
+face-image: img/kundgebung.jpg
+
+= Bewegung im Wandel
+
+[? if grp_news_up = 1 : „[+ grp_name +]“ gewinnt an Bedeutung. Was eben noch eine Handvoll Aktiver war, füllt plötzlich Säle und Plätze, und die Medien berichten. ?][? if grp_news_up = 0 : „[+ grp_name +]“ verliert an Bedeutung. Die Kundgebungen werden kleiner, die Aktiven ziehen sich zurück, und kaum jemand berichtet noch darüber. ?]
+
+[+ grp_info +]
+
+[+ grp_msg +]
+
+- @kontakt: Kontakt aufnehmen und Unterstützung anbieten.
+- @weiter: Zur Kenntnis nehmen.
+
+@kontakt
+view-if: grp_news_up = 1
+on-arrival: {! var id = Q.grp_target; if (id && Q['gr_' + id] !== undefined) Q['gr_' + id] = Math.min(100, Q['gr_' + id] + 8); !}
+
+Wir laden die Aktiven zu einem Gespräch ein. Das Verhältnis ist von Anfang an gut, und die Bewegung weiß, wo sie uns findet.
+
+@weiter
+
+Wir beobachten die Entwicklung. Im Reiter „Gruppen“ lässt sich verfolgen, wie es weitergeht.

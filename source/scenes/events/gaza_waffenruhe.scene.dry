@@ -1,0 +1,41 @@
+title: Waffenruhe in Gaza
+subtitle: Die letzten lebenden Geiseln kommen frei, die großen Demonstrationen werden kleiner.
+new-page: true
+tags: event
+view-if: year = 2025 and month >= 10
+max-visits: 1
+on-arrival: gaza_waffenruhe_seen = 1; g_palaestina -= 12; gm_palaestina -= 2; gm_israel -= 1
+face-image: img/international.jpg
+
+# Durchgang 4.5 (Gruppen). Historisch: Waffenruhe im Gazastreifen ab 10. Oktober 2025 (vermittelt von den USA, Ägypten, Katar und
+# der Türkei); am 13. Oktober 2025 kamen die 20 letzten lebenden israelischen Geiseln frei, Israel entließ rund 2.000
+# palästinensische Häftlinge. Die Gesundheitsbehörde in Gaza meldete bis dahin über 67.000 Tote. Frankreich, Großbritannien,
+# Kanada, Australien und Portugal erkannten im September 2025 einen palästinensischen Staat an, Deutschland nicht.
+
+= Waffenruhe in Gaza
+
+Am 10. Oktober tritt im Gazastreifen eine Waffenruhe in Kraft, vermittelt von den USA, Ägypten, Katar und der Türkei. Drei Tage später kommen die letzten zwanzig lebenden israelischen Geiseln frei, Israel entlässt rund 2.000 palästinensische Häftlinge. Nach Angaben der Gesundheitsbehörde in Gaza sind seit Oktober 2023 mehr als 67.000 Menschen getötet worden, weite Teile des Gebiets liegen in Trümmern.
+
+Die Waffenruhe ist brüchig, aber die wöchentlichen Demonstrationen in deutschen Städten werden kleiner. Im September haben Frankreich, Großbritannien und Kanada einen palästinensischen Staat anerkannt. Soll Deutschland folgen?
+
+- @wiederaufbau: Humanitäre Hilfe und deutsches Geld für den Wiederaufbau fordern.
+- @anerkennung: Die Anerkennung Palästinas fordern, wie Frankreich und Großbritannien.
+- @abwarten: Die Waffenruhe begrüßen und zu unseren Themen zurückkehren: Mieten, Löhne, Renten.
+
+@wiederaufbau
+subtitle: Ausgleich
+on-arrival: gr_palaestina += 4; gr_israel += 1; center_dissent -= 2; pro_republic += 1
+
+Wir fordern einen internationalen Wiederaufbaufonds mit deutscher Beteiligung und sichere Wege für humanitäre Hilfe. Kaum jemand widerspricht, und die Debatte in der Partei kühlt ab.
+
+@anerkennung
+subtitle: Palästina-Bewegung +, jüdische Gemeinden −
+on-arrival: gr_palaestina += 10; gr_israel -= 6; left_dissent -= 3; reformist_dissent += 3; union_relation -= 2
+
+Wir verlangen, dass Deutschland einen palästinensischen Staat anerkennt. Die Bewegung begrüßt das, die Bundesregierung verweist auf die Staatsräson, und jüdische Verbände warnen vor einer Belohnung der Hamas.
+
+@abwarten
+subtitle: Palästina-Bewegung −, Parteilinke leicht verärgert
+on-arrival: gr_palaestina -= 5; left_dissent += 2; left_dissent += 2 if player = "linke"; palestine_debate -= 0.5 if palestine_debate >= 0.5; workers_spd += 0.3
+
+Wir begrüßen die Waffenruhe und konzentrieren uns wieder auf die Themen, die die meisten Menschen im Alltag beschäftigen. Ein Teil der Aktivist\*innen ist enttäuscht, der Streit in der Partei verliert an Schärfe.

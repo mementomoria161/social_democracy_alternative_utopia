@@ -1,0 +1,40 @@
+title: Proteste gegen den Gaza-Krieg
+subtitle: Streit über Demonstrationsverbote, Parolen und Antisemitismus an Hochschulen.
+new-page: true
+tags: event
+view-if: year = 2025 and month >= 4 and month <= 9 and ga_palaestina = 1 and g_palaestina >= 40
+max-visits: 1
+on-arrival: palaestina_proteste_seen = 1; palestine_debate += 0.5
+face-image: img/palaestina_demo.jpg
+
+# Durchgang 4.5 (Gruppen). Historisch: Nach dem Ende der Waffenruhe am 18. März 2025 nahm Israel die Angriffe im Gazastreifen
+# wieder auf, im Frühjahr 2025 blockierte es zudem humanitäre Lieferungen. In Berlin und anderen Städten wuchsen die Proteste;
+# um Auflagen, Verbote einzelner Parolen, Polizeieinsätze und Hörsaalbesetzungen wurde heftig gestritten.
+
+= Proteste gegen den Gaza-Krieg
+
+Seit Israel Mitte März die Angriffe auf den Gazastreifen wieder aufgenommen und humanitäre Lieferungen gestoppt hat, gehen in Berlin, Hamburg, Köln und Leipzig jede Woche Tausende auf die Straße. Studierende besetzen Hörsäle, die Polizei räumt. Manche Versammlungen werden mit strengen Auflagen belegt oder verboten, einzelne Parolen sind untersagt. Jüdische Studierende berichten, dass sie sich auf dem Campus nicht mehr sicher fühlen.
+
+Die Frage spaltet auch [+ pp_full +]: [? if player = "spd" : Die Jusos wollen sich klar gegen die Kriegsführung stellen, die Parteimitte fürchtet den Vorwurf der Einseitigkeit. ?][? if player = "linke" : Viele Neumitglieder sind über die Gaza-Proteste zur Partei gekommen, die Reformer\*innen warnen vor Antisemitismus in den eigenen Reihen. ?]
+
+- @versammlung: Die Versammlungsfreiheit verteidigen und zugleich jede antisemitische Parole klar verurteilen.
+- @verbote: Harte Auflagen und Verbote unterstützen, wo Terror verherrlicht wird.
+- @solidaritaet: Selbst auf die Straße gehen: gegen den Krieg und gegen Waffenlieferungen.
+
+@versammlung
+subtitle: Ausgleich
+on-arrival: gr_palaestina += 5; gr_israel -= 1; center_dissent -= 2; left_dissent -= 1; pro_republic += 1
+
+Wir sagen beides: Wer friedlich gegen den Krieg demonstriert, darf das. Wer Terror feiert oder Jüdinnen und Juden bedroht, hat auf keiner Demonstration etwas verloren. Die Aufregung legt sich nicht, aber unsere Linie ist klar.
+
+@verbote
+subtitle: Jüdische Gemeinden +, Palästina-Bewegung −, Parteilinke verärgert
+on-arrival: gr_israel += 10; gr_palaestina -= 15; gm_palaestina -= 1; left_dissent += 6; left_dissent += 3 if player = "linke"; reformist_dissent -= 3; new_middle_spd -= 0.5
+
+Wir stellen uns hinter die Polizei und die Innenbehörden. Jüdische Verbände danken für die Rückendeckung. [? if player = "spd" : Die Jusos werfen der Parteiführung vor, Grundrechte zu opfern. ?][? if player = "linke" : In der Linksjugend ist von Verrat die Rede, mehrere Kreisverbände protestieren. ?]
+
+@solidaritaet
+subtitle: Palästina-Bewegung +, jüdische Gemeinden −, Streit in der Partei
+on-arrival: gr_palaestina += 15; gm_palaestina += 2; gr_israel -= 12; left_dissent -= 5; left_strength += 2; center_dissent += 5 if player = "spd"; reformist_dissent += 6; union_relation -= 3; gruene_relation -= 2; palestine_debate += 1; new_middle_spd += 0.5*(1-dissent)
+
+Unsere Abgeordneten laufen bei der großen Demonstration in Berlin mit. Viele junge Menschen, oft mit migrantischer Familiengeschichte, sehen uns zum ersten Mal als ihre Partei. Union und Grüne werfen uns Einseitigkeit vor, und in der eigenen Partei hagelt es Kritik.

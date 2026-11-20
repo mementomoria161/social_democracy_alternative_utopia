@@ -1,0 +1,221 @@
+title: Bündnisarbeit
+subtitle: Gewerkschaften, Verbände und Bewegungen gewinnen oder auf Abstand halten.
+new-page: true
+is-card: true
+tags: party_affairs
+view-if: buendnis_timer <= 0
+on-arrival: month_actions += 1; buendnis_timer = 6
+card-image: img/kundgebung.jpg
+
+# Durchgang 4.5: Arbeit mit Interessengruppen und Bewegungen (beide Parteien). Logik und Wirkungen: groups_data (GRP.act),
+# Stärke und Verhältnis im Reiter „Gruppen“. Rechte Mobilisierung ist kein Bündnispartner und fehlt hier.
+
+= Bündnisarbeit
+
+Politik wird nicht nur im Bundestag gemacht. Gewerkschaften, Verbände und Bewegungen mobilisieren ihre Mitglieder, prägen Debatten und üben Druck auf [+ pp_full +] aus, bis hinein in unsere Strömungen. Wer uns nahesteht, macht Vorhaben leichter, wer uns misstraut, macht sie schwerer. Und wer sich mit den einen verbündet, verärgert oft die anderen.
+
+Stärke, Konjunktur und Verhältnis aller Gruppen zeigt der Reiter „Gruppen“. Mit wem wollen wir arbeiten?
+
+- @w_dgb
+- @w_verdi
+- @w_vdk
+- @w_mieter
+- @w_sozialprotest
+- @w_bda
+- @w_mittelstand
+- @w_autolobby
+- @w_umwelt
+- @w_klima
+- @w_demo
+- @w_frieden
+- @w_palaestina
+- @w_kirchen
+- @w_israel
+- @w_bauern
+- @easy_discard
+
+@menu
+
+Mit wem stattdessen?
+
+- @w_dgb
+- @w_verdi
+- @w_vdk
+- @w_mieter
+- @w_sozialprotest
+- @w_bda
+- @w_mittelstand
+- @w_autolobby
+- @w_umwelt
+- @w_klima
+- @w_demo
+- @w_frieden
+- @w_palaestina
+- @w_kirchen
+- @w_israel
+- @w_bauern
+
+@aktion
+on-arrival: {!
+if (!this.game.GRP) this._runActions(this.game.scenes.groups_data.onArrival);
+var GRP = this.game.GRP, g = GRP.byId(Q.grp_target), id = g.id;
+var s = Q['g_' + id] || 0, m = Q['gm_' + id] || 0, r = Q['gr_' + id] || 0;
+var word = function(x) { return x >= 75 ? 'eng' : x >= 55 ? 'gut' : x >= 40 ? 'neutral' : x >= 20 ? 'distanziert' : 'feindselig'; };
+var trend = m > 0.4 ? 'wachsend' : m < -0.4 ? 'schwindend' : 'stabil';
+var name = function(o) { return GRP.byId(o).short; };
+var opp = GRP.opposed(id).filter(function(o) { return o != 'rechts'; }), ally = GRP.allied(id).filter(function(o) { return o != 'rechts'; });
+Q.grp_name = g.name;
+Q.grp_info = 'Stärke ' + Math.round(s) + ' von 100 (' + trend + '), Verhältnis zur ' + (Q.pp_dat || 'der SPD').replace(/^der /, '') + ': ' + Math.round(r) + ' (' + word(r) + '). ' +
+    'Sie fordern ' + g.demand(Q) + '.' + (ally.length ? ' Verbündet mit: ' + ally.map(name).join(', ') + '.' : '') +
+    (opp.length ? ' Gegenspieler: ' + opp.map(name).join(', ') + '.' : '');
+!}
+
+= [+ grp_name +]
+
+[+ grp_info +]
+
+- @gespraech: Gespräche führen und Gemeinsamkeiten ausloten.
+- @schulterschluss: Uns öffentlich an ihre Seite stellen.
+- @distanz: Öffentlich auf Distanz gehen.
+- @menu: Doch lieber eine andere Gruppe.
+
+@gespraech
+subtitle: Verbessert das Verhältnis etwas; ihre Gegenspieler sehen es nicht gern.
+view-if: grp_rel_now < 90
+on-arrival: {! Q.grp_msg = this.game.GRP.act(Q, Q.grp_target, 1); !}
+
+Wir laden Vertreter\*innen von „[+ grp_name +]“ ins [+ pp_hq +] ein. Man ist sich nicht in allem einig, aber man verabredet, im Gespräch zu bleiben und bei einigen Themen gemeinsam aufzutreten.
+
+[+ grp_msg +]
+
+@schulterschluss
+subtitle: −1 Ressource. Deutlich besseres Verhältnis, stärkt die Gruppe und die Strömungen, die ihr nahestehen; ihre Gegenspieler werden zu Gegnern.
+view-if: grp_rel_now < 95
+choose-if: resources >= 1
+unavailable-subtitle: Dafür fehlen uns die Mittel (1 Ressource).
+on-arrival: {! Q.resources -= 1; Q.grp_msg = this.game.GRP.act(Q, Q.grp_target, 2); !}
+
+Wir rufen gemeinsam zu Aktionen auf, unsere Abgeordneten sprechen auf ihren Kundgebungen, und [+ pp_youth +] mobilisiert. „[+ grp_name +]“ gewinnt an Zulauf und weiß, auf wen sie sich verlassen kann. Nicht alle in der Partei sind glücklich darüber.
+
+[+ grp_msg +]
+
+@distanz
+subtitle: Verschlechtert das Verhältnis deutlich; ihre Gegenspieler und Teile der Partei begrüßen es.
+view-if: grp_rel_now > 10
+on-arrival: {! Q.grp_msg = this.game.GRP.act(Q, Q.grp_target, 3); !}
+
+In einem Interview gehen wir klar auf Abstand zu „[+ grp_name +]“: Ihre Forderungen seien nicht unsere. Die Reaktion fällt entsprechend aus.
+
+[+ grp_msg +]
+
+@w_dgb
+title: DGB und IG Metall
+subtitle: Gewerkschaften
+view-if: ga_dgb = 1
+on-arrival: grp_target = "dgb"; grp_rel_now = gr_dgb
+go-to: aktion
+
+@w_verdi
+title: ver.di und Dienstleistungsgewerkschaften
+subtitle: Gewerkschaften
+view-if: ga_verdi = 1
+on-arrival: grp_target = "verdi"; grp_rel_now = gr_verdi
+go-to: aktion
+
+@w_vdk
+title: Sozialverbände (VdK, SoVD, Paritätischer)
+subtitle: Sozialverbände
+view-if: ga_vdk = 1
+on-arrival: grp_target = "vdk"; grp_rel_now = gr_vdk
+go-to: aktion
+
+@w_mieter
+title: Mieterbund und Mieterbewegung
+subtitle: Sozialverbände und Mieter\*innen
+view-if: ga_mieter = 1
+on-arrival: grp_target = "mieter"; grp_rel_now = gr_mieter
+go-to: aktion
+
+@w_sozialprotest
+title: Bündnisse gegen Sozialabbau
+subtitle: Protest gegen Kürzungen
+view-if: ga_sozialprotest = 1
+on-arrival: grp_target = "sozialprotest"; grp_rel_now = gr_sozialprotest
+go-to: aktion
+
+@w_bda
+title: Arbeitgeberverbände (BDA, BDI)
+subtitle: Arbeitgeber und Wirtschaft
+view-if: ga_bda = 1
+on-arrival: grp_target = "bda"; grp_rel_now = gr_bda
+go-to: aktion
+
+@w_mittelstand
+title: Familienunternehmer und Handwerk
+subtitle: Arbeitgeber und Wirtschaft
+view-if: ga_mittelstand = 1
+on-arrival: grp_target = "mittelstand"; grp_rel_now = gr_mittelstand
+go-to: aktion
+
+@w_autolobby
+title: Auto- und Energiewirtschaft (VDA, BDEW)
+subtitle: Arbeitgeber und Wirtschaft
+view-if: ga_autolobby = 1
+on-arrival: grp_target = "autolobby"; grp_rel_now = gr_autolobby
+go-to: aktion
+
+@w_umwelt
+title: Umweltverbände (BUND, NABU, Greenpeace)
+subtitle: Umwelt und Klima
+view-if: ga_umwelt = 1
+on-arrival: grp_target = "umwelt"; grp_rel_now = gr_umwelt
+go-to: aktion
+
+@w_klima
+title: Klimabewegung
+subtitle: Umwelt und Klima
+view-if: ga_klima = 1
+on-arrival: grp_target = "klima"; grp_rel_now = gr_klima
+go-to: aktion
+
+@w_demo
+title: Demokratiebewegung
+subtitle: Bewegungen
+view-if: ga_demo = 1
+on-arrival: grp_target = "demo"; grp_rel_now = gr_demo
+go-to: aktion
+
+@w_frieden
+title: Friedensbewegung
+subtitle: Bewegungen
+view-if: ga_frieden = 1
+on-arrival: grp_target = "frieden"; grp_rel_now = gr_frieden
+go-to: aktion
+
+@w_palaestina
+title: Palästina-Solidaritätsbewegung
+subtitle: Bewegungen
+view-if: ga_palaestina = 1
+on-arrival: grp_target = "palaestina"; grp_rel_now = gr_palaestina
+go-to: aktion
+
+@w_kirchen
+title: Kirchen, Diakonie und Caritas
+subtitle: Religionsgemeinschaften
+view-if: ga_kirchen = 1
+on-arrival: grp_target = "kirchen"; grp_rel_now = gr_kirchen
+go-to: aktion
+
+@w_israel
+title: Jüdische Gemeinden und Israel-solidarische Gruppen
+subtitle: Religionsgemeinschaften
+view-if: ga_israel = 1
+on-arrival: grp_target = "israel"; grp_rel_now = gr_israel
+go-to: aktion
+
+@w_bauern
+title: Bauern- und Mittelstandsproteste
+subtitle: Protestbewegung
+view-if: ga_bauern = 1
+on-arrival: grp_target = "bauern"; grp_rel_now = gr_bauern
+go-to: aktion

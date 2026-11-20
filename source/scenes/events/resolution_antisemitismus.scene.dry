@@ -1,0 +1,60 @@
+title: „Nie wieder ist jetzt“
+subtitle: Der Bundestag stimmt über eine Resolution zum Schutz jüdischen Lebens ab.
+new-page: true
+tags: event
+view-if: year = 2024 and month = 11
+max-visits: 1
+on-arrival: resolution_antisemitismus_seen = 1
+face-image: img/synagoge.jpg
+
+# Durchgang 4.5 (Gruppen). Historisch: Antrag „Nie wieder ist jetzt: Jüdisches Leben in Deutschland schützen, bewahren und
+# stärken“ der Fraktionen SPD, CDU/CSU, Grüne und FDP, vom Bundestag am 7. November 2024 angenommen (Drucksache 20/13627).
+# Stützt sich auf die Arbeitsdefinition der IHRA; Kritik u. a. aus Wissenschaft, Kultur und Rechtswissenschaft.
+
+= „Nie wieder ist jetzt“
+
+# party-ok: SPD (reale Antragsteller der Resolution vom 7. November 2024)
+Einen Tag nach dem Bruch der Ampel stimmt der Bundestag über eine Resolution ab, die SPD, Union, Grüne und FDP nach monatelangen Verhandlungen gemeinsam eingebracht haben: „Nie wieder ist jetzt: Jüdisches Leben in Deutschland schützen, bewahren und stärken“. Sie stützt sich auf die Antisemitismus-Definition der Internationalen Allianz für Holocaust-Gedenken (IHRA) und will verhindern, dass öffentliches Geld an Projekte geht, die Antisemitismus verbreiten oder das Existenzrecht Israels in Frage stellen.
+
+Jüdische Gemeinden begrüßen die Resolution nach einem Jahr mit so vielen antisemitischen Vorfällen wie nie zuvor. Wissenschaftler\*innen, Künstler\*innen und Jurist\*innen warnen dagegen vor Eingriffen in die Kunst- und Wissenschaftsfreiheit, die Palästina-Bewegung spricht von einem Maulkorb. [? if player = "linke" : Die Linke ist nicht beteiligt worden. In der Gruppe im Bundestag gehen die Meinungen weit auseinander. ?][? if player = "spd" : Die SPD-Fraktion hat die Resolution mitverhandelt, doch in der SPD-Linken und bei den Jusos gibt es Unbehagen. ?]
+
+- @spd_ja: Geschlossen zustimmen: Der Schutz jüdischen Lebens hat Vorrang.
+- @spd_kritik: Zustimmen und zugleich zusichern, dass Kunst- und Wissenschaftsfreiheit unangetastet bleiben.
+- @lk_ja: Zustimmen: Wir stehen an der Seite der jüdischen Gemeinden.
+- @lk_enthaltung: Uns enthalten und eine eigene Erklärung gegen jeden Antisemitismus abgeben.
+- @lk_nein: Ablehnen: Die Resolution schränkt die Meinungsfreiheit ein.
+
+@spd_ja
+view-if: player = "spd"
+subtitle: Jüdische Gemeinden +, Palästina-Bewegung −
+on-arrival: gr_israel += 10; gr_palaestina -= 10; left_dissent += 3; center_dissent -= 2; reformist_dissent -= 2
+
+Die SPD-Fraktion stimmt geschlossen zu. Jüdische Verbände begrüßen das klare Signal. Einige Jusos-Gruppen veröffentlichen eine kritische Erklärung, die aber kaum Beachtung findet.
+
+@spd_kritik
+view-if: player = "spd"
+subtitle: Ausgleich
+on-arrival: gr_israel += 5; gr_palaestina -= 3; left_dissent += 1; center_dissent -= 2
+
+Wir stimmen zu und betonen in einer Erklärung zur Abstimmung, dass die Resolution kein Instrument gegen Kritik an der israelischen Regierung sein darf. Beide Seiten sind nicht ganz zufrieden, aber die Fraktion bleibt beisammen.
+
+@lk_ja
+view-if: player = "linke"
+subtitle: Jüdische Gemeinden +, Palästina-Bewegung −, Reformer\*innen zufrieden
+on-arrival: gr_israel += 15; gr_palaestina -= 15; reformist_dissent -= 5; left_dissent += 8; palestine_debate += 0.5
+
+Wir stimmen zu. Die Reformer\*innen sind erleichtert, Teile der Partei empört. In Berlin und Leipzig kündigen junge Mitglieder öffentlich ihren Austritt an.
+
+@lk_enthaltung
+view-if: player = "linke"
+subtitle: Ausgleich
+on-arrival: gr_israel -= 3; gr_palaestina += 3; center_dissent -= 3; left_dissent -= 1; reformist_dissent += 2
+
+Wir enthalten uns und legen eine eigene Erklärung vor: gegen jeden Antisemitismus, für Kunst- und Meinungsfreiheit. Kaum jemand liest sie, aber der Streit in der Partei bleibt begrenzt.
+
+@lk_nein
+view-if: player = "linke"
+subtitle: Palästina-Bewegung +, jüdische Gemeinden −, Reformer\*innen verärgert
+on-arrival: gr_palaestina += 15; gr_israel -= 15; reformist_dissent += 8; left_dissent -= 5; palestine_debate += 1; gruene_relation -= 2
+
+Wir stimmen dagegen. Die Palästina-Bewegung feiert uns, jüdische Verbände sind entsetzt, und aus den ostdeutschen Landesverbänden kommt scharfe Kritik.

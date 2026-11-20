@@ -29,7 +29,7 @@ Mit dem Arbeitsministerium setzen wir die Standards für die Arbeitswelt. Unsere
 
 @working_hours
 view-if: working_hours < 2
-on-arrival: working_hours += 1; labor_dissent -= 8; left_dissent -= 5; labor_strength += 5; workers_spd += 7*(1-dissent); fdp_relation -= 4; coalition_dissent += 1; capital_strike_progress += 1 if fdp_relation <= 30; labor_goal_completed = 1; inflation += 0.1; economic_growth -= 0.1
+on-arrival: working_hours += 1; gr_dgb += 5; gr_bda -= 5; capital_strike_progress += 1 if g_bda >= 70; labor_dissent -= 8; left_dissent -= 5; labor_strength += 5; workers_spd += 7*(1-dissent); fdp_relation -= 4; coalition_dissent += 1; capital_strike_progress += 1 if fdp_relation <= 30; labor_goal_completed = 1; inflation += 0.1; economic_growth -= 0.1
 
 Der Achtstundentag wurde in der Novemberrevolution 1918 erkämpft. Heute wollen Union und Arbeitgeber die tägliche Höchstarbeitszeit durch eine wöchentliche ersetzen, und Millionen unbezahlte Überstunden sind Alltag, weil vielerorts niemand die Arbeitszeit erfasst.
 
@@ -38,7 +38,7 @@ Wir schreiben die elektronische Arbeitszeiterfassung verbindlich vor, wie es das
 @shorten_hours
 view-if: working_hours >= 2 and black_thursday_seen = 1
 subtitle: Könnten kürzere Arbeitszeiten Entlassungen verhindern und Arbeit gerechter verteilen?
-on-arrival: working_hours += 1; labor_dissent -= 8; left_dissent -= 5; labor_strength += 5; workers_spd += 7*(1-dissent); fdp_relation -= 4; coalition_dissent += 1; capital_strike_progress += 1; labor_goal_completed = 1; unemployed -= 0.15; economic_growth -= 0.2;
+on-arrival: working_hours += 1; gr_dgb += 5; gr_bda -= 5; capital_strike_progress += 1 if g_bda >= 70; labor_dissent -= 8; left_dissent -= 5; labor_strength += 5; workers_spd += 7*(1-dissent); fdp_relation -= 4; coalition_dissent += 1; capital_strike_progress += 1; labor_goal_completed = 1; unemployed -= 0.15; economic_growth -= 0.2;
 
 Die IG Metall argumentiert, eine Vier-Tage-Woche mit teilweisem Lohnausgleich könne in der Industriekrise Entlassungen verhindern, so wie die Kurzarbeit in der Finanzkrise 2009. Gleichzeitig würden Beschäftigte gesünder und produktiver. Wir fördern Betriebe, die die Arbeitszeit verkürzen statt Personal abzubauen. Die Arbeitgeber halten dagegen, angesichts des Fachkräftemangels müsse mehr gearbeitet werden, nicht weniger.
 

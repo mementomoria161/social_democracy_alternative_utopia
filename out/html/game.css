@@ -930,3 +930,121 @@ body.dark-mode {
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
+
+/* Gruppen-Reiter (Durchgang 4.5): Lagerfarben aus der Kategorienpalette des Wirtschafts-Reiters, rechts braun */
+body { --grp-c4: #8b6a3e; }
+body.dark-mode { --grp-c4: #b08d5c; }
+.grp_c1 { fill: var(--econ-s2); background: var(--econ-s2); }
+.grp_c2 { fill: var(--econ-s4); background: var(--econ-s4); }
+.grp_c3 { fill: var(--econ-s1); background: var(--econ-s1); }
+.grp_c4 { fill: var(--grp-c4); background: var(--grp-c4); }
+.grp_c5 { fill: var(--econ-s7); background: var(--econ-s7); }
+.grp_c6 { fill: var(--econ-s5); background: var(--econ-s5); }
+.grp_c7 { fill: var(--econ-s6); background: var(--econ-s6); }
+.grp_views {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em;
+  margin: 0.3em 0 0.4em 0;
+}
+.grp_view_btn {
+  font-family: inherit;
+  font-size: 0.8em;
+  padding: 0.2em 0.6em;
+  border: 1px solid var(--unavailable-bg-color);
+  border-radius: 1em;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.grp_view_btn.active {
+  background: var(--text-color);
+  color: var(--content-bg-color);
+  border-color: var(--text-color);
+}
+#grp_graph {
+  display: block;
+  overflow: visible;
+  font-size: 10px;
+  max-width: 100%;
+}
+.grp_ring { fill: none; stroke: currentColor; stroke-opacity: 0.12; stroke-dasharray: 2 4; }
+.grp_edge { fill: none; stroke-linecap: round; transition: stroke-opacity 0.15s; }
+.grp_edge.pos { stroke: var(--econ-pos); }
+.grp_edge.neg { stroke: var(--econ-neg); stroke-dasharray: 4 3; }
+.grp_edge.neu { stroke: currentColor; stroke-opacity: 0.3; }
+.grp_edge.dim { stroke-opacity: 0.06 !important; }
+.grp_edge.hi { stroke-opacity: 0.95 !important; }
+.grp_node { cursor: pointer; outline: none; transition: opacity 0.15s; }
+.grp_node.dim { opacity: 0.3; }
+.grp_node.inactive .grp_dot { fill-opacity: 0.25; stroke: currentColor; stroke-dasharray: 2 2; }
+.grp_node.inactive .grp_label { opacity: 0.55; }
+.grp_dot { stroke: var(--content-bg-color); stroke-width: 1.5; }
+.grp_node.sel .grp_dot, .grp_node.sel .grp_fac, .grp_node.sel .grp_party, .grp_node:focus .grp_dot { stroke: currentColor; stroke-width: 2.5; }
+.grp_label, .grp_fac_label, .grp_party_label { fill: currentColor; }
+.grp_label { font-size: 10px; }
+.grp_arrow.up { fill: var(--econ-good); }
+.grp_arrow.down { fill: var(--econ-bad); }
+.grp_fac { fill-opacity: 0.55; stroke: var(--content-bg-color); stroke-width: 1; }
+.grp_fac_label { font-size: 9px; font-style: italic; opacity: 0.85; }
+.grp_party { stroke: var(--content-bg-color); stroke-width: 1; }
+body.dark-mode .grp_party.union { fill: #888; }
+.grp_party_label { font-size: 9px; opacity: 0.85; }
+.grp_player { stroke: var(--content-bg-color); stroke-width: 2; }
+.grp_player_label { fill: #fff; font-size: 10px; font-weight: bold; text-anchor: middle; }
+.grp_legend { margin-top: 0.2em; }
+.grp_line {
+  display: inline-block;
+  width: 1.4em;
+  height: 0;
+  border-top: 2px solid var(--econ-pos);
+  vertical-align: middle;
+  margin-right: 0.3em;
+}
+.grp_line.neg { border-top: 2px dashed var(--econ-neg); }
+.grp_line.neu { border-top: 2px solid currentColor; opacity: 0.4; }
+.grp_card {
+  border: 1px solid var(--unavailable-bg-color);
+  border-radius: 6px;
+  padding: 0.5em 0.6em;
+  margin: 0.5em 0;
+  font-size: 0.9em;
+  min-height: 3em;
+}
+.grp_card > div { margin: 0.2em 0; }
+.grp_card_head { display: flex; align-items: center; gap: 0.4em; }
+.grp_card_stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em 1.2em;
+  align-items: flex-end;
+}
+.grp_card_stats .econ_value small { font-size: 0.55em; opacity: 0.7; }
+.econ_trend.up, .grp_rel.good { color: var(--econ-good); opacity: 1; }
+.econ_trend.down, .grp_rel.bad { color: var(--econ-bad); opacity: 1; }
+.grp_spark polyline { fill: none; stroke: currentColor; stroke-width: 1.5; opacity: 0.8; }
+.grp_camp_head {
+  font-size: 0.85em;
+  font-weight: bold;
+  margin: 0.6em 0 0.1em 0;
+  display: flex;
+  align-items: center;
+}
+.grp_row {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.1em 0.2em;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+.grp_row:hover, .grp_row.sel { background: var(--econ-band); }
+.grp_row.inactive { opacity: 0.55; }
+.grp_rname { width: 8.5em; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.grp_bar { flex-grow: 1; height: 0.7em; background: var(--econ-band); border-radius: 3px; overflow: hidden; }
+.grp_bar span { display: block; height: 100%; border-radius: 3px; }
+.grp_trend { width: 1em; text-align: center; font-size: 0.8em; }
+.grp_trend.up { color: var(--econ-good); }
+.grp_trend.down { color: var(--econ-bad); }
+.grp_rel { width: 1.8em; text-align: right; font-variant-numeric: tabular-nums; }

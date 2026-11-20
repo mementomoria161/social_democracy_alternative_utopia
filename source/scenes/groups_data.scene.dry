@@ -1,0 +1,347 @@
+title: Gruppen (Daten)
+is-special: true
+on-arrival: {!
+// Interessengruppen und Bewegungen (Durchgang 4.5): einzige Quelle für Modell (post_event), Startwerte (root.start,
+// root.choose_linke), Bündnisarbeit (party_affairs/buendnisarbeit) und den Reiter „Gruppen“ (out/html/game.js, drawGroups).
+// Geladen mit: if (!this.game.GRP) this._runActions(this.game.scenes.groups_data.onArrival);  (legt this.game.GRP an)
+//
+// Qualities je Gruppe <id> (flach, damit Szenen einfach g_verdi += 5 schreiben können):
+//   g_<id>   Stärke 0-100. Bei den vier alten Protestbewegungen (link) aus <link>_strength (Tsd. Menschen) abgeleitet:
+//            nur lesen, Änderungen weiter über demo_strength usw.
+//   gm_<id>  Konjunktur/Momentum (Veränderung pro Monat, -5 bis +5). Ereignisse: gm_<id> += 3 gibt einen Schub, der abklingt.
+//   gr_<id>  Verhältnis zur Spielerpartei 0-100 (kehrt langsam zum Grundwert rel[partei] zurück).
+//   ga_<id>  1 = aktiv (entsteht ab Stärke 12, vergeht unter 8).
+// Dazu grp_hist (je Gruppe die letzten 36 Monatswerte, ganzzahlig), grp_why (Treiber als Text), grp_news (für events/gruppen_wandel),
+// grp_party (für welche Spielerpartei die Verhältnisse angelegt sind).
+// Neue Gruppen (z. B. Klima 4.6): Eintrag in groups anhängen (Felder wie unten), ggf. links ergänzen; alles andere passiert automatisch.
+//   camp: Lager (CAMPS), base: normale Stärke (Ziel ohne Treiber), start/startM: Startwert und -momentum (Nov. 2024),
+//   rel: Grundverhältnis je Spielerpartei, infl: Wirkung auf die Strömungs-Slots der Spielerpartei (+ stärkt, - schwächt),
+//   parties: nahestehende Parteien (echte Namen: SPD, Linke, Union, Grüne, FDP, BSW, AfD), voters: Wählergruppen,
+//   drive(Q, why): Abweichung des Ziels von base (why.push(Text) für die Infokarte), demand(Q): aktuelle Forderung.
+var clamp = function(x, a, b) { return Math.max(a, Math.min(b, x)); };
+var r1 = function(x) { return Math.round(x * 10) / 10; };
+var sg = function(Q, i) { return (Q.sector_growth && Q.sector_growth.length > i) ? Q.sector_growth[i] : 0; };
+var ym = function(Q) { return Q.year * 12 + Q.month; };
+var GRP = {
+    CAMPS: [
+        {id: 'gew', name: 'Gewerkschaften'},
+        {id: 'sozial', name: 'Sozialverbände und Mieter*innen'},
+        {id: 'wirt', name: 'Arbeitgeber und Wirtschaft'},
+        {id: 'rechts', name: 'Rechte Mobilisierung und Bauernproteste'},
+        {id: 'ges', name: 'Kirchen und Religionsgemeinschaften'},
+        {id: 'zivil', name: 'Demokratie-, Friedens- und Solidaritätsbewegungen'},
+        {id: 'umwelt', name: 'Umwelt und Klima'}
+    ],
+    // Reihenfolge = Reihenfolge im Kreis der Netzwerkgrafik (im Uhrzeigersinn ab 12 Uhr)
+    groups: [
+        {id: 'dgb', name: 'DGB und IG Metall', short: 'DGB/IG Metall', camp: 'gew', base: 55, start: 58,
+         rel: {spd: 70, linke: 45}, parties: ['SPD', 'Linke'], voters: ['workers'],
+         infl: {spd: {labor: 1}, linke: {labor: 1}},
+         desc: 'Der Deutsche Gewerkschaftsbund mit knapp 5,6 Millionen Mitgliedern, allen voran die IG Metall in Auto-, Metall- und Elektroindustrie.',
+         drive: function(Q, why) {
+             var d = 0, ind = sg(Q, 0), u = Q.unemployed || 0;
+             if (ind < -1) { d += Math.min(15, -3 * ind); why.push('Stellenabbau in der Industrie'); }
+             if (u > 7) { d += Math.min(12, 3 * (u - 7)); why.push('steigende Arbeitslosigkeit'); }
+             if (Q.tariffs > 0) { d += 3; why.push('Zölle bedrohen Industriearbeitsplätze'); }
+             return d;
+         },
+         demand: function(Q) { return sg(Q, 0) < -1 ? 'Standortgarantien, einen Industriestrompreis und Kurzarbeit statt Entlassungen' : 'ein Bundestariftreuegesetz und mehr Tarifbindung'; }},
+        {id: 'autolobby', name: 'Auto- und Energiewirtschaft (VDA, BDEW)', short: 'VDA/BDEW', camp: 'wirt', base: 55, start: 55,
+         rel: {spd: 40, linke: 5}, parties: ['Union', 'FDP'], voters: [],
+         infl: {spd: {reformist: 0.5, labor: 0.3}, linke: {labor: 0.2}},
+         desc: 'Verband der Automobilindustrie und Bundesverband der Energie- und Wasserwirtschaft: Lobby der großen Industrie- und Energiekonzerne.',
+         drive: function(Q, why) {
+             var d = 0;
+             if (Q.industriekrise_seen || sg(Q, 0) < -2) { d += 8; why.push('Krise der Autoindustrie'); }
+             if (Q.tariffs > 0) { d += 4; why.push('US-Zölle auf Autos'); }
+             if ((Q.energy_price || 100) > 110) { d += 5; why.push('hohe Energiepreise'); }
+             return d;
+         },
+         demand: function(Q) { return 'eine Lockerung des Verbrenner-Aus, günstigen Industriestrom und schnellere Genehmigungen'; }},
+        {id: 'bda', name: 'Arbeitgeberverbände (BDA, BDI)', short: 'BDA/BDI', camp: 'wirt', base: 60, start: 62,
+         rel: {spd: 35, linke: 5}, parties: ['Union', 'FDP'], voters: ['old_middle'],
+         infl: {spd: {reformist: 0.8, left: -0.3}, linke: {left: 0.3}},
+         desc: 'Bundesvereinigung der Deutschen Arbeitgeberverbände und Bundesverband der Deutschen Industrie: Tarifgegner der Gewerkschaften und einflussreichste Wirtschaftslobby.',
+         drive: function(Q, why) {
+             var d = 0, g = Q.economic_growth || 0;
+             if (g < 0) { d += Math.min(12, -4 * g); why.push('Rezession: Ruf nach Entlastung der Unternehmen'); }
+             if (Q.welfare > 1) { d += 4; why.push('steigende Sozialausgaben'); }
+             if (Q.working_hours >= 1) { d += 4; why.push('neue Arbeitszeitregeln'); }
+             if (Q.in_popular_front && Q.spd_in_government) { d += 8; why.push('Rot-Grün-Rot regiert'); }
+             return d;
+         },
+         demand: function(Q) { return (Q.economic_growth || 0) < 0.5 ? 'niedrigere Unternehmenssteuern, ein Moratorium für Sozialabgaben und flexiblere Arbeitszeiten' : 'stabile Sozialabgaben unter 40 Prozent und weniger Bürokratie'; }},
+        {id: 'mittelstand', name: 'Familienunternehmer und Handwerk', short: 'Mittelstand', camp: 'wirt', base: 45, start: 45,
+         rel: {spd: 25, linke: 5}, parties: ['Union', 'FDP'], voters: ['old_middle'],
+         infl: {spd: {reformist: 0.5}, linke: {reformist: 0.2}},
+         desc: 'Verbände der Familienunternehmen und des Handwerks (u. a. Die Familienunternehmer, ZDH): gegen Erbschaft- und Vermögensteuer, für Bürokratieabbau.',
+         drive: function(Q, why) {
+             var d = 0, g = Q.economic_growth || 0;
+             if (g < 0) { d += Math.min(10, -3 * g); why.push('schwache Konjunktur'); }
+             if ((Q.energy_price || 100) > 105) { d += Math.min(10, ((Q.energy_price || 100) - 100) / 2); why.push('Energiekosten'); }
+             return d;
+         },
+         demand: function(Q) { return 'keine Vermögensteuer, Bürokratieabbau und Hilfe gegen den Fachkräftemangel'; }},
+        {id: 'bauern', link: 'bauern', name: 'Bauern- und Mittelstandsproteste', short: 'Bauernproteste', camp: 'rechts', base: 40,
+         rel: {spd: 15, linke: 10}, parties: ['Union', 'AfD', 'BSW'], voters: ['rural'],
+         infl: {spd: {reformist: 0.3, neorevisionist: 0.3}, linke: {neorevisionist: 0.3}},
+         desc: 'Landwirt*innen, Handwerker*innen und Mittelständler gegen Bürokratie, Steuern und Subventionskürzungen; seit den Traktorblockaden im Winter 2023/24 eine eigene Protestbewegung, nahe an Union, BSW und AfD.',
+         demand: function(Q) { return 'Agrardiesel, weniger Auflagen und Schutz vor billigen Importen'; }},
+        {id: 'rechts', link: 'rechts', name: 'Rechte Mobilisierung', short: 'Rechte Mobil.', camp: 'rechts', base: 35,
+         rel: {spd: 0, linke: 0}, parties: ['AfD'], voters: [],
+         infl: {spd: {neorevisionist: 0.5, center: -0.2}, linke: {center: 0.3}},
+         desc: 'AfD-nahe Kundgebungen, „Montagsspaziergänge“ und rechtsextreme Gruppen. Kein möglicher Bündnispartner, aber ihr Druck verändert die Debatte.',
+         demand: function(Q) { return 'Grenzschließungen, Massenabschiebungen und ein Ende der „Brandmauer“'; }},
+        {id: 'kirchen', name: 'Kirchen, Diakonie und Caritas', short: 'Kirchen', camp: 'ges', base: 50, start: 50,
+         rel: {spd: 50, linke: 25}, parties: ['Union', 'SPD'], voters: ['rentner'],
+         infl: {spd: {center: 0.3}, linke: {reformist: 0.2}},
+         desc: 'Evangelische und katholische Kirche mit ihren Wohlfahrtsverbänden Diakonie und Caritas: größte Arbeitgeber im Sozialbereich, Stimme für Geflüchtete und Arme, aber mit schwindenden Mitgliederzahlen.',
+         drive: function(Q, why) {
+             var d = -Math.max(0, Q.year - 2024) * 1.5;
+             if (Q.year > 2024) why.push('Mitgliederschwund');
+             if (Q.year == 2025 && Q.month <= 2) { d += 10; why.push('Streit um die Migrationsanträge im Bundestag'); }
+             return d;
+         },
+         demand: function(Q) { return 'humane Asylpolitik, Kirchenasyl respektieren und keine Kürzungen in der Wohlfahrtspflege'; }},
+        {id: 'israel', name: 'Jüdische Gemeinden und Israel-solidarische Gruppen', short: 'Jüd. Gemeinden', camp: 'ges', base: 40, start: 50,
+         rel: {spd: 55, linke: 15}, parties: ['Union', 'SPD', 'Grüne', 'FDP'], voters: ['new_middle'],
+         infl: {spd: {center: 0.5, reformist: 0.5}, linke: {reformist: 0.7, left: -0.3}},
+         desc: 'Zentralrat der Juden, jüdische Gemeinden und Studierendenverbände sowie Israel-solidarische Gruppen wie die Deutsch-Israelische Gesellschaft. Seit dem 7. Oktober 2023 sind antisemitische Vorfälle in Deutschland stark gestiegen.',
+         drive: function(Q, why) {
+             var d = 0, p = Q.g_palaestina || 0, r = Q.g_rechts || 0;
+             if (p > 40) { d += Math.min(10, (p - 40) * 0.3); why.push('Sorge vor Antisemitismus auf Demonstrationen und an Hochschulen'); }
+             if (r > 50) { d += Math.min(8, (r - 50) * 0.25); why.push('rechter Antisemitismus'); }
+             if (ym(Q) < 2025 * 12 + 10) { d += 6; why.push('Geiseln in der Gewalt der Hamas'); }
+             return d;
+         },
+         demand: function(Q) { return 'Schutz jüdischen Lebens, ein klares Vorgehen gegen Antisemitismus und Solidarität mit Israel'; }},
+        {id: 'demo', link: 'demo', name: 'Demokratiebewegung', short: 'Demokratie', camp: 'zivil', base: 75,
+         rel: {spd: 65, linke: 55}, parties: ['SPD', 'Grüne', 'Linke'], voters: ['new_middle'],
+         infl: {spd: {center: 0.6, left: 0.3}, linke: {center: 0.5, reformist: 0.3}},
+         desc: 'Demos gegen Rechts, Omas gegen Rechts, Gewerkschaften und Kirchen: eine breite, überwiegend friedliche Bewegung zur Verteidigung der Demokratie. Im Januar 2024 gingen nach den Correctiv-Recherchen Millionen auf die Straße.',
+         demand: function(Q) { return Q.brandmauer ? 'die Brandmauer halten und ein AfD-Verbotsverfahren prüfen' : 'die Rückkehr zur Brandmauer'; }},
+        {id: 'umwelt', name: 'Umweltverbände (BUND, NABU, Greenpeace)', short: 'BUND/NABU', camp: 'umwelt', base: 50, start: 50,
+         rel: {spd: 45, linke: 45}, parties: ['Grüne'], voters: ['new_middle'],
+         infl: {spd: {left: 0.4}, linke: {center: 0.4}},
+         desc: 'Große Umwelt- und Naturschutzverbände mit zusammen über einer Million Mitgliedern: klagen, beraten und mobilisieren für Klima- und Naturschutz.',
+         demand: function(Q) { return 'das Klimaschutzgesetz einhalten, Naturschutz statt Beschleunigung um jeden Preis'; }},
+        {id: 'klima', link: 'klima', name: 'Klimabewegung', short: 'Klima', camp: 'umwelt', base: 55,
+         rel: {spd: 35, linke: 55}, parties: ['Grüne', 'Linke'], voters: ['new_middle'],
+         infl: {spd: {left: 0.6}, linke: {center: 0.6, left: 0.3}},
+         desc: 'Fridays for Future, Letzte Generation (seit 2025 „Neue Generation“) und lokale Klimagruppen. Nach den Massenprotesten 2019 kleiner geworden, aber gut organisiert.',
+         demand: function(Q) { return 'ein Sofortprogramm für den Klimaschutz und ein sozial gerechtes Klimageld'; }},
+        {id: 'frieden', name: 'Friedensbewegung', short: 'Frieden', camp: 'zivil', base: 25, start: 25,
+         rel: {spd: 30, linke: 55}, parties: ['BSW', 'Linke'], voters: ['rentner'],
+         infl: {spd: {left: 0.6, reformist: -0.4}, linke: {neorevisionist: 0.8, left: 0.5}},
+         desc: 'Ostermärsche, Gewerkschafts- und Kirchengruppen gegen Aufrüstung und Waffenlieferungen; gespalten in der Frage, wie mit Russlands Krieg gegen die Ukraine umzugehen ist.',
+         drive: function(Q, why) {
+             var d = 0;
+             if (Q.sondervermoegen >= 1 && (Q.year > 2025 || (Q.year == 2025 && Q.month >= 4))) { d += 8; why.push('Aufrüstung und Ausnahme von der Schuldenbremse'); }
+             if (Q.wehrdienst_seen) { d += 8; why.push('neuer Wehrdienst'); }
+             if (Q.panzerkreuzer_seen || Q.lk_kampfjets_seen) { d += 4; why.push('Streit um Kampfjets'); }
+             if (Q.ukraine_ceasefire_seen) { d -= 8; why.push('Waffenstillstand in der Ukraine'); }
+             return d;
+         },
+         demand: function(Q) { return Q.ukraine_ceasefire_seen ? 'Abrüstung und zivile Konfliktprävention' : 'Verhandlungen statt Aufrüstung und keine neue Wehrpflicht'; }},
+        {id: 'palaestina', name: 'Palästina-Solidaritätsbewegung', short: 'Palästina', camp: 'zivil', base: 20, start: 55, startM: 0.5,
+         rel: {spd: 20, linke: 45}, parties: ['Linke', 'BSW'], voters: ['new_middle', 'unemployed'],
+         infl: {spd: {left: 0.7, center: -0.4}, linke: {left: 1, reformist: -0.6}},
+         desc: 'Studierende, migrantische Communities, linke und jüdische antizionistische Gruppen protestieren gegen den Krieg in Gaza und deutsche Waffenlieferungen an Israel. Um Parolen, Demonstrationsverbote und Antisemitismus wird heftig gestritten.',
+         drive: function(Q, why) {
+             var d = 0, t = ym(Q);
+             if (t < 2025 * 12 + 10) { d += 30; why.push('Krieg in Gaza'); }
+             if (t >= 2025 * 12 + 7 && t < 2025 * 12 + 10) { d += 10; why.push('Hungersnot in Gaza (Sommer 2025)'); }
+             if (t >= 2025 * 12 + 10 && t < 2026 * 12 + 7) { d += 6; why.push('brüchige Waffenruhe seit Oktober 2025'); }
+             return d;
+         },
+         demand: function(Q) { return ym(Q) < 2025 * 12 + 10 ? 'einen sofortigen Waffenstillstand und einen Stopp aller Rüstungsexporte nach Israel' : 'humanitäre Hilfe, Wiederaufbau in Gaza und die Anerkennung Palästinas'; }},
+        {id: 'mieter', name: 'Mieterbund und Mieterbewegung', short: 'Mieter*innen', camp: 'sozial', base: 35, start: 35,
+         rel: {spd: 50, linke: 70}, parties: ['Linke', 'SPD', 'Grüne'], voters: ['workers', 'new_middle'],
+         infl: {spd: {left: 0.7}, linke: {labor: 0.6, center: 0.6}},
+         desc: 'Deutscher Mieterbund, Mietervereine und Initiativen wie „Deutsche Wohnen & Co enteignen“. Die Angebotsmieten in den Großstädten sind seit 2015 um mehr als die Hälfte gestiegen.',
+         drive: function(Q, why) {
+             var d = 0;
+             if (Q.mietenkampagne > 0) { d += 7 * Math.min(3, Q.mietenkampagne); why.push('Mieten-Kampagne der Linken'); }
+             if (Q.bau_offensive > 0) { d -= 4 * Math.min(2, Q.bau_offensive); why.push('Bau-Offensive entlastet'); }
+             if (Q.berlin_2026 == 2) { d += 4; why.push('Vergesellschaftungsdebatte in Berlin'); }
+             if ((Q.inflation || 0) > 3) { d += 4; why.push('hohe Preise'); }
+             return d;
+         },
+         demand: function(Q) { return 'einen bundesweiten Mietenstopp, eine scharfe Mietpreisbremse und mehr gemeinnützigen Wohnungsbau'; }},
+        {id: 'sozialprotest', name: 'Bündnisse gegen Sozialabbau', short: 'Sozialproteste', camp: 'sozial', base: 0, start: 3,
+         rel: {spd: 30, linke: 60}, parties: ['Linke', 'BSW'], voters: ['unemployed'],
+         infl: {spd: {left: 0.8, labor: 0.4, center: -0.3}, linke: {left: 0.6, center: 0.5}},
+         desc: 'Erwerbslosengruppen, Sozialberatungen und lokale Bündnisse, die in Krisen zu Protesten gegen Kürzungen aufrufen, wie 2004 die Montagsdemonstrationen gegen Hartz IV. Ohne Krise kaum sichtbar.',
+         drive: function(Q, why) {
+             var d = 0, u = Q.unemployed || 0;
+             if (u > 8) { d += Math.min(30, 8 * (u - 8)); why.push('Massenarbeitslosigkeit'); }
+             if (Q.welfare <= -2) { d += 10; why.push('Kürzungen bei Sozialleistungen'); }
+             if ((Q.inflation || 0) > 5) { d += 10; why.push('Inflation frisst die Grundsicherung auf'); }
+             return d;
+         },
+         demand: function(Q) { return 'keine Kürzungen in der Grundsicherung und ein Ende der Sanktionen'; }},
+        {id: 'vdk', name: 'Sozialverbände (VdK, SoVD, Paritätischer)', short: 'VdK & Co.', camp: 'sozial', base: 55, start: 55,
+         rel: {spd: 60, linke: 55}, parties: ['SPD', 'Linke'], voters: ['rentner', 'unemployed'],
+         infl: {spd: {labor: 0.5, center: 0.4}, linke: {labor: 0.5, reformist: 0.3}},
+         desc: 'Der Sozialverband VdK ist mit über 2,3 Millionen Mitgliedern der größte Verband Deutschlands; mit SoVD und Paritätischem Wohlfahrtsverband die Lobby für Rentner*innen, Kranke und Arme.',
+         drive: function(Q, why) {
+             var d = 0, u = Q.unemployed || 0;
+             if (Q.welfare < 0) { d += Math.min(20, -6 * Q.welfare); why.push('Kürzungen bei Sozialleistungen'); }
+             if (u > 7) { d += Math.min(10, 2 * (u - 7)); why.push('steigende Arbeitslosigkeit'); }
+             if (Q.year == 2025 && Q.month >= 10) { d += 6; why.push('Streit um Rentenpaket und Grundsicherung'); }
+             if (Q.rentenkommission_seen && Q.year == 2026) { d += 4; why.push('Rentenkommission'); }
+             return d;
+         },
+         demand: function(Q) { return 'ein Rentenniveau von mindestens 48 Prozent, keine Kürzungen beim Bürgergeld und eine Pflegereform'; }},
+        {id: 'verdi', name: 'ver.di und Dienstleistungsgewerkschaften', short: 'ver.di', camp: 'gew', base: 50, start: 52,
+         rel: {spd: 60, linke: 55}, parties: ['SPD', 'Linke', 'Grüne'], voters: ['workers'],
+         infl: {spd: {labor: 0.7, left: 0.5}, linke: {labor: 0.8, center: 0.4}},
+         desc: 'Vereinte Dienstleistungsgewerkschaft mit rund 1,9 Millionen Mitgliedern: öffentlicher Dienst, Pflege, Handel, Logistik, Nahverkehr und Flughäfen; dazu GEW und EVG.',
+         drive: function(Q, why) {
+             var d = 0, inf = Q.inflation || 0;
+             if (inf > 3) { d += Math.min(15, 4 * (inf - 2)); why.push('Inflation: Forderung nach Lohnausgleich'); }
+             if ((Q.year == 2025 || Q.year == 2027) && Q.month <= 4) { d += 12; why.push('Tarifrunde im öffentlichen Dienst'); }
+             if (Q.welfare < 0) { d += 5; why.push('Sparkurs bei Kommunen und Kliniken'); }
+             return d;
+         },
+         demand: function(Q) { return (Q.inflation || 0) > 3 ? 'deutliche Lohnerhöhungen zum Inflationsausgleich' : 'mehr Personal in Pflege und Kitas und eine Entlastung der Kommunen'; }}
+    ],
+    // Bündnisse (+1) und Gegnerschaften (-1) zwischen Gruppen
+    links: [
+        ['dgb', 'verdi', 1], ['dgb', 'bda', -1], ['verdi', 'bda', -1], ['verdi', 'vdk', 1], ['vdk', 'kirchen', 1],
+        ['mieter', 'verdi', 1], ['mieter', 'sozialprotest', 1], ['sozialprotest', 'vdk', 1], ['dgb', 'autolobby', 1],
+        ['bda', 'mittelstand', 1], ['bda', 'autolobby', 1], ['mittelstand', 'bauern', 1], ['bauern', 'rechts', 1],
+        ['umwelt', 'klima', 1], ['klima', 'autolobby', -1], ['umwelt', 'autolobby', -1], ['umwelt', 'bauern', -1],
+        ['demo', 'rechts', -1], ['demo', 'kirchen', 1], ['demo', 'dgb', 1], ['israel', 'demo', 1], ['israel', 'rechts', -1],
+        ['palaestina', 'israel', -1], ['palaestina', 'frieden', 1], ['palaestina', 'klima', 1], ['frieden', 'kirchen', 1],
+        ['klima', 'demo', 1]
+    ],
+    // Mobilisierung der alten Protestbewegungen (Tsd. Menschen) auf 0-100: 10 Tsd. = 0, 3 Mio. = 100 (logarithmisch)
+    fromThousands: function(k) { return r1(clamp(100 * Math.log10(Math.max(10, k || 0) / 10) / Math.log10(300), 0, 100)); },
+    byId: function(id) { return GRP.groups.filter(function(g) { return g.id == id; })[0]; },
+    player: function(Q) { return Q.player == 'linke' ? 'linke' : 'spd'; },
+    // echter Parteiname -> Slot (beim Linke-Spiel sind spd und linke vertauscht)
+    slot: function(Q, p) {
+        var m = {'SPD': 'spd', 'Linke': 'linke', 'Union': 'union', 'Grüne': 'gruene', 'FDP': 'fdp', 'BSW': 'bsw', 'AfD': 'afd'};
+        if (Q.player == 'linke' && (p == 'SPD' || p == 'Linke')) return p == 'SPD' ? 'linke' : 'spd';
+        return m[p];
+    },
+    opposed: function(id) {
+        return GRP.links.filter(function(l) { return l[2] < 0 && (l[0] == id || l[1] == id); }).map(function(l) { return l[0] == id ? l[1] : l[0]; });
+    },
+    allied: function(id) {
+        return GRP.links.filter(function(l) { return l[2] > 0 && (l[0] == id || l[1] == id); }).map(function(l) { return l[0] == id ? l[1] : l[0]; });
+    },
+    init: function(Q) {
+        Q.grp_hist = {}; Q.grp_why = {}; Q.grp_news = ''; Q.grp_news_on = 0; Q.grp_news_up = 0;
+        GRP.groups.forEach(function(g) { GRP.initGroup(Q, g); });
+        GRP.initRelations(Q);
+    },
+    initGroup: function(Q, g) {
+        Q['g_' + g.id] = g.link ? GRP.fromThousands(Q[g.link + '_strength']) : g.start;
+        Q['gm_' + g.id] = g.startM || 0;
+        Q['ga_' + g.id] = Q['g_' + g.id] >= 10 ? 1 : 0;
+        Q['gr_' + g.id] = g.rel[GRP.player(Q)];
+    },
+    initRelations: function(Q) {
+        var P = GRP.player(Q);
+        GRP.groups.forEach(function(g) { Q['gr_' + g.id] = g.rel[P]; });
+        Q.grp_party = P;
+    },
+    // monatliche Fortschreibung (post_event, nach dem Monatswechsel)
+    month: function(Q) {
+        var P = GRP.player(Q);
+        if (!Q.grp_hist) GRP.init(Q);
+        if (Q.grp_party !== P) GRP.initRelations(Q);
+        Q.grp_why = {};
+        var fac = {}, dis = {}, vot = {};
+        GRP.groups.forEach(function(g) {
+            if (Q['g_' + g.id] === undefined) GRP.initGroup(Q, g); // neue Gruppe in einem alten Spielstand
+            var id = g.id, why = [], s;
+            var hist = Q.grp_hist[id] || (Q.grp_hist[id] = []);
+            if (g.link) {
+                s = GRP.fromThousands(Q[g.link + '_strength']);
+                var back = hist.length >= 3 ? hist[hist.length - 3] : s;
+                Q['gm_' + id] = r1(clamp((s - back) / 3, -5, 5));
+                if (g.drive) g.drive(Q, why);
+            } else {
+                var target = clamp(g.base + (g.drive ? g.drive(Q, why) : 0), 0, 100);
+                var m = 0.7 * (Q['gm_' + id] || 0) + 0.06 * (target - Q['g_' + id]) + (Math.random() - 0.5) * 1.2;
+                m = clamp(m, -5, 5);
+                s = clamp(Q['g_' + id] + m, 0, 100);
+                Q['gm_' + id] = r1(m);
+            }
+            Q['g_' + id] = r1(s);
+            if (!Q['ga_' + id] && s >= 12) { Q['ga_' + id] = 1; if (!Q.grp_news) { Q.grp_news = id + ':1'; Q.grp_news_on = 1; } }
+            else if (Q['ga_' + id] && s < 8) { Q['ga_' + id] = 0; if (!Q.grp_news) { Q.grp_news = id + ':0'; Q.grp_news_on = 1; } }
+            hist.push(Math.round(s));
+            if (hist.length > 36) hist.shift();
+            if (why.length) Q.grp_why[id] = why.join('; ');
+            // Verhältnis kehrt langsam zum Grundwert zurück
+            var rb = g.rel[P], r = clamp(Q['gr_' + id] + 0.03 * (rb - Q['gr_' + id]), 0, 100);
+            Q['gr_' + id] = r1(r);
+            if (!Q['ga_' + id]) return;
+            // Druck auf die Strömungen: nur, wenn die Gruppe stärker (oder schwächer) ist als gewöhnlich
+            var p = clamp((s - g.base) / 20, -1, 2), infl = g.infl[P] || {};
+            for (var f in infl) {
+                fac[f] = (fac[f] || 0) + 0.05 * infl[f] * p;
+                if (p > 0 && infl[f] > 0 && r < 30) dis[f] = (dis[f] || 0) + 0.15 * infl[f] * p;
+                if (p > 0 && infl[f] > 0 && r >= 65) dis[f] = (dis[f] || 0) - 0.08 * infl[f] * p;
+            }
+            // Wählergruppen: nur die Abweichung vom Grundverhältnis zählt (ohne Bündnisarbeit keine Verschiebung)
+            var dv = 0.03 * (r - rb) / 10 * s / 50;
+            (g.voters || []).forEach(function(c) { vot[c] = (vot[c] || 0) + dv; });
+        });
+        for (var f in fac) {
+            if (f == 'neorevisionist' && !(Q.neorevisionism > 0)) continue;
+            Q[f + '_strength'] = Math.max(1, (Q[f + '_strength'] || 0) + fac[f]);
+        }
+        for (var f in dis) {
+            if (f == 'neorevisionist' && !(Q.neorevisionism > 0)) continue;
+            var dd = Q[f + '_dissent'] || 0;
+            if ((dis[f] > 0 && dd < 50) || (dis[f] < 0 && dd > 5)) Q[f + '_dissent'] = dd + dis[f];
+        }
+        for (var c in vot) {
+            if (Q[c + '_spd'] !== undefined) Q[c + '_spd'] = Math.max(0, Q[c + '_spd'] + clamp(vot[c], -0.1, 0.1));
+        }
+        // Nahost-Konflikt in der Spielerpartei folgt der Stärke der Palästina-Bewegung
+        var gp = Q.g_palaestina || 0;
+        if (gp > 55 && (Q.palestine_debate || 0) < 5) Q.palestine_debate = r1((Q.palestine_debate || 0) + 0.05);
+        if (gp < 30 && Q.palestine_debate > 0) Q.palestine_debate = r1(Math.max(0, Q.palestine_debate - 0.02));
+    },
+    // Bündnisarbeit (party_affairs/buendnisarbeit): act 1 = Gespräche, 2 = Schulterschluss, 3 = Distanz
+    act: function(Q, id, act) {
+        var g = GRP.byId(id), P = GRP.player(Q), d = Q.dissent || 0, infl = g.infl[P] || {};
+        var gain = [0, 12, 20, -20][act] * (act == 3 ? 1 : (1 - d));
+        Q['gr_' + id] = r1(clamp(Q['gr_' + id] + gain, 0, 100));
+        var opp = GRP.opposed(id), ally = GRP.allied(id), out = [];
+        opp.forEach(function(o) { if (Q['gr_' + o] !== undefined) Q['gr_' + o] = r1(clamp(Q['gr_' + o] + [0, -4, -10, 8][act], 0, 100)); });
+        if (act >= 2) ally.forEach(function(o) { if (Q['gr_' + o] !== undefined) Q['gr_' + o] = r1(clamp(Q['gr_' + o] + (act == 2 ? 4 : -4), 0, 100)); });
+        var sign = act == 3 ? -1 : 1, k = [0, 2, 4, 3][act];
+        for (var f in infl) {
+            if (f == 'neorevisionist' && !(Q.neorevisionism > 0)) continue;
+            Q[f + '_dissent'] = Math.max(0, (Q[f + '_dissent'] || 0) - sign * k * infl[f]);
+            if (act == 2) Q[f + '_strength'] = Math.max(1, (Q[f + '_strength'] || 0) + 1.5 * infl[f]);
+        }
+        if (act == 2) {
+            Q['gm_' + id] = (Q['gm_' + id] || 0) + 1.5;
+            if (g.link) Q[g.link + '_strength'] = (Q[g.link + '_strength'] || 0) * 1.05;
+            (g.voters || []).forEach(function(c) { Q[c + '_spd'] = (Q[c + '_spd'] || 0) + 1 * (1 - d); });
+            (g.parties || []).forEach(function(p) { var s = GRP.slot(Q, p); if (s && s != 'spd' && Q[s + '_relation'] !== undefined) Q[s + '_relation'] += 1; });
+        }
+        if (act == 1) (g.voters || []).forEach(function(c) { Q[c + '_spd'] = (Q[c + '_spd'] || 0) + 0.5 * (1 - d); });
+        // Distanz: die eigene Klientel der Gruppe ist verärgert, die ihrer Gegenspieler honoriert es
+        if (act == 3) {
+            (g.voters || []).forEach(function(c) { Q[c + '_spd'] = Math.max(0, (Q[c + '_spd'] || 0) - 0.3); });
+            opp.forEach(function(o) { (GRP.byId(o).voters || []).forEach(function(c) { Q[c + '_spd'] = (Q[c + '_spd'] || 0) + 0.4; }); });
+        }
+        var name = function(o) { return GRP.byId(o).short; };
+        if (opp.length) out.push((act == 3 ? 'Freundlicher werden: ' : 'Verstimmt: ') + opp.map(name).join(', '));
+        if (act >= 2 && ally.length) out.push((act == 2 ? 'Auch erfreut: ' : 'Auch verärgert: ') + ally.map(name).join(', '));
+        return out.length ? out.join('. ') + '.' : '';
+    }
+};
+this.game.GRP = GRP;
+!}
+
+# Datenszene ohne Inhalt; wird nie angezeigt.

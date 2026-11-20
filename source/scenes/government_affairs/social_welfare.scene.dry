@@ -10,6 +10,8 @@ card-image: img/sozialstaat.jpg
 
 Rente, Pflege, Grundsicherung: Der Sozialstaat ist die größte Errungenschaft der Arbeiterbewegung. Doch der Druck wächst. Die Union will beim Bürgergeld sparen, die Beiträge zur Kranken- und Pflegeversicherung steigen, und die Rentenkommission soll bis 2027 Vorschläge machen[? if unemployed > 7 :, während die steigende Arbeitslosigkeit die Kassen zusätzlich belastet ?].
 
+[? if g_vdk >= 60 : Die Sozialverbände sind gut organisiert und mobilisiert. Wer kürzt, bekommt es mit ihnen zu tun, wer ausbaut, hat sie an seiner Seite. ?]
+
 - @reduce_spending: Bei den Sozialausgaben sparen.
 - @increase_spending_pre_depression: Die Sozialleistungen ausbauen.
 - @increase_spending_post_depression: Mehr ausgeben (das Leistungsniveau bleibt etwa gleich).
@@ -18,19 +20,22 @@ Rente, Pflege, Grundsicherung: Der Sozialstaat ist die größte Errungenschaft d
 - @easy_discard
 
 @reduce_spending
-subtitle: Das trifft unsere Stammwählerschaft. +1 Haushaltsspielraum
+subtitle: Das trifft unsere Stammwählerschaft, und die Sozialverbände werden protestieren. +1 Haushaltsspielraum
 unavailable-subtitle: Es gibt nichts mehr zu kürzen.
 choose-if: welfare >= -5
-on-arrival: budget += 1; workers_spd -= 6; unemployed_spd -= 6; workers_linke += 3; welfare -= 1; reformist_dissent += 10; left_dissent += 10; labor_dissent += 10; center_dissent += 5; neorevisionist_dissent += 5; fdp_relation += 5; union_relation += 3; pro_republic -= 3; coalition_dissent -= 1 if in_grand_coalition and coalition_dissent > 0; linke_coalition_dissent += 1; linke_relation -= 8; inflation -= 0.3; unemployed += 0.2; economic_growth -= 0.2;
+on-arrival: budget += 1; workers_spd -= 6; unemployed_spd -= 6; workers_linke += 3; welfare -= 1; reformist_dissent += 10; left_dissent += 10; labor_dissent += 10; center_dissent += 5; neorevisionist_dissent += 5; fdp_relation += 5; union_relation += 3; pro_republic -= 3; coalition_dissent -= 1 if in_grand_coalition and coalition_dissent > 0; linke_coalition_dissent += 1; linke_relation -= 8; inflation -= 0.3; unemployed += 0.2; economic_growth -= 0.2; gr_vdk -= 10; gr_verdi -= 4; gm_vdk += 2; rentner_spd -= 2 if g_vdk >= 60; unemployed_spd -= 1 if g_vdk >= 60; left_dissent += 3 if g_vdk >= 60
 
 Wir kürzen bei Grundsicherung, Wohngeld und Zuschüssen. Für viele Familien bedeutet das mehr Armut und Unsicherheit. Unsere Kritiker sagen, wir opfern unsere Wählerinnen und Wähler für den Koalitionsfrieden. Haben sie unrecht? Kann man es Menschen verdenken, wenn sie nun Linke oder AfD wählen?
+
+[? if g_vdk >= 60 : VdK, Paritätischer und Diakonie rufen zu Protesten auf, und ihre Kampagne erreicht Millionen Rentner\*innen. ?]
 
 
 @increase_spending_pre_depression
 view-if: unemployed <= 8
-choose-if: budget > 0
+choose-if: budget > 0 or (budget = 0 and g_vdk >= 65 and gr_vdk >= 60)
+unavailable-subtitle: Kein Haushaltsspielraum. (Mit starken, uns nahestehenden Sozialverbänden ginge es auch bei null.)
 subtitle: -1 Haushaltsspielraum
-on-arrival: budget -= 1; workers_spd += 6*(1-dissent); unemployed_spd += 6*(1-dissent); rentner_spd += 3*(1-dissent); welfare += 1; reformist_dissent -= 5; labor_dissent -= 5; center_dissent -= 5; left_dissent -= 5; neorevisionist_dissent -= 5; coalition_dissent += 1 if welfare > 1; welfare_goal_completed += 1; inflation += 0.3; unemployed -= 0.2; economic_growth += 0.2;
+on-arrival: gr_vdk += 6; gr_kirchen += 2; budget -= 1; workers_spd += 6*(1-dissent); unemployed_spd += 6*(1-dissent); rentner_spd += 3*(1-dissent); welfare += 1; reformist_dissent -= 5; labor_dissent -= 5; center_dissent -= 5; left_dissent -= 5; neorevisionist_dissent -= 5; coalition_dissent += 1 if welfare > 1; welfare_goal_completed += 1; inflation += 0.3; unemployed -= 0.2; economic_growth += 0.2;
 
 Wir sichern das Rentenniveau dauerhaft, entlasten Pflegebedürftige und erhöhen die Kindergrundsicherung. Unsere Stammwählerschaft ist zufrieden.
 

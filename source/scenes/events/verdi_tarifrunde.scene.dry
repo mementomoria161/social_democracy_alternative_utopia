@@ -1,0 +1,40 @@
+title: Warnstreiks im öffentlichen Dienst
+subtitle: ver.di legt Flughäfen, Kitas und Nahverkehr lahm.
+new-page: true
+tags: event
+view-if: year = 2025 and month = 3
+max-visits: 1
+on-arrival: verdi_tarifrunde_seen = 1; gm_verdi += 2
+face-image: img/streik.jpg
+
+# Durchgang 4.5 (Gruppen). Historisch: Tarifrunde öffentlicher Dienst Bund und Kommunen 2025, Warnstreiks Januar bis März,
+# bundesweiter Warnstreik an Flughäfen am 10. März 2025, Schlichtung, Einigung am 6. April 2025
+# (3 Prozent ab April 2025, 2,8 Prozent ab Mai 2026, Laufzeit bis März 2027).
+
+= Warnstreiks im öffentlichen Dienst
+
+Die Tarifrunde für die Beschäftigten von Bund und Kommunen eskaliert. ver.di fordert acht Prozent mehr Lohn und mehr freie Tage, die kommunalen Arbeitgeber verweisen auf leere Kassen. Am 10. März stehen an fast allen großen Flughäfen die Maschinen still, in vielen Städten bleiben Kitas geschlossen und Busse im Depot.
+
+Wer ist schuld am Chaos? In den Talkshows streiten Gewerkschafter\*innen und Arbeitgeber, und alle wollen wissen, wo [+ pp_full +] steht.
+
+- @solidaritaet: Solidarität mit den Streikenden: Gute Arbeit im öffentlichen Dienst braucht gute Löhne.
+- @schlichtung: Zu einer schnellen Schlichtung aufrufen.
+- @kritik: Die Flughafenstreiks kritisieren: Sie treffen die Falschen.
+
+@solidaritaet
+subtitle: ver.di +, Arbeitgeber −
+on-arrival: gr_verdi += 10; gr_dgb += 3; gr_bda -= 5; labor_dissent -= 3; left_dissent -= 2; workers_spd += 0.5*(1-dissent); old_middle_spd -= 0.5
+
+Wir besuchen Streikposten vor Kitas und Krankenhäusern. Die Beschäftigten freuen sich über die Unterstützung, die Arbeitgeberverbände werfen uns vor, die Kommunen in die Pleite zu treiben.
+
+@schlichtung
+subtitle: Ausgleich
+on-arrival: gr_verdi += 2; gr_bda += 2; center_dissent -= 2
+
+Wir rufen beide Seiten an einen Tisch. Tatsächlich einigen sie sich Anfang April nach einer Schlichtung. Gedankt wird es uns von keiner Seite, aber geschadet hat es auch nicht.
+
+@kritik
+subtitle: Arbeitgeber +, ver.di −
+on-arrival: gr_verdi -= 12; gr_bda += 6; labor_dissent += 5; left_dissent += 3; old_middle_spd += 0.5*(1-dissent)
+
+Wir kritisieren, dass Urlauber\*innen und Eltern die Leidtragenden sind. Die Mittelständler nicken, doch auf der nächsten Betriebsversammlung wird es für unsere Leute ungemütlich.

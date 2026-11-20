@@ -292,6 +292,7 @@
       dendryUI.dendryEngine._runActions(scene.onDisplay);
       window.drawPolls();
       window.drawEconomy();
+      window.drawGroups();
   };
 
   // Wirtschafts-Reiter (Durchgang 4.4)
@@ -497,6 +498,284 @@
                   ECON_LINES.filter(function(l) { return typeof d[l[0]] == 'number'; }).map(function(l) { return l[1] + ' ' + econNum(d[l[0]]) + ' %'; }).join(', ');
           })
           .on('pointerleave', function() { rule.style('display', 'none'); });
+  };
+
+  // Gruppen-Reiter (Durchgang 4.5): Netzwerk der Interessengruppen und Bewegungen, Infokarte, Liste nach Lagern.
+  // Daten und Modell: source/scenes/groups_data.scene.dry (dendryUI.game.GRP), Werte g_/gm_/gr_/ga_<id> in den Qualities.
+  // Anordnung: Gruppen auf einem Kreis (Reihenfolge der Tabelle, Lücken zwischen den Lagern), andere Parteien auf einem
+  // inneren Ring beim Mittel ihrer nahestehenden Gruppen, die Strömungen der Spielerpartei um die Mitte. Hängt nur von den
+  // Tabellen und der Spielerpartei ab, springt also nicht von Monat zu Monat.
+  window.grpSel = null;
+  window.grpView = 'infl';
+  var GRP_FACTIONS = [['left', 'f_left', 270], ['labor', 'f_labor', 325], ['center', 'f_center', 35], ['reformist', 'f_reformist', 90], ['neorevisionist', 'f_neorev', 180]];
+  var grpWord = function(r) { return r >= 75 ? 'eng' : r >= 55 ? 'gut' : r >= 40 ? 'neutral' : r >= 20 ? 'distanziert' : 'feindselig'; };
+  var grpRad = function(x) { return x < 0.05 ? 'keine' : x < 0.14 ? 'sehr gering' : x < 0.24 ? 'gering' : x < 0.44 ? 'eher gering' : x < 0.69 ? 'mittel' : x < 1 ? 'hoch' : 'sehr hoch'; };
+  var grpEsc = function(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); };
+
+  window.drawGroups = function() {
+      var box = document.getElementById('groups_view');
+      var Q = dendryUI.dendryEngine.state.qualities;
+      if (!box || !window.d3 || Q.year === undefined) return;
+      if (!dendryUI.game.GRP) dendryUI.dendryEngine._runActions(dendryUI.game.scenes.groups_data.onArrival);
+      var GRP = dendryUI.game.GRP, P = Q.player == 'linke' ? 'linke' : 'spd';
+      var zur = 'zur ' + (Q.pp_dat || 'der SPD').replace(/^der /, '');
+      var camps = {};
+      GRP.CAMPS.forEach(function(c, i) { camps[c.id] = {name: c.name, k: i + 1}; });
+      // Werte (alte Spielstände ohne Gruppen: Startwerte)
+      var G = GRP.groups.map(function(g) {
+          var s = Q['g_' + g.id] !== undefined ? Q['g_' + g.id] : (g.link ? GRP.fromThousands(Q[g.link + '_strength']) : g.start);
+          return {g: g, id: g.id, s: s, m: Q['gm_' + g.id] || 0, r: Q['gr_' + g.id] !== undefined ? Q['gr_' + g.id] : g.rel[P],
+                  a: Q['ga_' + g.id] !== undefined ? Q['ga_' + g.id] : (s >= 10 ? 1 : 0), hist: (Q.grp_hist || {})[g.id] || [],
+                  why: (Q.grp_why || {})[g.id] || ''};
+      });
+      var byId = {};
+      G.forEach(function(d) { byId[d.id] = d; });
+      var showNeo = Q.neorevisionism > 0;
+      var facs = GRP_FACTIONS.filter(function(f) { return f[0] != 'neorevisionist' || showNeo; });
+      var facName = {};
+      facs.forEach(function(f) { facName[f[0]] = Q[f[1]] || f[0]; });
+      var partyName = {spd: Q.pp_name || 'SPD', linke: Q.op_name || 'Linke', union: 'CDU/CSU', gruene: 'Grüne', fdp: 'FDP', bsw: 'BSW', afd: 'AfD'};
+      var partyColor = {spd: Q.pp_color || '#E3000F', linke: Q.op_color || '#BE3075', union: '#151518', gruene: '#46962B', fdp: '#E6C800', bsw: '#7D254F', afd: '#009EE0'};
+      var trendTxt = function(m) { return m > 0.4 ? '▲' : m < -0.4 ? '▼' : ''; };
+      var num = function(x, dg) { return econNum(x, dg === undefined ? 0 : dg); };
+
+      // Geometrie
+      var W = box.clientWidth || 320, H = Math.round(Math.min(W, 560) * 0.98);
+      var cx = W / 2, cy = H / 2, lab = W < 400 ? 50 : 66;
+      var R = Math.min(W / 2, H / 2) - lab, k = Math.max(0.75, Math.min(1.2, W / 440));
+      var n = G.length, gaps = 0;
+      G.forEach(function(d, i) { if (i > 0 && G[i - 1].g.camp != d.g.camp) gaps++; });
+      if (G[n - 1].g.camp != G[0].g.camp) gaps++;
+      var slot = 2 * Math.PI / (n + 0.8 * gaps), ang = -slot / 2;
+      G.forEach(function(d, i) {
+          if (i > 0 && G[i - 1].g.camp != d.g.camp) ang += 0.8 * slot;
+          d.ang = ang; ang += slot;
+          d.x = cx + R * Math.sin(d.ang); d.y = cy - R * Math.cos(d.ang);
+          d.rad = (4 + 10 * Math.sqrt(Math.max(0, d.s) / 100)) * k;
+      });
+      // andere Parteien: Kreismittel der Winkel ihrer Gruppen, dann auseinanderschieben
+      var parties = ['linke', 'gruene', 'union', 'fdp', 'bsw', 'afd'].map(function(p) {
+          var sx = 0, sy = 0, members = [];
+          G.forEach(function(d) {
+              (d.g.parties || []).forEach(function(pn) { if (GRP.slot(Q, pn) == p) { sx += Math.sin(d.ang); sy += Math.cos(d.ang); members.push(d.id); } });
+          });
+          return {p: p, ang: Math.atan2(sx, sy), members: members};
+      }).filter(function(o) { return o.members.length; });
+      parties.sort(function(a, b) { return a.ang - b.ang; });
+      for (var it = 0; it < 40; it++) {
+          for (var i = 0; i < parties.length; i++) {
+              var a = parties[i], b = parties[(i + 1) % parties.length];
+              var diff = b.ang - a.ang + (i == parties.length - 1 ? 2 * Math.PI : 0);
+              if (diff < 0.5) { a.ang -= (0.5 - diff) / 2; b.ang += (0.5 - diff) / 2; }
+          }
+      }
+      parties.forEach(function(o) { o.x = cx + 0.6 * R * Math.sin(o.ang); o.y = cy - 0.6 * R * Math.cos(o.ang); });
+      var facPos = {};
+      facs.forEach(function(f) {
+          var a = f[2] * Math.PI / 180;
+          facPos[f[0]] = {x: cx + 0.36 * R * Math.sin(a), y: cy - 0.36 * R * Math.cos(a), s: Q[f[0] + '_strength'] || 0};
+      });
+
+      // Kanten der gewählten Ansicht
+      var edges = [];
+      var view = window.grpView;
+      if (view == 'infl') {
+          G.forEach(function(d) {
+              if (!d.a) return;
+              var infl = d.g.infl[P] || {};
+              for (var f in infl) {
+                  if (!facPos[f]) continue;
+                  var p = (d.s - d.g.base) / 20;
+                  edges.push({a: d.id, b: 'f:' + f, x1: d.x, y1: d.y, x2: facPos[f].x, y2: facPos[f].y, sign: infl[f] > 0 ? 1 : -1,
+                              w: 0.6 + 3.2 * Math.abs(infl[f]) * d.s / 100, o: 0.3 + 0.6 * Math.max(0, Math.min(1, p))});
+              }
+          });
+      } else if (view == 'rel') {
+          G.forEach(function(d) {
+              if (!d.a || d.id == 'rechts') return;
+              edges.push({a: d.id, b: 'player', x1: d.x, y1: d.y, x2: cx, y2: cy, sign: d.r >= 60 ? 1 : d.r <= 30 ? -1 : 0,
+                          w: 0.6 + 3.5 * d.s / 100, o: 0.35 + 0.5 * Math.abs(d.r - 45) / 55});
+          });
+      } else {
+          GRP.links.forEach(function(l) {
+              var d1 = byId[l[0]], d2 = byId[l[1]];
+              if (!d1 || !d2) return;
+              // Sehne leicht zur Mitte gebogen
+              edges.push({a: l[0], b: l[1], x1: d1.x, y1: d1.y, x2: d2.x, y2: d2.y, sign: l[2], curve: true,
+                          w: 0.8 + 2.5 * Math.min(d1.s, d2.s) / 100, o: d1.a && d2.a ? 0.75 : 0.25});
+          });
+          parties.forEach(function(o) {
+              o.members.forEach(function(id) {
+                  var d = byId[id];
+                  edges.push({a: id, b: 'p:' + o.p, x1: d.x, y1: d.y, x2: o.x, y2: o.y, sign: 0, w: 0.8, o: d.a ? 0.45 : 0.15});
+              });
+          });
+      }
+
+      // HTML-Gerüst
+      var views = [['infl', 'Einfluss auf die Strömungen'], ['rel', 'Verhältnis ' + zur], ['links', 'Bündnisse und Gegner']];
+      var html = '<div class="grp_views">' + views.map(function(v) {
+          return '<button class="grp_view_btn' + (view == v[0] ? ' active' : '') + '" onclick="window.grpView=\'' + v[0] + '\'; window.drawGroups();">' + v[1] + '</button>';
+      }).join('') + '</div>' +
+          '<svg id="grp_graph" class="grp" role="img" aria-label="Netzwerk der Interessengruppen und Bewegungen"></svg>' +
+          '<div class="econ_legend grp_legend">' +
+          (view == 'links' ? '<span><span class="grp_line pos"></span>Bündnis</span><span><span class="grp_line neg"></span>Gegnerschaft</span><span><span class="grp_line neu"></span>nahe Partei</span>'
+           : view == 'rel' ? '<span><span class="grp_line pos"></span>Verhältnis gut (ab 60)</span><span><span class="grp_line neu"></span>neutral</span><span><span class="grp_line neg"></span>schlecht (bis 30)</span>'
+           : '<span><span class="grp_line pos"></span>stärkt</span><span><span class="grp_line neg"></span>schwächt</span><span>kräftig = Gruppe stärker als gewöhnlich</span>') +
+          '</div><div class="econ_legend grp_legend">' + GRP.CAMPS.map(function(c, i) {
+              return '<span><span class="econ_swatch grp_c' + (i + 1) + '"></span>' + c.name + '</span>';
+          }).join('') + '</div>' +
+          '<div id="grp_card" class="grp_card"></div>';
+
+      // Liste nach Lagern
+      html += '<h3 class="poll_heading">Alle Gruppen nach Lagern</h3><p class="poll_note">Balken = Stärke (0 bis 100), Pfeil = Konjunktur, Zahl rechts = Verhältnis ' + zur + '. Klicke für Details.</p>';
+      GRP.CAMPS.forEach(function(c, ci) {
+          var rows = G.filter(function(d) { return d.g.camp == c.id; });
+          if (!rows.length) return;
+          html += '<div class="grp_camp_head"><span class="econ_swatch grp_c' + (ci + 1) + '"></span>' + c.name + '</div>';
+          rows.forEach(function(d) {
+              html += '<div class="grp_row' + (d.a ? '' : ' inactive') + (window.grpSel == d.id ? ' sel' : '') + '" onclick="window.grpSel=\'' + d.id + '\'; window.drawGroups();" title="' +
+                  grpEsc(d.g.name + ': Stärke ' + Math.round(d.s) + ', Verhältnis ' + Math.round(d.r)) + '">' +
+                  '<span class="grp_rname">' + grpEsc(d.g.short) + (d.a ? '' : ' <i>(kaum aktiv)</i>') + '</span>' +
+                  '<span class="grp_bar"><span class="grp_c' + (ci + 1) + '" style="width:' + Math.max(1, Math.min(100, d.s)) + '%"></span></span>' +
+                  '<span class="grp_trend ' + (d.m > 0.4 ? 'up' : d.m < -0.4 ? 'down' : '') + '">' + (trendTxt(d.m) || '►') + '</span>' +
+                  '<span class="grp_rel ' + (d.r >= 60 ? 'good' : d.r <= 30 ? 'bad' : '') + '">' + (d.id == 'rechts' ? '–' : Math.round(d.r)) + '</span></div>';
+          });
+      });
+      html += '<p class="poll_note">Stärke: Mitglieder, Mobilisierung und Durchsetzungskraft im Verhältnis zueinander (Spielmodell). Sie folgt Wirtschaftslage, Ereignissen und Politik und hat eine eigene Konjunktur. Starke Gruppen verschieben die Strömungen ' + (Q.pp_dat || '') + ' und machen manche Vorhaben leichter oder schwerer. Mit der Karte „Bündnisarbeit“ lässt sich das Verhältnis gezielt verbessern oder auf Abstand gehen.</p>';
+      box.innerHTML = html;
+
+      // Zeichnen
+      var svg = d3.select('#grp_graph').attr('width', W).attr('height', H).attr('viewBox', '0 0 ' + W + ' ' + H);
+      svg.append('circle').attr('class', 'grp_ring').attr('cx', cx).attr('cy', cy).attr('r', R);
+      var eg = svg.append('g');
+      var path = function(e) {
+          if (!e.curve) return 'M' + e.x1 + ',' + e.y1 + 'L' + e.x2 + ',' + e.y2;
+          var mx = (e.x1 + e.x2) / 2, my = (e.y1 + e.y2) / 2;
+          return 'M' + e.x1 + ',' + e.y1 + 'Q' + (mx + 0.45 * (cx - mx)) + ',' + (my + 0.45 * (cy - my)) + ' ' + e.x2 + ',' + e.y2;
+      };
+      var edgeSel = eg.selectAll(null).data(edges).enter().append('path')
+          .attr('class', function(e) { return 'grp_edge ' + (e.sign > 0 ? 'pos' : e.sign < 0 ? 'neg' : 'neu'); })
+          .attr('d', path).attr('stroke-width', function(e) { return e.w; }).attr('stroke-opacity', function(e) { return e.o; });
+      // Spielerpartei und Strömungen
+      var ng = svg.append('g');
+      var nodes = [];
+      nodes.push({key: 'player', x: cx, y: cy, kind: 'player'});
+      // je Ansicht nur die nötigen Knoten: Strömungen beim Einfluss, andere Parteien bei Bündnissen
+      if (view == 'infl') facs.forEach(function(f) { nodes.push({key: 'f:' + f[0], f: f[0], x: facPos[f[0]].x, y: facPos[f[0]].y, kind: 'fac'}); });
+      if (view == 'links') parties.forEach(function(o) { nodes.push({key: 'p:' + o.p, p: o.p, x: o.x, y: o.y, kind: 'party', o: o}); });
+      G.forEach(function(d) { nodes.push({key: d.id, d: d, x: d.x, y: d.y, kind: 'group'}); });
+      var nodeSel = ng.selectAll(null).data(nodes).enter().append('g')
+          .attr('class', function(nd) { return 'grp_node ' + nd.kind + (nd.d && !nd.d.a ? ' inactive' : ''); })
+          .attr('transform', function(nd) { return 'translate(' + nd.x + ',' + nd.y + ')'; })
+          .attr('tabindex', 0);
+      nodeSel.each(function(nd) {
+          var g = d3.select(this);
+          if (nd.kind == 'player') {
+              g.append('circle').attr('r', 17 * k).attr('fill', partyColor.spd).attr('class', 'grp_player');
+              g.append('text').attr('class', 'grp_player_label').attr('dy', '0.35em').text(partyName.spd);
+          } else if (nd.kind == 'fac') {
+              var fs = facPos[nd.f].s;
+              g.append('circle').attr('r', (3 + 6 * Math.sqrt(fs / 100)) * k).attr('class', 'grp_fac').attr('fill', partyColor.spd);
+              var a = GRP_FACTIONS.filter(function(f) { return f[0] == nd.f; })[0][2];
+              var right = a > 0 && a < 180;
+              g.append('text').attr('class', 'grp_fac_label').attr('x', (right ? 1 : -1) * 9 * k).attr('dy', a == 180 ? '1.3em' : '0.35em')
+                  .attr('text-anchor', a == 180 ? 'middle' : right ? 'start' : 'end').text(facName[nd.f]);
+          } else if (nd.kind == 'party') {
+              var sz = 7 * k;
+              g.append('rect').attr('x', -sz).attr('y', -sz).attr('width', 2 * sz).attr('height', 2 * sz).attr('rx', 2)
+                  .attr('class', 'grp_party ' + nd.p).attr('fill', partyColor[nd.p]);
+              g.append('text').attr('class', 'grp_party_label').attr('y', sz + 9).attr('text-anchor', 'middle').text(partyName[nd.p]);
+          } else {
+              var d = nd.d, ci = camps[d.g.camp].k;
+              g.append('circle').attr('r', d.rad).attr('class', 'grp_dot grp_c' + ci);
+              var sin = Math.sin(d.ang), cos = Math.cos(d.ang);
+              var lx = sin * (d.rad + 4), ly = -cos * (d.rad + 4);
+              var anchor = Math.abs(sin) < 0.3 ? 'middle' : sin > 0 ? 'start' : 'end';
+              var t = g.append('text').attr('class', 'grp_label').attr('x', lx).attr('y', ly)
+                  .attr('dy', cos > 0.3 ? '-0.2em' : cos < -0.3 ? '0.9em' : '0.35em').attr('text-anchor', anchor);
+              t.append('tspan').text(d.g.short);
+              var tr = trendTxt(d.m);
+              if (tr) t.append('tspan').attr('class', 'grp_arrow ' + (d.m > 0 ? 'up' : 'down')).text(' ' + tr);
+          }
+      });
+
+      // Auswahl, Hervorhebung und Infokarte
+      var neighbors = function(key) {
+          var set = {}; set[key] = 1;
+          edges.forEach(function(e) { if (e.a == key) set[e.b] = 1; if (e.b == key) set[e.a] = 1; });
+          return set;
+      };
+      var highlight = function(key) {
+          if (!key) { edgeSel.classed('dim', false).classed('hi', false); nodeSel.classed('dim', false).classed('sel', false); return; }
+          var nb = neighbors(key);
+          edgeSel.classed('dim', function(e) { return e.a != key && e.b != key; }).classed('hi', function(e) { return e.a == key || e.b == key; });
+          nodeSel.classed('dim', function(nd) { return !nb[nd.key]; }).classed('sel', function(nd) { return nd.key == key; });
+      };
+      var spark = function(h) {
+          h = h.slice(-24);
+          if (h.length < 2) return '';
+          var w = 110, hh = 26, mx = Math.max(10, d3.max(h)), mn = Math.min(d3.min(h), mx - 10);
+          var pts = h.map(function(v, i) { return (i * w / (h.length - 1)).toFixed(1) + ',' + (hh - 2 - (v - mn) / (mx - mn) * (hh - 4)).toFixed(1); });
+          return '<svg class="grp_spark" width="' + w + '" height="' + hh + '"><polyline points="' + pts.join(' ') + '"/></svg>';
+      };
+      var card = function(key) {
+          var el = document.getElementById('grp_card');
+          if (!el) return;
+          if (!key) {
+              el.innerHTML = '<span class="poll_note">Zeige auf einen Kreis oder tippe ihn an: Stärke, Verlauf, Verhältnis ' + zur + ' und Einfluss.</span>';
+              return;
+          }
+          var h = '';
+          if (byId[key]) {
+              var d = byId[key], g = d.g, ci = camps[g.camp].k;
+              var infl = g.infl[P] || {}, eff = [];
+              for (var f in infl) if (facName[f]) eff.push((infl[f] > 0 ? 'stärkt ' : 'schwächt ') + facName[f]);
+              var near = (g.parties || []).map(function(pn) { return partyName[GRP.slot(Q, pn)]; });
+              var ally = GRP.allied(key).map(function(o) { return byId[o] ? byId[o].g.short : o; });
+              var opp = GRP.opposed(key).map(function(o) { return byId[o] ? byId[o].g.short : o; });
+              h = '<div class="grp_card_head"><span class="econ_swatch grp_c' + ci + '"></span><b>' + grpEsc(g.name) + '</b></div>' +
+                  '<div class="poll_note">' + camps[g.camp].name + (d.a ? '' : ', derzeit kaum aktiv') + '</div>' +
+                  '<div class="grp_card_stats"><div><span class="econ_label">Stärke</span><div class="econ_value">' + Math.round(d.s) + '<small>/100</small></div>' +
+                  '<span class="econ_trend ' + (d.m > 0.4 ? 'up' : d.m < -0.4 ? 'down' : '') + '">' + (d.m > 0.4 ? '▲ wachsend' : d.m < -0.4 ? '▼ schwindend' : '► stabil') +
+                  ' (' + (d.m > 0 ? '+' : '') + num(d.m, 1) + ' pro Monat)</span></div>' +
+                  (d.hist.length >= 2 ? '<div>' + spark(d.hist) + '<div class="poll_note">letzte ' + Math.min(24, d.hist.length) + ' Monate</div></div>' : '') +
+                  (key == 'rechts' ? '' : '<div><span class="econ_label">Verhältnis ' + zur + '</span><div class="econ_value">' + Math.round(d.r) +
+                  '<small>/100</small></div><span class="econ_trend ' + (d.r >= 60 ? 'good' : d.r <= 30 ? 'bad' : '') + '">' + grpWord(d.r) + '</span></div>') + '</div>';
+              if (g.link) h += '<div>Mobilisierung: rund ' + num(Q[g.link + '_strength'] || 0) + ' Tsd. Menschen, Radikalisierung: ' + grpRad(Q[g.link + '_radicalism'] || 0) + '</div>';
+              if (d.why) h += '<div>Antrieb: ' + grpEsc(d.why) + '</div>';
+              h += '<div>Fordert: ' + grpEsc(g.demand(Q)) + '</div>';
+              if (eff.length) h += '<div>Wirkt in ' + (Q.pp_dat || 'der Partei') + ': ' + eff.join(', ') + (d.s > g.base + 5 ? ' (derzeit spürbar, weil stärker als gewöhnlich)' : '') + '</div>';
+              h += '<div>' + (near.length ? 'Nahe: ' + near.join(', ') : '') + (ally.length ? ' · Verbündet: ' + ally.join(', ') : '') + (opp.length ? ' · Gegner: ' + opp.join(', ') : '') + '</div>' +
+                  '<div class="poll_note">' + grpEsc(g.desc) + '</div>';
+          } else if (key.slice(0, 2) == 'f:') {
+              var fk = key.slice(2), press = [];
+              G.forEach(function(d) {
+                  var w = (d.g.infl[P] || {})[fk];
+                  if (w && d.a) press.push(d.g.short + (w > 0 ? ' (stärkt)' : ' (schwächt)'));
+              });
+              h = '<div class="grp_card_head"><b>' + grpEsc(facName[fk]) + '</b></div><div class="poll_note">Strömung ' + (Q.pp_dat || '') + '</div>' +
+                  '<div>Stärke: ' + num(Q[fk + '_strength'] || 0) + ' %, Unmut: ' + num(Q[fk + '_dissent'] || 0) + ' %</div>' +
+                  '<div>Einfluss von außen: ' + (press.join(', ') || 'keiner') + '</div>';
+          } else if (key.slice(0, 2) == 'p:') {
+              var pk = key.slice(2), o = parties.filter(function(x) { return x.p == pk; })[0];
+              h = '<div class="grp_card_head"><b>' + partyName[pk] + '</b></div>' +
+                  (Q[pk + '_relation'] !== undefined ? '<div>Verhältnis ' + zur + ': ' + Math.round(Q[pk + '_relation']) + '</div>' : '') +
+                  '<div>Nahestehende Gruppen: ' + o.members.map(function(id) { return byId[id].g.short; }).join(', ') + '</div>';
+          } else {
+              var good = G.filter(function(d) { return d.a && d.r >= 60 && d.id != 'rechts'; }), bad = G.filter(function(d) { return d.a && d.r <= 25 && d.id != 'rechts'; });
+              h = '<div class="grp_card_head"><b>' + grpEsc(Q.pp_Full || 'Wir') + '</b></div>' +
+                  '<div>Verbündete (Verhältnis ab 60): ' + (good.map(function(d) { return d.g.short; }).join(', ') || 'keine') + '</div>' +
+                  '<div>Gegner (bis 25): ' + (bad.map(function(d) { return d.g.short; }).join(', ') || 'keine') + '</div>';
+          }
+          el.innerHTML = h;
+      };
+      nodeSel.on('mouseenter', function(ev, nd) { highlight(nd.key); card(nd.key); })
+          .on('mouseleave', function() { highlight(window.grpSel); card(window.grpSel); })
+          .on('click', function(ev, nd) { window.grpSel = window.grpSel == nd.key ? null : nd.key; highlight(window.grpSel); card(window.grpSel); })
+          .on('keydown', function(ev, nd) { if (ev.key == 'Enter' || ev.key == ' ') { ev.preventDefault(); window.grpSel = nd.key; highlight(nd.key); card(nd.key); } });
+      highlight(window.grpSel);
+      card(window.grpSel);
   };
 
   // Umfrage-Tab: Verlauf seit der Bundestagswahl 2021, gesamt oder je Wählergruppe

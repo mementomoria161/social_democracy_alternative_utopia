@@ -6,12 +6,15 @@ const repo = path.resolve(process.argv[2] || '.');
 const engine = require(path.join(repo, 'node_modules/dendrynexus/lib/engine.js'));
 const fs = require('fs');
 const json = fs.readFileSync(path.join(repo, 'out/game.json'), 'utf8');
-const _log = console.log; console.log = () => {}; global.window = {}; global.document = { getElementById: () => null };
+const _log = console.log; global.window = {}; global.document = { getElementById: () => null };
+// the engine swallows errors in scene scripts and only logs 'Error:', err: count them as errors
+// (ignored: browser-only scripts that need d3 or window.dendryUI)
+console.log = (a, b) => { if (a === 'Error:' && !/d3 is not defined|reading 'dendryEngine'/.test(String(b))) (errs['JS ' + String(b && b.stack || b).split(/\r?\n/).slice(0, 2).join(' ').slice(0, 200)] ||= []).push(lastScenes[lastScenes.length - 1]); };
 
 function UI() {}
 engine.UserInterface.makeParentOf(UI);
 
-const BAD = /reduce_spending|promise_cuts|bring_down|destroy|austerity|cut_benefits|sozial_kuerzen|vote_yes|give_up|\.accept$|regressive|cut_rich|raise_poor|support_employers|markt|let_it_happen|resign|nothing_to_do|ban_klima|persecute_klima|\.alter$|kaas|trad_major/;
+const BAD = /reduce_spending|promise_cuts|bring_down|destroy|austerity|cut_benefits|sozial_kuerzen|vote_yes|give_up|\.accept$|regressive|cut_rich|raise_poor|support_employers|markt|let_it_happen|resign|nothing_to_do|ban_klima|persecute_klima|\.alter$|kaas|trad_major|buendnisarbeit\.distanz/;
 const SKIP = /easy_discard|cancel_advisor_action|library|backSpecialScene|credits|election_simulation|custom|mod_loader/;
 const runs = +process.argv[3] || 10, opts = process.argv.slice(4), smartAll = opts.includes('smart');
 const party = opts.find(o => o === 'spd' || o === 'linke');
@@ -58,7 +61,7 @@ for (let run = 0; run < runs; run++) {
       if (k === '2025-2' || k === '2025-12' || k === '2026-11' || k === '2027-12' || k === '2029-3' || k === '2030-6') snap[k] = snap[k] || [Q.spd_votes, Q.union_votes, Q.afd_votes, Q.gruene_votes, Q.linke_votes, (+Q.unemployed).toFixed(1)].join('/');
     }
     const Q = e.state.qualities;
-    summary.push({ run, player: Q.player, smart, end: Q.year + '-' + Q.month, steps, snap, chancellor: Q.chancellor + '(' + Q.chancellor_party + ')', president: Q.president, btw1: (Q.election_records[0] ? ['spd','union','afd','gruene','linke','bsw','fdp'].map(p => Math.round(Q.election_records[0][p]*10)/10).join('/') + '@' + new Date(Q.election_records[0].date).toISOString().slice(0,7) : ''), dm: Q.direct_mandates, coalition: Q.coalition_name, growth: (+Q.economic_growth).toFixed(1), sectors: (Q.sector_growth || []).map(r => r.toFixed(1)).join(','), industry_share: Q.sector_value && Q.sector_value.length ? (100 * Q.sector_value[0] / Q.sector_value.reduce((a, b) => a + b, 0)).toFixed(1) : '', events: events.size, trig: [...end].filter(x=>x[0]=='@').slice(0,6) });
+    summary.push({ run, player: Q.player, smart, end: Q.year + '-' + Q.month, steps, snap, chancellor: Q.chancellor + '(' + Q.chancellor_party + ')', president: Q.president, btw1: (Q.election_records[0] ? ['spd','union','afd','gruene','linke','bsw','fdp'].map(p => Math.round(Q.election_records[0][p]*10)/10).join('/') + '@' + new Date(Q.election_records[0].date).toISOString().slice(0,7) : ''), dm: Q.direct_mandates, coalition: Q.coalition_name, growth: (+Q.economic_growth).toFixed(1), sectors: (Q.sector_growth || []).map(r => r.toFixed(1)).join(','), industry_share: Q.sector_value && Q.sector_value.length ? (100 * Q.sector_value[0] / Q.sector_value.reduce((a, b) => a + b, 0)).toFixed(1) : '', grp: Object.keys(Q).filter(k => /^g_/.test(k)).map(k => k.slice(2) + Math.round(Q[k]) + '/' + Math.round(Q['gr_' + k.slice(2)])).join(' '), dissent: Math.round(Q.dissent * 100), pdeb: Q.palestine_debate, events: events.size, trig: [...end].filter(x=>x[0]=='@').slice(0,6) });
     global.__events = (global.__events || new Set()); events.forEach(x => __events.add(x));
   });
 }

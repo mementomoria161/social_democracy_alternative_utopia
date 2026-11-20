@@ -195,40 +195,12 @@ d3.select(svg).datum(rows.map(function(x) { return {id: x.id, legend: P[x.id][0]
 
 
 @paramilitaries
-on-arrival: {!
-if (Q.demo_strength) {
-    Q.demo_strength_2 = Q.demo_strength.toFixed(0);
-}
-if (Q.klima_strength) {
-    Q.klima_strength_2 = Q.klima_strength.toFixed(0);
-}
-if (Q.bauern_strength) {
-    Q.bauern_strength_2 = Q.bauern_strength.toFixed(0);
-}
-if (Q.rechts_strength) {
-    Q.rechts_strength_2 = Q.rechts_strength.toFixed(0);
-}
-!}
 
-= Protestbewegungen
+= Gruppen und Bewegungen
 
-Mobilisierung in Tausend Menschen, die regelmäßig auf die Straße gehen.
+[+ month : month +] [+ year +]
 
-{!<span class="tooltip-text" title="Demos gegen Rechts, Omas gegen Rechts, Gewerkschaften und Kirchen: eine breite, überwiegend friedliche Bewegung zur Verteidigung der Demokratie, die der SPD und den Grünen nahesteht.">Demokratiebewegung</span>!}: [+ demo_strength_2 +] Tsd.
-
-Radikalisierung: [+ demo_radicalism : militancy +]
-
-{!<span class="tooltip-text" title="Fridays for Future, Letzte Generation und Klimagruppen: nahe an Grünen und Linken.">Klimabewegung</span>!}: [+ klima_strength_2 +] Tsd.
-
-Radikalisierung: [+ klima_radicalism : militancy +]
-
-{!<span class="tooltip-text" title="Landwirtinnen, Handwerker und Mittelständler gegen Bürokratie, Steuern und Subventionskürzungen; nahe an Union, BSW und AfD.">Bauern- und Mittelstandsproteste</span>!}: [+ bauern_strength_2 +] Tsd.
-
-Radikalisierung: [+ bauern_radicalism : militancy +]
-
-{!<span class="tooltip-text" title="AfD-nahe Kundgebungen, „Montagsspaziergänge“ und rechtsextreme Gruppen.">Rechte Mobilisierung</span>!}: [+ rechts_strength_2 +] Tsd.
-
-Radikalisierung: [+ rechts_radicalism : militancy +]
+{!<div id="groups_view"></div>!}
 
 = Staatliche Institutionen
 
