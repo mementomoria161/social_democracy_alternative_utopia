@@ -144,6 +144,7 @@
 
   SD.renderGoals = function (Q) {
     var box = el('sd_goals'); if (!box) return;
+    if (!Q.year) { box.innerHTML = ''; return; }   // Titelbildschirm: noch kein Spiel
     init(Q);
     var G = goals(Q), names = {afd: 'AfD verhindern', life: 'Lebensstandard', clim: 'Klimakurs'};
     var marks = {afd: 316 / 630, life: 0.5, clim: null};
@@ -191,6 +192,7 @@
 
   SD.renderEconomy = function (Q) {
     var box = el('sd_economy'); if (!box) return;
+    if (!Q.year) { box.innerHTML = ''; return; }   // Titelbildschirm: noch kein Spiel
     var s = init(Q), H = s.hist, R = Q.economic_records || [];
     var open = {}; box.querySelectorAll('details.sd_fold').forEach(function (d, i) { open[i] = d.open; });
     var kpi = function (l, v, vals) { return '<div class="sd_kpi"><span>' + l + '</span><b>' + v + '</b>' + (vals ? spark(vals, 70, 18) : '') + '</div>'; };
@@ -245,6 +247,7 @@
 
   SD.renderClimate = function (Q) {
     var box = el('sd_climate'); if (!box) return;
+    if (!Q.year) { box.innerHTML = ''; return; }   // Titelbildschirm: noch kein Spiel
     init(Q);
     var open = {}; box.querySelectorAll('details.sd_fold').forEach(function (d, i) { open[i] = d.open; });
     var G = goals(Q).clim, e = emissions(Q), C = D.clim;
