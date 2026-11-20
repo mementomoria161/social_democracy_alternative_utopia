@@ -10,6 +10,8 @@ view-if: klingbeil_advisor = 1
 Klingbeil ist seit 2021 Parteivorsitzender und seit Mai 2025 Vizekanzler und Bundesfinanzminister[? if chancellor = "Klingbeil": – und inzwischen Bundeskanzler ?]. Der Niedersachse gilt als Stratege der Parteimitte, der nach der Wahlniederlage 2025 die Macht in Partei und Regierung auf sich vereint hat.
 
 - @coalition
+- @talk_mittelstand
+- @talk_konzerne
 - @toleration
 - @snap_election
 - @root: Zurück
@@ -23,6 +25,36 @@ on-arrival: advisor_action_timer = 6; coalition_dissent -= 1 if spd_in_governmen
 
 Nach langen Abenden im Kanzleramt sind die Beziehungen zu Union, Grünen und FDP besser geworden, und die Spannungen in der Koalition haben nachgelassen.
 
+
+@talk_mittelstand
+title: Gespräch mit dem Mittelstand
+subtitle: Runder Tisch mit Mittelstandsverbänden, Familienunternehmen und Maschinenbau. Ihr Zugang steigt, ihre Kritik wird leiser. Kostet 1 Ressource.
+choose-if: advisor_action_timer <= 0 and resources >= 1
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if resources < 1 : Dafür fehlt eine Ressource. ?]
+on-arrival: {!
+Q.advisor_action_timer = 6;
+Q.resources -= 1;
+if (typeof window !== 'undefined' && window.SD) {
+    window.SD.talk(Q, 'O');
+}
+!}
+
+Klingbeil lädt Mittelstandsverbände, Familienunternehmen und den Maschinenbau ins Finanzministerium. Sie fühlen sich gehört. Die Gewerkschaften und die großen Konzerne beobachten das mit Argwohn.
+
+@talk_konzerne
+title: Spitzengespräch mit der Industrie
+subtitle: Treffen mit BDI und Branchenverbänden. Ihr Zugang steigt, ihre Kritik wird leiser. Kostet 1 Ressource.
+choose-if: advisor_action_timer <= 0 and resources >= 1
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if resources < 1 : Dafür fehlt eine Ressource. ?]
+on-arrival: {!
+Q.advisor_action_timer = 6;
+Q.resources -= 1;
+if (typeof window !== 'undefined' && window.SD) {
+    window.SD.talk(Q, 'W');
+}
+!}
+
+Klingbeil empfängt BDI, Autoindustrie, Chemie und Elektroindustrie zum Spitzengespräch. Die Konzerne haben wieder einen direkten Draht zur SPD. Mittelstand und Gewerkschaften fühlen sich übergangen.
 
 @toleration
 title: Die Tolerierung verteidigen

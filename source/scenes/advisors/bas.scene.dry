@@ -10,6 +10,7 @@ new-page: true
 Bas ist seit Juni 2025 Co-Vorsitzende der SPD und Bundesministerin für Arbeit und Soziales. Die frühere Bundestagspräsidentin stammt aus Duisburg, hat als Sozialversicherungsfachangestellte gearbeitet und gilt als eine, die die Sprache der Beschäftigten spricht.
 
 - @clear_agenda
+- @talk_gewerkschaften
 - @party_discipline
 - @emergency_fundraising
 - @snap_election
@@ -30,6 +31,21 @@ if (Q.difficulty >= 0) {
 !}
 
 Alle Punkte auf unserer Agenda wurden gestrichen.
+
+@talk_gewerkschaften
+title: Gespräch mit den Gewerkschaften
+subtitle: Treffen mit DGB und IG Metall über Arbeitsplätze und Standorte. Ihr Zugang steigt, ihre Kritik wird leiser. Kostet 1 Ressource.
+choose-if: advisor_action_timer = 0 and resources >= 1
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if resources < 1 : Dafür fehlt eine Ressource. ?]
+on-arrival: {!
+Q.advisor_action_timer = 6;
+Q.resources -= 1;
+if (typeof window !== 'undefined' && window.SD) {
+    window.SD.talk(Q, 'S');
+}
+!}
+
+Bas setzt sich mit DGB und IG Metall zusammen. Die Gewerkschaften sind wieder eng an der SPD. In der Wirtschaft heißt es, die SPD höre nur noch auf ihre alten Verbündeten.
 
 @party_discipline
 title: Geschlossenheit einfordern

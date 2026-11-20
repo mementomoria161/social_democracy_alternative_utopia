@@ -77,7 +77,32 @@
       s.grp[g] = clamp(s.grp[g] + 0.15 * d * (d < 0 ? 1 + 0.6 * Math.max(0, lack) : 1), 0, 100);
     }
     for (var b in s.acc) s.acc[b] += 0.02 * (40 - s.acc[b]);   // Zugang verblasst langsam ohne Pflege
+    couple(Q);
   }
+  /* Kopplung an das Spiel (monatlich, vorsichtig dosiert, Annahmen):
+     Mittelstand unzufrieden: Bauern- und Mittelstandsproteste wachsen und radikalisieren sich.
+     Gewerkschaften unzufrieden: Unmut im Arbeitnehmerflügel der SPD, Arbeitnehmer wenden sich ab.
+     Konzerne unzufrieden: Investitionen werden zurückgehalten, das Wachstum sinkt leicht.
+     Zufriedene Lager wirken jeweils schwächer in die andere Richtung. */
+  function couple(Q) {
+    var s = Q.sd, O = blocSup(s, 'O'), W = blocSup(s, 'W'), S = s.grp.dgb, fx = {};
+    if (O < 42) { Q.bauern_strength = (Q.bauern_strength || 0) + (42 - O) * 0.4; Q.bauern_radicalism = Math.min(1, (Q.bauern_radicalism || 0) + (42 - O) * 0.0015); }
+    else if (O > 58) { Q.bauern_strength = Math.max(0, (Q.bauern_strength || 0) - (O - 58) * 0.3); }
+    if (S < 45) { Q.workers_spd = (Q.workers_spd || 0) - (45 - S) * 0.01; Q.labor_dissent = (Q.labor_dissent || 0) + (45 - S) * 0.04; }
+    else if (S > 60) { Q.workers_spd = (Q.workers_spd || 0) + (S - 60) * 0.005; Q.labor_dissent = Math.max(0, (Q.labor_dissent || 0) - (S - 60) * 0.02); }
+    /* Investitionen: ein begrenzter Aufschlag auf das Wachstum (höchstens ±0,3 Punkte), der jeden Monat ersetzt
+       statt aufsummiert wird. So entsteht keine Abwärtsspirale aus unzufriedenen Konzernen und schwachem Wachstum. */
+    var inv = W < 42 ? -Math.min(0.3, (42 - W) * 0.015) : W > 58 ? Math.min(0.3, (W - 58) * 0.012) : 0;
+    Q.economic_growth = (Q.economic_growth || 0) + inv - (s.inv || 0); s.inv = inv;
+    s.fx = {O: O < 42 ? 'Proteste wachsen' : O > 58 ? 'Proteste flauen ab' : '', S: S < 45 ? 'Unmut im Arbeitnehmerflügel' : S > 60 ? 'Rückhalt bei Beschäftigten' : '', W: W < 42 ? 'Investitionen stocken' : W > 58 ? 'Investitionen ziehen an' : ''};
+  }
+  /* Gespräch mit einem Lager (Berater-Aktion): Zugang deutlich rauf, Zufriedenheit etwas rauf, die anderen sind eifersüchtig */
+  SD.talk = function (Q, b) {
+    var s = init(Q);
+    s.acc[b] = Math.min(90, s.acc[b] + 18);
+    for (var g in GROUPS) if (GROUPS[g].b === b) s.grp[g] = Math.min(100, s.grp[g] + 4);
+    for (var o in s.acc) if (o !== b) s.acc[o] = Math.max(0, s.acc[o] - 3);
+  };
   function blocSup(s, b) { var a = 0, w = 0; for (var g in GROUPS) if (GROUPS[g].b === b) { a += s.grp[g] * GROUPS[g].w; w += GROUPS[g].w; } return a / w; }
   SD.blocSup = function (Q, b) { return blocSup(init(Q), b); };
 
@@ -349,9 +374,10 @@
         var v = s.grp[g];
         return '<div class="sd_grow"><span>' + GROUPS[g].n + '</span><span class="sd_gbar"><i style="width:' + v.toFixed(0) + '%;background:' + supCol(v) + '"></i></span><b>' + Math.round(v) + '</b></div>';
       }).join('');
-      h += fold('<span class="sd_dot" style="background:' + BLOCS[b].c + '"></span>' + BLOCS[b].n + ' ◇ ' + Math.round(blocSup(s, b)), rows + '<p class="sd_note">' + BLOCS[b].d + ' Zugang: ' + Math.round(s.acc[b]) + '.</p>', open[i]);
+      var fx = s.fx && s.fx[b] ? '<p class="sd_fx">' + s.fx[b] + '</p>' : '';
+      h += fold('<span class="sd_dot" style="background:' + BLOCS[b].c + '"></span>' + BLOCS[b].n + ' ◇ ' + Math.round(blocSup(s, b)), fx + rows + '<p class="sd_note">' + BLOCS[b].d + ' Zugang: ' + Math.round(s.acc[b]) + '. Gespräch: ' + (b === 'S' ? 'Bärbel Bas' : 'Lars Klingbeil') + ' (Berater-Aktion).</p>', open[i]);
     });
-    h += fold('Wie die Verbände reagieren', '<ul class="sd_list"><li>Branchenverbände folgen der Lage ihrer Branche (Produktion, Wachstum).</li><li>Gewerkschaften achten auf Arbeitslosigkeit und Industriejobs.</li><li>Institute achten auf Wachstum, Haushalt und Inflation.</li><li>Mittelstand und Familienunternehmen auf Wachstum, Inflation und Haushaltslöcher.</li><li>Zugang verblasst ohne Pflege langsam. Alle Gewichte sind Annahmen.</li></ul>', open[3]);
+    h += fold('Wie die Verbände reagieren', '<ul class="sd_list"><li>Branchenverbände folgen der Lage ihrer Branche (Produktion, Wachstum).</li><li>Gewerkschaften achten auf Arbeitslosigkeit und Industriejobs.</li><li>Institute achten auf Wachstum, Haushalt und Inflation.</li><li>Mittelstand und Familienunternehmen auf Wachstum, Inflation und Haushaltslöcher.</li><li>Zugang verblasst ohne Pflege langsam. Gespräche über Klingbeil (Mittelstand, Konzerne) oder Bas (Gewerkschaften) heben ihn.</li><li><b>Folgen:</b> Unzufriedener Mittelstand stärkt die Bauern- und Mittelstandsproteste, unzufriedene Gewerkschaften kosten Rückhalt bei Beschäftigten und machen den Arbeitnehmerflügel unruhig, unzufriedene Konzerne halten Investitionen zurück. Alle Gewichte sind Annahmen.</li></ul>', open[3]);
     box.innerHTML = h;
   };
 })();
