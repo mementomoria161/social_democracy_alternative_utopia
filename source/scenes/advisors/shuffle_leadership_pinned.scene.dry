@@ -1,3 +1,4 @@
+# party: spd
 title: Führung umbilden
 view-if: (difficulty < 0 or shuffle_leadership_enabled = 1)
 new-page: true

@@ -2,12 +2,12 @@ title: Was geht noch durch den Bundestag?
 subtitle: Die Minderheitsregierung sucht Mehrheiten.
 new-page: true
 tags: event
-view-if: player = "spd" and (restgesetze_seen = 0 and ampel_aus_seen = 1 and n_elections = 0 and ((year = 2024 and month = 12) or (year = vf_year and month = vf_month)))
+view-if: (restgesetze_seen = 0 and ampel_aus_seen = 1 and n_elections = 0 and ((year = 2024 and month = 12) or (year = vf_year and month = vf_month)))
 max-visits: 1
 priority: 1
 on-arrival: restgesetze_seen = 1
 face-image: img/bundestag_plenum.jpg
-go-to: menu
+go-to: menu if player = "spd"; linke if player = "linke"
 
 # Prolog: Gesetze der rot-grünen Minderheitsregierung vor der Auflösung. prolog_laws (aus ampel_aus) begrenzt die Zahl.
 # Historisch beschlossen (Dezember 2024): Kindergeld/kalte Progression, Deutschlandticket 2025, Schutz des Bundesverfassungsgerichts.
@@ -15,9 +15,10 @@ go-to: menu
 
 = Was geht noch durch den Bundestag?
 
-SPD und Grüne haben im Bundestag keine Mehrheit mehr. Jedes Gesetz braucht jetzt Stimmen der Union oder der FDP. [? if union_relation < 30 : Die Union hat angekündigt, vor der Vertrauensfrage keinem Gesetz der Regierung zuzustimmen. ?][? if fdp_relation < 10 : Die FDP will der Regierung, die ihren Vorsitzenden entlassen hat, keinen Erfolg gönnen. ?]
+# party-ok: SPD (die reale rot-grüne Minderheitsregierung)
+SPD und Grüne haben im Bundestag keine Mehrheit mehr. Jedes Gesetz braucht jetzt Stimmen der Union oder der FDP. [? if player = "spd" and union_relation < 30 : Die Union hat angekündigt, vor der Vertrauensfrage keinem Gesetz der Regierung zuzustimmen. ?][? if player = "spd" and fdp_relation < 10 : Die FDP will der Regierung, die ihren Vorsitzenden entlassen hat, keinen Erfolg gönnen. ?]
 
-Bis zur Auflösung des Bundestags bleibt Zeit für noch [+ prolog_laws +] Vorhaben.
+[? if player = "spd" : Bis zur Auflösung des Bundestags bleibt Zeit für noch [+ prolog_laws +] Vorhaben. ?]
 
 @menu
 
@@ -97,3 +98,28 @@ Die Mietpreisbremse wird bis 2029 verlängert. Mieterbund und Gewerkschaften sin
 title: Genug verhandelt. Jetzt beginnt der Wahlkampf.
 
 Was wir nicht mehr durch den Bundestag bringen, tragen wir in den Wahlkampf. Für 2025 gilt die vorläufige Haushaltsführung: Der Bund darf nur ausgeben, wozu er rechtlich verpflichtet ist. Neue Projekte müssen warten.
+
+@linke
+# Linke-Fassung (Durchgang 4.3): Die Gruppe der Linken (28 Abgeordnete) kann der Minderheitsregierung keine Mehrheit
+# verschaffen (SPD 207 + Grüne 117 + Linke 28 = 352 von 733), aber sie kann zeigen, wofür sie steht.
+
+Unsere 28 Abgeordneten reichen nicht für eine Mehrheit. Aber jede Abstimmung ist eine Gelegenheit zu zeigen, wofür die Linke steht, und wer im Bundestag was blockiert.
+
+- @lk_angebot: Unsere Stimmen für Mietpreisbremse und Rentenpaket anbieten.
+- @lk_kindergeld: Dem höheren Kindergeld zustimmen und eine echte Kindergrundsicherung fordern.
+- @lk_opposition: Keine Hilfe für Rot-Grün: SPD und Grüne hatten drei Jahre Zeit.
+
+@lk_angebot
+on-arrival: linke_relation += 3; rentner_spd += 0.5*(1-dissent); new_middle_spd += 0.5*(1-dissent); reformist_dissent -= 3; left_dissent += 2
+
+Wir bieten an, für die Verlängerung der Mietpreisbremse und das Rentenpaket zu stimmen. Es reicht trotzdem nicht, weil Union und FDP blockieren. Aber in den Nachrichten heißt es: Die Linke hätte zugestimmt.
+
+@lk_kindergeld
+on-arrival: unemployed_spd += 0.5*(1-dissent); workers_spd += 0.5*(1-dissent); reformist_dissent -= 2
+
+Wir stimmen für das höhere Kindergeld und rechnen vor, dass Familien im Bürgergeld davon nichts haben, weil es angerechnet wird. Die Sozialverbände greifen das auf.
+
+@lk_opposition
+on-arrival: left_dissent -= 3; linke_relation -= 3; workers_spd += 0.5*(1-dissent)
+
+Wir stimmen gegen alles, was nach Rettung der Ampel aussieht. Die Sozialistische Linke ist zufrieden, in der SPD spricht man von „Fundamentalopposition“.

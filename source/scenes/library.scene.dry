@@ -10,7 +10,7 @@ Hier findest du Informationen über das politische System und die Politik der Bu
 @menu
 
 - @government: Das politische System
-- @weimar_timeline: Chronik der SPD und der Bundesrepublik bis 2024
+- @weimar_timeline: Chronik [+ pp_dat +] und der Bundesrepublik bis 2024
 - @curr_gov: Aktuelle Regierung
 - @demographics: Wählergruppen
 - @parties: Parteien
@@ -32,6 +32,10 @@ Das Staatsoberhaupt wird von der Bundesversammlung gewählt, die aus den Bundest
 Deutschland besteht aus 16 Ländern, die für Polizei, Schulen und vieles mehr zuständig sind und über den Bundesrat an der Gesetzgebung mitwirken. Das Bundesverfassungsgericht wacht über das Grundgesetz und kann verfassungswidrige Parteien verbieten.
 
 @weimar_timeline
+go-to: timeline_spd if player = "spd"; timeline_linke if player = "linke"
+
+@timeline_spd
+# party: spd
 go-to: menu
 
 = Chronik der SPD und der Bundesrepublik (bis November 2024)
@@ -62,7 +66,7 @@ go-to: menu
 
 @curr_gov
 go-to: cabinet if spd_in_government; menu if not spd_in_government
-on-arrival: {! Q.chancellor_party_disp = Q.player == 'linke' ? ({'SPD': 'Linke', 'Linke': 'SPD'}[Q.chancellor_party] || Q.chancellor_party) : Q.chancellor_party; !}
+on-arrival: {! var sw = {'SPD': 'Linke', 'Linke': 'SPD'}; ['chancellor', 'labor_minister', 'interior_minister', 'finance_minister', 'economic_minister', 'justice_minister', 'foreign_minister', 'bundeswehr_minister', 'agriculture_minister'].forEach(function(k) { var p = Q[k + '_party']; Q[k + '_party_disp'] = Q.player == 'linke' ? (sw[p] || p) : p; }); !}
 
 = Aktuelle Regierung
 
@@ -89,31 +93,57 @@ Rolle [+ pp_dat +]: [? if spd_toleration : Tolerierung ?][? if spd_in_government
 
 [? if spd_in_government and not in_spd_majority and not in_left_front : Koalitionskonflikte: [+ coalition_dissent : coalition_dissent +] ?]
 
-[? if spd_in_government and (in_left_front or in_popular_front): Konflikte mit der Linken: [+ linke_coalition_dissent : coalition_dissent +] ?]
+[? if spd_in_government and (in_left_front or in_popular_front): Konflikte mit [+ op_dat +]: [+ linke_coalition_dissent : coalition_dissent +] ?]
 
 @cabinet
 go-to: menu
 
 Aktuelles Kabinett:
 
-Arbeit und Soziales: [+ labor_minister_party +]
+Arbeit und Soziales: [+ labor_minister_party_disp +]
 
-Inneres: [+ interior_minister_party +]
+Inneres: [+ interior_minister_party_disp +]
 
-Finanzen: [+ finance_minister_party +]
+Finanzen: [+ finance_minister_party_disp +]
 
-Wirtschaft: [+ economic_minister_party +]
+Wirtschaft: [+ economic_minister_party_disp +]
 
-Justiz: [+ justice_minister_party +]
+Justiz: [+ justice_minister_party_disp +]
 
-Auswärtiges: [+ foreign_minister_party +]
+Auswärtiges: [+ foreign_minister_party_disp +]
 
-Verteidigung: [+ bundeswehr_minister_party +]
+Verteidigung: [+ bundeswehr_minister_party_disp +]
 
-Landwirtschaft: [+ agriculture_minister_party +]
+Landwirtschaft: [+ agriculture_minister_party_disp +]
 
+
+@timeline_linke
+# party: linke
+# Quellen: Bundeswahlleiterin (Ergebnisse), Wikipedia „Die Linke“, „Partei des Demokratischen Sozialismus“.
+go-to: menu
+
+= Chronik der Linken und der Bundesrepublik (bis November 2024)
+
+**1949**: Das Grundgesetz tritt in Kraft. In der DDR herrscht die SED, die 1946 aus der Zwangsvereinigung von KPD und SPD in der sowjetischen Besatzungszone hervorgegangen ist.
+
+**1989/90**: Friedliche Revolution in der DDR. Die SED benennt sich in PDS um, entschuldigt sich beim Volk der DDR für das begangene Unrecht und wird zur Partei des Demokratischen Sozialismus. Am 3. Oktober 1990 wird die deutsche Einheit vollendet.
+
+**1998**: Die PDS zieht mit 5,1 Prozent erstmals in Fraktionsstärke in den Bundestag ein. In Mecklenburg-Vorpommern regiert sie erstmals in einem Land mit.
+
+**2002**: Die PDS scheitert an der Fünf-Prozent-Hürde; nur Petra Pau und Gesine Lötzsch gewinnen ihre Wahlkreise in Berlin.
+
+**2005/2007**: Gegen die Agenda 2010 gründen Gewerkschafter*innen und enttäuschte Sozialdemokrat*innen die WASG. Gemeinsam mit der PDS holt sie 2005 8,7 Prozent; 2007 vereinigen sich beide zur Partei Die Linke.
+
+**2009**: Mit 11,9 Prozent erzielt die Linke ihr bestes Bundestagsergebnis.
+
+**2014–2024**: Bodo Ramelow wird in Thüringen der erste Ministerpräsident der Linken; 2019 wird die Linke dort mit 31,0 Prozent stärkste Kraft. In Berlin, Brandenburg, Bremen und Mecklenburg-Vorpommern regiert sie mit.
+
+**2021**: Mit 4,9 Prozent scheitert die Linke an der Fünf-Prozent-Hürde, zieht aber dank drei Direktmandaten in Fraktionsstärke ein (Grundmandatsklausel).
+
+**2022–2024**: Russlands Überfall auf die Ukraine verschärft den Streit in der Partei. Im Oktober 2023 treten Sahra Wagenknecht und neun weitere Abgeordnete aus und gründen im Januar 2024 das BSW; die Bundestagsfraktion löst sich auf, übrig bleibt eine Gruppe. Bei der Europawahl im Juni 2024 kommt die Linke auf 2,7 Prozent. Im Oktober 2024 wählt der Parteitag in Halle Ines Schwerdtner und Jan van Aken zu Vorsitzenden.
 
 @demographics
+# party-ok: SPD (Wählergruppen der realen Parteien)
 go-to: menu
 
 **Wählergruppen**
@@ -188,14 +218,19 @@ Rentner\*innen: SPD [+ rentner_spd_display +] %, Union [+ rentner_union_display 
 
 @parties
 go-to: menu
+# party-ok: SPD, Sozialdemokratische, Volkspartei, der Linken, Seeheimer (Parteienübersicht; die Einträge zur eigenen Partei sind nach player getrennt)
 
-**SPD** – *Sozialdemokratische Partei Deutschlands*. Das sind wir: die älteste Partei Deutschlands, Partei der Arbeit, der sozialen Gerechtigkeit und der Demokratie. In Umfragen liegen wir weit unter dem Wahlergebnis von 2021, und wir kämpfen darum, wieder Volkspartei zu werden.
+[? if player = "spd" : **SPD** – *Sozialdemokratische Partei Deutschlands*. Das sind wir: die älteste Partei Deutschlands, Partei der Arbeit, der sozialen Gerechtigkeit und der Demokratie. In Umfragen liegen wir weit unter dem Wahlergebnis von 2021, und wir kämpfen darum, wieder Volkspartei zu werden. ?][? if player = "linke" : **Die Linke** – demokratisch-sozialistisch. Das sind wir: die Partei, die aus PDS und WASG hervorgegangen ist und für Umverteilung, bezahlbare Mieten, Frieden und eine solidarische Gesellschaft kämpft. Nach der Abspaltung des BSW lag sie im Herbst 2024 bei drei Prozent; mit Ines Schwerdtner und Jan van Aken an der Spitze, Heidi Reichinnek als Spitzenkandidatin und einem Wahlkampf an den Haustüren will sie zurück in den Bundestag. ?]
+
+[? if player = "linke" : **SPD** – *Sozialdemokratische Partei Deutschlands*. Die älteste Partei Deutschlands. Bis zur Neuwahl führt Olaf Scholz eine rot-grüne Minderheitsregierung. Für ein Bündnis links der Union bräuchten wir sie, doch nach Hartz IV und Aufrüstung ist das Misstrauen auf beiden Seiten groß. ?]
+
+[? if player = "linke" : Aktuelles Verhältnis: [+ linke_relation : relationships +] ?]
 
 **CDU/CSU** – *Union*. Christdemokratisch und konservativ, in den Umfragen seit Langem klar stärkste Kraft. Friedrich Merz führt die CDU und ist Kanzlerkandidat, Markus Söder führt die CSU. Die Union hat jede Zusammenarbeit mit der AfD ausgeschlossen, die sogenannte Brandmauer. [? if not brandmauer : Inzwischen ist sie gefallen. ?]
 
 Aktuelles Verhältnis: [+ union_relation : relationships +]
 
-**Bündnis 90/Die Grünen** – ökologisch und linksliberal, stark in der akademischen Mittelschicht und in den Städten. Bis zur Neuwahl mit uns in einer Minderheitsregierung; Robert Habeck ist ihr Kanzlerkandidat.
+**Bündnis 90/Die Grünen** – ökologisch und linksliberal, stark in der akademischen Mittelschicht und in den Städten. Bis zur Neuwahl [? if player = "spd" : mit uns ?][? if player = "linke" : mit der SPD ?] in einer Minderheitsregierung; Robert Habeck ist ihr Kanzlerkandidat.
 
 Aktuelles Verhältnis: [+ gruene_relation : relationships +]
 
@@ -207,9 +242,9 @@ Aktuelles Verhältnis: [+ fdp_relation : relationships +]
 
 Aktuelles Verhältnis: [+ bsw_relation : relationships +]
 
-**Die Linke** – demokratisch-sozialistisch. Nach der Abspaltung des BSW in einer tiefen Krise; mit Ines Schwerdtner und Jan van Aken an der Spitze und Heidi Reichinnek als Spitzenkandidatin will sie zurück in den Bundestag. Möglicher Partner für Rot-Grün-Rot.
+[? if player = "spd" : **Die Linke** – demokratisch-sozialistisch. Nach der Abspaltung des BSW in einer tiefen Krise; mit Ines Schwerdtner und Jan van Aken an der Spitze und Heidi Reichinnek als Spitzenkandidatin will sie zurück in den Bundestag. Möglicher Partner für Rot-Grün-Rot. ?]
 
-Aktuelles Verhältnis: [+ linke_relation : relationships +]
+[? if player = "spd" : Aktuelles Verhältnis: [+ linke_relation : relationships +] ?]
 
 [? if sapd_formed: **Soziale Linke** – eine Abspaltung der SPD-Linken, die sich zwischen SPD und Linker positioniert. ?]
 
@@ -229,6 +264,7 @@ Q.rechts_strength = Math.round(Q.rechts_strength);
 !}
 go-to: menu
 
+# party-ok: SPD (Nähe der Bewegungen zu realen Parteien)
 **Protestbewegungen** (Mobilisierung in Tausend Teilnehmenden):
 
 **Demokratiebewegung**: Die Demonstrationen gegen Rechts, die Omas gegen Rechts und lokale Bündnisse für Demokratie. Nah an SPD, Grünen und Zivilgesellschaft.
@@ -261,14 +297,18 @@ Radikalisierung: [+ rechts_radicalism : militancy +]
 
 Verfassungstreue: [+ bundeswehr_loyalty : loyalty +]
 
-**Landespolizeien** (SPD-geführte Länder): [+ prussian_police_strength +] Tausend Beamtinnen und Beamte.
+**Landespolizeien** (Länder, in denen wir regieren): [+ prussian_police_strength +] Tausend Beamtinnen und Beamte.
 
 Verfassungstreue: [+ prussian_police_loyalty : loyalty +]
 
 
 
 @factions
-go-to: factions_linke if player = "linke"; neorevisionists if player = "spd" and neorevisionism > 0; menu if player = "spd" and neorevisionism <= 0
+go-to: factions_linke if player = "linke"; factions_spd if player = "spd"
+
+@factions_spd
+# party: spd
+go-to: neorevisionists if neorevisionism > 0; menu if neorevisionism <= 0
 
 **Strömungen in der SPD**
 
@@ -307,6 +347,7 @@ Stärke: [+ reformist_strength : strength +]
 Unmut: [+ reformist_dissent : dissent +]
 
 @neorevisionists
+# party: spd
 go-to: menu
 
 **Dänischer Kurs**
@@ -527,3 +568,5 @@ Unmut: [+ reformist_dissent : dissent +]
 [? if neorevisionism > 0 : **Friedensflügel** ?]
 
 [? if neorevisionism > 0 : Linkskonservative Mitglieder, die dem BSW nicht gefolgt sind. Sie wollen Verhandlungen mit Russland, keine Waffenlieferungen und eine restriktivere Migrationspolitik. Stärke: [+ neorevisionist_strength : strength +], Unmut: [+ neorevisionist_dissent : dissent +] ?]
+
+Quer zu allen Strömungen verläuft der Streit um Nahost: Wo endet Kritik an der israelischen Regierung, wo beginnt Antisemitismus? Seit dem Parteitag in Chemnitz 2025 gilt die Jerusalemer Erklärung als Arbeitsdefinition. [? if palestine_debate >= 3 : Der Konflikt ist derzeit heftig und kostet die Partei Kraft. ?][? if palestine_debate >= 1 and palestine_debate < 3 : Der Konflikt schwelt. ?]

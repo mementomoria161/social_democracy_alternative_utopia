@@ -1,0 +1,71 @@
+title: Grundsatzfragen
+new-page: true
+is-card: true
+tags: party_affairs
+view-if: player = "linke" and ideology_timer = 0
+on-arrival: month_actions += 1; old_ideology = ideology; ideology_timer = 18
+card-image: img/karl_liebknecht_haus.jpg
+max-visits: 3
+
+# Linke-Fassung von ideology (Durchgang 4.3). Gleiche Werte für ideology ("left", "centrist", "labor", "reformist").
+
+= Grundsatzfragen
+
+Seit dem Erfurter Programm von 2011 hat die Linke kein neues Grundsatzprogramm beschlossen. Mit Zehntausenden neuen Mitgliedern stellt sich die Frage neu: Was für eine Partei wollen wir sein?
+
+[? if ideology != 0 : Wir haben uns zuletzt für eine Ausrichtung entschieden. Ein Kurswechsel hätte wohl seinen Preis. ?]
+
+- @class_struggle: Eine sozialistische Partei: Vergesellschaftung, Bewegung auf der Straße, Mitregieren nur, wenn es wirklich etwas verändert.
+- @centrist: Eine organisierende Klassenpartei: Mieten, Preise, Löhne, an jeder Haustür und in jeder Sozialsprechstunde.
+- @labor: Eine Partei der Beschäftigten: Tarifbindung, Betriebsräte, sichere Renten, Seite an Seite mit den Gewerkschaften.
+- @reform: Eine Gestaltungspartei: regieren, wo es geht, und Rot-Rot-Grün im Bund vorbereiten.
+- @easy_discard
+
+@class_struggle
+on-arrival: {!
+if (Q.ideology && Q.ideology != "left") {
+    Q.changed = 1;
+}
+!}
+go-to: changed if changed = 1
+on-departure: ideology = "left"; left_strength += 10; left_dissent -= 5; reformist_dissent += 5; union_relation -= 3; linke_relation -= 3; nationalization_support += 1; klima_strength += 30
+
+Die Sozialistische Linke setzt sich durch. Die Partei versteht sich wieder als Teil der Bewegungen, gegen Mietenwahnsinn, Aufrüstung und Klimakrise. Die SPD sieht uns als Opposition, nicht als Partnerin.
+
+@centrist
+on-arrival: {!
+if (Q.ideology && Q.ideology != "centrist") {
+    Q.changed = 1;
+}
+!}
+go-to: changed if changed = 1
+on-departure: ideology = "centrist"; center_strength += 10; center_dissent -= 10; left_dissent -= 5; reformist_dissent -= 5
+
+Die Bewegungslinke um den Parteivorstand setzt sich durch. Die Linke will die Partei sein, die zuhört, hilft und organisiert, auch dort, wo sonst niemand mehr hinkommt.
+
+@labor
+on-arrival: {!
+if (Q.ideology && Q.ideology != "labor") {
+    Q.changed = 1;
+}
+!}
+go-to: changed if changed = 1
+on-departure: ideology = "labor"; labor_strength += 10; wtb_support += 1; labor_dissent -= 5; linke_relation += 2
+
+Der Gewerkschaftsflügel setzt sich durch. Die Linke will in Betrieben, Krankenhäusern und Paketzentren verankert sein und mit einer Investitionsoffensive Industriearbeitsplätze sichern.
+
+@reform
+on-arrival: {!
+if (Q.ideology && Q.ideology != "reformist") {
+    Q.changed = 1;
+}
+!}
+go-to: changed if changed = 1
+on-departure: ideology = "reformist"; reformist_strength += 10; democratization += 1; reformist_dissent -= 5; left_dissent += 5; linke_relation += 8; gruene_relation += 5; communist_coalition += 1; moderate_plan_support += 1
+
+Die Reformer*innen setzen sich durch. Die Linke will zeigen, dass sie regieren kann, wie in Bremen und Mecklenburg-Vorpommern, und bietet SPD und Grünen offen Gespräche über ein Bündnis an.
+
+@changed
+on-arrival: left_dissent += 5; center_dissent += 5; labor_dissent += 5; reformist_dissent += 5
+
+Wir haben die Richtung gewechselt. Viele in der Partei fühlen sich orientierungslos.

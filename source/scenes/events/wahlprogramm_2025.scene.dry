@@ -1,5 +1,5 @@
 title: Womit gehen wir in den Wahlkampf?
-subtitle: Die SPD beschließt ihr Wahlprogramm.
+subtitle: [+ pp_Full +] beschließt ihr Wahlprogramm.
 new-page: true
 tags: event
 view-if: wahlprogramm_seen = 0 and bundestag_dissolved = 1 and n_elections = 0

@@ -62,7 +62,7 @@ go-to: fight_2_win if defense_strength >= enemy_strength and march_on_berlin_see
 
 Die Demokratiebewegung zählt [+ demo_strength +] Tausend Menschen; viele strömen nach Berlin, bilden Menschenketten um Reichstag und Kanzleramt und blockieren friedlich die Zufahrten. Die Gewerkschaften rufen zum Generalstreik auf.
 
-[? if spd_prussia: Die Landespolizeien der SPD-Länder schicken Hundertschaften nach Berlin. ?] [? if spd_in_government and president != "Chrupalla" : Der Bundespräsident ruft den inneren Notstand aus, und verfassungstreue Einheiten der Bundeswehr sichern Regierungsgebäude und Infrastruktur. ?]
+[? if spd_prussia: Die Landespolizeien der Länder, in denen wir regieren, schicken Hundertschaften nach Berlin. ?] [? if spd_in_government and president != "Chrupalla" : Der Bundespräsident ruft den inneren Notstand aus, und verfassungstreue Einheiten der Bundeswehr sichern Regierungsgebäude und Infrastruktur. ?]
 
 
 @fight_2_win
@@ -71,7 +71,7 @@ achievement: drei_pfeile
 
 Hunderttausende stellen sich den Belagerern entgegen, und tatsächlich: Die Rechten ziehen ab! Angesichts der Masse der Demokratinnen und Demokraten verlieren sie den Mut, die Rädelsführer werden festgenommen. Der Umsturzversuch ist gescheitert, zumindest vorerst.
 
-Die Bilder vom friedlichen Widerstand stärken den Rückhalt für die Demokratie und für die SPD, und die extreme Rechte ist geschwächt.
+Die Bilder vom friedlichen Widerstand stärken den Rückhalt für die Demokratie und für [+ pp_full +], und die extreme Rechte ist geschwächt.
 
 @fight_2_win_2
 on-arrival: coup_progress = 0; pro_republic += 5; workers_afd -= 2*(1-dissent); unemployed_afd -= 2*(1-dissent); new_middle_afd -= 2*(1-dissent); demo_strength *= 0.9; rechts_strength *= 0.9; bauern_strength *= 0.9
@@ -80,7 +80,7 @@ on-arrival: coup_progress = 0; pro_republic += 5; workers_afd -= 2*(1-dissent); 
 
 Hunderttausende stellen sich den Belagerern entgegen, und die Rechten ziehen erneut ab. Der Umsturzversuch ist gescheitert, zumindest vorerst.
 
-Der friedliche Widerstand stärkt den Rückhalt für die Demokratie und für die SPD ein weiteres Mal, und die extreme Rechte ist geschwächt.
+Der friedliche Widerstand stärkt den Rückhalt für die Demokratie und für [+ pp_full +] ein weiteres Mal, und die extreme Rechte ist geschwächt.
 
 
 @fight_2_pre_civil_war

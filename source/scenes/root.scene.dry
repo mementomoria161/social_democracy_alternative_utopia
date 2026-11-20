@@ -3,6 +3,7 @@ new-page: true
 go-to: post_event if started = 1; start_menu if started = 0
 
 @start_menu
+# party-ok: Sozialdemokratie (Spieltitel)
 new-page: true
 go-to: start_menu_2
 
@@ -684,6 +685,12 @@ Q.linke_parteitag_2025_seen = 0;
 Q.grundmandat = 0;
 Q.bv_left = 0;
 Q.bv_right = 0;
+// Durchgang 4.3 (Linke-Inhalte): Haustürwahlkampf, Mitgliederboom 2025 (0/1/2) und Integration der Neumitglieder,
+// Mieten-Kampagne (Stärke), Gehaltsdeckel der Abgeordneten, Nahost-Debatte in der Partei (for a later groups tab:
+// palestine_debate = intensity of the internal conflict, palestine_stance = -1 Israel-solidarity line / 0 balance / 1 close
+// to the Palestine movement), Berlin-Wahl 2026 (berlin_2026: 0 = not yet, 1 = Linke strongest, 2 = Linke in a coalition, 3 = opposition)
+Q.haustuer_seen = 0; Q.mitgliederboom = 0; Q.neumitglieder_integriert = 0; Q.mietenkampagne = 0; Q.gehaltsdeckel = 0;
+Q.palestine_debate = 0; Q.palestine_stance = 0; Q.palestine_debate_seen = 0; Q.berlin_2026 = 0; Q.lk_sw_in = 0;
 !}
 set-bg: img/map_2.jpg
 new-page: true
@@ -742,6 +749,7 @@ go-to: party_choice
 go-to: custom_difficulty
 
 @intro_main
+# party: spd
 new-page: true
 face-image: img/portraits/Scholz.jpg
 
@@ -769,12 +777,14 @@ Du kannst das Spiel aus zwei Perspektiven spielen. Die Ausgangslage am 6. Novemb
 - @choose_linke
 
 @choose_spd
+# party: spd
 title: Die SPD
 subtitle: Kanzlerpartei am Abgrund: Die Ampel ist zerbrochen, Olaf Scholz regiert ohne Mehrheit, die Umfragen stehen bei 15 Prozent.
 on-arrival: player = "spd"
 go-to: intro_main
 
 @choose_linke
+# party: linke
 title: Die Linke
 subtitle: Totgesagt bei drei Prozent: nach der Abspaltung des BSW nur noch eine Gruppe im Bundestag, neue Vorsitzende und der Kampf um den Wiedereinzug.
 on-arrival: {!
@@ -829,6 +839,7 @@ Q.n_advisors = 3;
 go-to: intro_linke
 
 @intro_linke
+# party: linke
 new-page: true
 face-image: img/portraits/Schwerdtner.jpg
 set-bg: img/karl_liebknecht_haus.jpg

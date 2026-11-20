@@ -55,7 +55,7 @@ Unsere Investitionen zahlen sich aus: Weniger Menschen sind auf Arbeitslosengeld
 
 Der Wirtschaft geht es endlich besser. Selbst Union und FDP räumen ein, dass die Investitionen wirken.
 
-[? if in_popular_front or in_left_front: Die Linke kritisiert weiter, wir würden nur Konzernen Subventionen hinterherwerfen. ?]
+[? if player = "spd" and (in_popular_front or in_left_front) : Die Linke kritisiert weiter, wir würden nur Konzernen Subventionen hinterherwerfen. ?][? if player = "linke" and (in_popular_front or in_left_front) : Die SPD-Haushälter mahnen weiter, die Schuldenbremse nicht aus den Augen zu verlieren. ?]
 
 @implement_wtb_no_deficit
 title: Die Investitionsoffensive starten.
@@ -68,7 +68,7 @@ achievement: wirtschaftspolitik
 
 Die Investitionsoffensive läuft an. Über einen Deutschlandfonds fließt Geld in Bahnstrecken, Brücken, Schulen, Stromnetze und Wohnungsbau, gekoppelt an Standort- und Tarifgarantien.
 
-[? if in_popular_front or in_left_front: Die Linke lehnt das Programm ab, weil es Konzernen mit Steuergeld Gewinne sichere, statt Schlüsselindustrien in öffentliche Hand zu holen. ?]
+[? if player = "spd" and (in_popular_front or in_left_front) : Die Linke lehnt das Programm ab, weil es Konzernen mit Steuergeld Gewinne sichere, statt Schlüsselindustrien in öffentliche Hand zu holen. ?][? if player = "linke" and (in_popular_front or in_left_front) : Die SPD trägt das Programm mit, doch ihre Haushälter warnen vor den Kosten, und die Sozialistische Linke hätte lieber gleich Schlüsselindustrien in öffentliche Hand geholt. ?]
 
 @implement_wtb_deficit
 title: Die Investitionsoffensive starten.
@@ -81,7 +81,7 @@ achievement: wirtschaftspolitik
 
 Wir finanzieren das Programm auf Pump, über das Sondervermögen hinaus. Unsere Koalitionspartner sind entsetzt und reden vom „Bruch der Schuldenbremse“, doch die Offensive wird beschlossen. Das Geld fließt in Bahnstrecken, Brücken, Schulen, Stromnetze und Wohnungsbau.
 
-[? if in_popular_front or in_left_front: Die Linke lehnt das Programm ab, weil es Konzernen mit Steuergeld Gewinne sichere, statt Schlüsselindustrien in öffentliche Hand zu holen. ?]
+[? if player = "spd" and (in_popular_front or in_left_front) : Die Linke lehnt das Programm ab, weil es Konzernen mit Steuergeld Gewinne sichere, statt Schlüsselindustrien in öffentliche Hand zu holen. ?][? if player = "linke" and (in_popular_front or in_left_front) : Die SPD trägt das Programm mit, doch ihre Haushälter warnen vor den Kosten, und die Sozialistische Linke hätte lieber gleich Schlüsselindustrien in öffentliche Hand geholt. ?]
 
 
 ####################### left economic policies (socializations)
@@ -166,7 +166,7 @@ go-to: nationalize_deficit if budget < nationalize_budget; nationalize_no_defici
 # Moderate economic plan
 
 @moderate_plan
-title: Das Bau- und Beschäftigungsprogramm der Seeheimer umsetzen.
+title: Das Bau- und Beschäftigungsprogramm der Strömung [+ f_reformist +] umsetzen.
 subtitle: -2 Haushaltsspielraum.
 unavailable-subtitle: -2 Haushaltsspielraum. [? if budget < 2 : Dafür fehlt uns der Haushaltsspielraum. ?] [? if unemployed < 5 : Die Arbeitslosigkeit ist zu niedrig, um ein Beschäftigungsprogramm zu rechtfertigen. ?]
 view-if: moderate_plan_adopted == 1
@@ -182,7 +182,7 @@ achievement: wirtschaftspolitik
 
 [? if unemployed < 6 : Bei der derzeitigen Arbeitslosigkeit verpufft ein Teil der Wirkung in steigenden Baupreisen. ?]
 
-[? if in_popular_front or in_left_front: Die Linke kritisiert, das Programm fülle vor allem die Taschen von Bauträgern und Immobilienkonzernen. ?]
+[? if player = "spd" and (in_popular_front or in_left_front) : Die Linke kritisiert, das Programm fülle vor allem die Taschen von Bauträgern und Immobilienkonzernen. ?][? if player = "linke" and (in_popular_front or in_left_front) : In der eigenen Partei heißt es, das Programm fülle vor allem die Taschen von Bauträgern und Immobilienkonzernen. ?]
 
 @moderate_plan_limited_budget
 title: Das Bau- und Beschäftigungsprogramm in abgespeckter Form umsetzen.
@@ -201,4 +201,4 @@ achievement: wirtschaftspolitik
 
 [? if unemployed < 6 : Bei der derzeitigen Arbeitslosigkeit verpufft ein Teil der Wirkung in steigenden Baupreisen. ?]
 
-[? if in_popular_front or in_left_front: Die Linke kritisiert, das Programm fülle vor allem die Taschen von Bauträgern und Immobilienkonzernen. ?]
+[? if player = "spd" and (in_popular_front or in_left_front) : Die Linke kritisiert, das Programm fülle vor allem die Taschen von Bauträgern und Immobilienkonzernen. ?][? if player = "linke" and (in_popular_front or in_left_front) : In der eigenen Partei heißt es, das Programm fülle vor allem die Taschen von Bauträgern und Immobilienkonzernen. ?]

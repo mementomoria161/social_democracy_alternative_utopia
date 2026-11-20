@@ -63,7 +63,7 @@ Mit der steigenden Arbeitslosigkeit gerät die Bundesagentur für Arbeit tief in
 subtitle: Die Beschäftigten werden das als Verrat empfinden.
 on-arrival: workers_spd -= 0.12*workers_spd; unemployed_spd -= 0.2*unemployed_spd; workers_linke += 6; workers_afd += 6; unemployed_linke += 5; unemployed_afd += 5; left_dissent += 15; center_dissent += 10; labor_dissent += 15; reformist_dissent += 5; welfare -= 2; budget += 1; unemployed += 1.5; pro_republic -= 4; linke_relation -= 8; inflation -= 2; unemployment_insurance_threshold = unemployed; unemployment_insurance_timer = 10; economic_growth -= 0.2;
 
-Aus Haushaltsgründen verkürzen wir die Bezugsdauer des Arbeitslosengeldes und senken die Leistungen. Für die Beschäftigten ist unsere Haushaltsdisziplin unverständlich. Sie sind wütend über den Verrat, ebenso große Teile unserer Mitgliedschaft in allen Flügeln. Was wir verlieren, gewinnt die Linke, und selbst die AfD, die sonst gegen „Sozialschmarotzer“ hetzt, prangert jetzt unseren Sozialabbau an.
+Aus Haushaltsgründen verkürzen wir die Bezugsdauer des Arbeitslosengeldes und senken die Leistungen. Für die Beschäftigten ist unsere Haushaltsdisziplin unverständlich. Sie sind wütend über den Verrat, ebenso große Teile unserer Mitgliedschaft in allen Flügeln. Was wir verlieren, gewinnt [+ op_full +], und selbst die AfD, die sonst gegen „Sozialschmarotzer“ hetzt, prangert jetzt unseren Sozialabbau an.
 
 
 

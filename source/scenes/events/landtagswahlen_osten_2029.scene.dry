@@ -4,12 +4,15 @@ new-page: true
 tags: event
 view-if: year = 2029 and month = 9
 max-visits: 1
-on-arrival: ltw_osten_2029_seen = 1; brandenburg_lost = 1 if afd_r >= 30 or spd_r < 15; nazi_urgency += 1 if brandenburg_lost; strife += 1 if afd_r >= 30
+on-arrival: ltw_osten_2029_seen = 1; brandenburg_lost = 1 if afd_r >= 30 or (player = "spd" and spd_r < 15) or (player = "linke" and linke_r < 15); nazi_urgency += 1 if brandenburg_lost; strife += 1 if afd_r >= 30
+go-to: linke if player = "linke"
 face-image: img/wahlkampf.jpg
 
 # Fiktives Szenario; Ausgang hängt von den Umfragen ab.
 
 = Landtagswahlen im Osten
+
+# party-ok: SPD (die reale SPD in Brandenburg)
 
 In Sachsen, Thüringen und Brandenburg werden neue Landtage gewählt. [? if afd_r >= 30 : In allen drei Ländern wird die AfD mit großem Abstand stärkste Kraft, in Thüringen fehlen ihr nur wenige Sitze zur absoluten Mehrheit. ?][? if afd_r < 30 : Die AfD bleibt stark, verliert aber erstmals seit Jahren an Zustimmung. ?]
 
@@ -20,3 +23,15 @@ In Sachsen, Thüringen und Brandenburg werden neue Landtage gewählt. [? if afd_
 @weiter
 
 [? if brandenburg_lost : Für die SPD ist das eine historische Niederlage. ?][? if not brandenburg_lost : Ein Lichtblick in schwierigen Zeiten. ?]
+
+@linke
+# Linke-Fassung (Durchgang 4.3). Fiktiv. 2024: Thüringen 13,1, Sachsen 4,5 (zwei Direktmandate), Brandenburg 3,0 Prozent.
+
+[? if spd_votes >= 10 : Für die Linke ist es ein Comeback: In Thüringen, wo sie zehn Jahre den Ministerpräsidenten stellte, wird sie wieder zweistellig, in Sachsen und Brandenburg kehrt sie in die Landtage zurück. ?][? if spd_votes < 10 : Für die Linke bleibt der Osten schwierig: In Thüringen hält sie sich, in Sachsen und Brandenburg reicht es nicht für den Landtag. Die Großstadtpartei des Westens hat ihre alte Heimat noch nicht zurückgewonnen. ?][? if peoples_party = 1 : Unser Kurs als Kümmererpartei des Ostens zahlt sich in Kleinstädten und Dörfern aus. ?]
+
+- @lk_weiter: Weiter.
+
+@lk_weiter
+on-arrival: reformist_dissent -= 3 if spd_votes >= 10; reformist_dissent += 4 if spd_votes < 10; neorevisionist_dissent += 3 if spd_votes < 10
+
+[? if spd_votes >= 10 : Ein Lichtblick in schwierigen Zeiten. ?][? if spd_votes < 10 : Die Reformer*innen aus dem Osten fordern, die Partei müsse sich wieder mehr um ihre alten Hochburgen kümmern. ?]

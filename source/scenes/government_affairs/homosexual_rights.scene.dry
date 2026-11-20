@@ -26,7 +26,7 @@ view-if: repealed_175 == 0
 choose-if: progressive_coalition >= 50
 on-arrival: repealed_175 = 1; homosexual_rights += 1; union_relation -= 5; linke_relation += 4*(1-dissent); gruene_relation += 4*(1-dissent); coalition_dissent += 1 if (in_grand_coalition or in_weimar_coalition); rentner_spd -= 4; economic_growth += 0.1;
 
-Gemeinsam mit [+ gruene_name +], der Linken und einem Teil der Union haben wir „sexuelle Identität“ in Artikel 3 des Grundgesetzes aufgenommen. Der Schutz queerer Menschen hängt damit nicht mehr von wechselnden Mehrheiten ab.
+Gemeinsam mit [+ gruene_name +], [+ op_dat +] und einem Teil der Union haben wir „sexuelle Identität“ in Artikel 3 des Grundgesetzes aufgenommen. Der Schutz queerer Menschen hängt damit nicht mehr von wechselnden Mehrheiten ab.
 
 Die AfD spricht von „Gender-Ideologie im Grundgesetz“.
 
@@ -38,7 +38,7 @@ view-if: reformed_183 == 0
 choose-if: progressive_coalition >= 50
 on-arrival: reformed_183 = 1; homosexual_rights += 1; union_relation -= 5; linke_relation += 4*(1-dissent); gruene_relation += 4*(1-dissent); coalition_dissent += 1 if (in_grand_coalition or in_weimar_coalition); rentner_spd -= 4; economic_growth += 0.1;
 
-Mit den Stimmen von [+ gruene_name +] und der Linken haben wir das Abstammungsrecht reformiert: Die Ehefrau der Mutter ist künftig automatisch zweiter Elternteil. Ein Bund-Länder-Aktionsplan schützt CSDs und queere Einrichtungen, Polizei und Justiz erfassen queerfeindliche Straftaten künftig gezielt.
+Mit den Stimmen von [+ gruene_name +] und [+ op_dat +] haben wir das Abstammungsrecht reformiert: Die Ehefrau der Mutter ist künftig automatisch zweiter Elternteil. Ein Bund-Länder-Aktionsplan schützt CSDs und queere Einrichtungen, Polizei und Justiz erfassen queerfeindliche Straftaten künftig gezielt.
 
 
 @change_sex

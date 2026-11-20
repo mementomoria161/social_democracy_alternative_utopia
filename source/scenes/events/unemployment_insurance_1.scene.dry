@@ -1,7 +1,7 @@
 title: Streit um die Sozialkassen
 subtitle: Der Wirtschaftsflügel der Union stellt ein Ultimatum.
 new-page: true
-view-if: spd_in_government = 1 and (year = 2026 or year = 2027 or year = 2028) and (month >= 3) and in_grand_coalition = 1 and unemployment_insurance_timer = 0 and (unemployed >= unemployment_insurance_threshold + 2 or (unemployed >= 10 and unemployed >= unemployment_insurance_threshold)) and chancellor_party == "Union"
+view-if: player = "spd" and spd_in_government = 1 and (year = 2026 or year = 2027 or year = 2028) and (month >= 3) and in_grand_coalition = 1 and unemployment_insurance_timer = 0 and (unemployed >= unemployment_insurance_threshold + 2 or (unemployed >= 10 and unemployed >= unemployment_insurance_threshold)) and chancellor_party == "Union"
 on-arrival: unemployment_insurance_crisis += 1; budget -= 1 if budget >= 1; unemployment_insurance_timer = 10; crisis_urgency += 1; unemployment_insurance_threshold = unemployed
 tags: event
 max-visits: 2

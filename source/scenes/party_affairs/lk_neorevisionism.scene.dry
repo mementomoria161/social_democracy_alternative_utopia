@@ -1,0 +1,35 @@
+title: Der Friedensflügel meldet sich
+new-page: true
+is-card: true
+card-image: img/ostermarsch.jpg
+view-if: player = "linke" and nazi_urgency > 0 and neorevisionism == 0 and (afd_r >= 25 or afd_normalized >= 0.25)
+on-arrival: shuffle_leadership_timer = 0;
+tags: party_affairs
+frequency: 400
+max-visits: 1
+
+# Linke-Fassung von neorevisionism (Durchgang 4.3): neorevisionism = 1 macht die versteckte Strömung "Friedensflügel"
+# sichtbar (linkskonservative Mitglieder, die 2024 nicht zum BSW gegangen sind; bewusst ohne reale Personen).
+
+= Der Friedensflügel meldet sich
+
+Eine Gruppe von Kommunalpolitiker*innen und älteren Mitgliedern, vor allem aus Sachsen, Thüringen und Brandenburg, ist 2024 nicht mit Sahra Wagenknecht gegangen. Doch sie teilen viele ihrer Positionen. Jetzt schreiben sie einen offenen Brief: Die Linke solle auf Ostermärschen in der ersten Reihe stehen, Verhandlungen mit Russland statt Waffenlieferungen fordern und „ehrlich“ über Migration reden. Nur so hole man die Wähler*innen zurück, die zu BSW und AfD gegangen sind.
+
+Die Kritiker*innen halten dagegen: Genau dieser Kurs habe die Partei 2024 fast zerstört, und wer über Geflüchtete redet wie die Rechten, mache die Rechten stärker.
+
+- @support_neo: Dem Friedensflügel Raum geben.
+- @no_new_ideas: Das ist der falsche Weg.
+- @easy_discard
+
+@support_neo
+on-arrival: neorevisionist_strength += 10; nazi_urgency += 1; neorevisionism = 1; peoples_party_support += 1; left_dissent += 10; center_dissent += 5; nationalism += 2; pacifism += 1; bsw_relation += 5
+
+Die Unterzeichner*innen dürfen auf dem Parteitag reden, und auf den Ostermärschen sind wir sichtbarer als seit Jahren. In der Bewegungslinken wird gemurrt. Wie die Wähler*innen reagieren, ist noch offen.
+
+- @shuffle_leadership: Wir sollten die Gelegenheit nutzen, die Parteiführung neu aufzustellen.
+- @root: Weiter …
+
+@no_new_ideas
+on-arrival: neorevisionist_strength -= 5; center_strength += 5; neorevisionism = -1; left_dissent -= 5
+
+Wir brauchen diese Ideen nicht. Für Wagenknechts Kurs gibt es schon eine Partei, und die steht bei vier Prozent.

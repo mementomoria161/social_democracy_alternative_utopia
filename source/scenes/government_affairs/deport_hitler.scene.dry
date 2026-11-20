@@ -1,6 +1,6 @@
 title: Wir können ein AfD-Verbotsverfahren einleiten.
 subtitle: Der Verfassungsschutz stuft die Partei als gesichert rechtsextremistisch ein.
-unavailable-subtitle: [? if judicial_reform < 2 : Ohne eine krisenfeste Justiz ist das Risiko zu groß, dass das Verfahren scheitert. ?] [? if not spd_prussia : Ohne die SPD-Länder im Bundesrat fehlt uns die nötige Unterstützung. ?]
+unavailable-subtitle: [? if judicial_reform < 2 : Ohne eine krisenfeste Justiz ist das Risiko zu groß, dass das Verfahren scheitert. ?] [? if not spd_prussia : Ohne die Länder, in denen wir regieren, fehlt uns die nötige Unterstützung. ?]
 view-if: nazi_urgency >= 3 and hitler_deported = 0 and chancellor_party != "AfD" and investigate_far_right >= 2
 choose-if: judicial_reform >= 2 and spd_prussia == 1
 

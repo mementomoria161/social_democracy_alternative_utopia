@@ -91,7 +91,7 @@ if (Q.union_relation > 49) {
 !}
 view-if: volksentscheide = 0
 
-Bundesweite Volksentscheide stehen seit Langem im Programm der SPD, wurden aber nie umgesetzt. In allen Ländern gibt es sie längst. Kritiker warnen, Populisten könnten das Instrument für Kampagnen gegen Minderheiten oder die EU nutzen; die Reform soll deshalb Grundrechte, Haushalt und Völkerrecht ausnehmen.
+Bundesweite Volksentscheide stehen seit Langem im Programm [+ pp_dat +], wurden aber nie umgesetzt. In allen Ländern gibt es sie längst. Kritiker warnen, Populisten könnten das Instrument für Kampagnen gegen Minderheiten oder die EU nutzen; die Reform soll deshalb Grundrechte, Haushalt und Völkerrecht ausnehmen.
 
 Linke und [+ gruene_name +] sind dafür. [? if afd_normalized >= 0.2 : Ausgerechnet die AfD würde mitstimmen, was viele in unserer eigenen Partei misstrauisch macht. ?] [? if union_relation > 49 : Die Union ist skeptisch, will sich einer Debatte aber nicht verschließen. ?] [? if union_relation <= 49 : Die Union lehnt die Reform ab. ?]
 

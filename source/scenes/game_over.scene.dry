@@ -130,7 +130,7 @@ title: Die AfD beherrscht Deutschland.
 tags: endings
 go-to: eg_menu
 
-Die AfD hat die Macht in Deutschland übernommen und baut den Staat nach ihren Vorstellungen um. Die SPD und alle demokratischen Kräfte sind gescheitert.
+Die AfD hat die Macht in Deutschland übernommen und baut den Staat nach ihren Vorstellungen um. [+ pp_Full +] und alle demokratischen Kräfte sind gescheitert.
 
 [? if civil_war_seen == 1 : Immerhin haben wir uns gewehrt. Vielleicht wird man sich in einer heute noch nicht absehbaren Zukunft an unseren Widerstand erinnern. ?]
 
@@ -190,6 +190,7 @@ Deutschland steckt in einer Staatskrise ohne absehbares Ende. Regionen, Behörde
 
 
 @schwesig_victorious
+# party-ok: Sozialdemokratin (Schwesig, SPD)
 title: Manuela Schwesig im Schloss Bellevue
 view-if: president == "Schwesig"
 tags: endings
@@ -206,6 +207,7 @@ go-to: eg_menu
 Norbert Lammert ist Bundespräsident. Als Kandidat der demokratischen Mitte soll er das zerrissene Land zusammenhalten.
 
 @president_midyatli
+# party-ok: der Linken (Trabert, Kandidat der realen Linken)
 title: Gerhard Trabert ist Bundespräsident
 view-if: president == "Trabert"
 tags: endings
@@ -275,20 +277,20 @@ Die Arbeitslosigkeit ist gefährlich hoch. Auch wenn die AfD nicht regiert, ist 
 
 
 @emergency_government
-title: Die SPD in einer Notstandsregierung.
+title: [+ pp_Full +] in einer Notstandsregierung.
 view-if: in_emergency_government == 1
 tags: endings
 go-to: eg_menu
 
-Die SPD regiert in einer Notstandsregierung unter Bundespräsident\*in [+ president +] und Kanzler\*in [+ chancellor +]. Das ist eine instabile Übergangslösung, die autoritären Versuchungen die Tür öffnet.
+[+ pp_Full +] regiert in einer Notstandsregierung unter Bundespräsident\*in [+ president +] und Kanzler\*in [+ chancellor +]. Das ist eine instabile Übergangslösung, die autoritären Versuchungen die Tür öffnet.
 
 @peoples_party_achieved
-title: Die SPD ist wieder Volkspartei.
+title: [? if player = "spd" : Die SPD ist wieder Volkspartei. ?][? if player = "linke" : Die Linke ist wieder die Partei des Ostens. ?]
 view-if: peoples_party == 1
 tags: endings
 go-to: eg_menu
 
-Die SPD versteht sich wieder als Volkspartei für alle, nicht nur für die Beschäftigten. Der Kurs hat Anhänger und Kritiker, und was aus der Partei wird, ist offen.
+[? if player = "spd" : Die SPD versteht sich wieder als Volkspartei für alle, nicht nur für die Beschäftigten. ?][? if player = "linke" : Die Linke versteht sich wieder als Kümmererpartei für die Menschen im Osten, nicht nur für die jungen Großstädter*innen. ?] Der Kurs hat Anhänger und Kritiker, und was aus der Partei wird, ist offen.
 
 @nationalization_achieved
 title: Schlüsselindustrien sind in öffentlicher Hand.
@@ -315,6 +317,7 @@ go-to: eg_menu
 Wir haben die Gründung einer Europäischen Föderation vorangetrieben, für Frieden und Wohlstand auf dem Kontinent. Die Zeit wird zeigen, wie gut sie funktioniert.
 
 @achievements
+# party-ok: SPD, Volkspartei, Sozialdemokratin, die Linke (SPD-Bundespräsidentin Schwesig, Sohn seiner Klasse = reale Linke, Rot-Rot und Rot-Grün-Rot als reale Parteinamen, Große Volkspartei als Maßstab)
 title: Erfolge
 view-if: achievement_game_completed == 1
 tags: endings
@@ -341,33 +344,33 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 
 [? if game_achievement_bollwerk_der_demokratie: **Bollwerk der Demokratie** – einen Umsturzversuch abwehren und gewinnen. ?]
 
-[? if game_achievement_red_tzar_of_prussia : **Rote Doppelspitze** – Manuela Schwesig ist Bundespräsidentin und die SPD stellt Kanzlerschaft und starke Länder. ?]
+[? if game_achievement_red_tzar_of_prussia : **Rote Doppelspitze** – Manuela Schwesig ist Bundespräsidentin und [+ pp_full +] stellt Kanzlerschaft und starke Länder. ?]
 
 [? if game_achievement_einheitsfront: **Rot-Rot** – eine Regierung aus SPD und Linken bilden. ?]
 
-[? if game_achievement_einheitsfront_2: **Sieg für Rot-Rot** – eine rot-rote Koalition, die alle Forderungen der Linken erfüllt. ?]
+[? if game_achievement_einheitsfront_2: **Sieg für Rot-Rot** – eine rot-rote Koalition, die alle Forderungen des Partners erfüllt. ?]
 
 [? if game_achievement_volksfront: **Rot-Grün-Rot** – eine Regierung aus SPD, Grünen und Linken bilden. ?]
 
-[? if game_achievement_grosse_volksfront: **Große Koalition der Vernunft** – mit Hendrik Wüst an der Spitze der CDU und dem Reformflügel an der Spitze der Linken eine Regierung aller demokratischen Parteien bilden. ?]
+[? if game_achievement_grosse_volksfront: **Große Koalition der Vernunft** – mit Hendrik Wüst an der Spitze der CDU und dem kooperativen Flügel an der Spitze [+ op_dat +] eine Regierung aller demokratischen Parteien bilden. ?]
 
-[? if game_achievement_volksfront_2: **Sieg für Rot-Grün-Rot** – eine rot-grün-rote Koalition, die alle Forderungen der Linken erfüllt. ?]
+[? if game_achievement_volksfront_2: **Sieg für Rot-Grün-Rot** – eine rot-grün-rote Koalition, die alle Forderungen des Partners erfüllt. ?]
 
 [? if game_achievement_constitutional_coalition: **Koalition der Mitte** – eine „Koalition der Mitte“ bilden. ?]
 
 [? if game_achievement_weimar_coalition: **Kenia** – eine Koalition aus Union, SPD und Grünen bilden. ?]
 
-[? if game_achievement_majority_party: **Mehrheitspartei** – eine SPD-Alleinregierung mit eigener Mehrheit bilden. ?]
+[? if game_achievement_majority_party: **Mehrheitspartei** – eine Alleinregierung [+ pp_dat +] mit eigener Mehrheit bilden. ?]
 
-[? if game_achievement_minderheitsregierung: **Minderheitsregierung** – eine SPD-Minderheitsregierung bilden. ?]
+[? if game_achievement_minderheitsregierung: **Minderheitsregierung** – eine Minderheitsregierung [+ pp_dat +] bilden. ?]
 
-[? if game_achievement_volkspartei: **Volkspartei** – die SPD ist wieder Volkspartei. ?]
+[? if game_achievement_volkspartei: **Volkspartei** – [+ pp_full +] ist wieder Volkspartei. ?]
 
 [? if game_achievement_sohn_seiner_klasse: **Sohn seiner Klasse** – die Linke stellt das Staatsoberhaupt oder die Kanzlerschaft. ?]
 
 [? if game_achievement_rote_millionar: **Der rote Millionär** – ein linker Unternehmer wird Bundespräsident. ?]
 
-[? if game_achievement_versohnler: **Versöhnler** – der Reformflügel führt die Linke. ?]
+[? if game_achievement_versohnler: **Versöhnler** – der kooperative Flügel führt [+ op_full +]. ?]
 
 [? if game_achievement_deport_hitler : **Wehrhafte Demokratie** – ein erfolgreiches AfD-Verbotsverfahren. ?]
 
@@ -389,7 +392,7 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 
 [? if game_achievement_bruder_zur_sonne: **Brüder, zur Sonne, zur Freiheit** – Arbeitslosigkeit senken, EU-Investitionsausnahme erreichen, Gleichstellung voranbringen, eine SPD-Bundespräsidentin wählen und ein AfD-Verbotsverfahren gewinnen, in einem Durchgang auf mindestens „Normal“. ?]
 
-[? if game_achievement_die_rote_fahne: **Die Rote Fahne** – mit der Linken am 1. Mai demonstrieren. ?]
+[? if game_achievement_die_rote_fahne: **Die Rote Fahne** – mit [+ op_dat +] am 1. Mai demonstrieren. ?]
 
 [? if game_achievement_panik_im_mittelstand: **Panik im Mittelstand** – mindestens 50 % Zustimmung in der akademischen Mittelschicht. ?]
 
@@ -452,33 +455,33 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 
 [? if achievement_bollwerk_der_demokratie: **Bollwerk der Demokratie** – einen Umsturzversuch abwehren und gewinnen. ?]
 
-[? if achievement_red_tzar_of_prussia : **Rote Doppelspitze** – Manuela Schwesig ist Bundespräsidentin und die SPD stellt Kanzlerschaft und starke Länder. ?]
+[? if achievement_red_tzar_of_prussia : **Rote Doppelspitze** – Manuela Schwesig ist Bundespräsidentin und [+ pp_full +] stellt Kanzlerschaft und starke Länder. ?]
 
 [? if achievement_einheitsfront: **Rot-Rot** – eine Regierung aus SPD und Linken bilden. ?]
 
-[? if achievement_einheitsfront_2: **Sieg für Rot-Rot** – eine rot-rote Koalition, die alle Forderungen der Linken erfüllt. ?]
+[? if achievement_einheitsfront_2: **Sieg für Rot-Rot** – eine rot-rote Koalition, die alle Forderungen des Partners erfüllt. ?]
 
 [? if achievement_volksfront: **Rot-Grün-Rot** – eine Regierung aus SPD, Grünen und Linken bilden. ?]
 
-[? if achievement_grosse_volksfront: **Große Koalition der Vernunft** – mit Hendrik Wüst an der Spitze der CDU und dem Reformflügel an der Spitze der Linken eine Regierung aller demokratischen Parteien bilden. ?]
+[? if achievement_grosse_volksfront: **Große Koalition der Vernunft** – mit Hendrik Wüst an der Spitze der CDU und dem kooperativen Flügel an der Spitze [+ op_dat +] eine Regierung aller demokratischen Parteien bilden. ?]
 
-[? if achievement_volksfront_2: **Sieg für Rot-Grün-Rot** – eine rot-grün-rote Koalition, die alle Forderungen der Linken erfüllt. ?]
+[? if achievement_volksfront_2: **Sieg für Rot-Grün-Rot** – eine rot-grün-rote Koalition, die alle Forderungen des Partners erfüllt. ?]
 
 [? if achievement_constitutional_coalition: **Koalition der Mitte** – eine „Koalition der Mitte“ bilden. ?]
 
 [? if achievement_weimar_coalition: **Kenia** – eine Koalition aus Union, SPD und Grünen bilden. ?]
 
-[? if achievement_majority_party: **Mehrheitspartei** – eine SPD-Alleinregierung mit eigener Mehrheit bilden. ?]
+[? if achievement_majority_party: **Mehrheitspartei** – eine Alleinregierung [+ pp_dat +] mit eigener Mehrheit bilden. ?]
 
-[? if achievement_minderheitsregierung: **Minderheitsregierung** – eine SPD-Minderheitsregierung bilden. ?]
+[? if achievement_minderheitsregierung: **Minderheitsregierung** – eine Minderheitsregierung [+ pp_dat +] bilden. ?]
 
-[? if achievement_volkspartei: **Volkspartei** – die SPD ist wieder Volkspartei. ?]
+[? if achievement_volkspartei: **Volkspartei** – [+ pp_full +] ist wieder Volkspartei. ?]
 
 [? if achievement_sohn_seiner_klasse: **Sohn seiner Klasse** – die Linke stellt das Staatsoberhaupt oder die Kanzlerschaft. ?]
 
 [? if achievement_rote_millionar: **Der rote Millionär** – ein linker Unternehmer wird Bundespräsident. ?]
 
-[? if achievement_versohnler: **Versöhnler** – der Reformflügel führt die Linke. ?]
+[? if achievement_versohnler: **Versöhnler** – der kooperative Flügel führt [+ op_full +]. ?]
 
 [? if achievement_deport_hitler : **Wehrhafte Demokratie** – ein erfolgreiches AfD-Verbotsverfahren. ?]
 
@@ -500,7 +503,7 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 
 [? if achievement_bruder_zur_sonne: **Brüder, zur Sonne, zur Freiheit** – Arbeitslosigkeit senken, EU-Investitionsausnahme erreichen, Gleichstellung voranbringen, eine SPD-Bundespräsidentin wählen und ein AfD-Verbotsverfahren gewinnen, in einem Durchgang auf mindestens „Normal“. ?]
 
-[? if achievement_die_rote_fahne: **Die Rote Fahne** – mit der Linken am 1. Mai demonstrieren. ?]
+[? if achievement_die_rote_fahne: **Die Rote Fahne** – mit [+ op_dat +] am 1. Mai demonstrieren. ?]
 
 [? if achievement_panik_im_mittelstand: **Panik im Mittelstand** – mindestens 50 % Zustimmung in der akademischen Mittelschicht. ?]
 
@@ -561,33 +564,33 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 
 [? if not achievement_bollwerk_der_demokratie: **Bollwerk der Demokratie** – einen Umsturzversuch abwehren und gewinnen. ?]
 
-[? if not achievement_red_tzar_of_prussia : **Rote Doppelspitze** – Manuela Schwesig ist Bundespräsidentin und die SPD stellt Kanzlerschaft und starke Länder. ?]
+[? if not achievement_red_tzar_of_prussia : **Rote Doppelspitze** – Manuela Schwesig ist Bundespräsidentin und [+ pp_full +] stellt Kanzlerschaft und starke Länder. ?]
 
 [? if not achievement_einheitsfront: **Rot-Rot** – eine Regierung aus SPD und Linken bilden. ?]
 
-[? if not achievement_einheitsfront_2: **Sieg für Rot-Rot** – eine rot-rote Koalition, die alle Forderungen der Linken erfüllt. ?]
+[? if not achievement_einheitsfront_2: **Sieg für Rot-Rot** – eine rot-rote Koalition, die alle Forderungen des Partners erfüllt. ?]
 
 [? if not achievement_volksfront: **Rot-Grün-Rot** – eine Regierung aus SPD, Grünen und Linken bilden. ?]
 
-[? if not achievement_grosse_volksfront: **Große Koalition der Vernunft** – mit Hendrik Wüst an der Spitze der CDU und dem Reformflügel an der Spitze der Linken eine Regierung aller demokratischen Parteien bilden. ?]
+[? if not achievement_grosse_volksfront: **Große Koalition der Vernunft** – mit Hendrik Wüst an der Spitze der CDU und dem kooperativen Flügel an der Spitze [+ op_dat +] eine Regierung aller demokratischen Parteien bilden. ?]
 
-[? if not achievement_volksfront_2: **Sieg für Rot-Grün-Rot** – eine rot-grün-rote Koalition, die alle Forderungen der Linken erfüllt. ?]
+[? if not achievement_volksfront_2: **Sieg für Rot-Grün-Rot** – eine rot-grün-rote Koalition, die alle Forderungen des Partners erfüllt. ?]
 
 [? if not achievement_constitutional_coalition: **Koalition der Mitte** – eine „Koalition der Mitte“ bilden. ?]
 
 [? if not achievement_weimar_coalition: **Kenia** – eine Koalition aus Union, SPD und Grünen bilden. ?]
 
-[? if not achievement_majority_party: **Mehrheitspartei** – eine SPD-Alleinregierung mit eigener Mehrheit bilden. ?]
+[? if not achievement_majority_party: **Mehrheitspartei** – eine Alleinregierung [+ pp_dat +] mit eigener Mehrheit bilden. ?]
 
-[? if not achievement_minderheitsregierung: **Minderheitsregierung** – eine SPD-Minderheitsregierung bilden. ?]
+[? if not achievement_minderheitsregierung: **Minderheitsregierung** – eine Minderheitsregierung [+ pp_dat +] bilden. ?]
 
-[? if not achievement_volkspartei: **Volkspartei** – die SPD ist wieder Volkspartei. ?]
+[? if not achievement_volkspartei: **Volkspartei** – [+ pp_full +] ist wieder Volkspartei. ?]
 
 [? if not achievement_sohn_seiner_klasse: **Sohn seiner Klasse** – die Linke stellt das Staatsoberhaupt oder die Kanzlerschaft. ?]
 
 [? if not achievement_rote_millionar: **Der rote Millionär** – ein linker Unternehmer wird Bundespräsident. ?]
 
-[? if not achievement_versohnler: **Versöhnler** – der Reformflügel führt die Linke. ?]
+[? if not achievement_versohnler: **Versöhnler** – der kooperative Flügel führt [+ op_full +]. ?]
 
 [? if not achievement_deport_hitler : **Wehrhafte Demokratie** – ein erfolgreiches AfD-Verbotsverfahren. ?]
 
@@ -609,7 +612,7 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 
 [? if not achievement_bruder_zur_sonne: **Brüder, zur Sonne, zur Freiheit** – Arbeitslosigkeit senken, EU-Investitionsausnahme erreichen, Gleichstellung voranbringen, eine SPD-Bundespräsidentin wählen und ein AfD-Verbotsverfahren gewinnen, in einem Durchgang auf mindestens „Normal“. ?]
 
-[? if not achievement_die_rote_fahne: **Die Rote Fahne** – mit der Linken am 1. Mai demonstrieren. ?]
+[? if not achievement_die_rote_fahne: **Die Rote Fahne** – mit [+ op_dat +] am 1. Mai demonstrieren. ?]
 
 [? if not achievement_panik_im_mittelstand: **Panik im Mittelstand** – mindestens 50 % Zustimmung in der akademischen Mittelschicht. ?]
 

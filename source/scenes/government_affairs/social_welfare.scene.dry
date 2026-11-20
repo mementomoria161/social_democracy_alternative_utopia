@@ -8,7 +8,7 @@ card-image: img/sozialstaat.jpg
 
 = Sozialpolitik
 
-Rente, Pflege, Grundsicherung: Der Sozialstaat ist die größte Errungenschaft der Sozialdemokratie. Doch der Druck wächst. Die Union will beim Bürgergeld sparen, die Beiträge zur Kranken- und Pflegeversicherung steigen, und die Rentenkommission soll bis 2027 Vorschläge machen[? if unemployed > 7 :, während die steigende Arbeitslosigkeit die Kassen zusätzlich belastet ?].
+Rente, Pflege, Grundsicherung: Der Sozialstaat ist die größte Errungenschaft der Arbeiterbewegung. Doch der Druck wächst. Die Union will beim Bürgergeld sparen, die Beiträge zur Kranken- und Pflegeversicherung steigen, und die Rentenkommission soll bis 2027 Vorschläge machen[? if unemployed > 7 :, während die steigende Arbeitslosigkeit die Kassen zusätzlich belastet ?].
 
 - @reduce_spending: Bei den Sozialausgaben sparen.
 - @increase_spending_pre_depression: Die Sozialleistungen ausbauen.
@@ -55,4 +55,4 @@ subtitle: Bei steigender Arbeitslosigkeit bedeutet Stillstand weniger für jeden
 
 Weil immer mehr Menschen Hilfe brauchen, bekommt jeder Einzelne faktisch weniger. Die Beschäftigten sind zu Recht verärgert – wir opfern ihre Sicherheit dem Sparkurs.
 
-[? if in_popular_front or in_left_front: Die Linke wendet sich wegen unserer Sozialpolitik gegen uns. ?]
+[? if in_popular_front or in_left_front: [+ op_Full +] wendet sich wegen unserer Sozialpolitik gegen uns. ?]

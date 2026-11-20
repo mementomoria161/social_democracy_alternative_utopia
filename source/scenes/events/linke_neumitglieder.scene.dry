@@ -1,0 +1,39 @@
+title: Alte und neue Linke
+subtitle: Der Mitgliederboom verändert die Partei.
+new-page: true
+tags: event
+view-if: player = "linke" and mitgliederboom = 1 and year = 2025 and month >= 10
+max-visits: 1
+on-arrival: mitgliederboom = 2
+
+# Linke, Durchgang 4.3. Folgeereignis von linke_mitgliederboom. neumitglieder_integriert zählt Schulungen
+# (Parteiorganisationen, Organizing-Akademie) und mildert den Konflikt.
+
+= Alte und neue Linke
+
+Ein halbes Jahr nach dem Mitgliederboom zeigt sich, wie sehr sich die Partei verändert hat. In Leipzig, Berlin und Köln stellen die Neumitglieder die Mehrheit, viele kommen aus Klimabewegung, Studierendenprotesten oder der Palästina-Solidarität. In vielen Kreisverbänden in Thüringen, Sachsen und Mecklenburg-Vorpommern dagegen ist das Durchschnittsalter über 70. Auf Versammlungen prallen Welten aufeinander, beim Gendern ebenso wie beim Nahostkonflikt oder der Frage, ob man mit der CDU über Kommunalhaushalte verhandeln darf. [? if neumitglieder_integriert >= 1 : Dank unserer Schulungen kennen viele Neue die Arbeit vor Ort schon gut. ?]
+
+- @mentoring: Ein Patenprogramm: Alte und Neue führen gemeinsam Haustürgespräche.
+- @verjuengen: Bei den nächsten Vorstandswahlen gezielt Neumitglieder aufstellen.
+- @osten: Mit den Neuen im Osten aushelfen: Organizing-Teams für Kreisverbände ohne Aktive.
+
+@mentoring
+subtitle: -1 Ressource
+choose-if: resources >= 1
+unavailable-subtitle: Dafür fehlen uns die Mittel.
+on-arrival: resources -= 1; center_dissent -= 4; reformist_dissent -= 4; left_dissent -= 3; neorevisionist_dissent -= 3; neumitglieder_integriert += 1
+
+Eine Rentnerin aus Gera und ein Student aus Jena klingeln zusammen an Türen in Lusan. Sie sind sich nicht in allem einig, aber sie lernen voneinander. Die Partei wächst zusammen.
+
+@verjuengen
+on-arrival: left_strength += 5; center_strength += 3; reformist_strength -= 3; reformist_dissent += 6 - 3*neumitglieder_integriert; neorevisionist_dissent += 6; palestine_debate += 1
+
+In vielen Kreisverbänden übernehmen Mittzwanziger den Vorsitz. Die Partei wirkt jünger und kämpferischer. Langjährige Kommunalpolitiker*innen fühlen sich verdrängt, und einige ihrer Äußerungen zum Nahostkonflikt sorgen für Schlagzeilen.
+
+@osten
+subtitle: -1 Ressource
+choose-if: resources >= 1
+unavailable-subtitle: Dafür fehlen uns die Mittel.
+on-arrival: resources -= 1; rural_spd += 1.5*(1-dissent); rentner_spd += 1*(1-dissent); reformist_dissent -= 4; neorevisionist_dissent -= 2; center_strength += 2
+
+Organizing-Teams aus Leipzig und Berlin fahren am Wochenende nach Pasewalk, Zeitz und Hoyerswerda. Dort, wo die Linke kaum noch Aktive hatte, gibt es wieder Infostände.

@@ -2,7 +2,7 @@ title: Kabinettsumbildung
 new-page: true
 is-card: true
 tags: govt_affairs, cabinet
-on-arrival: shuffle_cabinet_timer = 6;
+on-arrival: {! var sw = {'SPD': 'Linke', 'Linke': 'SPD'}; ['chancellor', 'labor_minister', 'interior_minister', 'finance_minister', 'economic_minister', 'justice_minister', 'foreign_minister', 'bundeswehr_minister', 'agriculture_minister'].forEach(function(k) { var p = Q[k + '_party']; Q[k + '_party_disp'] = Q.player == 'linke' ? (sw[p] || p) : p; });  Q.shuffle_cabinet_timer = 6; !}
 view-if: spd_in_government == 1 and shuffle_cabinet_timer == 0 and chancellor_party == "SPD" and not in_spd_majority and not in_emergency_government and not in_left_front
 card-image: img/kabinett.jpg
 
@@ -10,21 +10,21 @@ Sollen wir das Kabinett umbilden? Das könnte unsere Koalitionspartner verärger
 
 Aktuelle Ressortverteilung:
 
-Arbeit und Soziales: [+ labor_minister +] ([+ labor_minister_party +])
+Arbeit und Soziales: [+ labor_minister +] ([+ labor_minister_party_disp +])
 
-Inneres: [+ interior_minister +] ([+ interior_minister_party +])
+Inneres: [+ interior_minister +] ([+ interior_minister_party_disp +])
 
-Finanzen: [+ finance_minister +] ([+ finance_minister_party +])
+Finanzen: [+ finance_minister +] ([+ finance_minister_party_disp +])
 
-Wirtschaft und Energie: [+ economic_minister +] ([+ economic_minister_party +])
+Wirtschaft und Energie: [+ economic_minister +] ([+ economic_minister_party_disp +])
 
-Justiz: [+ justice_minister +] ([+ justice_minister_party +])
+Justiz: [+ justice_minister +] ([+ justice_minister_party_disp +])
 
-Auswärtiges: [+ foreign_minister +] ([+ foreign_minister_party +])
+Auswärtiges: [+ foreign_minister +] ([+ foreign_minister_party_disp +])
 
-Verteidigung: [+ bundeswehr_minister +] ([+ bundeswehr_minister_party +])
+Verteidigung: [+ bundeswehr_minister +] ([+ bundeswehr_minister_party_disp +])
 
-Landwirtschaft: [+ agriculture_minister +] ([+ agriculture_minister_party +])
+Landwirtschaft: [+ agriculture_minister +] ([+ agriculture_minister_party_disp +])
 
 - @shuffle: Ja, umbilden.
 - @root: Nein, das ist nicht nötig.

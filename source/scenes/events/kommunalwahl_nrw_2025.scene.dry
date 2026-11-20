@@ -1,8 +1,9 @@
 title: Kommunalwahl in Nordrhein-Westfalen
-subtitle: Die SPD verliert Herzkammern im Ruhrgebiet.
+subtitle: Das Ruhrgebiet wählt neu.
 new-page: true
 tags: event
-view-if: player = "spd" and (year = 2025 and month = 9 and kommunalwahl_nrw_2025_seen = 0)
+view-if: year = 2025 and month = 9 and kommunalwahl_nrw_2025_seen = 0
+go-to: linke if player = "linke"
 max-visits: 1
 on-arrival: kommunalwahl_nrw_2025_seen = 1
 face-image: img/werksschliessung.jpg
@@ -12,6 +13,7 @@ face-image: img/werksschliessung.jpg
 
 = Kommunalwahl in Nordrhein-Westfalen
 
+# party-ok: SPD, sozialdemokratisch (die reale SPD in NRW)
 Im größten Bundesland wird in Städten und Gemeinden gewählt. Die CDU bleibt mit einem Drittel der Stimmen klar vorn, die SPD kommt auf 22 Prozent, ihr schlechtestes Ergebnis bei einer Kommunalwahl in Nordrhein-Westfalen. Die AfD verdreifacht ihr Ergebnis. In Dortmund, seit Kriegsende sozialdemokratisch regiert, geht das Rathaus an die CDU. In Gelsenkirchen und anderen Ruhrgebietsstädten erreichen AfD-Kandidaten die Stichwahl. Dort gewinnen am Ende die Demokratinnen und Demokraten, oft mit großer Mehrheit.
 
 - @ruhr: Eine Offensive für das Ruhrgebiet starten: Arbeitsplätze, Kommunalfinanzen, Altschulden.
@@ -29,3 +31,24 @@ Mit Betriebsräten, Bürgermeisterinnen und Gewerkschaften entwickeln wir ein Pr
 on-arrival: crisis_urgency += 1; nazi_urgency += 1 if nazi_urgency < 4
 
 Die Wahlanalysen zeigen, was viele geahnt haben: In den Arbeitervierteln, wo die SPD einst 60 Prozent holte, ist die AfD stark und die Wahlbeteiligung niedrig. Wer hier gewinnen will, muss wieder vor Ort sein.
+
+@linke
+# Linke-Fassung (Durchgang 4.3). Landeswahlleitung NRW: Linke 5,6 Prozent (2020: 3,8), 207 Mandate in Räten und Kreistagen.
+
+Die Linke kommt landesweit auf 5,6 Prozent, fast zwei Punkte mehr als 2020. In Köln, Düsseldorf, Münster und den Universitätsvierteln des Ruhrgebiets ziehen wir mit starken Fraktionen in die Räte ein. In den alten Arbeitervierteln von Gelsenkirchen und Duisburg aber ist die AfD weit stärker als wir.
+
+- @lk_ruhr: Gezielt in die Arbeiterviertel des Ruhrgebiets gehen: Haustürteams und Sozialsprechstunden.
+- @lk_raete: Die neuen Ratsfraktionen schulen und vernetzen.
+
+@lk_ruhr
+subtitle: -1 Ressource
+choose-if: resources >= 1
+unavailable-subtitle: Dafür fehlen uns die Mittel.
+on-arrival: resources -= 1; workers_spd += 1.5*(1-dissent); unemployed_spd += 1.5*(1-dissent); workers_afd -= 0.5; labor_dissent -= 3; center_strength += 2
+
+Wir eröffnen Büros in Marxloh, Gelsenkirchen-Ückendorf und Dortmund-Nord. Die Arbeit ist mühsam, aber die ersten Mieter*inneninitiativen entstehen.
+
+@lk_raete
+on-arrival: reformist_strength += 2; reformist_dissent -= 3; dues += 1 if dues < 4
+
+Über 200 neue Mandatsträger*innen treffen sich in Bochum zu einem Kommunalkongress. Mit ihren Mandatsabgaben füllt sich auch die Parteikasse.

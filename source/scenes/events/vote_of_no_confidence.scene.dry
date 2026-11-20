@@ -52,7 +52,7 @@ Mit Zugeständnissen bei Projekten und Posten, die unserem Partner wichtig sind,
 
 @support_linke
 choose-if: (in_grand_coalition and communist_coalition >= 3 and linke_relation >= 50 and linke_r >= fdp_r) or (in_weimar_coalition and linke_relation >= 50 and linke_r >= union_r and communist_coalition >= 3)
-view-if: tried_supporting_linke = 0
+view-if: player = "spd" and tried_supporting_linke = 0
 on-arrival: tried_supporting_linke = 1
 unavailable-subtitle: [? if communist_coalition < 3 : Die Linke ist nicht bereit, eine Regierung mitzutragen. ?] [? if linke_relation < 50 : Unser Verhältnis zur Linken ist nicht gut genug. ?] [? if (in_grand_coalition and linke_r < fdp_r) or (in_weimar_coalition and linke_r < union_r): Die Linke hat nicht genug Sitze. ?] [? if in_popular_front : Wir regieren bereits mit der Linken. ?]
 
@@ -89,7 +89,7 @@ go-to: let_it_happen_hindenburg if chancellor_party != "SPD"; let_it_happen_schw
 @let_it_happen_hindenburg
 on-arrival: chancellor = union_leader; chancellor_party = "Union"; welfare -= 2;
 
-Die Koalition ist zerbrochen, die SPD-Ministerinnen und -Minister haben ihre Entlassungsurkunden erhalten. Bundeskanzler\*in [+ chancellor +] verliert die Vertrauensfrage und führt bis zur Neuwahl eine Minderheitsregierung der Union, die SPD-Ressorts übernehmen Unionsminister kommissarisch. Als Erstes werden die Sozialausgaben deutlich gekürzt.
+Die Koalition ist zerbrochen, unsere Ministerinnen und Minister haben ihre Entlassungsurkunden erhalten. Bundeskanzler\*in [+ chancellor +] verliert die Vertrauensfrage und führt bis zur Neuwahl eine Minderheitsregierung der Union, unsere Ressorts übernehmen Unionsminister kommissarisch. Als Erstes werden die Sozialausgaben deutlich gekürzt.
 
 Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt.
 

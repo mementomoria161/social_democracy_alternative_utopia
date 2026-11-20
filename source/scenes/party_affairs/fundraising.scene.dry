@@ -14,6 +14,7 @@ Ob es uns gefällt oder nicht: Ohne Geld kann keine Partei arbeiten. Kampagnen, 
 - @maintain: Die Mitgliedsbeiträge beibehalten.
 - @reduce: Die Mitgliedsbeiträge senken.
 - @increase: Die Mitgliedsbeiträge erhöhen.
+- @gehalt: Unsere Abgeordneten behalten nur ein Durchschnittsgehalt und spenden den Rest.
 - @easy_discard
 
 @maintain
@@ -37,3 +38,11 @@ view-if: dues <= 4
 Die Mitglieder murren, und einige weniger überzeugte treten aus. Dafür haben wir jetzt mehr Geld zur Verfügung.
 
 [? if unemployed >= 8 : Bei der hohen Arbeitslosigkeit trifft die Erhöhung viele Mitglieder hart. ?]
+
+@gehalt
+subtitle: [+ dues +] Ressourcen gewonnen, dazu eine einmalige Spende.
+view-if: player = "linke" and gehaltsdeckel = 0
+on-arrival: gehaltsdeckel = 1; resources += dues + 1; workers_spd += 1*(1-dissent); unemployed_spd += 1*(1-dissent); reformist_dissent += 4; left_dissent -= 4; center_dissent -= 2
+
+# Linke: Gehaltsdeckel nach dem Vorbild der KPÖ; die Parteispitze hat 2025 Ähnliches angekündigt, im Spiel wird er Pflicht für alle.
+Ab sofort behalten alle unsere Bundestagsabgeordneten nur noch ein durchschnittliches Arbeitnehmer*innengehalt. Der Rest fließt in einen Sozialfonds und in die Parteikasse. Manche langjährige Abgeordnete murren, aber die Geschichte geht durch alle Medien: Eine Partei, die nicht nur über Ungleichheit redet.

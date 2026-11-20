@@ -1,6 +1,7 @@
 title: Tarifkonflikt
 subtitle: Streiks in der Metall- und Elektroindustrie …
-view-if: year = 2026 and month = 11 and spd_in_government and labor_minister_party != "SPD"
+view-if: year = 2026 and month = 11 and ((player = "spd" and spd_in_government and labor_minister_party != "SPD") or (player = "linke" and not spd_in_government))
+go-to: linke if player = "linke" and not spd_in_government
 max-visits: 1
 new-page: true
 face-image: img/streik.jpg
@@ -8,6 +9,7 @@ tags: event
 
 = Tarifkonflikt
 
+# party-ok: SPD (die SPD in der Regierung)
 In der Metall- und Elektroindustrie eskaliert die Tarifrunde. Die Arbeitgeber verlangen angesichts der Industriekrise eine Nullrunde und längere Arbeitszeiten, die IG Metall antwortet mit Warnstreiks und droht mit Urabstimmung. Einige Konzerne kündigen an, Produktion ins Ausland zu verlagern, falls die Gewerkschaft nicht nachgibt. Beide Seiten erwarten, dass die SPD in der Regierung Stellung bezieht.
 
 - @support_labor: Uns hinter die Forderungen der Beschäftigten stellen.
@@ -31,3 +33,22 @@ subtitle: In der Krise müssen beide Seiten Opfer bringen.
 on-arrival: labor_dissent += 4; workers_spd -= 2; linke_coalition_dissent += 1; linke_relation -= 5; workers_linke += 2
 
 Viele Beschäftigte sind mit unserem Kompromiss unzufrieden, doch sie werden hoffentlich verstehen, dass alle gemeinsam gegen die Krise stehen. Unter den Umständen war wohl nicht mehr drin.
+
+@linke
+# Linke in der Opposition (Durchgang 4.3).
+
+- @lk_streikkasse: Die Streikenden mit Solidaritätsaktionen und Spenden unterstützen.
+- @lk_gesetz: Ein Gesetz für mehr Tarifbindung und gegen Verlagerungserpressung vorlegen.
+
+@lk_streikkasse
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; workers_spd += 3*(1-dissent); labor_strength += 3; labor_dissent -= 5; old_middle_spd -= 1
+
+Unsere Mitglieder bringen Kaffee und Suppe zu den Streikposten, Kreisverbände sammeln Spenden. Die IG Metall bedankt sich, auch wenn sie offiziell parteipolitisch neutral bleibt.
+
+@lk_gesetz
+on-arrival: workers_spd += 1.5*(1-dissent); labor_dissent -= 2; linke_relation += 2
+
+Unser Gesetzentwurf: Öffentliche Aufträge nur noch an tarifgebundene Firmen, und wer mit Verlagerung droht, muss staatliche Hilfen zurückzahlen. Die SPD-Fraktion findet manches gut, stimmt aber mit der Koalition dagegen.

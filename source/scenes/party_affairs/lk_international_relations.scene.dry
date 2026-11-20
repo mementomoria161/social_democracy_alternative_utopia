@@ -1,0 +1,64 @@
+title: Internationale Beziehungen
+new-page: true
+is-card: true
+tags: party_affairs
+view-if: player = "linke" and international_relations_timer <= 0
+on-arrival: month_actions += 1; international_relations_timer += 12;
+card-image: img/international.jpg
+max-visits: 4
+
+# Linke-Fassung von international_relations (Durchgang 4.3). Gleiche Variablen wie das SPD-Original.
+# KPÖ: Graz seit 2021 mit Bürgermeisterin Elke Kahr, Stadt Salzburg Gemeinderatswahl 2024 über 23 Prozent (Kay-Michael Dankl).
+
+= Internationale Beziehungen
+
+In der Partei der Europäischen Linken und in der Linksfraktion im Europäischen Parlament können wir Kontakte zu unseren Schwesterparteien knüpfen und von ihnen lernen.
+
+- @fr_uk: Mit La France insoumise und der belgischen PTB an einer europäischen Antwort auf Aufrüstung und Sparpolitik arbeiten.
+- @austria: Von der KPÖ in Graz und Salzburg lernen, wie man mit Mieten und Sozialsprechstunden Wahlen gewinnt.
+- @scandi: Von den nordischen Linksparteien lernen, wie man mitregiert, ohne sich aufzugeben.
+- @spe: Gespräche mit den europäischen Sozialdemokrat*innen suchen.
+- @america: Von Bernie Sanders und den Democratic Socialists in den USA lernen.
+- @return: Wir brauchen gerade keine internationalen Kontakte.
+- @easy_discard
+- @cancel_advisor_action
+
+@fr_uk
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; left_strength += 5; pacifism += 1; west_relation += 1
+
+Mit unseren Partnerparteien in Frankreich und Belgien entwickeln wir gemeinsame Vorschläge gegen die Rückkehr der Sparpolitik in Europa: Investitionen statt Aufrüstung, eine europäische Vermögensteuer. Die Sozialistische Linke ist begeistert.
+
+@austria
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; center_strength += 5; unemployed_spd += 2*(1-dissent); workers_spd += 1*(1-dissent); austria_relation += 1
+
+In Graz stellt die KPÖ die Bürgermeisterin, in der Stadt Salzburg holte sie 2024 über 20 Prozent. Ihr Rezept: Die Abgeordneten behalten nur ein Facharbeitergehalt, der Rest fließt in einen Sozialfonds, und jede Woche gibt es Sprechstunden zu Mieten und Schulden. Unser Parteivorstand fühlt sich bestätigt.
+
+@scandi
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; reformist_strength += 8; wtb_support += 1; moderate_plan_support += 1
+
+Die dänische Einheitsliste und das finnische Linksbündnis haben Regierungen getragen oder mitgestellt und sind trotzdem linke Parteien geblieben. Unsere Reformer*innen hören genau zu.
+
+@spe
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; linke_relation += 5*(1-dissent); communist_coalition += 1 if comintern_seen == 0; comintern_seen += 1; left_dissent += 2
+
+Im Europäischen Parlament stimmen unsere Abgeordneten oft mit den Sozialdemokrat*innen. Über diese Kontakte lernen wir die SPD besser kennen, ihre Parteilinke ebenso wie ihre Seeheimer.
+
+@america
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; center_strength += 2; left_strength += 2
+
+Die Kampagnen von Bernie Sanders haben gezeigt, wie man mit Kleinspenden und Tausenden Freiwilligen gegen das große Geld antritt. Vieles davon steckt schon in unserer Haustürkampagne.

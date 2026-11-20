@@ -1,0 +1,36 @@
+title: Kampfjets
+subtitle: Kitas statt Kampfjets?
+tags: event
+new-page: true
+face-image: img/kampfjet.jpg
+view-if: player = "linke" and not spd_in_government and panzerkreuzer_seen = 0 and year = 2026 and month >= 8
+max-visits: 1
+on-arrival: panzerkreuzer_seen = 1; panzerkreuzer_funded = 1
+
+# Linke-Gegenstück zu panzerkreuzer/panzerkreuzer_ministry in der Opposition (Durchgang 4.3). Die Jets werden bestellt.
+
+= Kampfjets
+
+Das Verteidigungsministerium will weitere F-35-Kampfjets in den USA bestellen, für viele Milliarden Euro. Die Koalition ist dafür, die Grünen auch. Gleichzeitig wird bei Kitas, Bürgergeld und Nahverkehr gespart. Für die Linke ist das eine der wichtigsten Fragen dieser Wahlperiode, doch in der Partei wird gestritten, wie laut wir sein sollen.
+
+- @kampagne: Eine Kampagne starten: „Kitas statt Kampfjets“.
+- @spd_linke: Mit Abgeordneten der SPD-Linken einen gemeinsamen Antrag gegen die Bestellung stellen.
+- @abhaengigkeit: Nur die Abhängigkeit von Trumps USA kritisieren, nicht die Bundeswehr an sich.
+
+@kampagne
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; pacifism += 1; left_dissent -= 5; neorevisionist_dissent -= 5; reformist_dissent += 4; workers_spd += 2*(1-dissent); new_middle_spd += 1*(1-dissent); rentner_spd += 1*(1-dissent)
+
+Auf Plakaten steht, wie viele Kitaplätze ein einziger Kampfjet kosten würde. Die Kampagne verfängt, die Jets werden trotzdem bestellt. Unsere Reformer*innen fürchten, als naiv zu gelten.
+
+@spd_linke
+on-arrival: linke_relation += 4; left_dissent -= 2; reformist_dissent -= 2; pacifism += 1
+
+Einige Abgeordnete der SPD-Linken unterschreiben unseren Antrag nicht, stimmen aber am Ende mit uns gegen die Bestellung. Die Jets kommen trotzdem, aber zwischen den Fraktionen ist etwas in Bewegung geraten.
+
+@abhaengigkeit
+on-arrival: reformist_strength += 3; reformist_dissent -= 4; left_dissent += 4; new_middle_spd += 1*(1-dissent); gruene_relation += 2
+
+Wir fragen, warum Deutschland sein Geld ausgerechnet in Flugzeuge steckt, die ohne amerikanische Software nicht fliegen. Auch Grüne und manche in der Union finden die Frage berechtigt. Der Sozialistischen Linken ist das zu brav.

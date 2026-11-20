@@ -1,5 +1,5 @@
 title: Bauaffäre
-subtitle: Ein Korruptionsskandal erschüttert ein SPD-geführtes Land
+subtitle: Ein Korruptionsskandal erschüttert ein von uns geführtes Land
 new-page: true
 view-if: (year = 2027 and month >= 4) and spd_prussia
 max-visits: 1
@@ -10,7 +10,7 @@ face-image: img/untersuchungsausschuss.jpg
 = Bauaffäre
 
 # Fiktiver Skandal; Untersuchungsausschuss im Landtag
-In einem SPD-geführten Land kommt ein großer Korruptionsskandal ans Licht. Ein Bauunternehmen hatte den Auftrag für ein Schulbauprogramm erhalten, kassierte Abschlagszahlungen in Millionenhöhe und ging dann in die Insolvenz, ohne dass auch nur eine Schule fertig wurde. Nun zeigt sich: Die Firma hatte über Jahre Beraterverträge und Spenden an Politikerinnen und Politiker mehrerer Parteien verteilt, darunter auch an SPD-Mitglieder. Die AfD stürzt sich auf die Affäre und hetzt gegen die „Altparteien“ und das „System“.
+In einem Land, in dem wir regieren, kommt ein großer Korruptionsskandal ans Licht. Ein Bauunternehmen hatte den Auftrag für ein Schulbauprogramm erhalten, kassierte Abschlagszahlungen in Millionenhöhe und ging dann in die Insolvenz, ohne dass auch nur eine Schule fertig wurde. Nun zeigt sich: Die Firma hatte über Jahre Beraterverträge und Spenden an Politikerinnen und Politiker mehrerer Parteien verteilt, darunter auch an Mitglieder unserer Partei. Die AfD stürzt sich auf die Affäre und hetzt gegen die „Altparteien“ und das „System“.
 
 Der Landtag hat einen Untersuchungsausschuss eingesetzt. Wie verhalten wir uns?
 
@@ -19,10 +19,10 @@ Der Landtag hat einen Untersuchungsausschuss eingesetzt. Wie verhalten wir uns?
 - @turn_back
 
 @corruption_unacceptable
-title: Korruption ist inakzeptabel. Voll mit dem Ausschuss kooperieren, auch wenn es SPD-Leute trifft.
+title: Korruption ist inakzeptabel. Voll mit dem Ausschuss kooperieren, auch wenn es eigene Leute trifft.
 on-arrival: center_dissent += 5; reformist_dissent += 5; labor_dissent += 5
 
-Wir arbeiten vollständig mit dem Ausschuss zusammen und leiten Parteiordnungsverfahren gegen alle ein, die glaubwürdig belastet sind. Das sorgt für Unruhe, weil auch verdiente Genossinnen und Genossen gehen müssen. Doch der Schaden für die SPD hält sich in Grenzen.
+Wir arbeiten vollständig mit dem Ausschuss zusammen und leiten Parteiordnungsverfahren gegen alle ein, die glaubwürdig belastet sind. Das sorgt für Unruhe, weil auch verdiente Genossinnen und Genossen gehen müssen. Doch der Schaden für [+ pp_full +] hält sich in Grenzen.
 
 @downplay
 title: Die Affäre herunterspielen.

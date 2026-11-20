@@ -8,7 +8,7 @@ card-image: img/medien.jpg
 
 = Medien
 
-Die SPD besitzt über ihre Medienholding ddvg Beteiligungen an Regionalzeitungen und gibt den „Vorwärts“ heraus. Doch die politische Debatte findet längst auf TikTok, Instagram und YouTube statt – und dort ist die AfD allen anderen Parteien weit voraus.
+[? if player = "spd" : Die SPD besitzt über ihre Medienholding ddvg Beteiligungen an Regionalzeitungen und gibt den „Vorwärts“ heraus. Doch die politische Debatte ?][? if player = "linke" : Eine eigene Zeitung hat die Linke nicht mehr, das „nd“ ist seit 2022 eine unabhängige Genossenschaft. Die politische Debatte ?] findet längst auf TikTok, Instagram und YouTube statt – und dort ist die AfD allen anderen Parteien weit voraus.[? if player = "linke" : Seit dem Wahlkampf 2025 holt die Linke auf, vor allem dank der Videos von Heidi Reichinnek. ?]
 
 - @commercial
 - @campaign
@@ -22,11 +22,11 @@ Die SPD besitzt über ihre Medienholding ddvg Beteiligungen an Regionalzeitungen
 - @cancel_advisor_action
 
 @commercial
-title: Die Medienbeteiligungen stärker kommerziell ausrichten.
+title: [? if player = "spd" : Die Medienbeteiligungen stärker kommerziell ausrichten. ?][? if player = "linke" : Mit Merchandise, Kleinspenden-Aktionen und bezahlter Werbung Geld verdienen. ?]
 subtitle: Bringt Geld und erreicht die Mitte, verärgert aber die Puristen in der Partei.
 on-arrival: resources += 1; commercialized_media += 1; new_middle_spd += 4*(1 - dissent); old_middle_spd += 3*(1-dissent); left_dissent += 10; labor_dissent += 10
 
-Die Beteiligungen werfen mehr Geld ab. SPD-Linke und Gewerkschafter beschweren sich über den Kommerz.
+[? if player = "spd" : Die Beteiligungen werfen mehr Geld ab. SPD-Linke und Gewerkschafter beschweren sich über den Kommerz. ?][? if player = "linke" : Hoodies, Jutebeutel und Spendenaufrufe bringen Geld. Sozialistische Linke und Gewerkschafter*innen spotten über die „Lifestyle-Linke“. ?]
 
 @campaign
 title: Unsere Medien sollen Wahlen gewinnen.
@@ -40,7 +40,7 @@ title: Raum für offene Debatten.
 subtitle: Alle Strömungen sollen ihre Sicht darstellen können.
 on-arrival: left_dissent -= 6; labor_dissent -= 6; center_dissent -= 6; reformist_dissent -= 6; neorevisionist_dissent -= 6
 
-Der „Vorwärts“ und unsere Kanäle bieten allen Strömungen eine Bühne. Das hat die Spannungen in der Partei schon oft entschärft.
+[? if player = "spd" : Der „Vorwärts“ und unsere Kanäle bieten ?][? if player = "linke" : Das Mitgliedermagazin und unsere Kanäle bieten ?] allen Strömungen eine Bühne. Das hat die Spannungen in der Partei schon oft entschärft.
 
 @radio
 title: Eine eigene Social-Media-Offensive starten.

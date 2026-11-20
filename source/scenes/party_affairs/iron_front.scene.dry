@@ -9,9 +9,9 @@ tags: party_affairs, antifascism
 
 = Bündnis für Demokratie
 
-Das Bündnis für Demokratie bringt SPD, DGB-Gewerkschaften und die Demokratiebewegung zusammen. Wofür setzen wir es diesmal ein?
+Das Bündnis für Demokratie bringt [+ pp_name +], DGB-Gewerkschaften und die Demokratiebewegung zusammen. Wofür setzen wir es diesmal ein?
 
-[? if workers_spd < 15 or workers_spd < workers_afd or workers_spd < workers_linke : Leider leidet das Bündnis unter der Schwäche der SPD unter Beschäftigten. In vielen Betrieben ist die AfD inzwischen stärker als wir, und dort stößt das Bündnis auf Desinteresse oder offene Ablehnung. ?]
+[? if workers_spd < 15 or workers_spd < workers_afd or workers_spd < workers_linke : Leider leidet das Bündnis unter der Schwäche [+ pp_dat +] unter Beschäftigten. In vielen Betrieben ist die AfD inzwischen stärker als wir, und dort stößt das Bündnis auf Desinteresse oder offene Ablehnung. ?]
 
 - @defense: Für den Schutz von Demokratinnen und Demokraten mobilisieren.
 - @pacifism: Für Frieden und gegen Nationalismus mobilisieren.
@@ -46,7 +46,7 @@ unavailable-subtitle: Die Wirtschaftskrise ist weitgehend überwunden, und das T
 view-if: wtb_adopted == 1
 on-arrival: workers_spd += 8*(1-dissent); unemployed_spd += 8*(1-dissent); new_middle_spd += 5*(1-dissent); old_middle_spd += 3*(1-dissent); rural_spd += 3*(1-dissent);
 
-Gewerkschaften und SPD werben gemeinsam für die Investitionsoffensive. Die Botschaft: Wer gute Arbeit hat, fällt nicht auf Rattenfänger herein.
+Gewerkschaften und [+ pp_name +] werben gemeinsam für die Investitionsoffensive. Die Botschaft: Wer gute Arbeit hat, fällt nicht auf Rattenfänger herein.
 
 @antisemitism
 title: Gegen Antisemitismus und für jüdisches Leben in Deutschland.

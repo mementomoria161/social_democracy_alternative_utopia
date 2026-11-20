@@ -14,6 +14,8 @@ go-to: linke if player = "linke"
 
 = Die Vertrauensfrage
 
+# party-ok: SPD (die reale SPD im historischen Ablauf, in beiden Spielen richtig)
+
 Olaf Scholz tritt ans Rednerpult des Bundestags und bittet die Abgeordneten, ihm das Vertrauen auszusprechen, in der Erwartung, dass sie es nicht tun. Es ist der Weg, den das Grundgesetz zu vorgezogenen Neuwahlen lässt. Die SPD-Fraktion stimmt für ihren Kanzler, die Grünen enthalten sich, Union, FDP, AfD, Linke und BSW stimmen mit Nein. Die Vertrauensfrage ist verloren, wie geplant.
 
 Wenige Tage später löst Bundespräsident Frank-Walter Steinmeier den Bundestag auf. Die Neuwahl findet am [+ election_date_text +] statt. Bis dahin bleibt die Regierung im Amt.[? if spd_candidate = "Pistorius" : Als Kanzlerkandidat steht Boris Pistorius schon bereit. ?]

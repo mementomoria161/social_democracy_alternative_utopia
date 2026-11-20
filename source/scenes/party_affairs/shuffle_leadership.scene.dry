@@ -34,6 +34,7 @@ tags: remove_advisor
 
 
 @remove_miersch
+# party: spd
 title: Miersch aus dem Beraterkreis nehmen
 view-if: miersch_advisor = 1
 on-arrival: miersch_advisor = 0; center_dissent += 5; n_advisors -= 1
@@ -43,6 +44,7 @@ go-to: rm_main
 Miersch gehört nicht mehr zum Beraterkreis. Die Parteimitte ist verärgert.
 
 @remove_bas
+# party: spd
 title: Bas aus dem Beraterkreis nehmen
 view-if: bas_advisor = 1
 tags: remove_advisor
@@ -52,6 +54,7 @@ go-to: rm_main
 Bas gehört nicht mehr zum Beraterkreis. Die Parteimitte ist verärgert.
 
 @remove_klingbeil
+# party: spd
 title: Klingbeil aus dem Beraterkreis nehmen
 view-if: klingbeil_advisor = 1
 tags: remove_advisor
@@ -62,6 +65,7 @@ Klingbeil gehört nicht mehr zum Beraterkreis. Die Parteimitte ist verärgert.
 
 
 @remove_muetzenich
+# party: spd
 title: Mützenich aus dem Beraterkreis nehmen
 view-if: muetzenich_advisor = 1
 tags: remove_advisor
@@ -74,6 +78,7 @@ Mützenich gehört nicht mehr zum Beraterkreis. Die Parteimitte ist verärgert.
 
 
 @remove_pistorius
+# party: spd
 title: Pistorius aus dem Beraterkreis nehmen
 view-if: pistorius_advisor = 1
 tags: remove_advisor
@@ -83,6 +88,7 @@ go-to: rm_main
 Pistorius gehört nicht mehr zum Beraterkreis. Der Seeheimer Kreis ist verärgert.
 
 @remove_schwesig
+# party: spd
 title: Schwesig aus dem Beraterkreis nehmen
 view-if: schwesig_advisor = 1
 tags: remove_advisor
@@ -92,6 +98,7 @@ go-to: rm_main
 Schwesig gehört nicht mehr zum Beraterkreis. Der Seeheimer Kreis ist verärgert.
 
 @remove_midyatli
+# party: spd
 title: Midyatli aus dem Beraterkreis nehmen
 view-if: midyatli_advisor = 1
 tags: remove_advisor
@@ -101,6 +108,7 @@ go-to: rm_main
 Midyatli gehört nicht mehr zum Beraterkreis. Der Seeheimer Kreis ist verärgert.
 
 @remove_rehlinger
+# party: spd
 title: Rehlinger aus dem Beraterkreis nehmen
 view-if: rehlinger_advisor = 1
 tags: remove_advisor
@@ -113,6 +121,7 @@ Rehlinger gehört nicht mehr zum Beraterkreis. Der Seeheimer Kreis ist verärger
 # labor
 
 @remove_fahimi
+# party: spd
 title: Fahimi aus dem Beraterkreis nehmen
 view-if: fahimi_advisor = 1
 tags: remove_advisor
@@ -122,6 +131,7 @@ go-to: rm_main
 Fahimi gehört nicht mehr zum Beraterkreis. Der Gewerkschaftsflügel ist verärgert.
 
 @remove_hubertz
+# party: spd
 title: Hubertz aus dem Beraterkreis nehmen
 view-if: hubertz_advisor = 1
 tags: remove_advisor
@@ -131,6 +141,7 @@ go-to: rm_main
 Hubertz gehört nicht mehr zum Beraterkreis. Der Gewerkschaftsflügel ist verärgert.
 
 @remove_heil
+# party: spd
 title: Heil aus dem Beraterkreis nehmen
 view-if: heil_advisor = 1
 tags: remove_advisor
@@ -141,6 +152,7 @@ Heil gehört nicht mehr zum Beraterkreis. Der Gewerkschaftsflügel ist verärger
 
 
 @remove_suedekum
+# party: spd
 title: Südekum aus dem Beraterkreis nehmen
 view-if: suedekum_advisor = 1
 tags: remove_advisor
@@ -152,6 +164,7 @@ Südekum gehört nicht mehr zum Beraterkreis. Der Gewerkschaftsflügel ist verä
 # left
 
 @remove_stegner
+# party: spd
 title: Stegner aus dem Beraterkreis nehmen
 view-if: stegner_advisor = 1
 tags: remove_advisor
@@ -161,6 +174,7 @@ go-to: rm_main
 Stegner gehört nicht mehr zum Beraterkreis. Die SPD-Linke ist verärgert.
 
 @remove_esken
+# party: spd
 title: Esken aus dem Beraterkreis nehmen
 view-if: esken_advisor = 1
 tags: remove_advisor
@@ -170,6 +184,7 @@ go-to: rm_main
 Esken gehört nicht mehr zum Beraterkreis. Die SPD-Linke ist verärgert.
 
 @remove_tuermer
+# party: spd
 title: Türmer aus dem Beraterkreis nehmen
 view-if: tuermer_advisor = 1
 tags: remove_advisor
@@ -179,6 +194,7 @@ go-to: rm_main
 Türmer gehört nicht mehr zum Beraterkreis. Die SPD-Linke ist verärgert.
 
 @remove_kuehnert
+# party: spd
 title: Kühnert aus dem Beraterkreis nehmen
 view-if: kuehnert_advisor = 1
 tags: remove_advisor
@@ -188,6 +204,7 @@ go-to: rm_main
 Kühnert gehört nicht mehr zum Beraterkreis. Die SPD-Linke ist verärgert.
 
 @remove_rosenthal
+# party: spd
 title: Rosenthal aus dem Beraterkreis nehmen
 view-if: rosenthal_advisor = 1
 tags: remove_advisor
@@ -202,6 +219,7 @@ Rosenthal gehört nicht mehr zum Beraterkreis. Die SPD-Linke ist verärgert.
 # neorevisionists
 
 @remove_grote
+# party: spd
 title: Grote aus dem Beraterkreis nehmen
 view-if: grote_advisor = 1
 tags: remove_advisor
@@ -211,6 +229,7 @@ go-to: rm_main
 Grote gehört nicht mehr zum Beraterkreis. Der Dänische Kurs ist verärgert.
 
 @remove_wiese
+# party: spd
 title: Wiese aus dem Beraterkreis nehmen
 view-if: wiese_advisor = 1
 tags: remove_advisor
@@ -220,6 +239,7 @@ go-to: rm_main
 Wiese gehört nicht mehr zum Beraterkreis. Der Dänische Kurs ist verärgert.
 
 @remove_fiedler
+# party: spd
 title: Fiedler aus dem Beraterkreis nehmen
 view-if: fiedler_advisor = 1
 tags: remove_advisor
@@ -234,6 +254,7 @@ Fiedler gehört nicht mehr zum Beraterkreis. Der Dänische Kurs ist verärgert.
 # tbh I'm not sure if Baade should be a reformist or nonfactional. same for stampfer. they were vaguely reformist-aligned but had pretty different ideas from the other reformists here. so they're non-factional.
 
 @remove_woidke
+# party: spd
 title: Woidke aus dem Beraterkreis nehmen
 view-if: woidke_advisor = 1
 tags: remove_advisor
@@ -246,6 +267,7 @@ Woidke gehört nicht mehr zum Beraterkreis.
 
 
 @remove_drossmann
+# party: spd
 title: Droßmann aus dem Beraterkreis nehmen
 view-if: drossmann_advisor = 1
 tags: remove_advisor
@@ -255,6 +277,7 @@ go-to: rm_main
 Droßmann gehört nicht mehr zum Beraterkreis. 
 
 @remove_kluessendorf
+# party: spd
 title: Klüssendorf aus dem Beraterkreis nehmen
 view-if: kluessendorf_advisor = 1
 tags: remove_advisor
@@ -264,6 +287,7 @@ go-to: rm_main
 Klüssendorf gehört nicht mehr zum Beraterkreis. 
 
 @remove_hubig
+# party: spd
 title: Hubig aus dem Beraterkreis nehmen
 view-if: hubig_advisor = 1
 tags: remove_advisor

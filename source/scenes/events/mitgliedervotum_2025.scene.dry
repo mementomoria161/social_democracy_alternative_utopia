@@ -1,8 +1,9 @@
 title: Das Mitgliedervotum
-subtitle: Die SPD-Mitglieder stimmen über den Koalitionsvertrag ab.
+subtitle: Die Mitglieder haben das letzte Wort.
 new-page: true
 tags: event
-view-if: player = "spd" and (mitgliedervotum_seen = 0 and n_elections = 1 and year = 2025 and time >= last_election_time + 2 and spd_in_government and not in_spd_majority)
+view-if: mitgliedervotum_seen = 0 and n_elections = 1 and year = 2025 and time >= last_election_time + 2 and not in_spd_majority and ((player = "spd" and spd_in_government) or (player = "linke" and (spd_in_government or spd_toleration)))
+go-to: linke if player = "linke"
 max-visits: 1
 priority: 1
 on-arrival: {!
@@ -17,7 +18,7 @@ face-image: img/ortsverein.jpg
 
 = Das Mitgliedervotum
 
-Der Koalitionsvertrag für [+ coalition_name +] ist ausverhandelt. Jetzt haben die Mitglieder das letzte Wort. Die Jusos werben für ein Nein, in vielen Ortsvereinen wird hitzig diskutiert: Reicht das, was wir herausgeholt haben?[? if change_spd_r < -5 : Und darf eine Partei, die gerade so viele Stimmen verloren hat, überhaupt einfach weiterregieren? ?]
+[? if player = "spd" : Der Koalitionsvertrag für [+ coalition_name +] ist ausverhandelt. Jetzt haben die Mitglieder das letzte Wort. Die Jusos werben für ein Nein, in vielen Ortsvereinen wird hitzig diskutiert: Reicht das, was wir herausgeholt haben? ?][? if player = "spd" and change_spd_r < -5 : Und darf eine Partei, die gerade so viele Stimmen verloren hat, überhaupt einfach weiterregieren? ?]
 
 - @werben: Auf Regionalkonferenzen im ganzen Land um jede Stimme werben.
 - @zugestaendnis: Den Kritikerinnen und Kritikern entgegenkommen: Rentenniveau und 15 Euro Mindestlohn als Ziele festschreiben.
@@ -51,4 +52,29 @@ if (Q.mv_result < 70) {
 }
 !}
 
-[+ mv_result +] Prozent der abstimmenden Mitglieder sagen Ja zum Koalitionsvertrag. [? if mv_result >= 80 : Ein klares Mandat. Die Parteiführung kann mit Rückenwind in die Regierung gehen. ?][? if mv_result >= 70 and mv_result < 80 : Eine solide Mehrheit, aber die Kritikerinnen und Kritiker haben gezeigt, wie viele sie sind. ?][? if mv_result < 70 : Ein Ergebnis, das niemand feiert. Ein großer Teil der Partei geht nur widerwillig mit in diese Koalition. ?]
+[+ mv_result +] Prozent der abstimmenden Mitglieder sagen Ja [? if player = "linke" and spd_toleration : zur Tolerierung ?][? if not (player = "linke" and spd_toleration) : zum Koalitionsvertrag ?]. [? if mv_result >= 80 : Ein klares Mandat. Die Parteiführung kann mit Rückenwind in die Regierung gehen. ?][? if mv_result >= 70 and mv_result < 80 : Eine solide Mehrheit, aber die Kritikerinnen und Kritiker haben gezeigt, wie viele sie sind. ?][? if mv_result < 70 : Ein Ergebnis, das niemand feiert. Ein großer Teil der Partei geht nur widerwillig mit in diese Koalition. ?]
+
+@linke
+# Linke-Fassung (Durchgang 4.3): Mitgliederentscheid über Koalition oder Tolerierung (wie in Berlin 2016 und 2021).
+
+[? if spd_toleration : Die rot-grüne Minderheitsregierung soll mit unseren Stimmen ins Amt kommen. Das Tolerierungsabkommen steht, aber in der Linken entscheiden über so etwas die Mitglieder. ?][? if spd_in_government : Zum ersten Mal sitzt die Linke im Bund mit am Kabinettstisch, wenn die Mitglieder zustimmen. Der Koalitionsvertrag für [+ coalition_name +] ist ausverhandelt. ?] Die Sozialistische Linke und Teile der Linksjugend werben für ein Nein: Aufrüstung und Abschiebungen werde die Linke nicht verhindern, aber mittragen müssen. Viele Neumitglieder sind gerade erst eingetreten und fragen, was sie eigentlich wählen.
+
+- @lk_werben: In Mitgliederversammlungen im ganzen Land um jede Stimme werben.
+- @lk_zugestaendnis: Den Kritiker*innen entgegenkommen: rote Haltelinien bei Abschiebungen und Waffenexporten beschließen.
+- @lk_laufen: Die Basis frei entscheiden lassen.
+
+@lk_werben
+subtitle: -1 Ressource
+choose-if: resources >= 1
+unavailable-subtitle: Dafür fehlen uns die Mittel.
+on-arrival: resources -= 1; mv_result = mv_base + 2
+go-to: ergebnis
+
+@lk_zugestaendnis
+subtitle: Die Partner werden das nicht gern sehen.
+on-arrival: mv_result = mv_base + 1; left_dissent -= 5; linke_relation -= 3; gruene_relation -= 2; pacifism += 1
+go-to: ergebnis
+
+@lk_laufen
+on-arrival: mv_result = mv_base - 4
+go-to: ergebnis

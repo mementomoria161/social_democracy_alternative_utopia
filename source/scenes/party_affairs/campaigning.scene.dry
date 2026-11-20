@@ -9,6 +9,8 @@ tags: party_affairs
 
 = Wahlkampf
 
+# party-ok: Volkspartei (peoples_party: SPD "Zurück zur Volkspartei", Linke "Volkspartei im Osten")
+
 Ob gerade Wahlkampf ist oder nicht: Die Partei versucht ständig, neue Wählerinnen und Wähler zu gewinnen. Auf wen sollen wir uns konzentrieren?
 
 - @workers: Arbeitnehmerinnen und Arbeitnehmer in Industrie und Dienstleistung, unsere traditionelle Basis.
@@ -16,7 +18,8 @@ Ob gerade Wahlkampf ist oder nicht: Die Partei versucht ständig, neue Wählerin
 - @old_middle: Selbstständige, Handwerk und Mittelstand.
 - @rural: Die Menschen auf dem Land, die sich von uns oft vergessen fühlen.
 - @unemployed: Arbeitslose und Menschen in der Grundsicherung.
-- @catholics: Rentnerinnen und Rentner, unsere treueste Wählergruppe.
+- @catholics: Rentnerinnen und Rentner[? if player = "spd" : , unsere treueste Wählergruppe ?][? if player = "linke" : , gerade im Osten ?].
+- @doors: Haustürgespräche in Vierteln mit hohen Mieten und niedrigen Löhnen.
 - @root: Wir wollen oder können gerade keinen Wahlkampf machen.
 - @easy_discard
 
@@ -67,3 +70,13 @@ unavailable-subtitle: Nicht genug Ressourcen.
 on-arrival: rentner_spd += 5*(1-dissent); rentner_spd += 3*(1-dissent) if welfare >= 1; resources -= 1
 
 Wir werben in Seniorentreffs, Kirchengemeinden und Kleingartenvereinen für eine stabile Rente. [? if welfare >= 1 : Unsere Sozialpolitik macht das Versprechen glaubwürdig. ?]
+
+@doors
+subtitle: -1 Ressourcen
+view-if: player = "linke"
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; workers_spd += 3*(1-dissent); unemployed_spd += 4*(1-dissent); new_middle_spd += 1*(1-dissent); center_strength += 2; center_dissent -= 2; dues += 1 if haustuer_seen = 0 and dues < 4; haustuer_seen += 1
+
+# Linke: Haustürwahlkampf nach dem Organizing-Konzept der Parteiführung (2024/25 Hunderttausende Gespräche).
+Hunderte Ehrenamtliche ziehen mit Klemmbrett und Fragebogen durch Hochhaussiedlungen und Altbauviertel. Sie reden nicht über uns, sondern fragen: Was ist Ihr größtes Problem? Meistens lautet die Antwort Miete, Heizkosten oder Lebensmittelpreise. [? if haustuer_seen = 1 : Viele, die an der Tür mit uns geredet haben, werden Mitglied. Die Beiträge der neuen Mitglieder machen sich in der Kasse bemerkbar. ?][? if haustuer_seen > 3 : Unsere Teams kennen ihre Viertel inzwischen gut, aber die erste Begeisterung ist verflogen. ?]

@@ -108,7 +108,7 @@ title: Stattdessen die Handelspolitik ändern.
 
 Zölle legt die EU fest, nicht Berlin. Doch Deutschland hat in Brüssel großes Gewicht, und ein Teil der Zolleinnahmen senkt unseren Beitrag zum EU-Haushalt.
 
-Traditionell steht die Sozialdemokratie für freien Handel: Beschäftigte in der Exportindustrie profitieren davon, und Importe senken die Preise im Alltag. Doch nach den US-Zöllen und der Flut billiger Stahl- und Autoimporte aus China fordern viele Gewerkschaften Schutz. Ändern die Umstände die Rechnung?
+[? if player = "spd" : Traditionell steht die Sozialdemokratie für freien Handel: ?][? if player = "linke" : Die Linke kritisiert seit jeher Freihandelsabkommen, die vor allem Konzernen nützen. Doch auch die Beschäftigten in der Exportindustrie hängen am Handel: ?] Beschäftigte in der Exportindustrie profitieren davon, und Importe senken die Preise im Alltag. Doch nach den US-Zöllen und der Flut billiger Stahl- und Autoimporte aus China fordern viele Gewerkschaften Schutz. Ändern die Umstände die Rechnung?
 
 Aktuelles Zollniveau: [+ tariffs : taxation +]
 

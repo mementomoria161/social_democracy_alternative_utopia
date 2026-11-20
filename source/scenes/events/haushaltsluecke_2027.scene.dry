@@ -2,12 +2,15 @@ title: Die Haushaltslücke
 subtitle: Im Haushalt 2027 fehlen über 30 Milliarden Euro.
 new-page: true
 tags: event
-view-if: year = 2026 and month >= 6 and month <= 8 and spd_in_government and finance_minister_party == "SPD"
+view-if: year = 2026 and month >= 6 and month <= 8 and ((player = "spd" and spd_in_government and finance_minister_party == "SPD") or (player = "linke" and not spd_in_government and linke_in_government and finance_minister_party == "Linke"))
+go-to: linke if player = "linke" and not spd_in_government
 max-visits: 1
 on-arrival: haushaltsluecke_seen = 1; budget -= 1 if budget >= 1; crisis_urgency += 1
 face-image: img/portraits/Klingbeil.jpg
 
 = Die Haushaltslücke
+
+# party-ok: SPD (die SPD stellt den Finanzminister)
 
 Die Steuereinnahmen bleiben hinter den Erwartungen zurück, Zinsen und Verteidigungsausgaben steigen. Für den Haushalt 2027 fehlen über 30 Milliarden Euro, und als Finanzminister muss die SPD einen Weg finden, die Lücke zu schließen. Die Union lehnt Steuererhöhungen ab und verlangt Einschnitte beim Sozialstaat.
 
@@ -37,3 +40,25 @@ Mit Verweis auf Industriekrise und Arbeitslosigkeit erklärt der Bundestag eine 
 on-arrival: budget += 1; gruene_relation += 5; rural_spd -= 3; workers_spd -= 2; new_middle_spd += 2*(1-dissent); coalition_dissent += 1 if in_grand_coalition
 
 Wir streichen Dienstwagenprivileg, Dieselsubventionen und Steuervorteile für Kerosin. Das schließt einen Teil der Lücke. Pendler, Landwirtschaft und Autoindustrie sind empört, die Grünen loben uns.
+
+@linke
+# Linke in der Opposition: SPD-Finanzminister (Slot "Linke") muss die Lücke schließen (Durchgang 4.3).
+
+- @lk_vermoegen: Unsere Alternative vorrechnen: Vermögensteuer statt Kürzungen.
+- @lk_schuldenbremse: Die Schuldenbremse für Investitionen und Soziales aussetzen.
+- @lk_kommunen: Die Folgen für Kommunen, Kitas und Schwimmbäder sichtbar machen.
+
+@lk_vermoegen
+on-arrival: workers_spd += 2*(1-dissent); unemployed_spd += 1*(1-dissent); new_middle_spd -= 0.5; left_strength += 2; old_middle_spd -= 1
+
+Eine Vermögensteuer auf Vermögen über einer Million Euro brächte Jahr für Jahr ein Vielfaches der Lücke, rechnen wir vor. Die Union spricht von „Neidsteuer“, viele Menschen finden die Idee richtig.
+
+@lk_schuldenbremse
+on-arrival: reformist_strength += 2; labor_dissent -= 3; workers_spd += 1*(1-dissent); linke_relation += 2
+
+Wir bieten SPD und Grünen an, gemeinsam für eine Reform der Schuldenbremse zu werben. In der SPD-Fraktion wird das aufmerksam gelesen.
+
+@lk_kommunen
+on-arrival: unemployed_spd += 1.5*(1-dissent); rentner_spd += 1*(1-dissent); reformist_dissent -= 2; center_strength += 2
+
+In unseren Sozialsprechstunden und Kommunalparlamenten sammeln wir Beispiele: das Freibad, das schließt, die Buslinie, die eingestellt wird. Die Geschichten landen in den Lokalzeitungen.

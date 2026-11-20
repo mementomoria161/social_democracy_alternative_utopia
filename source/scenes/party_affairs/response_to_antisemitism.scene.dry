@@ -9,7 +9,7 @@ max-visits: 1
 
 = Antisemitismus bekämpfen
 
-Antisemitismus war in Deutschland nie verschwunden, doch seit dem Terrorangriff der Hamas am 7. Oktober 2023 hat er ein erschreckendes Ausmaß angenommen. Jüdische Studierende werden bedroht, Synagogen brauchen Polizeischutz, und rechtsextreme Politiker relativieren den Holocaust. Hass kommt von rechts, aus islamistischen Milieus und auch aus Teilen der Linken.
+Antisemitismus war in Deutschland nie verschwunden, doch seit dem Terrorangriff der Hamas am 7. Oktober 2023 hat er ein erschreckendes Ausmaß angenommen. Jüdische Studierende werden bedroht, Synagogen brauchen Polizeischutz, und rechtsextreme Politiker relativieren den Holocaust. Hass kommt von rechts, aus islamistischen Milieus und auch aus Teilen der politischen Linken.[? if player = "linke" : Auch in unserer eigenen Partei wird heftig darüber gestritten, wo Kritik an der israelischen Regierung endet und Antisemitismus beginnt. ?]
 
 - @socialism_of_fools: Antisemitismus ist der „Sozialismus der dummen Kerle“. Gute Sozialpolitik ist das beste Gegenmittel.
 - @if: Antisemitismus ist eine Krise. Das Bündnis für Demokratie soll sich mit voller Kraft dagegenstellen.

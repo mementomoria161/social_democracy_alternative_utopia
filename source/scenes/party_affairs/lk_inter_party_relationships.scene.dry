@@ -1,0 +1,93 @@
+title: Beziehungen zu anderen Parteien
+new-page: true
+view-if: player = "linke" and year <= 2029 and inter_party_relationships_timer <= 0
+tags: party_affairs
+is-card: true
+on-arrival: month_actions += 1; inter_party_relationships_timer = 6;
+card-image: img/bundestag_plenum.jpg
+max-visits: 12
+
+# Linke-Fassung von inter_party_relationships (Durchgang 4.3). Slot linke = SPD: linke_relation ist das Verhältnis zur SPD.
+# linke_rectified_history: bei der Linken das klare Bekenntnis zur Ukraine-Solidarität (Gegenstück zum Bruch mit der Agenda 2010).
+
+= Beziehungen zu anderen Parteien
+
+Für eine Mehrheit links der Union braucht die Linke SPD und Grüne. Doch die SPD regiert lieber mit der Union, und die CDU hat einen Unvereinbarkeitsbeschluss gegen uns. Wir können um Vertrauen werben oder vorerst allein unseren Weg gehen.
+
+- @gruene: Die Beziehungen zu den Grünen pflegen.
+- @spd: Die Beziehungen zur SPD verbessern.
+- @union: Gesprächskanäle zur Union offenhalten.
+- @bsw: Das Verhältnis zum BSW klären.
+- @alone: Die Linke steht vorerst für sich.
+- @easy_discard
+
+@gruene
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; gruene_relation += 6*(1 - dissent); left_dissent -= 1; labor_dissent += 1
+
+In Großstädten konkurrieren wir mit den Grünen um dieselben jungen Wähler*innen. Bei Klimageld, Mieten und Brandmauer ziehen wir oft an einem Strang. Die Gewerkschafter*innen in der Partei sehen die Grünen skeptischer.
+
+@spd
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; linke_inter_party_seen += 1
+go-to: spd_blutmai if blutmai = 1; spd_1 if blutmai = 0 and linke_coalition_success = 0 and (linke_relation < 40 or linke_rectified_history = 1); spd_history if blutmai = 0 and linke_relation >= 40 and linke_rectified_history = 0; spd_2 if blutmai = 0 and linke_coalition_success = 1 and linke_rectified_history = 1
+
+@spd_1
+on-arrival: linke_relation += 6*(1 - dissent); communist_coalition += 1 if linke_inter_party_seen <= 1; left_dissent += 2; reformist_dissent -= 2
+
+In der SPD gelten wir vielen noch immer als unzuverlässig. Doch in Kommunen, Landtagen und Gewerkschaften entstehen neue Kontakte, und manche Sozialdemokrat*innen sind froh, dass es links von ihnen wieder jemanden gibt.
+
+@spd_history
+
+Ein großes Hindernis ist unsere Haltung zu Russlands Krieg gegen die Ukraine. Lange gab es in der Linken Stimmen, die den Angriff relativierten. Viele sind mit Sahra Wagenknecht gegangen, aber in der SPD fragen sie: Steht die Linke an der Seite der Ukraine?
+
+Für einen echten Neuanfang müssten wir unmissverständlich erklären, dass Russland der Aggressor ist und die Ukraine das Recht hat, sich zu verteidigen, ohne unsere Kritik an Aufrüstung und Waffenexporten aufzugeben.
+
+- @yes_history: Ja, wir sagen es so klar, dass es niemand missverstehen kann.
+- @no_history: Nein, wir lassen uns unsere Friedenspolitik nicht vorschreiben.
+
+@yes_history
+on-arrival: left_dissent += 6; neorevisionist_dissent += 12; neorevisionist_strength -= 2; reformist_dissent -= 6; reformist_strength += 5; linke_rectified_history = 1; gruene_relation += 4; union_relation += 2; bsw_relation -= 5; linke_relation += 8*(1-dissent); pacifism -= 1
+
+Der Parteivorstand verabschiedet eine klare Erklärung: Russland führt einen verbrecherischen Angriffskrieg, die Ukraine hat jedes Recht auf Selbstverteidigung. Zugleich bleibt die Linke gegen das Zwei-Prozent-Ziel und gegen Waffenexporte in Krisengebiete. Der Friedensflügel ist empört, das BSW spricht von „Kriegstreiberei“, aber in der SPD-Fraktion wird die Erklärung aufmerksam gelesen.
+
+@no_history
+on-arrival: linke_relation -= 3; neorevisionist_dissent -= 3
+
+Wir haben den Angriff immer verurteilt. Mehr müssen wir niemandem beweisen.
+
+@spd_2
+on-arrival: linke_relation += 8*(1 - dissent); communist_coalition += 1 if linke_inter_party_seen <= 1; left_dissent += 2
+
+Nach der erfolgreichen Zusammenarbeit in der Regierung ist die SPD uns gegenüber deutlich aufgeschlossener.
+
+@spd_blutmai
+on-arrival: linke_relation += 3*(1 - dissent); left_dissent += 1
+
+Nach den Ereignissen der letzten Zeit ist eine Annäherung an die SPD schwierig. Trotzdem müssen wir es versuchen.
+
+@union
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; union_relation += 4*(1 - dissent); left_dissent += 4; reformist_dissent -= 3
+
+Für Zweidrittelmehrheiten im Bundestag braucht die Union entweder die AfD oder uns. Unsere Reformer*innen, die in Thüringen jahrelang mit der CDU über Haushalte verhandelt haben, halten diskrete Kontakte. Die Sozialistische Linke hält das für Verrat, aber für die Brandmauer ist es wichtig.
+
+@bsw
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; bsw_relation += 5*(1 - dissent); neorevisionist_dissent -= 6; left_dissent += 4; center_dissent += 2; workers_bsw -= 1*(1-dissent); workers_spd += 1*(1-dissent)
+
+Viele, die 2024 mit Sahra Wagenknecht gegangen sind, waren jahrzehntelang unsere Genoss*innen. In ostdeutschen Kreistagen sitzen wir oft nebeneinander. Wir laden zu Gesprächen über gemeinsame kommunale Anträge ein. Der Friedensflügel ist erleichtert, in der Bewegungslinken schüttelt man den Kopf.
+
+@alone
+
+Ob wir es nicht *können* oder nicht *wollen*: Wir knüpfen derzeit keine Bande zu anderen Parteien.
+
+- @return: Weiter …

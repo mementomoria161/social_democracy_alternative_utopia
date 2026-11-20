@@ -2,7 +2,8 @@ title: Aus Bürgergeld wird Grundsicherung
 subtitle: Die Koalition verschärft die Regeln für Arbeitsuchende.
 new-page: true
 tags: event
-view-if: year = 2025 and month = 10 and spd_in_government and union_in_government and grundsicherung_2025_seen = 0
+view-if: year = 2025 and month = 10 and ((player = "spd" and spd_in_government and union_in_government) or (player = "linke" and not spd_in_government and linke_in_government and union_in_government)) and grundsicherung_2025_seen = 0
+go-to: linke if player = "linke" and not spd_in_government
 max-visits: 1
 on-arrival: grundsicherung_2025_seen = 1
 face-image: img/jobcenter.jpg
@@ -11,6 +12,8 @@ face-image: img/jobcenter.jpg
 # strengeren Mitwirkungspflichten und Sanktionen bis zur vollständigen Streichung der Leistungen; Kritik von Jusos und SPD-Linken.
 
 = Aus Bürgergeld wird Grundsicherung
+
+# party-ok: Jusos (die realen Jusos)
 
 Im Koalitionsausschuss setzt die Union durch, was sie im Wahlkampf versprochen hat: Das Bürgergeld soll einer „Neuen Grundsicherung“ weichen. Wer Termine im Jobcenter wiederholt versäumt, soll im äußersten Fall gar keine Leistungen mehr bekommen; Ersparnisse werden schneller angerechnet. Die Einsparungen sind gering, die Symbolik ist groß. [? if labor_minister_party = "SPD" : Die Reform muss [+ labor_minister +] als Arbeitsministerin oder Arbeitsminister vertreten. ?] Jusos und Sozialverbände laufen Sturm.
 
@@ -32,3 +35,33 @@ In zähen Verhandlungen setzen wir Schutzklauseln durch: Wohnkosten werden nicht
 on-arrival: left_dissent -= 5; union_relation -= 6; coalition_dissent += 2; unemployed_spd += 1*(1-dissent); old_middle_spd -= 1; rural_spd -= 0.5
 
 Wir sagen Nein. Die Union spricht von Vertragsbruch, die Boulevardpresse von der „Partei der Arbeitsverweigerer“. Sozialverbände und Gewerkschaften stellen sich hinter uns.
+
+@linke
+# Linke in der Opposition: Kampf gegen die "Neue Grundsicherung" (Durchgang 4.3).
+
+[? if player = "linke" : Für die Linke ist klar: Das ist ein Angriff auf alle, die wenig haben. Doch wie wehren wir uns am wirksamsten? ?]
+
+- @lk_mobilisieren: Mit Sozialverbänden und Erwerbsloseninitiativen gegen die Reform mobilisieren.
+- @lk_beratung: Unsere Sozialberatung ausbauen und Betroffenen bei Widerspruch und Klage helfen.
+- @lk_rede: Im Bundestag zeigen, wie wenig die Reform spart und wen sie trifft.
+
+@lk_mobilisieren
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; unemployed_spd += 4*(1-dissent); workers_spd += 1*(1-dissent); left_dissent -= 3; demo_strength += 50; linke_relation -= 3
+
+Vor Jobcentern und Rathäusern protestieren Tausende. Paritätischer Wohlfahrtsverband, VdK und Erwerbsloseninitiativen sind dabei, die Jusos schicken Grußworte. Die SPD-Führung reagiert gereizt.
+
+@lk_beratung
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; unemployed_spd += 5*(1-dissent); workers_aid += 1; center_strength += 3; center_dissent -= 3
+
+In unseren Sozialsprechstunden helfen Ehrenamtliche beim Widerspruch gegen Bescheide und vermitteln Anwält*innen. Das Bundesverfassungsgericht hat 2019 Grenzen für Sanktionen gezogen; die ersten Klagen sind eingereicht.
+
+@lk_rede
+on-arrival: unemployed_spd += 2*(1-dissent); new_middle_spd += 1*(1-dissent); left_dissent -= 1
+
+Unsere Fraktion rechnet vor: Die Reform spart kaum Geld, sie soll vor allem Angst machen. Steuerhinterziehung kostet ein Vielfaches. Die Zahlen werden oft zitiert.

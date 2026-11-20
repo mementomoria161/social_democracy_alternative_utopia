@@ -1,0 +1,79 @@
+title: Parteiorganisationen
+new-page: true
+is-card: true
+tags: party_affairs
+view-if: player = "linke" and party_organizations_timer <= 0
+on-arrival: month_actions += 1; party_organizations_timer = 6;
+card-image: img/linke_infostand.jpg
+max-visits: 6
+
+# Linke-Fassung von party_organizations (Durchgang 4.3). mitgliederboom (events/linke_mitgliederboom): 1 = Neumitglieder 2025.
+
+= Parteiorganisationen
+
+Die Linke will eine Partei sein, die im Alltag hilft: mit Sozialsprechstunden, Mieterberatung, Heizkosten-Check und Haustürteams. [? if mitgliederboom >= 1 : Seit dem Frühjahr 2025 hat sich die Zahl der Mitglieder mehr als verdoppelt. Die meisten Neuen sind jung, leben in Großstädten und wollen sofort loslegen. ?][? if mitgliederboom = 0 : Doch die Mitglieder werden älter, und in vielen Kreisverbänden im Osten fehlen die Aktiven. ?]
+
+- @newspapers: In Social Media und eigene Kanäle investieren.
+- @welfare: Sozialsprechstunden, Mieterberatung und Heizkosten-Check ausbauen.
+- @academy: Neue Mitglieder in einer Organizing-Akademie schulen.
+- @culture: Nachbarschaftscafés, Lesekreise und politische Bildung fördern.
+- @rb: Lokale Bündnisse gegen Rechts unterstützen.
+- @youth: Linksjugend ['solid] und den Studierendenverband SDS fördern.
+- @nothing: Nichts zusätzlich finanzieren.
+- @easy_discard
+
+@newspapers
+choose-if: resources > 0
+unavailable-subtitle: Nicht genug Ressourcen.
+subtitle: -1 Ressourcen
+on-arrival: resources -= 1; media_timer = 0;
+go-to: media
+
+@welfare
+choose-if: resources > 0
+unavailable-subtitle: Nicht genug Ressourcen.
+subtitle: -1 Ressourcen
+on-arrival: resources -= 1; workers_aid += 1; unemployed_spd += 4*(1 - dissent); workers_spd += 1*(1 - dissent); rentner_spd += 1*(1 - dissent); mietenkampagne += 1
+
+In unseren Büros prüfen Ehrenamtliche Nebenkostenabrechnungen, helfen bei Anträgen auf Wohngeld und Bürgergeld und rechnen nach, ob die Miete zu hoch ist. Wer einmal Hilfe bekommen hat, erzählt es weiter. [? if unemployed > 7 : In Zeiten steigender Arbeitslosigkeit sind die Sprechstunden überlaufen. ?]
+
+@academy
+choose-if: resources > 0
+unavailable-subtitle: Nicht genug Ressourcen.
+subtitle: -1 Ressourcen
+view-if: mitgliederboom >= 1
+on-arrival: resources -= 1; center_strength += 4; center_dissent -= 4; left_dissent -= 3; labor_dissent -= 2; reformist_dissent -= 2; neumitglieder_integriert += 1
+
+An Wochenenden lernen Neumitglieder, wie man Gespräche an der Haustür führt, Mieter*innen in einem Block organisiert oder eine Versammlung leitet. Die Neuen finden ihren Platz, und die alten Kreisverbände bekommen Unterstützung.
+
+@culture
+choose-if: resources > 0
+unavailable-subtitle: Nicht genug Ressourcen.
+subtitle: -1 Ressourcen
+on-arrival: resources -= 1; cultural_organizations += 1; left_dissent -= 6; center_dissent -= 6; labor_dissent -= 6; reformist_dissent -= 6; neorevisionist_dissent -= 6
+
+Nachbarschaftscafés, Lesekreise zu Marx und Rosa Luxemburg, Filmabende und Sommerfeste: Wer sich in seinem Kreisverband zu Hause fühlt, bleibt auch dann, wenn ihm ein Beschluss des Parteivorstands nicht gefällt.
+
+[? if rechts_strength > 150 : Angesichts rechter Aufmärsche wirkt es allerdings seltsam, Geld in Sommerfeste zu stecken. ?]
+
+@rb
+choose-if: resources > 0
+unavailable-subtitle: Nicht genug Ressourcen.
+subtitle: -1 Ressourcen
+on-arrival: resources -= 1; demo_strength  += 100; demo_radicalism += 0.02; reichsbanner_timer = 0; funded_reichsbanner += 1
+
+Wir unterstützen lokale Bündnisse gegen Rechts mit Geld, Räumen und Organisation. Die Demokratiebewegung wächst.
+
+@youth
+choose-if: resources > 0
+unavailable-subtitle: Nicht genug Ressourcen.
+subtitle: -1 Ressourcen
+on-arrival: resources -= 1; demo_strength += 50; demo_radicalism += 0.02; klima_strength += 30; young_socialists += 1; left_strength += 5; center_strength += 2; radicalization += 1;
+
+Junge Mitglieder strömen in Linksjugend und SDS, die meisten zur Sozialistischen Linken oder zur Bewegungslinken. Sie bringen frischen Wind in Klimabewegung und Demos gegen Rechts, und manche Debatte im Jugendverband sorgt in der Partei für Schlagzeilen.
+
+@nothing
+
+Wir finanzieren diesmal keine Parteiorganisationen.
+
+- @return: Weiter …

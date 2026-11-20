@@ -70,7 +70,7 @@ Die Staatsanwaltschaften klagen die Organisatoren der Blockaden wegen Nötigung 
 view-if: communist_coalition < 3 and klima_banned = 0
 on-arrival: linke_relation -= 15; klima_strength -= 50; klima_banned = 1; communist_coalition -= 1; union_relation += 5; fdp_relation += 5; prussian_police_loyalty += 0.1; interior_police_loyalty += 0.1; linke_coalition_dissent += 2; coalition_dissent -= 1 if coalition_dissent > 0 and n_klima_banned = 0; n_klima_banned += 1
 
-Bundesanwaltschaft und Polizei gehen mit großem, vielleicht zu großem Eifer gegen radikale Klimagruppen vor. Für die Linke ist das ein weiterer Beweis, dass die SPD die soziale und ökologische Bewegung verraten hat. Union und FDP applaudieren, ebenso die Polizei.
+Bundesanwaltschaft und Polizei gehen mit großem, vielleicht zu großem Eifer gegen radikale Klimagruppen vor. [? if player = "spd" : Für die Linke ist das ein weiterer Beweis, dass die SPD die soziale und ökologische Bewegung verraten hat. ?][? if player = "linke" : Viele unserer eigenen Mitglieder sind empört: Seit wann verfolgt die Linke die Bewegungen, aus denen sie kommt? Die SPD ist irritiert. ?] Union und FDP applaudieren, ebenso die Polizei.
 
 @unban_klima
 view-if: klima_banned = 1

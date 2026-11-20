@@ -11,7 +11,7 @@ face-image: img/international.jpg
 
 Wenige Monate nach der Bundestagswahl wählt Deutschland das Europäische Parlament. Ohne Fünf-Prozent-Hürde ziehen auch kleine Parteien ein, und die Wahl gilt als Stimmungstest für die neue Bundesregierung.
 
-[? if spd_r >= 20 : Die SPD schneidet ordentlich ab und kann sich als proeuropäische Kraft profilieren. ?][? if spd_r < 20 : Die SPD bleibt hinter ihren Erwartungen zurück. ?] [? if afd_r >= 25 : Die AfD wird zur größten deutschen Gruppe im Europäischen Parlament, was in Brüssel für Unruhe sorgt. ?] [? if eu : Die neue Europäische Föderation ist das große Thema des Wahlkampfs. ?]
+[? if player = "spd" and spd_r >= 20 : Die SPD schneidet ordentlich ab und kann sich als proeuropäische Kraft profilieren. ?][? if player = "spd" and spd_r < 20 : Die SPD bleibt hinter ihren Erwartungen zurück. ?][? if player = "linke" and spd_votes >= 9 : Die Linke erzielt ihr bestes Europawahlergebnis seit Jahren und wird zur stärksten Gruppe in der Linksfraktion des Europaparlaments. ?][? if player = "linke" and spd_votes < 9 : Die Linke bleibt hinter ihren Erwartungen zurück. ?] [? if afd_r >= 25 : Die AfD wird zur größten deutschen Gruppe im Europäischen Parlament, was in Brüssel für Unruhe sorgt. ?] [? if eu : Die neue Europäische Föderation ist das große Thema des Wahlkampfs. ?]
 
 - @weiter: Weiter.
 

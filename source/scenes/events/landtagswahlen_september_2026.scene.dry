@@ -4,16 +4,19 @@ new-page: true
 tags: event
 view-if: year = 2026 and month = 9
 max-visits: 1
-on-arrival: ltw_sept_2026_seen = 1; nazi_urgency += 1; pro_republic -= 2; mv_lost = 1 if spd_r < 14 and not historical_mode; spd_prussia = 0 if mv_lost and rp_lost; prussian_government = "Union" if mv_lost and rp_lost; strife += 1
+on-arrival: ltw_sept_2026_seen = 1; nazi_urgency += 1; pro_republic -= 2; mv_lost = 1 if not historical_mode and ((player = "spd" and spd_r < 14) or (player = "linke" and linke_r < 14)); spd_prussia = 0 if mv_lost and rp_lost and player = "spd"; prussian_government = "Union" if mv_lost and rp_lost and player = "spd"; strife += 1
+go-to: linke if player = "linke"
 face-image: img/wahlkampf.jpg
 
 = Wahlsonntag im Osten
 
+# party-ok: SPD, die Linke (reale Parteien; Ergebnisse 06.09. und 20.09.2026: Sachsen-Anhalt AfD 43,8, CDU 17,2, SPD 9,3, Grüne 8,9, Linke 8,6, BSW 5,3; MV AfD 38,2, SPD 35,5, Linke 6,5, Grüne 5,7, CDU 4,9; Berlin Linke 25,7, CDU 18,8, AfD 16,3, Grüne 14,3, SPD 12,1, BSW 4,7)
+
 In Sachsen-Anhalt wird die AfD mit über 40 Prozent mit großem Abstand stärkste Kraft. Eine Regierung gegen sie ist nur noch als breites Bündnis aller übrigen Parteien möglich, und in der CDU wird offen darüber gestritten, ob man nicht doch mit der AfD reden müsse.
 
-[? if not mv_lost : In Mecklenburg-Vorpommern wird die AfD ebenfalls stärkste Kraft, doch Manuela Schwesig kann mit einer Koalition der demokratischen Parteien weiterregieren. ?][? if mv_lost : In Mecklenburg-Vorpommern wird die AfD stärkste Kraft, und die SPD verliert die Staatskanzlei an eine CDU-geführte Koalition. ?] In Berlin profitiert vor allem die Linke vom Ärger über Mieten und Verkehr.
+[? if not mv_lost : In Mecklenburg-Vorpommern wird die AfD ebenfalls stärkste Kraft, doch Manuela Schwesig kann mit einer Koalition der demokratischen Parteien weiterregieren. ?][? if mv_lost : In Mecklenburg-Vorpommern wird die AfD stärkste Kraft, und die SPD verliert die Staatskanzlei an eine CDU-geführte Koalition. ?] [? if player = "spd" : In Berlin profitiert vor allem die Linke vom Ärger über Mieten und Verkehr. ?]
 
-[? if mv_lost and rp_lost : Mit Rheinland-Pfalz und Mecklenburg-Vorpommern hat die SPD in diesem Jahr zwei Staatskanzleien verloren. Unsere Macht im Bundesrat ist dahin. ?]
+[? if mv_lost and rp_lost and player = "spd" : Mit Rheinland-Pfalz und Mecklenburg-Vorpommern hat die SPD in diesem Jahr zwei Staatskanzleien verloren. Unsere Macht im Bundesrat ist dahin. ?]
 
 - @brandmauer: Die Union öffentlich auf die Brandmauer verpflichten.
 - @soziales: Mit einem Ost-Programm für Löhne, Renten und Infrastruktur reagieren.
@@ -33,5 +36,37 @@ on-arrival: budget -= 1; workers_spd += 3*(1-dissent); rural_spd += 3*(1-dissent
 Ein Programm für gleichwertige Lebensverhältnisse: Tarifbindung bei öffentlichen Aufträgen, Geld für Bahnstrecken, Ärzte und Schulen auf dem Land und ein Zuschlag für kleine Renten. Im Osten wird es aufmerksam registriert.
 
 @weiter
+
+Wir nehmen die Ergebnisse zur Kenntnis und machen weiter.
+
+@linke
+# Linke-Fassung (Durchgang 4.3). Berlin: Spitzenkandidatin Elif Eralp; real stärkste Kraft mit 25,7 Prozent, die
+# Regierungsbildung war im November 2026 noch offen (Rot-Grün-Rot oder Kenia). berlin_2026 siehe root.start.
+on-arrival: berlin_2026 = 1 if historical_mode or spd_votes + mietenkampagne >= 10; berlin_2026 = 3 if berlin_2026 = 0
+
+[? if not mv_lost : In Mecklenburg-Vorpommern bleibt die Linke in der Regierung von Manuela Schwesig, als Juniorpartnerin mit SPD und Grünen. ?][? if mv_lost : In Mecklenburg-Vorpommern fliegt die Linke aus der Landesregierung. ?] In Sachsen-Anhalt bleibt sie einstellig.
+
+[? if berlin_2026 = 1 : Und dann Berlin: Die Linke wird mit großem Abstand stärkste Kraft, vor CDU und AfD. Elif Eralp hat einen Wahlkampf über Mieten, Nahverkehr und Schulen geführt, und in Neukölln, Friedrichshain und Lichtenberg holen wir fast jedes Direktmandat. Rechnerisch reicht es für Rot-Grün-Rot unter unserer Führung, aber auch für eine Koalition aus CDU, Grünen und SPD. ?][? if berlin_2026 = 3 : In Berlin legt die Linke deutlich zu und wird zweitstärkste Kraft. Doch die CDU bleibt vorn und bildet eine Koalition mit SPD und Grünen. ?][? if mietenkampagne >= 2 : Die Mieten-Kampagne hat sich ausgezahlt: Nie war das Thema in einem Wahlkampf so wichtig. ?]
+
+- @lk_berlin_r2g: Rot-Grün-Rot verhandeln: Elif Eralp soll Regierende Bürgermeisterin werden.
+- @lk_berlin_druck: In die Opposition gehen und Druck machen: Ohne Vergesellschaftung keine Koalition.
+- @lk_weiter: Die Ergebnisse zur Kenntnis nehmen.
+
+@lk_berlin_r2g
+view-if: berlin_2026 = 1
+choose-if: linke_relation >= 25 or gruene_relation >= 40
+unavailable-subtitle: SPD und Grüne trauen uns noch nicht genug.
+on-arrival: spd_prussia = 1; prussian_government = "SPD"; berlin_2026 = 2; reformist_dissent -= 6; reformist_strength += 3; left_dissent += 4; linke_relation += 3; gruene_relation += 2; pro_republic += 1
+
+Nach wochenlangen Verhandlungen steht der Koalitionsvertrag: Mietendeckel für landeseigene Wohnungen, ein Gesetz zur Vergesellschaftung großer Wohnungskonzerne, ein 29-Euro-Ticket. Elif Eralp wird zur Regierenden Bürgermeisterin gewählt. Zum ersten Mal führt die Linke die Hauptstadt, und über den Bundesrat reden wir nun bei vielen Gesetzen mit. (Die Regierungsbildung ist im Spiel fiktiv.)
+
+@lk_berlin_druck
+view-if: berlin_2026 = 1
+on-arrival: berlin_2026 = 3; left_dissent -= 6; reformist_dissent += 8; nationalization_support += 1; linke_relation -= 3
+
+Wir lassen die Verhandlungen an der Vergesellschaftung scheitern. Die CDU bildet eine Kenia-Koalition. Die Sozialistische Linke feiert die Standhaftigkeit, die Reformer*innen sind fassungslos.
+
+@lk_weiter
+on-arrival: center_dissent -= 1
 
 Wir nehmen die Ergebnisse zur Kenntnis und machen weiter.

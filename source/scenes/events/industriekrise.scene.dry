@@ -2,7 +2,8 @@ title: Industriekrise
 subtitle: Ein großer Autozulieferer will Werke schließen.
 new-page: true
 tags: event
-view-if: year = 2026 and month >= 10 and spd_in_government
+view-if: year = 2026 and month >= 10 and ((player = "spd" and spd_in_government) or (player = "linke" and not spd_in_government))
+go-to: linke if player = "linke" and not spd_in_government
 max-visits: 1
 on-arrival: industriekrise_seen = 1; unemployed += 0.3; workers_afd += 2; crisis_urgency += 1
 face-image: img/werksschliessung.jpg
@@ -34,4 +35,26 @@ Wir verlängern das Kurzarbeitergeld und finanzieren Weiterbildung für Beschäf
 @markt
 on-arrival: workers_spd -= 4; labor_dissent += 8; left_dissent += 5; workers_afd += 3; workers_linke += 2; fdp_relation += 3
 
-Wir mischen uns nicht ein. Die Werke werden geschlossen, und vor den Werkstoren hört man bittere Worte über die SPD.
+Wir mischen uns nicht ein. Die Werke werden geschlossen, und vor den Werkstoren hört man bittere Worte über [+ pp_full +].
+
+@linke
+# Linke in der Opposition (Durchgang 4.3).
+
+- @lk_werkstor: Vor den Werkstoren an der Seite der Beschäftigten stehen.
+- @lk_vergesellschaften: Vergesellschaftung statt Subventionen fordern.
+- @lk_kommunal: In Landtagen und Kreistagen um jeden Standort kämpfen.
+
+@lk_werkstor
+on-arrival: workers_spd += 3*(1-dissent); labor_dissent -= 5; labor_strength += 3; workers_afd -= 1
+
+Unsere Abgeordneten stehen mit den Beschäftigten im Regen vor den Toren. Wir sammeln Geld für die Streikkassen und reden mit Betriebsräten. Manche sagen: Endlich ist die Linke wieder da, wo sie hingehört.
+
+@lk_vergesellschaften
+on-arrival: left_strength += 5; left_dissent -= 4; nationalization_support += 1; workers_spd += 1*(1-dissent); old_middle_spd -= 1; reformist_dissent += 2
+
+Wir fordern: Wer Werke schließt, obwohl er Gewinne macht, soll enteignet werden können, Artikel 15 des Grundgesetzes lässt das zu. Die Debatte ist laut, die Wirtschaftsverbände empört, und die Sozialistische Linke ist begeistert.
+
+@lk_kommunal
+on-arrival: reformist_strength += 3; reformist_dissent -= 3; workers_spd += 1.5*(1-dissent); rural_spd += 1*(1-dissent)
+
+Wo wir mitregieren, setzen wir Landesbürgschaften und Gespräche mit den Betriebsräten durch. Das rettet nicht alle Arbeitsplätze, aber unsere Reformer*innen können zeigen, was sie praktisch erreichen.

@@ -1,0 +1,107 @@
+title: Wieder Volkspartei im Osten?
+new-page: true
+is-card: true
+card-image: img/linke_wahlkampf.jpg
+view-if: player = "linke" and neorevisionism > 0 and peoples_party_support >= 3 and peoples_party = 0 and peoples_party_timer == 0
+on-arrival: peoples_party_timer = 6
+tags: party_affairs
+max-visits: 4
+
+# Linke-Fassung von peoples_party (Durchgang 4.3): peoples_party = 1 heißt hier "Kümmererpartei des Ostens".
+# Fakten: PDS/Linke bei Landtagswahlen bis über 20 Prozent (Thüringen 2014 28,2, 2019 31,0); Ramelow Ministerpräsident 2014-2024.
+
+= Wieder Volkspartei im Osten?
+
+Im Osten war die Linke einmal Volkspartei. In Thüringen stellte sie zehn Jahre lang mit Bodo Ramelow den Ministerpräsidenten, in vielen Kleinstädten war sie die Partei, die sich um alles kümmerte. Heute wählen viele der alten Stammwähler*innen AfD oder BSW, und die Partei wächst vor allem in Berlin, Leipzig und den westdeutschen Unistädten.
+
+Die Reformer*innen aus den Ost-Landesverbänden und der Friedensflügel fordern einen Kurswechsel: mehr Rente, Löhne Ost, Ärztin im Dorf und Frieden, weniger Szenedebatten. Die Linke solle wieder die Kümmererpartei des Ostens werden, auch wenn das bei jungen Großstadtmitgliedern schlecht ankommt. Sozialistische Linke und Bewegungslinke warnen davor, der AfD in Fragen von Migration und Gleichstellung entgegenzukommen.
+
+- @support_peoples_party: Ja, wir werden wieder die Partei des Ostens!
+- @build_support: Wir müssen zuerst mehr Unterstützung in der Partei gewinnen.
+- @support_peoples_party_hard: Gegen den Widerstand von Bewegungslinker und Sozialistischer Linker setzen wir den Kurswechsel durch.
+- @no_new_ideas: Nein, wir bleiben bei unserem Kurs.
+- @root: Darüber reden wir ein anderes Mal.
+- @easy_discard
+
+@build_support
+view-if: (neorevisionist_strength + reformist_strength < left_strength + center_strength) or peoples_party_support < 5
+on-arrival: peoples_party_support += 1; neorevisionist_strength += 5; left_strength -= 5; left_dissent += 5
+
+In den Kreisverbänden zwischen Rügen und Erzgebirge werben wir für den Kurswechsel. Die Älteren nicken, die Jüngeren in den Großstädten runzeln die Stirn.
+
+@support_peoples_party
+choose-if: (neorevisionist_strength + reformist_strength >= left_strength + center_strength) and peoples_party_support >= 4
+unavailable-subtitle: Der Widerstand ist zu groß.
+on-arrival: neorevisionist_strength += 15; reformist_strength += 15; neorevisionist_dissent -= 10; reformist_dissent -= 10; peoples_party = 1; new_middle_spd -= 8; new_middle_gruene += 4; new_middle_linke += 3; rural_spd += 8; workers_spd += 4; old_middle_spd += 4; rentner_spd += 8; workers_bsw -= 2; rentner_bsw -= 2; left_dissent += 25; center_dissent += 20; bsw_relation += 5; linke_relation -= 3
+achievement: volkspartei
+
+Ein Parteitag in Leipzig beschließt den Kurswechsel: Die Linke will wieder die Partei sein, die sich im Osten um die Rente, das Krankenhaus und den Bus ins Nachbardorf kümmert. Junge Mitglieder in Berlin und Hamburg sprechen von einem Rückfall, einige treten aus. Aber zwischen Oder und Werra hört man uns wieder zu.
+
+Sollen wir den neuen Kurs mit einer Kampagne bekannt machen?
+
+- @campaign_workers
+- @campaign_middle
+- @campaign_rural
+- @campaign_unemployed
+- @campaign_women
+- @campaign_rentner
+
+@support_peoples_party_hard
+subtitle: Das wird den Unmut in der Partei erhöhen.
+view-if: (neorevisionist_strength + reformist_strength < left_strength + center_strength) or (peoples_party_support < 4)
+on-arrival: neorevisionist_strength += 10; reformist_strength += 8; peoples_party = 1; new_middle_spd -= 10; new_middle_gruene += 5; new_middle_linke += 4; rural_spd += 8; workers_spd += 2; old_middle_spd += 4; rentner_spd += 8; left_dissent += 40; center_dissent += 40; bsw_relation += 5; linke_relation -= 3
+achievement: volkspartei
+
+Nach einem erbitterten Parteitag setzen wir den Kurswechsel knapp durch. Bewegungslinke und Sozialistische Linke sprechen von einem Verrat an allem, wofür die Partei 2025 so viele junge Menschen gewonnen hat. Aber die Linke will nun wieder die Partei des Ostens sein.
+
+Sollen wir den neuen Kurs mit einer Kampagne bekannt machen?
+
+- @campaign_workers
+- @campaign_middle
+- @campaign_rural
+- @campaign_unemployed
+- @campaign_women
+- @campaign_rentner
+
+@campaign_workers
+title: Um Beschäftigte werben, die zu AfD und BSW gegangen sind.
+on-arrival: workers_spd += 6*(1-dissent);
+
+Leiharbeiter in Zwickau, Pflegekräfte in Cottbus, Paketboten in Halle: Wir reden über Löhne, die immer noch niedriger sind als im Westen.
+
+@campaign_middle
+title: Um Handwerk und kleine Selbstständige werben.
+on-arrival: old_middle_spd += 5*(1-dissent); new_middle_spd += 3*(1-dissent)
+
+Die Bäckerei, die Autowerkstatt, der Pflegedienst: Wir zeigen, dass Energiepreise und Konzernmacht auch den Mittelstand treffen.
+
+@campaign_rural
+title: Auf dem Land werben.
+choose-if: rural_policy > 0
+unavailable-subtitle: Wir haben noch keine Politik für den ländlichen Raum vorzuweisen.
+on-arrival: rural_spd += 7*(1-dissent)
+
+Bürgersprechstunden im Dorfgemeinschaftshaus, Busfahrpläne, die Landarztpraxis: Die Menschen auf dem Land merken, dass wir wiederkommen.
+
+@campaign_unemployed
+title: Um Arbeitslose werben.
+on-arrival: unemployed_spd += 6*(1-dissent);
+
+Wir bleiben die Partei derer, die vom Jobcenter schikaniert werden. Das vergessen wir auch als Volkspartei nicht.
+
+@campaign_women
+title: Um Frauen aller Schichten werben.
+on-arrival: workers_spd += 3*(1-dissent); new_middle_spd += 3*(1-dissent); old_middle_spd += 3*(1-dissent); rural_spd += 3*(1-dissent); unemployed_spd += 3*(1-dissent);
+
+Im Osten waren Frauen immer berufstätig. Wir reden über Kitas, gleiche Löhne und die Rente der Frauen, die nach 1990 ihre Arbeit verloren haben.
+
+@campaign_rentner
+title: Um Rentnerinnen und Rentner werben.
+on-arrival: rentner_spd += 7*(1-dissent);
+
+Die Generation, die die Wende erlebt hat, verdient eine Rente, von der man leben kann. Das versprechen wir, und viele erinnern sich daran, dass die PDS dafür schon immer gekämpft hat.
+
+@no_new_ideas
+on-arrival: neorevisionist_strength -= 6; neorevisionist_dissent += 5; center_strength += 8; left_strength += 3; peoples_party = 0; peoples_party_support -= 3
+
+Wir bleiben bei unserem Kurs. Eine Linke, die der AfD und dem BSW hinterherläuft, wird niemand wählen.

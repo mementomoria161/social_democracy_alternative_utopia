@@ -1,0 +1,25 @@
+title: SPD-Parteitag
+subtitle: Die SPD streitet über ihren Kurs gegenüber der Linken.
+new-page: true
+tags: event
+view-if: player = "linke" and linke_relation >= 50 and year = 2027 and month >= 5 and month <= 7
+max-visits: 1
+on-arrival: linke_conference_seen = 1
+go-to: open if linke_relation >= 60 or communist_coalition >= 3; closed if linke_relation < 60 and communist_coalition < 3
+
+# Linke-Gegenstück zu linke_conference (Durchgang 4.3). linke_party_leader = "Reformflügel" bedeutet in beiden Spielen:
+# Die andere linke Partei wird von ihrem kooperationsbereiten Flügel geführt (erleichtert Bündnisse).
+
+= SPD-Parteitag
+
+Auf ihrem Parteitag streitet die SPD offen darüber, wie sie es mit der Linken hält. Die SPD-Linke und die Jusos wollen Rot-Grün-Rot im Bund vorbereiten, der Seeheimer Kreis warnt vor einem Bündnis mit einer Partei, die mit NATO und Bundeswehr nichts anfangen könne.
+
+@open
+on-arrival: linke_party_leader = "Reformflügel"; linke_relation += 10; communist_coalition += 1
+
+Die Parteilinke setzt sich durch. Die neue SPD-Spitze erklärt, Rot-Grün-Rot sei „eine Option wie jede andere“. Für uns ist das ein Durchbruch.
+
+@closed
+on-arrival: linke_relation -= 5
+
+Der Parteitag beschließt, dass es mit der Linken im Bund keine Koalition geben werde, solange sie ihre Haltung zu NATO und Bundeswehr nicht ändere. Die Tür bleibt zu, vorerst.

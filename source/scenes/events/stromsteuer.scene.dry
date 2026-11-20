@@ -2,13 +2,14 @@ title: Stromsteuer-Streit
 subtitle: Wer wird bei den Strompreisen entlastet?
 new-page: true
 tags: event
-view-if: year = 2025 and month >= 7 and month <= 9 and spd_in_government and union_in_government
+view-if: year = 2025 and month >= 7 and month <= 9 and ((player = "spd" and spd_in_government and union_in_government) or (player = "linke" and not spd_in_government and linke_in_government and union_in_government))
+go-to: linke if player = "linke" and not spd_in_government
 max-visits: 1
 on-arrival: stromsteuer_seen = 1
 
 = Stromsteuer-Streit
 
-Die Koalition hatte versprochen, die Stromsteuer für alle zu senken. Nun reicht das Geld nur für Industrie, Landwirtschaft und Gewerbe, die privaten Haushalte gehen leer aus. In der Bevölkerung ist der Ärger groß, und auch in der eigenen Fraktion rumort es.
+Die Koalition hatte versprochen, die Stromsteuer für alle zu senken. Nun reicht das Geld nur für Industrie, Landwirtschaft und Gewerbe, die privaten Haushalte gehen leer aus. In der Bevölkerung ist der Ärger groß[? if player = "spd" : , und auch in der eigenen Fraktion rumort es ?].
 
 - @alle: Darauf bestehen, die Stromsteuer auch für Privathaushalte zu senken.
 - @industrie: Bei der Entlastung nur für die Wirtschaft bleiben.
@@ -34,3 +35,30 @@ unavailable-subtitle: Dafür fehlt uns der Haushaltsspielraum.
 on-arrival: budget -= 1; workers_spd += 2*(1-dissent); unemployed_spd += 4*(1-dissent); left_dissent -= 3; gruene_relation += 4; union_relation -= 3; coalition_dissent += 1 if in_grand_coalition
 
 Haushalte mit kleinen Einkommen erhalten ein Klimageld, das die steigenden CO2-Preise ausgleicht. Grüne und Sozialverbände loben uns, die Union spricht von „Umverteilung durch die Hintertür“.
+
+@linke
+# Linke in der Opposition gegen Schwarz-Rot (Durchgang 4.3).
+
+[? if player = "linke" : Für uns ist das eine Steilvorlage: Die Koalition entlastet Konzerne und lässt Mieter*innen und Rentner*innen zahlen. ?]
+
+- @lk_kampagne: Eine Unterschriftenkampagne starten: Stromsteuer runter für alle!
+- @lk_antrag: Im Bundestag einen Antrag stellen und die Koalition vorführen.
+- @lk_klimageld: Ein sozial gestaffeltes Klimageld fordern.
+
+@lk_kampagne
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; workers_spd += 2*(1-dissent); rentner_spd += 2*(1-dissent); unemployed_spd += 1*(1-dissent); center_strength += 2
+
+An Infoständen und Haustüren sammeln wir Hunderttausende Unterschriften. Wer unterschreibt, bekommt nebenbei unseren Heizkosten-Check angeboten.
+
+@lk_antrag
+on-arrival: workers_spd += 1*(1-dissent); rentner_spd += 1*(1-dissent); linke_relation -= 2
+
+Unser Antrag, die Stromsteuer für alle zu senken, wird mit den Stimmen von Union und SPD abgelehnt. Die Rede dazu wird im Netz oft geteilt, in der SPD-Fraktion ist man verärgert.
+
+@lk_klimageld
+on-arrival: new_middle_spd += 1.5*(1-dissent); unemployed_spd += 2*(1-dissent); gruene_relation += 3; labor_dissent += 2
+
+Wir fordern ein Klimageld, das kleine Einkommen stärker entlastet als große. Grüne und Sozialverbände loben den Vorschlag, manche Gewerkschafter*innen hätten lieber über Industriestrom geredet.

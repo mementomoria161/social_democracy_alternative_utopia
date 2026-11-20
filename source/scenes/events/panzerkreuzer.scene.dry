@@ -20,9 +20,9 @@ Das Verteidigungsministerium will weitere F-35-Kampfjets in den USA bestellen, f
 @vote_yes
 on-arrival: left_dissent += 10; labor_dissent += 5; center_dissent += 5; reformist_dissent += 5; neorevisionist_dissent += 5; panzerkreuzer_funded = 1; linke_coalition_dissent += 1; linke_relation -= 6; workers_spd -= 3
 
-Unsere Basis ist fassungslos! Viele Ortsvereine machen gegen die Kabinettsmitglieder mobil, und in der Fraktion bereiten Abgeordnete eine offene Gegenstimme vor.
+Unsere Basis ist fassungslos! Viele Gliederungen der Partei machen gegen die Kabinettsmitglieder mobil, und in der Fraktion bereiten Abgeordnete eine offene Gegenstimme vor.
 
-Doch der Aufstand scheitert: Nur einige SPD-Abgeordnete und die Linke stimmen dagegen. Die Jets werden bestellt.
+Doch der Aufstand scheitert: Nur einige unserer Abgeordneten und [+ op_full +] stimmen dagegen. Die Jets werden bestellt.
 
 @vote_no
 on-arrival: fdp_relation -= 8; union_relation -= 5; pacifism += 1; nationalism -= 5*(1-dissent); coalition_dissent += 1; hindenburg_dissent += 1; hiindenburg_relation -= 4
@@ -39,14 +39,14 @@ Unsere Koalitionspartner sind entsetzt! Doch Bundeskanzlerin [+ chancellor +] st
 @muller
 on-arrival: panzerkreuzer_funded = 1
 
-Unsere Koalitionspartner sind entsetzt! Obwohl Bundeskanzler\*in [+ chancellor +] die Vorlage ablehnt, bringen die anderen Parteien sie im Haushaltsausschuss durch, nur SPD und Linke stimmen dagegen. Die Jets werden bestellt.
+Unsere Koalitionspartner sind entsetzt! Obwohl Bundeskanzler\*in [+ chancellor +] die Vorlage ablehnt, bringen die anderen Parteien sie im Haushaltsausschuss durch, nur wir und [+ op_full +] stimmen dagegen. Die Jets werden bestellt.
 
 @vote_no_pass
 on-arrival: panzerkreuzer_funded = 1
 
-Unsere Koalitionspartner sind entsetzt! Bundeskanzler\*in [+ chancellor +] bringt die Vorlage trotzdem im Bundestag durch, mit allen Stimmen außer denen von SPD und Linke. Die Jets werden bestellt.
+Unsere Koalitionspartner sind entsetzt! Bundeskanzler\*in [+ chancellor +] bringt die Vorlage trotzdem im Bundestag durch, mit allen Stimmen außer unseren und denen [+ op_dat +]. Die Jets werden bestellt.
 
 @abstain
 on-arrival: fdp_relation -= 5; union_relation -= 3; left_dissent += 5; labor_dissent += 5; panzerkreuzer_funded = 1; linke_relation -= 3
 
-Unsere Koalitionspartner sind verärgert über unsere Enthaltung, und auch die Parteilinke ist nicht zufrieden. Die Vorlage geht trotzdem durch, mit allen Stimmen außer denen von SPD und Linke. Die Jets werden bestellt.
+Unsere Koalitionspartner sind verärgert über unsere Enthaltung, und auch die Parteilinke ist nicht zufrieden. Die Vorlage geht trotzdem durch, mit allen Stimmen außer unseren und denen [+ op_dat +]. Die Jets werden bestellt.

@@ -17,7 +17,7 @@ Die Luftwaffe drängt auf die Bestellung weiterer F-35-Kampfjets, für viele Mil
 @vote_yes
 on-arrival: left_dissent += 10; labor_dissent += 10; center_dissent += 5; reformist_dissent += 5; neorevisionist_dissent += 5; bundeswehr_loyalty += 0.1; panzerkreuzer_funded = 1
 
-Die Bundeswehr ist zufrieden, dass wir die Bestellung unterstützen. Doch unsere Basis ist fassungslos, und viele Ortsvereine machen gegen die Fraktion mobil.
+Die Bundeswehr ist zufrieden, dass wir die Bestellung unterstützen. Doch unsere Basis ist fassungslos, und viele Gliederungen der Partei machen gegen die Fraktion mobil.
 
 @vote_no
 on-arrival: coalition_dissent += 1; bundeswehr_loyalty -= 0.05; left_dissent -= 10; labor_dissent -= 10; center_dissent -= 5; reformist_dissent -= 5; neorevisionist_dissent -= 5; nationalism -= 5; pacifism += 1; union_relation -= 5; fdp_relation -= 5; workers_spd += 5*(1-dissent); panzerkreuzer_failed = 1

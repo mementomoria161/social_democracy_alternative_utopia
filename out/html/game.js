@@ -256,11 +256,35 @@
     }
   };
 
+  // Party-specific pictures (card-image/face-image know no conditions): shared scenes name the SPD picture,
+  // in the Linke game it is swapped for the Linke counterpart. Content-heavy cards have their own Linke file instead.
+  window.PARTY_IMAGES = {
+      'img/ortsverein.jpg': 'img/linke_infostand.jpg',
+      'img/parteitag.jpg': 'img/linke_parteitag.jpg',
+      'img/volkspartei.jpg': 'img/karl_liebknecht_haus.jpg',
+      'img/spd_fraktion.jpg': 'img/linke_fraktion.jpg'
+  };
+  window.applyPartyImages = function(player) {
+      player = player || 'spd';
+      if (window._imagesParty === player) return;
+      window._imagesParty = player;
+      var scenes = dendryUI.game.scenes;
+      for (var id in scenes) {
+          ['cardImage', 'faceImage'].forEach(function(k) {
+              var img = scenes[id]['_spd_' + k] || scenes[id][k];
+              if (!img || !window.PARTY_IMAGES[img]) return;
+              scenes[id]['_spd_' + k] = img;
+              scenes[id][k] = player == 'linke' ? window.PARTY_IMAGES[img] : img;
+          });
+      }
+  };
+
   // TODO: have some code for tabbed sidebar browsing.
   window.updateSidebar = function() {
       $('#qualities').empty();
       // the Linke as player party swaps the colours of the seat slots spd/linke (game.css)
       document.body.classList.toggle('player-linke', dendryUI.dendryEngine.state.qualities.player == 'linke');
+      window.applyPartyImages(dendryUI.dendryEngine.state.qualities.player);
       var scene = dendryUI.game.scenes[window.statusTab];
       dendryUI.dendryEngine._runActions(scene.onArrival);
       var displayContent = dendryUI.dendryEngine._makeDisplayContent(scene.content, true);

@@ -90,7 +90,7 @@ go-to: war_menu
 
 Gegen uns stehen radikalisierte Teile der Bauern- und Mittelstandsproteste mit [+ bauern_strength +] Tausend Anhängern und die rechte Straßenmobilisierung mit [+ rechts_strength +] Tausend, darunter bewaffnete Reichsbürger-Gruppen. Wem die [+ bundeswehr_strength +] Tausend Soldatinnen und Soldaten der Bundeswehr und die [+ prussian_police_strength +] Tausend Beamtinnen und Beamten der Landespolizeien die Treue halten, ist unklar.
 
-[? if chancellor_party == "Linke" or president == "Trabert" : Die Linke und die Klimabewegung stehen in der ersten Reihe, und wir stehen an ihrer Seite. ?]
+[? if player = "spd" and (chancellor_party == "Linke" or president == "Trabert") : Die Linke und die Klimabewegung stehen in der ersten Reihe, und wir stehen an ihrer Seite. ?]
 
 Auf unserer Seite steht die Demokratiebewegung mit [+ demo_strength +] Tausend Menschen. [? if dissent > 0.15 and dissent <= 0.25: Der Streit in unserer Partei schwächt sie etwas, manche bleiben zu Hause. ?][? if dissent > 0.25 and dissent < 0.5: Der Streit in unserer Partei schwächt sie, viele bleiben zu Hause. ?][? if dissent >= 0.5: Der Streit in unserer Partei schwächt sie schwer, ein großer Teil bleibt zu Hause. ?]
 
@@ -103,7 +103,7 @@ Worauf können wir noch zählen?
 @war_menu
 
 - @rw_help: Die Bundeswehr auf die Verfassung verpflichten.
-- @linke_help: Die Linke um Unterstützung bitten.
+- @linke_help: [+ op_Full +] um Unterstützung bitten.
 - @general_strike: Zum Generalstreik aufrufen!
 - @loyal_police: Die verfassungstreuen Teile der Polizei einsetzen.
 - @war_outcome: Jetzt entscheidet es sich …
@@ -117,13 +117,13 @@ Wir appellieren an die Bundeswehr, ihren Eid auf das Grundgesetz zu halten und s
 
 @linke_help
 max-visits: 1
-view-if: chancellor_party != "Linke" and president != "Trabert"
+view-if: ((player = "spd" and chancellor_party != "Linke") or (player = "linke" and chancellor_party != "SPD")) and president != "Trabert"
 go-to: war_menu
 on-arrival: war_choices += 1
 
-Die Klimabewegung zählt [+ klima_strength +] Tausend Aktive, dazu kommen die Beschäftigten, die der Linken nahestehen.
+Die Klimabewegung zählt [+ klima_strength +] Tausend Aktive, dazu kommen die Beschäftigten, die [+ op_dat +] nahestehen.
 
-[? if linke_relation >= 60 : Dank unserer guten Beziehungen steht die Linke geschlossen an unserer Seite. ?][? if linke_relation < 60 and linke_relation >= 45 : Der größte Teil der Linken steht an unserer Seite. ?][? if linke_relation < 45 : Die Linke unterstützt uns nicht. ?]
+[? if linke_relation >= 60 : Dank unserer guten Beziehungen steht [+ op_full +] geschlossen an unserer Seite. ?][? if linke_relation < 60 and linke_relation >= 45 : Der größte Teil [+ op_dat +] steht an unserer Seite. ?][? if linke_relation < 45 : [+ op_Full +] unterstützt uns nicht. ?]
 
 @general_strike
 max-visits: 1
@@ -139,7 +139,7 @@ go-to: war_menu
 on-arrival: war_choices += 1
 view-if: spd_prussia = 1
 
-In den SPD-geführten Ländern können wir die Landespolizeien einsetzen. [? if prussian_police_loyalty < 0.4 : Leider ist auf die Polizei bestenfalls bedingt Verlass. ?][? if prussian_police_loyalty >= 0.4 and prussian_police_loyalty < 0.65 : In dieser entscheidenden Stunde ist die Polizei gespalten, etwa die Hälfte unterstützt uns aktiv. ?][? if prussian_police_loyalty >= 0.65 : Die meisten Beamtinnen und Beamten stehen zur Verfassung. Unsere Arbeit für eine verfassungstreue Polizei zahlt sich aus. ?]
+In den Ländern, in denen wir regieren, können wir die Landespolizeien einsetzen. [? if prussian_police_loyalty < 0.4 : Leider ist auf die Polizei bestenfalls bedingt Verlass. ?][? if prussian_police_loyalty >= 0.4 and prussian_police_loyalty < 0.65 : In dieser entscheidenden Stunde ist die Polizei gespalten, etwa die Hälfte unterstützt uns aktiv. ?][? if prussian_police_loyalty >= 0.65 : Die meisten Beamtinnen und Beamten stehen zur Verfassung. Unsere Arbeit für eine verfassungstreue Polizei zahlt sich aus. ?]
 
 
 
@@ -206,7 +206,7 @@ unavailable-subtitle: Unsere Beziehungen sind nicht gut genug.
 max-visits: 1
 go-to: long_war_intervention
 
-Wir rufen die internationalen Gewerkschaften und linken Parteien um Hilfe. Streikkassen, Juristinnen und Juristen und Freiwillige kommen ins Land, doch die meisten Mittel fließen an Linke und Klimabewegung, nicht an uns. Wenn wir gewinnen, verheißt das nichts Gutes für unsere Rolle danach.
+Wir rufen die internationalen Gewerkschaften und linken Parteien um Hilfe. Streikkassen, Juristinnen und Juristen und Freiwillige kommen ins Land, [? if player = "spd" : doch die meisten Mittel fließen an Linke und Klimabewegung, nicht an uns. Wenn wir gewinnen, verheißt das nichts Gutes für unsere Rolle danach. ?][? if player = "linke" : und unsere Schwesterparteien in Europa mobilisieren für uns. ?]
 
 @east_aid
 choose-if: east_relation >= 2

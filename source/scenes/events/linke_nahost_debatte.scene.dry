@@ -1,0 +1,40 @@
+title: Streit um Nahost
+subtitle: Antisemitismus, Israel und Palästina spalten die Partei.
+new-page: true
+tags: event
+view-if: player = "linke" and linke_parteitag_2025_seen = 1 and ((year = 2025 and month >= 6) or year = 2026) and palestine_debate_seen = 0
+max-visits: 1
+on-arrival: palestine_debate_seen = 1; palestine_debate += 1
+face-image: img/synagoge.jpg
+
+# Linke, Durchgang 4.3. Historisch: Im Oktober 2024 traten mehrere bekannte Berliner Linke (u. a. Klaus Lederer) wegen
+# des Umgangs mit Antisemitismus aus; der Parteitag in Chemnitz (Mai 2025) beschloss die Jerusalemer Erklärung zum
+# Antisemitismus als Arbeitsdefinition, was u. a. von Reformer*innen und jüdischen Verbänden kritisiert wurde.
+# Neue Qualities für einen späteren Gruppen-Reiter (Palästina-Bewegung):
+#   palestine_debate: Stärke des innerparteilichen Konflikts (0 = ruhig, wächst mit Ereignissen und Optionen)
+#   palestine_stance: Linie der Partei (-1 = nahe an Israel/Reformer*innen, 0 = Ausgleich, 1 = nahe an der Palästina-Bewegung)
+
+= Streit um Nahost
+
+Seit dem Parteitag in Chemnitz gilt in der Linken die Jerusalemer Erklärung als Arbeitsdefinition von Antisemitismus. Sie unterscheidet schärfer zwischen Kritik an Israel und Judenhass als die Definition, die Bundestag und Bundesregierung verwenden. Viele Neumitglieder, die über Gaza-Proteste zur Partei gekommen sind, begrüßen den Beschluss. Reformer*innen und jüdische Organisationen kritisieren ihn scharf, und manche erinnern daran, dass prominente Berliner Linke die Partei schon im Herbst 2024 wegen dieses Streits verlassen haben.
+
+Nun eskaliert die Debatte: Ein Kreisverband lädt eine Rednerin ein, die den 7. Oktober relativiert haben soll, ein anderer fordert den Ausschluss eines Abgeordneten wegen seiner Israel-Solidarität. Die Presse fragt: Hat die Linke ein Antisemitismusproblem?
+
+- @klar: Eine klare Linie ziehen: Wer den Terror der Hamas relativiert, hat in der Linken keinen Platz.
+- @ausgleich: Beides benennen: Solidarität mit den Menschen in Gaza und null Toleranz für Antisemitismus.
+- @bewegung: An der Seite der Palästina-Bewegung stehen: Waffenlieferungen an Israel stoppen.
+
+@klar
+on-arrival: palestine_stance = -1; reformist_dissent -= 6; reformist_strength += 3; left_dissent += 8; center_dissent += 3; new_middle_spd -= 0.5; union_relation += 1; gruene_relation += 2; palestine_debate += 1
+
+Der Parteivorstand beschließt Unvereinbarkeitsregeln und leitet Ausschlussverfahren ein. Jüdische Verbände sprechen von einem wichtigen Signal. In Berlin und Leipzig treten Hunderte junge Mitglieder aus, und in der Linksjugend ist von „Verrat an Palästina“ die Rede.
+
+@ausgleich
+on-arrival: palestine_stance = 0; center_strength += 3; center_dissent -= 3; reformist_dissent += 2; left_dissent += 2
+
+Wir sagen beides: Die Kriegsführung in Gaza ist nicht zu rechtfertigen, und Antisemitismus hat in unserer Partei keinen Platz. Den einen ist das zu wenig, den anderen zu viel. Aber die Partei bleibt zusammen, und die meisten Wähler*innen interessiert ohnehin mehr ihre Miete.
+
+@bewegung
+on-arrival: palestine_stance = 1; left_strength += 5; left_dissent -= 6; reformist_dissent += 10; neorevisionist_dissent -= 2; new_middle_spd += 1*(1-dissent); unemployed_spd += 0.5*(1-dissent); rentner_spd -= 1; linke_relation -= 4; gruene_relation -= 3; palestine_debate += 2; demo_strength -= 50
+
+Wir rufen zu Demonstrationen gegen Waffenlieferungen an Israel auf. Tausende junge Menschen kommen, viele mit migrantischer Familiengeschichte. Bodo Ramelow und andere Reformer*innen distanzieren sich öffentlich, SPD und Grüne werfen uns Einseitigkeit vor, und Teile der Demokratiebewegung gehen auf Abstand.

@@ -2,7 +2,8 @@ title: Die Rentenkommission legt ihren Bericht vor
 subtitle: Wie soll die Rente in Zukunft finanziert werden?
 new-page: true
 tags: event
-view-if: year = 2027 and month >= 6 and month <= 9 and spd_in_government
+view-if: year = 2027 and month >= 6 and month <= 9 and ((player = "spd" and spd_in_government) or (player = "linke" and not spd_in_government))
+go-to: linke if player = "linke" and not spd_in_government
 max-visits: 1
 on-arrival: rentenkommission_seen = 1
 face-image: img/sozialstaat.jpg
@@ -32,3 +33,30 @@ unavailable-subtitle: Dafür fehlt uns der Haushaltsspielraum.
 on-arrival: budget -= 1; new_middle_spd += 3*(1-dissent); old_middle_spd += 2*(1-dissent); rentner_spd += 1; left_dissent += 3; fdp_relation += 6; economic_growth += 0.1
 
 Ein staatlich verwalteter Fonds nach schwedischem Vorbild soll die gesetzliche Rente ergänzen. Ökonomen loben den Schritt, die Parteilinke fürchtet den Einstieg in die Privatisierung.
+
+@linke
+# Linke in der Opposition (Durchgang 4.3).
+
+[? if player = "linke" : In der Regierung wird über ein höheres Rentenalter gestritten. Wir sind in der Opposition, aber die Rente ist eines unserer stärksten Themen. ?]
+
+- @lk_oesterreich: Für eine Rente nach österreichischem Vorbild werben: Alle zahlen ein, die Renten sind höher.
+- @lk_rente70: Eine Kampagne gegen die „Rente mit 70“ starten.
+- @lk_ost: Die Renten im Osten und die Grundrente in den Mittelpunkt stellen.
+
+@lk_oesterreich
+on-arrival: rentner_spd += 2*(1-dissent); new_middle_spd += 1*(1-dissent); reformist_strength += 2; welfare += 1
+
+Wir rechnen vor, dass österreichische Rentner*innen im Schnitt deutlich mehr bekommen, weil dort fast alle in eine Kasse einzahlen. Die Rechnung wird in Talkshows hitzig diskutiert.
+
+@lk_rente70
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; rentner_spd += 3*(1-dissent); workers_spd += 2*(1-dissent); labor_dissent -= 4; labor_strength += 2
+
+„Wer am Bau arbeitet, schafft es nicht bis 70“: Mit Gewerkschafter*innen, Pflegekräften und Dachdeckern starten wir eine Kampagne. Sie kommt an, gerade bei denen, die körperlich arbeiten.
+
+@lk_ost
+on-arrival: rentner_spd += 2*(1-dissent); rural_spd += 1*(1-dissent); neorevisionist_dissent -= 3; reformist_dissent -= 2
+
+Wir erinnern daran, wie viele Menschen im Osten nach 1990 gebrochene Erwerbsbiografien haben, und fordern einen Rentenzuschlag. In Thüringen und Sachsen hört man das gern.

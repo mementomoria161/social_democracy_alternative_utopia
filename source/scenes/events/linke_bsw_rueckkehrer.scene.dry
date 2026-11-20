@@ -1,0 +1,32 @@
+title: Zurück zur Linken?
+subtitle: Das BSW scheitert knapp an der Fünf-Prozent-Hürde.
+new-page: true
+tags: event
+view-if: player = "linke" and n_elections >= 1 and year = 2025 and month >= 4 and month <= 7 and bsw_r = 0
+max-visits: 1
+
+# Linke, Durchgang 4.3. Historisch: BSW 4,97 Prozent am 23.02.2025 (rund 9.500 Stimmen fehlten), das BSW verlangte eine
+# Neuauszählung; danach Austritte und Rückkehrwünsche einzelner Mitglieder. Im Spiel: wenn das BSW nicht im Bundestag sitzt.
+
+= Zurück zur Linken?
+
+Das BSW ist nicht im Bundestag. [? if bsw_votes >= 4.5 : Knapp unter fünf Prozent, ein paar Tausend Stimmen fehlten, und Sahra Wagenknecht verlangt eine Neuauszählung. ?] In den Ländern, wo das BSW mitregiert, gibt es Streit, und viele frühere Linke, die 2024 mitgegangen sind, fragen vorsichtig, ob sie zurückkommen können. Darunter sind Kommunalpolitiker*innen aus Thüringen und Sachsen, aber auch Leute, die die Linke damals öffentlich beschimpft haben.
+
+- @offen: Die Tür weit öffnen: Wer zurück will, ist willkommen.
+- @einzeln: Jeden Fall einzeln prüfen: Wer unsere Positionen zu Migration und Ukraine teilt, kann zurück.
+- @nein: Keine Rückkehr: Wer die Partei 2024 fast zerstört hat, bleibt draußen.
+
+@offen
+on-arrival: neorevisionist_strength += 5; reformist_strength += 2; rural_spd += 1*(1-dissent); rentner_spd += 1*(1-dissent); workers_bsw -= 1; rentner_bsw -= 1; left_dissent += 6; center_dissent += 4; bsw_relation += 5
+
+Einige Hundert frühere Mitglieder kommen zurück, vor allem im Osten. Sie bringen kommunale Mandate und Erfahrung mit, aber auch alte Konflikte. In der Linksjugend fragt man, ob die Partei aus 2024 nichts gelernt hat.
+
+@einzeln
+on-arrival: neorevisionist_strength += 2; reformist_dissent -= 3; center_dissent -= 2; rural_spd += 0.5*(1-dissent); workers_bsw -= 0.5
+
+Die Kreisverbände führen Gespräche, manche Rückkehrer werden aufgenommen, andere nicht. Es ist mühsam, aber es gibt keinen großen Streit.
+
+@nein
+on-arrival: left_dissent -= 4; center_dissent -= 2; neorevisionist_dissent += 8; bsw_relation -= 5
+
+Wir bleiben hart. Die Bewegungslinke ist erleichtert. Im Osten verlieren wir damit ein paar erfahrene Kommunalpolitiker*innen, die nun als Unabhängige antreten.

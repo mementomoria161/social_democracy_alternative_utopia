@@ -4,12 +4,12 @@ is-card: true
 view-if: spd_prussia = 1 and prussian_affairs_timer <= 0
 on-arrival: prussian_affairs_timer += 6; month_actions += 1
 tags: govt_affairs
-card-image: img/portraits/Schwesig.jpg
+card-image: img/bundesrat.jpg
 #subtitle: Die SPD-geführten Länder sind ein Bollwerk der Demokratie …
 
-= Die SPD-Länder
+= Unsere Länder
 
-Die SPD stellt in mehreren Ländern die Regierung, und über den Bundesrat reden wir bei fast jedem wichtigen Gesetz mit. Polizei, Schulen, Verfassungsschutz und Versammlungsrecht sind Ländersache. Unsere Ministerpräsidentinnen und Ministerpräsidenten, allen voran Manuela Schwesig, können hier handeln, auch wenn im Bund die Mehrheiten fehlen.
+[? if player = "spd" : Die SPD stellt in mehreren Ländern die Regierung, ?][? if player = "linke" : Die Linke regiert in mehreren Ländern mit, ?] und über den Bundesrat reden wir bei fast jedem wichtigen Gesetz mit. Polizei, Schulen, Verfassungsschutz und Versammlungsrecht sind Ländersache. [? if player = "spd" : Unsere Ministerpräsidentinnen und Ministerpräsidenten, allen voran Manuela Schwesig, können ?][? if player = "linke" : Unsere Ministerinnen und Minister in den Ländern können ?] hier handeln, auch wenn im Bund die Mehrheiten fehlen.
 
 Was sollen wir in unseren Ländern anpacken?
 
@@ -76,7 +76,7 @@ Die Auflagen für die Bauern- und Mittelstandsproteste sind aufgehoben.
 view-if: communist_coalition < 3 and klima_banned = 0
 on-arrival: linke_relation -= 15; klima_strength -= 50; klima_banned = 1; communist_coalition -= 1; union_relation += 5; fdp_relation += 5; prussian_police_loyalty += 0.1
 
-Die Staatsanwaltschaften ermitteln gegen radikale Klimagruppen wegen Bildung einer kriminellen Vereinigung, die Polizei durchsucht Wohnungen und Büros. Sie tut das mit großem, vielleicht zu großem Eifer. Für die Linke ist das ein weiterer Beweis, dass die SPD die soziale und ökologische Bewegung verraten hat. Union und FDP applaudieren, ebenso die Polizei.
+Die Staatsanwaltschaften ermitteln gegen radikale Klimagruppen wegen Bildung einer kriminellen Vereinigung, die Polizei durchsucht Wohnungen und Büros. Sie tut das mit großem, vielleicht zu großem Eifer. [? if player = "spd" : Für die Linke ist das ein weiterer Beweis, dass die SPD die soziale und ökologische Bewegung verraten hat. ?][? if player = "linke" : Viele unserer eigenen Mitglieder sind empört: Seit wann verfolgt die Linke die Bewegungen, aus denen sie kommt? ?] Union und FDP applaudieren, ebenso die Polizei.
 
 @unban_klima
 view-if: klima_banned = 1

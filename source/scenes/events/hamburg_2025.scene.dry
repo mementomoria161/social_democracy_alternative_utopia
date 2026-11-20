@@ -1,8 +1,9 @@
 title: Bürgerschaftswahl in Hamburg
-subtitle: Ein Lichtblick für die SPD?
+subtitle: Ein Stimmungstest kurz nach der Bundestagswahl
 new-page: true
 tags: event
-view-if: player = "spd" and (year = 2025 and month = 3 and hamburg_2025_seen = 0)
+view-if: year = 2025 and month = 3 and hamburg_2025_seen = 0
+go-to: linke if player = "linke"
 max-visits: 1
 on-arrival: hamburg_2025_seen = 1
 face-image: img/wahlkampf.jpg
@@ -12,9 +13,10 @@ face-image: img/wahlkampf.jpg
 
 = Bürgerschaftswahl in Hamburg
 
+# party-ok: SPD, die Linke (reale Ergebnisse)
 In Hamburg wird die Bürgerschaft gewählt. Die SPD von Bürgermeister Peter Tschentscher kommt auf 33,5 Prozent, mehr als doppelt so viel wie im Bund. Die CDU landet knapp vor den Grünen, die Linke legt deutlich zu, die AfD bleibt einstellig. Tschentscher setzt die rot-grüne Koalition fort.
 
-Das Hamburger Rezept: solide Finanzen, viel Wohnungsbau, ein verlässlicher Bürgermeister ohne große Gesten.
+[? if player = "spd" : Das Hamburger Rezept: solide Finanzen, viel Wohnungsbau, ein verlässlicher Bürgermeister ohne große Gesten. ?]
 
 - @lernen: Vom Hamburger Weg lernen: pragmatisch, wirtschaftsnah, verlässlich.
 - @feiern: Den Erfolg feiern und der Partei Mut machen.
@@ -28,3 +30,21 @@ Die Parteiführung lädt Tschentscher ein, seine Erfahrungen zu teilen. Wohnungs
 on-arrival: center_dissent -= 3; left_dissent -= 2
 
 Für einen Abend ist die Stimmung im Willy-Brandt-Haus gelöst. Es gibt sie noch, die Orte, an denen die SPD Volkspartei ist.
+
+@linke
+# Linke-Fassung (Durchgang 4.3): Linke 11,2 Prozent (2020: 9,1), stark in Altona, St. Pauli und Wilhelmsburg.
+
+Für uns ist der Abend ein Fest: 11,2 Prozent, das beste Ergebnis der Linken in Hamburg. In Vierteln wie St. Pauli, Altona und Wilhelmsburg liegen wir weit vorn. Die Hamburger Genoss*innen haben monatelang an Haustüren geklingelt und über Mieten geredet.
+
+- @lk_lernen: Den Hamburger Wahlkampf zum Vorbild machen: Mieten, Haustür, Stadtteilarbeit.
+- @lk_feiern: Den Erfolg feiern und den Schwung mitnehmen.
+
+@lk_lernen
+on-arrival: center_strength += 3; center_dissent -= 2; new_middle_spd += 0.5*(1-dissent); unemployed_spd += 0.5*(1-dissent)
+
+Die Hamburger Wahlkampfleitung reist durch die Republik und erklärt in den Kreisverbänden, wie man ein Viertel organisiert.
+
+@lk_feiern
+on-arrival: center_dissent -= 3; left_dissent -= 3; reformist_dissent -= 2
+
+Auf der Wahlparty im Gewerkschaftshaus wird bis tief in die Nacht getanzt. Die Partei glaubt wieder an sich.

@@ -69,9 +69,9 @@ on-arrival: budget -= 1; soviet_relation += 2; coalition_dissent += 1; foreign_g
 
 Wir legen den Wiederaufbaufonds auf und bieten uns als Vermittler an, ohne militärische Zusagen. Kyjiw ist dankbar, in Teilen der Union spricht man dagegen von „Appeasement“.
 
-- @kpd: Die Linke in die Friedensinitiative einbinden.
+- @kpd: [+ op_Full +] in die Friedensinitiative einbinden.
 - @wittorf: Der Linken vertrauliche Lagebilder zu russischer Einflussnahme vorlegen.
-- @root: Die Linke nicht ansprechen.
+- @root: [+ op_Full +] nicht ansprechen.
 
 @soviet_economic_aid_no
 
@@ -81,10 +81,10 @@ Kyjiw ist enttäuscht, hatte aber mit dieser Antwort gerechnet.
 @kpd
 on-arrival: linke_relation += 8*(1-dissent); communist_coalition += 1 if linke_foreign_seen == 0; linke_foreign_seen = 1
 
-Wir laden die Linke zu Gesprächen über die Friedensinitiative ein. Jan van Aken betont, die Linke lasse sich nicht vereinnahmen und lehne Waffenlieferungen weiter ab. Trotzdem wird der Ton zwischen unseren Fraktionen spürbar freundlicher.
+[? if player = "spd" : Wir laden die Linke zu Gesprächen über die Friedensinitiative ein. Jan van Aken betont, die Linke lasse sich nicht vereinnahmen und lehne Waffenlieferungen weiter ab. ?][? if player = "linke" : Wir laden die SPD-Fraktion zu Gesprächen über die Friedensinitiative ein. Rolf Mützenich, der in der SPD seit Langem für Diplomatie wirbt, sagt zu. ?] Trotzdem wird der Ton zwischen unseren Fraktionen spürbar freundlicher.
 
 @wittorf
-view-if: wittorf_secret = 1 and ((year = 2027 and month < 6) or year = 2026) and wittorf_soviet_union = 0
+view-if: player = "spd" and wittorf_secret = 1 and ((year = 2027 and month < 6) or year = 2026) and wittorf_soviet_union = 0
 unavailable-subtitle: Daran würde auch kein Lagebild etwas ändern.
 on-arrival: wittorf_soviet_union = 1; linke_relation += 6*(1-dissent); linke_foreign_seen = 1
 max-visits: 1
@@ -186,7 +186,7 @@ view-if: reparations <= -2 and eu_progress < 2 and eu = 0
 choose-if: west_relation >= 5 and east_relation >= 4
 on-arrival: eu_progress += 1; west_relation += 1
 
-Die „Vereinigten Staaten von Europa“ stehen seit dem Heidelberger Programm von 1925 im Programm der SPD. Jetzt gehen wir konkrete Schritte: Mit unseren Partnern verhandeln wir über eine Fiskalunion, eine gemeinsame Verteidigung und Mehrheitsentscheidungen statt Einstimmigkeit. Bis die Form dieser Föderation feststeht, wird es dauern.
+[? if player = "spd" : Die „Vereinigten Staaten von Europa“ stehen seit dem Heidelberger Programm von 1925 im Programm der SPD. ?][? if player = "linke" : Die Linke will ein soziales Europa statt eines Europas der Banken. ?] Jetzt gehen wir konkrete Schritte: Mit unseren Partnern verhandeln wir über eine Fiskalunion, eine gemeinsame Verteidigung und Mehrheitsentscheidungen statt Einstimmigkeit. Bis die Form dieser Föderation feststeht, wird es dauern.
 
 
 @european_union_2

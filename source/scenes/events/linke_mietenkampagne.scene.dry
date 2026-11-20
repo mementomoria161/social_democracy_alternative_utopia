@@ -1,0 +1,37 @@
+title: Mietenwahnsinn stoppen
+subtitle: Eine Kampagne für bezahlbares Wohnen
+new-page: true
+tags: event
+view-if: player = "linke" and n_elections >= 1 and ((year = 2025 and month >= 9) or (year = 2026 and month <= 4)) and mietenkampagne < 3
+max-visits: 1
+face-image: img/mietendemo.jpg
+
+# Linke, Durchgang 4.3. Historisch: Mietwucher-Rechner und Heizkosten-Check der Linken (2025), Volksentscheid
+# „Deutsche Wohnen & Co. enteignen“ in Berlin 2021 (59,1 Prozent Ja). mietenkampagne: Stärke der Mieten-Kampagne
+# (Parteiorganisationen, dieses Ereignis; Folgen in der Berlin-Wahl 2026).
+
+= Mietenwahnsinn stoppen
+
+Mieten sind das Thema, mit dem die Linke 2025 in die Großstädte zurückgekommen ist. Mit einem Online-Rechner können Mieter*innen prüfen, ob ihre Miete überhöht ist, und Tausende haben schon Rückzahlungen gefordert. Jetzt soll daraus mehr werden. In Berlin ist der Volksentscheid „Deutsche Wohnen & Co. enteignen“ von 2021 noch immer nicht umgesetzt.
+
+- @mietwucher: Den Mietwucher-Rechner bundesweit bewerben und überhöhte Mieten anzeigen.
+- @mietendeckel: Einen bundesweiten Mietendeckel zum Wahlkampfthema der nächsten Jahre machen.
+- @enteignen: In Berlin die Umsetzung des Volksentscheids zur Vergesellschaftung erzwingen.
+
+@mietwucher
+subtitle: -1 Ressource
+choose-if: resources >= 1
+unavailable-subtitle: Dafür fehlen uns die Mittel.
+on-arrival: resources -= 1; mietenkampagne += 2; new_middle_spd += 2*(1-dissent); unemployed_spd += 1.5*(1-dissent); workers_spd += 1*(1-dissent); center_strength += 3
+
+Zehntausende Mieter*innen geben ihre Daten ein. In jedem zweiten Fall liegt die Miete über der Mietpreisbremse. Lokalzeitungen berichten über Vermieter, die nach unseren Anzeigen Geld zurückzahlen müssen.
+
+@mietendeckel
+on-arrival: mietenkampagne += 1; new_middle_spd += 1*(1-dissent); workers_spd += 1*(1-dissent); reformist_dissent -= 2; linke_relation += 1
+
+Wir legen einen Gesetzentwurf für einen bundesweiten Mietendeckel vor: sechs Jahre keine Erhöhungen, überhöhte Mieten absenken. Das Bundesverfassungsgericht hat den Berliner Mietendeckel 2021 gekippt, weil das Land nicht zuständig war; der Bund wäre es. SPD und Grüne zeigen Sympathie, die Union lehnt ab.
+
+@enteignen
+on-arrival: mietenkampagne += 2; left_strength += 4; left_dissent -= 4; reformist_dissent += 3; new_middle_spd += 1*(1-dissent); old_middle_spd -= 1; nationalization_support += 1
+
+Gemeinsam mit der Initiative sammeln wir Unterschriften für ein Vergesellschaftungsgesetz. Die Immobilienlobby warnt vor dem „Ende des Standorts Berlin“. In Neukölln und Wedding hängen die gelb-lila Plakate wieder in den Fenstern.

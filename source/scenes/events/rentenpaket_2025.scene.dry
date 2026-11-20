@@ -2,7 +2,8 @@ title: Aufstand der Jungen Gruppe
 subtitle: Das Rentenpaket wackelt.
 new-page: true
 tags: event
-view-if: year = 2025 and month >= 11 and spd_in_government and union_in_government and rentenpaket_2025_seen = 0
+view-if: year = 2025 and month >= 11 and ((player = "spd" and spd_in_government and union_in_government) or (player = "linke" and not spd_in_government and linke_in_government and union_in_government)) and rentenpaket_2025_seen = 0
+go-to: linke if player = "linke" and not spd_in_government
 max-visits: 1
 on-arrival: rentenpaket_2025_seen = 1
 face-image: img/sozialstaat.jpg
@@ -33,3 +34,27 @@ Ein Begleitbeschluss und eine Rentenkommission, die bis 2027 Vorschläge für di
 on-arrival: rentner_spd -= 1.5; labor_dissent += 8; union_relation += 3; welfare -= 1
 
 Die Haltelinie gilt nur bis 2031, über alles Weitere wird später entschieden. Die Junge Gruppe feiert sich, die Gewerkschaften werfen uns vor, die Rentnerinnen und Rentner von morgen preisgegeben zu haben.
+
+@linke
+# Linke in der Opposition. Historisch: Die Linke kündigte Enthaltung an, das senkte die nötige Mehrheit (05.12.2025).
+
+[? if player = "linke" : Plötzlich kommt es auf uns an. Wenn wir uns enthalten, braucht die Koalition weniger eigene Stimmen, und die Junge Gruppe der Union kann das Paket nicht mehr allein zu Fall bringen. Doch 48 Prozent sind nicht unser Ziel; wir fordern 53 Prozent und eine Rente, in die alle einzahlen. ?]
+
+- @lk_enthalten: Uns enthalten: Das Paket ist zu wenig, aber ein Absturz der Rente wäre schlimmer.
+- @lk_nein: Dagegen stimmen: Wir sind nicht die Mehrheitsbeschaffer der Koalition.
+- @lk_alle: Die Enthaltung mit unserer Forderung verbinden: Alle zahlen ein, auch Abgeordnete und Beamte.
+
+@lk_enthalten
+on-arrival: rentner_spd += 1*(1-dissent); reformist_dissent -= 4; left_dissent += 3; linke_relation += 3; welfare += 1
+
+Wir enthalten uns, das Rentenpaket kommt durch. Die SPD bedankt sich nicht öffentlich, aber in den Fluren des Bundestags wird anerkannt, dass wir Verantwortung übernommen haben. Die Sozialistische Linke spricht von „Stützung der Regierung“.
+
+@lk_nein
+on-arrival: left_dissent -= 4; reformist_dissent += 4; rentner_spd -= 0.5; linke_relation -= 4
+
+Wir stimmen mit Nein. Am Ende reicht es trotzdem: Die Unionsspitze bringt fast alle eigenen Abgeordneten auf Linie. Rentner*innenverbände fragen, warum ausgerechnet wir gegen die Haltelinie gestimmt haben.
+
+@lk_alle
+on-arrival: rentner_spd += 2*(1-dissent); workers_spd += 1*(1-dissent); left_dissent -= 1; reformist_dissent -= 2; welfare += 1
+
+Wir enthalten uns und legen am selben Tag einen Gesetzentwurf vor: eine Erwerbstätigenversicherung nach österreichischem Vorbild, in die auch Abgeordnete, Beamte und Selbstständige einzahlen. Die Union lehnt jedes Gespräch ab, aber die Forderung ist populär.

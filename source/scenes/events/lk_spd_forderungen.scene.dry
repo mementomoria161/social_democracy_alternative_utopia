@@ -1,0 +1,35 @@
+title: Die SPD stellt Bedingungen
+subtitle: Koalitionsalltag mit der Sozialdemokratie
+new-page: true
+tags: event
+view-if: player = "linke" and spd_in_government and (in_popular_front or in_left_front) and time >= last_election_time + 6
+max-visits: 1
+
+# Linke-Gegenstück zu linke_goals (Durchgang 4.3): Die SPD (Slot linke) ist Partnerin. Bewusst ohne das Ziele-System
+# der SPD-Fassung; linke_coalition_dissent ist der Streit mit der SPD, linke_vote_of_no_confidence -> lk_spd_koalitionsbruch.
+
+= Die SPD stellt Bedingungen
+
+Ein halbes Jahr nach dem Start der Koalition legt die SPD-Fraktion ein Papier vor. Die Sozialdemokrat*innen wollen keine Experimente: Die Bündnisverpflichtungen in der NATO müssten gelten, die Schuldenbremse dürfe nur für Investitionen gelockert werden, und Vergesellschaftungen kämen allenfalls bei Wohnungskonzernen in Frage. Andernfalls, heißt es aus dem Willy-Brandt-Haus, sei die Koalition gefährdet.
+
+- @annehmen: Die Bedingungen weitgehend annehmen: Die Koalition ist wichtiger als jede einzelne Forderung.
+- @kompromiss: Einen Kompromiss aushandeln: Investitionen ja, Aufrüstung nur im Rahmen.
+- @hart: Hart bleiben: Wir sind nicht in die Regierung gegangen, um SPD-Politik zu machen.
+
+@annehmen
+on-arrival: linke_coalition_dissent -= 2; linke_relation += 5; reformist_dissent -= 5; left_dissent += 10; neorevisionist_dissent += 6; pacifism -= 1
+
+Wir unterschreiben. Die Koalition ist gerettet, und die Presse lobt die „regierungsfähige Linke“. In der Sozialistischen Linken und im Friedensflügel heißt es, wir hätten uns kaufen lassen.
+
+@kompromiss
+subtitle: -1 Ressource
+choose-if: resources >= 1
+unavailable-subtitle: Dafür fehlen uns die Mittel.
+on-arrival: resources -= 1; linke_coalition_dissent -= 1; linke_relation += 2; left_dissent += 3; reformist_dissent -= 2
+
+Nach zwei Nächten im Koalitionsausschuss steht ein Kompromiss: mehr Investitionen in Schienen und Schulen, beim Verteidigungshaushalt bleibt es bei den Zusagen der Vorgängerregierung. Keiner ist glücklich, alle können damit leben.
+
+@hart
+on-arrival: linke_coalition_dissent += 2; linke_relation -= 5; left_dissent -= 6; reformist_dissent += 6
+
+Wir lehnen das Papier ab. Unsere Basis jubelt, die SPD-Fraktionsspitze spricht von „Vertrauensbruch“. Die Koalition hat ihren ersten großen Riss.

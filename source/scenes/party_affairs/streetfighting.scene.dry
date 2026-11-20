@@ -8,7 +8,7 @@ tags: party_affairs; antifascism
 
 = Angriffe auf der Straße
 
-Die Gewalt gegen Politikerinnen und Politiker nimmt zu. Wahlkampfhelfer werden beim Plakatieren zusammengeschlagen, Bürgerbüros beschmiert, CSD-Paraden von Neonazis bedroht. In manchen Regionen trauen sich Ehrenamtliche kaum noch, für die SPD einen Infostand aufzubauen.
+Die Gewalt gegen Politikerinnen und Politiker nimmt zu. Wahlkampfhelfer werden beim Plakatieren zusammengeschlagen, Bürgerbüros beschmiert, CSD-Paraden von Neonazis bedroht. In manchen Regionen trauen sich Ehrenamtliche kaum noch, für [+ pp_full +] einen Infostand aufzubauen.
 
 Wir müssen unsere Leute schützen.
 
@@ -16,7 +16,7 @@ Wir müssen unsere Leute schützen.
 - @if_training: Gewerkschafter als Ordner für das Bündnis für Demokratie gewinnen.
 - @prussian_police_training: Die Landespolizei soll unsere Ordner schulen.
 - @peace: Konfrontationen so weit wie möglich vermeiden.
-- @truce_klima: Gegenproteste gemeinsam mit Linken und Klimabewegung organisieren.
+- @truce_klima: Gegenproteste gemeinsam mit [? if player = "spd" : Linken ?][? if player = "linke" : SPD, Grünen ?] und Klimabewegung organisieren.
 - @easy_discard
 
 @battle
@@ -48,7 +48,7 @@ max-visits: 2
 view-if: spd_prussia == 1 and prussian_police_loyalty > 0.5
 on-arrival: demo_radicalism += 0.05; rechts_strength += 50; prussian_police_training += 1
 
-In den SPD-geführten Ländern schult die Polizei die Ordner der Demokratiebewegung in Deeskalation und Veranstaltungsschutz.
+In den Ländern, in denen wir mitregieren, schult die Polizei die Ordner der Demokratiebewegung in Deeskalation und Veranstaltungsschutz.
 
 @peace
 on-arrival: demo_radicalism -= 0.02; demo_strength -= 50; pacifism += 1
@@ -58,7 +58,7 @@ Wir meiden Konfrontationen. Unsere Leute sind sicherer, aber die Bewegung verlie
 @truce_klima
 choose-if: linke_relation >= 45
 view-if: linke_truce == 0
-unavailable-subtitle: Die Linke hat kein Interesse.
+unavailable-subtitle: [+ op_Full +] hat kein Interesse.
 on-arrival: linke_truce = 1; linke_relation += 5; klima_strength += 50; demo_strength += 50; rechts_strength += 50;
 
-Wir organisieren gemeinsame Gegenproteste mit der Linken und der Klimabewegung. Die alten Grabenkämpfe ruhen, zumindest auf der Straße.
+Wir organisieren gemeinsame Gegenproteste mit [+ op_dat +] und der Klimabewegung. Die alten Grabenkämpfe ruhen, zumindest auf der Straße.

@@ -1,0 +1,16 @@
+title: Die Sozialistische Linke geht
+new-page: true
+subtitle: Der Streit mit der Sozialistischen Linken ist eskaliert.
+tags: event
+view-if: player = "linke" and left_dissent >= 60
+max-visits: 1
+on-arrival: left_split = 1; left_strength = left_strength/2; workers_spd -= 3; unemployed_spd -= 3; new_middle_spd -= 2; workers_other += 3; new_middle_other += 2; klima_strength -= 50; demo_strength -= 200; palestine_debate += 1; n_advisors -= 1 if kocak_advisor == 1; kocak_advisor = 0; n_advisors -= 1 if nguyen_advisor == 1; nguyen_advisor = 0; n_advisors -= 1 if pantisano_advisor == 1; pantisano_advisor = 0; n_advisors -= 1 if wissler_advisor == 1; wissler_advisor = 0
+
+# Linke-Gegenstück zu left_split (Durchgang 4.3). Bewusst ohne neue Partei: Die Ausgetretenen gehen in Bewegungen und
+# Kleinstparteien (Stimmen an "other"), die Parteinamen-Mechanik von sapd bleibt der SPD vorbehalten.
+
+= Die Sozialistische Linke geht
+
+Unsere Politik hat die Sozialistische Linke zutiefst verärgert. Auf einer Konferenz in Frankfurt erklären viele ihrer bekanntesten Köpfe und Tausende Mitglieder ihren Austritt: Die Linke sei eine Partei wie jede andere geworden. Eine neue Partei gründen sie nicht. Sie gehen zurück in Mieteninitiativen, Klimagruppen und die Palästina-Bewegung, manche werben bei Wahlen für Kleinstparteien.
+
+Die Partei wird ruhiger, aber auch leiser. Auf den Demos fehlen unsere Fahnen, und in den Großstädten fehlen die jungen Aktiven, die an Haustüren klingeln.

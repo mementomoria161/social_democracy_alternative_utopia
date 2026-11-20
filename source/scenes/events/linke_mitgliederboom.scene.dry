@@ -1,0 +1,38 @@
+title: Mitgliederboom
+subtitle: Die Linke wächst wie nie zuvor.
+new-page: true
+tags: event
+view-if: player = "linke" and n_elections >= 1 and year = 2025 and month >= 3 and month <= 4 and mitgliederboom = 0
+max-visits: 1
+priority: 1
+on-arrival: mitgliederboom = 1; dues += 1 if dues < 4; resources += 1
+face-image: img/linke_parteitag.jpg
+
+# Linke, Durchgang 4.3. Historisch: Ende 2024 etwa 58.000 Mitglieder, im Frühjahr 2025 über 100.000 (die meisten
+# Eintritte nach der Abstimmung mit AfD-Stimmen Ende Januar und im Wahlkampf); Durchschnittsalter der Neuen unter 30.
+# mitgliederboom: 0 = noch nicht, 1 = Boom 2025 (für Parteiorganisationen, Folgeereignis linke_neumitglieder).
+
+= Mitgliederboom
+
+Im Karl-Liebknecht-Haus kommen die Mitgliedsanträge schneller, als sie bearbeitet werden können. Ende 2024 hatte die Linke rund 58.000 Mitglieder, jetzt sind es über 100.000. Die meisten Neuen sind jung, viele unter 30, sie leben in Großstädten, und sie wollen nicht nur Beiträge zahlen, sondern mitmachen. [? if spd_r = 0 : Selbst das Scheitern bei der Wahl hat den Zustrom nicht gestoppt. ?]
+
+Was machen wir mit so vielen neuen Mitgliedern?
+
+- @organizing: Sie sofort in Haustürteams und Stadtteilgruppen einbinden.
+- @bewegung: Sie in die Bewegungen schicken: Mieteninitiativen, Klimagruppen, Demos gegen Rechts.
+- @strukturen: Die Kreisverbände selbst entscheiden lassen, wie sie die Neuen aufnehmen.
+
+@organizing
+on-arrival: center_strength += 6; center_dissent -= 4; workers_spd += 1*(1-dissent); unemployed_spd += 1*(1-dissent)
+
+Jedes Neumitglied bekommt innerhalb einer Woche einen Anruf und eine Einladung zum nächsten Haustür-Einsatz. Der Parteivorstand nennt es die „Aufnahmeoffensive“. Viele bleiben dabei.
+
+@bewegung
+on-arrival: left_strength += 6; left_dissent -= 3; demo_strength += 150; klima_strength += 50; reformist_dissent += 3
+
+Die Neuen tauchen bei Mietendemos, Klimastreiks und Kundgebungen gegen Rechts auf, oft mit Linke-Fahnen. Die Partei wird auf der Straße sichtbarer. Ältere Mitglieder in den Ost-Landesverbänden fremdeln mit dem neuen Ton.
+
+@strukturen
+on-arrival: reformist_strength += 3; neorevisionist_dissent -= 2; center_dissent += 3
+
+In manchen Kreisverbänden werden die Neuen herzlich empfangen, in anderen sitzen sie in Versammlungen, in denen seit Jahren dieselben zehn Leute über die Tagesordnung streiten. Nicht alle kommen wieder.

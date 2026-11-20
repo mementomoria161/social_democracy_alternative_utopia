@@ -16,7 +16,7 @@ face-image: img/brandmauer_demo.jpg
 
 Ende Januar bringt die Union einen Antrag zur Migrationspolitik in den Bundestag ein und sagt offen, es sei ihr gleich, wer zustimme. Mit 348 zu 345 Stimmen wird er angenommen, zum ersten Mal mit den Stimmen der AfD. Die AfD-Abgeordneten feiern im Plenarsaal. Angela Merkel kritisiert ihren Nachfolger öffentlich. Zwei Tage später scheitert ein Gesetzentwurf der Union knapp, weil Abgeordnete von Union und FDP nicht mitziehen.
 
-Am Wochenende gehen Hunderttausende auf die Straße, in Berlin, München, Köln und vielen kleineren Städten. Die Rede der Linken-Spitzenkandidatin Heidi Reichinnek im Bundestag wird millionenfach geteilt, die Linke gewinnt Tausende neue Mitglieder.
+Am Wochenende gehen Hunderttausende auf die Straße, in Berlin, München, Köln und vielen kleineren Städten. [? if player = "spd" : Die Rede der Linken-Spitzenkandidatin Heidi Reichinnek im Bundestag wird millionenfach geteilt, die Linke gewinnt Tausende neue Mitglieder. ?][? if player = "linke" : Die Rede unserer Spitzenkandidatin Heidi Reichinnek im Bundestag wird millionenfach geteilt. In den Geschäftsstellen stehen die Telefone nicht still: Tausende wollen Mitglied werden. ?]
 
 - @demos: Gemeinsam mit Gewerkschaften und Kirchen zu den Demonstrationen aufrufen.
 - @kritik: Merz scharf kritisieren, aber den Gesprächsfaden zur Union nicht abreißen lassen.

@@ -16,15 +16,18 @@ face-image: img/reichstag_2.jpg
 
 = Billionen-Paket im alten Bundestag?
 
-Noch bevor der neu gewählte Bundestag zusammentritt, liegt ein Vorschlag auf dem Tisch, der alles verändern könnte: ein Sondervermögen von 500 Milliarden Euro für Brücken, Schienen, Schulen und Klimaschutz, und Verteidigungsausgaben, die künftig nicht mehr unter die Schuldenbremse fallen. Weil das Grundgesetz geändert werden muss, braucht es eine Zweidrittelmehrheit, und die gibt es nur im alten Bundestag mit Union, SPD und Grünen. [? if afd_r + linke_r + bsw_r > 33.4 : Im neuen Bundestag hätten AfD und Linke zusammen eine Sperrminorität. ?]
+# party-ok: SPD (die reale SPD im historischen Ablauf, in beiden Spielen richtig)
 
-[? if union_in_government and spd_in_government : Union und SPD haben sich in den Sondierungen darauf verständigt. Friedrich Merz, der im Wahlkampf noch jede Lockerung der Schuldenbremse abgelehnt hatte, muss sich Wortbruch vorwerfen lassen. Die Grünen verlangen 100 Milliarden für den Klimaschutz. ?][? if spd_in_government and not union_in_government : Wir wollen investieren, aber für die Grundgesetzänderung brauchen wir die Union. Die verlangt dafür vor allem mehr Geld für die Bundeswehr. ?][? if not spd_in_government : Die neue Regierung braucht im alten Bundestag unsere Stimmen. Ohne die SPD gibt es keine Zweidrittelmehrheit. ?]
+Noch bevor der neu gewählte Bundestag zusammentritt, liegt ein Vorschlag auf dem Tisch, der alles verändern könnte: ein Sondervermögen von 500 Milliarden Euro für Brücken, Schienen, Schulen und Klimaschutz, und Verteidigungsausgaben, die künftig nicht mehr unter die Schuldenbremse fallen. Weil das Grundgesetz geändert werden muss, braucht es eine Zweidrittelmehrheit, und die gibt es nur im alten Bundestag mit Union, SPD und Grünen. [? if player = "spd" and afd_r + linke_r + bsw_r > 33.4 : Im neuen Bundestag hätten AfD und Linke zusammen eine Sperrminorität. ?][? if player = "linke" and afd_r + spd_r + bsw_r > 33.4 : Im neuen Bundestag hätten AfD und Linke zusammen eine Sperrminorität. ?]
+
+[? if union_in_government and spd_in_government : Union und SPD haben sich in den Sondierungen darauf verständigt. Friedrich Merz, der im Wahlkampf noch jede Lockerung der Schuldenbremse abgelehnt hatte, muss sich Wortbruch vorwerfen lassen. Die Grünen verlangen 100 Milliarden für den Klimaschutz. ?][? if spd_in_government and not union_in_government : Wir wollen investieren, aber für die Grundgesetzänderung brauchen wir die Union. Die verlangt dafür vor allem mehr Geld für die Bundeswehr. ?][? if player = "spd" and not spd_in_government : Die neue Regierung braucht im alten Bundestag unsere Stimmen. Ohne die SPD gibt es keine Zweidrittelmehrheit. ?]
 
 - @gross: Den großen Wurf mittragen: 500 Milliarden für Infrastruktur und Klima, Verteidigung ausgenommen.
 - @verteidigung: Nur die Verteidigungsausgaben von der Schuldenbremse ausnehmen.
 - @nein: Nicht mit dem alten Bundestag. Das wäre eine Missachtung des Wählerwillens.
 
 @gross
+# party-ok: SPD (die reale SPD im historischen Ablauf, in beiden Spielen richtig)
 subtitle: +2 Haushaltsspielraum, mehr Wachstum. Die Union muss mitziehen.
 choose-if: union_in_government or union_relation >= 25
 unavailable-subtitle: Die Union verweigert uns die nötigen Stimmen.

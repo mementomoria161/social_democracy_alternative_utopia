@@ -11,28 +11,28 @@ tags: party_affairs, govt_affairs
 
 Die deutsche Wirtschaft stagniert seit Jahren. Autoindustrie, Chemie und Stahl bauen Zehntausende Stellen ab, die Energiepreise sind hoch, und die Konkurrenz aus China wird übermächtig. Die Partei streitet über die richtige Antwort.
 
-Die Parteimitte um die Haushälter warnt vor neuen Schulden: Das Sondervermögen von 2025 sei schon gewaltig, nun müsse man es klug ausgeben und die Wettbewerbsfähigkeit stärken, statt neue Programme aufzulegen.
+[? if player = "spd" : Die Parteimitte um die Haushälter warnt vor neuen Schulden: Das Sondervermögen von 2025 sei schon gewaltig, nun müsse man es klug ausgeben und die Wettbewerbsfähigkeit stärken, statt neue Programme aufzulegen. ?][? if player = "linke" : Der Parteivorstand will keine großen Pläne, sondern ein Sofortprogramm, das man an jeder Haustür erklären kann: Mietendeckel, Preisdeckel für Strom und Grundnahrungsmittel, 15 Euro Mindestlohn. ?]
 
 Ökonomen wie Jens Südekum und der DGB fordern dagegen eine große Investitionsoffensive: Hunderte Milliarden für Netze, Schiene, Wohnungen und klimaneutrale Industrie, finanziert über Kredite und eine Reform der Schuldenbremse.
 
-Die SPD-Linke hält das für zu wenig. Sie will Schlüsselindustrien und Energienetze in öffentliche Hand überführen, Staatsbeteiligungen ausweiten und große Vermögen besteuern, um die Krise für einen Umbau der Wirtschaft zu nutzen.
+[? if player = "spd" : Die SPD-Linke hält das für zu wenig. ?][? if player = "linke" : Die Sozialistische Linke hält das für zu wenig. ?] Sie will Schlüsselindustrien und Energienetze in öffentliche Hand überführen, Staatsbeteiligungen ausweiten und große Vermögen besteuern, um die Krise für einen Umbau der Wirtschaft zu nutzen.
 
-Der Seeheimer Kreis schlägt einen begrenzten Reformplan vor: gezielte Entlastungen bei Energiepreisen und Bürokratie, finanziert durch Umschichtungen im Haushalt, ohne neue Schulden. Den Gewerkschaften ist das zu mutlos.
+[? if player = "spd" : Der Seeheimer Kreis schlägt einen begrenzten Reformplan vor: gezielte Entlastungen bei Energiepreisen und Bürokratie, finanziert durch Umschichtungen im Haushalt, ohne neue Schulden. Den Gewerkschaften ist das zu mutlos. ?][? if player = "linke" : Die Reformer*innen aus den Landesverbänden schlagen einen Plan vor, den man mit SPD und Grünen auch umsetzen könnte: ein Industriestrompreis nur gegen Standort- und Tarifgarantien, finanziert durch Umschichtungen und eine Reform der Erbschaftsteuer. Der Sozialistischen Linken ist das zu brav. ?]
 
-- @support_centrist: Die Position der Parteimitte unterstützen.
+- @support_centrist: Die Position der Strömung [+ f_center +] unterstützen.
 - @support_labor: Die Investitionsoffensive unterstützen.
-- @support_left: Das Programm der SPD-Linken unterstützen.
-- @support_moderate: Den Reformplan des Seeheimer Kreises unterstützen.
+- @support_left: Das Programm der Strömung [+ f_left +] unterstützen.
+- @support_moderate: Den Reformplan der Strömung [+ f_reformist +] unterstützen.
 - @defer: Die Entscheidung vertagen, bis wir mehr wissen.
 - @easy_discard
 
 @support_centrist
-subtitle: Haushaltsdisziplin wahren und das Sondervermögen klug ausgeben.
+subtitle: [? if player = "spd" : Haushaltsdisziplin wahren und das Sondervermögen klug ausgeben. ?][? if player = "linke" : Ein Sofortprogramm gegen hohe Preise und Mieten. ?]
 on-arrival: center_strength += 5; center_dissent -= 5; labor_dissent += 10; wtb_support -= 1; left_dissent += 10;
 
-Gewerkschaften und SPD-Linke sind empört: Während Fabriken schließen, verwalte die SPD nur den Mangel. Die Haushälter halten dagegen: Mit neuen Schulden würden falsche Hoffnungen geweckt und die nächste Generation belastet.
+[? if player = "spd" : Gewerkschaften und SPD-Linke sind empört: Während Fabriken schließen, verwalte die SPD nur den Mangel. Die Haushälter halten dagegen: Mit neuen Schulden würden falsche Hoffnungen geweckt und die nächste Generation belastet. ?][? if player = "linke" : Gewerkschafter*innen und Sozialistische Linke sind enttäuscht: Während Fabriken schließen, verteile die Partei nur Pflaster. Der Parteivorstand hält dagegen: Wer heute die Miete nicht zahlen kann, hat von einem Fünfjahresplan nichts. ?]
 
-Unser Kurs lautet nun: Es gibt keine schnellen Lösungen, nur solide Finanzen und kluge Investitionen.
+[? if player = "spd" : Unser Kurs lautet nun: Es gibt keine schnellen Lösungen, nur solide Finanzen und kluge Investitionen. ?][? if player = "linke" : Unser Kurs lautet nun: Erst die Preise, dann die großen Pläne. ?]
 
 
 @support_labor
@@ -44,7 +44,7 @@ go-to: plan_adopted if wtb_support >= 3; plan_support if wtb_support < 3
 
 @plan_support
 
-Unsere Unterstützung für die Investitionsoffensive verärgert die Haushälter der Parteimitte. Der SPD-Linken geht der Plan nicht weit genug, im Seeheimer Kreis gibt es vorsichtige Zustimmung.
+Unsere Unterstützung für die Investitionsoffensive verärgert die Strömung [+ f_center +]. [? if player = "spd" : Der SPD-Linken geht der Plan nicht weit genug, im Seeheimer Kreis gibt es vorsichtige Zustimmung. ?][? if player = "linke" : Der Sozialistischen Linken geht der Plan nicht weit genug, bei den Reformer*innen gibt es vorsichtige Zustimmung. ?]
 
 Noch hat die Partei den Plan nicht offiziell beschlossen. Es braucht mehr Überzeugungsarbeit.
 
@@ -55,14 +55,14 @@ Nach monatelanger Überzeugungsarbeit beschließt ein Parteitag die Investitions
 
 @support_left
 subtitle: Vergesellschaftung von Schlüsselindustrien und eine Vermögensteuer fordern.
-unavailable-subtitle: Die SPD-Linke ist nicht stark genug.
+unavailable-subtitle: Die Strömung [+ f_left +] ist nicht stark genug.
 choose-if: historical_mode == 0 or (left_strength >= labor_strength and left_strength >= center_strength and left_strength >= reformist_strength)
 on-arrival: left_strength += 10; reformist_dissent += 5; labor_dissent += 5; nationalization_support += 2
 go-to: support_left_progress if nationalization_support < 3; adopt_left if nationalization_support >= 3
 
 @support_left_progress
 
-Wir werben in der Partei für die Vergesellschaftung von Energienetzen, Wohnungskonzernen und Teilen der Industrie. Die SPD-Linke sieht darin endlich wieder sozialdemokratische Politik, Seeheimer und manche Gewerkschafter halten das Programm für realitätsfern.
+Wir werben in der Partei für die Vergesellschaftung von Energienetzen, Wohnungskonzernen und Teilen der Industrie. [? if player = "spd" : Die SPD-Linke sieht darin endlich wieder sozialdemokratische Politik, Seeheimer und manche Gewerkschafter halten das Programm für realitätsfern. ?][? if player = "linke" : Die Sozialistische Linke sieht darin den Kern sozialistischer Politik, Reformer*innen und manche Gewerkschafter*innen halten das Programm für nicht durchsetzbar. ?]
 
 Noch hat die Partei das Programm nicht beschlossen. Es braucht mehr Überzeugungsarbeit.
 
@@ -73,21 +73,21 @@ Ein Parteitag beschließt das linke Krisenprogramm! [? if spd_in_government == 1
 
 @support_moderate
 subtitle: Gezielte Entlastungen ohne neue Schulden fordern.
-unavailable-subtitle: Der Seeheimer Kreis ist nicht stark genug.
+unavailable-subtitle: Die Strömung [+ f_reformist +] ist nicht stark genug.
 choose-if: historical_mode == 0 or (reformist_strength >= left_strength and reformist_strength >= center_strength and reformist_strength >= labor_strength)
 on-arrival: moderate_plan_support += 1; reformist_strength += 8; reformist_dissent -= 5; left_dissent += 6; labor_dissent += 5
 go-to: adopt_moderate if moderate_plan_support >= 2; support_moderate_progress if moderate_plan_support < 2
 
 @support_moderate_progress
 
-Wir werben für einen begrenzten Reformplan: Industriestrompreis, Bürokratieabbau, schnellere Genehmigungen. Die Befürworter halten ihn für den einzigen Plan, der mit der Union umsetzbar ist. SPD-Linke und Gewerkschafter finden ihn mutlos.
+Wir werben für einen begrenzten Reformplan: Industriestrompreis, Bürokratieabbau, schnellere Genehmigungen. [? if player = "spd" : Die Befürworter halten ihn für den einzigen Plan, der mit der Union umsetzbar ist. SPD-Linke und Gewerkschafter finden ihn mutlos. ?][? if player = "linke" : Die Befürworter*innen halten ihn für den einzigen Plan, den SPD und Grüne mittragen würden. Sozialistische Linke und Gewerkschafter*innen finden ihn mutlos. ?]
 
 Noch hat die Partei den Plan nicht beschlossen. Es braucht mehr Überzeugungsarbeit.
 
 @adopt_moderate
 on-arrival: reformist_strength += 10; reformist_dissent -= 10; left_dissent += 8; labor_dissent += 6; moderate_plan_adopted = 1; economic_plan = 2; coalition_dissent -= 1 if unemployed > 8; union_relation += 5;
 
-Ein Parteitag beschließt den Reformplan des Seeheimer Kreises! [? if spd_in_government == 1 : Wir können mit der Umsetzung beginnen, sobald wir das Wirtschafts- oder das Finanzministerium kontrollieren. ?]
+Ein Parteitag beschließt den Reformplan der Strömung [+ f_reformist +]! [? if spd_in_government == 1 : Wir können mit der Umsetzung beginnen, sobald wir das Wirtschafts- oder das Finanzministerium kontrollieren. ?]
 
 @defer
 

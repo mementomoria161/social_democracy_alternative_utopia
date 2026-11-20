@@ -70,7 +70,7 @@ Wir sagen die Kundgebung ab. Die Rechten feiern das als Sieg.
 
 @main_rally
 
-Kundgebungen auf Marktplätzen und vor Werkstoren gehören zur SPD wie die rote Nelke. Was soll das Thema dieser Kundgebung sein?
+Kundgebungen auf Marktplätzen und vor Werkstoren gehören zu [+ pp_dat +] wie [? if player = "spd" : die rote Nelke ?][? if player = "linke" : der Rote Stern auf dem Transparent ?]. Was soll das Thema dieser Kundgebung sein?
 
 - @class_struggle: Umverteilung: Wem gehört dieses Land?
 - @welfare: Der Sozialstaat: sichere Renten, gute Pflege, starke Kommunen.
@@ -88,7 +88,7 @@ Vermögensteuer, Erbschaften, Mieten: Die Botschaft kommt bei Beschäftigten mit
 @welfare
 on-arrival: workers_spd += 3*(1-dissent); workers_spd += 3*(1-dissent) if welfare > 0; unemployed_spd += 3*(1-dissent) if welfare > 0; unemployed_spd += 4*(1-dissent) if welfare > 1; reformist_strength += 3; labor_strength += 4; reformist_dissent -= 3; labor_dissent -= 3; rentner_spd += 2*(1-dissent)
 
-Rente, Pflege, Kita: Der Sozialstaat ist die große Errungenschaft der Sozialdemokratie, und viele wissen das zu schätzen. [? if welfare > 1 : Unsere Erfolge in der Sozialpolitik machen die Botschaft glaubwürdig. ?]
+Rente, Pflege, Kita: Der Sozialstaat ist die große Errungenschaft der Arbeiterbewegung, und viele wissen das zu schätzen. [? if welfare > 1 : Unsere Erfolge in der Sozialpolitik machen die Botschaft glaubwürdig. ?]
 
 @democracy
 on-arrival: democratization += 1; pro_republic += 2*(1 - dissent); workers_spd += 4*(1-dissent) if democratization >= 3; unemployed_spd += 3*(1-dissent) if democratization >= 3; pro_republic += 4*(1 - dissent) if democratization >= 3; new_middle_spd += 4*(1-dissent) if democratization >= 3
@@ -101,7 +101,7 @@ Unsere Rednerinnen und Redner verteidigen das Grundgesetz und warnen vor denen, 
 @pacifism
 on-arrival: pacifism += 1; nationalism -= 2*(1 - dissent); workers_spd += 4*(1 - dissent) if pacifism >= 3; unemployed_spd += 3*(1-dissent) if pacifism >= 3; nationalism -= 3*(1-dissent) if pacifism >= 3; new_middle_spd += 4*(1-dissent) if pacifism >= 3; reformist_dissent += 3
 
-Unsere Rednerinnen und Redner kritisieren das Wettrüsten und fordern mehr Diplomatie. Im Seeheimer Kreis und bei Boris Pistorius ist man darüber wenig erfreut.
+Unsere Rednerinnen und Redner kritisieren das Wettrüsten und fordern mehr Diplomatie. [? if player = "spd" : Im Seeheimer Kreis und bei Boris Pistorius ist man darüber wenig erfreut. ?][? if player = "linke" : Den Reformer*innen ist das zu einseitig: Sie fürchten, wieder als Partei zu gelten, die zu Russlands Krieg schweigt. ?]
 
 [? if pacifism < 3 : Angesichts des russischen Angriffskriegs ist es schwer, gegen höhere Verteidigungsausgaben zu argumentieren. ?]
 [? if pacifism >= 3 : Weil wir Frieden und Abrüstung immer wieder zum Thema gemacht haben, findet die Botschaft Anklang. ?]
@@ -112,7 +112,7 @@ choose-if: return_to_normalcy = 0
 unavailable-subtitle: Die Wirtschaftskrise ist weitgehend überwunden, und das Thema zieht nicht mehr.
 on-arrival: wtb_support += 1; workers_spd += 6*(1-dissent); unemployed_spd += 6*(1-dissent); rural_spd += 3*(1-dissent); new_middle_spd += 3*(1-dissent); old_middle_spd += 3*(1-dissent);
 
-Die Investitionsoffensive ist zum Schlachtruf der SPD geworden: neue Brücken, neue Schienen, neue Fabriken – und sichere Arbeitsplätze.
+Die Investitionsoffensive ist zum Schlachtruf [+ pp_dat +] geworden: neue Brücken, neue Schienen, neue Fabriken – und sichere Arbeitsplätze.
 
 
 @local

@@ -32,7 +32,7 @@ unavailable-subtitle: Die Polizei ist kaum bereit, gegen die Bauern durchzugreif
 choose-if: prussian_police_loyalty >= 0.6 or interior_police_loyalty >= 0.6
 on-arrival: rural_spd -= 4; rural_gruene -= 4; rural_afd -= 2
 
-Die Polizei löst die Blockaden auf und verhindert, dass die Lage eskaliert. Doch die wirtschaftliche Not der Höfe bleibt, und auf dem Land verflucht man die SPD mehr denn je.
+Die Polizei löst die Blockaden auf und verhindert, dass die Lage eskaliert. Doch die wirtschaftliche Not der Höfe bleibt, und auf dem Land verflucht man [+ pp_full +] mehr denn je.
 
 @financing_1
 subtitle: -1 Haushaltsspielraum – wir unterstützen die Höfe bereits, doch es braucht mehr.

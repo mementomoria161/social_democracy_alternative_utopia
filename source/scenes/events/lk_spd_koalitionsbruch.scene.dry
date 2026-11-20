@@ -1,0 +1,32 @@
+title: Die SPD kündigt die Koalition auf!
+subtitle: Wir haben die SPD zu sehr verärgert …
+new-page: true
+tags: event
+view-if: player = "linke" and spd_in_government = 1 and year >= 2027 and ((in_popular_front = 1 and linke_coalition_dissent >= 5) or (in_left_front = 1 and linke_coalition_dissent >= 6)) and spd_r < 50
+
+# Linke-Gegenstück zu linke_vote_of_no_confidence (Durchgang 4.3). Das Ende der Koalition läuft über die Unterszenen
+# linke_vote_of_no_confidence.let_it_happen (geschäftsführende Regierung, Neuwahl in drei Monaten).
+
+= Die SPD steigt aus
+
+Die SPD hat genug von den ständigen Streitereien und kündigt an, die Koalition zu verlassen. [? if union_relation >= 30 : In der Union wird schon offen über eine neue Regierung mit den Sozialdemokrat*innen gesprochen. ?] Ohne ihre Stimmen haben wir keine Mehrheit mehr; es bliebe nur die Vertrauensfrage, und in wenigen Monaten gäbe es Neuwahlen.
+
+- @resources: Mit Zugeständnissen bei Posten und Projekten die SPD halten.
+- @kanzleramt: Der SPD das Kanzleramt überlassen, um die Koalition zu retten.
+- @linke_vote_of_no_confidence.let_it_happen: Die Koalition zerbrechen lassen.
+
+@resources
+choose-if: resources >= 3
+unavailable-subtitle: Wir haben nicht genug Ressourcen.
+subtitle: -3 Ressourcen
+on-arrival: resources -= 3; linke_coalition_dissent -= 2; left_dissent += 4
+
+Die SPD bekommt ein zusätzliches Ministerium und ihre Lieblingsprojekte. Die Koalition hält, vorerst.
+
+@kanzleramt
+view-if: chancellor_party == "SPD"
+choose-if: linke_r >= spd_r * 0.8
+unavailable-subtitle: Dafür ist die SPD zu klein.
+on-arrival: chancellor = linke_leader; chancellor_party = "Linke"; linke_coalition_dissent = 1; linke_relation += 5; left_dissent += 15; center_dissent += 10; reformist_dissent -= 5
+
+Wir treten das Kanzleramt ab. [+ chancellor +] wird mit den Stimmen der Koalition zur neuen Regierungsspitze gewählt, unsere Minister*innen bleiben im Amt. Die Basis ist fassungslos, aber die Regierung steht.

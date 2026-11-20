@@ -2,13 +2,14 @@ title: Wehrpflicht?
 subtitle: Die Union will den freiwilligen Wehrdienst verschärfen.
 new-page: true
 tags: event
-view-if: year = 2026 and month >= 7 and spd_in_government
+view-if: year = 2026 and month >= 7 and ((player = "spd" and spd_in_government) or (player = "linke" and not spd_in_government))
+go-to: linke if player = "linke" and not spd_in_government
 max-visits: 1
 on-arrival: wehrdienst_seen = 1
 
 = Wehrpflicht?
 
-Seit Januar 2026 erhalten alle 18-Jährigen einen Fragebogen zum neuen Wehrdienst. Doch die Zahl der Freiwilligen bleibt hinter den Zielen zurück. Die Union drängt darauf, die im Gesetz angelegte Bedarfswehrpflicht sofort zu aktivieren. Jusos und Teile der Parteilinken wollen beim Prinzip der Freiwilligkeit bleiben.
+Seit Januar 2026 erhalten alle 18-Jährigen einen Fragebogen zum neuen Wehrdienst. Doch die Zahl der Freiwilligen bleibt hinter den Zielen zurück. Die Union drängt darauf, die im Gesetz angelegte Bedarfswehrpflicht sofort zu aktivieren. [? if player = "spd" : Jusos und Teile der Parteilinken wollen beim Prinzip der Freiwilligkeit bleiben. ?][? if player = "linke" : In der SPD wehren sich Jusos und Teile der Parteilinken, aber die Koalition wird sich wohl einigen. ?]
 
 - @pflicht: Der Bedarfswehrpflicht zustimmen.
 - @freiwillig: Bei der Freiwilligkeit bleiben und den Dienst attraktiver machen.
@@ -31,3 +32,30 @@ Mit besserem Sold, Führerscheinzuschuss und Studienplatzvorteilen machen wir de
 on-arrival: bundeswehr_strength += 10; demo_strength += 50; new_middle_spd += 2*(1-dissent); left_dissent += 3; reformist_dissent -= 3; union_relation += 1
 
 Unser Vorschlag eines Gesellschaftsjahrs für alle jungen Menschen, in Bundeswehr, Pflege, Katastrophenschutz oder Kultur, findet breite Zustimmung. Bis zur Umsetzung ist es noch ein weiter Weg, doch die Debatte hat sich verschoben.
+
+@linke
+# Linke in der Opposition: Kampagne gegen die Wehrpflicht (Durchgang 4.3).
+
+[? if player = "linke" : Für die Linke ist die Sache klar: keine Wehrpflicht, auch keine „Bedarfswehrpflicht“. Doch wie laut sollen wir werden, und mit wem? ?]
+
+- @lk_schulen: Eine Kampagne an Schulen und Unis starten: „Nein zur Wehrpflicht“.
+- @lk_beratung: Junge Menschen bei der Kriegsdienstverweigerung beraten.
+- @lk_leise: Bei der Freiwilligkeit bleiben, aber keine Fundamentalopposition gegen die Bundeswehr.
+
+@lk_schulen
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; new_middle_spd += 2*(1-dissent); unemployed_spd += 1*(1-dissent); left_strength += 3; left_dissent -= 4; neorevisionist_dissent -= 4; reformist_dissent += 3; pacifism += 1
+
+Linksjugend und SDS verteilen Flyer vor Schulen und Berufsschulen. Viele Jugendliche, die mit Politik bisher nichts zu tun hatten, kommen zu unseren Veranstaltungen. Die Union spricht von „Wehrkraftzersetzung“, was der Kampagne nur noch mehr Aufmerksamkeit bringt.
+
+@lk_beratung
+on-arrival: left_dissent -= 2; center_strength += 2; new_middle_spd += 1*(1-dissent); pacifism += 1
+
+Zusammen mit Friedensgruppen und Kirchen bieten wir Beratung zur Kriegsdienstverweigerung an. Die Nachfrage ist groß, und die Anträge auf Verweigerung steigen deutlich.
+
+@lk_leise
+on-arrival: reformist_dissent -= 4; reformist_strength += 2; left_dissent += 4; neorevisionist_dissent += 3
+
+Wir bleiben bei der Freiwilligkeit, vermeiden aber schrille Töne. Unsere Reformer*innen sind erleichtert, in der Linksjugend wird über „Anpassung“ geschimpft.

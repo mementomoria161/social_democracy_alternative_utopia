@@ -38,7 +38,7 @@ Die AfD ist eine der größten Gefahren für die Demokratie. Doch über die rich
 
 @iron_front
 title: Das Bündnis für Demokratie gründen!
-subtitle: Ein Bündnis aus SPD, DGB-Gewerkschaften und Demokratiebewegung.
+subtitle: Ein Bündnis aus [+ pp_name +], DGB-Gewerkschaften und Demokratiebewegung.
 view-if: nazi_urgency >= 3 and iron_front_formed == 0
 on-arrival: iron_front_formed = 1; radicalization += 1; nazi_urgency += 1; workers_spd += 5*(1-dissent); pro_republic += 5*(1-dissent); left_dissent -= 8; neorevisionist_dissent -= 10; neorevisionist_strength += 5
 achievement: eiserne_front
@@ -49,7 +49,7 @@ Wofür soll das Bündnis stehen?
 
 - @unity: Demokratie, Respekt, Zusammenhalt.
 - @anti: Gegen Rechtsextremismus, Hass und Hetze.
-- @orgs: SPD, Gewerkschaften und Zivilgesellschaft.
+- @orgs: [+ pp_Full +], Gewerkschaften und Zivilgesellschaft.
 - @wtb: Investitionen, gute Arbeit, sichere Zukunft.
 - @all: Für all das zusammen.
 

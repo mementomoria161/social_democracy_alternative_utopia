@@ -2,7 +2,8 @@ title: Streit um eine Verfassungsrichterin
 subtitle: Die Union lässt eine abgesprochene Wahl platzen.
 new-page: true
 tags: event
-view-if: year = 2025 and month = 7 and spd_in_government and union_in_government and verfassungsrichterwahl_seen = 0
+view-if: year = 2025 and month = 7 and ((player = "spd" and spd_in_government and union_in_government) or (player = "linke" and not spd_in_government and linke_in_government and union_in_government)) and verfassungsrichterwahl_seen = 0
+go-to: linke if player = "linke" and not spd_in_government
 max-visits: 1
 on-arrival: verfassungsrichterwahl_seen = 1; coalition_dissent += 1
 face-image: img/untersuchungsausschuss.jpg
@@ -11,6 +12,8 @@ face-image: img/untersuchungsausschuss.jpg
 # Frauke Brosius-Gersdorf zieht ihre Kandidatur am 07.08.2025 zurück, im September wird Sigrid Emmenegger gewählt.
 
 = Streit um eine Verfassungsrichterin
+
+# party-ok: SPD (die reale SPD)
 
 Für das Bundesverfassungsgericht hat die SPD die Potsdamer Staatsrechtlerin Frauke Brosius-Gersdorf vorgeschlagen; im Wahlausschuss hatte die Unionsspitze zugestimmt. Dann beginnt im Netz eine Kampagne gegen sie, vor allem wegen ihrer Haltung zum Schwangerschaftsabbruch, später kommen haltlose Plagiatsvorwürfe hinzu. Dutzende Unionsabgeordnete kündigen an, sie nicht zu wählen. Am Morgen der Abstimmung nimmt die Koalition die Wahl von der Tagesordnung. Die Juristin spricht von einer Hetzjagd.
 
@@ -41,3 +44,27 @@ Brosius-Gersdorf zieht zurück, und wir schlagen die Bundesrichterin Sigrid Emme
 on-arrival: linke_relation += 4; gruene_relation += 3; union_relation -= 3; coalition_dissent += 1; reformist_dissent += 4; left_dissent -= 3
 
 Mit Grünen und Linken erinnern wir die Union daran, dass Verfassungsrichterinnen bisher immer über Parteigrenzen hinweg gewählt wurden. Die Zivilgesellschaft steht hinter uns. In der Koalition sprechen manche von Erpressung.
+
+@linke
+# Linke in der Opposition: Ohne Linke oder AfD fehlt Union, SPD und Grünen die Zweidrittelmehrheit für Richterwahlen.
+
+[? if player = "linke" : Für die Wahl von Verfassungsrichter*innen braucht es eine Zweidrittelmehrheit. Union, SPD und Grüne haben sie allein nicht, es geht nur mit uns oder mit der AfD. Trotzdem lehnt die Union jedes Gespräch mit der Linken ab. ?]
+
+- @lk_angebot: Unsere Stimmen öffentlich anbieten: Die Demokrat*innen müssen ohne die AfD auskommen können.
+- @lk_bedingung: Zustimmung nur, wenn wir künftig bei der Auswahl mitreden.
+- @lk_hetze: Die Kampagne gegen Brosius-Gersdorf als rechte Hetze anprangern.
+
+@lk_angebot
+on-arrival: pro_republic += 2*(1-dissent); new_middle_spd += 1*(1-dissent); reformist_dissent -= 3; left_dissent += 2; union_relation += 2
+
+Wir erklären, dass wir die Kandidat*innen von SPD und Grünen wählen werden, ohne Gegenleistung. Im September wird mit unseren Stimmen eine neue Kandidatin gewählt. Kommentator*innen schreiben, die Linke habe sich als verlässlicher erwiesen als Teile der Union.
+
+@lk_bedingung
+on-arrival: left_dissent -= 2; union_relation -= 3; reformist_dissent += 2
+
+Wir verlangen, an der Auswahl künftiger Richter*innen beteiligt zu werden, wie es unserer Stärke im Bundestag entspricht. Die Union lehnt ab. Die Frage bleibt offen und wird bei jeder Richterwahl wiederkommen.
+
+@lk_hetze
+on-arrival: new_middle_spd += 2*(1-dissent); union_relation -= 3; gruene_relation += 2
+
+Wir nennen die Kampagne beim Namen: Eine angesehene Juristin wurde mit Halbwahrheiten aus dem Amt gedrängt, bevor sie es antreten konnte. Viele Frauen und viele Jurist*innen sehen das genauso.

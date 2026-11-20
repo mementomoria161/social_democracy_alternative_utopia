@@ -4,7 +4,8 @@ new-page: true
 tags: event
 view-if: year = 2027 and month = 5
 max-visits: 1
-on-arrival: ltw_2027_seen = 1; nrw_won = 1 if spd_r >= union_r and not historical_mode; spd_prussia = 1 if nrw_won; prussian_government = "SPD" if nrw_won; pro_republic += 2 if nrw_won; reformist_dissent -= 5 if nrw_won; center_dissent -= 5 if nrw_won; left_dissent += 3 if not nrw_won; center_dissent += 3 if not nrw_won
+on-arrival: ltw_2027_seen = 1; nrw_won = 1 if player = "spd" and spd_r >= union_r and not historical_mode; spd_prussia = 1 if nrw_won; prussian_government = "SPD" if nrw_won; pro_republic += 2 if nrw_won; reformist_dissent -= 5 if nrw_won; center_dissent -= 5 if nrw_won; left_dissent += 3 if not nrw_won and player = "spd"; center_dissent += 3 if not nrw_won and player = "spd"
+go-to: linke if player = "linke"
 face-image: img/wahlkampf.jpg
 
 # Fiktives Szenario; Ergebnisse hängen von den Umfragewerten ab.
@@ -13,10 +14,22 @@ face-image: img/wahlkampf.jpg
 
 Im Mai wählen Nordrhein-Westfalen, Schleswig-Holstein und Bremen ihre Landtage. Vor allem die Wahl im bevölkerungsreichsten Land gilt als Test für die Bundespolitik.
 
-[? if nrw_won : Sensation in Düsseldorf: Die SPD wird in Nordrhein-Westfalen stärkste Kraft und erobert die Staatskanzlei zurück. Im Bundesrat haben wir wieder Gewicht. ?][? if not nrw_won : In Nordrhein-Westfalen bleibt die CDU unter Hendrik Wüst klar stärkste Kraft. Die SPD verbessert sich kaum. ?] In Bremen bleibt die SPD vorn, in Schleswig-Holstein regiert die CDU weiter.
+[? if player = "spd" and nrw_won : Sensation in Düsseldorf: Die SPD wird in Nordrhein-Westfalen stärkste Kraft und erobert die Staatskanzlei zurück. Im Bundesrat haben wir wieder Gewicht. ?][? if player = "spd" and not nrw_won : In Nordrhein-Westfalen bleibt die CDU unter Hendrik Wüst klar stärkste Kraft. Die SPD verbessert sich kaum. ?][? if player = "spd" : In Bremen bleibt die SPD vorn, in Schleswig-Holstein regiert die CDU weiter. ?]
 
 - @weiter: Weiter.
 
 @weiter
+
+Die Landtagswahlen sind vorbei. Der Blick richtet sich nun auf die Bundestagswahl 2029.
+
+@linke
+# Linke-Fassung (Durchgang 4.3). Fiktiv. Bremen: Linke seit 2019 in einer Koalition mit SPD und Grünen; NRW 2022: 2,1 Prozent.
+
+In Nordrhein-Westfalen bleibt die CDU unter Hendrik Wüst vorn. [? if spd_votes >= 7 : Die Linke zieht nach zehn Jahren wieder in den Düsseldorfer Landtag ein, getragen von den Großstädten an Rhein und Ruhr. ?][? if spd_votes < 7 : Die Linke scheitert in Nordrhein-Westfalen erneut an der Fünf-Prozent-Hürde. ?] [? if spd_votes >= 6 : In Bremen bleibt die rot-grün-rote Koalition im Amt, mit der Linken als verlässlicher Partnerin. ?][? if spd_votes < 6 : In Bremen verliert die rot-grün-rote Koalition ihre Mehrheit. ?] In Schleswig-Holstein spielt die Linke keine Rolle.
+
+- @lk_weiter: Weiter.
+
+@lk_weiter
+on-arrival: reformist_dissent -= 3 if spd_votes >= 7; center_dissent += 3 if spd_votes < 6
 
 Die Landtagswahlen sind vorbei. Der Blick richtet sich nun auf die Bundestagswahl 2029.
