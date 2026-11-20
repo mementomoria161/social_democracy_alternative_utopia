@@ -1,0 +1,34 @@
+title: Christian Görke
+is-pinned-card: true
+tags: advisor, reformist
+card-image: img/portraits/Goerke.jpg
+new-page: true
+view-if: player = "linke" and goerke_advisor = 1
+
+# Linke-Berater*in (Durchgang 4.2), Strömung: reformist
+
+= Christian Görke
+
+Görke war von 2014 bis 2019 Finanzminister und stellvertretender Ministerpräsident in Brandenburg und sitzt seit 2021 im Bundestag. Er gilt als nüchterner Haushälter der Partei.
+
+- @steuern
+- @kommunen
+- @root: Zurück
+
+@steuern
+title: Ein durchgerechnetes Steuerkonzept
+subtitle: Vermögensteuer und Entlastung kleiner Einkommen, gegengerechnet.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; workers_spd += 2*(1-dissent); new_middle_spd += 1*(1-dissent); rentner_spd += 1*(1-dissent); reformist_dissent -= 3
+
+Görke legt ein Steuerkonzept vor, das neun von zehn Haushalten entlastet und Milliardenvermögen stärker heranzieht. Selbst Kritiker loben die Zahlen.
+
+@kommunen
+title: Kommunen entlasten
+subtitle: Altschulden und Investitionsstau in den Städten und Gemeinden.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; rural_spd += 2*(1-dissent); rentner_spd += 1*(1-dissent); reformist_strength += 3
+
+Schwimmbäder, Busse, Schulen: Görke macht die Finanznot der Kommunen zum Thema. Bürgermeisterinnen aller Parteien hören zu.

@@ -25,7 +25,7 @@ Am Wochenende gehen Hunderttausende auf die Straße, in Berlin, München, Köln 
 @demos
 on-arrival: demo_strength += 500; new_middle_spd += 1.5*(1-dissent); workers_spd += 0.5*(1-dissent); new_middle_linke -= 1; left_dissent -= 5; union_relation -= 8; nazi_urgency += 1 if nazi_urgency < 4
 
-Vor dem Reichstag stehen Gewerkschafterinnen, Pfarrer, Omas gegen Rechts und Tausende junge Menschen. Die SPD ist mittendrin. Wir holen einen Teil derer zurück, die sonst ihr Kreuz bei Grünen oder Linken gemacht hätten. Die Union fühlt sich an den Pranger gestellt.
+Vor dem Reichstag stehen Gewerkschafterinnen, Pfarrer, Omas gegen Rechts und Tausende junge Menschen. [+ pp_Full +] ist mittendrin. Wir holen einen Teil derer zurück, die sonst ihr Kreuz bei Grünen oder [? if player = "spd" : der Linken ?][? if player = "linke" : der SPD ?] gemacht hätten. Die Union fühlt sich an den Pranger gestellt.
 
 @kritik
 on-arrival: new_middle_spd += 0.5*(1-dissent); union_relation -= 3; center_dissent -= 2
@@ -35,4 +35,4 @@ Wir nennen den Tabubruch beim Namen, betonen aber, dass Demokratinnen und Demokr
 @leise
 on-arrival: union_relation += 2; rural_spd += 0.5*(1-dissent); new_middle_spd -= 1; new_middle_linke += 1.5; new_middle_gruene += 1; left_dissent += 8
 
-Wir halten uns zurück. Bei vielen Jüngeren kommt das als Gleichgültigkeit an: Sie gehen ohne uns demonstrieren, und viele wählen dann auch ohne uns, nämlich die Linke oder die Grünen.
+Wir halten uns zurück. Bei vielen Jüngeren kommt das als Gleichgültigkeit an: Sie gehen ohne uns demonstrieren, und viele wählen dann auch ohne uns, [? if player = "spd" : nämlich die Linke oder die Grünen. ?][? if player = "linke" : nämlich die SPD oder die Grünen. ?]

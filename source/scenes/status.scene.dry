@@ -20,7 +20,7 @@ if (Q.economic_growth) {
 
 Verfügbare Ressourcen: [+ resources +]
 
-Rolle der SPD: [? if spd_toleration : Tolerierung ?][? if spd_in_government : Regierung – ?][? if spd_toleration == 0 and spd_in_government == 0 and spd_caretaker == 0 : Opposition ?][? if spd_caretaker : geschäftsführende Regierung ?]
+Rolle [+ pp_dat +]: [? if spd_toleration : Tolerierung ?][? if spd_in_government : Regierung – ?][? if spd_toleration == 0 and spd_in_government == 0 and spd_caretaker == 0 : Opposition ?][? if spd_caretaker : geschäftsführende Regierung ?]
 [? if spd_in_government or spd_toleration : [+ coalition_name +] ?]
 
 [? if spd_in_government and not in_spd_majority and not in_left_front : Koalitionskonflikte: [+ coalition_dissent : coalition_dissent +] ?]
@@ -45,7 +45,7 @@ Wirtschaftswachstum: [+ economic_growth_2 +]%
 on-display: {!
 if (!Q.parties || typeof document === 'undefined') return;
 var P = {
-    linke: ['Linke', '#BE3075'], sapd: ['Soziale Linke', '#C40000'], spd: ['SPD', '#E3000F'],
+    linke: [Q.op_name || 'Linke', Q.op_color || '#BE3075'], sapd: ['Soziale Linke', '#C40000'], spd: [Q.pp_name || 'SPD', Q.pp_color || '#E3000F'],
     srpd: ['Neue Mitte', '#F4A460'], gruene: [Q.gruene_name || 'Grüne', '#46962B'], other: ['Sonstige', '#909090'],
     bsw: ['BSW', '#7D254F'], fdp: ['FDP', '#FFED00'], union: ['CDU/CSU', '#151518'], afd: ['AfD', '#009EE0']
 };
@@ -59,7 +59,7 @@ var label = function(party) { return ID[party] ? P[ID[party]][0] : (party || '')
 // photo file in img/portraits: umlauts transliterated, spaces as underscores
 var file = function(name) {
     return String(name).replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/Ä/g, 'Ae')
-        .replace(/Ö/g, 'Oe').replace(/Ü/g, 'Ue').replace(/ß/g, 'ss').replace(/ /g, '_');
+        .replace(/Ö/g, 'Oe').replace(/Ü/g, 'Ue').replace(/ß/g, 'ss').replace(/ç/g, 'c').replace(/ı/g, 'i').replace(/ /g, '_');
 };
 // a person in the org chart: photo in a ring of the party colour, initial as fallback
 var card = function(role, name, party, big) {
@@ -69,6 +69,8 @@ var card = function(role, name, party, big) {
         '<span>' + String(name || '?').charAt(0) + '</span>' + img + '</div><div class="gov_role">' + role + '</div>' +
         '<div class="gov_name">' + (name || '–') + '</div><div class="gov_party">' + label(party) + '</div></div>';
 };
+// real party of these persons; slot() turns it into the slot string (SPD and Linke swap when the Linke is played)
+var slot = function(p) { return Q.player == 'linke' ? ({'SPD': 'Linke', 'Linke': 'SPD'}[p] || p) : p; };
 var PERSON = {'Steinmeier': 'SPD', 'Lammert': 'Union', 'Schwesig': 'SPD', 'Trabert': 'parteilos', 'Chrupalla': 'AfD',
     'Klöckner': 'Union', 'Ortleb': 'SPD', 'Nouripour': 'Grüne', 'Ramelow': 'Linke', 'Bas': 'SPD'};
 
@@ -94,7 +96,7 @@ var vice = '';
 });
 var btp = Q.bundestag_president || 'Klöckner';
 document.getElementById('regierung_view').innerHTML = '<div class="gov_chart">' +
-    '<div class="gov_row">' + card('Bundespräsident\*in', Q.president, PERSON[Q.president]) + card('Bundestagspräsident\*in', btp, PERSON[btp]) + '</div>' +
+    '<div class="gov_row">' + card('Bundespräsident\*in', Q.president, slot(PERSON[Q.president])) + card('Bundestagspräsident\*in', btp, slot(PERSON[btp])) + '</div>' +
     '<div class="gov_line"></div>' +
     '<div class="gov_row">' + card('Bundeskanzler\*in', Q.chancellor, Q.chancellor_party, true) + vice + '</div>' +
     '<div class="gov_line"></div>' +
@@ -133,7 +135,7 @@ d3.select(svg).datum(rows.map(function(x) { return {id: x.id, legend: P[x.id][0]
 
 = Regierung
 
-[? if spd_in_government or spd_toleration : Koalition: [+ coalition_name +][? if spd_toleration : (von der SPD toleriert) ?] ?]
+[? if spd_in_government or spd_toleration : Koalition: [+ coalition_name +][? if spd_toleration : (von [+ pp_dat +] toleriert) ?] ?]
 
 {!<div id="regierung_view"></div>!}
 
@@ -153,23 +155,33 @@ d3.select(svg).datum(rows.map(function(x) { return {id: x.id, legend: P[x.id][0]
 
 {!<span class="tooltip-text" title="Freie Demokratische Partei">FDP</span>!}: [+ fdp_relation : relationships +]
 
-{!<span class="tooltip-text" title="Die Linke">Linke</span>!}: [+ linke_relation : relationships +]
+[? if player = "spd" : {!<span class="tooltip-text" title="Die Linke">Linke</span>!} ?][? if player = "linke" : {!<span class="tooltip-text" title="Sozialdemokratische Partei Deutschlands">SPD</span>!} ?]: [+ linke_relation : relationships +]
 
 {!<span class="tooltip-text" title="Bündnis Sahra Wagenknecht">BSW</span>!}: [+ bsw_relation : relationships +]
 
 {!<span class="tooltip-text" title="Alternative für Deutschland">AfD</span>!}: [+ afd_relation : relationships +]
 
-= Strömungen in der SPD
+= Strömungen in [+ pp_dat +]
 
-{!<span class="tooltip-text" title="Parlamentarische Linke, Jusos und DL21: Vermögensteuer, Friedenspolitik, offen für Rot-Grün-Rot.">SPD-Linke</span>!}: Stärke [+ left_strength : strength +], Unmut [+ left_dissent : dissent +]
+[? if player = "spd" : {!<span class="tooltip-text" title="Parlamentarische Linke, Jusos und DL21: Vermögensteuer, Friedenspolitik, offen für Rot-Grün-Rot.">SPD-Linke</span>!}: Stärke [+ left_strength : strength +], Unmut [+ left_dissent : dissent +] ?]
 
-{!<span class="tooltip-text" title="Netzwerk Berlin und Parteiapparat: Regierungsfähigkeit, Geschlossenheit, Kompromiss.">Parteimitte</span>!}: Stärke [+ center_strength : strength +], Unmut [+ center_dissent : dissent +]
+[? if player = "spd" : {!<span class="tooltip-text" title="Netzwerk Berlin und Parteiapparat: Regierungsfähigkeit, Geschlossenheit, Kompromiss.">Parteimitte</span>!}: Stärke [+ center_strength : strength +], Unmut [+ center_dissent : dissent +] ?]
 
-{!<span class="tooltip-text" title="AfA und DGB-nahe Abgeordnete: Löhne, Tarifbindung, Rente und Industriearbeitsplätze.">Gewerkschaftsflügel</span>!}: Stärke [+ labor_strength : strength +], Unmut [+ labor_dissent : dissent +]
+[? if player = "spd" : {!<span class="tooltip-text" title="AfA und DGB-nahe Abgeordnete: Löhne, Tarifbindung, Rente und Industriearbeitsplätze.">Gewerkschaftsflügel</span>!}: Stärke [+ labor_strength : strength +], Unmut [+ labor_dissent : dissent +] ?]
 
-{!<span class="tooltip-text" title="Seeheimer Kreis: pragmatisch, wirtschaftsnah, sicherheitspolitisch konservativ, offen für Bündnisse mit der Union.">Seeheimer Kreis</span>!}: Stärke [+ reformist_strength : strength +], Unmut [+ reformist_dissent : dissent +]
+[? if player = "spd" : {!<span class="tooltip-text" title="Seeheimer Kreis: pragmatisch, wirtschaftsnah, sicherheitspolitisch konservativ, offen für Bündnisse mit der Union.">Seeheimer Kreis</span>!}: Stärke [+ reformist_strength : strength +], Unmut [+ reformist_dissent : dissent +] ?]
 
-[? if neorevisionism > 0 : {!<span class="tooltip-text" title="Dänischer Kurs: harte Migrations- und Sicherheitspolitik, verbunden mit einem starken Sozialstaat.">Dänischer Kurs</span>!}: Stärke [+ neorevisionist_strength : strength +], Unmut [+ neorevisionist_dissent : dissent +] ?]
+[? if player = "spd" and neorevisionism > 0 : {!<span class="tooltip-text" title="Dänischer Kurs: harte Migrations- und Sicherheitspolitik, verbunden mit einem starken Sozialstaat.">Dänischer Kurs</span>!}: Stärke [+ neorevisionist_strength : strength +], Unmut [+ neorevisionist_dissent : dissent +] ?]
+
+[? if player = "linke" : {!<span class="tooltip-text" title="Antikapitalistische und Sozialistische Linke: Systemkritik, Antimilitarismus, Nähe zu Bewegungen und Protest; skeptisch gegenüber Regierungsbeteiligungen.">Sozialistische Linke</span>!}: Stärke [+ left_strength : strength +], Unmut [+ left_dissent : dissent +] ?]
+
+[? if player = "linke" : {!<span class="tooltip-text" title="Bewegungslinke und Parteivorstand um Ines Schwerdtner und Jan van Aken: Organizing, Haustürgespräche, Sozialsprechstunden, Fokus auf Mieten, Preise und Löhne.">Bewegungslinke</span>!}: Stärke [+ center_strength : strength +], Unmut [+ center_dissent : dissent +] ?]
+
+[? if player = "linke" : {!<span class="tooltip-text" title="Gewerkschafter*innen und Sozialpolitiker*innen: Betriebe, Tarifbindung, Mieten und Rente; stark in den Großstädten und im Osten.">Gewerkschaftsflügel</span>!}: Stärke [+ labor_strength : strength +], Unmut [+ labor_dissent : dissent +] ?]
+
+[? if player = "linke" : {!<span class="tooltip-text" title="Reformer*innen und Regierungslinke, vor allem aus den ostdeutschen Landesverbänden: pragmatisch, regierungserfahren, offen für Rot-Grün-Rot.">Reformer*innen</span>!}: Stärke [+ reformist_strength : strength +], Unmut [+ reformist_dissent : dissent +] ?]
+
+[? if player = "linke" and neorevisionism > 0 : {!<span class="tooltip-text" title="Friedensflügel: linkskonservative Mitglieder, die dem BSW nicht gefolgt sind: Verhandlungen mit Russland, keine Waffenlieferungen, Skepsis gegenüber offener Migrationspolitik.">Friedensflügel</span>!}: Stärke [+ neorevisionist_strength : strength +], Unmut [+ neorevisionist_dissent : dissent +] ?]
 
 
 @paramilitaries

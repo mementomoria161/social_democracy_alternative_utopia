@@ -1,0 +1,34 @@
+title: Gregor Gysi
+is-pinned-card: true
+tags: advisor, nonfactional
+card-image: img/portraits/Gysi.jpg
+new-page: true
+view-if: player = "linke" and gysi_advisor = 1
+
+# Linke-Berater*in (Durchgang 4.2), Strömung: keine
+
+= Gregor Gysi
+
+Gysi sitzt seit 1990 fast ununterbrochen im Bundestag und hat den Wahlkreis Treptow-Köpenick immer wieder direkt gewonnen. Kaum ein Politiker der Linken ist so bekannt und so beliebt, auch bei Menschen, die die Partei nie wählen würden.[? if n_elections > 0 : 2025 eröffnete er als Alterspräsident den neuen Bundestag. ?]
+
+- @silberlocke
+- @talkshow
+- @root: Zurück
+
+@silberlocke
+title: Silberlocke: Treptow-Köpenick
+subtitle: Gysi verteidigt seinen Wahlkreis.
+choose-if: advisor_action_timer = 0 and n_elections = 0 and gysi_dm = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if n_elections > 0 : Nur vor der ersten Bundestagswahl möglich. ?][? if gysi_dm : Der Wahlkreis ist schon umkämpft. ?]
+on-arrival: advisor_action_timer = 6; gysi_dm = 1; direct_mandates += 1; rentner_spd += 1*(1-dissent)
+
+Gysi tritt noch einmal in Treptow-Köpenick an. Seine Veranstaltungen sind überfüllt.
+
+@talkshow
+title: Gysi in den Talkshows
+subtitle: Witz und Erfahrung für ein breites Publikum.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; rentner_spd += 2*(1-dissent); new_middle_spd += 1*(1-dissent); old_middle_spd += 1*(1-dissent); pro_republic += 1
+
+Gysi ist in jeder Talkshow. Er bringt das Publikum zum Lachen und die Gegner in Verlegenheit.

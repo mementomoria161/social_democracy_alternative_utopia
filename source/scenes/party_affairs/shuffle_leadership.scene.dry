@@ -158,7 +158,7 @@ tags: remove_advisor
 on-arrival: stegner_advisor = 0; left_dissent += 5; n_advisors -= 1
 go-to: rm_main
 
-Stegner gehört nicht mehr zum Beraterkreis. The Leftist faction disapproves.
+Stegner gehört nicht mehr zum Beraterkreis. Die SPD-Linke ist verärgert.
 
 @remove_esken
 title: Esken aus dem Beraterkreis nehmen
@@ -167,7 +167,7 @@ tags: remove_advisor
 on-arrival: esken_advisor = 0; left_dissent += 3; n_advisors -= 1
 go-to: rm_main
 
-Esken gehört nicht mehr zum Beraterkreis. The Leftist faction disapproves.
+Esken gehört nicht mehr zum Beraterkreis. Die SPD-Linke ist verärgert.
 
 @remove_tuermer
 title: Türmer aus dem Beraterkreis nehmen
@@ -176,7 +176,7 @@ tags: remove_advisor
 on-arrival: tuermer_advisor = 0; left_dissent += 3; n_advisors -= 1
 go-to: rm_main
 
-Türmer gehört nicht mehr zum Beraterkreis. The Leftist faction disapproves.
+Türmer gehört nicht mehr zum Beraterkreis. Die SPD-Linke ist verärgert.
 
 @remove_kuehnert
 title: Kühnert aus dem Beraterkreis nehmen
@@ -185,7 +185,7 @@ tags: remove_advisor
 on-arrival: kuehnert_advisor = 0; left_dissent += 3; n_advisors -= 1
 go-to: rm_main
 
-Kühnert gehört nicht mehr zum Beraterkreis. The Leftist faction disapproves.
+Kühnert gehört nicht mehr zum Beraterkreis. Die SPD-Linke ist verärgert.
 
 @remove_rosenthal
 title: Rosenthal aus dem Beraterkreis nehmen
@@ -194,7 +194,7 @@ tags: remove_advisor
 on-arrival: rosenthal_advisor = 0; left_dissent += 3; n_advisors -= 1
 go-to: rm_main
 
-Rosenthal gehört nicht mehr zum Beraterkreis. The Leftist faction disapproves.
+Rosenthal gehört nicht mehr zum Beraterkreis. Die SPD-Linke ist verärgert.
 
 
 
@@ -290,11 +290,11 @@ tags: center_advisor, left_advisor, reformist_advisor, labor_advisor, neorev_adv
 frequency: 1
 
 
-- @centrist: Aus der Parteimitte
-- @left: Aus der SPD-Linken
-- @reformist: Aus dem Seeheimer Kreis
-- @labor: Aus dem Gewerkschaftsflügel
-- @neorev: Vom Dänischen Kurs
+- @centrist: Aus der Strömung [+ f_center +]
+- @left: Aus der Strömung [+ f_left +]
+- @reformist: Aus der Strömung [+ f_reformist +]
+- @labor: Aus dem [+ f_labor +]
+- @neorev: Aus der Strömung [+ f_neorev +]
 - @nonfactional: Ohne Strömungszugehörigkeit
 - @rm_main: Stattdessen Berater entlassen.
 - @remove_none: Keine weiteren Änderungen.
@@ -320,7 +320,7 @@ view-if: n_advisors < 3
 - #labor_advisor
 
 @neorev
-view-if: neorevisionism > 0 and n_advisors < 3
+view-if: player = "spd" and neorevisionism > 0 and n_advisors < 3
 
 - #neorev_advisor
 
@@ -335,7 +335,7 @@ subtitle: Matthias Miersch – Fraktionsvorsitzender und Vermittler zwischen den
 is-card: true
 card-image: img/portraits/Miersch.jpg
 tags: center_advisor
-view-if: miersch_advisor = 0 and n_advisors < 3 and centrists_resign = 0
+view-if: player = "spd" and miersch_advisor = 0 and n_advisors < 3 and centrists_resign = 0
 on-arrival: miersch_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 
@@ -347,7 +347,7 @@ subtitle: Bärbel Bas – Parteivorsitzende und Arbeitsministerin aus Duisburg. 
 is-card: true
 card-image: img/portraits/Bas.jpg
 tags: center_advisor
-view-if: bas_advisor = 0 and n_advisors < 3 and centrists_resign = 0
+view-if: player = "spd" and bas_advisor = 0 and n_advisors < 3 and centrists_resign = 0
 on-arrival: bas_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 
@@ -359,7 +359,7 @@ subtitle: Lars Klingbeil – Parteivorsitzender, Vizekanzler und Finanzminister.
 is-card: true
 card-image: img/portraits/Klingbeil.jpg
 tags: center_advisor
-view-if: klingbeil_advisor = 0 and klingbeil_dead = 0 and n_advisors < 3 and centrists_resign = 0
+view-if: player = "spd" and klingbeil_advisor = 0 and klingbeil_dead = 0 and n_advisors < 3 and centrists_resign = 0
 on-arrival: klingbeil_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 
@@ -370,7 +370,7 @@ title: Rolf Mützenich
 subtitle: Rolf Mützenich – Friedensforscher und langjähriger Fraktionschef. {!<br><br>!}Aktionen: Internationale Kontakte, Außenpolitik, Geschlossenheit
 is-card: true
 card-image: img/portraits/Muetzenich.jpg
-view-if: muetzenich_advisor = 0 and n_advisors < 3
+view-if: player = "spd" and muetzenich_advisor = 0 and n_advisors < 3
 on-arrival: muetzenich_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 tags: center_advisor
@@ -386,7 +386,7 @@ subtitle: Boris Pistorius – Verteidigungsminister und beliebtester Politiker d
 is-card: true
 card-image: img/portraits/Pistorius.jpg
 tags: reformist_advisor
-view-if: pistorius_advisor = 0 and n_advisors < 3
+view-if: player = "spd" and pistorius_advisor = 0 and n_advisors < 3
 on-arrival: pistorius_advisor = 1; n_advisors += 1; reformist_strength += 5
 go-to: advisor_menu
 
@@ -398,7 +398,7 @@ subtitle: Manuela Schwesig – Ministerpräsidentin von Mecklenburg-Vorpommern. 
 is-card: true
 card-image: img/portraits/Schwesig.jpg
 tags: reformist_advisor
-view-if: schwesig_advisor = 0 and n_advisors < 3
+view-if: player = "spd" and schwesig_advisor = 0 and n_advisors < 3
 on-arrival: schwesig_advisor = 1; n_advisors += 1; reformist_strength += 5
 go-to: advisor_menu
 
@@ -409,7 +409,7 @@ title: Serpil Midyatli
 subtitle: Serpil Midyatli – Landesvorsitzende in Schleswig-Holstein, eng mit der AWO verbunden. {!<br><br>!}Aktionen: Spendenaufruf, Arbeiterwohlfahrt, Frauen ansprechen
 is-card: true
 card-image: img/portraits/Midyatli.jpg
-view-if: midyatli_advisor = 0 and n_advisors < 3
+view-if: player = "spd" and midyatli_advisor = 0 and n_advisors < 3
 on-arrival: midyatli_advisor = 1; n_advisors += 1; reformist_strength += 5
 go-to: advisor_menu
 tags: reformist_advisor
@@ -421,7 +421,7 @@ title: Anke Rehlinger
 subtitle: Anke Rehlinger – Ministerpräsidentin des Saarlandes mit absoluter Mehrheit. {!<br><br>!}Aktionen: Volkspartei, Gleichstellung
 is-card: true
 card-image: img/portraits/Rehlinger.jpg
-view-if: rehlinger_advisor = 0 and n_advisors < 3
+view-if: player = "spd" and rehlinger_advisor = 0 and n_advisors < 3
 on-arrival: rehlinger_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 tags: reformist_advisor
@@ -437,7 +437,7 @@ title: Ralf Stegner
 subtitle: Ralf Stegner – Bekanntes Gesicht der Parteilinken. {!<br><br>!}Aktionen: SPD-Linke stärken, Gespräche mit der Linken
 is-card: true
 card-image: img/portraits/Stegner.jpg
-view-if: stegner_advisor = 0 and stegner_dead = 0 and n_advisors < 3 and left_split = 0
+view-if: player = "spd" and stegner_advisor = 0 and stegner_dead = 0 and n_advisors < 3 and left_split = 0
 on-arrival: stegner_advisor = 1; n_advisors += 1; left_strength += 5
 go-to: advisor_menu
 tags: left_advisor
@@ -449,7 +449,7 @@ title: Saskia Esken
 subtitle: Saskia Esken – Ehemalige Parteivorsitzende mit starkem Rückhalt an der Basis. {!<br><br>!}Aktionen: Flügel versöhnen, junge Frauen gewinnen, Tolerierung aufkündigen, linkes Krisenprogramm
 is-card: true
 card-image: img/portraits/Esken.jpg
-view-if: esken_advisor = 0 and n_advisors < 3
+view-if: player = "spd" and esken_advisor = 0 and n_advisors < 3
 on-arrival: esken_advisor = 1; n_advisors += 1; left_strength += 5
 go-to: advisor_menu
 tags: left_advisor
@@ -461,7 +461,7 @@ title: Philipp Türmer
 subtitle: Philipp Türmer – Juso-Vorsitzender und lautester Kritiker des Koalitionskurses. {!<br><br>!}Aktionen: SPD-Linke stärken, offen für Rot-Grün-Rot, Tolerierung aufkündigen
 is-card: true
 card-image: img/portraits/Tuermer.jpg
-view-if: tuermer_advisor = 0 and n_advisors < 3 and left_split = 0
+view-if: player = "spd" and tuermer_advisor = 0 and n_advisors < 3 and left_split = 0
 on-arrival: tuermer_advisor = 1; n_advisors += 1; left_strength += 5
 go-to: advisor_menu
 tags: left_advisor
@@ -473,7 +473,7 @@ title: Kevin Kühnert
 subtitle: Kevin Kühnert – Ehemaliger Generalsekretär und begabter Rhetoriker der Parteilinken. {!<br><br>!}Aktionen: Verteilungskampf, Jusos stärken, Tolerierung aufkündigen
 is-card: true
 card-image: img/portraits/Kuehnert.jpg
-view-if: kuehnert_advisor = 0 and n_advisors < 3 and left_split = 0
+view-if: player = "spd" and kuehnert_advisor = 0 and n_advisors < 3 and left_split = 0
 on-arrival: kuehnert_advisor = 1; n_advisors += 1; left_strength += 5
 go-to: advisor_menu
 tags: left_advisor
@@ -485,7 +485,7 @@ title: Jessica Rosenthal
 subtitle: Jessica Rosenthal – Ehemalige Juso-Vorsitzende und Lehrerin. {!<br><br>!}Aktionen: Friedenspolitik, Lehrpläne, Bildungsfinanzierung
 is-card: true
 card-image: img/portraits/Rosenthal.jpg
-view-if: rosenthal_advisor = 0 and n_advisors < 3 and left_split = 0
+view-if: player = "spd" and rosenthal_advisor = 0 and n_advisors < 3 and left_split = 0
 on-arrival: rosenthal_advisor = 1; n_advisors += 1; left_strength += 5
 go-to: advisor_menu
 tags: left_advisor
@@ -502,7 +502,7 @@ subtitle: Yasmin Fahimi – Vorsitzende des Deutschen Gewerkschaftsbundes. {!<br
 is-card: true
 card-image: img/portraits/Fahimi.jpg
 tags: labor_advisor
-view-if: fahimi_advisor = 0 and n_advisors < 3 and unions_independent = 0
+view-if: player = "spd" and fahimi_advisor = 0 and n_advisors < 3 and unions_independent = 0
 on-arrival: fahimi_advisor = 1; n_advisors += 1; labor_strength += 5
 go-to: advisor_menu
 
@@ -514,7 +514,7 @@ subtitle: Verena Hubertz – Bauministerin und Gründerin aus Trier. {!<br><br>!
 is-card: true
 card-image: img/portraits/Hubertz.jpg
 tags: labor_advisor
-view-if: hubertz_advisor = 0 and n_advisors < 3
+view-if: player = "spd" and hubertz_advisor = 0 and n_advisors < 3
 on-arrival: hubertz_advisor = 1; n_advisors += 1; labor_strength += 5
 go-to: advisor_menu
 
@@ -526,7 +526,7 @@ subtitle: Hubertus Heil – Ehemaliger Arbeitsminister, unter ihm kamen Bürgerg
 is-card: true
 card-image: img/portraits/Heil.jpg
 tags: labor_advisor
-view-if: heil_advisor = 0 and n_advisors < 3 and unions_independent = 0
+view-if: player = "spd" and heil_advisor = 0 and n_advisors < 3 and unions_independent = 0
 on-arrival: heil_advisor = 1; n_advisors += 1; labor_strength += 3
 go-to: advisor_menu
 
@@ -539,7 +539,7 @@ subtitle: Jens Südekum – Ökonom und Berater des Finanzministers. {!<br><br>!
 is-card: true
 card-image: img/portraits/Suedekum.jpg
 tags: labor_advisor
-view-if: suedekum_advisor = 0 and n_advisors < 3 and unions_independent = 0
+view-if: player = "spd" and suedekum_advisor = 0 and n_advisors < 3 and unions_independent = 0
 on-arrival: suedekum_advisor = 1; n_advisors += 1; labor_strength += 3
 go-to: advisor_menu
 
@@ -553,7 +553,7 @@ title: Andy Grote
 subtitle: Andy Grote – Hamburger Innensenator, Verfechter der wehrhaften Demokratie. {!<br><br>!}Aktionen: Bündnis für Demokratie, Warnung vor der AfD
 is-card: true
 card-image: img/portraits/Grote.jpg
-view-if: grote_advisor = 0 and n_advisors < 3
+view-if: player = "spd" and grote_advisor = 0 and n_advisors < 3
 on-arrival: grote_advisor = 1; n_advisors += 1; neorevisionist_strength += 5
 go-to: advisor_menu
 tags: neorev_advisor
@@ -566,7 +566,7 @@ subtitle: Sebastian Fiedler – Kriminalbeamter und Sicherheitspolitiker. {!<br>
 is-card: true
 card-image: img/portraits/Fiedler.jpg
 tags: neorev_advisor
-view-if: fiedler_advisor = 0 and n_advisors < 3
+view-if: player = "spd" and fiedler_advisor = 0 and n_advisors < 3
 on-arrival: fiedler_advisor = 1; n_advisors += 1; neorevisionist_strength += 5
 go-to: advisor_menu
 
@@ -577,7 +577,7 @@ title: Dirk Wiese
 subtitle: Dirk Wiese – Parlamentarischer Geschäftsführer aus dem Sauerland. {!<br><br>!}Aktionen: Für die Demokratie werben, Volkspartei
 is-card: true
 card-image: img/portraits/Wiese.jpg
-view-if: wiese_advisor = 0 and n_advisors < 3
+view-if: player = "spd" and wiese_advisor = 0 and n_advisors < 3
 on-arrival: wiese_advisor = 1; n_advisors += 1; neorevisionist_strength += 5
 go-to: advisor_menu
 tags: neorev_advisor
@@ -591,7 +591,7 @@ title: Dietmar Woidke
 subtitle: Dietmar Woidke – Ministerpräsident von Brandenburg. {!<br><br>!}Aktionen: Agrarpolitik, Wahlkampf auf dem Land, Investitionsoffensive
 is-card: true
 card-image: img/portraits/Woidke.jpg
-view-if: woidke_advisor = 0 and n_advisors < 3
+view-if: player = "spd" and woidke_advisor = 0 and n_advisors < 3
 on-arrival: woidke_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 tags: nonfactional_advisor
@@ -604,7 +604,7 @@ title: Falko Droßmann
 subtitle: Falko Droßmann – Hamburger Abgeordneter und Queerpolitiker. {!<br><br>!}Aktionen: Queere Rechte, Gleichstellung, Forschung
 is-card: true
 card-image: img/portraits/Drossmann.jpg
-view-if: drossmann_advisor = 0 and n_advisors < 3
+view-if: player = "spd" and drossmann_advisor = 0 and n_advisors < 3
 on-arrival: drossmann_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 tags: nonfactional_advisor
@@ -618,7 +618,7 @@ title: Stefanie Hubig
 subtitle: Stefanie Hubig – Bundesjustizministerin. {!<br><br>!}Aktionen: Rechtspolitik, Grundgesetz absichern
 is-card: true
 card-image: img/portraits/Hubig.jpg
-view-if: hubig_advisor = 0 and n_advisors < 3
+view-if: player = "spd" and hubig_advisor = 0 and n_advisors < 3
 on-arrival: hubig_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 tags: nonfactional_advisor
@@ -631,7 +631,7 @@ title: Tim Klüssendorf
 subtitle: Tim Klüssendorf – Generalsekretär der SPD. {!<br><br>!}Aktionen: Medien, inhaltliche Linie, Gesprächskanäle zur Linken
 is-card: true
 card-image: img/portraits/Kluessendorf.jpg
-view-if: kluessendorf_advisor = 0 and n_advisors < 3
+view-if: player = "spd" and kluessendorf_advisor = 0 and n_advisors < 3
 on-arrival: kluessendorf_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 tags: nonfactional_advisor
@@ -639,3 +639,300 @@ tags: nonfactional_advisor
 Tim Klüssendorf gehört nun zum Beraterkreis.
 
 
+
+
+###################### Linke-Berater*innen (Durchgang 4.2, generiert)
+
+@remove_schwerdtner
+title: Schwerdtner aus dem Beraterkreis nehmen
+view-if: player = "linke" and schwerdtner_advisor = 1
+tags: remove_advisor
+on-arrival: schwerdtner_advisor = 0; n_advisors -= 1; center_dissent += 5
+go-to: rm_main
+
+Schwerdtner gehört nicht mehr zum Beraterkreis. Die Bewegungslinke ist verärgert.
+
+@remove_vanaken
+title: van Aken aus dem Beraterkreis nehmen
+view-if: player = "linke" and vanaken_advisor = 1
+tags: remove_advisor
+on-arrival: vanaken_advisor = 0; n_advisors -= 1; center_dissent += 5
+go-to: rm_main
+
+van Aken gehört nicht mehr zum Beraterkreis. Die Bewegungslinke ist verärgert.
+
+@remove_reichinnek
+title: Reichinnek aus dem Beraterkreis nehmen
+view-if: player = "linke" and reichinnek_advisor = 1
+tags: remove_advisor
+on-arrival: reichinnek_advisor = 0; n_advisors -= 1; center_dissent += 5
+go-to: rm_main
+
+Reichinnek gehört nicht mehr zum Beraterkreis. Die Bewegungslinke ist verärgert.
+
+@remove_kocak
+title: Koçak aus dem Beraterkreis nehmen
+view-if: player = "linke" and kocak_advisor = 1
+tags: remove_advisor
+on-arrival: kocak_advisor = 0; n_advisors -= 1; left_dissent += 5
+go-to: rm_main
+
+Koçak gehört nicht mehr zum Beraterkreis. Die Sozialistische Linke ist verärgert.
+
+@remove_nguyen
+title: Duy Nguyen aus dem Beraterkreis nehmen
+view-if: player = "linke" and nguyen_advisor = 1
+tags: remove_advisor
+on-arrival: nguyen_advisor = 0; n_advisors -= 1; left_dissent += 5
+go-to: rm_main
+
+Duy Nguyen gehört nicht mehr zum Beraterkreis. Die Sozialistische Linke ist verärgert.
+
+@remove_pantisano
+title: Pantisano aus dem Beraterkreis nehmen
+view-if: player = "linke" and pantisano_advisor = 1
+tags: remove_advisor
+on-arrival: pantisano_advisor = 0; n_advisors -= 1; left_dissent += 5
+go-to: rm_main
+
+Pantisano gehört nicht mehr zum Beraterkreis. Die Sozialistische Linke ist verärgert.
+
+@remove_wissler
+title: Wissler aus dem Beraterkreis nehmen
+view-if: player = "linke" and wissler_advisor = 1
+tags: remove_advisor
+on-arrival: wissler_advisor = 0; n_advisors -= 1; left_dissent += 5
+go-to: rm_main
+
+Wissler gehört nicht mehr zum Beraterkreis. Die Sozialistische Linke ist verärgert.
+
+@remove_pellmann
+title: Pellmann aus dem Beraterkreis nehmen
+view-if: player = "linke" and pellmann_advisor = 1
+tags: remove_advisor
+on-arrival: pellmann_advisor = 0; n_advisors -= 1; labor_dissent += 5
+go-to: rm_main
+
+Pellmann gehört nicht mehr zum Beraterkreis. Der Gewerkschaftsflügel ist verärgert.
+
+@remove_schirdewan
+title: Schirdewan aus dem Beraterkreis nehmen
+view-if: player = "linke" and schirdewan_advisor = 1
+tags: remove_advisor
+on-arrival: schirdewan_advisor = 0; n_advisors -= 1; labor_dissent += 5
+go-to: rm_main
+
+Schirdewan gehört nicht mehr zum Beraterkreis. Der Gewerkschaftsflügel ist verärgert.
+
+@remove_ramelow
+title: Ramelow aus dem Beraterkreis nehmen
+view-if: player = "linke" and ramelow_advisor = 1
+tags: remove_advisor
+on-arrival: ramelow_advisor = 0; n_advisors -= 1; reformist_dissent += 5
+go-to: rm_main
+
+Ramelow gehört nicht mehr zum Beraterkreis. Die Reformer\*innen sind verärgert.
+
+@remove_bartsch
+title: Bartsch aus dem Beraterkreis nehmen
+view-if: player = "linke" and bartsch_advisor = 1
+tags: remove_advisor
+on-arrival: bartsch_advisor = 0; n_advisors -= 1; reformist_dissent += 5
+go-to: rm_main
+
+Bartsch gehört nicht mehr zum Beraterkreis. Die Reformer\*innen sind verärgert.
+
+@remove_goerke
+title: Görke aus dem Beraterkreis nehmen
+view-if: player = "linke" and goerke_advisor = 1
+tags: remove_advisor
+on-arrival: goerke_advisor = 0; n_advisors -= 1; reformist_dissent += 5
+go-to: rm_main
+
+Görke gehört nicht mehr zum Beraterkreis. Die Reformer\*innen sind verärgert.
+
+@remove_gysi
+title: Gysi aus dem Beraterkreis nehmen
+view-if: player = "linke" and gysi_advisor = 1
+tags: remove_advisor
+on-arrival: gysi_advisor = 0; n_advisors -= 1
+go-to: rm_main
+
+Gysi gehört nicht mehr zum Beraterkreis. 
+
+@remove_buenger
+title: Bünger aus dem Beraterkreis nehmen
+view-if: player = "linke" and buenger_advisor = 1
+tags: remove_advisor
+on-arrival: buenger_advisor = 0; n_advisors -= 1
+go-to: rm_main
+
+Bünger gehört nicht mehr zum Beraterkreis. 
+
+@add_schwerdtner
+title: Ines Schwerdtner
+subtitle: Ines Schwerdtner – Parteivorsitzende seit Oktober 2024, Organisatorin des Neuaufbaus. {!<br><br>!}Aktionen: Haustürwahlkampf, Neue Mitglieder einbinden
+is-card: true
+card-image: img/portraits/Schwerdtner.jpg
+tags: center_advisor
+view-if: player = "linke" and schwerdtner_advisor = 0 and n_advisors < 3
+on-arrival: schwerdtner_advisor = 1; n_advisors += 1; center_strength += 5
+go-to: advisor_menu
+
+Ines Schwerdtner gehört nun zum Beraterkreis.
+
+@add_vanaken
+title: Jan van Aken
+subtitle: Jan van Aken – Parteivorsitzender, früherer UN-Biowaffeninspekteur und Friedensaktivist. {!<br><br>!}Aktionen: Abrüstung statt Aufrüstung, Die Strömungen zusammenführen
+is-card: true
+card-image: img/portraits/van_Aken.jpg
+tags: center_advisor
+view-if: player = "linke" and vanaken_advisor = 0 and n_advisors < 3
+on-arrival: vanaken_advisor = 1; n_advisors += 1; center_strength += 5
+go-to: advisor_menu
+
+Jan van Aken gehört nun zum Beraterkreis.
+
+@add_reichinnek
+title: Heidi Reichinnek
+subtitle: Heidi Reichinnek – Vorsitzende der Bundestagsgruppe, Spitzenkandidatin und Social-Media-Talent. {!<br><br>!}Aktionen: Social-Media-Offensive, Klare Kante gegen rechts
+is-card: true
+card-image: img/portraits/Reichinnek.jpg
+tags: center_advisor
+view-if: player = "linke" and reichinnek_advisor = 0 and n_advisors < 3
+on-arrival: reichinnek_advisor = 1; n_advisors += 1; center_strength += 5
+go-to: advisor_menu
+
+Heidi Reichinnek gehört nun zum Beraterkreis.
+
+@add_kocak
+title: Ferat Koçak
+subtitle: Ferat Koçak – Neuköllner Antifaschist und Mietenaktivist. {!<br><br>!}Aktionen: Breite Bündnisse gegen rechts, Mietenkampf in den Kiezen
+is-card: true
+card-image: img/portraits/Kocak.jpg
+tags: left_advisor
+view-if: player = "linke" and kocak_advisor = 0 and n_advisors < 3
+on-arrival: kocak_advisor = 1; n_advisors += 1; left_strength += 5
+go-to: advisor_menu
+
+Ferat Koçak gehört nun zum Beraterkreis.
+
+@add_nguyen
+title: Nam Duy Nguyen
+subtitle: Nam Duy Nguyen – Leipziger Landtagsabgeordneter, Organizer der jungen Linken. {!<br><br>!}Aktionen: Junge Menschen organisieren, Basisarbeit im Osten
+is-card: true
+card-image: img/portraits/Nguyen.jpg
+tags: left_advisor
+view-if: player = "linke" and nguyen_advisor = 0 and n_advisors < 3
+on-arrival: nguyen_advisor = 1; n_advisors += 1; left_strength += 5
+go-to: advisor_menu
+
+Nam Duy Nguyen gehört nun zum Beraterkreis.
+
+@add_pantisano
+title: Luigi Pantisano
+subtitle: Luigi Pantisano – Stadtplaner aus Stuttgart, aktiv in den städtischen Bewegungen. {!<br><br>!}Aktionen: Bewegungen einbinden, Kommunal verankern
+is-card: true
+card-image: img/portraits/Pantisano.jpg
+tags: left_advisor
+view-if: player = "linke" and pantisano_advisor = 0 and n_advisors < 3
+on-arrival: pantisano_advisor = 1; n_advisors += 1; left_strength += 5
+go-to: advisor_menu
+
+Luigi Pantisano gehört nun zum Beraterkreis.
+
+@add_wissler
+title: Janine Wissler
+subtitle: Janine Wissler – Frühere Parteivorsitzende aus Hessen. {!<br><br>!}Aktionen: Klimagerechtigkeit, Feministische Linke
+is-card: true
+card-image: img/portraits/Wissler.jpg
+tags: left_advisor
+view-if: player = "linke" and wissler_advisor = 0 and n_advisors < 3
+on-arrival: wissler_advisor = 1; n_advisors += 1; left_strength += 5
+go-to: advisor_menu
+
+Janine Wissler gehört nun zum Beraterkreis.
+
+@add_pellmann
+title: Sören Pellmann
+subtitle: Sören Pellmann – Leipziger Direktkandidat und Stimme des Ostens. {!<br><br>!}Aktionen: Ostdeutsche Interessen, In die Betriebe gehen
+is-card: true
+card-image: img/portraits/Pellmann.jpg
+tags: labor_advisor
+view-if: player = "linke" and pellmann_advisor = 0 and n_advisors < 3
+on-arrival: pellmann_advisor = 1; n_advisors += 1; labor_strength += 5
+go-to: advisor_menu
+
+Sören Pellmann gehört nun zum Beraterkreis.
+
+@add_schirdewan
+title: Martin Schirdewan
+subtitle: Martin Schirdewan – Europaabgeordneter, früherer Parteivorsitzender, Ökonom. {!<br><br>!}Aktionen: Industriepolitik von links, Ein soziales Europa
+is-card: true
+card-image: img/portraits/Schirdewan.jpg
+tags: labor_advisor
+view-if: player = "linke" and schirdewan_advisor = 0 and n_advisors < 3
+on-arrival: schirdewan_advisor = 1; n_advisors += 1; labor_strength += 5
+go-to: advisor_menu
+
+Martin Schirdewan gehört nun zum Beraterkreis.
+
+@add_ramelow
+title: Bodo Ramelow
+subtitle: Bodo Ramelow – Früherer Ministerpräsident von Thüringen, Stimme der Regierungslinken. {!<br><br>!}Aktionen: Silberlocke: Wahlkreis Erfurt, Regierungsfähigkeit zeigen
+is-card: true
+card-image: img/portraits/Ramelow.jpg
+tags: reformist_advisor
+view-if: player = "linke" and ramelow_advisor = 0 and n_advisors < 3
+on-arrival: ramelow_advisor = 1; n_advisors += 1; reformist_strength += 5
+go-to: advisor_menu
+
+Bodo Ramelow gehört nun zum Beraterkreis.
+
+@add_bartsch
+title: Dietmar Bartsch
+subtitle: Dietmar Bartsch – Langjähriger Fraktionsvorsitzender aus Mecklenburg-Vorpommern. {!<br><br>!}Aktionen: Silberlocke: Wahlkreis Rostock, Brücken zur SPD
+is-card: true
+card-image: img/portraits/Bartsch.jpg
+tags: reformist_advisor
+view-if: player = "linke" and bartsch_advisor = 0 and n_advisors < 3
+on-arrival: bartsch_advisor = 1; n_advisors += 1; reformist_strength += 5
+go-to: advisor_menu
+
+Dietmar Bartsch gehört nun zum Beraterkreis.
+
+@add_goerke
+title: Christian Görke
+subtitle: Christian Görke – Früherer Finanzminister von Brandenburg. {!<br><br>!}Aktionen: Ein durchgerechnetes Steuerkonzept, Kommunen entlasten
+is-card: true
+card-image: img/portraits/Goerke.jpg
+tags: reformist_advisor
+view-if: player = "linke" and goerke_advisor = 0 and n_advisors < 3
+on-arrival: goerke_advisor = 1; n_advisors += 1; reformist_strength += 5
+go-to: advisor_menu
+
+Christian Görke gehört nun zum Beraterkreis.
+
+@add_gysi
+title: Gregor Gysi
+subtitle: Gregor Gysi – Das bekannteste Gesicht der Partei, Redner und Talkshowgast. {!<br><br>!}Aktionen: Silberlocke: Treptow-Köpenick, Gysi in den Talkshows
+is-card: true
+card-image: img/portraits/Gysi.jpg
+tags: nonfactional_advisor
+view-if: player = "linke" and gysi_advisor = 0 and n_advisors < 3
+on-arrival: gysi_advisor = 1; n_advisors += 1
+go-to: advisor_menu
+
+Gregor Gysi gehört nun zum Beraterkreis.
+
+@add_buenger
+title: Clara Bünger
+subtitle: Clara Bünger – Juristin, Expertin für Flucht und Asyl. {!<br><br>!}Aktionen: Das Asylrecht verteidigen, Rechtsstaat für alle
+is-card: true
+card-image: img/portraits/Buenger.jpg
+tags: nonfactional_advisor
+view-if: player = "linke" and buenger_advisor = 0 and n_advisors < 3
+on-arrival: buenger_advisor = 1; n_advisors += 1
+go-to: advisor_menu
+
+Clara Bünger gehört nun zum Beraterkreis.

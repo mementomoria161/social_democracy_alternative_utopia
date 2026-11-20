@@ -2,7 +2,7 @@ title: Rücktritte in der Parteimitte
 new-page: true 
 subtitle: Der Streit mit der Parteimitte ist eskaliert.
 tags: event
-view-if: center_dissent >= 60
+view-if: player = "spd" and (center_dissent >= 60)
 on-arrival: center_strength *= 0.3; workers_spd -= 5; n_advisors -= 1 if bas_advisor == 1; n_advisors -= 1 if miersch_advisor == 1; n_advisors -= 1 if klingbeil_advisor == 1; bas_advisor = 0; miersch_advisor = 0; klingbeil_advisor = 0; demo_strength -= 100; centrists_resign = 1
 go-to: sapd_formed if left_split = 1 and not sapd_formed
 max-visits: 1

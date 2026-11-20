@@ -1,6 +1,6 @@
 title: Bundespräsidentenwahl
 subtitle: Die Bundesversammlung wählt ein neues Staatsoberhaupt …
-view-if: year = 2027 and (month = 2 or month = 3) and presidential_election_seen = 0
+view-if: player = "spd" and (year = 2027 and (month = 2 or month = 3) and presidential_election_seen = 0)
 frequency: 1000
 max-visits: 1
 new-page: true

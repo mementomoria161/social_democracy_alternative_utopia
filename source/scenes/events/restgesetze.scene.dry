@@ -2,7 +2,7 @@ title: Was geht noch durch den Bundestag?
 subtitle: Die Minderheitsregierung sucht Mehrheiten.
 new-page: true
 tags: event
-view-if: restgesetze_seen = 0 and ampel_aus_seen = 1 and n_elections = 0 and ((year = 2024 and month = 12) or (year = vf_year and month = vf_month))
+view-if: player = "spd" and (restgesetze_seen = 0 and ampel_aus_seen = 1 and n_elections = 0 and ((year = 2024 and month = 12) or (year = vf_year and month = vf_month)))
 max-visits: 1
 priority: 1
 on-arrival: restgesetze_seen = 1

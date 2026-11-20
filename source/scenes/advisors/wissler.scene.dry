@@ -1,0 +1,34 @@
+title: Janine Wissler
+is-pinned-card: true
+tags: advisor, left
+card-image: img/portraits/Wissler.jpg
+new-page: true
+view-if: player = "linke" and wissler_advisor = 1
+
+# Linke-Berater*in (Durchgang 4.2), Strömung: left
+
+= Janine Wissler
+
+Wissler führte von 2021 bis 2024 die Linke, zuvor die Landtagsfraktion in Hessen. Sie gehört zur Bewegungslinken und verbindet Klimagerechtigkeit mit sozialer Frage.
+
+- @klima
+- @feminismus
+- @root: Zurück
+
+@klima
+title: Klimagerechtigkeit
+subtitle: Klimaschutz, den sich alle leisten können.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; klima_strength += 100; new_middle_spd += 2*(1-dissent); gruene_relation += 2
+
+Günstiger Nahverkehr, Sozialtarife für Strom, Investitionen in Wärmenetze: Die Linke macht Klimaschutz zur sozialen Frage.
+
+@feminismus
+title: Feministische Linke
+subtitle: Gleicher Lohn, Schutz vor Gewalt, mehr Kitaplätze.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; womens_rights += 1; new_middle_spd += 2*(1-dissent); workers_spd += 1*(1-dissent)
+
+Die Kampagne für gleiche Löhne in Pflege und Erziehung findet Unterstützung weit über die eigene Partei hinaus.

@@ -1,0 +1,34 @@
+title: Parteitag in Chemnitz
+subtitle: Die Linke nach der Wahl
+new-page: true
+tags: event
+view-if: player = "linke" and year = 2025 and month = 5 and linke_parteitag_2025_seen = 0
+max-visits: 1
+on-arrival: linke_parteitag_2025_seen = 1
+face-image: img/linke_parteitag.jpg
+
+# Linke-Gegenstück zu spd_parteitag_2025 (Durchgang 4.2). Historisch: Bundesparteitag in Chemnitz, 9. bis 11. Mai 2025,
+# nach dem Wiedereinzug mit 8,8 Prozent und einem Mitgliederzuwachs auf über 100.000.
+
+= Parteitag in Chemnitz
+
+Im Mai trifft sich die Linke in Chemnitz. [? if spd_r >= 5 : Ein halbes Jahr, nachdem viele sie abgeschrieben hatten, sitzt sie wieder als Fraktion im Bundestag. ?][? if grundmandat : Die Direktmandate haben die Partei in den Bundestag gerettet. ?][? if spd_r = 0 : Der Wiedereinzug in den Bundestag ist gescheitert, die Partei muss sich neu sortieren. ?] Die Halle ist voll mit Delegierten, die vor einem Jahr noch gar nicht Mitglied waren. Die Frage ist, was aus dem Aufbruch wird.
+
+- @organisieren: Den Aufbruch verstetigen: Geld und Personal für Organizing in den Kreisverbänden.
+- @profil: Das Profil schärfen: klare Beschlüsse zu Mieten, Preisen und Abrüstung.
+- @oeffnen: Die Partei öffnen: Gespräche mit SPD und Grünen über künftige Mehrheiten.
+
+@organisieren
+on-arrival: dues += 1; center_strength += 5; center_dissent -= 5; labor_dissent -= 2
+
+Der Parteitag beschließt, die Hälfte der neuen Beitragseinnahmen in die Kreisverbände zu geben. In vielen Städten entstehen Stadtteilgruppen und Sozialsprechstunden.
+
+@profil
+on-arrival: left_strength += 3; left_dissent -= 5; reformist_dissent += 3; workers_spd += 0.5*(1-dissent); unemployed_spd += 0.5*(1-dissent)
+
+Die Beschlüsse sind kurz und klar: Mietendeckel, Preisaufsicht für Lebensmittel und Energie, keine Aufrüstung auf Pump. Die Presse spricht von einer Partei, die weiß, was sie will.
+
+@oeffnen
+on-arrival: reformist_strength += 3; reformist_dissent -= 5; left_dissent += 5; linke_relation += 5; gruene_relation += 3
+
+Der Parteitag beauftragt den Vorstand, mit SPD und Grünen über gemeinsame Projekte zu sprechen. Die Sozialistische Linke warnt vor dem „Weg in die Anpassung“.

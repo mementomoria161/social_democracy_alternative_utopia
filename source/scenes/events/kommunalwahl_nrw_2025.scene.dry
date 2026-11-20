@@ -2,7 +2,7 @@ title: Kommunalwahl in Nordrhein-Westfalen
 subtitle: Die SPD verliert Herzkammern im Ruhrgebiet.
 new-page: true
 tags: event
-view-if: year = 2025 and month = 9 and kommunalwahl_nrw_2025_seen = 0
+view-if: player = "spd" and (year = 2025 and month = 9 and kommunalwahl_nrw_2025_seen = 0)
 max-visits: 1
 on-arrival: kommunalwahl_nrw_2025_seen = 1
 face-image: img/werksschliessung.jpg

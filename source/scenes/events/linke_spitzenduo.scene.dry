@@ -1,0 +1,38 @@
+title: Wer führt die Linke in die Wahl?
+subtitle: Spitzenkandidatur für die Neuwahl
+new-page: true
+tags: event
+view-if: player = "linke" and year = 2024 and month = 11 and ampel_aus_seen = 1 and spitzenduo_seen = 0
+max-visits: 1
+priority: 2
+on-arrival: spitzenduo_seen = 1
+face-image: img/portraits/Reichinnek.jpg
+
+# Linke-Gegenstück zu k_frage (Durchgang 4.2). Historisch: Jan van Aken und Heidi Reichinnek führen die Linke
+# als Spitzenduo in die Bundestagswahl 2025 (Nominierung Ende 2024).
+
+= Wer führt die Linke in die Wahl?
+
+Für eine Neuwahl im Februar muss die Linke schnell entscheiden, wer sie anführt. Jan van Aken, seit wenigen Wochen Parteivorsitzender, ist bereit. Viele im Parteivorstand wünschen sich an seiner Seite Heidi Reichinnek, die Vorsitzende der Bundestagsgruppe: jung, schlagfertig und in den sozialen Netzwerken bekannter als die meisten Ministerinnen. Andere meinen, nur die bekannten Gesichter der alten Garde könnten die Partei jetzt noch retten.
+
+- @duo: Jan van Aken und Heidi Reichinnek als Spitzenduo.
+- @alte_garde: Gregor Gysi soll die Liste anführen.
+- @vorsitz: Die beiden Vorsitzenden, Ines Schwerdtner und Jan van Aken.
+
+@duo
+subtitle: Ein Generationenduo. Die Partei ist zufrieden.
+on-arrival: spd_candidate = "Reichinnek"; new_middle_spd += 1*(1-dissent); unemployed_spd += 0.5*(1-dissent); center_dissent -= 3
+
+Van Aken und Reichinnek treten gemeinsam vor die Presse. Er steht für Friedenspolitik und Erfahrung, sie für eine junge, kämpferische Linke. Die Fotos gehen um, die Partei zieht mit.
+
+@alte_garde
+subtitle: Bekannt und beliebt, aber kein Signal des Neuanfangs.
+on-arrival: spd_candidate = "Gysi"; rentner_spd += 1*(1-dissent); new_middle_spd -= 0.5; reformist_dissent -= 3; center_dissent += 3
+
+Gregor Gysi lässt sich noch einmal überreden. Bei älteren Wählerinnen und Wählern im Osten kommt das gut an. Junge Mitglieder fragen, wofür der Neuanfang von Halle gut war.
+
+@vorsitz
+subtitle: Klare Verhältnisse an der Spitze, aber wenig Glanz.
+on-arrival: spd_candidate = "Schwerdtner"; center_dissent -= 2; workers_spd += 0.5*(1-dissent)
+
+Die beiden Vorsitzenden führen die Partei auch in den Wahlkampf. Das sorgt für Ruhe, aber in den Talkshows bleiben die Einladungen selten.

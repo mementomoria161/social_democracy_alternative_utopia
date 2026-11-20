@@ -1,0 +1,34 @@
+title: Martin Schirdewan
+is-pinned-card: true
+tags: advisor, labor
+card-image: img/portraits/Schirdewan.jpg
+new-page: true
+view-if: player = "linke" and schirdewan_advisor = 1
+
+# Linke-Berater*in (Durchgang 4.2), Strömung: labor
+
+= Martin Schirdewan
+
+Schirdewan sitzt seit 2017 im Europäischen Parlament und führte von 2022 bis 2024 gemeinsam mit Janine Wissler die Partei. Der promovierte Politikwissenschaftler gilt als wirtschaftspolitischer Kopf der Partei.
+
+- @industrie
+- @europa
+- @root: Zurück
+
+@industrie
+title: Industriepolitik von links
+subtitle: Staatsbeteiligungen gegen Werksschließungen, Übergewinne besteuern.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; nationalization_support += 1; workers_spd += 2*(1-dissent); labor_dissent -= 5; old_middle_spd -= 1
+
+Wo Konzerne Werke schließen wollen, fordert die Linke Staatsbeteiligungen und Beschäftigungsgarantien. In den Industrieregionen hört man genauer hin.
+
+@europa
+title: Ein soziales Europa
+subtitle: Mit der europäischen Linken für Mindestlöhne und Steuergerechtigkeit.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; new_middle_spd += 2*(1-dissent); gruene_relation += 3; west_relation += 1
+
+Die Linke wirbt für europaweite Mindeststeuern für Konzerne und Milliardäre. Das zeigt: Wir sind keine Partei der Abschottung.

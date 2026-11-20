@@ -1,0 +1,34 @@
+title: Sören Pellmann
+is-pinned-card: true
+tags: advisor, labor
+card-image: img/portraits/Pellmann.jpg
+new-page: true
+view-if: player = "linke" and pellmann_advisor = 1
+
+# Linke-Berater*in (Durchgang 4.2), Strömung: labor
+
+= Sören Pellmann
+
+Pellmann gewann 2017 und 2021 den Wahlkreis Leipzig II direkt; 2021 war sein Mandat eines von drei, die der Linken über die Grundmandatsklausel den Einzug in den Bundestag sicherten. Seit 2024 führt er mit Heidi Reichinnek die Abgeordneten der Linken.
+
+- @osten
+- @betriebe
+- @root: Zurück
+
+@osten
+title: Ostdeutsche Interessen
+subtitle: Renten, Löhne und Infrastruktur im Osten.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; workers_spd += 2*(1-dissent); rentner_spd += 2*(1-dissent); rural_spd += 1*(1-dissent); labor_dissent -= 3
+
+Gleiche Löhne in Ost und West, eine Rente, die zum Leben reicht, Busse auch auf dem Land: Pellmanns Forderungen finden im Osten Gehör.
+
+@betriebe
+title: In die Betriebe gehen
+subtitle: Betriebsgruppen gründen und Tarifkämpfe unterstützen.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; workers_spd += 2*(1-dissent); labor_strength += 5; labor_dissent -= 5
+
+Bei Streiks im Handel und in Krankenhäusern stehen Linke mit am Streikposten. In einigen Betrieben entstehen eigene Betriebsgruppen.

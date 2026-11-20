@@ -6,6 +6,7 @@ view-if: wahlprogramm_seen = 0 and bundestag_dissolved = 1 and n_elections = 0
 max-visits: 1
 priority: 0
 on-arrival: wahlprogramm_seen = 1
+go-to: linke if player = "linke"
 face-image: img/parteitag.jpg
 
 # SPD-spezifisch (Wahlprogramm und Parteitag). Setzt wahlkampf_thema.
@@ -40,3 +41,32 @@ on-arrival: wahlkampf_thema = "Frieden"; rentner_spd += 1.5*(1-dissent); workers
 on-arrival: wahlkampf_thema = "Sicherheit"; old_middle_spd += 1*(1-dissent); rural_spd += 1*(1-dissent); rentner_spd += 0.5*(1-dissent); new_middle_spd -= 0.5; left_dissent += 4; reformist_dissent -= 5; pacifism -= 1
 
 Die SPD präsentiert sich als Partei der inneren und äußeren Sicherheit. [? if spd_candidate = "Pistorius" : Mit Boris Pistorius an der Spitze wirkt das glaubwürdig. ?][? if spd_candidate = "Scholz" : Das Gesicht dieser Botschaft ist allerdings eher der Verteidigungsminister als der Kanzler. ?] In der Parteilinken ist man skeptisch.
+
+@linke
+
+Für einen langen Wahlkampf fehlt uns das Geld, für ein dickes Programm die Zeit. Der Parteivorstand will sich auf ein Thema konzentrieren, das die Menschen wirklich bewegt. Womit gehen wir in den Wahlkampf?
+
+- @linke_mieten: Mieten: ein bundesweiter Mietendeckel und ein Rechner, mit dem jede und jeder überhöhte Mieten prüfen kann.
+- @linke_preise: Preise: keine Mehrwertsteuer auf Grundnahrungsmittel, ein Heizkosten-Check, Preisaufsicht.
+- @linke_reichtum: Reichtum: eine Vermögensteuer für Milliardäre und Multimillionäre.
+- @linke_frieden: Frieden: Diplomatie statt Aufrüstung.
+
+@linke_mieten
+on-arrival: wahlkampf_thema = "Mieten"; workers_spd += 1*(1-dissent); new_middle_spd += 1*(1-dissent); unemployed_spd += 0.5*(1-dissent); center_dissent -= 3; labor_dissent -= 2
+
+Der Mietwucher-Rechner wird hunderttausendfach genutzt. Wer in einer Großstadt zur Miete wohnt, hat plötzlich einen Grund, die Linke zu wählen.
+
+@linke_preise
+on-arrival: wahlkampf_thema = "Preise"; workers_spd += 1*(1-dissent); rentner_spd += 1*(1-dissent); unemployed_spd += 1*(1-dissent); labor_dissent -= 3
+
+Wir gehen mit Kassenbons und Heizkostenabrechnungen auf die Straße. In Supermärkten und an Haustüren kommen wir schnell ins Gespräch.
+
+@linke_reichtum
+on-arrival: wahlkampf_thema = "Reichtum"; new_middle_spd += 1*(1-dissent); workers_spd += 0.5*(1-dissent); socialism += 1; left_dissent -= 3; old_middle_spd -= 0.5
+
+„Milliardäre abschaffen“ ist der Satz, über den alle reden. Die Wirtschaftsverbände sind empört, Junge in den Städten begeistert.
+
+@linke_frieden
+on-arrival: wahlkampf_thema = "Frieden"; rentner_spd += 1*(1-dissent); workers_spd += 0.5*(1-dissent); workers_bsw -= 1; pacifism += 1; left_dissent -= 3; reformist_dissent += 3; gruene_relation -= 3
+
+Wir werben für Waffenstillstand und Verhandlungen, ohne Russland zu verharmlosen. Im Osten gewinnen wir damit Stimmen vom BSW zurück, im Westen verlieren wir einige an die Grünen.

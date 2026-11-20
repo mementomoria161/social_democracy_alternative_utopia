@@ -16,7 +16,7 @@ Hier findest du Informationen über das politische System und die Politik der Bu
 - @parties: Parteien
 - @public_opinion: Stimmung und Wahlprognose
 - @paramilitaries: Protestbewegungen und Sicherheitsbehörden
-- @factions: Strömungen in der SPD
+- @factions: Strömungen in [+ pp_dat +]
 - @figures: Grafiken
 - @backSpecialScene: Bibliothek verlassen.
 
@@ -62,29 +62,30 @@ go-to: menu
 
 @curr_gov
 go-to: cabinet if spd_in_government; menu if not spd_in_government
+on-arrival: {! Q.chancellor_party_disp = Q.player == 'linke' ? ({'SPD': 'Linke', 'Linke': 'SPD'}[Q.chancellor_party] || Q.chancellor_party) : Q.chancellor_party; !}
 
 = Aktuelle Regierung
 
 Bundespräsident\*in: [+ president +]
 
-Bundeskanzler\*in: [+ chancellor +] ([+ chancellor_party +])
+Bundeskanzler\*in: [+ chancellor +] ([+ chancellor_party_disp +])
 
 Koalition: [+ coalition_name +]
 
 Sitzverteilung im Bundestag:
 
-SPD: [+ spd_r +] %
+[+ pp_name +]: [+ spd_r +] %
 [? if sapd_formed and sapd_r > 0: Soziale Linke: [+ sapd_r +] % ?]
 [? if srpd_formed and srpd_r > 0: Neue Mitte: [+ srpd_r +] % ?]
 CDU/CSU: [+ union_r +] %
 AfD: [+ afd_r +] %
 [+ gruene_name +]: [+ gruene_r +] %
-Die Linke: [+ linke_r +] %
+[+ op_name +]: [+ linke_r +] %
 FDP: [+ fdp_r +] %
 BSW: [+ bsw_r +] %
 Sonstige: [+ other_r +] %
 
-Rolle der SPD: [? if spd_toleration : Tolerierung ?][? if spd_in_government : Regierung ?][? if spd_toleration == 0 and spd_in_government == 0 and spd_caretaker == 0 : Opposition ?][? if spd_caretaker : geschäftsführende Regierung ?]
+Rolle [+ pp_dat +]: [? if spd_toleration : Tolerierung ?][? if spd_in_government : Regierung ?][? if spd_toleration == 0 and spd_in_government == 0 and spd_caretaker == 0 : Opposition ?][? if spd_caretaker : geschäftsführende Regierung ?]
 
 [? if spd_in_government and not in_spd_majority and not in_left_front : Koalitionskonflikte: [+ coalition_dissent : coalition_dissent +] ?]
 
@@ -267,7 +268,7 @@ Verfassungstreue: [+ prussian_police_loyalty : loyalty +]
 
 
 @factions
-go-to: neorevisionists if neorevisionism > 0; menu if neorevisionism <= 0
+go-to: factions_linke if player = "linke"; neorevisionists if player = "spd" and neorevisionism > 0; menu if player = "spd" and neorevisionism <= 0
 
 **Strömungen in der SPD**
 
@@ -324,8 +325,8 @@ on-display: {!
 data = [
     {
         "id": "linke",
-        "legend": "Linke",
-        "name": "Linke",
+        "legend": Q.op_name || "Linke",
+        "name": Q.op_name || "Linke",
         "seats": Q.linke_r*6.3,
     }];
 if (Q.sapd_formed && Q.sapd_r) {
@@ -338,8 +339,8 @@ if (Q.sapd_formed && Q.sapd_r) {
 }
 data.push({
         "id": "spd",
-        "legend": "SPD",
-        "name": "SPD",
+        "legend": Q.pp_name || "SPD",
+        "name": Q.pp_name || "SPD",
         "seats": Q.spd_r*6.3,
 });
 
@@ -408,8 +409,8 @@ if (d3 && window) {
 
     var lines = d3.linegraph(false, false,
             Q.parties,
-            {'spd': '#E3000F', 'linke': '#BE3075', 'gruene': '#46962B', 'union': '#151518', 'fdp': '#E6C800', 'bsw': '#7D254F', 'afd': '#009EE0', 'other': '#a0a0a0', 'sapd': '#c40000', 'srpd': '#F4A460'},
-            {'spd': 'SPD', 'linke': 'Linke', 'gruene': Q.gruene_name, 'union': 'CDU/CSU', 'fdp': 'FDP', 'bsw': 'BSW', 'afd': 'AfD', 'other': 'Sonstige', 'sapd': 'Soziale Linke', 'srpd': 'Neue Mitte'});
+            {'spd': Q.pp_color || '#E3000F', 'linke': Q.op_color || '#BE3075', 'gruene': '#46962B', 'union': '#151518', 'fdp': '#E6C800', 'bsw': '#7D254F', 'afd': '#009EE0', 'other': '#a0a0a0', 'sapd': '#c40000', 'srpd': '#F4A460'},
+            {'spd': Q.pp_name || 'SPD', 'linke': Q.op_name || 'Linke', 'gruene': Q.gruene_name, 'union': 'CDU/CSU', 'fdp': 'FDP', 'bsw': 'BSW', 'afd': 'AfD', 'other': 'Sonstige', 'sapd': 'Soziale Linke', 'srpd': 'Neue Mitte'});
     lines.width(width).height(400);
     //var svg = lines(Q.election_records);
     if (Q.election_records.length > 0) {
@@ -421,8 +422,8 @@ if (d3 && window) {
     if (!Q.historical_mode || Q.game_over) {
         var lines_2 = d3.linegraph(true, true,
             Q.parties,
-            {'spd': '#E3000F', 'linke': '#BE3075', 'gruene': '#46962B', 'union': '#151518', 'fdp': '#E6C800', 'bsw': '#7D254F', 'afd': '#009EE0', 'other': '#a0a0a0', 'sapd': '#c40000', 'srpd': '#F4A460'},
-            {'spd': 'SPD', 'linke': 'Linke', 'gruene': Q.gruene_name, 'union': 'CDU/CSU', 'fdp': 'FDP', 'bsw': 'BSW', 'afd': 'AfD', 'other': 'Sonstige', 'sapd': 'Soziale Linke', 'srpd': 'Neue Mitte'});
+            {'spd': Q.pp_color || '#E3000F', 'linke': Q.op_color || '#BE3075', 'gruene': '#46962B', 'union': '#151518', 'fdp': '#E6C800', 'bsw': '#7D254F', 'afd': '#009EE0', 'other': '#a0a0a0', 'sapd': '#c40000', 'srpd': '#F4A460'},
+            {'spd': Q.pp_name || 'SPD', 'linke': Q.op_name || 'Linke', 'gruene': Q.gruene_name, 'union': 'CDU/CSU', 'fdp': 'FDP', 'bsw': 'BSW', 'afd': 'AfD', 'other': 'Sonstige', 'sapd': 'Soziale Linke', 'srpd': 'Neue Mitte'});
         lines_2.width(width).height(400);
         d3.select("#party_support_history").datum(Q.party_support_records).call(lines_2);
     }
@@ -444,13 +445,13 @@ if (d3 && window) {
 {!<svg id="reichstag" style="width: 500px; height: 250px;"> </svg>!}
 
 {!<table>!}
-{!<tr><td><div class="box" style='background-color:#E3000F; outline: 2px; outline-style: solid;'> </div></td><td>!} **SPD:** {!</td><td>!} **[+ spd_r +] %** {!</td></tr>!}
+[? if player = "spd" : {!<tr><td><div class="box" style='background-color:#E3000F; outline: 2px; outline-style: solid;'> </div></td><td>!} ?][? if player = "linke" : {!<tr><td><div class="box" style='background-color:#BE3075; outline: 2px; outline-style: solid;'> </div></td><td>!} ?] **[+ pp_name +]:** {!</td><td>!} **[+ spd_r +] %** {!</td></tr>!}
 
 [? if sapd_formed : {!<tr><td><div class="box" style='background-color:#C40000'> </div></td> <td> !}Soziale Linke: {!</td><td>!} [+ sapd_r +] % {!</td></tr>!} ?]
 
 [? if srpd_formed : {!<tr><td><div class="box" style='background-color:#F4A460'> </div></td><td> !}Neue Mitte: {!</td><td>!} [+ srpd_r +] % {!</td></tr>!} ?]
 
-{!<tr><td><div class="box" style='background-color:#BE3075'> </div></td> <td>!}Die Linke: {!</td><td>!} [+ linke_r +] % {!</td></tr>!}
+[? if player = "spd" : {!<tr><td><div class="box" style='background-color:#BE3075'> </div></td> <td>!} ?][? if player = "linke" : {!<tr><td><div class="box" style='background-color:#E3000F'> </div></td> <td>!} ?][+ op_name +]: {!</td><td>!} [+ linke_r +] % {!</td></tr>!}
 
 {!<tr><td><div class="box" style='background-color:#46962B'> </div></td><td>!} [+ gruene_name +]: {!</td><td>!} [+ gruene_r +] % {!</td></tr>!}
 
@@ -480,3 +481,49 @@ if (d3 && window) {
 = Wirtschaftsentwicklung
 
 {!<svg id="economic_history" style="width: 500px; height: 300px;"> </svg>!}
+
+
+@factions_linke
+go-to: menu
+
+**Strömungen in der Linken**
+
+Gesamter Unmut: [+ dissent_percent : dissent +]
+
+Nach der Abspaltung des BSW im Januar 2024 hat sich die Linke neu sortiert. Die alten Lager um Sahra Wagenknecht gibt es nicht mehr; heute prägen fünf Strömungen die Partei. Die Namen im Spiel fassen mehrere reale Zusammenschlüsse zusammen.
+
+**Sozialistische Linke**
+
+Antikapitalistische Linke, Sozialistische Linke und Marx21: Systemkritik, Antimilitarismus und Nähe zu Bewegungen. Regierungsbeteiligungen sehen sie skeptisch.
+
+Stärke: [+ left_strength : strength +]
+
+Unmut: [+ left_dissent : dissent +]
+
+**Bewegungslinke**
+
+Die Bewegungslinke und der Parteivorstand um Ines Schwerdtner und Jan van Aken. Sie setzen auf Organizing, Haustürgespräche und Sozialsprechstunden und auf wenige klare Themen: Mieten, Preise, Löhne.
+
+Stärke: [+ center_strength : strength +]
+
+Unmut: [+ center_dissent : dissent +]
+
+**Gewerkschaftsflügel**
+
+Gewerkschafterinnen, Betriebsräte und Sozialpolitiker. Tarifbindung, Rente und bezahlbares Wohnen stehen für sie im Mittelpunkt.
+
+Stärke: [+ labor_strength : strength +]
+
+Unmut: [+ labor_dissent : dissent +]
+
+**Reformer\*innen**
+
+Das Forum Demokratischer Sozialismus und die Regierungslinke, vor allem aus den ostdeutschen Landesverbänden: pragmatisch, regierungserfahren, offen für Rot-Grün-Rot.
+
+Stärke: [+ reformist_strength : strength +]
+
+Unmut: [+ reformist_dissent : dissent +]
+
+[? if neorevisionism > 0 : **Friedensflügel** ?]
+
+[? if neorevisionism > 0 : Linkskonservative Mitglieder, die dem BSW nicht gefolgt sind. Sie wollen Verhandlungen mit Russland, keine Waffenlieferungen und eine restriktivere Migrationspolitik. Stärke: [+ neorevisionist_strength : strength +], Unmut: [+ neorevisionist_dissent : dissent +] ?]

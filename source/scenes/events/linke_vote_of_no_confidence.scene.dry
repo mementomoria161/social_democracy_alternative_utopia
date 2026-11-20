@@ -1,7 +1,7 @@
 title: Die Linke kündigt die Koalition auf!
 subtitle: Wir haben die Linke zu sehr verärgert …
 new-page: true
-view-if: spd_in_government = 1 and year >= 2027 and ((in_popular_front = 1 and linke_coalition_dissent >= 5) or (in_left_front = 1 and linke_coalition_dissent >= 6)) and spd_r < 50
+view-if: player = "spd" and (spd_in_government = 1 and year >= 2027 and ((in_popular_front = 1 and linke_coalition_dissent >= 5) or (in_left_front = 1 and linke_coalition_dissent >= 6)) and spd_r < 50)
 tags: event
 go-to: menu
 

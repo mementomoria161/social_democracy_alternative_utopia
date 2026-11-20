@@ -160,4 +160,4 @@ Karten auf die Hand zurücklegen: {! <select name="discard_disabled" id="discard
 - @done: Fertig
 
 @done
-go-to: root.intro_main
+go-to: root.party_choice

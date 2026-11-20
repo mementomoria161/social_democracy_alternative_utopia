@@ -1,0 +1,34 @@
+title: Clara Bünger
+is-pinned-card: true
+tags: advisor, nonfactional
+card-image: img/portraits/Buenger.jpg
+new-page: true
+view-if: player = "linke" and buenger_advisor = 1
+
+# Linke-Berater*in (Durchgang 4.2), Strömung: keine
+
+= Clara Bünger
+
+Bünger ist Juristin und sitzt seit 2022 für die sächsische Linke im Bundestag. Sie ist die flüchtlingspolitische Sprecherin der Partei und eine der wenigen, die in der aufgeheizten Migrationsdebatte für das Asylrecht streiten.
+
+- @asyl
+- @recht
+- @root: Zurück
+
+@asyl
+title: Das Asylrecht verteidigen
+subtitle: Gegen Zurückweisungen an der Grenze und für faire Verfahren.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; new_middle_spd += 2*(1-dissent); gruene_relation += 2; nazi_urgency += 1 if nazi_urgency < 4; rural_spd -= 1
+
+Bünger zeigt in Ausschüssen und vor Gericht, wo Zurückweisungen gegen Europarecht verstoßen. In den Städten gewinnt die Linke Zustimmung, auf dem Land eher nicht.
+
+@recht
+title: Rechtsstaat für alle
+subtitle: Kostenlose Rechtsberatung und Hilfe gegen Behördenwillkür.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; unemployed_spd += 2*(1-dissent); pro_republic += 1
+
+In Sozialsprechstunden helfen Juristinnen bei Widersprüchen gegen Jobcenter und Vermieter. Viele erleben zum ersten Mal, dass der Rechtsstaat auch für sie da ist.

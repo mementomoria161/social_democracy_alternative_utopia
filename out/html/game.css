@@ -563,6 +563,13 @@ table {
     stroke: var(--border-color);
     stroke-width: 1.5px;
 }
+/* Die Linke as player party: slot spd shows the Linke, slot linke the SPD */
+body.player-linke .seat.spd {
+    fill: #BE3075;
+}
+body.player-linke .seat.linke {
+    fill: #E3000F;
+}
 .seat.gruene {
     fill: #46962B;
 }

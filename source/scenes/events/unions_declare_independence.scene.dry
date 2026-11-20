@@ -2,7 +2,7 @@ title: Die Gewerkschaften gehen auf Distanz
 new-page: true 
 subtitle: Der Streit mit dem Gewerkschaftsflügel ist eskaliert.
 tags: event
-view-if: labor_dissent >= 60
+view-if: player = "spd" and (labor_dissent >= 60)
 on-arrival: unions_independent = 1; labor_strength = labor_strength/2; workers_spd -= 20; unemployed_spd -= 10; workers_other += 5 if not sapd_formed; workers_linke += 5; workers_afd += 5; n_advisors -= 1 if suedekum_advisor == 1; n_advisors -= 1 if fahimi_advisor == 1; suedekum_advisor = 0; fahimi_advisor = 0; demo_strength -= 600; workers_sapd += 10 if sapd_formed; unemployed_sapd += 6 if sapd_formed;
 max-visits: 1
 

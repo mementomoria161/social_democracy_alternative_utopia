@@ -1,7 +1,7 @@
 title: Parteitag der Linken
 subtitle: Die Linke wählt ihren Vorstand – und streitet über ihren Kurs gegenüber der SPD.
 new-page: true
-view-if: linke_relation >= 50 and (wittorf_soviet_union = 1 or linke_foreign_seen = 1) and year = 2027 and month >= 5 and month <= 7
+view-if: player = "spd" and (linke_relation >= 50 and (wittorf_soviet_union = 1 or linke_foreign_seen = 1) and year = 2027 and month >= 5 and month <= 7)
 max-visits: 1
 on-arrival: linke_party_conference_seen = 1
 tags: event

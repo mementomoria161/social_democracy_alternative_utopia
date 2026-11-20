@@ -1,0 +1,44 @@
+title: Mission Silberlocke
+subtitle: Drei Direktmandate für den Bundestag
+new-page: true
+tags: event
+view-if: player = "linke" and n_elections = 0 and ampel_aus_seen = 1 and silberlocke_seen = 0 and ((year = 2024 and month = 12) or year = 2025)
+max-visits: 1
+priority: 1
+on-arrival: silberlocke_seen = 1
+face-image: img/portraits/Gysi.jpg
+
+# Linke-only (Durchgang 4.2). Historisch: Gregor Gysi, Bodo Ramelow und Dietmar Bartsch kündigten im November 2024
+# an, für Direktmandate zu kandidieren ("Mission Silberlocke"), um über die Grundmandatsklausel den Einzug zu sichern.
+# Februar 2025: Gysi (Treptow-Köpenick) und Ramelow (Erfurt) gewannen, Bartsch (Rostock) nicht; insgesamt sechs Direktmandate.
+# direct_mandates zählt die Wahlkreise, die die Linke sicher gewinnt; ab drei greift die Grundmandatsklausel.
+
+= Mission Silberlocke
+
+Drei ältere Herren wollen die Linke retten. Gregor Gysi, Bodo Ramelow und Dietmar Bartsch, zusammen über 200 Jahre alt, bieten an, in ihren Wahlkreisen direkt zu kandidieren: Gysi in Berlin-Treptow-Köpenick, Ramelow in Erfurt, Bartsch in Rostock. Gewinnt die Linke mindestens drei Wahlkreise, zieht sie auch unter fünf Prozent mit ihrem vollen Zweitstimmenanteil in den Bundestag ein.
+
+Sicher sind uns bisher nur zwei Wahlkreise, in Leipzig und in Berlin-Lichtenberg. Die Aktion kostet Geld und Aufmerksamkeit, die auch dem Spitzenduo fehlen könnte. Und manche finden, eine Partei, die sich erneuern will, sollte nicht ausgerechnet mit ihren Veteranen werben.
+
+- @alle: Alle drei kandidieren, mit eigener Kampagne.
+- @gysi: Nur Gysi in seinem sicheren Wahlkreis.
+- @nein: Keine Silberlocken. Wir setzen auf die Zweitstimme.
+
+@alle
+subtitle: -1 Ressource. Zwei weitere Wahlkreise werden wahrscheinlich, ein dritter ist möglich.
+choose-if: resources >= 1
+unavailable-subtitle: Dafür fehlen uns die Mittel.
+on-arrival: resources -= 1; direct_mandates += 2; gysi_dm = 1; ramelow_dm = 1; bartsch_dm = 1; rentner_spd += 1*(1-dissent); reformist_dissent -= 5; center_dissent += 2
+
+Die „Mission Silberlocke“ wird zum Selbstläufer. Plakate mit drei grauen Haarschöpfen hängen in Berlin, Erfurt und Rostock, die Veranstaltungen sind überfüllt. Selbst Menschen, die die Linke nie wählen würden, wünschen den dreien Glück.
+
+@gysi
+subtitle: Ein sicherer dritter Wahlkreis, ohne großen Aufwand.
+on-arrival: direct_mandates += 1; gysi_dm = 1; rentner_spd += 0.5*(1-dissent)
+
+Gysi tritt wie immer in Treptow-Köpenick an. Ramelow und Bartsch unterstützen den Wahlkampf, ohne selbst zu kandidieren.
+
+@nein
+subtitle: Alles auf das Spitzenduo. Ein Risiko.
+on-arrival: center_dissent -= 3; reformist_dissent += 5; new_middle_spd += 0.5*(1-dissent)
+
+Wir verzichten auf die Aktion. Die Botschaft: Die Linke braucht keine Rettungsschirme, sie will fünf Prozent aus eigener Kraft. In den ostdeutschen Landesverbänden schüttelt man den Kopf.

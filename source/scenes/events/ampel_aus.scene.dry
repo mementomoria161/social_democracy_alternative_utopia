@@ -7,8 +7,10 @@ max-visits: 1
 priority: 3
 on-arrival: ampel_aus_seen = 1
 face-image: img/reichstag_2.jpg
+go-to: linke if player = "linke"
 
-# Prolog, Schritt 1 (November 2024): wird direkt aus root.intro_main aufgerufen.
+# Prolog, Schritt 1 (November 2024): wird direkt aus root.intro_main bzw. root.intro_linke aufgerufen.
+# Linke: Unterszene @linke (der Termin ist der historische, die Linke entscheidet ihn nicht).
 # Setzt den Termin der Vertrauensfrage (vf_year/vf_month), den Wahltermin und prolog_laws (Zeit für restgesetze).
 # Historisch: Vertrauensfrage am 16.12.2024, Auflösung am 27.12.2024, Wahl am 23.02.2025.
 
@@ -39,3 +41,32 @@ subtitle: Klarheit sofort, aber ein überhasteter Wahlkampf und kaum noch Gesetz
 on-arrival: vf_year = 2024; vf_month = 11; next_election_year = 2025; next_election_month = 1; next_election_time = 3; election_scheduled = 1; election_date_text = "26. Januar 2025"; prolog_laws = 1; union_relation += 6; pro_republic += 1; center_dissent += 5; resources -= 1 if resources >= 1
 
 Wir nehmen der Union den Wind aus den Segeln: Der Kanzler stellt die Vertrauensfrage noch im November. Gewählt wird schon am 26. Januar 2025, mitten im Winter. Die Kommunen müssen die Wahl in Rekordzeit organisieren, und in der Parteizentrale fehlt es an allem: an Plakaten, an Geld, an einem fertigen Programm.
+
+@linke
+on-arrival: vf_year = 2024; vf_month = 12; next_election_year = 2025; next_election_month = 2; next_election_time = 4; election_scheduled = 1; election_date_text = "23. Februar 2025"; prolog_laws = 2
+
+Am Morgen nach dem Bruch beherrscht eine Frage die Hauptstadt: Wann wird gewählt? Friedrich Merz verlangt die sofortige Vertrauensfrage, der Kanzler will bis Januar warten. Nach einigen Tagen öffentlichen Drucks einigen sich SPD und Union: Vertrauensfrage am 16. Dezember, Neuwahl am 23. Februar 2025.
+
+Für uns bleiben gut drei Monate. In den Umfragen liegen wir bei drei bis vier Prozent, die Kassen sind leer, und viele Medien laden uns gar nicht mehr ein. Wie gehen wir in diesen Winter?
+
+- @linke_soziales: Die Minderheitsregierung beim Wort nehmen: Wir stimmen jedem Gesetz zu, das Mieterinnen, Rentnern und Familien hilft.
+- @linke_angriff: Abrechnung mit der Ampel: Sie hat das Land enttäuscht, wir sind die soziale Opposition.
+- @linke_basis: Keine Zeit mit dem Bundestag verlieren: Alle Kraft in den Haustürwahlkampf.
+
+@linke_soziales
+subtitle: Verantwortung zeigen. Die Reformer*innen sind zufrieden.
+on-arrival: linke_relation += 5; gruene_relation += 3; reformist_dissent -= 5; left_dissent += 3; rentner_spd += 0.5*(1-dissent)
+
+Wir bieten SPD und Grünen unsere Stimmen für Mietpreisbremse, Rentenpaket und Kindergeld an. Für eine Mehrheit reicht das nicht, doch die Botschaft kommt an: Die Linke stimmt nicht aus Prinzip dagegen.
+
+@linke_angriff
+subtitle: Klare Kante. Die SPD ist verärgert.
+on-arrival: linke_relation -= 5; workers_spd += 1*(1-dissent); unemployed_spd += 1*(1-dissent); left_dissent -= 5
+
+Drei Jahre Ampel, sagen wir, das waren Heizungsstreit, Kürzungen beim Bürgergeld und ein Rekordhaushalt für die Bundeswehr. Wir sind die einzige Partei, die nicht mitregiert hat und trotzdem nicht nach rechts zeigt.
+
+@linke_basis
+subtitle: Organizing statt Pressekonferenzen. Kostet Kraft, bringt neue Mitglieder.
+on-arrival: center_dissent -= 5; dues += 1; workers_spd += 0.5*(1-dissent); unemployed_spd += 0.5*(1-dissent)
+
+Der Parteivorstand ruft alle Mitglieder auf, an Türen zu klopfen. Das Ziel: 100.000 Gespräche bis zur Wahl. Aus den ersten Wochen kommen gute Nachrichten, und überraschend viele Menschen treten ein.

@@ -1,5 +1,5 @@
 title: Die Linke legt ihre Forderungen für die Koalition vor.
-view-if: (in_popular_front = 1 or in_left_front = 1) and linke_goals_seen = 0 and linke_coalition_success = 0 and next_election_time - time > 12 and spd_in_government
+view-if: player = "spd" and ((in_popular_front = 1 or in_left_front = 1) and linke_goals_seen = 0 and linke_coalition_success = 0 and next_election_time - time > 12 and spd_in_government)
 on-arrival: linke_goals_seen = 1; welfare_goal = 1; foreign_goal = 0; agriculture_goal = 1 if agriculture_minister_party != "Linke"; economy_goal = 1 if economic_minister_party != "Linke"; finance_goal = 1 if finance_minister_party != "Linke"; labor_goal = 1 if labor_minister_party != "Linke"; bundeswehr_goal = 1 if bundeswehr_minister_party != "Linke"; linke_ultimatum_timer = 12; linke_ultimatum_timer = 16 if linke_relation >= 60; linke_ultimatum_timer = 24 if linke_party_leader == "Reformflügel" or constructive_vonc; linke_ultimatum_timer = next_election_time - time - 1 if next_election_time - time <= 12;
 new-page: true
 tags: event

@@ -1,5 +1,5 @@
 title: Die Linke zieht Bilanz: Haben wir die Ziele der Koalition erreicht?
-view-if: (in_popular_front or in_left_front) and (linke_ultimatum_timer = 0 or (welfare_goal_completed and agriculture_goal_completed and economy_goal_completed and finance_goal_completed and labor_goal_completed and bundeswehr_goal_completed)) and linke_goals_seen = 1 and linke_ultimatum_seen = 0 and spd_in_government
+view-if: player = "spd" and ((in_popular_front or in_left_front) and (linke_ultimatum_timer = 0 or (welfare_goal_completed and agriculture_goal_completed and economy_goal_completed and finance_goal_completed and labor_goal_completed and bundeswehr_goal_completed)) and linke_goals_seen = 1 and linke_ultimatum_seen = 0 and spd_in_government)
 on-arrival: {!
 Q.linke_ultimatum_seen = 1;
 Q.linke_goals_completed = 1;

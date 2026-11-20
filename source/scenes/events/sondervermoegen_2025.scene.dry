@@ -6,6 +6,7 @@ view-if: sondervermoegen_seen = 0 and n_elections = 1 and year = 2025 and time >
 max-visits: 1
 priority: 1
 on-arrival: sondervermoegen_seen = 1
+go-to: linke if player = "linke" and not spd_in_government
 face-image: img/reichstag_2.jpg
 
 # Prolog nach der Wahl (einen Monat danach). Setzt sondervermoegen (0/1/2) und den Haushaltsspielraum (budget).
@@ -42,3 +43,21 @@ subtitle: Grundsatztreue, aber kein neuer Haushaltsspielraum.
 on-arrival: sondervermoegen = 0; union_relation -= 8; gruene_relation -= 3; coalition_dissent += 2 if union_in_government; old_middle_spd += 0.5*(1-dissent); labor_dissent += 8; left_dissent += 3; crisis_urgency += 1
 
 Wir verweigern die Zustimmung. Der neue Bundestag soll entscheiden, auch wenn dort keine Zweidrittelmehrheit mehr möglich ist. Manche loben die Prinzipientreue; in den Kommunen und bei den Gewerkschaften fragt man, wovon jetzt Schulen und Brücken saniert werden sollen.
+
+@linke
+on-arrival: sondervermoegen = 2; economic_growth += 0.2; bundeswehr_strength += 5
+
+Noch vor dem Zusammentritt des neuen Bundestages beschließen Union, SPD und Grüne im alten Parlament eine Grundgesetzänderung: 500 Milliarden Euro Sondervermögen für Infrastruktur und Klimaschutz, und Verteidigungsausgaben über einem Prozent der Wirtschaftsleistung fallen nicht mehr unter die Schuldenbremse. Im neuen Bundestag hätte es dafür keine Zweidrittelmehrheit mehr gegeben. Im Bundesrat kommt es auch auf die Länder an, in denen wir mitregieren.
+
+- @linke_nein: Nein und Klage in Karlsruhe: Ein abgewählter Bundestag darf nicht über eine unbegrenzte Aufrüstung entscheiden.
+- @linke_bundesrat: Im Bundesrat zustimmen lassen: Die Investitionen in Schulen und Brücken sind richtig, auch wenn wir die Aufrüstung ablehnen.
+
+@linke_nein
+on-arrival: left_dissent -= 5; pacifism += 1; reformist_dissent += 3; rentner_spd += 0.5*(1-dissent); gruene_relation -= 2
+
+Wir stimmen dagegen und klagen in Karlsruhe, ohne Erfolg. Doch die Botschaft ist klar: Wir sind die einzigen, die bei der Aufrüstung nicht mitmachen, ohne mit der AfD gemeinsame Sache zu machen.
+
+@linke_bundesrat
+on-arrival: reformist_dissent -= 5; left_dissent += 5; linke_relation += 3
+
+Die Landesregierungen in Bremen und Mecklenburg-Vorpommern stimmen zu, weil die Länder Geld für Investitionen bekommen. In der Partei gibt es Streit, in den Kommunen Erleichterung.

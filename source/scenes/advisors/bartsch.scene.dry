@@ -1,0 +1,34 @@
+title: Dietmar Bartsch
+is-pinned-card: true
+tags: advisor, reformist
+card-image: img/portraits/Bartsch.jpg
+new-page: true
+view-if: player = "linke" and bartsch_advisor = 1
+
+# Linke-Berater*in (Durchgang 4.2), Strömung: reformist
+
+= Dietmar Bartsch
+
+Bartsch führte die Linksfraktion im Bundestag von 2015 bis 2023 und gilt als wichtigster Kopf der Reformerinnen und Reformer. Er stammt aus Mecklenburg-Vorpommern, wo die Linke mitregiert.
+
+- @silberlocke
+- @spd
+- @root: Zurück
+
+@silberlocke
+title: Silberlocke: Wahlkreis Rostock
+subtitle: Bartsch kandidiert in Rostock direkt.
+choose-if: advisor_action_timer = 0 and n_elections = 0 and bartsch_dm = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if n_elections > 0 : Nur vor der ersten Bundestagswahl möglich. ?][? if bartsch_dm : Der Wahlkreis ist schon umkämpft. ?]
+on-arrival: advisor_action_timer = 6; bartsch_dm = 1; direct_mandates += 1; rentner_spd += 1*(1-dissent); reformist_dissent -= 3
+
+Bartsch tritt in Rostock als Direktkandidat an. Der Wahlkreis gilt als schwierig, doch sein Name zieht.
+
+@spd
+title: Brücken zur SPD
+subtitle: Alte Kontakte in die SPD-Fraktion nutzen.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; linke_relation += 6*(1-dissent); communist_coalition += 1; left_dissent += 3
+
+Bartsch kennt in der SPD-Fraktion fast jeden. Bei Mindestlohn, Rente und Mieten werden gemeinsame Anträge vorbereitet.

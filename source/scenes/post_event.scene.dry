@@ -8,13 +8,19 @@ var default_ministers = {
     'SPD': {foreign: 'Mützenich', interior: 'Fiedler', justice: 'Hubig', labor: 'Bas', bundeswehr: 'Pistorius', economic: 'Hubertz', finance: 'Klingbeil', agriculture: 'Miersch'},
     'Union': {foreign: 'Wadephul', interior: 'Dobrindt', justice: 'Krings', labor: 'Linnemann', bundeswehr: 'Kiesewetter', economic: 'Reiche', finance: 'Spahn', agriculture: 'Rainer'},
     'Grüne': {foreign: 'Brantner', interior: 'von Notz', justice: 'Haßelmann', labor: 'Banaszak', bundeswehr: 'Nouripour', economic: 'Dröge', finance: 'Kellner', agriculture: 'Özdemir'},
-    'Linke': {foreign: 'van Aken', interior: 'Schwerdtner', justice: 'Schwerdtner', labor: 'Reichinnek', bundeswehr: 'van Aken', economic: 'van Aken', finance: 'van Aken', agriculture: 'Schwerdtner'},
+    'Linke': {foreign: 'van Aken', interior: 'Bartsch', justice: 'Bünger', labor: 'Reichinnek', bundeswehr: 'Pellmann', economic: 'Ramelow', finance: 'Görke', agriculture: 'Schwerdtner'},
     'FDP': {foreign: 'Lambsdorff', interior: 'Kubicki', justice: 'Kubicki', labor: 'Vogel', bundeswehr: 'Strack-Zimmermann', economic: 'Dürr', finance: 'Dürr', agriculture: 'Vogel'},
     'AfD': {interior: 'Chrupalla', justice: 'Brandner', agriculture: 'Protschka'}
 };
+// the keys are slot strings: when the Linke is played, slot 'SPD' holds the Linke and slot 'Linke' the SPD
+// (events hard-code SPD names in slot 'SPD'; the check below replaces them by the Linke defaults)
+if (Q.player == 'linke') {
+    var t = default_ministers['SPD']; default_ministers['SPD'] = default_ministers['Linke']; default_ministers['Linke'] = t;
+}
+var real_spd = Q.player == 'linke' ? 'Linke' : 'SPD';
 // ministers of the start cabinet (Scholz, November 2024) that are not default ministers
 var minister_party_of = {'Frei': 'Union', 'Wissing': 'parteilos', 'Baerbock': 'Grüne', 'Habeck': 'Grüne',
-                         'Faeser': 'SPD', 'Kukies': 'SPD', 'Heil': 'SPD'};
+                         'Faeser': real_spd, 'Kukies': real_spd, 'Heil': real_spd};
 for (var mp in default_ministers) {
     for (var post in default_ministers[mp]) {
         minister_party_of[default_ministers[mp][post]] = mp;
@@ -332,7 +338,8 @@ if (Q.month_actions >= 1) {
     var prev_key = Q.month == 1 ? (Q.year - 1) + '-12' : Q.year + '-' + (Q.month - 1);
     var g_new = GRAVITY[Q.year + '-' + Q.month], g_old = GRAVITY[prev_key];
     if (g_new && g_old) {
-        ['union', 'afd', 'spd', 'gruene', 'linke', 'bsw', 'fdp', 'other'].forEach(function(p, k) {
+        // the real Linke values pull slot spd when the Linke is played (and the SPD values slot linke)
+        (Q.player == 'linke' ? ['union', 'afd', 'linke', 'gruene', 'spd', 'bsw', 'fdp', 'other'] : ['union', 'afd', 'spd', 'gruene', 'linke', 'bsw', 'fdp', 'other']).forEach(function(p, k) {
             if (!Q.parties.includes(p)) return;
             var base = Math.max(0.5, 100 * (Q[p + '_normalized'] || 0));
             // scale the party in every group so that its total moves by the real change

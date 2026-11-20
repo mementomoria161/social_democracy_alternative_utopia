@@ -2,7 +2,7 @@ title: Bundesparteitag 2025
 subtitle: Neue Doppelspitze, alte Wunden.
 new-page: true
 tags: event
-view-if: year = 2025 and month = 6 and spd_parteitag_2025_seen = 0
+view-if: player = "spd" and (year = 2025 and month = 6 and spd_parteitag_2025_seen = 0)
 max-visits: 1
 on-arrival: spd_parteitag_2025_seen = 1; esken_advisor = 0; bas_advisor = 1
 face-image: img/parteitag.jpg

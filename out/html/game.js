@@ -259,6 +259,8 @@
   // TODO: have some code for tabbed sidebar browsing.
   window.updateSidebar = function() {
       $('#qualities').empty();
+      // the Linke as player party swaps the colours of the seat slots spd/linke (game.css)
+      document.body.classList.toggle('player-linke', dendryUI.dendryEngine.state.qualities.player == 'linke');
       var scene = dendryUI.game.scenes[window.statusTab];
       dendryUI.dendryEngine._runActions(scene.onArrival);
       var displayContent = dendryUI.dendryEngine._makeDisplayContent(scene.content, true);
@@ -313,8 +315,10 @@
       var box = document.getElementById('poll_view');
       var Q = dendryUI.dendryEngine.state.qualities;
       if (!box || !window.d3 || !Q.classes || !Q.parties) return;
-      var names = {'spd': 'SPD', 'linke': 'Linke', 'gruene': Q.gruene_name || 'Grüne', 'union': 'CDU/CSU', 'fdp': 'FDP',
+      // slot spd = player party, slot linke = the other left party (PORT_2026.md, "Spielbare Parteien")
+      var names = {'spd': Q.pp_name || 'SPD', 'linke': Q.op_name || 'Linke', 'gruene': Q.gruene_name || 'Grüne', 'union': 'CDU/CSU', 'fdp': 'FDP',
                    'bsw': 'BSW', 'afd': 'AfD', 'other': 'Sonstige', 'sapd': 'Soziale Linke', 'srpd': 'Neue Mitte'};
+      var colors = Object.assign({}, POLL_COLORS, {'spd': Q.pp_color || POLL_COLORS.spd, 'linke': Q.op_color || POLL_COLORS.linke});
       var parties = Q.parties;
       var groups = Q.classes.filter(function(c) { return POLL_GROUPS[c]; });
 
@@ -336,7 +340,11 @@
       var records = (Q.party_support_records || []).slice();
       var last = records[records.length - 1];
       if (last && new Date(last.date).getTime() == now.date.getTime()) records.pop();
-      records = REAL_POLLS.concat(records, [now]);
+      // the real SPD/Linke values belong into the swapped slots when the Linke is played
+      var real = Q.player == 'linke' ? REAL_POLLS.map(function(r) {
+          return Object.assign({}, r, {'spd': r.linke, 'linke': r.spd});
+      }) : REAL_POLLS;
+      records = real.concat(records, [now]);
 
       var group = groups.indexOf(window.pollGroup) >= 0 ? window.pollGroup : '';
       var data = records.map(function(r) {
@@ -352,14 +360,14 @@
           return '<div class="poll_bars">' + sorted.map(function(p) {
               return '<div class="poll_row"><span class="poll_name">' + names[p] + '</span>' +
                   '<span class="poll_bar"><span class="' + p + '" style="width:' + (100 * values[p] / max) +
-                  '%;background:' + POLL_COLORS[p] + '"></span></span>' +
+                  '%;background:' + colors[p] + '"></span></span>' +
                   '<span class="poll_val">' + Math.round(values[p]) + ' %</span></div>';
           }).join('') + '</div>';
       };
       var stack = function(values) {
           return '<span class="poll_stack">' + parties.filter(function(p) { return values[p] > 0; }).map(function(p) {
               return '<span class="' + p + '" title="' + names[p] + ' ' + Math.round(values[p]) + ' %" style="flex-grow:' +
-                  values[p] + ';background:' + POLL_COLORS[p] + '"></span>';
+                  values[p] + ';background:' + colors[p] + '"></span>';
           }).join('') + '</span>';
       };
       var groupValues = function(c) {
@@ -394,7 +402,7 @@
       var height = Math.min(360, Math.max(240, width * 0.6));
       var spanMonths = (now.date - REAL_POLLS[0].date) / (30 * 24 * 3600 * 1000);
       // Platz rechts für die Parteinamen
-      var lines = d3.linegraph(true, false, parties, POLL_COLORS, names, undefined, undefined, Math.ceil(spanMonths * 0.15) + 1);
+      var lines = d3.linegraph(true, false, parties, colors, names, undefined, undefined, Math.ceil(spanMonths * 0.15) + 1);
       lines.width(width).height(height);
       d3.select('#poll_graph').attr('width', width).attr('height', height).datum(data).call(lines);
   };

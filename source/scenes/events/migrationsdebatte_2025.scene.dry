@@ -22,6 +22,7 @@ Die Trauer ist groß, und schnell geht es nicht mehr um Behördenversagen und ps
 - @zusammenhalt: Vor Pauschalurteilen warnen und für Zusammenhalt werben.
 
 @haerte
+view-if: player = "spd"
 on-arrival: rural_spd += 1*(1-dissent); workers_spd += 1*(1-dissent); new_middle_spd -= 1; left_dissent += 5; neorevisionist_strength += 3; gruene_relation -= 3
 
 Wir überbieten die Union nicht, aber wir halten mit: mehr Rückführungen, verlängerte Grenzkontrollen, mehr Befugnisse für die Polizei. In der Parteilinken und bei den Grünen wächst der Unmut.

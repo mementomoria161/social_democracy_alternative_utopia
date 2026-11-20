@@ -7,6 +7,7 @@ max-visits: 1
 priority: 0
 on-arrival: vertrauensfrage_seen = 1; bundestag_dissolved = 1
 face-image: img/bundestag_plenum.jpg
+go-to: linke if player = "linke"
 
 # Prolog: Vertrauensfrage nach Art. 68 GG und Auflösung des Bundestags. Setzt bundestag_dissolved (Wahlkampf-Events).
 # Historisch (16.12.2024): 207 Ja, 394 Nein, 116 Enthaltungen; Auflösung durch Steinmeier am 27.12.2024.
@@ -37,3 +38,28 @@ Mindestlohn, Bürgergeld, Unterstützung der Ukraine, die Energieversorgung nach
 on-arrival: new_middle_spd += 1*(1-dissent); pro_republic += 1; center_dissent += 3
 
 Ungewohnt offen räumt die SPD ein, dass der ewige Streit der Ampel dem Land geschadet hat. Im Kanzleramt ist man darüber nicht glücklich, doch in Kommentaren wird die Ehrlichkeit gelobt.
+
+@linke
+
+Olaf Scholz tritt ans Rednerpult des Bundestags und bittet die Abgeordneten, ihm das Vertrauen auszusprechen, in der Erwartung, dass sie es nicht tun. Die SPD-Fraktion stimmt für ihren Kanzler, die Grünen enthalten sich, Union, FDP, AfD, BSW und unsere Gruppe stimmen mit Nein. Wenige Tage später löst Bundespräsident Steinmeier den Bundestag auf. Die Neuwahl findet am [+ election_date_text +] statt.
+
+Wir haben in der Debatte nur wenige Minuten Redezeit. Wofür nutzen wir sie?
+
+- @linke_preise: Für die Menschen, die sich das Leben nicht mehr leisten können.
+- @linke_frieden: Gegen Aufrüstung und Waffenexporte.
+- @linke_reichtum: Gegen Milliardäre, die keine Steuern zahlen.
+
+@linke_preise
+on-arrival: workers_spd += 1*(1-dissent); unemployed_spd += 1*(1-dissent); rentner_spd += 0.5*(1-dissent); labor_dissent -= 3
+
+Die Rede handelt von Mieten, Heizkosten und dem Wocheneinkauf. Sie wird im Netz geteilt, in den Abendnachrichten kommt sie nicht vor.
+
+@linke_frieden
+on-arrival: rentner_spd += 1*(1-dissent); pacifism += 1; left_dissent -= 3; gruene_relation -= 2
+
+Wir verlangen Diplomatie statt immer neuer Waffen. Die Grünen werfen uns Naivität vor, in Ostdeutschland nicken viele.
+
+@linke_reichtum
+on-arrival: new_middle_spd += 0.5*(1-dissent); workers_spd += 0.5*(1-dissent); socialism += 1; left_dissent -= 2; center_dissent -= 2
+
+Wir rechnen vor, wie viel eine Vermögensteuer auf Milliardenvermögen bringen würde. Die Union spricht von Neiddebatte, viele Zuschauerinnen und Zuschauer finden die Zahlen bemerkenswert.

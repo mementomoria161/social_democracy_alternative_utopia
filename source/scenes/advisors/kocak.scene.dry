@@ -1,0 +1,34 @@
+title: Ferat Koçak
+is-pinned-card: true
+tags: advisor, left
+card-image: img/portraits/Kocak.jpg
+new-page: true
+view-if: player = "linke" and kocak_advisor = 1
+
+# Linke-Berater*in (Durchgang 4.2), Strömung: left
+
+= Ferat Koçak
+
+Koçak ist Abgeordneter aus Berlin-Neukölln. 2018 wurde er Ziel eines rechtsextremen Brandanschlags, seitdem kämpft er für die Aufklärung der Neuköllner Anschlagsserie.[? if n_elections > 0 : 2025 gewann er in Neukölln als erster Linker ein Direktmandat im Westen Berlins. ?] In der Partei steht er für eine Linke, die auf der Straße und in den Kiezen verankert ist.
+
+- @antifa
+- @mieten
+- @root: Zurück
+
+@antifa
+title: Breite Bündnisse gegen rechts
+subtitle: Mit Initiativen, Gewerkschaften und Migrantenvereinen mobilisieren.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; demo_strength += 300; nazi_urgency += 1 if nazi_urgency < 4; left_dissent -= 5; unemployed_spd += 1*(1-dissent)
+
+In vielen Städten entstehen Bündnisse, in denen Linke, Gewerkschaften und migrantische Vereine gemeinsam gegen rechte Gewalt auftreten.
+
+@mieten
+title: Mietenkampf in den Kiezen
+subtitle: Mieterversammlungen und Hilfe gegen überhöhte Mieten.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; workers_spd += 2*(1-dissent); unemployed_spd += 2*(1-dissent); new_middle_spd += 1*(1-dissent); left_strength += 5
+
+Mit Mieterversammlungen und einem Rechner für überhöhte Mieten hilft die Partei Tausenden, Geld von ihren Vermietern zurückzufordern.

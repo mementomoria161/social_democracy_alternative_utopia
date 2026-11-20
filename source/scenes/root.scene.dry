@@ -19,6 +19,18 @@ go-to: start_menu_2
 @start
 on-arrival: {!
 Q.started = 1;
+// Spielerpartei (Durchgang 4.2, Konvention in PORT_2026.md): 'spd' or 'linke'. The engine slot "spd" is always the
+// player party; root.choose_linke swaps the slots spd <-> linke. Names and colours are read from these qualities:
+// pp_* = player party, op_* = the other left party (slot "linke"), f_* = display names of the five factions.
+Q.player = 'spd';
+Q.pp_name = 'SPD'; Q.pp_full = 'die SPD'; Q.pp_Full = 'Die SPD'; Q.pp_dat = 'der SPD'; Q.pp_color = '#E3000F';
+Q.pp_fraktion = 'SPD-Fraktion'; Q.pp_youth = 'Jusos'; Q.pp_hq = 'Willy-Brandt-Haus';
+Q.op_name = 'Linke'; Q.op_full = 'die Linke'; Q.op_Full = 'Die Linke'; Q.op_dat = 'der Linken'; Q.op_color = '#BE3075';
+Q.f_left = 'SPD-Linke'; Q.f_center = 'Parteimitte'; Q.f_labor = 'Gewerkschaftsflügel'; Q.f_reformist = 'Seeheimer Kreis';
+Q.f_neorev = 'Dänischer Kurs';
+// direct mandates (Wahlkreise) the player party can count on; Grundmandatsklausel: three of them carry a party
+// below 5 % into the Bundestag (BVerfG, 30.07.2024). SPD 2025: 44 Wahlkreise. The Linke value is set in choose_linke.
+Q.direct_mandates = 20;
 // time elapsed (in months)
 Q.time = 1;
 // Spielstart: Bruch der Ampel am 6./7. November 2024 (time 1 = November 2024, time 15 = Januar 2026)
@@ -651,6 +663,27 @@ Q.drossmann_advisor = 0; // Falko Droßmann
 Q.hubig_advisor = 0; // Stefanie Hubig
 Q.kluessendorf_advisor = 0; // Tim Klüssendorf
 Q.rosenthal_advisor = 0; // Jessica Rosenthal
+
+// Linke advisors (player = 'linke', set in choose_linke; scenes in advisors/, tags as the SPD factions)
+// Bewegungslinke/Parteivorstand (center): start advisors
+Q.schwerdtner_advisor = 0; Q.vanaken_advisor = 0; Q.reichinnek_advisor = 0;
+// Sozialistische Linke (left)
+Q.kocak_advisor = 0; Q.nguyen_advisor = 0; Q.pantisano_advisor = 0; Q.wissler_advisor = 0;
+// Gewerkschaftsflügel (labor)
+Q.pellmann_advisor = 0; Q.schirdewan_advisor = 0;
+// Reformer*innen (reformist)
+Q.ramelow_advisor = 0; Q.bartsch_advisor = 0; Q.goerke_advisor = 0;
+// ohne Strömung
+Q.gysi_advisor = 0; Q.buenger_advisor = 0;
+// "Mission Silberlocke" (events/silberlocke, advisor actions): has the candidate already been sent into his Wahlkreis?
+Q.gysi_dm = 0; Q.ramelow_dm = 0; Q.bartsch_dm = 0;
+Q.silberlocke_seen = 0;
+// Linke prologue events and the Grundmandatsklausel result of the last election (bundestagswahl.post_election)
+Q.spitzenduo_seen = 0;
+Q.linke_parteitag_2025_seen = 0;
+Q.grundmandat = 0;
+Q.bv_left = 0;
+Q.bv_right = 0;
 !}
 set-bg: img/map_2.jpg
 new-page: true
@@ -664,18 +697,18 @@ Dies ist ein Spiel über eine mögliche Zukunft. Es beginnt am 6. November 2024,
 Mehr zu Parteien, Institutionen und Hintergründen findet sich in der „Bibliothek“ oben links. Beim ersten Spiel lohnt sich ein Blick hinein.
 
 - @intro_easy: Beginnen (leicht)
-- @intro_main: Beginnen (normal)
+- @party_choice: Beginnen (normal)
 - @intro_hard: Beginnen (schwer)
 - @intro_historical: Beginnen (historischer Modus)
 - @intro_custom: Schwierigkeit anpassen
 
 @intro_easy
 on-arrival: difficulty = -1; resources = 4; dues = 3; starting_demo_strength = 2000; demo_strength = 2000; left_dissent = 10; linke_relation = 29; union_relation = 40; gruene_relation = 60; fdp_relation = 20; starting_budget = 3; budget = 3; hand_size = 4; starting_dissent = 0; starting_relations = 0;
-go-to: intro_main
+go-to: party_choice
 
 @intro_hard
 on-arrival: difficulty = 1; resources = 0; starting_resources = 0; dues = 1; starting_demo_strength = 1000; demo_strength = 1000; reformist_dissent = 25; left_dissent = 30; labor_dissent = 25; center_dissent = 25; union_relation = 30; gruene_relation = 50; linke_relation = 16; fdp_relation = 10; starting_budget = 1; budget = 1; discard_disabled = 1; starting_dissent = 2; starting_relations = 2;
-go-to: intro_main
+go-to: party_choice
 
 @intro_historical
 subtitle: Speichern, Laden und Umfragen sind deaktiviert. [? if not achievement_game_completed: Nicht für das erste Spiel empfohlen. ?]
@@ -703,7 +736,7 @@ Q.fundraising_disabled = 1;
 Q.saves_disabled = 1;
 this.state.disableSaves = true;
 !}
-go-to: intro_main
+go-to: party_choice
 
 @intro_custom
 go-to: custom_difficulty
@@ -721,5 +754,91 @@ Die Ampel ist Geschichte. SPD und Grüne regieren weiter, aber ohne eigene Mehrh
 Scholz hat angekündigt, am 15. Januar die Vertrauensfrage zu stellen; Neuwahlen gäbe es dann spätestens Ende März. Friedrich Merz und die Union verlangen, dass er sie sofort stellt. Wirtschaftsverbände warnen vor monatelangem Stillstand, die Bundeswahlleiterin vor einer überstürzten Wahl. In der SPD fragen sich viele, ob dieser Kanzler die Partei noch einmal in einen Wahlkampf führen kann.
 
 Die SPD liegt in den Umfragen bei 15 Prozent, die Union bei über 30, die AfD bei fast 18. Was jetzt entschieden wird, prägt die nächsten Jahre.
+
+- @ampel_aus: Wie geht es weiter?
+
+@party_choice
+new-page: true
+set-bg: img/map_2.jpg
+
+= Welche Partei führst du?
+
+Du kannst das Spiel aus zwei Perspektiven spielen. Die Ausgangslage am 6. November 2024 ist für beide dieselbe, die Aufgabe nicht.
+
+- @choose_spd
+- @choose_linke
+
+@choose_spd
+title: Die SPD
+subtitle: Kanzlerpartei am Abgrund: Die Ampel ist zerbrochen, Olaf Scholz regiert ohne Mehrheit, die Umfragen stehen bei 15 Prozent.
+on-arrival: player = "spd"
+go-to: intro_main
+
+@choose_linke
+title: Die Linke
+subtitle: Totgesagt bei drei Prozent: nach der Abspaltung des BSW nur noch eine Gruppe im Bundestag, neue Vorsitzende und der Kampf um den Wiedereinzug.
+on-arrival: {!
+// Die Linke as player party: swap the engine slots spd <-> linke (slot "spd" = Linke, slot "linke" = SPD).
+// Runs after the difficulty choice, so dissent and relations are rebuilt from starting_dissent/starting_relations.
+Q.player = 'linke';
+Q.pp_name = 'Linke'; Q.pp_full = 'die Linke'; Q.pp_Full = 'Die Linke'; Q.pp_dat = 'der Linken'; Q.pp_color = '#BE3075';
+Q.pp_fraktion = 'Linksfraktion'; Q.pp_youth = "Linksjugend ['solid]"; Q.pp_hq = 'Karl-Liebknecht-Haus';
+Q.op_name = 'SPD'; Q.op_full = 'die SPD'; Q.op_Full = 'Die SPD'; Q.op_dat = 'der SPD'; Q.op_color = '#E3000F';
+Q.f_left = 'Sozialistische Linke'; Q.f_center = 'Bewegungslinke'; Q.f_labor = 'Gewerkschaftsflügel';
+Q.f_reformist = 'Reformer*innen'; Q.f_neorev = 'Friedensflügel';
+var swap = function(a, b) { var t = Q[a]; Q[a] = Q[b]; Q[b] = t; };
+for (var c of Q.classes) swap(c + '_spd', c + '_linke');
+['spd_r', 'old_spd_r', 'spd_in_government'].forEach(function(k) { swap(k, k.replace('spd', 'linke')); });
+// the SPD (slot "linke") leads the remaining minority government; the Linke is in opposition
+Q.chancellor_party = 'Linke';
+for (var post of ['foreign', 'interior', 'justice', 'labor', 'bundeswehr', 'economic', 'finance', 'agriculture']) {
+    if (Q[post + '_minister_party'] == 'SPD') Q[post + '_minister_party'] = 'Linke';
+}
+Q.in_weimar_coalition = 0;
+Q.in_minority_government = 0;
+Q.spd_prussia = 0; // no Linke-led Land after the Thuringia election of September 2024
+Q.prussian_government = 'Linke';
+Q.spd_candidate = 'Reichinnek';
+// slot "linke" now describes the SPD
+Q.linke_leader = 'Scholz';
+Q.linke_party_leader = 'Klingbeil';
+// three Wahlkreise in reach without a campaign: Leipzig II (Pellmann), Berlin-Lichtenberg; Treptow-Köpenick needs Gysi
+Q.direct_mandates = 2;
+// factions (November 2024, a few weeks after the Halle party congress): the new leadership has the party behind it,
+// the reformers in the East fear for the Bundestag, the remaining Wagenknecht sympathizers grumble
+Q.left_strength = 22; Q.center_strength = 35; Q.labor_strength = 15; Q.reformist_strength = 23; Q.neorevisionist_strength = 5;
+var d = [[5, 0, 5, 10, 15], [10, 0, 5, 15, 20], [25, 15, 20, 30, 30]][Math.max(0, Math.min(2, Q.starting_dissent))];
+Q.left_dissent = d[0]; Q.center_dissent = d[1]; Q.labor_dissent = d[2]; Q.reformist_dissent = d[3]; Q.neorevisionist_dissent = d[4];
+// relations from the Linke perspective (linke_relation = SPD)
+var r = Math.max(0, Math.min(2, Q.starting_relations));
+Q.linke_relation = [35, 30, 22][r];
+Q.gruene_relation = [35, 30, 25][r];
+Q.union_relation = [10, 5, 0][r];
+Q.fdp_relation = [5, 0, 0][r];
+Q.bsw_relation = 5; // the BSW split off in January 2024
+Q.afd_relation = 0;
+Q.hindenburg_relation = 45;
+// a small, indebted party (but the membership boom of 2025 is coming)
+Q.resources = Math.max(0, Q.resources - 1);
+Q.starting_resources = Math.max(0, Q.starting_resources - 1);
+// advisors: the new party leaders and the parliamentary group leader to be
+Q.klingbeil_advisor = 0; Q.esken_advisor = 0; Q.muetzenich_advisor = 0;
+Q.schwerdtner_advisor = 1; Q.vanaken_advisor = 1; Q.reichinnek_advisor = 1;
+Q.n_advisors = 3;
+!}
+go-to: intro_linke
+
+@intro_linke
+new-page: true
+face-image: img/portraits/Schwerdtner.jpg
+set-bg: img/karl_liebknecht_haus.jpg
+
+= 6. November 2024
+
+Am Morgen ist klar geworden, dass Donald Trump wieder Präsident der Vereinigten Staaten wird. Am Abend entlässt Olaf Scholz Finanzminister Christian Lindner. Die Ampel ist Geschichte, SPD und Grüne regieren ohne eigene Mehrheit weiter, und alle rechnen mit einer Neuwahl im Frühjahr.
+
+Im Karl-Liebknecht-Haus kommt diese Nachricht zur Unzeit. Die Linke liegt in den Umfragen bei drei bis vier Prozent. Seit sich im Januar das BSW um Sahra Wagenknecht abgespalten hat, ist sie im Bundestag keine Fraktion mehr, nur noch eine Gruppe mit 28 Abgeordneten. Bei der Europawahl im Juni kam sie auf 2,7 Prozent, in Sachsen rettete sie sich im September nur mit zwei Direktmandaten in den Landtag. Viele Kommentatoren haben die Partei schon abgeschrieben.
+
+Seit dem Parteitag in Halle im Oktober führen Ines Schwerdtner und Jan van Aken die Partei. Ihr Plan: weniger Streit, mehr Haustürgespräche, Sozialsprechstunden und ein klarer Fokus auf Mieten, Preise und Löhne. Ob dafür noch Zeit bleibt, ist offen. Unter fünf Prozent zieht die Linke nur in den Bundestag ein, wenn sie mindestens drei Wahlkreise direkt gewinnt.
 
 - @ampel_aus: Wie geht es weiter?

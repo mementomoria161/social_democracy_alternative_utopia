@@ -204,3 +204,27 @@ portraits/Kukies.jpg: Lukasz Kobus / European Union, 2025 / C - Audiovisual Serv
 portraits/Lindner.jpg: Sandro Halank, Wikimedia Commons. „2020-02-14 Christian Lindner (Bundestagsprojekt 2020) by Sandro Halank–2.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2020-02-14_Christian_Lindner_(Bundestagsprojekt_2020)_by_Sandro_Halank%E2%80%932.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
 
 brandmauer_demo.jpg: RobbieIanMorrison. „Street musicians Brandmauer demo Berlin 2 Feb 2025 tight shot.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Street_musicians_Brandmauer_demo_Berlin_2_Feb_2025_tight_shot.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
+
+portraits/Gysi.jpg: Sandro Halank, Wikimedia Commons. „2025-01-18 Außerordentlicher Bundesparteitag Die Linke 2025 in Berlin by Sandro Halank–177.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2025-01-18_Au%C3%9Ferordentlicher_Bundesparteitag_Die_Linke_2025_in_Berlin_by_Sandro_Halank%E2%80%93177.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
+
+portraits/Bartsch.jpg: Sandro Halank, Wikimedia Commons. „2018-06-09 Bundesparteitag Die Linke 2018 in Leipzig by Sandro Halank–141.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2018-06-09_Bundesparteitag_Die_Linke_2018_in_Leipzig_by_Sandro_Halank%E2%80%93141.jpg. Lizenz: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0
+
+portraits/Pellmann.jpg: Sören Pellmann. „Sören Pellmann.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:S%C3%B6ren_Pellmann.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
+
+portraits/Kocak.jpg: Stefan Müller (climate stuff, 1.5 Mio views) from Germany. „Ferat Koçak, Genug ist genug, spricht auf der Eröffnung der Herbstrebellion (52365663916).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Ferat_Ko%C3%A7ak,_Genug_ist_genug,_spricht_auf_der_Er%C3%B6ffnung_der_Herbstrebellion_(52365663916).jpg. Lizenz: CC BY 2.0 https://creativecommons.org/licenses/by/2.0
+
+portraits/Nguyen.jpg: Olaf Krostitz. „Nam-Duy-Nguyen-Presse-hochkant.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Nam-Duy-Nguyen-Presse-hochkant.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
+
+portraits/Goerke.jpg: Olaf Kosinsky. „2019-04-12 Sitzung des Bundesrates by Olaf Kosinsky-0135.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2019-04-12_Sitzung_des_Bundesrates_by_Olaf_Kosinsky-0135.jpg. Lizenz: CC BY-SA 3.0 de https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+
+portraits/Buenger.jpg: DIE LINKE. Sachsen. „Clara Bünger (cropped).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Clara_B%C3%BCnger_(cropped).jpg. Lizenz: CC BY 2.0 https://creativecommons.org/licenses/by/2.0
+
+portraits/Schirdewan.jpg: Ferran Cornellà. „Martin Schirdewan, Parteitag Bonn 2019 (cropped).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Martin_Schirdewan,_Parteitag_Bonn_2019_(cropped).jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
+
+portraits/Wissler.jpg: Martin Kraft. „MK61753 Janine Wissler (Hessischer Landtag 2019).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:MK61753_Janine_Wissler_(Hessischer_Landtag_2019).jpg. Lizenz: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0
+
+portraits/Pantisano.jpg: Fyrtaarn. „Luigi Pantisano 727igste Montagsdemo gegen Stuttgart 21 P1040961 2024-10-07 yj.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Luigi_Pantisano_727igste_Montagsdemo_gegen_Stuttgart_21_P1040961_2024-10-07_yj.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
+
+karl_liebknecht_haus.jpg: Jörg Zägel. „Berlin, Mitte, Weydingerstrasse 14-16, Karl-Liebknecht-Haus.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Berlin,_Mitte,_Weydingerstrasse_14-16,_Karl-Liebknecht-Haus.jpg. Lizenz: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0
+
+linke_parteitag.jpg: Ferran Cornellà. „Hallescher Parteitag - Die Vorsitzenden 06.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Hallescher_Parteitag_-_Die_Vorsitzenden_06.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0

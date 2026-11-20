@@ -1,0 +1,34 @@
+title: Jan van Aken
+is-pinned-card: true
+tags: advisor, centrist
+card-image: img/portraits/van_Aken.jpg
+new-page: true
+view-if: player = "linke" and vanaken_advisor = 1
+
+# Linke-Berater*in (Durchgang 4.2), Strömung: center
+
+= Jan van Aken
+
+Van Aken ist seit Oktober 2024 Co-Vorsitzender der Linken. Der Biologe war Biowaffeninspekteur der Vereinten Nationen und Kampagnenleiter bei Greenpeace, von 2009 bis 2017 saß er im Bundestag. Er steht für eine Friedenspolitik, die Abrüstung fordert, ohne Russlands Krieg zu beschönigen.
+
+- @frieden
+- @einheit
+- @root: Zurück
+
+@frieden
+title: Abrüstung statt Aufrüstung
+subtitle: Eine Friedenskampagne, die Russlands Krieg klar verurteilt.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; pacifism += 1; rentner_spd += 2*(1-dissent); new_middle_spd += 1*(1-dissent); left_dissent -= 5; gruene_relation -= 2
+
+Van Aken wirbt für Diplomatie, Rüstungskontrolle und ein Ende der Waffenexporte in Kriegsgebiete. Die Kampagne grenzt sich deutlich vom BSW ab und erreicht Ältere wie Junge.
+
+@einheit
+title: Die Strömungen zusammenführen
+subtitle: Gemeinsame Arbeit statt öffentlichem Streit.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; left_dissent -= 8; center_dissent -= 8; labor_dissent -= 5; reformist_dissent -= 8; neorevisionist_dissent -= 5
+
+Nach Jahren des Streits um Wagenknecht und den Kurs der Partei vereinbaren die Strömungen, ihre Differenzen intern auszutragen. Die Stimmung bessert sich spürbar.

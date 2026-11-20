@@ -2,7 +2,7 @@ title: Scholz oder Pistorius?
 subtitle: Wer führt die SPD in die Neuwahl?
 new-page: true
 tags: event
-view-if: year = 2024 and month = 11 and ampel_aus_seen = 1
+view-if: player = "spd" and (year = 2024 and month = 11 and ampel_aus_seen = 1)
 max-visits: 1
 priority: 2
 on-arrival: k_frage_seen = 1

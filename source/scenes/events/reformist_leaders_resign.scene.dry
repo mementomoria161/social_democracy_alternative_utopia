@@ -2,7 +2,7 @@ title: Die Seeheimer gehen
 new-page: true 
 subtitle: Der Streit mit dem Seeheimer Kreis ist eskaliert.
 tags: event
-view-if: reformist_dissent >= 60
+view-if: player = "spd" and (reformist_dissent >= 60)
 on-arrival: reformist_strength *= 0.3; n_advisors -= 1 if schwesig_advisor == 1; n_advisors -= 1 if pistorius_advisor == 1; schwesig_advisor = 0; pistorius_advisor = 0; demo_strength -= 250; reformists_resign = 1
 go-to: srpd_formed
 max-visits: 1

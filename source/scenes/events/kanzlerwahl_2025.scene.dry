@@ -5,7 +5,7 @@ tags: event
 view-if: kanzlerwahl_seen = 0 and n_elections = 1 and year = 2025 and time >= last_election_time + 3 and chancellor_party != "AfD"
 max-visits: 1
 priority: 1
-on-arrival: kanzlerwahl_seen = 1; muetzenich_advisor = 0; miersch_advisor = 1
+on-arrival: kanzlerwahl_seen = 1; muetzenich_advisor = 0 if player = "spd"; miersch_advisor = 1 if player = "spd"
 face-image: img/bundestag_plenum.jpg
 
 # Prolog, Abschluss (drei Monate nach der Wahl). Historisch: 06.05.2025, Merz scheitert im ersten Wahlgang mit
@@ -16,7 +16,7 @@ face-image: img/bundestag_plenum.jpg
 
 Der neue Bundestag mit seinen 630 Abgeordneten tritt zur Kanzlerwahl zusammen. Gewählt ist, wer die Mehrheit der Mitglieder hinter sich bringt: 316 Stimmen. Die Wahl ist geheim.
 
-[? if spd_in_government : In der SPD-Fraktion hat Matthias Miersch den Vorsitz übernommen; Rolf Mützenich, der die Fraktion seit 2019 geführt hat, zieht sich zurück. ?][? if not spd_in_government and not spd_toleration : Die SPD geht in die Opposition. ?][? if spd_toleration : Die SPD wird die neue Regierung tolerieren, ohne ihr anzugehören. ?][? if not spd_in_government : Matthias Miersch übernimmt den Fraktionsvorsitz von Rolf Mützenich. ?]
+[? if player = "linke" and spd_r > 0 : In unserer Fraktion führen Heidi Reichinnek und Sören Pellmann den Vorsitz. ?][? if player = "spd" and spd_in_government : In der SPD-Fraktion hat Matthias Miersch den Vorsitz übernommen; Rolf Mützenich, der die Fraktion seit 2019 geführt hat, zieht sich zurück. ?][? if not spd_in_government and not spd_toleration : [+ pp_Full +] geht in die Opposition. ?][? if spd_toleration : [+ pp_Full +] wird die neue Regierung tolerieren, ohne ihr anzugehören. ?][? if player = "spd" and not spd_in_government : Matthias Miersch übernimmt den Fraktionsvorsitz von Rolf Mützenich. ?]
 
 - @disziplin: Die eigene Fraktion vorher auf Linie bringen.
 - @vertrauen: Auf die Abgeordneten vertrauen.
@@ -47,4 +47,4 @@ Im ersten Wahlgang fehlen [+ chancellor +] sechs Stimmen. Im Saal herrscht ungl�
 @opposition
 view-if: not spd_in_government
 
-[+ chancellor +] wird gewählt[? if spd_toleration : , auch mit unseren Stimmen ?]. [? if spd_toleration : Wir tolerieren die Minderheitsregierung und werden uns jede Unterstützung teuer bezahlen lassen. ?][? if not spd_toleration : Für uns beginnt die Arbeit in der Opposition: Wir müssen zeigen, dass die SPD auch dort gebraucht wird. ?]
+[+ chancellor +] wird gewählt[? if spd_toleration : , auch mit unseren Stimmen ?]. [? if spd_toleration : Wir tolerieren die Minderheitsregierung und werden uns jede Unterstützung teuer bezahlen lassen. ?][? if not spd_toleration : Für uns beginnt die Arbeit in der Opposition: Wir müssen zeigen, dass [+ pp_full +] auch dort gebraucht wird. ?]

@@ -1,0 +1,34 @@
+title: Bodo Ramelow
+is-pinned-card: true
+tags: advisor, reformist
+card-image: img/portraits/Ramelow.jpg
+new-page: true
+view-if: player = "linke" and ramelow_advisor = 1
+
+# Linke-Berater*in (Durchgang 4.2), Strömung: reformist
+
+= Bodo Ramelow
+
+Ramelow war von 2014 bis 2024 mit kurzer Unterbrechung Ministerpräsident von Thüringen, der einzige der Linken.[? if n_elections > 0 : 2025 gewann er in Erfurt ein Direktmandat und wurde Vizepräsident des Bundestages. ?][? if n_elections = 0 : Jetzt will er mit Gregor Gysi und Dietmar Bartsch Direktmandate holen, um die Linke im Bundestag zu halten. ?]
+
+- @silberlocke
+- @regieren
+- @root: Zurück
+
+@silberlocke
+title: Silberlocke: Wahlkreis Erfurt
+subtitle: Ramelow kandidiert in Erfurt direkt.
+choose-if: advisor_action_timer = 0 and n_elections = 0 and ramelow_dm = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if n_elections > 0 : Nur vor der ersten Bundestagswahl möglich. ?][? if ramelow_dm : Der Wahlkreis ist schon umkämpft. ?]
+on-arrival: advisor_action_timer = 6; ramelow_dm = 1; direct_mandates += 1; rentner_spd += 1*(1-dissent); reformist_dissent -= 3
+
+Ramelow tritt in Erfurt als Direktkandidat an. Viele, die sonst nie die Linke wählen würden, wollen den früheren Ministerpräsidenten im Bundestag sehen.
+
+@regieren
+title: Regierungsfähigkeit zeigen
+subtitle: Gespräche mit SPD und Grünen, ein Programm für Rot-Grün-Rot.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; linke_relation += 5*(1-dissent); gruene_relation += 3; reformist_strength += 5; left_dissent += 3
+
+Ramelow lädt Abgeordnete von SPD und Grünen zu vertraulichen Gesprächen nach Erfurt ein. Am Ende steht eine Liste von Projekten, die alle drei mittragen könnten.

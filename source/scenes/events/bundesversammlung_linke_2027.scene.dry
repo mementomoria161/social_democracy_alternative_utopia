@@ -1,0 +1,29 @@
+title: Die Bundesversammlung
+subtitle: Wer folgt auf Frank-Walter Steinmeier?
+new-page: true
+tags: event
+view-if: player = "linke" and year = 2027 and (month = 2 or month = 3) and presidential_election_seen = 0
+max-visits: 1
+on-arrival: presidential_election_seen = 1; bv_left = linke_r + gruene_r + spd_r; bv_right = union_r + fdp_r
+face-image: img/bundesversammlung.jpg
+
+# Kurzfassung von presidential_election_1932 für das Linke-Spiel (Durchgang 4.2; ausführliche Fassung in 4.3).
+# Fiktive Kandidaturen wie im SPD-Spiel: Lammert (Union), Schwesig (SPD), Trabert (parteilos, von der Linken nominiert).
+# Vereinfachtes Kräfteverhältnis: Sitzanteile im Bundestag (die Ländervertreter verteilen sich ähnlich).
+
+= Die Bundesversammlung
+
+Die Amtszeit von Frank-Walter Steinmeier endet. Die Bundesversammlung, Bundestagsabgeordnete und ebenso viele Vertreterinnen und Vertreter der Länder, wählt seine Nachfolge. Die Union schickt Norbert Lammert ins Rennen, SPD und Grüne Manuela Schwesig. Wir haben den Sozialmediziner Gerhard Trabert nominiert. In den ersten beiden Wahlgängen braucht es die absolute Mehrheit, im dritten reicht die einfache.
+
+- @trabert: Bis zum Schluss für Gerhard Trabert stimmen.
+- @schwesig: Im dritten Wahlgang Manuela Schwesig wählen, um Lammert zu verhindern.
+
+@trabert
+on-arrival: president = "Lammert" if bv_right >= bv_left - spd_r; president = "Schwesig" if bv_right < bv_left - spd_r; left_dissent -= 5; linke_relation -= 5
+
+Wir bleiben bei unserem Kandidaten. Trabert wirbt in der Bundesversammlung für die Menschen am Rand der Gesellschaft und erhält viel Applaus. Gewählt wird im dritten Wahlgang [? if president = "Lammert" : Norbert Lammert. SPD und Grüne werfen uns vor, ihn möglich gemacht zu haben. ?][? if president = "Schwesig" : Manuela Schwesig, auch ohne unsere Stimmen. ?]
+
+@schwesig
+on-arrival: president = "Schwesig" if bv_left > bv_right; president = "Lammert" if bv_left <= bv_right; reformist_dissent -= 3; left_dissent += 3; linke_relation += 5
+
+Trabert zieht nach dem zweiten Wahlgang zurück, unsere Wahlleute stimmen für Schwesig. [? if president = "Schwesig" : Manuela Schwesig wird die erste Bundespräsidentin. ?][? if president = "Lammert" : Es reicht trotzdem nicht: Norbert Lammert wird Bundespräsident. ?]

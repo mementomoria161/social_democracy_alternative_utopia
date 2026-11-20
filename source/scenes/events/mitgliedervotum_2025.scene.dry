@@ -2,7 +2,7 @@ title: Das Mitgliedervotum
 subtitle: Die SPD-Mitglieder stimmen über den Koalitionsvertrag ab.
 new-page: true
 tags: event
-view-if: mitgliedervotum_seen = 0 and n_elections = 1 and year = 2025 and time >= last_election_time + 2 and spd_in_government and not in_spd_majority
+view-if: player = "spd" and (mitgliedervotum_seen = 0 and n_elections = 1 and year = 2025 and time >= last_election_time + 2 and spd_in_government and not in_spd_majority)
 max-visits: 1
 priority: 1
 on-arrival: {!

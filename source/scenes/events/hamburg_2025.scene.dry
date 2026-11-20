@@ -2,7 +2,7 @@ title: Bürgerschaftswahl in Hamburg
 subtitle: Ein Lichtblick für die SPD?
 new-page: true
 tags: event
-view-if: year = 2025 and month = 3 and hamburg_2025_seen = 0
+view-if: player = "spd" and (year = 2025 and month = 3 and hamburg_2025_seen = 0)
 max-visits: 1
 on-arrival: hamburg_2025_seen = 1
 face-image: img/wahlkampf.jpg

@@ -1,0 +1,34 @@
+title: Nam Duy Nguyen
+is-pinned-card: true
+tags: advisor, left
+card-image: img/portraits/Nguyen.jpg
+new-page: true
+view-if: player = "linke" and nguyen_advisor = 1
+
+# Linke-Berater*in (Durchgang 4.2), Strömung: left
+
+= Nam Duy Nguyen
+
+Nguyen gewann bei der Landtagswahl 2024 in Leipzig eines der zwei Direktmandate, mit denen die Linke im sächsischen Landtag blieb. Er steht für eine junge Linke, die Haustürgespräche und Basisarbeit ernst nimmt.
+
+- @jugend
+- @osten
+- @root: Zurück
+
+@jugend
+title: Junge Menschen organisieren
+subtitle: Hochschulgruppen, Auszubildende, Linksjugend.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; new_middle_spd += 2*(1-dissent); workers_spd += 1*(1-dissent); left_strength += 3; dues += 1 if dues < 4
+
+An Hochschulen und Berufsschulen gründen sich neue Gruppen. Die Linke wird zur Partei mit den jüngsten Mitgliedern.
+
+@osten
+title: Basisarbeit im Osten
+subtitle: Sozialberatung und Nachbarschaftsarbeit dort, wo die AfD stark ist.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; unemployed_spd += 2*(1-dissent); rural_spd += 1*(1-dissent); workers_afd -= 1; pro_republic += 1
+
+In ostdeutschen Kleinstädten öffnen Sozialsprechstunden. Wer Hilfe beim Jobcenter oder mit der Nebenkostenabrechnung braucht, findet sie bei uns.

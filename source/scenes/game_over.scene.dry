@@ -9,7 +9,7 @@ Q.game_over = 1;
 this.achieve('game_completed');
 
 // Roter Zar von Preußen - At the end of the game, Otto Braun is president, chancellor, and minister-president of prussia at the same time.
-if (Q.president == 'Schwesig' && Q.chancellor_party == 'SPD' && Q.spd_prussia) {
+if (Q.player != 'linke' && Q.president == 'Schwesig' && Q.chancellor_party == 'SPD' && Q.spd_prussia) {
     this.achieve('red_tzar_of_prussia');
 }
 // Bürgerkrieg - enter a long civil war.
@@ -51,7 +51,8 @@ if ((Q.womens_work && Q.womens_rights >= 5) || (Q.abortion_rights && Q.womens_ri
 }
 
 // Sohn seiner Klasse - elect Ernst Thälmann as president or chancellor.
-if (Q.chancellor_party == "Linke" || Q.president == "Trabert") {
+// slot string: the Linke is 'SPD' when it is the player party
+if (Q.chancellor_party == (Q.player == 'linke' ? 'SPD' : 'Linke') || Q.president == "Trabert") {
     this.achieve('sohn_seiner_klasse');
 }
 
@@ -223,16 +224,16 @@ Mit [+ president +] sitzt ein AfD-Politiker im Schloss Bellevue. Das höchste Am
 
 
 @spd_victorious
-title: Die SPD regiert weiter
+title: [+ pp_Full +] regiert
 view-if: spd_in_government == 1 and chancellor_party == "SPD" and total_defeat == 0 and long_war == 0
 tags: endings
 go-to: eg_menu
 
-Die SPD regiert weiter, mit [+ chancellor +] im Kanzleramt. Unter diesen Umständen ist das eine beachtliche Leistung.
+[+ pp_Full +] regiert, mit [+ chancellor +] im Kanzleramt. Unter diesen Umständen ist das eine beachtliche Leistung.
 
 @communist_victory
 title: Die Linke an der Macht
-view-if: chancellor_party == "Linke" or president == "Trabert" and total_defeat == 0 and long_war == 0
+view-if: player = "spd" and (chancellor_party == "Linke" or president == "Trabert" and total_defeat == 0 and long_war == 0)
 tags: endings
 go-to: eg_menu
 

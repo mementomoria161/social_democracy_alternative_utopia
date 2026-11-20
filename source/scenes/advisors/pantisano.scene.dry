@@ -1,0 +1,34 @@
+title: Luigi Pantisano
+is-pinned-card: true
+tags: advisor, left
+card-image: img/portraits/Pantisano.jpg
+new-page: true
+view-if: player = "linke" and pantisano_advisor = 1
+
+# Linke-Berater*in (Durchgang 4.2), Strömung: left
+
+= Luigi Pantisano
+
+Pantisano ist Stadtplaner und Kommunalpolitiker aus Baden-Württemberg und seit Jahren in den Bewegungen gegen Stuttgart 21 und für bezahlbaren Wohnraum aktiv. Er steht für eine Linke, die auch im Westen und auf kommunaler Ebene Wurzeln schlägt.
+
+- @bewegungen
+- @kommunal
+- @root: Zurück
+
+@bewegungen
+title: Bewegungen einbinden
+subtitle: Klimagruppen, Mieterinitiativen und Gewerkschaften an einen Tisch holen.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; klima_strength += 50; demo_strength += 100; left_dissent -= 5; new_middle_spd += 1*(1-dissent)
+
+Aus losen Kontakten werden feste Bündnisse. Bei Demonstrationen und Streiks ist die Linke sichtbar, ohne die Bewegungen zu vereinnahmen.
+
+@kommunal
+title: Kommunal verankern
+subtitle: Kandidatinnen und Kandidaten für Stadt- und Gemeinderäte gewinnen.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; workers_spd += 1*(1-dissent); new_middle_spd += 1*(1-dissent); rural_spd += 1*(1-dissent); labor_dissent -= 3
+
+In Hunderten Gemeinden stellt die Linke neue Kandidatinnen und Kandidaten auf. Vor Ort zählt, wer sich kümmert.

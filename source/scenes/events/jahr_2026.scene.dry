@@ -11,8 +11,8 @@ face-image: img/kabinett.jpg
 
 = 2026
 
-Ein neues Jahr beginnt. [? if chancellor = "Merz" and spd_in_government : Die Koalition aus Union und SPD unter Bundeskanzler Friedrich Merz geht in ihr erstes volles Regierungsjahr. ?][? if chancellor_party = "SPD" : Zum ersten Mal seit Jahren gibt es wieder Hoffnung in der SPD: [+ chancellor +] führt die Bundesregierung, eine Koalition „[+ coalition_name +]“. ?][? if not spd_in_government : Die SPD sitzt in der Opposition und sucht nach dem Weg zurück. Im Kanzleramt regiert [+ chancellor +]. ?]
+Ein neues Jahr beginnt. [? if chancellor = "Merz" and spd_in_government : Die Koalition aus Union und SPD unter Bundeskanzler Friedrich Merz geht in ihr erstes volles Regierungsjahr. ?][? if chancellor_party = "SPD" : Zum ersten Mal seit Jahren gibt es wieder Hoffnung in [+ pp_dat +]: [+ chancellor +] führt die Bundesregierung, eine Koalition „[+ coalition_name +]“. ?][? if not spd_in_government : Die SPD sitzt in der Opposition und sucht nach dem Weg zurück. Im Kanzleramt regiert [+ chancellor +]. ?]
 
-Die Lage ist ernst. Die Wirtschaft kommt kaum voran, die Industrie baut Arbeitsplätze ab, und die AfD liegt in den Umfragen [? if afd_votes >= union_votes : vor ?][? if afd_votes < union_votes : fast gleichauf mit ?] der Union. Im Osten könnte sie im Herbst ganze Länder gewinnen. In der eigenen Partei fragen viele, wofür die SPD eigentlich noch steht.
+Die Lage ist ernst. Die Wirtschaft kommt kaum voran, die Industrie baut Arbeitsplätze ab, und die AfD liegt in den Umfragen [? if afd_votes >= union_votes : vor ?][? if afd_votes < union_votes : fast gleichauf mit ?] der Union. Im Osten könnte sie im Herbst ganze Länder gewinnen. In der eigenen Partei fragen viele, wofür [+ pp_full +] eigentlich noch steht.
 
-Die nächste Bundestagswahl ist für [+ next_election_month : month +] [+ next_election_year +] angesetzt. Jetzt muss die Sozialdemokratie zeigen, dass sie gebraucht wird.
+Die nächste Bundestagswahl ist für [+ next_election_month : month +] [+ next_election_year +] angesetzt. Jetzt muss [? if player = "spd" : die Sozialdemokratie ?][? if player = "linke" : die Linke ?] zeigen, dass sie gebraucht wird.

@@ -1,0 +1,34 @@
+title: Heidi Reichinnek
+is-pinned-card: true
+tags: advisor, centrist
+card-image: img/portraits/Reichinnek.jpg
+new-page: true
+view-if: player = "linke" and reichinnek_advisor = 1
+
+# Linke-Berater*in (Durchgang 4.2), Strömung: center
+
+= Heidi Reichinnek
+
+Reichinnek sitzt seit 2021 im Bundestag und führt seit 2024 zusammen mit Sören Pellmann die Gruppe der Linken.[? if n_elections = 0 : Ihre Reden gegen die Sozialkürzungen der Ampel und gegen die Union werden im Netz hunderttausendfach geteilt. ?][? if n_elections > 0 : Als Spitzenkandidatin wurde sie im Wahlkampf 2025 bundesweit bekannt, seitdem führt sie die Fraktion. ?]
+
+- @tiktok
+- @brandmauer
+- @root: Zurück
+
+@tiktok
+title: Social-Media-Offensive
+subtitle: Kurze Videos über Mieten, Preise und Ungerechtigkeit.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; new_middle_spd += 2*(1-dissent); unemployed_spd += 2*(1-dissent); workers_spd += 1*(1-dissent)
+
+Reichinneks Videos laufen millionenfach. Vor allem Junge, die mit Parteien bisher nichts anfangen konnten, entdecken die Linke.
+
+@brandmauer
+title: Klare Kante gegen rechts
+subtitle: Eine Rede, die die Union an ihre Verantwortung erinnert.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; nazi_urgency += 1 if nazi_urgency < 4; demo_strength += 200; new_middle_spd += 2*(1-dissent); union_relation -= 3
+
+Reichinnek redet im Bundestag über die Brandmauer und die Verantwortung der Union. Am Abend gehen Tausende auf die Straße, viele mit ihren Sätzen auf den Schildern.

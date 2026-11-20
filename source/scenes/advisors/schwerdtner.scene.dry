@@ -1,0 +1,34 @@
+title: Ines Schwerdtner
+is-pinned-card: true
+tags: advisor, centrist
+card-image: img/portraits/Schwerdtner.jpg
+new-page: true
+view-if: player = "linke" and schwerdtner_advisor = 1
+
+# Linke-Berater*in (Durchgang 4.2), Strömung: center
+
+= Ines Schwerdtner
+
+Schwerdtner ist seit dem Parteitag in Halle im Oktober 2024 Co-Vorsitzende der Linken. Die frühere Chefredakteurin des Magazins „Jacobin“ will die Partei von unten neu aufbauen: Haustürgespräche, Sozialsprechstunden, Mieten und Preise statt Flügelstreit.[? if n_elections > 0 : Bei der Bundestagswahl 2025 gewann sie den Wahlkreis Berlin-Lichtenberg direkt. ?]
+
+- @haustuer
+- @mitglieder
+- @root: Zurück
+
+@haustuer
+title: Haustürwahlkampf
+subtitle: Tausende Mitglieder klingeln in Plattenbauten und Arbeitervierteln.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?]
+on-arrival: advisor_action_timer = 6; workers_spd += 3*(1-dissent); unemployed_spd += 3*(1-dissent); rentner_spd += 1*(1-dissent); center_dissent -= 3
+
+Wochenende für Wochenende ziehen Mitglieder von Tür zu Tür und fragen nach Miete, Heizkosten und Lohn. Viele, die wir besuchen, haben noch nie mit jemandem aus einer Partei gesprochen.
+
+@mitglieder
+title: Neue Mitglieder einbinden
+subtitle: Wer neu eintritt, soll bleiben: Neumitgliedertreffen und eigene Aufgaben.
+choose-if: advisor_action_timer = 0 and dues < 5
+unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if dues >= 5 : Die Beitragseinnahmen sind schon hoch. ?]
+on-arrival: advisor_action_timer = 6; dues += 1; center_strength += 3
+
+In vielen Kreisverbänden sitzen jetzt mehr Neumitglieder als Altgediente am Tisch. Die Beiträge steigen, die Partei wird jünger.
