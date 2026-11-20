@@ -150,6 +150,10 @@ if (Q.month_actions >= 1) {
     Q.economic_records.push({'date': new Date(Q.year, Q.month - 1),
                              'inflation': Q.inflation,
                              'unemployment': Q.unemployed});
+    // Standort-Modul: Branchen, Lebensstandard und Klima rechnen monatlich mit (out/html/standort.js)
+    if (typeof window !== 'undefined' && window.SD) {
+        window.SD.step(Q);
+    }
     // change economic stats...
     // we're basically implicity drawing a Philips curve, scaled to the German economy of the 2020s
     // budget deficits lead to some inflation
