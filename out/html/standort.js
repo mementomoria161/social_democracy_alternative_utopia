@@ -26,14 +26,60 @@
 
   /* ---------- Zustand ---------- */
   function init(Q) {
-    if (Q.sd) return Q.sd;
+    if (Q.sd) { initGroups(Q.sd); return Q.sd; }
     var sec = {};
     D.order.forEach(function (k) { sec[k] = {y: 100, yB: 100, emp: D.sectors[k].emp, emp0: D.sectors[k].emp}; });
     Q.sd = {sec: sec, n: 0, life_pol: 0, cut: {energie: 0, gebaeude: 0, verkehr: 0, stahl: 0, chemie: 0}, hist: []};
+    initGroups(Q.sd);
     record(Q);
     return Q.sd;
   }
   SD.init = init;
+
+  /* ---------- Verbände und Gewerkschaften ----------
+     Drei Lager mit Zugang zu den SPD-geführten Ministerien. Zufriedenheit 0 bis 100 folgt jeden Monat der Lage
+     ihrer Branche bzw. ihrem Thema (Annahmen). Wer wenig Zugang hat, protestiert lauter. */
+  var BLOCS = {
+    O: {n: 'Mittelstand und Ordnungspolitik', s: 'Mittelstand', c: '#a87b1f', d: 'Mittelstandsverbände, Familienunternehmen, Maschinenbau und die meisten Wirtschaftsinstitute. Fürchten Bürokratie, Steuern und Konzerne, die der Staat bevorzugt.'},
+    W: {n: 'Weltmarkt-Industrie', s: 'Konzerne', c: '#3b5b8c', d: 'BDI und Großkonzerne. Für Förderung großer Projekte und lockeres Beihilferecht, gegen Handelsschutz. Intern gespalten: Autoindustrie dagegen, Elektroindustrie eher dafür.'},
+    S: {n: 'Gewerkschaften', s: 'Gewerkschaften', c: '#b3261e', d: 'DGB, IG Metall und gewerkschaftsnahe Institute. Stützen Industriepolitik, Standortgarantien und Staatsbeteiligungen, weil sie Arbeitsplätze sichern.'}
+  };
+  var GROUPS = {
+    bvmw: {n: 'BVMW (Mittelstand)', b: 'O', w: 1.0, start: 48},
+    famu: {n: 'Die Familienunternehmer', b: 'O', w: 0.9, start: 46},
+    vdma: {n: 'VDMA (Maschinenbau)', b: 'O', w: 1.1, start: 50, sec: 'maschinen'},
+    inst: {n: 'ifo, IfW, Sachverständigenrat', b: 'O', w: 0.8, start: 50},
+    bdi: {n: 'BDI', b: 'W', w: 1.4, start: 50},
+    vda: {n: 'VDA (Automobil)', b: 'W', w: 1.2, start: 44, sec: 'auto'},
+    zvei: {n: 'ZVEI und bitkom', b: 'W', w: 0.9, start: 52, sec: 'elektro'},
+    vci: {n: 'VCI (Chemie)', b: 'W', w: 0.9, start: 46, sec: 'chemie'},
+    dgb: {n: 'DGB und IG Metall', b: 'S', w: 1.3, start: 55}
+  };
+  function initGroups(s) {
+    if (s.grp) return;
+    s.grp = {}; for (var g in GROUPS) s.grp[g] = GROUPS[g].start;
+    s.acc = {O: 30, W: 45, S: 55};   // Zugang zu den SPD-Ministerien zu Spielbeginn (Annahme)
+  }
+  function groupTarget(Q, g) {
+    var s = Q.sd, G = GROUPS[g], gr = Q.economic_growth || 0, u = Q.unemployed || 6.3, inf = Q.inflation || 2, bud = Q.budget || 0;
+    var ind = indAvg(s) - 100;
+    if (G.sec) return 50 + 4 * (s.sec[G.sec].y - 100) + 2 * (gr - 0.8);
+    if (g === 'dgb') return 55 - 6 * (u - 6.3) + 1.5 * ind;
+    if (g === 'inst') return 50 + 5 * (gr - 0.8) + 1.5 * clamp(bud, -6, 6) - 2 * Math.max(0, inf - 2.5);
+    if (g === 'bdi') return 50 + 3 * ind + 3 * (gr - 0.8);
+    return 48 + 4 * (gr - 0.8) - 3 * Math.max(0, inf - 2.5) - 1.5 * Math.max(0, -bud);   // bvmw, famu
+  }
+  function stepGroups(Q) {
+    var s = Q.sd;
+    for (var g in GROUPS) {
+      var lack = (60 - s.acc[GROUPS[g].b]) / 60;   // wenig Zugang: schärfere Reaktion nach unten
+      var t = groupTarget(Q, g), d = t - s.grp[g];
+      s.grp[g] = clamp(s.grp[g] + 0.15 * d * (d < 0 ? 1 + 0.6 * Math.max(0, lack) : 1), 0, 100);
+    }
+    for (var b in s.acc) s.acc[b] += 0.02 * (40 - s.acc[b]);   // Zugang verblasst langsam ohne Pflege
+  }
+  function blocSup(s, b) { var a = 0, w = 0; for (var g in GROUPS) if (GROUPS[g].b === b) { a += s.grp[g] * GROUPS[g].w; w += GROUPS[g].w; } return a / w; }
+  SD.blocSup = function (Q, b) { return blocSup(init(Q), b); };
 
   /* Energiepreisindex (Start 100): Annahme, aus der Inflation abgeleitet, solange das Spiel keinen eigenen Wert hat */
   function energyIdx(Q) { return 100 + 4 * ((Q.inflation || 2) - 2); }
@@ -49,6 +95,7 @@
       x.yB *= 1 + TREND[k] / 1200;
       x.emp *= 1 + 0.35 * dy - 0.0006;
     });
+    stepGroups(Q);
     record(Q);
   };
 
@@ -273,6 +320,38 @@
       '<li>Wirtschaftsvereinigung Stahl: 51 Mt aus der Stahlindustrie (2024). Chemie 37 Mt: Annahme.</li>' +
       '<li>Bundes-Klimaschutzgesetz § 3 und Anlage 2 (Fassung 2021).</li><li>Trends der Sektoren ohne neue Politik: Annahmen, angelehnt an die UBA-Projektion.</li></ul>';
     h += fold('Was das Gesetz verlangt', ziel, open[0]) + fold('Was die Emissionen treibt', treiber, open[1]) + fold('Quellen und Annahmen', quellen, open[2]);
+    box.innerHTML = h;
+  };
+
+  /* ---------- Reiter Bewegungen: Verbände und Gewerkschaften ---------- */
+  function supCol(v) { return v >= 55 ? '#2f8a4b' : v >= 42 ? '#c98a12' : '#c0392b'; }
+  function groupNet(s) {
+    var W = 260, H = 178, M = {x: 130, y: 92}, P = {O: {x: 46, y: 40}, W: {x: 214, y: 40}, S: {x: 130, y: 158}}, g = '';
+    for (var b in P) {
+      var p = P[b], sup = blocSup(s, b), r = 10 + sup / 7;
+      g += '<line x1="' + M.x + '" y1="' + M.y + '" x2="' + p.x + '" y2="' + p.y + '" stroke="' + BLOCS[b].c + '" stroke-width="' + (1 + s.acc[b] / 14).toFixed(1) + '" stroke-opacity=".55"/>';
+      g += '<circle cx="' + p.x + '" cy="' + p.y + '" r="' + r.toFixed(1) + '" fill="' + supCol(sup) + '" fill-opacity=".85" stroke="' + BLOCS[b].c + '" stroke-width="2"/>';
+      g += '<text x="' + p.x + '" y="' + (p.y + 4) + '" text-anchor="middle" class="sd_nn">' + Math.round(sup) + '</text>';
+      g += '<text x="' + p.x + '" y="' + (b === 'S' ? p.y - r - 4 : p.y + r + 11) + '" text-anchor="middle" class="sd_nl">' + BLOCS[b].s + '</text>';
+      g += '<text x="' + ((M.x + p.x) / 2 + (b === 'S' ? 22 : 0)) + '" y="' + ((M.y + p.y) / 2 + (b === 'S' ? 0 : -4)) + '" text-anchor="middle" class="sd_nz">Zugang ' + Math.round(s.acc[b]) + '</text>';
+    }
+    g += '<rect x="' + (M.x - 30) + '" y="' + (M.y - 12) + '" width="60" height="24" rx="12" fill="#b3261e"/><text x="' + M.x + '" y="' + (M.y + 4) + '" text-anchor="middle" class="sd_nc">SPD</text>';
+    return '<svg class="sd_net" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Lager mit Zufriedenheit und Zugang zur SPD">' + g + '</svg>';
+  }
+  SD.renderGroups = function (Q) {
+    var box = el('sd_groups'); if (!box) return;
+    if (!Q.year) { box.innerHTML = ''; return; }
+    var s = init(Q);
+    var open = {}; box.querySelectorAll('details.sd_fold').forEach(function (d, i) { open[i] = d.open; });
+    var h = '<p class="sd_note" style="margin-top:0">Kreise: Zufriedenheit mit der Politik (0 bis 100). Linien: Zugang zu den SPD-Ministerien. Wer wenig Zugang hat, reagiert schärfer.</p>' + groupNet(s);
+    ['O', 'W', 'S'].forEach(function (b, i) {
+      var rows = Object.keys(GROUPS).filter(function (g) { return GROUPS[g].b === b; }).map(function (g) {
+        var v = s.grp[g];
+        return '<div class="sd_grow"><span>' + GROUPS[g].n + '</span><span class="sd_gbar"><i style="width:' + v.toFixed(0) + '%;background:' + supCol(v) + '"></i></span><b>' + Math.round(v) + '</b></div>';
+      }).join('');
+      h += fold('<span class="sd_dot" style="background:' + BLOCS[b].c + '"></span>' + BLOCS[b].n + ' ◇ ' + Math.round(blocSup(s, b)), rows + '<p class="sd_note">' + BLOCS[b].d + ' Zugang: ' + Math.round(s.acc[b]) + '.</p>', open[i]);
+    });
+    h += fold('Wie die Verbände reagieren', '<ul class="sd_list"><li>Branchenverbände folgen der Lage ihrer Branche (Produktion, Wachstum).</li><li>Gewerkschaften achten auf Arbeitslosigkeit und Industriejobs.</li><li>Institute achten auf Wachstum, Haushalt und Inflation.</li><li>Mittelstand und Familienunternehmen auf Wachstum, Inflation und Haushaltslöcher.</li><li>Zugang verblasst ohne Pflege langsam. Alle Gewichte sind Annahmen.</li></ul>', open[3]);
     box.innerHTML = h;
   };
 })();

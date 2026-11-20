@@ -840,3 +840,15 @@ body.dark-mode .union.party-node {
 .sd_track i{position:absolute;inset:0 auto 0 0;background:#c98a12}
 .sd_track b{position:absolute;top:-3px;bottom:-3px;border-left:2px solid #2f8a4b}
 .sd_track u{position:absolute;top:0;bottom:0;border-left:1px solid var(--text-color);opacity:.6}
+
+/* Verbände und Gewerkschaften (Reiter Bewegungen) */
+.sd_net{width:100%;height:auto;display:block;margin:6px 0 4px}
+.sd_net .sd_nn{fill:#fff;font:600 10px var(--ui-font,sans-serif)}
+.sd_net .sd_nl{fill:var(--text-color);font:600 9px var(--ui-font,sans-serif)}
+.sd_net .sd_nz{fill:var(--text-color);opacity:.65;font:500 7.5px var(--ui-font,sans-serif)}
+.sd_net .sd_nc{fill:#fff;font:600 10px var(--ui-font,sans-serif);letter-spacing:.08em}
+.sd_dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.sd_grow{display:grid;grid-template-columns:minmax(0,1fr) 54px 24px;gap:6px;align-items:center;font-size:.82em;margin:3px 0}
+.sd_gbar{height:6px;background:rgba(127,127,127,.2);position:relative;border-radius:3px;overflow:hidden}
+.sd_gbar i{position:absolute;inset:0 auto 0 0;border-radius:3px}
+.sd_grow b{text-align:right}
