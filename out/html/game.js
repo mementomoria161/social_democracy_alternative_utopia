@@ -275,9 +275,29 @@
           months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
           shortMonths: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez']});
   }
-  // amtliches Endergebnis vom 23.02.2025 (Zweitstimmen); Wählergruppen liegen dafür nicht vor
-  var BTW_2025 = {'date': new Date(2025, 1, 23), 'spd': 16.4, 'linke': 8.8, 'union': 28.6, 'gruene': 11.6,
-                  'fdp': 4.3, 'bsw': 5.0, 'afd': 20.8, 'other': 4.5};
+  // Realer Verlauf vor Spielbeginn: amtliches Endergebnis vom 23.02.2025 (Zweitstimmen), danach Monatsmittel
+  // aller Institute aus de.wikipedia.org/wiki/Wahl_zum_22._Deutschen_Bundestag/Umfragen_und_Prognosen
+  // (Stand Nov. 2026). BSW/FDP gemittelt über die Umfragen, die sie ausweisen; Sonstige = Rest auf 100.
+  // Wählergruppen liegen dafür nicht vor.
+  var REAL_POLLS = [
+      // Monat 2025, Union, AfD, SPD, Grüne, Linke, BSW, FDP, Sonstige
+      [2.75, 28.6, 20.8, 16.4, 11.6, 8.8, 5.0, 4.3, 4.5],
+      [3, 27.6, 22.3, 15.4, 11.7, 10.2, 4.3, 3.5, 5.1],
+      [4, 25.3, 24.5, 15.3, 11.4, 10.0, 4.2, 3.5, 5.7],
+      [5, 25.9, 24.1, 15.6, 11.3, 10.1, 3.9, 3.6, 5.4],
+      [6, 27.7, 23.2, 15.3, 11.4, 10.0, 3.9, 3.5, 5.0],
+      [7, 27.2, 24.0, 14.2, 11.4, 10.8, 4.0, 3.3, 5.0],
+      [8, 26.1, 24.9, 14.3, 11.4, 10.4, 4.0, 3.4, 5.6],
+      [9, 25.5, 25.6, 14.6, 11.3, 10.8, 3.8, 3.2, 5.2],
+      [10, 24.9, 25.9, 14.3, 11.4, 11.1, 4.0, 3.4, 5.1],
+      [11, 25.3, 25.9, 14.6, 11.6, 10.6, 3.7, 3.2, 5.1],
+      [12, 25.0, 25.9, 14.1, 11.6, 10.6, 3.7, 3.6, 5.4]
+  ].map(function(r) {
+      // Monatsmittel in der Monatsmitte, die Wahl (2.75) am 23. Februar
+      var date = r[0] == 2.75 ? new Date(2025, 1, 23) : new Date(2025, r[0] - 1, 15);
+      return {'date': date, 'union': r[1], 'afd': r[2], 'spd': r[3], 'gruene': r[4], 'linke': r[5],
+              'bsw': r[6], 'fdp': r[7], 'other': r[8]};
+  });
   var POLL_COLORS = {'spd': '#E3000F', 'linke': '#BE3075', 'gruene': '#46962B', 'union': '#151518', 'fdp': '#E6C800',
                      'bsw': '#7D254F', 'afd': '#009EE0', 'other': '#a0a0a0', 'sapd': '#c40000', 'srpd': '#F4A460'};
   var POLL_GROUPS = {'workers': 'Arbeitnehmer*innen', 'new_middle': 'Akademische Mittelschicht',
@@ -313,7 +333,7 @@
       var records = (Q.party_support_records || []).slice();
       var last = records[records.length - 1];
       if (last && new Date(last.date).getTime() == now.date.getTime()) records.pop();
-      records = [BTW_2025].concat(records, [now]);
+      records = REAL_POLLS.concat(records, [now]);
 
       var group = groups.indexOf(window.pollGroup) >= 0 ? window.pollGroup : '';
       var data = records.map(function(r) {
@@ -350,6 +370,7 @@
               return '<option value="' + c + '"' + (c == group ? ' selected' : '') + '>' + POLL_GROUPS[c] + '</option>';
           }).join('') + '</select></label>' +
           '<svg id="poll_graph"></svg>' +
+          '<p class="poll_note">Bis Dezember 2025 reale Umfragen (Monatsmittel aller Institute, Quelle: Wikipedia), ab Januar 2026 Spielverlauf.</p>' +
           '<h3 class="poll_heading">Aktuell' + (group ? ': ' + POLL_GROUPS[group] : '') + '</h3>' +
           bars(group ? groupValues(group) : now) +
           '<h3 class="poll_heading">Nach Wählergruppen</h3>' +
@@ -368,7 +389,7 @@
 
       var width = box.clientWidth;
       var height = Math.min(360, Math.max(240, width * 0.6));
-      var spanMonths = (now.date - BTW_2025.date) / (30 * 24 * 3600 * 1000);
+      var spanMonths = (now.date - REAL_POLLS[0].date) / (30 * 24 * 3600 * 1000);
       // Platz rechts für die Parteinamen
       var lines = d3.linegraph(true, false, parties, POLL_COLORS, names, undefined, undefined, Math.ceil(spanMonths * 0.15) + 1);
       lines.width(width).height(height);

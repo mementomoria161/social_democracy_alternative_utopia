@@ -708,3 +708,8 @@ body.dark-mode .union.party-node {
 #bundestag_sidebar .seat {
     stroke: none;
 }
+.poll_note {
+  font-size: 0.8em;
+  opacity: 0.75;
+  margin: 0.2em 0 0 0;
+}
