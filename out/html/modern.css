@@ -194,3 +194,57 @@ ul.choices { border-color: color-mix(in srgb, var(--gold) 45%, var(--card-border
 }
 .mp-arrow { display: inline-block; margin-left: .35em; color: var(--link-color); transition: transform .25s var(--ease); }
 ul.choices li:hover .mp-arrow { transform: translateX(4px); }
+
+/* ---------- Mikroanimationen, zurückhaltend ----------
+   Regel: Bewegung nur als Antwort auf etwas, das gerade passiert (Zeigen, Klicken, Neues). Nichts läuft dauerhaft. */
+
+/* Spielkarten und Stapel: heben sich leicht, statt zu springen; gedrückt geben sie nach */
+a.card { transition: transform .3s var(--ease), box-shadow .3s var(--ease); border-radius: 4px; }
+a.card:hover { left: 0; top: 0; transform: translateY(-4px) rotate(-.6deg); box-shadow: 0 14px 22px -12px rgba(0, 0, 0, .45); }
+a.card:active { transform: translateY(-1px) scale(.98); transition-duration: .1s; }
+.card-tooltip {
+  visibility: hidden; opacity: 0; transform: translateX(-4px);
+  transition: opacity .2s ease, transform .25s var(--ease), visibility .2s;
+  border-radius: 8px; border-color: var(--line-color); box-shadow: var(--panel-shadow);
+  font-family: var(--ui-font); font-size: .78em; line-height: 1.4; padding: .5em .6em;
+}
+a.card:focus .card-tooltip, a.card:hover .card-tooltip { opacity: 1; transform: none; }
+.mp-deal { animation: mpDeal .5s var(--ease) both; }
+@keyframes mpDeal { from { opacity: 0; transform: translateY(-10px) rotate(-2deg); } to { opacity: 1; transform: none; } }
+
+/* Auswahl: ein feiner roter Strich wächst links an der Zeile, auf die man zeigt */
+ul.choices li { position: relative; }
+ul.choices li::before {
+  content: ""; position: absolute; left: 0; top: 18%; bottom: 18%; width: 2px; border-radius: 2px;
+  background: var(--link-color); transform: scaleY(0); transition: transform .25s var(--ease);
+}
+ul.choices li:not(.unavailable):hover::before { transform: scaleY(1); }
+
+/* Neue Szene: Überschrift setzt sich (Sperrung zieht sich zusammen), die goldene Linie wächst aus der Mitte */
+.mp-enter h1, h1.mp-enter { animation: mpSettle .6s var(--ease) both; }
+@keyframes mpSettle { from { opacity: 0; letter-spacing: .3em; } to { opacity: 1; } }
+#content #read-marker { animation: mpLine .7s var(--ease) both; transform-origin: left; }
+@keyframes mpLine { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* Berater- und Personenbilder: ein Hauch Zoom im Rahmen */
+.face-figure img, .gov_photo img { transition: transform .5s var(--ease); }
+.face-figure:hover img, .gov_card:hover .gov_photo img { transform: scale(1.04); }
+
+/* Seitenleiste: beim Wechsel des Reiters blendet der Inhalt weich über */
+#qualities.mp-swap { animation: mpSwap .3s var(--ease); }
+@keyframes mpSwap { from { opacity: .25; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+
+/* Klappmenüs: Pfeil dreht sich, Inhalt blendet ein */
+.sd_fold summary { list-style: none; }
+.sd_fold summary::-webkit-details-marker { display: none; }
+.sd_fold summary::before { content: "›"; display: inline-block; width: 1em; color: var(--gold); transition: transform .25s var(--ease); }
+.sd_fold[open] summary::before { transform: rotate(90deg); }
+.sd_fold[open] .sd_in { animation: mpEnter .3s var(--ease) both; }
+
+/* Ziel wechselt den Zustand: einmal ein goldener Schimmer um die Kachel */
+.mp-pulse { animation: mpPulse 1.4s var(--ease); }
+@keyframes mpPulse { 0% { box-shadow: 0 0 0 0 rgba(168, 123, 31, .45); } 100% { box-shadow: 0 0 0 10px rgba(168, 123, 31, 0); } }
+
+/* Knöpfe in Menüs geben beim Drücken nach */
+.overlay button, .save_button, .delete_button, .sd_goal { transition: transform .12s ease; }
+.overlay button:active, .save_button:active, .delete_button:active, .sd_goal:active { transform: scale(.97); }

@@ -50,9 +50,26 @@
     });
   }
 
-  /* ---------- Zielringe füllen sich ---------- */
-  var rings = {};
+  /* ---------- Neu gezogene Karten fallen sanft auf die Hand ---------- */
+  var handSeen = null;
+  function dealCards() {
+    var cards = document.querySelectorAll('.card-in-hand'); if (!cards.length) { return; }
+    var now = {};
+    cards.forEach(function (c) {
+      var k = c.textContent.trim(); now[k] = 1;
+      if (handSeen && !handSeen[k] && !calm()) { c.classList.remove('mp-deal'); void c.offsetWidth; c.classList.add('mp-deal'); }
+    });
+    handSeen = now;
+  }
+
+  /* ---------- Zielringe füllen sich; wechselt ein Ziel den Zustand, schimmert die Kachel einmal ---------- */
+  var rings = {}, states = {};
   function animateRings() {
+    document.querySelectorAll('.sd_goal').forEach(function (g) {
+      var k = g.dataset.sdGoal, st = (g.querySelector('.sd_gs') || {}).textContent;
+      if (states[k] && states[k] !== st && !calm()) { g.classList.remove('mp-pulse'); void g.offsetWidth; g.classList.add('mp-pulse'); }
+      states[k] = st;
+    });
     document.querySelectorAll('.sd_goal, .sd_climhead').forEach(function (g, i) {
       var c = g.querySelector('.sd_fg'); if (!c) return;
       var key = (g.dataset.sdGoal || 'clim') + i, to = c.getAttribute('stroke-dashoffset'), from = rings[key];
@@ -86,7 +103,7 @@
       var content = document.getElementById('content'); if (!content) return;
       if (!calm()) list.forEach(function (m) { if (m.target !== content) return; m.addedNodes.forEach(function (n) { if (n.nodeType === 1 && !n.classList.contains('mp-enter')) n.classList.add('mp-enter'); }); });
       if (pending) return; pending = true;
-      requestAnimationFrame(function () { pending = false; arrows(document.getElementById('content') || document); });
+      requestAnimationFrame(function () { pending = false; arrows(document.getElementById('content') || document); dealCards(); });
     }).observe(document.body, {childList: true, subtree: true});
     var c = document.getElementById('content'); if (c) arrows(c);
   }
@@ -98,8 +115,14 @@
       if (busy) return; busy = true;
       requestAnimationFrame(function () { scanSidebar(); animateRings(); moveMarker(); busy = false; });
     }).observe(q, {childList: true, subtree: true});
-    var tabs = document.querySelector('.tab_container');
-    if (tabs) new MutationObserver(moveMarker).observe(tabs, {attributes: true, subtree: true, attributeFilter: ['class']});
+    var tabs = document.querySelector('.tab_container'), lastTab = window.statusTab;
+    if (tabs) new MutationObserver(function () {
+      moveMarker();
+      if (window.statusTab !== lastTab) {   // Reiter gewechselt: Inhalt weich überblenden
+        lastTab = window.statusTab;
+        if (!calm()) { q.classList.remove('mp-swap'); void q.offsetWidth; q.classList.add('mp-swap'); }
+      }
+    }).observe(tabs, {attributes: true, subtree: true, attributeFilter: ['class']});
   }
 
   function start() { watchContent(); watchSidebar(); moveMarker(); setTimeout(moveMarker, 400); }
