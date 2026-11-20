@@ -6,6 +6,13 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "8765", "-d", "out/html"],
       "port": 8765
+    },
+    {
+      "name": "spiel-2",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8769", "-d", "out/html"],
+      "port": 8769,
+      "autoPort": false
     }
   ]
 }

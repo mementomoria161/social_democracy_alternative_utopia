@@ -697,3 +697,14 @@ body.dark-mode .union.party-line {
 body.dark-mode .union.party-node {
   fill: #888;
 }
+
+/* Regierungs-Reiter */
+.gov_table {
+    border-spacing: 0.3em 0.15em;
+}
+.gov_table td {
+    vertical-align: top;
+}
+#bundestag_sidebar .seat {
+    stroke: none;
+}

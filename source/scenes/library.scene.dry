@@ -324,21 +324,21 @@ data = [
         "id": "linke",
         "legend": "Linke",
         "name": "Linke",
-        "seats": Q.linke_r*5,
+        "seats": Q.linke_r*6.3,
     }];
 if (Q.sapd_formed && Q.sapd_r) {
     data.push({
             "id": "sapd",
             "legend": "Soziale Linke",
             "name": "Soziale Linke",
-            "seats": Q.sapd_r*5,
+            "seats": Q.sapd_r*6.3,
             });
 }
 data.push({
         "id": "spd",
         "legend": "SPD",
         "name": "SPD",
-        "seats": Q.spd_r*5,
+        "seats": Q.spd_r*6.3,
 });
 
 if (Q.srpd_formed && Q.srpd_r) {
@@ -346,7 +346,7 @@ if (Q.srpd_formed && Q.srpd_r) {
             "id": "srpd",
             "legend": "Neue Mitte",
             "name": "Neue Mitte",
-            "seats": Q.srpd_r*5,
+            "seats": Q.srpd_r*6.3,
             });
 }
 
@@ -355,37 +355,37 @@ data = data.concat([
         "id": "gruene",
         "legend": "Grüne",
         "name": "Grüne",
-        "seats": Q.gruene_r*5,
+        "seats": Q.gruene_r*6.3,
     },
     {
         "id": "union",
         "legend": "CDU/CSU",
         "name": "CDU/CSU",
-        "seats": Q.union_r*5,
+        "seats": Q.union_r*6.3,
     },
     {
         "id": "fdp",
         "legend": "FDP",
         "name": "FDP",
-        "seats": Q.fdp_r*5,
+        "seats": Q.fdp_r*6.3,
     },
     {
         "id": "other",
         "legend": "Sonstige",
         "name": "Sonstige",
-        "seats": Q.other_r*5,
+        "seats": Q.other_r*6.3,
     },
     {
         "id": "bsw",
         "legend": "BSW",
         "name": "BSW",
-        "seats": Q.bsw_r*5,
+        "seats": Q.bsw_r*6.3,
     },
     {
         "id": "afd",
         "legend": "AfD",
         "name": "AfD",
-        "seats": Q.afd_r*5,
+        "seats": Q.afd_r*6.3,
     },
 ]);
 if (d3 && window) {

@@ -29,25 +29,6 @@ Rolle der SPD: [? if spd_toleration : Tolerierung ?][? if spd_in_government : Re
 
 Innerparteilicher Unmut: [+ dissent_percent : dissent +]
 
-= Regierung
-
-Bundespräsident\*in: [+ president +]
-
-Bundeskanzler\*in: [+ chancellor +] ([+ chancellor_party +])
-
-Zusammensetzung des Bundestags:
-
-{!<span class="tooltip-text" title="Sozialdemokratische Partei Deutschlands">SPD</span>!}: [+ spd_r +]%
-[? if sapd_formed and sapd_r > 0: Soziale Linke: [+ sapd_r +]% ?]
-[? if srpd_formed and srpd_r > 0: Neue Mitte: [+ srpd_r +]% ?]
-{!<span class="tooltip-text" title="Christlich Demokratische Union und Christlich-Soziale Union">CDU/CSU</span>!}: [+ union_r +]%
-{!<span class="tooltip-text" title="Alternative für Deutschland, in Teilen als gesichert rechtsextrem eingestuft">AfD</span>!}: [+ afd_r +]%
-{!<span class="tooltip-text" title="Bündnis 90/Die Grünen">Grüne</span>!}: [+ gruene_r +]%
-{!<span class="tooltip-text" title="Die Linke">Linke</span>!}: [+ linke_r +]%
-[? if fdp_r > 0: {!<span class="tooltip-text" title="Freie Demokratische Partei">FDP</span>!}: [+ fdp_r +]% ?]
-[? if bsw_r > 0: {!<span class="tooltip-text" title="Bündnis Sahra Wagenknecht">BSW</span>!}: [+ bsw_r +]% ?]
-Sonstige: [+ other_r +]%
-
 [? if spd_in_government = 1 : Haushaltsspielraum: [+ budget +] ?]
 
 Nächste Bundestagswahl: [+ next_election_month : month +] [+ next_election_year +]
@@ -59,6 +40,83 @@ Inflation: [+ inflation_2 +]%
 Arbeitslosenquote: [+ unemployed_2 +]%
 
 Wirtschaftswachstum: [+ economic_growth_2 +]%
+
+@government
+on-display: {!
+if (!Q.parties || typeof document === 'undefined') return;
+var P = {
+    linke: ['Linke', '#BE3075'], sapd: ['Soziale Linke', '#C40000'], spd: ['SPD', '#E3000F'],
+    srpd: ['Neue Mitte', '#F4A460'], gruene: [Q.gruene_name || 'Grüne', '#46962B'], other: ['Sonstige', '#909090'],
+    bsw: ['BSW', '#7D254F'], fdp: ['FDP', '#FFED00'], union: ['CDU/CSU', '#151518'], afd: ['AfD', '#009EE0']
+};
+// party strings used in *_minister_party / chancellor_party
+var ID = {'SPD': 'spd', 'Union': 'union', 'Grüne': 'gruene', 'Linke': 'linke', 'FDP': 'fdp', 'BSW': 'bsw', 'AfD': 'afd', 'Soziale Linke': 'sapd', 'Neue Mitte': 'srpd'};
+var box = function(id) {
+    var c = P[id] ? P[id][1] : 'transparent';
+    return '<span class="box" style="background-color:' + c + '; outline: 1px solid var(--border-color);"></span> ';
+};
+var label = function(party) { return ID[party] ? P[ID[party]][0] : party; };
+
+// Kabinett
+var posts = [['foreign', 'Auswärtiges'], ['interior', 'Inneres'], ['justice', 'Justiz'], ['labor', 'Arbeit und Soziales'],
+    ['bundeswehr', 'Verteidigung'], ['economic', 'Wirtschaft'], ['finance', 'Finanzen'], ['agriculture', 'Landwirtschaft']];
+var gov = {};
+if (ID[Q.chancellor_party]) gov[ID[Q.chancellor_party]] = 1;
+var html = '<table class="gov_table">';
+for (var i = 0; i < posts.length; i++) {
+    var party = Q[posts[i][0] + '_minister_party'];
+    if (ID[party]) gov[ID[party]] = (gov[ID[party]] || 0) + 1;
+    html += '<tr><td>' + box(ID[party]) + '</td><td>' + posts[i][1] + '<br><b>' + Q[posts[i][0] + '_minister'] + '</b> (' + label(party) + ')</td></tr>';
+}
+html += '</table>';
+document.getElementById('kabinett_view').innerHTML = html;
+document.getElementById('kanzler_view').innerHTML = box(ID[Q.chancellor_party]) + '<b>' + Q.chancellor + '</b> (' + label(Q.chancellor_party) + ')';
+
+// Bundestag: 630 Sitze nach größtem Rest
+var order = ['linke', 'sapd', 'spd', 'srpd', 'gruene', 'other', 'bsw', 'fdp', 'union', 'afd'];
+var rows = order.filter(function(p) { return Q[p + '_r'] > 0; }).map(function(p) { return {id: p, r: Q[p + '_r']}; });
+var total = rows.reduce(function(s, x) { return s + x.r; }, 0);
+rows.forEach(function(x) { x.exact = x.r / total * 630; x.seats = Math.floor(x.exact); });
+var rest = 630 - rows.reduce(function(s, x) { return s + x.seats; }, 0);
+rows.slice().sort(function(a, b) { return (b.exact - b.seats) - (a.exact - a.seats); }).slice(0, rest).forEach(function(x) { x.seats++; });
+
+var govSeats = 0;
+var table = '<table class="gov_table">';
+rows.forEach(function(x) {
+    if (gov[x.id]) govSeats += x.seats;
+    table += '<tr><td>' + box(x.id) + '</td><td>' + (gov[x.id] ? '<b>' + P[x.id][0] + '</b>' : P[x.id][0]) + '</td><td style="text-align:right">' + x.seats + '</td></tr>';
+});
+table += '</table>';
+document.getElementById('bundestag_table').innerHTML = table +
+    'Regierungsparteien (fett): <b>' + govSeats + '</b> von 630 Sitzen, ' + (govSeats >= 316 ? 'eigene Mehrheit' : 'keine eigene Mehrheit') + ' (316 nötig).';
+
+var width = document.getElementById('qualities').offsetWidth;
+var svg = document.getElementById('bundestag_sidebar');
+svg.style.width = width + 'px';
+svg.style.height = width / 2 + 'px';
+var parliament = d3.parliament();
+parliament.width(width).height(width).innerRadiusCoef(0.4);
+parliament.enter.fromCenter(false).smallToBig(false);
+d3.select(svg).datum(rows.map(function(x) { return {id: x.id, legend: P[x.id][0], name: P[x.id][0], seats: x.seats}; })).call(parliament);
+!}
+
+= Regierung
+
+Bundespräsident\*in: **[+ president +]**
+
+Bundeskanzler\*in: {!<span id="kanzler_view"></span>!}
+
+[? if spd_in_government or spd_toleration : Koalition: [+ coalition_name +][? if spd_toleration : (von der SPD toleriert) ?] ?]
+
+**Kabinett**
+
+{!<div id="kabinett_view"></div>!}
+
+= Bundestag
+
+{!<svg id="bundestag_sidebar"></svg>!}
+
+{!<div id="bundestag_table"></div>!}
 
 @politics
 
