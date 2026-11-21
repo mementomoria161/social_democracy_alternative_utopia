@@ -1133,3 +1133,7 @@ body.dark-mode {
 .kl_pill { padding: 0 0.5em; white-space: nowrap; font-size: 0.9em; border: 1px solid var(--card-border-color); }
 .kl_pill.p0 { color: var(--kl-red); border-color: var(--kl-red); }
 .kl_pill.p2 { color: var(--kl-green); border-color: var(--kl-green); }
+
+.econ_table { width: 100%; }
+.econ_bar_cell { width: 35%; }
+.econ_table .econ_div { display: block; }

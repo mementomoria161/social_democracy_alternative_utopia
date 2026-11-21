@@ -373,16 +373,21 @@
       var jTotal = rows.reduce(function(a, r) { return a + r.jobs; }, 0);
       rows.forEach(function(r) { r.jobShare = 100 * r.jobs / jTotal; });
       var GROUP_COLORS = ['--econ-s1', '--econ-s2', '--econ-s3', '--econ-s4', '--econ-s5', '--econ-s6', '--econ-s7', '--econ-other'];
-      var list = function(title, key, fmt) {
-          return '<h3 class="poll_heading">' + title + '</h3><table class="gov_table">' +
-              rows.slice().sort(function(a, b) { return (b[key] || 0) - (a[key] || 0); }).map(function(r) {
-                  return '<tr><td><span class="box" style="background-color:var(' + GROUP_COLORS[r.s.group] + '); outline: 1px solid var(--border-color);"></span></td><td>' +
-                      r.s.name + '</td><td style="text-align:right">' + fmt(r[key]) + '</td></tr>';
-              }).join('') + '</table>';
-      };
-      html += list('Wachstum der Wirtschaftsbereiche', 'rate', function(v) { return v === null ? '–' : (v > 0 ? '+' : '') + econNum(v) + ' %'; });
-      html += list('Anteile an der Wertschöpfung', 'share', function(v) { return econNum(v) + ' %'; });
-      html += list('Anteile der Beschäftigten', 'jobShare', function(v) { return econNum(v) + ' %'; });
+      var VIEWS = [['rate', 'Wachstum der Wirtschaftsbereiche', true], ['share', 'Anteile an der Wertschöpfung', false], ['jobShare', 'Anteile der Beschäftigten', false]];
+      var view = VIEWS.filter(function(v) { return v[0] == window.econView; })[0] || VIEWS[0];
+      var key = view[0], diverging = view[2];
+      var fmt = function(v) { return v === null || v === undefined ? '–' : (diverging && v > 0 ? '+' : '') + econNum(v) + ' %'; };
+      var maxV = Math.max(diverging ? 3 : 1, d3.max(rows, function(r) { return Math.abs(r[key] || 0); }));
+      html += '<label class="poll_select">Anzeige: <select onchange="window.econView = this.value; window.drawEconomy();">' + VIEWS.map(function(v) {
+          return '<option value="' + v[0] + '"' + (v[0] == key ? ' selected' : '') + '>' + v[1] + '</option>';
+      }).join('') + '</select></label><table class="gov_table econ_table">' +
+          rows.slice().sort(function(a, b) { return (b[key] || 0) - (a[key] || 0); }).map(function(r) {
+              var v = r[key] || 0, w = 100 * Math.abs(v) / maxV / (diverging ? 2 : 1);
+              var bar = '<span class="econ_div"><span class="' + (diverging ? (v < 0 ? 'neg' : 'pos') : 'pos') + '" style="width:' + w + '%;' +
+                  (diverging ? (v < 0 ? 'right:50%' : 'left:50%') : 'left:0') + ';background:var(' + GROUP_COLORS[r.s.group] + ')"></span>' +
+                  (diverging ? '<span class="econ_zero"></span>' : '') + '</span>';
+              return '<tr><td>' + r.s.name + '</td><td class="econ_bar_cell">' + bar + '</td><td style="text-align:right;white-space:nowrap">' + fmt(r[key]) + '</td></tr>';
+          }).join('') + '</table>';
       box.innerHTML = html;
 
       // Liniendiagramm
