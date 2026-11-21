@@ -629,6 +629,7 @@ Q.sondervermoegen_seen = 0;
 Q.mitgliedervotum_seen = 0;
 Q.kanzlerwahl_seen = 0;
 Q.gf_gov = 0;
+Q.poll_real = 0;
 Q.hamburg_2025_seen = 0;
 Q.zollstreit_2025_seen = 0;
 Q.spd_parteitag_2025_seen = 0;

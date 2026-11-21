@@ -715,6 +715,13 @@ body.dark-mode .union.party-node {
 #bundestag_sidebar .seat {
     stroke: none;
 }
+.poll_real {
+  width: 3em;
+  text-align: right;
+  font-size: 0.85em;
+  opacity: 0.6;
+  font-variant-numeric: tabular-nums;
+}
 .poll_note {
   font-size: 0.8em;
   opacity: 0.75;

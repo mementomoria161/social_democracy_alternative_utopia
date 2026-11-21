@@ -456,9 +456,13 @@ if (Q.month_actions >= 1) {
     };
     var prev_key = Q.month == 1 ? (Q.year - 1) + '-12' : Q.year + '-' + (Q.month - 1);
     var g_new = GRAVITY[Q.year + '-' + Q.month], g_old = GRAVITY[prev_key];
+    // Q.poll_real: real values of this month per slot, shown next to ours in the poll tab (0 = open future)
+    Q.poll_real = 0;
     if (g_new && g_old) {
+        Q.poll_real = {};
         // the real Linke values pull slot spd when the Linke is played (and the SPD values slot linke)
         (Q.player == 'linke' ? ['union', 'afd', 'linke', 'gruene', 'spd', 'bsw', 'fdp', 'other'] : ['union', 'afd', 'spd', 'gruene', 'linke', 'bsw', 'fdp', 'other']).forEach(function(p, k) {
+            Q.poll_real[p] = g_new[k];
             if (!Q.parties.includes(p)) return;
             var base = Math.max(0.5, 100 * (Q[p + '_normalized'] || 0));
             // scale the party in every group so that its total moves by the real change

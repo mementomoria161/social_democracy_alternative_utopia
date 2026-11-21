@@ -1001,7 +1001,7 @@
       card(window.grpSel);
   };
 
-  // Umfrage-Tab: Verlauf seit der Bundestagswahl 2021, gesamt oder je Wählergruppe
+  // Umfrage-Tab: Verlauf seit Januar 2023, gesamt oder je Wählergruppe
   if (window.d3) {
       d3.timeFormatDefaultLocale({dateTime: '%A, der %e. %B %Y, %X', date: '%d.%m.%Y', time: '%H:%M:%S',
           periods: ['AM', 'PM'], days: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
@@ -1009,14 +1009,24 @@
           months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
           shortMonths: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez']});
   }
-  // Realer Verlauf vor Spielbeginn (6. November 2024): amtliches Endergebnis der Bundestagswahl vom 26.09.2021
-  // (Zweitstimmen, Bundeswahlleiterin) als Anker, dann Monatsmittel aller Institute Januar bis Oktober 2024 aus
-  // de.wikipedia.org/wiki/Bundestagswahl_2025/Umfragen_und_Prognosen (Linke aus den Einzelumfragen gemittelt,
-  // BSW ab der Gründung im Januar 2024). Sonstige = Rest auf 100. Ab November 2024 Spielverlauf
-  // (bis Januar 2026 mit der Umfrageschwerkraft aus post_event). Wählergruppen liegen dafür nicht vor.
+  // Realer Verlauf vor Spielbeginn (6. November 2024): Monatsmittel aller Institute Januar 2023 bis Oktober 2024 aus
+  // de.wikipedia.org/wiki/Bundestagswahl_2025/Umfragen_und_Prognosen, Tabelle „Monatliche Mittelwerte“/„Ältere Mittelwerte“
+  // (Linke April-Oktober 2024 aus den Einzelumfragen gemittelt, BSW ab der Gründung im Januar 2024). Sonstige = Rest auf 100.
+  // Ab November 2024 Spielverlauf (bis November 2026 mit der Umfrageschwerkraft aus post_event). Wählergruppen liegen dafür nicht vor.
   var REAL_POLLS = [
       // Jahr, Monat, Union, AfD, SPD, Grüne, Linke, BSW, FDP
-      [2021, 9.85, 24.1, 10.3, 25.7, 14.8, 4.9, null, 11.5],
+      [2023, 1, 27.9, 14.4, 19.7, 18.1, 5.0, null, 6.9],
+      [2023, 2, 28.2, 14.9, 20.5, 17.0, 4.9, null, 6.8],
+      [2023, 3, 29.0, 14.8, 19.9, 16.9, 4.9, null, 6.7],
+      [2023, 4, 28.7, 15.4, 19.5, 16.3, 4.4, null, 7.4],
+      [2023, 5, 28.9, 16.3, 18.8, 15.1, 4.7, null, 7.7],
+      [2023, 6, 27.7, 18.9, 19.0, 14.2, 4.6, null, 7.2],
+      [2023, 7, 26.8, 20.2, 18.2, 14.4, 4.8, null, 6.8],
+      [2023, 8, 26.6, 20.6, 18.0, 14.4, 4.7, null, 6.9],
+      [2023, 9, 26.9, 21.4, 17.0, 14.3, 4.7, null, 6.6],
+      [2023, 10, 28.8, 21.4, 16.2, 13.9, 4.5, null, 5.6],
+      [2023, 11, 29.6, 21.1, 15.8, 14.3, 4.1, null, 5.3],
+      [2023, 12, 31.0, 21.7, 15.0, 13.7, 3.7, null, 5.1],
       [2024, 1, 30.8, 21.7, 14.5, 13.2, 3.9, 5.4, 4.8],
       [2024, 2, 30.5, 18.9, 15.0, 13.4, 3.2, 6.3, 4.3],
       [2024, 3, 30.3, 18.3, 15.4, 13.4, 3.1, 5.9, 4.8],
@@ -1028,8 +1038,8 @@
       [2024, 9, 32.3, 18.1, 14.7, 10.8, 2.9, 8.6, 4.0],
       [2024, 10, 31.5, 18.0, 15.9, 10.7, 3.0, 7.9, 3.9]
   ].map(function(r) {
-      // Monatsmittel in der Monatsmitte, die Wahl (9.85) am 26. September 2021
-      var date = r[1] == 9.85 ? new Date(2021, 8, 26) : new Date(r[0], r[1] - 1, 15);
+      // Monatsmittel in der Monatsmitte
+      var date = new Date(r[0], r[1] - 1, 15);
       var rec = {'date': date, 'union': r[2], 'afd': r[3], 'spd': r[4], 'gruene': r[5], 'linke': r[6],
                  'bsw': r[7], 'fdp': r[8]};
       rec.other = Math.round((100 - r.slice(2).reduce(function(s, x) { return s + (x || 0); }, 0)) * 10) / 10;
@@ -1096,7 +1106,8 @@
           return d;
       });
 
-      var bars = function(values) {
+      // real: Q.poll_real (post_event, bis November 2026) = reale Monatsmittel je Slot zum Vergleich mit unserem Verlauf
+      var bars = function(values, real) {
           var sorted = parties.filter(function(p) { return values[p] > 0; })
               .sort(function(a, b) { return values[b] - values[a]; });
           var max = values[sorted[0]] || 1;
@@ -1104,9 +1115,11 @@
               return '<div class="poll_row"><span class="poll_name">' + names[p] + '</span>' +
                   '<span class="poll_bar"><span class="' + p + '" style="width:' + (100 * values[p] / max) +
                   '%;background:' + colors[p] + '"></span></span>' +
-                  '<span class="poll_val">' + Math.round(values[p]) + ' %</span></div>';
+                  '<span class="poll_val">' + Math.round(values[p]) + ' %</span>' +
+                  (real ? '<span class="poll_real">' + (real[p] !== undefined ? real[p].toFixed(1).replace('.', ',') : '–') + '</span>' : '') + '</div>';
           }).join('') + '</div>';
       };
+      var real_now = !group && Q.poll_real ? Q.poll_real : 0;
       var stack = function(values) {
           return '<span class="poll_stack">' + parties.filter(function(p) { return values[p] > 0; }).map(function(p) {
               return '<span class="' + p + '" title="' + names[p] + ' ' + Math.round(values[p]) + ' %" style="flex-grow:' +
@@ -1119,16 +1132,18 @@
           return v;
       };
 
-      var html = '<label class="poll_select">Verlauf seit der Bundestagswahl 2021: <select onchange="window.pollGroup = this.value; window.drawPolls();">' +
+      var html = '<label class="poll_select">Verlauf seit Januar 2023: <select onchange="window.pollGroup = this.value; window.drawPolls();">' +
           '<option value="">Alle Wähler*innen</option>' + groups.map(function(c) {
               return '<option value="' + c + '"' + (c == group ? ' selected' : '') + '>' + POLL_GROUPS[c] + '</option>';
           }).join('') + '</select></label>' +
           '<svg id="poll_graph"></svg>' +
-          '<p class="poll_note">Bundestagswahl 2021 und Januar bis Oktober 2024 reale Umfragen (Monatsmittel aller Institute, Quelle: Wikipedia), ab November 2024 Spielverlauf. ' +
-          'Bis November 2026 folgt er der realen Entwicklung (unsere Abweichungen bleiben), danach bewegen Wirtschaft, Regierungsbilanz, Vertrauen, Klima und Bewegungen die Umfragen (Bibliothek: „Wie sich Umfragen bewegen“).</p>' +
+          '<p class="poll_note">Januar 2023 bis Oktober 2024 reale Umfragen (Monatsmittel aller Institute, Quelle: Wikipedia), ab November 2024 Spielverlauf. ' +
+          'Bis November 2026 ist der reale Verlauf die Grundlinie: Jeden Monat kommt die echte Veränderung dazu, was wir und die Ereignisse im Spiel bewirken, bleibt als Abweichung erhalten. ' +
+          'Danach bewegen Wirtschaft, Regierungsbilanz, Vertrauen, Klima und Bewegungen die Umfragen (Bibliothek: „Wie sich Umfragen bewegen“).</p>' +
           pollWhy(Q, names) +
           '<h3 class="poll_heading">Aktuell' + (group ? ': ' + POLL_GROUPS[group] : '') + '</h3>' +
-          bars(group ? groupValues(group) : now) +
+          (real_now ? '<p class="poll_note">Rechts daneben der reale Wert dieses Monats.</p>' : '') +
+          bars(group ? groupValues(group) : now, real_now) +
           '<h3 class="poll_heading">Nach Wählergruppen</h3>' +
           groups.map(function(c) {
               var v = groupValues(c);
