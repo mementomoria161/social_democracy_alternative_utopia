@@ -433,8 +433,8 @@
           .on('pointerleave', function() { rule.style('display', 'none'); });
   };
 
-  // Klima-Reiter in zwei Abschnitten: oben der aktuelle Stand aller drei Bereiche nebeneinander (Ring der Emissionen nach Sektoren,
-  // Ring des Strommixes, Einschätzung der Energiepreise), unten der Verlauf als Liniendiagramm mit fester Zeitachse 2020-2045 und
+  // Klima-Reiter in zwei Abschnitten: unten der aktuelle Stand aller drei Bereiche nebeneinander (Ring der Emissionen nach Sektoren,
+  // Ring des Strommixes, Einschätzung der Energiepreise), oben der Verlauf als Liniendiagramm mit fester Zeitachse 2020-2045 und
   // zwei Auswahlen, links die Ansicht (Emissionen, Strommix, Energiepreise), rechts ein Filter (Sektor bzw. Preis). Daten und Modell: source/scenes/climate_data.scene.dry
   // (dendryUI.game.CLIM), Werte cl_* in den Qualities. Die beschlossenen Maßnahmen stehen auf der Karte „Klimaschutz und Energie“.
   // Reale Werte vor dem Spielstart (Jahresmittel, in der Jahresmitte eingezeichnet):
@@ -542,7 +542,7 @@
           }).join('') + '</select></label>';
       };
       // Aktueller Stand, alle drei Bereiche auf einen Blick: Ring der Emissionen nach Sektoren, Ring des Strommixes,
-      // Einschätzung der Energiepreise. Ein Klick wählt den Bereich (und Sektor bzw. Preis) für den Verlauf darunter.
+      // Einschätzung der Energiepreise. Ein Klick wählt den Bereich (und Sektor bzw. Preis) für den Verlauf darüber.
       var go = function(v, key, val) {
           return 'window.klView = \'' + v + '\';' + (key ? ' window.klFilter.' + key + ' = \'' + val + '\';' : '') + ' window.drawClimate();';
       };
@@ -573,11 +573,11 @@
                   '<div class="kl_level_name">' + p[0] + '</div><div class="kl_level_word' + (i < 3 ? ' l' + lv : '') + '">' + KL_WORDS[lv] + '</div>' +
                   '<div class="kl_level_num">' + econNum(v, p[2]) + ' ' + p[1] + '</div></div>';
           }).join('') + '</div></div></div>';
-      box.innerHTML = '<h3 class="poll_heading">Aktueller Stand</h3>' + top +
-          '<h3 class="poll_heading">Verlauf</h3><div class="kl_controls">' +
+      box.innerHTML = '<h3 class="poll_heading">Verlauf</h3><div class="kl_controls">' +
           sel('Ansicht', KL_VIEWS, view, 'window.klView = this.value; window.drawClimate();') +
           (filter ? sel(filter.label, filter.options, window.klFilter[filter.key], 'window.klFilter.' + filter.key + ' = this.value; window.drawClimate();') : '') +
-          '</div><svg id="kl_graph"></svg><div id="kl_readout" class="poll_note"></div>';
+          '</div><svg id="kl_graph"></svg><div id="kl_readout" class="poll_note"></div>' +
+          '<h3 class="poll_heading">Aktueller Stand</h3>' + top;
       rings.forEach(function(r, j) {
           var R = 58, g0 = d3.select('#kl_ring' + j).append('g').attr('transform', 'translate(60,60)');
           g0.selectAll(null).data(d3.pie().sort(null)(r.vals.map(function(v) { return Math.max(0, v); }))).enter().append('path')

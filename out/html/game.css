@@ -1109,6 +1109,7 @@ body.dark-mode {
 .kl_level_word.l3, .kl_level_word.l4 { color: var(--kl-red); }
 .kl_level_num { font-size: 0.8em; opacity: 0.85; font-variant-numeric: tabular-nums; }
 #klima_view .poll_heading { margin: 1em 0 0.5em; }
+#klima_view .poll_heading:first-child { margin-top: 0.3em; }
 
 .econ_table { width: 100%; }
 .econ_bar_cell { width: 35%; }
