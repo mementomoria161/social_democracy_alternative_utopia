@@ -1,4 +1,4 @@
-# Sozialdemokratie 2026
+# Sozialdemokratie: Eine alternative Utopie
 
 Browser-Textspiel über die Bundesrepublik der Gegenwart: ein Port von *Social Democracy: An Alternate History* (Autumn Chen, MIT) aus der Weimarer Republik 1928 in die Zeit ab dem Bruch der Ampel am 6. November 2024.
 

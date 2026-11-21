@@ -1,6 +1,6 @@
 # AGENTS.md – Regeln für alle, die an diesem Spiel arbeiten (Menschen und KI-Agenten)
 
-Spiel: **Sozialdemokratie 2026**, ein Port von *Social Democracy: An Alternate History* (Autumn Chen, MIT) in die Bundesrepublik der Gegenwart.
+Spiel: **Sozialdemokratie: Eine alternative Utopie**, ein Port von *Social Democracy: An Alternate History* (Autumn Chen, MIT) in die Bundesrepublik der Gegenwart.
 Gesamtplan und Entscheidungen: `PORT_2026.md`. Diese Datei hier ist verbindlich.
 
 ## Verbindliche Regeln

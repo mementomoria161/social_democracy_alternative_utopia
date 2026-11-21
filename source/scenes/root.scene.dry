@@ -7,7 +7,7 @@ go-to: post_event if started = 1; start_menu if started = 0
 new-page: true
 go-to: start_menu_2
 
-= Sozialdemokratie 2026
+= Sozialdemokratie: Eine alternative Utopie
 
 @start_menu_2
 
@@ -744,6 +744,8 @@ Q.mietenstopp_kampagne_seen = 0;
 !}
 set-bg: img/map_2.jpg
 new-page: true
+
+= November 2024
 
 > *„Nichts kommt von selbst. Und nur wenig ist von Dauer.“*
 
