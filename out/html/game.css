@@ -823,13 +823,14 @@ body.dark-mode {
   --econ-pos: #3987e5; --econ-neg: #e66767; --econ-good: #3cc43c; --econ-bad: #ff7b7b;
   --econ-grid: rgba(255, 255, 255, 0.12); --econ-band: rgba(255, 255, 255, 0.06);
 }
-.econ_tiles {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.5em;
-  margin: 0.5em 0;
-}
-.econ_tile {
+/* Kennzahlen oben in Wirtschaft und Klima: schlichte Textzeilen wie im Status-Reiter */
+.econ_tiles { margin: 0.5em 0; }
+.econ_tiles .econ_tile { margin: 0 0 0.6em; line-height: 1.4; }
+.econ_tiles .econ_label, .econ_tiles .econ_value, .econ_tiles .econ_trend { display: inline; font-size: inherit; font-weight: normal; opacity: 1; }
+.econ_tiles .econ_label::after { content: ": "; }
+.econ_tiles .econ_trend::before { content: " – "; }
+.econ_tiles .econ_trend { opacity: 0.85; }
+.kl_prices .econ_tile {
   border: 1px solid var(--card-border-color);
   border-radius: 4px;
   padding: 0.4em 0.6em;
