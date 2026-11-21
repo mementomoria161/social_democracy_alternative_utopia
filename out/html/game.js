@@ -361,61 +361,28 @@
       var html = '';
       html += '<svg id="econ_graph" class="econ"></svg><div id="econ_readout" class="poll_note"></div>';
 
-      // Sektoren
+      // Sektoren: schlichte Listen wie die Parteien im Reiter Regierung
       var started = Q.sector_value && Q.sector_value.length == ECON_SECTORS.length;
       var values = started ? Q.sector_value : ECON_SECTORS.map(function(s) { return s.share * 39.796; });
       var rates = started ? Q.sector_growth : ECON_SECTORS.map(function() { return null; });
-      var total = values.reduce(function(a, b) { return a + b; }, 0);
-      var srec = Q.sector_records || [];
-      var lastYear = srec.filter(function(r) {
-          var d = new Date(r.date);
-          return d.getFullYear() == Q.year - 1 && d.getMonth() == Q.month - 1;
-      })[0];
+      var vTotal = values.reduce(function(a, b) { return a + b; }, 0);
       var rows = ECON_SECTORS.map(function(s, i) {
           var start = s.share * 39.796;
-          return {s: s, i: i, value: values[i], share: 100 * values[i] / total, rate: rates[i],
-                  yoy: lastYear ? 100 * (values[i] / lastYear.v[i] - 1) : null,
-                  jobs: s.jobs * (1 + 0.5 * (values[i] / start - 1)), why: (Q.sector_why || [])[i] || ''};
+          return {s: s, share: 100 * values[i] / vTotal, rate: rates[i], jobs: s.jobs * (1 + 0.5 * (values[i] / start - 1))};
       });
-      var maxRate = Math.max(3, d3.max(rows, function(r) { return Math.abs(r.rate || 0); }));
-      html += '<h3 class="poll_heading">Wachstum der Wirtschaftsbereiche</h3>' +
-          '<p class="poll_note">Aktuelle Jahresrate der realen Wertschöpfung, sortiert. Klicke auf einen Bereich für Details.</p>' +
-          '<div class="econ">' + rows.slice().sort(function(a, b) { return (b.rate || 0) - (a.rate || 0); }).map(function(r) {
-          var w = r.rate === null ? 0 : 50 * Math.abs(r.rate) / maxRate;
-          var bar = '<span class="econ_div"><span class="econ_zero"></span><span class="' + (r.rate < 0 ? 'neg' : 'pos') +
-              '" style="width:' + w + '%;' + (r.rate < 0 ? 'right:50%' : 'left:50%') + '"></span></span>';
-          return '<details class="poll_group"' + (window.econOpen[r.s.id] ? ' open' : '') +
-              ' ontoggle="window.econOpen[\'' + r.s.id + '\'] = this.open;"><summary class="econ_row" title="' + r.s.name + ': ' +
-              (r.rate === null ? '' : econNum(r.rate) + ' % Wachstum, ') + econNum(r.share) + ' % der Wertschöpfung">' +
-              '<span class="econ_name">' + r.s.name + '</span>' + bar +
-              '<span class="econ_val">' + (r.rate === null ? '–' : (r.rate > 0 ? '+' : '') + econNum(r.rate) + ' %') + '</span></summary>' +
-              '<div class="econ_detail">Anteil an der Bruttowertschöpfung: <b>' + econNum(r.share) + ' %</b> (2024: ' + econNum(r.s.share) + ' %), ' +
-              'rund ' + econNum(r.value, 0) + ' Mrd. Euro (Preise von 2024)<br>' +
-              (r.yoy !== null ? 'Veränderung gegenüber dem Vorjahresmonat: ' + (r.yoy > 0 ? '+' : '') + econNum(r.yoy) + ' %<br>' : '') +
-              'Erwerbstätige: rund ' + econNum(r.jobs / 1000) + ' Mio. (2024: ' + econNum(r.s.jobs / 1000) + ' Mio.)<br>' +
-              (r.why ? 'Einflüsse: ' + r.why + '<br>' : '') + '<span class="poll_note">' + r.s.text + '</span></div></details>';
-      }).join('') + '</div>';
-
-      // Zusammensetzung: ein gestapelter Balken je Jahr (Dezemberwert, im laufenden Jahr der aktuelle Stand)
-      var shareBar = function(vals) {
-          var sum = vals.reduce(function(a, b) { return a + b; }, 0);
-          var groups = ECON_GROUPS.map(function() { return 0; });
-          vals.forEach(function(v, i) { groups[ECON_SECTORS[i].group] += 100 * v / sum; });
-          return '<span class="econ_stack">' + groups.map(function(g, k) {
-              return '<span class="g' + (k + 1) + '" title="' + ECON_GROUPS[k] + ': ' + econNum(g) + ' %" style="flex-grow:' + g + '"></span>';
-          }).join('') + '</span>';
+      var jTotal = rows.reduce(function(a, r) { return a + r.jobs; }, 0);
+      rows.forEach(function(r) { r.jobShare = 100 * r.jobs / jTotal; });
+      var GROUP_COLORS = ['--econ-s1', '--econ-s2', '--econ-s3', '--econ-s4', '--econ-s5', '--econ-s6', '--econ-s7', '--econ-other'];
+      var list = function(title, key, fmt) {
+          return '<h3 class="poll_heading">' + title + '</h3><table class="gov_table">' +
+              rows.slice().sort(function(a, b) { return (b[key] || 0) - (a[key] || 0); }).map(function(r) {
+                  return '<tr><td><span class="box" style="background-color:var(' + GROUP_COLORS[r.s.group] + '); outline: 1px solid var(--border-color);"></span></td><td>' +
+                      r.s.name + '</td><td style="text-align:right">' + fmt(r[key]) + '</td></tr>';
+              }).join('') + '</table>';
       };
-      var years = [['2024', ECON_SECTORS.map(function(s) { return s.share; })]];
-      for (var y = 2025; y < Q.year; y++) {
-          var dec = srec.filter(function(r) { var d = new Date(r.date); return d.getFullYear() == y && d.getMonth() == 11; })[0];
-          if (dec) years.push([String(y), dec.v]);
-      }
-      if (started && Q.year > 2024) years.push([econDate(now.date), values]);
-      html += '<h3 class="poll_heading">Anteile an der Wertschöpfung</h3><div class="econ">' + years.map(function(y) {
-          return '<div class="econ_year"><span class="econ_year_label">' + y[0] + '</span>' + shareBar(y[1]) + '</div>';
-      }).join('') + '<div class="econ_legend">' + ECON_GROUPS.map(function(g, k) {
-          return '<span><span class="econ_swatch g' + (k + 1) + '"></span>' + g + '</span>';
-      }).join('') + '</div></div>';
+      html += list('Wachstum der Wirtschaftsbereiche', 'rate', function(v) { return v === null ? '–' : (v > 0 ? '+' : '') + econNum(v) + ' %'; });
+      html += list('Anteile an der Wertschöpfung', 'share', function(v) { return econNum(v) + ' %'; });
+      html += list('Anteile der Beschäftigten', 'jobShare', function(v) { return econNum(v) + ' %'; });
       box.innerHTML = html;
 
       // Liniendiagramm
