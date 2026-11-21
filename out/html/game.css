@@ -1137,3 +1137,9 @@ body.dark-mode {
 .econ_table { width: 100%; }
 .econ_bar_cell { width: 35%; }
 .econ_table .econ_div { display: block; }
+
+/* Wirtschaft-Reiter: Abstände wie im Rest der Seitenleiste (1em zwischen Blöcken) */
+#econ_view #econ_graph { margin: 0.5em 0 0.3em; }
+#econ_view #econ_readout { min-height: 1.2em; margin: 0 0 1em; }
+#econ_view .poll_select { display: block; margin: 1em 0 0.6em; }
+#econ_view .econ_table { border-spacing: 0.3em 0.55em; margin: 0 0 1em; }
