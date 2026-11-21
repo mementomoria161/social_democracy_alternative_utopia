@@ -17,6 +17,7 @@ card-image: img/klimastreik.jpg
 - @antrag
 - @bewegung
 - @sozial
+- @zusammen
 - @revier
 - @druck
 - @easy_discard
@@ -25,7 +26,7 @@ card-image: img/klimastreik.jpg
 title: Im Bundestag Anträge für Tempolimit, Klimageld und ein Sofortprogramm stellen.
 subtitle: Kostenlos; zeigt Profil.
 view-if: not spd_in_government
-on-arrival: new_middle_spd += 1*(1-dissent); gruene_relation += 2; gr_klima += 4; gr_umwelt += 4; cl_pressure += 0.5
+on-arrival: new_middle_spd += 1*(1-dissent); gruene_relation += 2; gr_klima += 4; cl_pressure += 0.5
 
 Unsere Anträge werden abgelehnt, aber die Debatte zwingt die Koalition, Farbe zu bekennen. [? if player = "linke" : Unsere Rede über „Klimaschutz für alle statt für Porschefahrer“ wird im Netz viel geteilt. ?][? if player = "spd" : Unser Fraktionsvize erinnert die Union an die Klimaziele, die sie selbst mitbeschlossen hat. ?]
 
@@ -34,7 +35,7 @@ title: Mit der Klimabewegung auf die Straße gehen.
 subtitle: -1 Ressourcen
 choose-if: resources >= 1
 unavailable-subtitle: Nicht genug Ressourcen.
-on-arrival: resources -= 1; klima_strength += 60; gr_klima += 10; gr_umwelt += 4; gr_kohle -= 4; left_strength += 2; left_dissent -= 3; new_middle_spd += 1.5*(1-dissent); labor_dissent += 2; cl_pressure += 1
+on-arrival: resources -= 1; klima_strength += 60; gr_klima += 10; gr_dgb -= 2; left_strength += 2; left_dissent -= 3; new_middle_spd += 1.5*(1-dissent); labor_dissent += 2; cl_pressure += 1
 
 Beim nächsten Klimastreik laufen unsere Abgeordneten und viele Mitglieder mit. Die Bilder von Hunderttausenden auf den Straßen zeigen: Klimaschutz ist nicht nur ein Thema der Grünen. Manche Gewerkschafter\*innen in der Partei fragen, ob wir die Beschäftigten in der Industrie vergessen.
 
@@ -43,14 +44,27 @@ title: Eine Kampagne „Klimaschutz, den sich alle leisten können“: Klimageld
 subtitle: -1 Ressourcen
 choose-if: resources >= 1
 unavailable-subtitle: Nicht genug Ressourcen.
-on-arrival: resources -= 1; workers_spd += 1.5*(1-dissent); unemployed_spd += 1.5*(1-dissent); new_middle_spd += 1*(1-dissent); gr_vdk += 4; gr_klima += 4; gr_mieter += 3; left_dissent -= 2; labor_dissent -= 2; cl_pressure += 0.5
+on-arrival: resources -= 1; gl_dgb_klima += 3; workers_spd += 1.5*(1-dissent); unemployed_spd += 1.5*(1-dissent); new_middle_spd += 1*(1-dissent); gr_vdk += 4; gr_klima += 4; gr_mieter += 3; left_dissent -= 2; labor_dissent -= 2; cl_pressure += 0.5
 
 Wir rechnen vor, was der CO2-Preis eine Familie kostet und was sie mit Klimageld und Sozialtarifen zurückbekäme. Sozialverbände und Klimagruppen tragen die Kampagne gemeinsam, an Infoständen sprechen wir Menschen an, die mit „Klima“ sonst wenig anfangen können.
+
+@zusammen
+title: „Wir fahren zusammen“: Gewerkschaften und Klimabewegung für Bus, Bahn und gute Arbeit an einen Tisch bringen.
+subtitle: -1 Ressourcen. Verbessert das Verhältnis zwischen Gewerkschaften und Klimabewegung.
+view-if: gl_dgb_klima < 80
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; gl_dgb_klima += 15; gr_dgb += 3; gr_klima += 3; labor_dissent -= 2; left_dissent -= 1; cl_pressure += 0.5
+# Vorbild: die Kampagne #WirFahrenZusammen von ver.di und Fridays for Future zur Tarifrunde im Nahverkehr 2024
+# (gemeinsamer Streik- und Aktionstag am 1. März 2024). Ab gl_dgb_klima 55 gelten beide Gruppen als verbündet
+# (groups_data: allied/opposed): Bündnisarbeit mit der einen freut dann auch die andere, der Kohleausstieg trifft die Gewerkschaften weniger.
+
+Wie im Frühjahr 2024, als ver.di und Fridays for Future gemeinsam für bessere Arbeitsbedingungen und mehr Busse und Bahnen auf die Straße gingen, bringen wir Betriebsrät\*innen und Klimaaktive zusammen: in Betriebshöfen, auf Kundgebungen und bei Diskussionen in den Revieren. Gute Arbeit und Klimaschutz sollen kein Gegensatz sein. [? if gl_dgb_klima >= 55 : Aus dem Misstrauen ist ein Bündnis geworden. ?][? if gl_dgb_klima < 55 : Das Misstrauen ist noch nicht verschwunden, aber man redet miteinander. ?]
 
 @revier
 title: Eine Tour durch Lausitz und Rheinisches Revier: Arbeitsplätze zuerst.
 subtitle: Kostenlos. Freut die Kohleregionen, verärgert die Klimabewegung.
-on-arrival: gr_kohle += 10; gm_kohle -= 1; workers_spd += 1*(1-dissent); rural_spd += 1*(1-dissent); gr_klima -= 5; labor_dissent -= 3; left_dissent += 2; reformist_dissent -= 1
+on-arrival: gl_dgb_klima -= 3; gr_dgb += 5; gm_dgb -= 0.5; workers_spd += 1*(1-dissent); rural_spd += 1*(1-dissent); gr_klima -= 5; labor_dissent -= 3; left_dissent += 2; reformist_dissent -= 1
 
 In Cottbus, Weißwasser und Grevenbroich hören wir zu: Wer seit 30 Jahren im Tagebau arbeitet, will keine Belehrung, sondern eine Perspektive. Wir versprechen Strukturhilfen, neue Industrie und eine Jobgarantie. Die Klimabewegung wirft uns vor, den Kohleausstieg zu verschleppen.
 
@@ -58,8 +72,8 @@ In Cottbus, Weißwasser und Grevenbroich hören wir zu: Wer seit 30 Jahren im Ta
 title: Mit Umweltverbänden und Klimabewegung gegen Rückschritte mobil machen.
 subtitle: -1 Ressourcen. Wirkt nur, wenn die Bewegung stark ist.
 view-if: not spd_in_government
-choose-if: resources >= 1 and (g_klima >= 50 or g_umwelt >= 55)
-unavailable-subtitle: Dafür fehlen Ressourcen oder eine starke Bewegung (Klimabewegung ab 50 oder Umweltverbände ab 55).
-on-arrival: resources -= 1; cl_pressure += 2; gr_umwelt += 8; gr_klima += 6; klima_strength += 30; new_middle_spd += 1*(1-dissent)
+choose-if: resources >= 1 and g_klima >= 50
+unavailable-subtitle: Dafür fehlen Ressourcen oder eine starke Umwelt- und Klimabewegung.
+on-arrival: resources -= 1; cl_pressure += 2; gr_klima += 8; klima_strength += 30; new_middle_spd += 1*(1-dissent)
 
 Gemeinsam mit BUND, NABU, Greenpeace und Fridays for Future starten wir eine Kampagne gegen die Abschwächung von Heizungsgesetz und Klimazielen. Unterschriften, Demonstrationen vor dem Kanzleramt, Klagedrohungen: In der Koalition werden die ersten nervös.

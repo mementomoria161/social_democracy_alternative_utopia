@@ -17,20 +17,12 @@ Politik wird nicht nur im Bundestag gemacht. Gewerkschaften, Verbände und Beweg
 Stärke, Konjunktur und Verhältnis aller Gruppen zeigt der Reiter „Politik“. Mit wem wollen wir arbeiten?
 
 - @w_dgb
-- @w_verdi
-- @w_kohle
 - @w_vdk
 - @w_mieter
-- @w_sozialprotest
 - @w_bda
-- @w_mittelstand
 - @w_eigentuemer
-- @w_autolobby
-- @w_umwelt
 - @w_klima
-- @w_ee_branche
 - @w_demo
-- @w_frieden
 - @w_palaestina
 - @w_kirchen
 - @w_israel
@@ -43,20 +35,12 @@ Stärke, Konjunktur und Verhältnis aller Gruppen zeigt der Reiter „Politik“
 Mit wem stattdessen?
 
 - @w_dgb
-- @w_verdi
-- @w_kohle
 - @w_vdk
 - @w_mieter
-- @w_sozialprotest
 - @w_bda
-- @w_mittelstand
 - @w_eigentuemer
-- @w_autolobby
-- @w_umwelt
 - @w_klima
-- @w_ee_branche
 - @w_demo
-- @w_frieden
 - @w_palaestina
 - @w_kirchen
 - @w_israel
@@ -67,12 +51,14 @@ on-arrival: {!
 if (!this.game.GRP) this._runActions(this.game.scenes.groups_data.onArrival);
 var GRP = this.game.GRP, g = GRP.byId(Q.grp_target), id = g.id;
 var s = Q['g_' + id] || 0, m = Q['gm_' + id] || 0, r = Q['gr_' + id] || 0;
-var word = function(x) { return x >= 75 ? 'eng' : x >= 55 ? 'gut' : x >= 40 ? 'neutral' : x >= 20 ? 'distanziert' : 'feindselig'; };
+// Wörter wie qdisplays/relationships und der Politik-Reiter (game.js, GRP_STR)
+var word = function(x) { return x < 5 ? 'feindselig' : x < 14.9 ? 'eisig' : x < 29.9 ? 'kalt' : x < 39.9 ? 'kühl' : x < 54.9 ? 'neutral' : x < 64.9 ? 'warm' : x < 74.9 ? 'freundlich' : 'sehr freundlich'; };
+var sword = function(x) { return x < 10 ? 'kaum vorhanden' : x < 25 ? 'schwach' : x < 45 ? 'mittel' : x < 65 ? 'stark' : 'sehr stark'; };
 var trend = m > 0.4 ? 'wachsend' : m < -0.4 ? 'schwindend' : 'stabil';
 var name = function(o) { return GRP.byId(o).short; };
-var opp = GRP.opposed(id).filter(function(o) { return o != 'rechts'; }), ally = GRP.allied(id).filter(function(o) { return o != 'rechts'; });
+var opp = GRP.opposed(id, Q).filter(function(o) { return o != 'rechts'; }), ally = GRP.allied(id, Q).filter(function(o) { return o != 'rechts'; });
 Q.grp_name = g.name;
-Q.grp_info = 'Stärke ' + Math.round(s) + ' von 100 (' + trend + '), Verhältnis zur ' + (Q.pp_dat || 'der SPD').replace(/^der /, '') + ': ' + Math.round(r) + ' (' + word(r) + '). ' +
+Q.grp_info = 'Stärke: ' + sword(s) + ' (' + trend + '), Verhältnis zur ' + (Q.pp_dat || 'der SPD').replace(/^der /, '') + ': ' + word(r) + '. ' +
     'Sie fordern ' + g.demand(Q) + '.' + (ally.length ? ' Verbündet mit: ' + ally.map(name).join(', ') + '.' : '') +
     (opp.length ? ' Gegenspieler: ' + opp.map(name).join(', ') + '.' : '');
 !}
@@ -116,17 +102,10 @@ In einem Interview gehen wir klar auf Abstand zu „[+ grp_name +]“: Ihre Ford
 [+ grp_msg +]
 
 @w_dgb
-title: DGB und IG Metall
+title: Gewerkschaften (DGB, IG Metall, ver.di, IG BCE)
 subtitle: Gewerkschaften
 view-if: ga_dgb = 1
 on-arrival: grp_target = "dgb"; grp_rel_now = gr_dgb
-go-to: aktion
-
-@w_verdi
-title: ver.di und Dienstleistungsgewerkschaften
-subtitle: Gewerkschaften
-view-if: ga_verdi = 1
-on-arrival: grp_target = "verdi"; grp_rel_now = gr_verdi
 go-to: aktion
 
 @w_vdk
@@ -137,49 +116,21 @@ on-arrival: grp_target = "vdk"; grp_rel_now = gr_vdk
 go-to: aktion
 
 @w_mieter
-title: Mieterbund und Mieterbewegung
+title: Mieter\*innen und Sozialproteste
 subtitle: Sozialverbände und Mieter\*innen
 view-if: ga_mieter = 1
 on-arrival: grp_target = "mieter"; grp_rel_now = gr_mieter
 go-to: aktion
 
-@w_sozialprotest
-title: Bündnisse gegen Sozialabbau
-subtitle: Protest gegen Kürzungen
-view-if: ga_sozialprotest = 1
-on-arrival: grp_target = "sozialprotest"; grp_rel_now = gr_sozialprotest
-go-to: aktion
-
 @w_bda
-title: Arbeitgeberverbände (BDA, BDI)
+title: Arbeitgeber- und Industrieverbände (BDA, BDI, VDA, Familienunternehmer)
 subtitle: Arbeitgeber und Wirtschaft
 view-if: ga_bda = 1
 on-arrival: grp_target = "bda"; grp_rel_now = gr_bda
 go-to: aktion
 
-@w_mittelstand
-title: Familienunternehmer und Handwerk
-subtitle: Arbeitgeber und Wirtschaft
-view-if: ga_mittelstand = 1
-on-arrival: grp_target = "mittelstand"; grp_rel_now = gr_mittelstand
-go-to: aktion
-
-@w_autolobby
-title: Auto- und Energiewirtschaft (VDA, BDEW)
-subtitle: Arbeitgeber und Wirtschaft
-view-if: ga_autolobby = 1
-on-arrival: grp_target = "autolobby"; grp_rel_now = gr_autolobby
-go-to: aktion
-
-@w_umwelt
-title: Umweltverbände (BUND, NABU, Greenpeace)
-subtitle: Umwelt und Klima
-view-if: ga_umwelt = 1
-on-arrival: grp_target = "umwelt"; grp_rel_now = gr_umwelt
-go-to: aktion
-
 @w_klima
-title: Klimabewegung
+title: Umwelt- und Klimabewegung
 subtitle: Umwelt und Klima
 view-if: ga_klima = 1
 on-arrival: grp_target = "klima"; grp_rel_now = gr_klima
@@ -192,15 +143,8 @@ view-if: ga_demo = 1
 on-arrival: grp_target = "demo"; grp_rel_now = gr_demo
 go-to: aktion
 
-@w_frieden
-title: Friedensbewegung
-subtitle: Bewegungen
-view-if: ga_frieden = 1
-on-arrival: grp_target = "frieden"; grp_rel_now = gr_frieden
-go-to: aktion
-
 @w_palaestina
-title: Palästina-Solidaritätsbewegung
+title: Friedens- und Palästinabewegung
 subtitle: Bewegungen
 view-if: ga_palaestina = 1
 on-arrival: grp_target = "palaestina"; grp_rel_now = gr_palaestina
@@ -225,20 +169,6 @@ title: Bauern- und Mittelstandsproteste
 subtitle: Protestbewegung
 view-if: ga_bauern = 1
 on-arrival: grp_target = "bauern"; grp_rel_now = gr_bauern
-go-to: aktion
-
-@w_ee_branche
-title: Erneuerbaren-Branche (BEE, Windenergie, Solarwirtschaft)
-subtitle: Umwelt und Klima
-view-if: ga_ee_branche = 1
-on-arrival: grp_target = "ee_branche"; grp_rel_now = gr_ee_branche
-go-to: aktion
-
-@w_kohle
-title: Kohleregionen und IG BCE
-subtitle: Gewerkschaften
-view-if: ga_kohle = 1
-on-arrival: grp_target = "kohle"; grp_rel_now = gr_kohle
 go-to: aktion
 
 @w_eigentuemer

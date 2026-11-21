@@ -4,7 +4,7 @@ new-page: true
 tags: event
 view-if: year = 2025 and month = 3
 max-visits: 1
-on-arrival: verdi_tarifrunde_seen = 1; gm_verdi += 2
+on-arrival: verdi_tarifrunde_seen = 1; gm_dgb += 2
 face-image: img/streik.jpg
 
 # Durchgang 4.5 (Gruppen). Historisch: Tarifrunde öffentlicher Dienst Bund und Kommunen 2025, Warnstreiks Januar bis März,
@@ -22,16 +22,16 @@ Wer ist schuld am Chaos? In den Talkshows streiten Gewerkschafter\*innen und Arb
 - @kritik: Die Flughafenstreiks kritisieren: Sie treffen die Falschen.
 
 @solidaritaet
-on-arrival: gr_verdi += 10; gr_dgb += 3; gr_bda -= 5; labor_dissent -= 3; left_dissent -= 2; workers_spd += 0.5*(1-dissent); old_middle_spd -= 0.5
+on-arrival: gr_dgb += 10; gr_bda -= 5; labor_dissent -= 3; left_dissent -= 2; workers_spd += 0.5*(1-dissent); old_middle_spd -= 0.5
 
 Wir besuchen Streikposten vor Kitas und Krankenhäusern. Die Beschäftigten freuen sich über die Unterstützung, die Arbeitgeberverbände werfen uns vor, die Kommunen in die Pleite zu treiben.
 
 @schlichtung
-on-arrival: gr_verdi += 2; gr_bda += 2; center_dissent -= 2
+on-arrival: gr_dgb += 2; gr_bda += 2; center_dissent -= 2
 
 Wir rufen beide Seiten an einen Tisch. Tatsächlich einigen sie sich Anfang April nach einer Schlichtung. Gedankt wird es uns von keiner Seite, aber geschadet hat es auch nicht.
 
 @kritik
-on-arrival: gr_verdi -= 12; gr_bda += 6; labor_dissent += 5; left_dissent += 3; old_middle_spd += 0.5*(1-dissent)
+on-arrival: gr_dgb -= 12; gr_bda += 6; labor_dissent += 5; left_dissent += 3; old_middle_spd += 0.5*(1-dissent)
 
 Wir kritisieren, dass Urlauber\*innen und Eltern die Leidtragenden sind. Die Mittelständler nicken, doch auf der nächsten Betriebsversammlung wird es für unsere Leute ungemütlich.

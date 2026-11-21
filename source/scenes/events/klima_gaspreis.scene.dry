@@ -4,7 +4,7 @@ new-page: true
 tags: event
 view-if: cl_gaskrise = year and month >= 11 and chancellor_party != "AfD"
 max-visits: 1
-on-arrival: klima_gaspreis_seen = 1; cl_gas_shock += 30; gm_mittelstand += 2; gm_vdk += 1
+on-arrival: klima_gaspreis_seen = 1; cl_gas_shock += 30; gm_bda += 2; gm_vdk += 1
 face-image: img/waermepumpe.jpg
 
 # Durchgang 4.6 (Klima), FIKTIV: Gaspreisschock (climate_data: cl_gaskrise, 30 % je Herbst ab 2027, höchstens einmal). Erhöht den
@@ -28,7 +28,7 @@ view-if: spd_in_government
 subtitle: -2 Haushaltsspielraum.
 choose-if: budget >= 2
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
-on-arrival: cl_bremse = 6; budget -= 2; workers_spd += 2*(1-dissent); rentner_spd += 2*(1-dissent); old_middle_spd += 1*(1-dissent); gr_mittelstand += 4; gr_vdk += 3; gr_umwelt -= 2
+on-arrival: cl_bremse = 6; budget -= 2; workers_spd += 2*(1-dissent); rentner_spd += 2*(1-dissent); old_middle_spd += 1*(1-dissent); gr_bda += 4; gr_vdk += 3; gr_klima -= 2
 
 Für 80 Prozent des Vorjahresverbrauchs gilt ein Höchstpreis, den Rest zahlt der Bund. Die Menschen sind erleichtert, Ökonom\*innen warnen vor den Kosten.
 
@@ -37,13 +37,13 @@ view-if: spd_in_government
 subtitle: -1 Haushaltsspielraum.
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
-on-arrival: budget -= 1; unemployed_spd += 2*(1-dissent); workers_spd += 1*(1-dissent); rentner_spd += 0.5*(1-dissent); gr_vdk += 5; old_middle_spd -= 0.5; gr_mittelstand -= 2
+on-arrival: budget -= 1; unemployed_spd += 2*(1-dissent); workers_spd += 1*(1-dissent); rentner_spd += 0.5*(1-dissent); gr_vdk += 5; old_middle_spd -= 0.5; gr_bda -= 2
 
 Wohngeldbeziehende, Rentner\*innen mit Grundsicherung und Studierende bekommen einen Heizkostenzuschuss, Stadtwerke bieten Sozialtarife an. Der Mittelstand fühlt sich übergangen.
 
 @markt
 view-if: spd_in_government
-on-arrival: workers_spd -= 1; rentner_spd -= 1.5; old_middle_spd -= 1; inflation += 0.3; gr_vdk -= 4; gr_mittelstand -= 3; left_dissent += 4; labor_dissent += 3
+on-arrival: workers_spd -= 1; rentner_spd -= 1.5; old_middle_spd -= 1; inflation += 0.3; gr_vdk -= 4; gr_bda -= 3; left_dissent += 4; labor_dissent += 3
 
 Wir greifen nicht ein. Die Inflation zieht an, und die Heizkostenabrechnungen werden für viele zum Schock.
 
@@ -55,6 +55,6 @@ Wir fordern eine sofortige Preisbremse und werfen der Regierung vor, die Mensche
 
 @opp_raus
 view-if: not spd_in_government
-on-arrival: new_middle_spd += 1*(1-dissent); gr_umwelt += 4; gr_ee_branche += 4; gr_klima += 2; rentner_spd -= 0.5
+on-arrival: new_middle_spd += 1*(1-dissent); gr_klima += 4; rentner_spd -= 0.5
 
 Wir sagen: Die beste Preisbremse ist der Umstieg. Ein Förderprogramm für Wärmepumpen und schnellere Erneuerbare würde die Abhängigkeit vom Gas beenden. Kurzfristig hilft das niemandem, der jetzt friert, kritisieren manche.

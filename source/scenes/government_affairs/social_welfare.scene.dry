@@ -23,7 +23,7 @@ Rente, Pflege, Grundsicherung: Der Sozialstaat ist die größte Errungenschaft d
 subtitle: Das trifft unsere Stammwählerschaft, und die Sozialverbände werden protestieren. +1 Haushaltsspielraum
 unavailable-subtitle: Es gibt nichts mehr zu kürzen.
 choose-if: welfare >= -5
-on-arrival: budget += 1; workers_spd -= 6; unemployed_spd -= 6; workers_linke += 3; welfare -= 1; reformist_dissent += 10; left_dissent += 10; labor_dissent += 10; center_dissent += 5; neorevisionist_dissent += 5; fdp_relation += 5; union_relation += 3; pro_republic -= 3; coalition_dissent -= 1 if in_grand_coalition and coalition_dissent > 0; linke_coalition_dissent += 1; linke_relation -= 8; inflation -= 0.3; unemployed += 0.2; economic_growth -= 0.2; gr_vdk -= 10; gr_verdi -= 4; gm_vdk += 2; rentner_spd -= 2 if g_vdk >= 60; unemployed_spd -= 1 if g_vdk >= 60; left_dissent += 3 if g_vdk >= 60
+on-arrival: budget += 1; workers_spd -= 6; unemployed_spd -= 6; workers_linke += 3; welfare -= 1; reformist_dissent += 10; left_dissent += 10; labor_dissent += 10; center_dissent += 5; neorevisionist_dissent += 5; fdp_relation += 5; union_relation += 3; pro_republic -= 3; coalition_dissent -= 1 if in_grand_coalition and coalition_dissent > 0; linke_coalition_dissent += 1; linke_relation -= 8; inflation -= 0.3; unemployed += 0.2; economic_growth -= 0.2; gr_vdk -= 10; gr_dgb -= 4; gm_vdk += 2; rentner_spd -= 2 if g_vdk >= 60; unemployed_spd -= 1 if g_vdk >= 60; left_dissent += 3 if g_vdk >= 60
 
 Wir kürzen bei Grundsicherung, Wohngeld und Zuschüssen. Für viele Familien bedeutet das mehr Armut und Unsicherheit. Unsere Kritiker sagen, wir opfern unsere Wählerinnen und Wähler für den Koalitionsfrieden. Haben sie unrecht? Kann man es Menschen verdenken, wenn sie nun Linke oder AfD wählen?
 

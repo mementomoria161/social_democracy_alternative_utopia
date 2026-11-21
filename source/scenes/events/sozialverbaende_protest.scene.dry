@@ -21,13 +21,13 @@ Auf den Kundgebungen stehen Rentner\*innen neben Pflegekräften und Erwerbslosen
 - @forderung: Die Proteste nutzen, um die Regierung unter Druck zu setzen.
 
 @mitlaufen
-on-arrival: gr_vdk += 12; gr_kirchen += 5; gr_verdi += 4; gm_vdk += 1; left_dissent -= 4; labor_dissent -= 4; rentner_spd += 1*(1-dissent); unemployed_spd += 1*(1-dissent); coalition_dissent += 1 if spd_in_government; reformist_dissent += 3 if spd_in_government
+on-arrival: gr_vdk += 12; gr_kirchen += 5; gr_dgb += 4; gm_vdk += 1; left_dissent -= 4; labor_dissent -= 4; rentner_spd += 1*(1-dissent); unemployed_spd += 1*(1-dissent); coalition_dissent += 1 if spd_in_government; reformist_dissent += 3 if spd_in_government
 
 Unsere Leute laufen in den ersten Reihen mit. [? if spd_in_government : Dass eine Regierungspartei gegen die eigenen Sparpläne demonstriert, sorgt im Koalitionsausschuss für Ärger. ?][? if not spd_in_government : Die Verbände bedanken sich, und in den Sozialberatungen spricht sich das herum. ?]
 
 @erklaeren
 view-if: spd_in_government
-on-arrival: gr_vdk -= 8; gr_verdi -= 4; reformist_dissent -= 2; center_dissent -= 1; left_dissent += 4; labor_dissent += 3; rentner_spd -= 0.5
+on-arrival: gr_vdk -= 8; gr_dgb -= 4; reformist_dissent -= 2; center_dissent -= 1; left_dissent += 4; labor_dissent += 3; rentner_spd -= 0.5
 
 Wir werben um Verständnis: Ohne Einsparungen sei der Haushalt nicht verfassungsgemäß. Die Verbände reagieren mit Pfiffen, und [+ pp_youth +] erklärt öffentlich ihre Solidarität mit den Protesten.
 

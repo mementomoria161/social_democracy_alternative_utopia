@@ -34,7 +34,7 @@ view-if: spd_in_government and kp_klimageld = 0
 subtitle: -1 Haushaltsspielraum.
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
-on-arrival: kp_klimageld = 1; budget -= 1; unemployed_spd += 3*(1-dissent); workers_spd += 2*(1-dissent); rentner_spd += 1*(1-dissent); gr_vdk += 6; gr_klima += 5; gr_umwelt += 4; left_dissent -= 3; coalition_dissent += 1 if union_in_government or fdp_in_government
+on-arrival: kp_klimageld = 1; budget -= 1; unemployed_spd += 3*(1-dissent); workers_spd += 2*(1-dissent); rentner_spd += 1*(1-dissent); gr_vdk += 6; gr_klima += 5; left_dissent -= 3; coalition_dissent += 1 if union_in_government or fdp_in_government
 
 Ab 2028 bekommt jede und jeder einmal im Jahr denselben Betrag überwiesen. Wer wenig Energie verbraucht, und das sind meist die Haushalte mit kleinen Einkommen, macht ein Plus. Das Bundesfinanzministerium hat dafür endlich einen Auszahlungsweg über die Steuer-ID gebaut.
 
@@ -43,7 +43,7 @@ view-if: spd_in_government and kp_co2 >= 0
 subtitle: -1 Haushaltsspielraum.
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
-on-arrival: kp_co2 = -1; budget -= 1; rural_spd += 1.5*(1-dissent); rentner_spd += 1*(1-dissent); gr_klima -= 10; gr_umwelt -= 8; union_relation += 2; left_dissent += 2
+on-arrival: kp_co2 = -1; budget -= 1; rural_spd += 1.5*(1-dissent); rentner_spd += 1*(1-dissent); gr_klima -= 10; union_relation += 2; left_dissent += 2
 
 Wir setzen in Brüssel einen Preisdeckel durch und gleichen den Rest aus dem Haushalt aus. Heizen und Tanken bleiben bezahlbar, doch der Anreiz zum Umstieg schrumpft.
 
@@ -52,7 +52,7 @@ view-if: spd_in_government and stromsteuer_alle = 0
 subtitle: -1 Haushaltsspielraum.
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
-on-arrival: stromsteuer_alle = 1; budget -= 1; workers_spd += 1*(1-dissent); rentner_spd += 1*(1-dissent); new_middle_spd += 0.5*(1-dissent); gr_bda += 2; gr_mittelstand += 2; union_relation += 1
+on-arrival: stromsteuer_alle = 1; budget -= 1; workers_spd += 1*(1-dissent); rentner_spd += 1*(1-dissent); new_middle_spd += 0.5*(1-dissent); gr_bda += 2; union_relation += 1
 
 Die Stromsteuer sinkt für alle auf das europäische Minimum. Wer mit Strom heizt und fährt, profitiert am meisten, ein Anreiz für Wärmepumpe und E-Auto. Wer noch mit Öl heizt, merkt davon wenig.
 
@@ -73,7 +73,7 @@ on-arrival: resources -= 1; unemployed_spd += 1.5*(1-dissent); workers_spd += 1*
 
 @opp_deckel
 view-if: not spd_in_government
-on-arrival: rural_spd += 1.5*(1-dissent); rentner_spd += 1*(1-dissent); gr_klima -= 6; gr_umwelt -= 4; left_dissent += 2
+on-arrival: rural_spd += 1.5*(1-dissent); rentner_spd += 1*(1-dissent); gr_klima -= 6; left_dissent += 2
 
 Wir fordern einen Preisdeckel. Bei Rentner\*innen auf dem Land kommt das an, die Klimabewegung wirft uns Populismus vor.
 

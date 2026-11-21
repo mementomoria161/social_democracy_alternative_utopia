@@ -4,7 +4,7 @@ new-page: true
 tags: event
 view-if: year >= 2027 and month >= 3 and month <= 11 and cl_gap2030 > 35 and klima_expertenrat_seen >= 1 and chancellor_party != "AfD"
 max-visits: 1
-on-arrival: klima_klage_seen = 1; cl_court = 1; klima_strength += 60; gm_umwelt += 2; gr_umwelt += 3
+on-arrival: klima_klage_seen = 1; cl_court = 1; klima_strength += 60; gm_klima += 2; gr_klima += 3
 face-image: img/klimastreik.jpg
 
 # Durchgang 4.6 (Klima), FIKTIV. Real: Klimabeschluss des BVerfG vom 24.03.2021 (Freiheitsrechte künftiger Generationen); gegen die
@@ -30,20 +30,20 @@ on-arrival: {!
 Q.budget -= 1;
 Q.kp_ee = Math.max(Q.kp_ee || 0, 1); Q.kp_netz = 1; if (Q.kp_co2 < 0) Q.kp_co2 = 0; if (Q.kp_waerme < 0) Q.kp_waerme = 0;
 if (Q.union_in_government || Q.fdp_in_government) Q.coalition_dissent += 1;
-Q.gr_umwelt += 8; Q.gr_klima += 6; Q.new_middle_spd += 1.5 * (1 - Q.dissent); Q.pro_republic += 1; Q.left_dissent -= 2;
+Q.gr_klima += 8; Q.new_middle_spd += 1.5 * (1 - Q.dissent); Q.pro_republic += 1; Q.left_dissent -= 2;
 !}
 
 Wir legen einen verbindlichen Jahrespfad bis 2045 vor, beschleunigen den Netzausbau und nehmen Rückschritte zurück. Das Gericht hat uns Rückenwind gegeben, den wir gegen die Bremser in der Koalition nutzen.
 
 @minimal
 view-if: spd_in_government
-on-arrival: gr_umwelt -= 10; gr_klima -= 8; klima_strength += 80; new_middle_spd -= 1; left_dissent += 3
+on-arrival: gr_klima -= 10; klima_strength += 80; new_middle_spd -= 1; left_dissent += 3
 
 Ein neuer Paragraf, ein neuer Bericht, keine neue Maßnahme. Umweltverbände kündigen die nächste Klage an, und Juristinnen sprechen von einer „Missachtung des Gerichts“.
 
 @opp_druck
 view-if: not spd_in_government
-on-arrival: new_middle_spd += 1*(1-dissent); gr_umwelt += 5; gr_klima += 5; cl_pressure += 1; gruene_relation += 2
+on-arrival: new_middle_spd += 1*(1-dissent); gr_klima += 5; cl_pressure += 1; gruene_relation += 2
 
 Unser Gesetzentwurf übernimmt die Vorgaben aus Karlsruhe eins zu eins. Die Koalition lehnt ab, steht aber unter Zugzwang.
 

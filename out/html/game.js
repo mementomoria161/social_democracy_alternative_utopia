@@ -793,7 +793,7 @@
           GRP.links.forEach(function(l) {
               var d1 = byId[l[0]], d2 = byId[l[1]];
               if (!d1 || !d2) return;
-              relEdge(l[0], l[1], d1.x, d1.y, d2.x, d2.y, l[2], 0.8 + 2.5 * Math.min(d1.s, d2.s) / 100, {curve: true, o: d1.a && d2.a ? 0.8 : 0.25});
+              relEdge(l[0], l[1], d1.x, d1.y, d2.x, d2.y, GRP.linkVal(Q, l[0], l[1]), 0.8 + 2.5 * Math.min(d1.s, d2.s) / 100, {curve: true, o: d1.a && d2.a ? 0.8 : 0.25});
           });
           parties.forEach(function(o) {
               o.members.forEach(function(id) {
@@ -928,7 +928,7 @@
               for (var f in infl) if (facName[f]) (infl[f] > 0 ? up : down).push(facName[f]);
               var near = (g.parties || []).map(function(pn) { return partyName[GRP.slot(Q, pn)]; });
               var short = function(o) { return byId[o] ? byId[o].g.short : o; };
-              var ally = GRP.allied(key).map(short), opp = GRP.opposed(key).map(short);
+              var ally = GRP.allied(key, Q).map(short), opp = GRP.opposed(key, Q).map(short);
               // Fließtext aus Beschreibung und aktuellem Stand
               var txt = g.desc;
               if (g.link) txt += ' Derzeit mobilisiert die Bewegung rund ' + econNum(Q[g.link + '_strength'] || 0, 0) + ' Tausend Menschen, ihre Radikalisierung ist ' + grpRad(Q[g.link + '_radicalism'] || 0) + '.';

@@ -35,6 +35,6 @@ Wir bieten an, über niedrigere Lohnnebenkosten zu reden, solange die Leistungen
 subtitle: −1 Ressource.
 choose-if: resources >= 1
 unavailable-subtitle: Dafür fehlen uns die Mittel (1 Ressource).
-on-arrival: resources -= 1; gr_dgb += 12; gr_vdk += 12; gr_verdi += 8; gr_bda -= 15; gm_bda -= 3; gm_dgb += 2; gm_vdk += 2; labor_dissent -= 5; left_dissent -= 3; reformist_dissent += 5; workers_spd += 1*(1-dissent); rentner_spd += 1*(1-dissent); old_middle_spd -= 1; capital_strike_progress += 1 if spd_in_government; coalition_dissent += 1 if spd_in_government and in_grand_coalition
+on-arrival: resources -= 1; gr_dgb += 12; gr_vdk += 12; gr_bda -= 15; gm_bda -= 3; gm_dgb += 2; gm_vdk += 2; labor_dissent -= 5; left_dissent -= 3; reformist_dissent += 5; workers_spd += 1*(1-dissent); rentner_spd += 1*(1-dissent); old_middle_spd -= 1; capital_strike_progress += 1 if spd_in_government; coalition_dissent += 1 if spd_in_government and in_grand_coalition
 
 Mit DGB, ver.di, VdK und Paritätischem plakatieren wir zurück: „Rente rauf statt Rente mit 70“. Auf den Kundgebungen stehen Gewerkschafter\*innen neben Rentner\*innen. Die Kampagne der Arbeitgeber verliert an Wucht, aber in der Wirtschaft haben wir uns keine Freunde gemacht.

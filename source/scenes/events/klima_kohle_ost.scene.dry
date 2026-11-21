@@ -4,7 +4,7 @@ new-page: true
 tags: event
 view-if: kp_kohle = 1 and spd_in_government and time >= 1 and chancellor_party != "AfD"
 max-visits: 1
-on-arrival: klima_kohle_ost_seen = 1; gm_kohle += 2
+on-arrival: klima_kohle_ost_seen = 1; gm_dgb += 1
 face-image: img/braunkohle.jpg
 
 # Durchgang 4.6 (Klima), fiktiv: Folge der Entscheidung „Kohleausstieg 2030“ (kp_kohle). Real: Lausitz und Mitteldeutsches Revier sollen nach
@@ -26,12 +26,12 @@ In Cottbus, Spremberg und Weißwasser gehen Tausende auf die Straße. Die Betrei
 subtitle: -1 Haushaltsspielraum.
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
-on-arrival: klima_kohle_ost_choice = 1; budget -= 1; gr_kohle += 12; rural_spd += 1.5*(1-dissent); workers_spd += 1*(1-dissent); labor_dissent -= 3; union_relation += 1; shock_industrie += 0.3; shock_bau += 0.3
+on-arrival: klima_kohle_ost_choice = 1; gl_dgb_klima += 5; budget -= 1; gr_dgb += 6; rural_spd += 1.5*(1-dissent); workers_spd += 1*(1-dissent); labor_dissent -= 3; union_relation += 1; shock_industrie += 0.3; shock_bau += 0.3
 
 Zum Strukturstärkungsgesetz von 2020 kommt ein neues Paket: Eine Batteriefabrik, ein Wasserstoff-Elektrolyseur und zwei Bundesbehörden ziehen in die Lausitz, und wer im Tagebau arbeitet, bekommt eine Beschäftigungsgarantie bis zur Rente oder eine bezahlte Umschulung. Die Proteste ebben ab.
 
 @markt
-on-arrival: klima_kohle_ost_choice = 2; gr_kohle -= 10; rural_spd -= 2; workers_spd -= 1; rural_afd += 1.5; workers_afd += 1; labor_dissent += 5
+on-arrival: klima_kohle_ost_choice = 2; gr_dgb -= 5; rural_spd -= 2; workers_spd -= 1; rural_afd += 1.5; workers_afd += 1; labor_dissent += 5
 
 Wir verweisen auf den steigenden CO2-Preis und die vorhandenen Strukturmittel. In der Lausitz fühlen sich viele bestätigt: Der Westen entscheidet, der Osten zahlt.
 
@@ -40,7 +40,7 @@ view-if: player = "spd"
 subtitle: -1 Ressourcen.
 choose-if: resources >= 1
 unavailable-subtitle: Nicht genug Ressourcen.
-on-arrival: klima_kohle_ost_choice = 3; resources -= 1; gr_kohle += 8; rural_spd += 1*(1-dissent); reformist_dissent -= 2; labor_dissent -= 2
+on-arrival: klima_kohle_ost_choice = 3; resources -= 1; gr_dgb += 4; rural_spd += 1*(1-dissent); reformist_dissent -= 2; labor_dissent -= 2
 
 Woidke und wir treten gemeinsam in Cottbus auf: Der Ausstieg kommt, aber niemand fällt ins Bergfreie. Landesregierung, IG BCE und Unternehmen unterschreiben einen Pakt für neue Industriearbeitsplätze.
 
@@ -49,6 +49,6 @@ view-if: player = "linke"
 subtitle: -1 Ressourcen.
 choose-if: resources >= 1
 unavailable-subtitle: Nicht genug Ressourcen.
-on-arrival: klima_kohle_ost_choice = 3; resources -= 1; gr_kohle += 8; rural_spd += 1*(1-dissent); reformist_dissent -= 3; labor_dissent -= 2
+on-arrival: klima_kohle_ost_choice = 3; resources -= 1; gr_dgb += 4; rural_spd += 1*(1-dissent); reformist_dissent -= 3; labor_dissent -= 2
 
 Mit unseren Landesverbänden aus Brandenburg und Sachsen setzen wir eine Jobgarantie für alle Beschäftigten der Kohle durch, finanziert über einen Transformationsfonds. Viele hatten uns im Osten schon abgeschrieben, jetzt reden die Leute wieder mit uns.
