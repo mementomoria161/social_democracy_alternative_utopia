@@ -13,14 +13,11 @@ go-to: linke if player = "linke"; spd if player = "spd"
 # Setzt den Termin der Vertrauensfrage (vf_year/vf_month), den Wahltermin und prolog_laws (Zeit für restgesetze).
 # Historisch: Vertrauensfrage am 16.12.2024, Auflösung am 27.12.2024, Wahl am 23.02.2025.
 
-= Das Ende der Ampel
+# Der Einleitungstext (Überschrift, 6. November 2024) steht in root.intro_main bzw. root.intro_linke; dieser Teil setzt ihn nahtlos fort.
 
-# Gemeinsame Kopfzeile oben; dieser Text nur im SPD-Spiel (die Engine zeigt den Text vor einem go-to an).
 @spd
 
 # party-ok: SPD (die reale SPD im historischen Ablauf, in beiden Spielen richtig)
-
-Am Morgen nach dem Bruch beherrscht eine Frage die Hauptstadt: Wann wird gewählt? Friedrich Merz verlangt, dass der Kanzler die Vertrauensfrage „spätestens nächste Woche“ stellt; bis dahin werde die Union keinem Gesetz der Minderheitsregierung zustimmen. Bundespräsident Steinmeier lässt wissen, dass er den Bundestag rasch auflösen würde, wenn die Parteien sich einigen. Die Bundeswahlleiterin warnt dagegen vor „unabwägbaren Risiken“ einer überstürzten Wahl, von Fristen für die Kandidatenaufstellung bis zum Papier für die Stimmzettel.
 
 In der SPD-Fraktion wollen viele zuerst noch retten, was zu retten ist: höheres Kindergeld, den Ausgleich der kalten Progression, das Deutschlandticket, das Rentenpaket. Andere fürchten, dass ein monatelanges Hinauszögern wie Festkleben am Amt wirkt.
 
@@ -49,7 +46,7 @@ Wir nehmen der Union den Wind aus den Segeln: Der Kanzler stellt die Vertrauensf
 @linke
 on-arrival: vf_year = 2024; vf_month = 12; next_election_year = 2025; next_election_month = 2; next_election_time = 4; election_scheduled = 1; election_date_text = "23. Februar 2025"; prolog_laws = 2
 
-Am Morgen nach dem Bruch beherrscht eine Frage die Hauptstadt: Wann wird gewählt? Friedrich Merz verlangt die sofortige Vertrauensfrage, der Kanzler will bis Januar warten. Nach einigen Tagen öffentlichen Drucks einigen sich SPD und Union: Vertrauensfrage am 16. Dezember, Neuwahl am 23. Februar 2025.
+In den Tagen danach beherrscht eine Frage die Hauptstadt: Wann wird gewählt? Friedrich Merz verlangt die sofortige Vertrauensfrage, der Kanzler will bis Januar warten. Nach einigen Tagen öffentlichen Drucks einigen sich SPD und Union: Vertrauensfrage am 16. Dezember, Neuwahl am 23. Februar 2025.
 
 Für uns bleiben gut drei Monate. In den Umfragen liegen wir bei drei bis vier Prozent, die Kassen sind leer, und viele Medien laden uns gar nicht mehr ein. Wie gehen wir in diesen Winter?
 
