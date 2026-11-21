@@ -8,7 +8,7 @@ on-arrival: klimakampagne_timer = 6; month_actions += 1
 card-image: img/klimastreik.jpg
 
 # Durchgang 4.6 (beide Parteien): Kampagnen zur Klimapolitik. In der Opposition erhöht der Druck auf die Regierung cl_pressure
-# (ab 2 verhindert er Rückschritte in events/klima_heizungsgesetz). Werte im Reiter „Klima“ und „Gruppen“.
+# (ab 2 verhindert er Rückschritte in events/klima_heizungsgesetz). Werte im Reiter „Klima“ und „Politik“.
 
 = Klimakampagne
 

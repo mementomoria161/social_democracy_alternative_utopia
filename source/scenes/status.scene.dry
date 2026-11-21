@@ -164,48 +164,9 @@ d3.select(svg).datum(rows.map(function(x) { return {id: x.id, legend: P[x.id][0]
 
 {!<div id="bundestag_table"></div>!}
 
-@politics
-
-= Beziehungen zu anderen Parteien
-
-{!<span class="tooltip-text" title="CDU/CSU">Union</span>!}: [+ union_relation : relationships +]
-
-{!<span class="tooltip-text" title="Bündnis 90/Die Grünen">Grüne</span>!}: [+ gruene_relation : relationships +]
-
-{!<span class="tooltip-text" title="Freie Demokratische Partei">FDP</span>!}: [+ fdp_relation : relationships +]
-
-[? if player = "spd" : {!<span class="tooltip-text" title="Die Linke">Linke</span>!} ?][? if player = "linke" : {!<span class="tooltip-text" title="Sozialdemokratische Partei Deutschlands">SPD</span>!} ?]: [+ linke_relation : relationships +]
-
-{!<span class="tooltip-text" title="Bündnis Sahra Wagenknecht">BSW</span>!}: [+ bsw_relation : relationships +]
-
-{!<span class="tooltip-text" title="Alternative für Deutschland">AfD</span>!}: [+ afd_relation : relationships +]
-
-= Strömungen in [+ pp_dat +]
-
-[? if player = "spd" : {!<span class="tooltip-text" title="Parlamentarische Linke, Jusos und DL21: Vermögensteuer, Friedenspolitik, offen für Rot-Grün-Rot.">SPD-Linke</span>!}: Stärke [+ left_strength : strength +], Unmut [+ left_dissent : dissent +] ?]
-
-[? if player = "spd" : {!<span class="tooltip-text" title="Netzwerk Berlin und Parteiapparat: Regierungsfähigkeit, Geschlossenheit, Kompromiss.">Parteimitte</span>!}: Stärke [+ center_strength : strength +], Unmut [+ center_dissent : dissent +] ?]
-
-[? if player = "spd" : {!<span class="tooltip-text" title="AfA und DGB-nahe Abgeordnete: Löhne, Tarifbindung, Rente und Industriearbeitsplätze.">Gewerkschaftsflügel</span>!}: Stärke [+ labor_strength : strength +], Unmut [+ labor_dissent : dissent +] ?]
-
-[? if player = "spd" : {!<span class="tooltip-text" title="Seeheimer Kreis: pragmatisch, wirtschaftsnah, sicherheitspolitisch konservativ, offen für Bündnisse mit der Union.">Seeheimer Kreis</span>!}: Stärke [+ reformist_strength : strength +], Unmut [+ reformist_dissent : dissent +] ?]
-
-[? if player = "spd" and neorevisionism > 0 : {!<span class="tooltip-text" title="Dänischer Kurs: harte Migrations- und Sicherheitspolitik, verbunden mit einem starken Sozialstaat.">Dänischer Kurs</span>!}: Stärke [+ neorevisionist_strength : strength +], Unmut [+ neorevisionist_dissent : dissent +] ?]
-
-[? if player = "linke" : {!<span class="tooltip-text" title="Antikapitalistische und Sozialistische Linke: Systemkritik, Antimilitarismus, Nähe zu Bewegungen und Protest; skeptisch gegenüber Regierungsbeteiligungen.">Sozialistische Linke</span>!}: Stärke [+ left_strength : strength +], Unmut [+ left_dissent : dissent +] ?]
-
-[? if player = "linke" : {!<span class="tooltip-text" title="Bewegungslinke und Parteivorstand um Ines Schwerdtner und Jan van Aken: Organizing, Haustürgespräche, Sozialsprechstunden, Fokus auf Mieten, Preise und Löhne.">Bewegungslinke</span>!}: Stärke [+ center_strength : strength +], Unmut [+ center_dissent : dissent +] ?]
-
-[? if player = "linke" : {!<span class="tooltip-text" title="Gewerkschafter*innen und Sozialpolitiker*innen: Betriebe, Tarifbindung, Mieten und Rente; stark in den Großstädten und im Osten.">Gewerkschaftsflügel</span>!}: Stärke [+ labor_strength : strength +], Unmut [+ labor_dissent : dissent +] ?]
-
-[? if player = "linke" : {!<span class="tooltip-text" title="Reformer*innen und Regierungslinke, vor allem aus den ostdeutschen Landesverbänden: pragmatisch, regierungserfahren, offen für Rot-Grün-Rot.">Reformer*innen</span>!}: Stärke [+ reformist_strength : strength +], Unmut [+ reformist_dissent : dissent +] ?]
-
-[? if player = "linke" and neorevisionism > 0 : {!<span class="tooltip-text" title="Friedensflügel: linkskonservative Mitglieder, die dem BSW nicht gefolgt sind: Verhandlungen mit Russland, keine Waffenlieferungen, Skepsis gegenüber offener Migrationspolitik.">Friedensflügel</span>!}: Stärke [+ neorevisionist_strength : strength +], Unmut [+ neorevisionist_dissent : dissent +] ?]
-
-
 @paramilitaries
 
-= Gruppen und Bewegungen
+= Parteien, Strömungen und Gruppen
 
 {!<div id="groups_view"></div>!}
 

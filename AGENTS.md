@@ -37,6 +37,8 @@ Browser: `.claude/launch.json` (`python -m http.server 8765 -d out/html`), dann 
 - **Wahlen**: Unterstützung je Wählergruppe und Partei (`Q.<gruppe>_<partei>`, z. B. `workers_spd`), gewichtet mit der Größe der Gruppe (`Q.workers` …), normalisiert in `post_event` bzw. `election_algorithm`. Sitzanteile `Q.<partei>_r`. Bundestagswahl: `events/bundestagswahl.scene.dry` (5-%-Hürde, Koalitionsbildung).
 - **Seitenleiste** (Reiter links): Knöpfe in `out/html/index.html` (`window.changeTab('status.<abschnitt>', '<button-id>')`), Inhalte als Abschnitte in `source/scenes/status.scene.dry`, Zeichencode in `out/html/game.js` (`updateSidebar`, `drawPolls`) oder in `on-display`-Blöcken. d3 v7 ist geladen (`d3-linegraph.js`, `d3-parliament.js` als Helfer). Styles in `out/html/game.css` (Hell- und Dunkelmodus beachten: `body.dark-mode`).
 - **Zeitreihen**: `Q.party_support_records`, `Q.economic_records` werden in `post_event` monatlich angehängt. Neue Zeitreihen genauso anlegen und in Spielständen kompakt halten (Zahlen runden).
+- **Strömungstexte**: Die Beschreibungen der Strömungen in der Bibliothek (`library.scene.dry`) und im Politik-Reiter (`GRP.FAC_DESC` in `groups_data.scene.dry`) müssen wörtlich gleich sein. Wer eine ändert, ändert beide.
+- **Verhältnisse** (zu Parteien, Gruppen, zwischen Gruppen) immer auf der Skala 0–100 mit den Wörtern aus `qdisplays/relationships.qdisplay.dry` (feindselig … sehr freundlich); der Politik-Reiter färbt sie von Dunkelrot bis Grün (`GRP_REL` in `game.js`).
 - **Neue Qualities** immer in `root.start` initialisieren (sonst `undefined` in alten Szenen und Spielständen; im JS defensiv mit `|| 0` lesen).
 
 ## Konventionen für mehrere spielbare Parteien

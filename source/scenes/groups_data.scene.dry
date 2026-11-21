@@ -2,7 +2,7 @@ title: Gruppen (Daten)
 is-special: true
 on-arrival: {!
 // Interessengruppen und Bewegungen (Durchgang 4.5): einzige Quelle für Modell (post_event), Startwerte (root.start,
-// root.choose_linke), Bündnisarbeit (party_affairs/buendnisarbeit) und den Reiter „Gruppen“ (out/html/game.js, drawGroups).
+// root.choose_linke), Bündnisarbeit (party_affairs/buendnisarbeit) und den Reiter „Politik“ (out/html/game.js, drawGroups).
 // Geladen mit: if (!this.game.GRP) this._runActions(this.game.scenes.groups_data.onArrival);  (legt this.game.GRP an)
 //
 // Qualities je Gruppe <id> (flach, damit Szenen einfach g_verdi += 5 schreiben können):
@@ -265,18 +265,37 @@ var GRP = {
          },
          demand: function(Q) { return Q.kp_kohle ? 'Jobgarantien, neue Industrie in den Revieren und keinen Ausstieg ohne Ersatz' : 'den Kohlekompromiss einhalten: Ausstieg spätestens 2038, nicht früher'; }}
     ],
-    // Bündnisse (+1) und Gegnerschaften (-1) zwischen Gruppen
+    // Verhältnis zwischen zwei Gruppen, 0-100 auf derselben Skala wie Verhältnisse zu Parteien (qdisplays/relationships:
+    // unter 5 feindselig ... ab 75 sehr freundlich). Ab 55 gilt das als Bündnis, unter 40 als Gegnerschaft (allied/opposed).
     links: [
-        ['dgb', 'verdi', 1], ['dgb', 'bda', -1], ['verdi', 'bda', -1], ['verdi', 'vdk', 1], ['vdk', 'kirchen', 1],
-        ['mieter', 'verdi', 1], ['mieter', 'sozialprotest', 1], ['sozialprotest', 'vdk', 1], ['dgb', 'autolobby', 1],
-        ['bda', 'mittelstand', 1], ['bda', 'autolobby', 1], ['mittelstand', 'bauern', 1], ['bauern', 'rechts', 1],
-        ['umwelt', 'klima', 1], ['klima', 'autolobby', -1], ['umwelt', 'autolobby', -1], ['umwelt', 'bauern', -1],
-        ['demo', 'rechts', -1], ['demo', 'kirchen', 1], ['demo', 'dgb', 1], ['israel', 'demo', 1], ['israel', 'rechts', -1],
-        ['palaestina', 'israel', -1], ['palaestina', 'frieden', 1], ['palaestina', 'klima', 1], ['frieden', 'kirchen', 1],
-        ['klima', 'demo', 1],
-        ['ee_branche', 'umwelt', 1], ['ee_branche', 'klima', 1], ['kohle', 'dgb', 1], ['kohle', 'klima', -1], ['kohle', 'ee_branche', -1],
-        ['eigentuemer', 'mittelstand', 1], ['eigentuemer', 'mieter', -1], ['eigentuemer', 'umwelt', -1]
+        ['dgb', 'verdi', 85], ['dgb', 'bda', 25], ['verdi', 'bda', 22], ['verdi', 'vdk', 75], ['vdk', 'kirchen', 70],
+        ['mieter', 'verdi', 70], ['mieter', 'sozialprotest', 80], ['sozialprotest', 'vdk', 65], ['dgb', 'autolobby', 58],
+        ['bda', 'mittelstand', 80], ['bda', 'autolobby', 85], ['mittelstand', 'bauern', 68], ['bauern', 'rechts', 56],
+        ['umwelt', 'klima', 85], ['klima', 'autolobby', 8], ['umwelt', 'autolobby', 18], ['umwelt', 'bauern', 28],
+        ['demo', 'rechts', 0], ['demo', 'kirchen', 72], ['demo', 'dgb', 75], ['israel', 'demo', 60], ['israel', 'rechts', 5],
+        ['palaestina', 'israel', 3], ['palaestina', 'frieden', 62], ['palaestina', 'klima', 58], ['frieden', 'kirchen', 66],
+        ['klima', 'demo', 72],
+        ['ee_branche', 'umwelt', 70], ['ee_branche', 'klima', 62], ['kohle', 'dgb', 80], ['kohle', 'klima', 10], ['kohle', 'ee_branche', 25],
+        ['eigentuemer', 'mittelstand', 72], ['eigentuemer', 'mieter', 8], ['eigentuemer', 'umwelt', 22]
     ],
+    // Beschreibung der Strömungen je Spielerpartei. MUSS wörtlich gleich dem Text in library.scene.dry (@factions_spd,
+    // @neorevisionists, @factions_linke) bleiben: Bibliothek und Politik-Reiter zeigen denselben Text. Bei Änderungen beide anpassen.
+    FAC_DESC: {
+        spd: {
+            left: 'Die Parlamentarische Linke, die Jusos und das Forum DL21. Sie wollen eine Vermögensteuer, eine friedensorientierte Außenpolitik und sind offen für Rot-Grün-Rot.',
+            center: 'Das Netzwerk Berlin und der Parteiapparat. Ihnen geht es um Regierungsfähigkeit und Geschlossenheit.',
+            labor: 'Die Arbeitsgemeinschaft für Arbeitnehmerfragen und die DGB-nahen Abgeordneten. Löhne, Tarifbindung, Rente und Industriearbeitsplätze stehen für sie im Mittelpunkt.',
+            reformist: 'Pragmatisch und wirtschaftsnah, mit Schwerpunkt auf innerer und äußerer Sicherheit. Offen für die Koalition mit der Union.',
+            neorevisionist: 'Nach dem Vorbild der dänischen Sozialdemokraten verbinden sie eine harte Linie in der Migrationspolitik mit einem starken Sozialstaat. Sie setzen auf einfache Botschaften und emotionale Kampagnen und wollen die SPD wieder als Volkspartei aufstellen.'
+        },
+        linke: {
+            left: 'Antikapitalistische Linke, Sozialistische Linke und Marx21: Systemkritik, Antimilitarismus und Nähe zu Bewegungen. Regierungsbeteiligungen sehen sie skeptisch.',
+            center: 'Die Bewegungslinke und der Parteivorstand um Ines Schwerdtner und Jan van Aken. Sie setzen auf Organizing, Haustürgespräche und Sozialsprechstunden und auf wenige klare Themen: Mieten, Preise, Löhne.',
+            labor: 'Gewerkschafterinnen, Betriebsräte und Sozialpolitiker. Tarifbindung, Rente und bezahlbares Wohnen stehen für sie im Mittelpunkt.',
+            reformist: 'Das Forum Demokratischer Sozialismus und die Regierungslinke, vor allem aus den ostdeutschen Landesverbänden: pragmatisch, regierungserfahren, offen für Rot-Grün-Rot.',
+            neorevisionist: 'Linkskonservative Mitglieder, die dem BSW nicht gefolgt sind. Sie wollen Verhandlungen mit Russland, keine Waffenlieferungen und eine restriktivere Migrationspolitik.'
+        }
+    },
     // Mobilisierung der alten Protestbewegungen (Tsd. Menschen) auf 0-100: 10 Tsd. = 0, 3 Mio. = 100 (logarithmisch)
     fromThousands: function(k) { return r1(clamp(100 * Math.log10(Math.max(10, k || 0) / 10) / Math.log10(300), 0, 100)); },
     byId: function(id) { return GRP.groups.filter(function(g) { return g.id == id; })[0]; },
@@ -288,10 +307,10 @@ var GRP = {
         return m[p];
     },
     opposed: function(id) {
-        return GRP.links.filter(function(l) { return l[2] < 0 && (l[0] == id || l[1] == id); }).map(function(l) { return l[0] == id ? l[1] : l[0]; });
+        return GRP.links.filter(function(l) { return l[2] < 40 && (l[0] == id || l[1] == id); }).map(function(l) { return l[0] == id ? l[1] : l[0]; });
     },
     allied: function(id) {
-        return GRP.links.filter(function(l) { return l[2] > 0 && (l[0] == id || l[1] == id); }).map(function(l) { return l[0] == id ? l[1] : l[0]; });
+        return GRP.links.filter(function(l) { return l[2] >= 55 && (l[0] == id || l[1] == id); }).map(function(l) { return l[0] == id ? l[1] : l[0]; });
     },
     init: function(Q) {
         Q.grp_hist = {}; Q.grp_why = {}; Q.grp_news = ''; Q.grp_news_on = 0; Q.grp_news_up = 0;

@@ -8,13 +8,13 @@ on-arrival: month_actions += 1; buendnis_timer = 6
 card-image: img/kundgebung.jpg
 
 # Durchgang 4.5: Arbeit mit Interessengruppen und Bewegungen (beide Parteien). Logik und Wirkungen: groups_data (GRP.act),
-# Stärke und Verhältnis im Reiter „Gruppen“. Rechte Mobilisierung ist kein Bündnispartner und fehlt hier.
+# Stärke und Verhältnis im Reiter „Politik“. Rechte Mobilisierung ist kein Bündnispartner und fehlt hier.
 
 = Bündnisarbeit
 
 Politik wird nicht nur im Bundestag gemacht. Gewerkschaften, Verbände und Bewegungen mobilisieren ihre Mitglieder, prägen Debatten und üben Druck auf [+ pp_full +] aus, bis hinein in unsere Strömungen. Wer uns nahesteht, macht Vorhaben leichter, wer uns misstraut, macht sie schwerer. Und wer sich mit den einen verbündet, verärgert oft die anderen.
 
-Stärke, Konjunktur und Verhältnis aller Gruppen zeigt der Reiter „Gruppen“. Mit wem wollen wir arbeiten?
+Stärke, Konjunktur und Verhältnis aller Gruppen zeigt der Reiter „Politik“. Mit wem wollen wir arbeiten?
 
 - @w_dgb
 - @w_verdi

@@ -981,7 +981,10 @@ body.dark-mode { --grp-c4: #b08d5c; }
 .grp_edge { fill: none; stroke-linecap: round; transition: stroke-opacity 0.15s; }
 .grp_edge.pos { stroke: var(--econ-pos); }
 .grp_edge.neg { stroke: var(--econ-neg); stroke-dasharray: 4 3; }
-.grp_edge.neu { stroke: currentColor; stroke-opacity: 0.3; }
+.grp_edge.cold { stroke-dasharray: 5 3; }
+/* Verhältnis zur Spielerpartei: nur sichtbar, wenn sie oder die Gruppe gewählt ist */
+.grp_edge.own { display: none; }
+.grp_edge.own.hi { display: inline; }
 .grp_edge.dim { stroke-opacity: 0.06 !important; }
 .grp_edge.hi { stroke-opacity: 0.95 !important; }
 .grp_node { cursor: pointer; outline: none; transition: opacity 0.15s; }
@@ -1011,7 +1014,8 @@ body.dark-mode .grp_party.union { fill: #888; }
   margin-right: 0.3em;
 }
 .grp_line.neg { border-top: 2px dashed var(--econ-neg); }
-.grp_line.neu { border-top: 2px solid currentColor; opacity: 0.4; }
+.grp_line.cold { border-top-style: dashed; }
+.grp_line { border-top-width: 3px; }
 .grp_card {
   border: 1px solid var(--unavailable-bg-color);
   padding: 0.5em 0.6em;
@@ -1028,9 +1032,10 @@ body.dark-mode .grp_party.union { fill: #888; }
   align-items: flex-end;
 }
 .grp_card_stats .econ_value small { font-size: 0.55em; opacity: 0.7; }
-.econ_trend.up, .grp_rel.good { color: var(--econ-good); opacity: 1; }
-.econ_trend.down, .grp_rel.bad { color: var(--econ-bad); opacity: 1; }
-.grp_spark polyline { fill: none; stroke: currentColor; stroke-width: 1.5; opacity: 0.8; }
+.econ_trend.up { color: var(--econ-good); opacity: 1; }
+.econ_trend.down { color: var(--econ-bad); opacity: 1; }
+.grp_card_text { margin: 0.4em 0 0.1em; line-height: 1.4; }
+.grp_word { font-weight: bold; }
 .grp_camp_head {
   font-size: 0.85em;
   font-weight: bold;
@@ -1054,7 +1059,7 @@ body.dark-mode .grp_party.union { fill: #888; }
 .grp_trend { width: 1em; text-align: center; font-size: 0.8em; }
 .grp_trend.up { color: var(--econ-good); }
 .grp_trend.down { color: var(--econ-bad); }
-.grp_rel { width: 1.8em; text-align: right; font-variant-numeric: tabular-nums; }
+.grp_rel { width: 6.5em; font-size: 0.85em; text-align: right; font-variant-numeric: tabular-nums; }
 
 /* Klima-Reiter (Durchgang 4.6): Strommix-Farben nach Energieträger, Ampel, Pfade. Hell und dunkel über CSS-Variablen. */
 body {
