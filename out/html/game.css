@@ -946,7 +946,7 @@ body.dark-mode {
   display: flex;
   flex-wrap: wrap;
   gap: 0.3em;
-  margin: 0.3em 0 0.4em 0;
+  margin: 0 0 0.6em; /* Abstände wie im Klima-Reiter (kl_controls, kl_graph, kl_readout) */
 }
 .grp_view_btn {
   font-family: inherit;
@@ -967,6 +967,7 @@ body.dark-mode {
   overflow: visible;
   font-size: 10px;
   max-width: 100%;
+  margin: 0 0 0.3em;
 }
 .grp_ring { fill: none; stroke: currentColor; stroke-opacity: 0.12; stroke-dasharray: 2 4; }
 .grp_edge { fill: none; stroke-linecap: round; transition: stroke-opacity 0.15s; }
@@ -990,8 +991,7 @@ body.dark-mode {
 body.dark-mode .grp_party.union { fill: #888; }
 .grp_party_label { font-size: 9px; opacity: 0.85; }
 .grp_player { stroke: var(--content-bg-color); stroke-width: 2; }
-.grp_player_label { fill: #fff; font-size: 10px; font-weight: bold; text-anchor: middle; }
-.grp_legend { margin-top: 0.2em; }
+.grp_legend { margin: 0 0 1em; }
 .grp_line {
   display: inline-block;
   width: 1.4em;
