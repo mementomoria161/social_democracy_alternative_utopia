@@ -1153,3 +1153,5 @@ body.dark-mode {
 .poll_overview { margin: 0 0 0.8em; }
 .poll_overview .poll_top { opacity: 0.75; }
 .poll_overview .poll_stack { margin: 0.3em 0 0; }
+#poll_view .poll_bars, #poll_view #poll_graph { margin-bottom: 1.3em; }
+#poll_view .poll_why { margin: 0 0 1.3em; }

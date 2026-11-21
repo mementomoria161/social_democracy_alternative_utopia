@@ -1074,10 +1074,9 @@
       var html = select('Verlauf seit Januar 2023', group, 'pollGroup') +
           '<svg id="poll_graph"></svg>' +
           pollWhy(Q, names) +
-          '<h3 class="poll_heading">Aktuell</h3>' +
-          select('Anzeige', nowGroup, 'pollNowGroup') +
+          select('Aktuelle Umfrage', nowGroup, 'pollNowGroup') +
           bars(nowGroup ? groupValues(nowGroup) : now) +
-          '<h3 class="poll_heading">Wählergruppenübersicht</h3><div class="poll_bars">' +
+          '<div class="poll_select">Wählergruppenübersicht</div><div class="poll_bars">' +
           groups.map(function(c) {
               var v = groupValues(c);
               var top = parties.reduce(function(a, b) { return v[b] > v[a] ? b : a; });
