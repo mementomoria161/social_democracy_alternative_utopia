@@ -1083,21 +1083,26 @@ body.dark-mode {
 .kl_line.paris { stroke-dasharray: 6 3 1 3; }
 .kl_target { fill: var(--content-bg-color); stroke-width: 2; }
 .kl_now { stroke: var(--content-bg-color); stroke-width: 1; }
-.kl_ringbox { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4em 1em; margin: 0 0 0.5em; }
-.kl_ringlegend { flex: 1 1 11em; font-size: 0.9em; }
-.kl_leg { display: flex; align-items: center; gap: 0.4em; padding: 0.1em 0.2em; }
-.kl_leg.click { cursor: pointer; }
-.kl_leg.click:hover, .kl_leg.sel { background: var(--econ-band); }
-.kl_leg .econ_swatch { flex-shrink: 0; }
-.kl_leg_name { flex-grow: 1; }
+.kl_now_grid { display: flex; flex-wrap: wrap; gap: 0.6em; margin: 0 0 0.5em; }
+.kl_panel { flex: 1 1 150px; min-width: 0; border: 1px solid var(--card-border-color); padding: 0.4em 0.5em; }
+.kl_panel.sel { border-color: currentColor; }
+.kl_panel_title { font-weight: bold; margin: 0 0 0.3em; }
+.kl_ring { display: block; margin: 0 auto 0.3em; }
+.kl_ringlegend { font-size: 0.8em; }
+.kl_leg { display: flex; align-items: center; gap: 0.3em; padding: 0.05em 0.2em; cursor: pointer; }
+.kl_leg:hover, .kl_leg.sel { background: var(--econ-band); }
+.kl_leg .econ_swatch { flex-shrink: 0; margin-right: 0; }
+.kl_leg_name { flex-grow: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .kl_leg_val { white-space: nowrap; font-variant-numeric: tabular-nums; }
-.kl_arc { stroke: var(--content-bg-color); stroke-width: 1; }
+.kl_arc { stroke: var(--content-bg-color); stroke-width: 1; cursor: pointer; }
 .kl_arc.dim { opacity: 0.3; }
-.kl_ring_big { fill: currentColor; font-size: 1.2em; font-weight: bold; }
-.kl_ring_small { fill: currentColor; font-size: 0.75em; opacity: 0.8; }
-.kl_levels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5em; margin: 0 0 0.5em; }
-.kl_level { border: 1px solid var(--card-border-color); padding: 0.4em 0.6em; cursor: pointer; line-height: 1.3; }
+.kl_ring_big { fill: currentColor; font-size: 1.05em; font-weight: bold; }
+.kl_ring_small { fill: currentColor; font-size: 0.65em; opacity: 0.8; }
+.kl_levels { display: grid; grid-template-columns: repeat(auto-fit, minmax(105px, 1fr)); gap: 0.4em; }
+.kl_level { border: 1px solid var(--card-border-color); padding: 0.3em 0.5em; cursor: pointer; line-height: 1.3; }
+.kl_level:hover { background: var(--econ-band); }
 .kl_level.sel { border-color: currentColor; background: var(--econ-band); }
+.kl_panel_prices { flex-basis: 200px; }
 .kl_level_name { font-size: 0.8em; opacity: 0.85; }
 .kl_level_word { font-size: 1.15em; font-weight: bold; }
 .kl_level_word.l0, .kl_level_word.l1 { color: var(--kl-green); }

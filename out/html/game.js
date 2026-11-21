@@ -433,9 +433,9 @@
           .on('pointerleave', function() { rule.style('display', 'none'); });
   };
 
-  // Klima-Reiter: oben die Auswahlen, links die Ansicht (Emissionen, Strommix, Energiepreise), rechts ein Filter (Sektor bzw. Preis).
-  // Darunter zwei Abschnitte: aktueller Stand (Ring der Sektoren bzw. des Strommixes, Einschätzung der Preise) und Verlauf als
-  // Liniendiagramm mit fester Zeitachse 2020-2045. Daten und Modell: source/scenes/climate_data.scene.dry
+  // Klima-Reiter in zwei Abschnitten: oben der aktuelle Stand aller drei Bereiche nebeneinander (Ring der Emissionen nach Sektoren,
+  // Ring des Strommixes, Einschätzung der Energiepreise), unten der Verlauf als Liniendiagramm mit fester Zeitachse 2020-2045 und
+  // zwei Auswahlen, links die Ansicht (Emissionen, Strommix, Energiepreise), rechts ein Filter (Sektor bzw. Preis). Daten und Modell: source/scenes/climate_data.scene.dry
   // (dendryUI.game.CLIM), Werte cl_* in den Qualities. Die beschlossenen Maßnahmen stehen auf der Karte „Klimaschutz und Energie“.
   // Reale Werte vor dem Spielstart (Jahresmittel, in der Jahresmitte eingezeichnet):
   // - Treibhausgase gesamt: CLIM.REAL (Umweltbundesamt).
@@ -455,7 +455,9 @@
   // Farbe aus Sicht der Verbraucher*innen (grün günstig, rot teuer); beim CO2-Preis ohne Farbe, weil er Klimaschutz bewirkt.
   var KL_LEVELS = [[28, 34, 40, 46], [7, 9.5, 12, 15], [12, 15, 19, 25], [30, 50, 80, 120]];
   var KL_WORDS = ['sehr niedrig', 'niedrig', 'mittel', 'hoch', 'sehr hoch'];
-  var KL_MIX_COLORS = ['--kl-m1', '--kl-m2', '--kl-m3', '--kl-m4', '--kl-m5', '--kl-m6', '--kl-m7', '--kl-m8', '--kl-m9'];
+  // Strommix im Ring (aktueller Stand): [Name, Indizes in CLIM.MIX, Farbe]
+  var KL_MIX_NOW = [['Wind', [0], '--kl-m1'], ['Photovoltaik', [1], '--kl-m2'], ['Biomasse, Wasser u. a.', [2, 3, 4], '--kl-m3'],
+                    ['Erdgas', [5], '--kl-m6'], ['Kohle', [6, 7], '--kl-m8'], ['Sonstige', [8], '--kl-m9']];
   // Strommix zusammengefasst: [Name, Indizes in CLIM.MIX, Farbe]
   var KL_MIX = [['Erneuerbare', [0, 1, 2, 3, 4], '--kl-paris'], ['Wind', [0], '--kl-m1'], ['Photovoltaik', [1], '--kl-m2'],
                 ['Erdgas', [5], '--kl-m6'], ['Kohle', [6, 7], '--kl-m8']];
@@ -539,49 +541,54 @@
               return '<option value="' + o[0] + '"' + (o[0] == current ? ' selected' : '') + '>' + o[1] + '</option>';
           }).join('') + '</select></label>';
       };
-      // Aktueller Stand: Ring (Emissionen nach Sektoren, Strommix) bzw. Einschätzung der Preise
-      var ring = null, top = '';
-      if (view == 'emis') {
-          var secNow = nowRec.s, secSum = secNow.reduce(function(a, b) { return a + b; }, 0);
-          ring = {vals: secNow, colors: KL_SEC_COLORS, names: C.SECTORS.map(function(s) { return s.name; }),
-                  fmt: function(v) { return econNum(v, 0) + ' Mio. t'; }, big: econNum(secSum, 0), small: 'Mio. t im Jahr',
-                  pick: function(k) { return 'window.klFilter.emis = \'' + k + '\'; window.drawClimate();'; }, sel: window.klFilter.emis};
-      } else if (view == 'mix') {
-          ring = {vals: nowRec.m, colors: KL_MIX_COLORS, names: C.MIX, fmt: function(v) { return econNum(v, 0) + ' %'; },
-                  big: econNum(sum(nowRec.m, [0, 1, 2, 3, 4]), 0) + ' %', small: 'erneuerbar'};
-      } else {
-          top = '<div class="kl_levels">' + KL_PRICES.map(function(p, i) {
+      // Aktueller Stand, alle drei Bereiche auf einen Blick: Ring der Emissionen nach Sektoren, Ring des Strommixes,
+      // Einschätzung der Energiepreise. Ein Klick wählt den Bereich (und Sektor bzw. Preis) für den Verlauf darunter.
+      var go = function(v, key, val) {
+          return 'window.klView = \'' + v + '\';' + (key ? ' window.klFilter.' + key + ' = \'' + val + '\';' : '') + ' window.drawClimate();';
+      };
+      var secNow = nowRec.s, secSum = secNow.reduce(function(a, b) { return a + b; }, 0);
+      var rings = [
+          {title: 'Emissionen', vals: secNow, colors: KL_SEC_COLORS, names: C.SECTORS.map(function(s) { return s.name; }),
+           fmt: function(v) { return econNum(v, 0) + ' Mt'; }, big: econNum(secSum, 0), small: 'Mio. t',
+           pick: function(k) { return go('emis', 'emis', String(k)); },
+           sel: view == 'emis' && /^\d$/.test(window.klFilter.emis) ? window.klFilter.emis : null},
+          {title: 'Strommix', vals: KL_MIX_NOW.map(function(g) { return sum(nowRec.m, g[1]); }), colors: KL_MIX_NOW.map(function(g) { return g[2]; }),
+           names: KL_MIX_NOW.map(function(g) { return g[0]; }), fmt: function(v) { return econNum(v, 0) + ' %'; },
+           big: econNum(sum(nowRec.m, [0, 1, 2, 3, 4]), 0) + ' %', small: 'erneuerbar',
+           pick: function() { return go('mix'); }, sel: null}
+      ];
+      var top = '<div class="kl_now_grid">' + rings.map(function(r, j) {
+          return '<div class="kl_panel' + ((j == 0 && view == 'emis') || (j == 1 && view == 'mix') ? ' sel' : '') + '"><div class="kl_panel_title">' + r.title + '</div>' +
+              '<svg id="kl_ring' + j + '" class="kl_ring" width="120" height="120" role="img" aria-label="' + r.title + '"></svg><div class="kl_ringlegend">' +
+              r.vals.map(function(v, k) {
+                  return '<div class="kl_leg' + (r.sel === String(k) ? ' sel' : '') + '" onclick="' + r.pick(k) + '">' +
+                      '<span class="econ_swatch" style="background:var(' + r.colors[k] + ')"></span>' +
+                      '<span class="kl_leg_name">' + r.names[k] + '</span><span class="kl_leg_val">' + r.fmt(v) + '</span></div>';
+              }).join('') + '</div></div>';
+      }).join('') +
+          '<div class="kl_panel kl_panel_prices' + (view == 'preis' ? ' sel' : '') + '"><div class="kl_panel_title">Energiepreise</div><div class="kl_levels">' +
+          KL_PRICES.map(function(p, i) {
               var v = nowRec.p[i], lv = KL_LEVELS[i].filter(function(b) { return v >= b; }).length;
-              return '<div class="kl_level' + (String(i) == window.klFilter.preis ? ' sel' : '') + '" onclick="window.klFilter.preis = \'' + i + '\'; window.drawClimate();">' +
+              return '<div class="kl_level' + (view == 'preis' && String(i) == window.klFilter.preis ? ' sel' : '') + '" onclick="' + go('preis', 'preis', i) + '">' +
                   '<div class="kl_level_name">' + p[0] + '</div><div class="kl_level_word' + (i < 3 ? ' l' + lv : '') + '">' + KL_WORDS[lv] + '</div>' +
                   '<div class="kl_level_num">' + econNum(v, p[2]) + ' ' + p[1] + '</div></div>';
-          }).join('') + '</div>';
-      }
-      if (ring) {
-          top = '<div class="kl_ringbox"><svg id="kl_ring" width="150" height="150" role="img" aria-label="Aktueller Stand"></svg><div class="kl_ringlegend">' +
-              ring.vals.map(function(v, k) {
-                  return '<div class="kl_leg' + (ring.pick ? ' click' : '') + (ring.sel === String(k) ? ' sel' : '') + '"' +
-                      (ring.pick ? ' onclick="' + ring.pick(k) + '"' : '') + '><span class="econ_swatch" style="background:var(' + ring.colors[k] + ')"></span>' +
-                      '<span class="kl_leg_name">' + ring.names[k] + '</span><span class="kl_leg_val">' + ring.fmt(v) + '</span></div>';
-              }).join('') + '</div></div>';
-      }
-      box.innerHTML = '<div class="kl_controls">' +
+          }).join('') + '</div></div></div>';
+      box.innerHTML = '<h3 class="poll_heading">Aktueller Stand</h3>' + top +
+          '<h3 class="poll_heading">Verlauf</h3><div class="kl_controls">' +
           sel('Ansicht', KL_VIEWS, view, 'window.klView = this.value; window.drawClimate();') +
           (filter ? sel(filter.label, filter.options, window.klFilter[filter.key], 'window.klFilter.' + filter.key + ' = this.value; window.drawClimate();') : '') +
-          '</div><h3 class="poll_heading">Aktueller Stand</h3>' + top +
-          '<h3 class="poll_heading">Verlauf</h3><svg id="kl_graph"></svg><div id="kl_readout" class="poll_note"></div>';
-      if (ring) {
-          var R = 72, g0 = d3.select('#kl_ring').append('g').attr('transform', 'translate(75,75)');
-          g0.selectAll(null).data(d3.pie().sort(null)(ring.vals.map(function(v) { return Math.max(0, v); }))).enter().append('path')
-              .attr('class', function(d, k) { return 'kl_arc' + (ring.sel !== undefined && ring.sel !== '' && ring.sel != 'alle' && ring.sel != String(k) ? ' dim' : ''); })
-              .style('fill', function(d, k) { return 'var(' + ring.colors[k] + ')'; })
-              .style('cursor', ring.pick ? 'pointer' : null)
-              .on('click', function(ev, d) { if (ring.pick) { window.klFilter.emis = String(d.index); window.drawClimate(); } })
-              .attr('d', d3.arc().innerRadius(R * 0.6).outerRadius(R).padAngle(0.012))
-              .append('title').text(function(d, k) { return ring.names[k] + ': ' + ring.fmt(ring.vals[k]); });
-          g0.append('text').attr('class', 'kl_ring_big').attr('text-anchor', 'middle').attr('y', 4).text(ring.big);
-          g0.append('text').attr('class', 'kl_ring_small').attr('text-anchor', 'middle').attr('y', 20).text(ring.small);
-      }
+          '</div><svg id="kl_graph"></svg><div id="kl_readout" class="poll_note"></div>';
+      rings.forEach(function(r, j) {
+          var R = 58, g0 = d3.select('#kl_ring' + j).append('g').attr('transform', 'translate(60,60)');
+          g0.selectAll(null).data(d3.pie().sort(null)(r.vals.map(function(v) { return Math.max(0, v); }))).enter().append('path')
+              .attr('class', function(d, k) { return 'kl_arc' + (r.sel !== null && r.sel != String(k) ? ' dim' : ''); })
+              .style('fill', function(d, k) { return 'var(' + r.colors[k] + ')'; })
+              .on('click', function(ev, d) { (new Function(r.pick(d.index)))(); })
+              .attr('d', d3.arc().innerRadius(R * 0.62).outerRadius(R).padAngle(0.012))
+              .append('title').text(function(d, k) { return r.names[k] + ': ' + r.fmt(r.vals[k]); });
+          g0.append('text').attr('class', 'kl_ring_big').attr('text-anchor', 'middle').attr('y', 4).text(r.big);
+          g0.append('text').attr('class', 'kl_ring_small').attr('text-anchor', 'middle').attr('y', 18).text(r.small);
+      });
 
       // Diagramm
       var width = box.clientWidth, height = Math.min(320, Math.max(230, width * 0.65));
