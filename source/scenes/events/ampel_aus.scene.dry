@@ -1,6 +1,5 @@
 title: Das Ende der Ampel
 subtitle: Wann wird neu gewählt?
-new-page: true
 tags: event
 view-if: year = 2024 and month = 11 and ampel_aus_seen = 0
 max-visits: 1
