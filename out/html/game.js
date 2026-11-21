@@ -670,7 +670,7 @@
           .on('pointerleave', function() { rule.style('display', 'none'); readout.textContent = 'Zeige auf das Diagramm für einzelne Werte.'; });
   };
 
-  // Politik-Reiter (Durchgang 4.5, umgebaut Nov. 2026): Grafik mit drei Ansichten (Parteien, Strömungen, Gruppen), Infokarte,
+  // Politik-Reiter (Durchgang 4.5, umgebaut Nov. 2026): Grafik mit drei Ansichten (Parteien, Strömungen, Interessengruppen), Infokarte,
   // darunter Übersicht aller Parteien, Strömungen und Gruppen. Daten und Modell: source/scenes/groups_data.scene.dry
   // (dendryUI.game.GRP), Werte g_/gm_/gr_/ga_<id> und gl_<a>_<b> in den Qualities. Anordnung: Gruppen gleichmäßig auf einem
   // Kreis (Reihenfolge der Tabelle), Parteien auf einem Kreis von links nach rechts, Strömungen um die Mitte.
@@ -754,7 +754,7 @@
           facPos[f[0]] = {x: cx + 0.38 * R * Math.sin(a), y: cy - 0.38 * R * Math.cos(a), s: s, rad: (3 + 20 * Math.sqrt(s / 100)) * k};
       });
 
-      // Kanten der gewählten Ansicht. col = Farbe der Verhältnisskala; own = Verhältnis zur Spielerpartei, nur bei Auswahl sichtbar
+      // Kanten der gewählten Ansicht. col = Farbe der Verhältnisskala
       var edges = [];
       var relEdge = function(a, b, x1, y1, x2, y2, r, w, extra) {
           var e = {a: a, b: b, x1: x1, y1: y1, x2: x2, y2: y2, col: grpRel(r)[2], w: w, o: 0.8};
@@ -788,12 +788,12 @@
               relEdge(l[0], l[1], d1.x, d1.y, d2.x, d2.y, GRP.linkVal(Q, l[0], l[1]), 0.8 + 2.5 * Math.min(d1.s, d2.s) / 100, {curve: true, o: d1.a && d2.a ? 0.8 : 0.25});
           });
           G.forEach(function(d) {
-              if (d.a) relEdge('player', d.id, cx, cy, d.x, d.y, d.r, 0.6 + 3.2 * d.s / 100, {own: true});
+              if (d.a) relEdge('player', d.id, cx, cy, d.x, d.y, d.r, 0.6 + 3.2 * d.s / 100, {o: 0.5});
           });
       }
 
       // HTML-Gerüst: Ansichten, Grafik, kurze Legende, Infokarte
-      var views = [['parties', 'Parteien'], ['facs', 'Strömungen'], ['groups', 'Gruppen']];
+      var views = [['parties', 'Parteien'], ['facs', 'Strömungen'], ['groups', 'Interessengruppen']];
       var scale = function(steps, from, to) {
           return '<span class="grp_scale">' + from + ' ' + steps.map(function(s) { return '<i style="background:' + s[0] + '" title="' + s[1] + '"></i>'; }).join('') + ' ' + to + '</span>';
       };
@@ -801,37 +801,36 @@
       var legend = view == 'facs'
           ? '<span>Linien zur Mitte: Unmut ' + scale(GRP_DIS.map(function(s) { return [GRP_REL[s[2]][2], s[1]]; }), 'gering', 'hoch') + '</span>' +
             '<span><span class="grp_line pos"></span>stärkt</span><span><span class="grp_line neg"></span>schwächt die Strömung</span>'
-          : '<span>Verhältnis ' + relScale + '</span>' + (view == 'groups' ? '<span>Tippe ' + partyName.spd + ' an für ihre Verhältnisse.</span>' : '');
+          : '<span>Verhältnis ' + relScale + '</span>';
       var html = '<div class="grp_views">' + views.map(function(v) {
           return '<button class="grp_view_btn' + (view == v[0] ? ' active' : '') + '" onclick="window.grpView=\'' + v[0] + '\'; window.grpSel=null; window.drawGroups();">' + v[1] + '</button>';
       }).join('') + '</div>' +
-          '<svg id="grp_graph" class="grp" role="img" aria-label="Parteien, Strömungen und Gruppen"></svg>' +
+          '<svg id="grp_graph" class="grp" role="img" aria-label="Parteien, Strömungen und Interessengruppen"></svg>' +
           '<div class="econ_legend grp_legend">' + legend + '<span>Größe = Stärke</span></div>' +
           '<div id="grp_card" class="grp_card"></div>';
 
-      // Übersicht mit Überschriften wie die übrigen Abschnitte des Reiters; Klick wählt in der Grafik aus
-      var row = function(key, v, name, cells, extra) {
-          return '<div class="grp_row' + (extra || '') + (window.grpSel == key ? ' sel' : '') + '" onclick="window.grpView=\'' + v + '\'; window.grpSel=\'' + key + '\'; window.drawGroups();">' +
-              '<span class="grp_rname">' + name + '</span>' + cells + '</div>';
+      // Übersicht im Stil der übrigen Abschnitte des Reiters (Überschrift, je Eintrag eine Zeile); Klick wählt in der Grafik aus
+      var arrow = function(m) { return m > 0 ? ' <span class="grp_trend up">▲</span>' : m < 0 ? ' <span class="grp_trend down">▼</span>' : ''; };
+      var line = function(key, v, name, txt) {
+          return '<p class="grp_item' + (window.grpSel == key ? ' sel' : '') + '" onclick="window.grpView=\'' + v + '\'; window.grpSel=\'' + key + '\'; window.drawGroups();">' + name + ': ' + txt + '</p>';
       };
-      var relCell = function(r) { var s = grpRel(r); return '<span class="grp_rel" style="color:' + s[2] + '">' + s[1] + '</span>'; };
-      html += '<h1>Parteien</h1><p class="poll_note">Umfragewert und Verhältnis ' + zur + '.</p>';
+      var colTxt = function(txt, col) { return '<span style="color:' + col + '">' + txt + '</span>'; };
+      var relTxt = function(r) { var s = grpRel(r); return 'Verhältnis ' + colTxt(s[1], s[2]); };
+      html += '<h1>Parteien</h1>';
       GRP_PARTIES.forEach(function(p) {
-          html += row('p:' + p, 'parties', partyName[p], '<span class="grp_val">' + econNum(votes(p), 0) + ' %</span>' + (Q[p + '_relation'] !== undefined ? relCell(Q[p + '_relation']) : ''));
+          html += line('p:' + p, 'parties', partyName[p], econNum(votes(p), 0) + ' %' + (Q[p + '_relation'] !== undefined ? ', ' + relTxt(Q[p + '_relation']) : ''));
       });
-      html += '<h1>Strömungen</h1><p class="poll_note">Stärke in ' + (Q.pp_dat || 'der Partei') + ' und Unmut.</p>';
+      html += '<h1>Strömungen</h1>';
       facs.forEach(function(f) {
-          var dis = grpDis(Q[f[0] + '_dissent'] || 0);
-          html += row('f:' + f[0], 'facs', grpEsc(facName[f[0]]), '<span class="grp_val">' + grpStep(GRP_FSTR, Q[f[0] + '_strength'] || 0)[1] + '</span>' +
-              '<span class="grp_rel" style="color:' + dis[2] + '">Unmut ' + dis[1] + '</span>');
+          // Konjunktur: Veränderung der Stärke über die letzten Monate (groups_data, fac_hist), ab einem Prozentpunkt
+          var dis = grpDis(Q[f[0] + '_dissent'] || 0), h = (Q.fac_hist || {})[f[0]] || [];
+          var ft = h.length >= 2 && Math.abs(h[h.length - 1] - h[0]) >= 1 ? h[h.length - 1] - h[0] : 0;
+          html += line('f:' + f[0], 'facs', grpEsc(facName[f[0]]), grpStep(GRP_FSTR, Q[f[0] + '_strength'] || 0)[1] + arrow(ft) + ', Unmut ' + colTxt(dis[1], dis[2]));
       });
-      html += '<h1>Gruppen</h1><p class="poll_note">Balken = Stärke, Pfeil = Konjunktur, rechts das Verhältnis ' + zur + '.</p>';
+      html += '<h1>Interessengruppen</h1>';
       G.forEach(function(d) {
-          html += row(d.id, 'groups', grpEsc(d.g.short) + (d.a ? '' : ' <i>(kaum aktiv)</i>'),
-              '<span class="grp_bar"><span style="background:' + d.g.color + ';width:' + Math.max(1, Math.min(100, d.s)) + '%"></span></span>' +
-              '<span class="grp_trend ' + (d.m > 0.4 ? 'up' : d.m < -0.4 ? 'down' : '') + '">' + (trendTxt(d.m) || '►') + '</span>' + relCell(d.r), d.a ? '' : ' inactive');
+          html += line(d.id, 'groups', grpEsc(d.g.short), grpStep(GRP_STR, d.s)[1] + arrow(d.m > 0.4 ? 1 : d.m < -0.4 ? -1 : 0) + ', ' + relTxt(d.r) + (d.a ? '' : ' (kaum aktiv)'));
       });
-      html += '<p class="poll_note">Stärke: Mitglieder, Mobilisierung und Durchsetzungskraft im Verhältnis zueinander (Spielmodell). Sie folgt Wirtschaftslage, Ereignissen und Politik und hat eine eigene Konjunktur. Starke Gruppen verschieben die Strömungen ' + (Q.pp_dat || '') + ' und machen manche Vorhaben leichter oder schwerer. Mit der Karte „Bündnisarbeit“ lässt sich das Verhältnis gezielt verbessern oder auf Abstand gehen.</p>';
       box.innerHTML = html;
 
       // Zeichnen
@@ -844,7 +843,7 @@
           return 'M' + e.x1 + ',' + e.y1 + 'Q' + (mx + 0.45 * (cx - mx)) + ',' + (my + 0.45 * (cy - my)) + ' ' + e.x2 + ',' + e.y2;
       };
       var edgeSel = eg.selectAll(null).data(edges).enter().append('path')
-          .attr('class', function(e) { return 'grp_edge ' + (e.col ? 'rel' : e.sign > 0 ? 'pos' : 'neg') + (e.own ? ' own' : ''); })
+          .attr('class', function(e) { return 'grp_edge ' + (e.col ? 'rel' : e.sign > 0 ? 'pos' : 'neg'); })
           .style('stroke', function(e) { return e.col || null; })
           .attr('d', path).attr('stroke-width', function(e) { return e.w; }).attr('stroke-opacity', function(e) { return e.o; });
       // Knoten je Ansicht: Parteien, oder Gruppen (mit Strömungen), die Spielerpartei immer in der Mitte und zuletzt (oben)
@@ -912,7 +911,7 @@
           var el = document.getElementById('grp_card');
           if (!el) return;
           if (!key) {
-              el.innerHTML = '<span class="poll_note">Zeige auf einen Kreis oder tippe ihn an: Stärke, Verhältnis ' + zur + ' und Beschreibung.</span>';
+              el.innerHTML = '';
               return;
           }
           var h = '';

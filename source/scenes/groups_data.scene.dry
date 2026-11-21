@@ -214,7 +214,7 @@ var GRP = {
     opposed: function(id, Q) { return GRP.others(Q, id, function(v) { return v < 40; }); },
     allied: function(id, Q) { return GRP.others(Q, id, function(v) { return v >= 55; }); },
     init: function(Q) {
-        Q.grp_hist = {}; Q.grp_why = {}; Q.grp_news = ''; Q.grp_news_on = 0; Q.grp_news_up = 0;
+        Q.grp_hist = {}; Q.fac_hist = {}; Q.grp_why = {}; Q.grp_news = ''; Q.grp_news_on = 0; Q.grp_news_up = 0;
         GRP.groups.forEach(function(g) { GRP.initGroup(Q, g); });
         GRP.initRelations(Q);
         GRP.links.forEach(function(l) { Q['gl_' + l[0] + '_' + l[1]] = l[2]; });
@@ -236,6 +236,13 @@ var GRP = {
         if (!Q.grp_hist) GRP.init(Q);
         if (Q.grp_party !== P) GRP.initRelations(Q);
         Q.grp_why = {};
+        // Stärke der Strömungen der letzten vier Monate (für den Konjunktur-Pfeil im Politik-Reiter)
+        if (!Q.fac_hist) Q.fac_hist = {};
+        ['left', 'labor', 'center', 'reformist', 'neorevisionist'].forEach(function(f) {
+            var h = Q.fac_hist[f] || (Q.fac_hist[f] = []);
+            h.push(r1(Q[f + '_strength'] || 0));
+            if (h.length > 4) h.shift();
+        });
         // Verhältnisse zwischen Gruppen: fehlende anlegen (alte Spielstände). Sie ändern sich nur durch Handlungen im Spiel.
         GRP.links.forEach(function(l) {
             var k = 'gl_' + l[0] + '_' + l[1];

@@ -166,7 +166,7 @@ d3.select(svg).datum(rows.map(function(x) { return {id: x.id, legend: P[x.id][0]
 
 @paramilitaries
 
-= Parteien, Strömungen und Gruppen
+= Parteien, Strömungen und Interessengruppen
 
 {!<div id="groups_view"></div>!}
 
