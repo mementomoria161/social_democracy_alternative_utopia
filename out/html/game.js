@@ -358,38 +358,8 @@
       });
       var game = records.concat([now]);
 
-      // Kacheln: Wert jetzt und Veränderung gegenüber dem Vorjahresmonat (im ersten Spieljahr gegenüber dem realen Vorjahresmittel)
-      var yearAgo = records.filter(function(r) {
-          var d = new Date(r.date);
-          return d.getFullYear() == Q.year - 1 && d.getMonth() == Q.month - 1;
-      })[0] || REAL_ECON.filter(function(r) { return r.date.getFullYear() == Q.year - 1; })[0] || {};
-      var tile = function(label, value, prev, unit, digits, better, note) {
-          var trend = '';
-          if (prev !== undefined && prev !== null) {
-              var d = value - prev;
-              var good = better(d);
-              trend = Math.abs(d) < 0.05 ? '<span class="econ_trend">► wie im Vorjahr</span>' :
-                  '<span class="econ_trend ' + (good ? 'good' : 'bad') + '">' + (d > 0 ? '▲ ' : '▼ ') +
-                  (d > 0 ? '+' : '') + econNum(d, digits) + (unit ? ' Pkt.' : '') + ' ggü. Vorjahr</span>';
-          }
-          return '<div class="econ_tile"><div class="econ_label">' + label + '</div><div class="econ_value">' +
-              econNum(value, digits) + unit + '</div>' + trend + (note ? '<div class="econ_trend">' + note + '</div>' : '') + '</div>';
-      };
-      var html = '<div class="econ econ_tiles">' +
-          tile('Wirtschaftswachstum', now.growth, yearAgo.growth, ' %', 1, function(d) { return d > 0; }) +
-          tile('Arbeitslosenquote', now.unemployment, yearAgo.unemployment, ' %', 1, function(d) { return d < 0; }) +
-          tile('Inflation', now.inflation, yearAgo.inflation, ' %', 1,
-               function(d) { return Math.abs(now.inflation - 2) < Math.abs(now.inflation - d - 2); }) +
-          tile('Haushaltsspielraum', now.budget, yearAgo.budget, '', 0, function(d) { return d > 0; },
-               now.budget < 0 ? 'im Defizit' : '') +
-          '</div>';
-
-      // Verlauf
-      html += '<h3 class="poll_heading">Verlauf seit 2019</h3><div class="econ_legend">' + ECON_LINES.map(function(l, i) {
-          return '<span><span class="econ_swatch s' + (i + 1) + '"></span>' + l[1] + '</span>';
-      }).join('') + '</div><svg id="econ_graph" class="econ"></svg>' +
-          '<div id="econ_readout" class="poll_note">Zeige auf das Diagramm für einzelne Werte.</div>' +
-          '<p class="poll_note">2019 bis 2024 reale Jahreswerte (Destatis, Bundesagentur für Arbeit), ab dem Spielstart im November 2024 Monatswerte des Spielverlaufs. Inflationsspitze real: 8,8 % im Oktober 2022.</p>';
+      var html = '';
+      html += '<svg id="econ_graph" class="econ"></svg><div id="econ_readout" class="poll_note"></div>';
 
       // Sektoren
       var started = Q.sector_value && Q.sector_value.length == ECON_SECTORS.length;
@@ -445,8 +415,7 @@
           return '<div class="econ_year"><span class="econ_year_label">' + y[0] + '</span>' + shareBar(y[1]) + '</div>';
       }).join('') + '<div class="econ_legend">' + ECON_GROUPS.map(function(g, k) {
           return '<span><span class="econ_swatch g' + (k + 1) + '"></span>' + g + '</span>';
-      }).join('') + '</div></div>' +
-          '<p class="poll_note">2024 Anteile in jeweiligen Preisen (Destatis, teils geschätzt), danach Spielmodell: Jeder Bereich wächst mit eigenem Trend um das Gesamtwachstum; Krisen, Zölle, Investitionen und Energiepreise verschieben die Gewichte.</p>';
+      }).join('') + '</div></div>';
       box.innerHTML = html;
 
       // Liniendiagramm
@@ -458,12 +427,6 @@
       var lo = Math.min(-1, d3.min(data, function(d) { return Math.min(d.growth, d.inflation, d.unemployment); }));
       var hi = d3.max(data, function(d) { return Math.max(d.growth, d.inflation, d.unemployment); }) + 0.5;
       var yS = d3.scaleLinear([Math.floor(lo), Math.ceil(hi)], [height - m.bottom, m.top]);
-      var x0 = x(GAME_START);
-      svg.append('rect').attr('class', 'econ_real_band').attr('x', m.left).attr('y', m.top)
-          .attr('width', Math.max(0, x0 - m.left)).attr('height', height - m.top - m.bottom);
-      svg.append('text').attr('class', 'econ_band_label').attr('x', m.left + 4).attr('y', m.top + 11).text('real');
-      svg.append('text').attr('class', 'econ_band_label').attr('x', x0 + 4).attr('y', m.top + 11).text('Spiel');
-      svg.append('line').attr('class', 'econ_start').attr('x1', x0).attr('x2', x0).attr('y1', m.top).attr('y2', height - m.bottom);
       svg.append('g').attr('class', 'econ_axis').attr('transform', 'translate(0,' + (height - m.bottom) + ')')
           .call(d3.axisBottom(x).ticks(Math.max(3, Math.floor((width - m.left - m.right) / 55))).tickFormat(d3.timeFormat('%Y')).tickSizeOuter(0));
       svg.append('g').attr('class', 'econ_axis').attr('transform', 'translate(' + m.left + ',0)')
@@ -475,9 +438,6 @@
           var series = data.filter(function(d) { return d[l[0]] !== undefined && d[l[0]] !== null; });
           svg.append('path').attr('class', 'econ_line s' + (i + 1))
               .attr('d', d3.line().x(function(d) { return x(new Date(d.date)); }).y(function(d) { return yS(d[l[0]]); })(series));
-          svg.selectAll(null).data(series.filter(function(d) { return d.real; })).enter().append('circle')
-              .attr('class', 'econ_dot s' + (i + 1)).attr('r', 4)
-              .attr('cx', function(d) { return x(d.date); }).attr('cy', function(d) { return yS(d[l[0]]); });
           var last = series[series.length - 1];
           labels.push({i: i, text: l[2] + ' ' + econNum(last[l[0]]), y: yS(last[l[0]]) + 4});
       });
@@ -495,7 +455,7 @@
           .on('pointermove', function(ev) {
               var d = data[bisect(data, x.invert(d3.pointer(ev)[0]))];
               rule.attr('x1', x(new Date(d.date))).attr('x2', x(new Date(d.date))).style('display', null);
-              readout.textContent = (d.real ? new Date(d.date).getFullYear() + ' (real, Jahresmittel)' : econDate(d.date)) + ': ' +
+              readout.textContent = (d.real ? String(new Date(d.date).getFullYear()) : econDate(d.date)) + ': ' +
                   ECON_LINES.filter(function(l) { return typeof d[l[0]] == 'number'; }).map(function(l) { return l[1] + ' ' + econNum(d[l[0]]) + ' %'; }).join(', ');
           })
           .on('pointerleave', function() { rule.style('display', 'none'); });
