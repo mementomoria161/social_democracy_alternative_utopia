@@ -15,7 +15,20 @@ go-to: start_menu_2
 - @election_simulation: Wahlsimulation
 - @credits: Mitwirkende
 - @game_over.achievements
+- @debug_start: Debug: Schnellstart
 
+
+@debug_start
+subtitle: Überspringt die Einleitung: normale Schwierigkeit, SPD, Neuwahl im Februar 2025. Direkt zur Hand.
+# Debug: runs the on-arrival actions of the first choices (root.start, choose_spd, ampel_aus.frueh) and jumps to main.
+on-arrival: {!
+var g = this.game.scenes;
+this._runActions(g['root.start'].onArrival);
+this._runActions(g['root.choose_spd'].onArrival);
+this._runActions(g['ampel_aus'].onArrival);
+this._runActions(g['ampel_aus.frueh'].onArrival);
+!}
+go-to: main
 
 @start
 on-arrival: {!
