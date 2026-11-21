@@ -433,8 +433,9 @@
           .on('pointerleave', function() { rule.style('display', 'none'); });
   };
 
-  // Klima-Reiter: ein Liniendiagramm mit fester Zeitachse 2020-2045 und zwei Auswahlen, links die Ansicht (Emissionen, Sektoren,
-  // Strommix, Energiepreise), rechts ein Filter (Sektor bzw. Preis). Daten und Modell: source/scenes/climate_data.scene.dry
+  // Klima-Reiter: oben die Auswahlen, links die Ansicht (Emissionen, Strommix, Energiepreise), rechts ein Filter (Sektor bzw. Preis).
+  // Darunter zwei Abschnitte: aktueller Stand (Ring der Sektoren bzw. des Strommixes, Einschätzung der Preise) und Verlauf als
+  // Liniendiagramm mit fester Zeitachse 2020-2045. Daten und Modell: source/scenes/climate_data.scene.dry
   // (dendryUI.game.CLIM), Werte cl_* in den Qualities. Die beschlossenen Maßnahmen stehen auf der Karte „Klimaschutz und Energie“.
   // Reale Werte vor dem Spielstart (Jahresmittel, in der Jahresmitte eingezeichnet):
   // - Treibhausgase gesamt: CLIM.REAL (Umweltbundesamt).
@@ -442,19 +443,25 @@
   // - CO2-Preis Heizen und Tanken (BEHG): 2021 25, 2022 und 2023 je 30, 2024 45 Euro/t.
   // - Sektoren, Strommix, Gas und Industriestrom: real nur 2024 (Startwerte in CLIM).
   var KL_X0 = 2020, KL_X1 = 2045.5, KL_START = 2024 + 10 / 12;
-  var KL_VIEWS = [['emis', 'Emissionen'], ['sek', 'Sektoren'], ['mix', 'Strommix'], ['preis', 'Energiepreise']];
+  var KL_VIEWS = [['emis', 'Emissionen'], ['mix', 'Strommix'], ['preis', 'Energiepreise']];
   // [Name, Einheit, Nachkommastellen, reale Jahreswerte]
   var KL_PRICES = [['Haushaltsstrom', 'ct/kWh', 1, [[2020, 31.81], [2021, 32.16], [2022, 37.91], [2023, 45.73]]],
                    ['Gas für Haushalte', 'ct/kWh', 1, []],
                    ['Industriestrom', 'ct/kWh', 1, []],
                    ['CO2-Preis Heizen und Tanken', 'Euro/t', 0, [[2021, 25], [2022, 30], [2023, 30]]]];
   var KL_P0 = [40.9, 12.3, 17.2, 45];
+  // Einschätzung der Preise (ANNAHME des Spiels): Obergrenzen für sehr niedrig, niedrig, mittel, hoch, darüber sehr hoch.
+  // Grob an der Spanne 2020-2024 ausgerichtet (Haushaltsstrom 32-46 ct, Gas 7 bis über 15 ct, Industriestrom 17-43 ct, CO2 25-45 Euro).
+  // Farbe aus Sicht der Verbraucher*innen (grün günstig, rot teuer); beim CO2-Preis ohne Farbe, weil er Klimaschutz bewirkt.
+  var KL_LEVELS = [[28, 34, 40, 46], [7, 9.5, 12, 15], [12, 15, 19, 25], [30, 50, 80, 120]];
+  var KL_WORDS = ['sehr niedrig', 'niedrig', 'mittel', 'hoch', 'sehr hoch'];
+  var KL_MIX_COLORS = ['--kl-m1', '--kl-m2', '--kl-m3', '--kl-m4', '--kl-m5', '--kl-m6', '--kl-m7', '--kl-m8', '--kl-m9'];
   // Strommix zusammengefasst: [Name, Indizes in CLIM.MIX, Farbe]
   var KL_MIX = [['Erneuerbare', [0, 1, 2, 3, 4], '--kl-paris'], ['Wind', [0], '--kl-m1'], ['Photovoltaik', [1], '--kl-m2'],
                 ['Erdgas', [5], '--kl-m6'], ['Kohle', [6, 7], '--kl-m8']];
   var KL_SEC_COLORS = ['--econ-s1', '--econ-s2', '--econ-s3', '--econ-s4', '--econ-s5', '--econ-s7'];
   window.klView = 'emis';
-  window.klFilter = {sek: '', preis: '0'};
+  window.klFilter = {emis: '', preis: '0'};
 
   window.drawClimate = function() {
       var box = document.getElementById('klima_view');
@@ -483,31 +490,32 @@
       var series = [], unit = '', digits = 0, filter = null, marks = [];
       if (view == 'emis') {
           unit = 'Mio. t CO2-Äquivalente';
-          var proj = Q.cl_proj && Q.cl_proj.length ? Q.cl_proj : null;
-          if (!proj) {
-              // vor dem ersten Monatswechsel: Prognose auf einer Kopie rechnen
-              var Qc = Object.assign({}, Q);
-              C.project(Qc);
-              proj = Qc.cl_proj;
+          filter = {key: 'emis', label: 'Sektor', options: [['', 'Gesamt'], ['alle', 'Alle Sektoren']].concat(C.SECTORS.map(function(s, i) { return [String(i), s.name]; }))};
+          var fsec = window.klFilter.emis || '';
+          if (fsec === '') {
+              var proj = Q.cl_proj && Q.cl_proj.length ? Q.cl_proj : null;
+              if (!proj) {
+                  // vor dem ersten Monatswechsel: Prognose auf einer Kopie rechnen
+                  var Qc = Object.assign({}, Q);
+                  C.project(Qc);
+                  proj = Qc.cl_proj;
+              }
+              var past = C.REAL.filter(function(r) { return r[0] >= 2018 && r[0] < 2024; });
+              series.push({pts: hist(past, 650, function(r) { return r.e; }), color: '--kl-game', cls: 'main', label: 'Emissionen'});
+              series.push({pts: proj, color: '--kl-game', cls: 'proj', label: 'Prognose', end: 'Prognose'});
+              series.push({pts: [[KL_START, 650]].concat(C.KSG.map(function(k) { return [k[0] + 0.5, k[1]]; })), color: '--kl-ksg', cls: 'ksg',
+                           label: 'Klimaschutzgesetz', end: 'Gesetz'});
+              var zeroT = 2024 + 2 * C.BUDGET / C.co2Of(C.START);
+              series.push({pts: [[2024, 650], [zeroT, 0], [KL_X1, 0]], color: '--kl-paris', cls: 'paris', label: 'Paris-Pfad', end: 'Paris'});
+              marks.push({t: 2030.5, v: C.TARGET_2030, color: '--kl-ksg', text: 'Ziel 2030'});
+          } else {
+              C.SECTORS.forEach(function(s, i) {
+                  if (fsec != 'alle' && fsec != String(i)) return;
+                  series.push({pts: hist([], C.START[i], function(r) { return r.s[i]; }), color: KL_SEC_COLORS[i], cls: 'main', label: s.name,
+                               end: s.name.split(' ')[0]});
+                  if (fsec != 'alle') marks.push({t: 2030.5, v: s.t2030, color: KL_SEC_COLORS[i], text: 'Ziel 2030: ' + s.t2030});
+              });
           }
-          var past = C.REAL.filter(function(r) { return r[0] >= 2018 && r[0] < 2024; });
-          series.push({pts: hist(past, 650, function(r) { return r.e; }), color: '--kl-game', cls: 'main', label: 'Emissionen'});
-          series.push({pts: proj, color: '--kl-game', cls: 'proj', label: 'Prognose', end: 'Prognose'});
-          series.push({pts: [[KL_START, 650]].concat(C.KSG.map(function(k) { return [k[0] + 0.5, k[1]]; })), color: '--kl-ksg', cls: 'ksg',
-                       label: 'Klimaschutzgesetz', end: 'Gesetz'});
-          var zeroT = 2024 + 2 * C.BUDGET / C.co2Of(C.START);
-          series.push({pts: [[2024, 650], [zeroT, 0], [KL_X1, 0]], color: '--kl-paris', cls: 'paris', label: 'Paris-Pfad', end: 'Paris'});
-          marks.push({t: 2030.5, v: C.TARGET_2030, color: '--kl-ksg', text: 'Ziel 2030'});
-      } else if (view == 'sek') {
-          unit = 'Mio. t CO2-Äquivalente';
-          filter = {key: 'sek', label: 'Sektor', options: [['', 'Alle Sektoren']].concat(C.SECTORS.map(function(s, i) { return [String(i), s.name]; }))};
-          var sel = window.klFilter.sek;
-          C.SECTORS.forEach(function(s, i) {
-              if (sel !== '' && sel != String(i)) return;
-              series.push({pts: hist([], C.START[i], function(r) { return r.s[i]; }), color: KL_SEC_COLORS[i], cls: 'main', label: s.name,
-                           end: s.name.split(' ')[0]});
-              if (sel !== '') marks.push({t: 2030.5, v: s.t2030, color: KL_SEC_COLORS[i], text: 'Ziel 2030: ' + s.t2030});
-          });
       } else if (view == 'mix') {
           unit = 'Prozent der Stromerzeugung';
           KL_MIX.forEach(function(g) {
@@ -531,10 +539,49 @@
               return '<option value="' + o[0] + '"' + (o[0] == current ? ' selected' : '') + '>' + o[1] + '</option>';
           }).join('') + '</select></label>';
       };
+      // Aktueller Stand: Ring (Emissionen nach Sektoren, Strommix) bzw. Einschätzung der Preise
+      var ring = null, top = '';
+      if (view == 'emis') {
+          var secNow = nowRec.s, secSum = secNow.reduce(function(a, b) { return a + b; }, 0);
+          ring = {vals: secNow, colors: KL_SEC_COLORS, names: C.SECTORS.map(function(s) { return s.name; }),
+                  fmt: function(v) { return econNum(v, 0) + ' Mio. t'; }, big: econNum(secSum, 0), small: 'Mio. t im Jahr',
+                  pick: function(k) { return 'window.klFilter.emis = \'' + k + '\'; window.drawClimate();'; }, sel: window.klFilter.emis};
+      } else if (view == 'mix') {
+          ring = {vals: nowRec.m, colors: KL_MIX_COLORS, names: C.MIX, fmt: function(v) { return econNum(v, 0) + ' %'; },
+                  big: econNum(sum(nowRec.m, [0, 1, 2, 3, 4]), 0) + ' %', small: 'erneuerbar'};
+      } else {
+          top = '<div class="kl_levels">' + KL_PRICES.map(function(p, i) {
+              var v = nowRec.p[i], lv = KL_LEVELS[i].filter(function(b) { return v >= b; }).length;
+              return '<div class="kl_level' + (String(i) == window.klFilter.preis ? ' sel' : '') + '" onclick="window.klFilter.preis = \'' + i + '\'; window.drawClimate();">' +
+                  '<div class="kl_level_name">' + p[0] + '</div><div class="kl_level_word' + (i < 3 ? ' l' + lv : '') + '">' + KL_WORDS[lv] + '</div>' +
+                  '<div class="kl_level_num">' + econNum(v, p[2]) + ' ' + p[1] + '</div></div>';
+          }).join('') + '</div>';
+      }
+      if (ring) {
+          top = '<div class="kl_ringbox"><svg id="kl_ring" width="150" height="150" role="img" aria-label="Aktueller Stand"></svg><div class="kl_ringlegend">' +
+              ring.vals.map(function(v, k) {
+                  return '<div class="kl_leg' + (ring.pick ? ' click' : '') + (ring.sel === String(k) ? ' sel' : '') + '"' +
+                      (ring.pick ? ' onclick="' + ring.pick(k) + '"' : '') + '><span class="econ_swatch" style="background:var(' + ring.colors[k] + ')"></span>' +
+                      '<span class="kl_leg_name">' + ring.names[k] + '</span><span class="kl_leg_val">' + ring.fmt(v) + '</span></div>';
+              }).join('') + '</div></div>';
+      }
       box.innerHTML = '<div class="kl_controls">' +
           sel('Ansicht', KL_VIEWS, view, 'window.klView = this.value; window.drawClimate();') +
           (filter ? sel(filter.label, filter.options, window.klFilter[filter.key], 'window.klFilter.' + filter.key + ' = this.value; window.drawClimate();') : '') +
-          '</div><svg id="kl_graph"></svg><div id="kl_readout" class="poll_note"></div>';
+          '</div><h3 class="poll_heading">Aktueller Stand</h3>' + top +
+          '<h3 class="poll_heading">Verlauf</h3><svg id="kl_graph"></svg><div id="kl_readout" class="poll_note"></div>';
+      if (ring) {
+          var R = 72, g0 = d3.select('#kl_ring').append('g').attr('transform', 'translate(75,75)');
+          g0.selectAll(null).data(d3.pie().sort(null)(ring.vals.map(function(v) { return Math.max(0, v); }))).enter().append('path')
+              .attr('class', function(d, k) { return 'kl_arc' + (ring.sel !== undefined && ring.sel !== '' && ring.sel != 'alle' && ring.sel != String(k) ? ' dim' : ''); })
+              .style('fill', function(d, k) { return 'var(' + ring.colors[k] + ')'; })
+              .style('cursor', ring.pick ? 'pointer' : null)
+              .on('click', function(ev, d) { if (ring.pick) { window.klFilter.emis = String(d.index); window.drawClimate(); } })
+              .attr('d', d3.arc().innerRadius(R * 0.6).outerRadius(R).padAngle(0.012))
+              .append('title').text(function(d, k) { return ring.names[k] + ': ' + ring.fmt(ring.vals[k]); });
+          g0.append('text').attr('class', 'kl_ring_big').attr('text-anchor', 'middle').attr('y', 4).text(ring.big);
+          g0.append('text').attr('class', 'kl_ring_small').attr('text-anchor', 'middle').attr('y', 20).text(ring.small);
+      }
 
       // Diagramm
       var width = box.clientWidth, height = Math.min(320, Math.max(230, width * 0.65));
