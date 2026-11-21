@@ -1143,3 +1143,13 @@ body.dark-mode {
 #econ_view #econ_readout { min-height: 1.2em; margin: 0 0 1em; }
 #econ_view .poll_select { display: block; margin: 1em 0 0.6em; }
 #econ_view .econ_table { border-spacing: 0.3em 0.55em; margin: 0 0 1em; }
+
+/* Umfragen-Reiter: Abstände wie im Rest der Seitenleiste */
+#poll_view .poll_select { display: block; margin: 0 0 0.6em; }
+#poll_view #poll_graph { margin: 0 0 1em; }
+#poll_view .poll_heading { margin: 1.2em 0 0.6em; }
+#poll_view .poll_bars { margin: 0 0 1em; }
+#poll_view .poll_row { margin: 0.35em 0; }
+.poll_overview { margin: 0 0 0.8em; }
+.poll_overview .poll_top { opacity: 0.75; }
+.poll_overview .poll_stack { margin: 0.3em 0 0; }

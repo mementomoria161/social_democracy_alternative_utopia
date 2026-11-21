@@ -1064,30 +1064,26 @@
           return v;
       };
 
-      var html = '<label class="poll_select">Verlauf seit Januar 2023: <select onchange="window.pollGroup = this.value; window.drawPolls();">' +
-          '<option value="">Alle Wähler*innen</option>' + groups.map(function(c) {
-              return '<option value="' + c + '"' + (c == group ? ' selected' : '') + '>' + POLL_GROUPS[c] + '</option>';
-          }).join('') + '</select></label>' +
+      var select = function(label, current, varName) {
+          return '<label class="poll_select">' + label + ': <select onchange="window.' + varName + ' = this.value; window.drawPolls();">' +
+              '<option value="">Alle Wähler*innen</option>' + groups.map(function(c) {
+                  return '<option value="' + c + '"' + (c == current ? ' selected' : '') + '>' + POLL_GROUPS[c] + '</option>';
+              }).join('') + '</select></label>';
+      };
+      var nowGroup = groups.indexOf(window.pollNowGroup) >= 0 ? window.pollNowGroup : '';
+      var html = select('Verlauf seit Januar 2023', group, 'pollGroup') +
           '<svg id="poll_graph"></svg>' +
-          '<p class="poll_note">Januar 2023 bis Oktober 2024 reale Umfragen (Monatsmittel aller Institute, Quelle: Wikipedia), ab November 2024 Spielverlauf. ' +
-          'Bis November 2026 ist der reale Verlauf die Grundlinie: Jeden Monat kommt die echte Veränderung dazu, was wir und die Ereignisse im Spiel bewirken, bleibt als Abweichung erhalten. ' +
-          'Danach bewegen Wirtschaft, Regierungsbilanz, Vertrauen, Klima und Bewegungen die Umfragen (Bibliothek: „Wie sich Umfragen bewegen“).</p>' +
           pollWhy(Q, names) +
-          '<h3 class="poll_heading">Aktuell' + (group ? ': ' + POLL_GROUPS[group] : '') + '</h3>' +
-          (real_now ? '<p class="poll_note">Rechts daneben der reale Wert dieses Monats.</p>' : '') +
-          bars(group ? groupValues(group) : now, real_now) +
-          '<h3 class="poll_heading">Nach Wählergruppen</h3>' +
+          '<h3 class="poll_heading">Aktuell</h3>' +
+          select('Anzeige', nowGroup, 'pollNowGroup') +
+          bars(nowGroup ? groupValues(nowGroup) : now) +
+          '<h3 class="poll_heading">Wählergruppenübersicht</h3><div class="poll_bars">' +
           groups.map(function(c) {
               var v = groupValues(c);
               var top = parties.reduce(function(a, b) { return v[b] > v[a] ? b : a; });
-              return '<details class="poll_group"' + (window.pollOpen[c] ? ' open' : '') +
-                  ' ontoggle="window.pollOpen[\'' + c + '\'] = this.open;"><summary><span class="poll_group_name">' +
-                  POLL_GROUPS[c] + '</span> <span class="poll_top">' + names[top] + ' ' + Math.round(v[top]) + ' %</span>' +
-                  stack(v) + '</summary>' + bars(v) +
-                  '<button class="b poll_show" onclick="window.pollGroup = \'' + c + '\'; window.drawPolls(); ' +
-                  'document.getElementById(\'poll_view\').scrollIntoView({behavior: \'smooth\'});">' +
-                  (c == group ? 'Wird oben angezeigt' : 'Im Verlauf oben anzeigen') + '</button></details>';
-          }).join('');
+              return '<div class="poll_overview"><span class="poll_group_name">' + POLL_GROUPS[c] + '</span> <span class="poll_top">' +
+                  names[top] + ' ' + Math.round(v[top]) + ' %</span>' + stack(v) + '</div>';
+          }).join('') + '</div>';
       box.innerHTML = html;
 
       var width = box.clientWidth;
