@@ -4,6 +4,7 @@ new-page: true
 tags: event
 view-if: year = 2024 and month = 11
 max-visits: 1
+priority: 2
 on-arrival: resolution_antisemitismus_seen = 1
 face-image: img/synagoge.jpg
 
