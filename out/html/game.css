@@ -942,15 +942,6 @@ body.dark-mode {
 }
 
 /* Gruppen-Reiter (Durchgang 4.5): Lagerfarben aus der Kategorienpalette des Wirtschafts-Reiters, rechts braun */
-body { --grp-c4: #8b6a3e; }
-body.dark-mode { --grp-c4: #b08d5c; }
-.grp_c1 { fill: var(--econ-s2); background: var(--econ-s2); }
-.grp_c2 { fill: var(--econ-s4); background: var(--econ-s4); }
-.grp_c3 { fill: var(--econ-s1); background: var(--econ-s1); }
-.grp_c4 { fill: var(--grp-c4); background: var(--grp-c4); }
-.grp_c5 { fill: var(--econ-s7); background: var(--econ-s7); }
-.grp_c6 { fill: var(--econ-s5); background: var(--econ-s5); }
-.grp_c7 { fill: var(--econ-s6); background: var(--econ-s6); }
 .grp_views {
   display: flex;
   flex-wrap: wrap;
@@ -1032,15 +1023,11 @@ body.dark-mode .grp_party.union { fill: #888; }
 .grp_card_stats .econ_value small { font-size: 0.55em; opacity: 0.7; }
 .econ_trend.up { color: var(--econ-good); opacity: 1; }
 .econ_trend.down { color: var(--econ-bad); opacity: 1; }
+.grp_scale { white-space: nowrap; }
+.grp_scale i { display: inline-block; width: 0.8em; height: 0.6em; vertical-align: middle; }
+.grp_val { flex-grow: 1; }
 .grp_card_text { margin: 0.4em 0 0.1em; line-height: 1.4; }
 .grp_word { font-weight: bold; }
-.grp_camp_head {
-  font-size: 0.85em;
-  font-weight: bold;
-  margin: 0.6em 0 0.1em 0;
-  display: flex;
-  align-items: center;
-}
 .grp_row {
   display: flex;
   align-items: center;
@@ -1051,13 +1038,13 @@ body.dark-mode .grp_party.union { fill: #888; }
 }
 .grp_row:hover, .grp_row.sel { background: var(--econ-band); }
 .grp_row.inactive { opacity: 0.55; }
-.grp_rname { width: 8.5em; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.grp_rname { width: 11em; flex-shrink: 0; line-height: 1.2; }
 .grp_bar { flex-grow: 1; height: 0.7em; background: var(--econ-band); overflow: hidden; }
 .grp_bar span { display: block; height: 100%; }
 .grp_trend { width: 1em; text-align: center; font-size: 0.8em; }
 .grp_trend.up { color: var(--econ-good); }
 .grp_trend.down { color: var(--econ-bad); }
-.grp_rel { width: 6.5em; font-size: 0.85em; text-align: right; font-variant-numeric: tabular-nums; }
+.grp_rel { width: 8.5em; white-space: nowrap; font-size: 0.85em; text-align: right; font-variant-numeric: tabular-nums; }
 
 /* Klima-Reiter (Durchgang 4.6): Strommix-Farben nach Energieträger, Ampel, Pfade. Hell und dunkel über CSS-Variablen. */
 body {

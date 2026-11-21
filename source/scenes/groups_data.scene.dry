@@ -14,7 +14,7 @@ on-arrival: {!
 // Dazu grp_hist (je Gruppe die letzten 36 Monatswerte, ganzzahlig), grp_why (Treiber als Text), grp_news (für events/gruppen_wandel),
 // grp_party (für welche Spielerpartei die Verhältnisse angelegt sind).
 // Neue Gruppen (z. B. Klima 4.6): Eintrag in groups anhängen (Felder wie unten), ggf. links ergänzen; alles andere passiert automatisch.
-//   camp: Lager (CAMPS), base: normale Stärke (Ziel ohne Treiber), start/startM: Startwert und -momentum (Nov. 2024),
+//   color: Farbe im Politik-Reiter (jede Gruppe eine eigene), base: normale Stärke (Ziel ohne Treiber), start/startM: Startwert und -momentum (Nov. 2024),
 //   rel: Grundverhältnis je Spielerpartei, infl: Wirkung auf die Strömungs-Slots der Spielerpartei (+ stärkt, - schwächt),
 //   parties: nahestehende Parteien (echte Namen: SPD, Linke, Union, Grüne, FDP, BSW, AfD), voters: Wählergruppen,
 //   drive(Q, why): Abweichung des Ziels von base (why.push(Text) für die Infokarte), demand(Q): aktuelle Forderung.
@@ -23,19 +23,10 @@ var r1 = function(x) { return Math.round(x * 10) / 10; };
 var sg = function(Q, i) { return (Q.sector_growth && Q.sector_growth.length > i) ? Q.sector_growth[i] : 0; };
 var ym = function(Q) { return Q.year * 12 + Q.month; };
 var GRP = {
-    CAMPS: [
-        {id: 'gew', name: 'Gewerkschaften'},
-        {id: 'sozial', name: 'Sozialverbände und Sozialbewegungen'},
-        {id: 'wirt', name: 'Wirtschaft und Eigentümer'},
-        {id: 'rechts', name: 'Rechte Mobilisierung und Bauernproteste'},
-        {id: 'ges', name: 'Kirchen und Religionsgemeinschaften'},
-        {id: 'zivil', name: 'Demokratie-, Friedens- und Solidaritätsbewegungen'},
-        {id: 'umwelt', name: 'Umwelt und Klima'}
-    ],
     // Reihenfolge = Reihenfolge im Kreis der Netzwerkgrafik (im Uhrzeigersinn ab 12 Uhr)
     groups: [
         // Zusammengelegt (Nov. 2026): DGB/IG Metall, ver.di und IG BCE/Kohleregionen sind eine Gruppe (id dgb)
-        {id: 'dgb', name: 'Gewerkschaften (DGB, IG Metall, ver.di, IG BCE)', short: 'Gewerkschaften', camp: 'gew', base: 55, start: 58,
+        {id: 'dgb', name: 'Gewerkschaften (DGB, IG Metall, ver.di, IG BCE)', short: 'Gewerkschaften', color: '#e15759', base: 55, start: 58,
          rel: {spd: 68, linke: 50}, parties: ['SPD', 'Linke'], voters: ['workers'],
          infl: {spd: {labor: 1, left: 0.3}, linke: {labor: 1, center: 0.3}},
          desc: 'Der Deutsche Gewerkschaftsbund mit knapp 5,6 Millionen Mitgliedern: die IG Metall in Auto-, Metall- und Elektroindustrie, ver.di im öffentlichen Dienst, in Pflege, Handel und Nahverkehr, die IG BCE in Chemie, Energie und den Kohlerevieren. Beim Klimaschutz sind die Gewerkschaften hin- und hergerissen zwischen sicheren Industriearbeitsplätzen und der Zukunft ihrer Branchen.',
@@ -59,7 +50,7 @@ var GRP = {
              return 'ein Bundestariftreuegesetz, mehr Tarifbindung und mehr Personal in Pflege und Kitas';
          }},
         // Zusammengelegt (Nov. 2026): BDA/BDI, Auto- und Energiewirtschaft, Familienunternehmer und Handwerk, Haus & Grund (id bda)
-        {id: 'bda', name: 'Wirtschafts- und Eigentümerverbände (BDA, BDI, VDA, Familienunternehmer, Haus & Grund)', short: 'Wirtschaft', camp: 'wirt', base: 60, start: 62,
+        {id: 'bda', name: 'Wirtschafts- und Eigentümerverbände (BDA, BDI, VDA, Familienunternehmer, Haus & Grund)', short: 'Wirtschaftsverbände', color: '#4e79a7', base: 60, start: 62,
          rel: {spd: 31, linke: 5}, parties: ['Union', 'FDP'], voters: ['old_middle'],
          infl: {spd: {reformist: 0.9, left: -0.3}, linke: {left: 0.3, reformist: 0.1}},
          desc: 'Bundesvereinigung der Deutschen Arbeitgeberverbände, Bundesverband der Deutschen Industrie, der Verband der Automobilindustrie, die Verbände der Familienunternehmen und des Handwerks sowie Haus & Grund mit rund 950 000 privaten Eigentümer*innen und Vermieter*innen: Tarifgegner der Gewerkschaften und einflussreichste Lobby im Land. Sie verlangen Entlastung bei Steuern, Abgaben und Energiepreisen, lehnen eine Vermögensteuer ab und kämpfen seit dem Streit um das Heizungsgesetz 2023 gegen Heizungsvorschriften, Sanierungspflichten und Mietenregulierung.',
@@ -82,17 +73,17 @@ var GRP = {
              if (Q.kp_waerme >= 1) return 'die 65-Prozent-Regel beim Heizen abschaffen, niedrigere Unternehmenssteuern und günstigen Industriestrom';
              return (Q.economic_growth || 0) < 0.5 ? 'niedrigere Unternehmenssteuern, günstigen Industriestrom, ein Moratorium für Sozialabgaben und flexiblere Arbeitszeiten' : 'stabile Sozialabgaben unter 40 Prozent, keine Vermögensteuer und keine schärfere Mietpreisbremse';
          }},
-        {id: 'bauern', link: 'bauern', name: 'Bauern- und Mittelstandsproteste', short: 'Bauernproteste', camp: 'rechts', base: 40,
+        {id: 'bauern', link: 'bauern', name: 'Bauern- und Mittelstandsproteste', short: 'Bauernproteste', color: '#9c755f', base: 40,
          rel: {spd: 15, linke: 10}, parties: ['Union', 'AfD', 'BSW'], voters: ['rural'],
          infl: {spd: {reformist: 0.3, neorevisionist: 0.3}, linke: {neorevisionist: 0.3}},
          desc: 'Landwirt*innen, Handwerker*innen und Mittelständler gegen Bürokratie, Steuern und Subventionskürzungen; seit den Traktorblockaden im Winter 2023/24 eine eigene Protestbewegung, nahe an Union, BSW und AfD.',
          demand: function(Q) { return 'Agrardiesel, weniger Auflagen und Schutz vor billigen Importen'; }},
-        {id: 'rechts', link: 'rechts', name: 'Rechte Mobilisierung', short: 'Rechte Mobil.', camp: 'rechts', base: 35,
+        {id: 'rechts', link: 'rechts', name: 'Rechte Mobilisierung', short: 'Rechte Mobilisierung', color: '#6f6f6f', base: 35,
          rel: {spd: 0, linke: 0}, parties: ['AfD'], voters: [],
          infl: {spd: {neorevisionist: 0.5, center: -0.2}, linke: {center: 0.3}},
          desc: 'AfD-nahe Kundgebungen, „Montagsspaziergänge“ und rechtsextreme Gruppen. Kein möglicher Bündnispartner, aber ihr Druck verändert die Debatte.',
          demand: function(Q) { return 'Grenzschließungen, Massenabschiebungen und ein Ende der „Brandmauer“'; }},
-        {id: 'kirchen', name: 'Kirchen, Diakonie und Caritas', short: 'Kirchen', camp: 'ges', base: 50, start: 50,
+        {id: 'kirchen', name: 'Kirchen, Diakonie und Caritas', short: 'Kirchen', color: '#b07aa1', base: 50, start: 50,
          rel: {spd: 50, linke: 25}, parties: ['Union', 'SPD'], voters: ['rentner'],
          infl: {spd: {center: 0.3}, linke: {reformist: 0.2}},
          desc: 'Evangelische und katholische Kirche mit ihren Wohlfahrtsverbänden Diakonie und Caritas: größte Arbeitgeber im Sozialbereich, Stimme für Geflüchtete und Arme, aber mit schwindenden Mitgliederzahlen.',
@@ -103,7 +94,7 @@ var GRP = {
              return d;
          },
          demand: function(Q) { return 'humane Asylpolitik, Kirchenasyl respektieren und keine Kürzungen in der Wohlfahrtspflege'; }},
-        {id: 'israel', name: 'Jüdische Gemeinden und Israel-solidarische Gruppen', short: 'Jüd. Gemeinden', camp: 'ges', base: 40, start: 50,
+        {id: 'israel', name: 'Jüdische Gemeinden und Israel-solidarische Gruppen', short: 'Jüdische Gemeinden', color: '#76b7b2', base: 40, start: 50,
          rel: {spd: 55, linke: 15}, parties: ['Union', 'SPD', 'Grüne', 'FDP'], voters: ['new_middle'],
          infl: {spd: {center: 0.5, reformist: 0.5}, linke: {reformist: 0.7, left: -0.3}},
          desc: 'Zentralrat der Juden, jüdische Gemeinden und Studierendenverbände sowie Israel-solidarische Gruppen wie die Deutsch-Israelische Gesellschaft. Seit dem 7. Oktober 2023 sind antisemitische Vorfälle in Deutschland stark gestiegen.',
@@ -115,13 +106,13 @@ var GRP = {
              return d;
          },
          demand: function(Q) { return 'Schutz jüdischen Lebens, ein klares Vorgehen gegen Antisemitismus und Solidarität mit Israel'; }},
-        {id: 'demo', link: 'demo', name: 'Demokratiebewegung', short: 'Demokratie', camp: 'zivil', base: 75,
+        {id: 'demo', link: 'demo', name: 'Demokratiebewegung', short: 'Demokratiebewegung', color: '#ff9da7', base: 75,
          rel: {spd: 65, linke: 55}, parties: ['SPD', 'Grüne', 'Linke'], voters: ['new_middle'],
          infl: {spd: {center: 0.6, left: 0.3}, linke: {center: 0.5, reformist: 0.3}},
          desc: 'Demos gegen Rechts, Omas gegen Rechts, Gewerkschaften und Kirchen: eine breite, überwiegend friedliche Bewegung zur Verteidigung der Demokratie. Im Januar 2024 gingen nach den Correctiv-Recherchen Millionen auf die Straße.',
          demand: function(Q) { return Q.brandmauer ? 'die Brandmauer halten und ein AfD-Verbotsverfahren prüfen' : 'die Rückkehr zur Brandmauer'; }},
         // Zusammengelegt (Nov. 2026): Klimabewegung, Umweltverbände und Erneuerbaren-Branche (id klima). Stärke aus klima_strength.
-        {id: 'klima', link: 'klima', name: 'Umwelt- und Klimabewegung', short: 'Klima & Umwelt', camp: 'umwelt', base: 55,
+        {id: 'klima', link: 'klima', name: 'Umwelt- und Klimabewegung', short: 'Klima- und Umweltbewegung', color: '#59a14f', base: 55,
          rel: {spd: 42, linke: 55}, parties: ['Grüne', 'Linke'], voters: ['new_middle'],
          infl: {spd: {left: 0.6, center: 0.2}, linke: {center: 0.6, left: 0.3}},
          desc: 'Fridays for Future und lokale Klimagruppen, die großen Umweltverbände BUND, NABU und Greenpeace mit zusammen über einer Million Mitgliedern und die Branche der erneuerbaren Energien mit rund 400 000 Beschäftigten. Sie demonstrieren, klagen und beraten für schnelleren Klimaschutz; untereinander streiten sie, wie viel Naturschutz dem Ausbau von Wind und Solar weichen darf.',
@@ -136,7 +127,7 @@ var GRP = {
          },
          demand: function(Q) { return Q.cl_status == 2 ? 'den Paris-Kurs halten und sozial absichern' : Q.kp_ee < 0 ? 'die Kürzungen beim Ausbau der Erneuerbaren zurücknehmen und ein Sofortprogramm für den Klimaschutz' : 'ein Sofortprogramm für den Klimaschutz, schnelleren Ausbau von Wind und Solar und ein sozial gerechtes Klimageld'; }},
         // Zusammengelegt (Nov. 2026): Friedensbewegung und Palästina-Solidarität (id palaestina, wegen der Nahost-Mechanik)
-        {id: 'palaestina', name: 'Friedens- und Palästinabewegung', short: 'Frieden', camp: 'zivil', base: 25, start: 55, startM: 0.5,
+        {id: 'palaestina', name: 'Friedens- und Palästinabewegung', short: 'Frieden und Palästina', color: '#edc948', base: 25, start: 55, startM: 0.5,
          rel: {spd: 25, linke: 50}, parties: ['Linke', 'BSW'], voters: ['new_middle', 'unemployed', 'rentner'],
          infl: {spd: {left: 0.7, center: -0.3, reformist: -0.2}, linke: {left: 1, reformist: -0.4, neorevisionist: 0.4}},
          desc: 'Ostermärsche, Kirchen- und Gewerkschaftsgruppen gegen Aufrüstung und Waffenlieferungen, dazu Studierende, migrantische Communities, linke und jüdische antizionistische Gruppen, die gegen den Krieg in Gaza und deutsche Waffenlieferungen an Israel protestieren. Gespalten ist die Bewegung in der Frage, wie mit Russlands Krieg gegen die Ukraine umzugehen ist; um Parolen, Demonstrationsverbote und Antisemitismus wird heftig gestritten.',
@@ -153,7 +144,7 @@ var GRP = {
          },
          demand: function(Q) { return ym(Q) < 2025 * 12 + 10 ? 'einen sofortigen Waffenstillstand in Gaza und einen Stopp aller Rüstungsexporte nach Israel' : Q.ukraine_ceasefire_seen ? 'Abrüstung, zivile Konfliktprävention und humanitäre Hilfe für Gaza' : 'Verhandlungen statt Aufrüstung, keine neue Wehrpflicht und die Anerkennung Palästinas'; }},
         // Zusammengelegt (Nov. 2026): Sozialverbände, Mieterbewegung und Bündnisse gegen Sozialabbau (id vdk)
-        {id: 'vdk', name: 'Sozialverbände und Sozialbewegungen (VdK, SoVD, Paritätischer, Mieterbund)', short: 'Soziales', camp: 'sozial', base: 55, start: 56,
+        {id: 'vdk', name: 'Sozialverbände und Sozialbewegungen (VdK, SoVD, Paritätischer, Mieterbund)', short: 'Sozialverbände und -bewegungen', color: '#f28e2b', base: 55, start: 56,
          rel: {spd: 58, linke: 60}, parties: ['SPD', 'Linke'], voters: ['rentner', 'unemployed', 'workers'],
          infl: {spd: {labor: 0.5, center: 0.3, left: 0.4}, linke: {labor: 0.6, center: 0.4, reformist: 0.2}},
          desc: 'Der Sozialverband VdK ist mit über 2,3 Millionen Mitgliedern der größte Verband Deutschlands; mit SoVD und Paritätischem Wohlfahrtsverband die Lobby für Rentner*innen, Kranke und Arme. Dazu kommen der Deutsche Mieterbund, Mieterinitiativen wie „Deutsche Wohnen & Co enteignen“ und lokale Bündnisse gegen Sozialabbau, die in Krisen auf die Straße gehen wie 2004 die Montagsdemonstrationen gegen Hartz IV. Die Angebotsmieten in den Großstädten sind seit 2015 um mehr als die Hälfte gestiegen.',

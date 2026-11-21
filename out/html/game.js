@@ -670,13 +670,12 @@
           .on('pointerleave', function() { rule.style('display', 'none'); readout.textContent = 'Zeige auf das Diagramm für einzelne Werte.'; });
   };
 
-  // Gruppen-Reiter (Durchgang 4.5): Netzwerk der Interessengruppen und Bewegungen, Infokarte, Liste nach Lagern.
-  // Daten und Modell: source/scenes/groups_data.scene.dry (dendryUI.game.GRP), Werte g_/gm_/gr_/ga_<id> in den Qualities.
-  // Anordnung: Gruppen auf einem Kreis (Reihenfolge der Tabelle, Lücken zwischen den Lagern), andere Parteien auf einem
-  // inneren Ring beim Mittel ihrer nahestehenden Gruppen, die Strömungen der Spielerpartei um die Mitte. Hängt nur von den
-  // Tabellen und der Spielerpartei ab, springt also nicht von Monat zu Monat.
+  // Politik-Reiter (Durchgang 4.5, umgebaut Nov. 2026): Grafik mit drei Ansichten (Parteien, Strömungen, Gruppen), Infokarte,
+  // darunter Übersicht aller Parteien, Strömungen und Gruppen. Daten und Modell: source/scenes/groups_data.scene.dry
+  // (dendryUI.game.GRP), Werte g_/gm_/gr_/ga_<id> und gl_<a>_<b> in den Qualities. Anordnung: Gruppen gleichmäßig auf einem
+  // Kreis (Reihenfolge der Tabelle), Parteien auf einem Kreis von links nach rechts, Strömungen um die Mitte.
   window.grpSel = null;
-  window.grpView = 'infl';
+  window.grpView = 'parties';
   var GRP_FACTIONS = [['left', 'f_left', 270], ['labor', 'f_labor', 325], ['center', 'f_center', 35], ['reformist', 'f_reformist', 90], ['neorevisionist', 'f_neorev', 180]];
   // Eine Farbskala für alle Verhältnisse (Gruppen, Parteien): Stufen wie source/qdisplays/relationships.qdisplay.dry
   var GRP_REL = [[5, 'feindselig', '#7a0b0b'], [14.9, 'eisig', '#b3261e'], [29.9, 'kalt', '#e0533d'], [39.9, 'kühl', '#ef9a6a'],
@@ -685,6 +684,7 @@
   var GRP_DIS = [[4.999, 'sehr gering', 7], [14.999, 'gering', 5], [30.999, 'mittel', 3], [49.999, 'hoch', 2], [Infinity, 'sehr hoch', 0]];
   var GRP_STR = [[10, 'kaum vorhanden'], [25, 'schwach'], [45, 'mittel'], [65, 'stark'], [Infinity, 'sehr stark']];
   var GRP_FSTR = [[10, 'schwach'], [25, 'mittel'], [40, 'stark'], [60, 'sehr stark'], [Infinity, 'dominant']]; // qdisplays/strength
+  var GRP_PARTIES = ['linke', 'gruene', 'fdp', 'union', 'afd', 'bsw']; // Reihenfolge im Kreis der Parteien-Ansicht
   var grpStep = function(tab, x) { for (var i = 0; i < tab.length; i++) if (x < tab[i][0]) return tab[i]; return tab[tab.length - 1]; };
   var grpRel = function(r) { return grpStep(GRP_REL, r); };
   var grpDis = function(x) { var s = grpStep(GRP_DIS, x); return [s[0], s[1], GRP_REL[s[2]][2]]; };
@@ -692,6 +692,13 @@
   var grpEsc = function(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); };
   var grpWord = function(txt, col) { return '<b class="grp_word" style="color:' + col + '">' + txt + '</b>'; };
   var grpList = function(a) { return a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' und ' + a[a.length - 1]; };
+  // lange Beschriftungen auf zwei Zeilen: am Leerzeichen, das der Mitte am nächsten liegt
+  var grpLines = function(t) {
+      if (t.length <= 14 || t.indexOf(' ') < 0) return [t];
+      var best = -1;
+      for (var i = 0; i < t.length; i++) if (t[i] == ' ' && (best < 0 || Math.abs(i - t.length / 2) < Math.abs(best - t.length / 2))) best = i;
+      return [t.slice(0, best), t.slice(best + 1)];
+  };
 
   window.drawGroups = function() {
       var box = document.getElementById('groups_view');
@@ -700,8 +707,6 @@
       if (!dendryUI.game.GRP) dendryUI.dendryEngine._runActions(dendryUI.game.scenes.groups_data.onArrival);
       var GRP = dendryUI.game.GRP, P = Q.player == 'linke' ? 'linke' : 'spd';
       var zur = 'zur ' + (Q.pp_dat || 'der SPD').replace(/^der /, '');
-      var camps = {};
-      GRP.CAMPS.forEach(function(c, i) { camps[c.id] = {name: c.name, k: i + 1}; });
       // Werte (alte Spielstände ohne Gruppen: Startwerte)
       var G = GRP.groups.map(function(g) {
           var s = Q['g_' + g.id] !== undefined ? Q['g_' + g.id] : (g.link ? GRP.fromThousands(Q[g.link + '_strength']) : g.start);
@@ -724,39 +729,24 @@
       };
       var trendWord = function(m) { return m > 0.4 ? 'wachsend' : m < -0.4 ? 'schwindend' : 'stabil'; };
       var trendTxt = function(m) { return m > 0.4 ? '▲' : m < -0.4 ? '▼' : ''; };
+      var view = window.grpView == 'facs' || window.grpView == 'groups' ? window.grpView : 'parties';
 
       // Geometrie
       var W = box.clientWidth || 320, H = Math.round(Math.min(W, 560) * 0.98);
-      var cx = W / 2, cy = H / 2, lab = W < 400 ? 50 : 66;
+      var cx = W / 2, cy = H / 2, lab = W < 400 ? 64 : 76;
       var R = Math.min(W / 2, H / 2) - lab, k = Math.max(0.75, Math.min(1.2, W / 440));
-      var n = G.length, gaps = 0;
-      G.forEach(function(d, i) { if (i > 0 && G[i - 1].g.camp != d.g.camp) gaps++; });
-      if (G[n - 1].g.camp != G[0].g.camp) gaps++;
-      var slot = 2 * Math.PI / (n + 0.8 * gaps), ang = -slot / 2;
+      var slot = 2 * Math.PI / G.length;
       G.forEach(function(d, i) {
-          if (i > 0 && G[i - 1].g.camp != d.g.camp) ang += 0.8 * slot;
-          d.ang = ang; ang += slot;
+          d.ang = i * slot;
           d.x = cx + R * Math.sin(d.ang); d.y = cy - R * Math.cos(d.ang);
           // Fläche ~ Stärke, aber nicht größer als der Platz auf dem Kreis
-          d.rad = Math.min((2 + 17 * Math.sqrt(Math.max(0, d.s) / 100)) * k, 0.55 * slot * R);
+          d.rad = Math.min((2 + 17 * Math.sqrt(Math.max(0, d.s) / 100)) * k, 0.45 * slot * R);
       });
-      // andere Parteien: Kreismittel der Winkel ihrer Gruppen, dann auseinanderschieben
-      var parties = ['linke', 'gruene', 'union', 'fdp', 'bsw', 'afd'].map(function(p) {
-          var sx = 0, sy = 0, members = [];
-          G.forEach(function(d) {
-              (d.g.parties || []).forEach(function(pn) { if (GRP.slot(Q, pn) == p) { sx += Math.sin(d.ang); sy += Math.cos(d.ang); members.push(d.id); } });
-          });
-          return {p: p, ang: Math.atan2(sx, sy), members: members};
-      }).filter(function(o) { return o.members.length; });
-      parties.sort(function(a, b) { return a.ang - b.ang; });
-      for (var it = 0; it < 40; it++) {
-          for (var i = 0; i < parties.length; i++) {
-              var a = parties[i], b = parties[(i + 1) % parties.length];
-              var diff = b.ang - a.ang + (i == parties.length - 1 ? 2 * Math.PI : 0);
-              if (diff < 0.5) { a.ang -= (0.5 - diff) / 2; b.ang += (0.5 - diff) / 2; }
-          }
-      }
-      parties.forEach(function(o) { o.x = cx + 0.6 * R * Math.sin(o.ang); o.y = cy - 0.6 * R * Math.cos(o.ang); o.sz = (3 + 20 * Math.sqrt(votes(o.p) / 100)) * k; });
+      var parties = GRP_PARTIES.map(function(p, i) {
+          var a = (-120 + i * 60) * Math.PI / 180; // links die linken, rechts die rechten Parteien, das BSW unten dazwischen
+          return {p: p, x: cx + 0.8 * R * Math.sin(a), y: cy - 0.8 * R * Math.cos(a), sz: (4 + 26 * Math.sqrt(votes(p) / 100)) * k,
+                  members: G.filter(function(d) { return (d.g.parties || []).some(function(pn) { return GRP.slot(Q, pn) == p; }); }).map(function(d) { return d.id; })};
+      });
       var playerRad = (8 + 30 * Math.sqrt(votes('spd') / 100)) * k;
       var facPos = {};
       facs.forEach(function(f) {
@@ -766,13 +756,16 @@
 
       // Kanten der gewählten Ansicht. col = Farbe der Verhältnisskala; own = Verhältnis zur Spielerpartei, nur bei Auswahl sichtbar
       var edges = [];
-      var view = window.grpView == 'infl' ? 'infl' : 'links';
       var relEdge = function(a, b, x1, y1, x2, y2, r, w, extra) {
           var e = {a: a, b: b, x1: x1, y1: y1, x2: x2, y2: y2, col: grpRel(r)[2], w: w, o: 0.8};
           for (var key in extra) e[key] = extra[key];
           edges.push(e);
       };
-      if (view == 'infl') {
+      if (view == 'parties') {
+          parties.forEach(function(o) {
+              if (Q[o.p + '_relation'] !== undefined) relEdge('player', 'p:' + o.p, cx, cy, o.x, o.y, Q[o.p + '_relation'], 3 * k);
+          });
+      } else if (view == 'facs') {
           G.forEach(function(d) {
               if (!d.a) return;
               var infl = d.g.infl[P] || {};
@@ -794,57 +787,56 @@
               if (!d1 || !d2) return;
               relEdge(l[0], l[1], d1.x, d1.y, d2.x, d2.y, GRP.linkVal(Q, l[0], l[1]), 0.8 + 2.5 * Math.min(d1.s, d2.s) / 100, {curve: true, o: d1.a && d2.a ? 0.8 : 0.25});
           });
-          parties.forEach(function(o) {
-              o.members.forEach(function(id) {
-                  var d = byId[id];
-                  relEdge(id, 'p:' + o.p, d.x, d.y, o.x, o.y, 60, 0.8, {o: d.a ? 0.55 : 0.15}); // Nähe = warm
-              });
-              if (Q[o.p + '_relation'] !== undefined) relEdge('player', 'p:' + o.p, cx, cy, o.x, o.y, Q[o.p + '_relation'], 2.2 * k, {own: true});
-          });
           G.forEach(function(d) {
               if (d.a) relEdge('player', d.id, cx, cy, d.x, d.y, d.r, 0.6 + 3.2 * d.s / 100, {own: true});
           });
       }
 
-      // HTML-Gerüst
-      var views = [['infl', 'Einfluss auf die Strömungen'], ['links', 'Verhältnisse']];
-      var swatch = function(col, txt) { return '<span><span class="grp_line" style="border-top-color:' + col + '"></span>' + txt + '</span>'; };
+      // HTML-Gerüst: Ansichten, Grafik, kurze Legende, Infokarte
+      var views = [['parties', 'Parteien'], ['facs', 'Strömungen'], ['groups', 'Gruppen']];
+      var scale = function(steps, from, to) {
+          return '<span class="grp_scale">' + from + ' ' + steps.map(function(s) { return '<i style="background:' + s[0] + '" title="' + s[1] + '"></i>'; }).join('') + ' ' + to + '</span>';
+      };
+      var relScale = scale(GRP_REL.map(function(s) { return [s[2], s[1]]; }), 'feindselig', 'sehr freundlich');
+      var legend = view == 'facs'
+          ? '<span>Linien zur Mitte: Unmut ' + scale(GRP_DIS.map(function(s) { return [GRP_REL[s[2]][2], s[1]]; }), 'gering', 'hoch') + '</span>' +
+            '<span><span class="grp_line pos"></span>stärkt</span><span><span class="grp_line neg"></span>schwächt die Strömung</span>'
+          : '<span>Verhältnis ' + relScale + '</span>' + (view == 'groups' ? '<span>Tippe ' + partyName.spd + ' an für ihre Verhältnisse.</span>' : '');
       var html = '<div class="grp_views">' + views.map(function(v) {
-          return '<button class="grp_view_btn' + (view == v[0] ? ' active' : '') + '" onclick="window.grpView=\'' + v[0] + '\'; window.drawGroups();">' + v[1] + '</button>';
+          return '<button class="grp_view_btn' + (view == v[0] ? ' active' : '') + '" onclick="window.grpView=\'' + v[0] + '\'; window.grpSel=null; window.drawGroups();">' + v[1] + '</button>';
       }).join('') + '</div>' +
-          '<svg id="grp_graph" class="grp" role="img" aria-label="Netzwerk der Interessengruppen und Bewegungen"></svg>' +
-          '<div class="econ_legend grp_legend">' +
-          (view == 'links' ? '<span>Verhältnis:</span>' + GRP_REL.map(function(s) { return swatch(s[2], s[1]); }).join('') +
-                             '<span>Nähe zu einer Partei = warm. Tippe ' + partyName.spd + ' an für ihre Verhältnisse.</span>'
-           : '<span><span class="grp_line pos"></span>stärkt</span><span><span class="grp_line neg"></span>schwächt</span><span>kräftig = Gruppe stärker als gewöhnlich</span></div>' +
-             '<div class="econ_legend grp_legend"><span>Unmut der Strömung:</span>' + GRP_DIS.map(function(s) { return swatch(GRP_REL[s[2]][2], s[1]); }).join('')) +
-          '</div><div class="econ_legend grp_legend"><span>Größe = Stärke (' + partyName.spd + ' und Parteien: Umfragewert).</span>' + GRP.CAMPS.map(function(c, i) {
-              return '<span><span class="econ_swatch grp_c' + (i + 1) + '"></span>' + c.name + '</span>';
-          }).join('') + '</div>' +
+          '<svg id="grp_graph" class="grp" role="img" aria-label="Parteien, Strömungen und Gruppen"></svg>' +
+          '<div class="econ_legend grp_legend">' + legend + '<span>Größe = Stärke</span></div>' +
           '<div id="grp_card" class="grp_card"></div>';
 
-      // Liste nach Lagern
-      html += '<h3 class="poll_heading">Alle Gruppen nach Lagern</h3><p class="poll_note">Balken = Stärke, Pfeil = Konjunktur, rechts das Verhältnis ' + zur + '. Klicke für Details.</p>';
-      GRP.CAMPS.forEach(function(c, ci) {
-          var rows = G.filter(function(d) { return d.g.camp == c.id; });
-          if (!rows.length) return;
-          html += '<div class="grp_camp_head"><span class="econ_swatch grp_c' + (ci + 1) + '"></span>' + c.name + '</div>';
-          rows.forEach(function(d) {
-              var rel = grpRel(d.r);
-              html += '<div class="grp_row' + (d.a ? '' : ' inactive') + (window.grpSel == d.id ? ' sel' : '') + '" onclick="window.grpSel=\'' + d.id + '\'; window.drawGroups();" title="' +
-                  grpEsc(d.g.name + ': Stärke ' + grpStep(GRP_STR, d.s)[1] + ', Verhältnis ' + rel[1]) + '">' +
-                  '<span class="grp_rname">' + grpEsc(d.g.short) + (d.a ? '' : ' <i>(kaum aktiv)</i>') + '</span>' +
-                  '<span class="grp_bar"><span class="grp_c' + (ci + 1) + '" style="width:' + Math.max(1, Math.min(100, d.s)) + '%"></span></span>' +
-                  '<span class="grp_trend ' + (d.m > 0.4 ? 'up' : d.m < -0.4 ? 'down' : '') + '">' + (trendTxt(d.m) || '►') + '</span>' +
-                  '<span class="grp_rel" style="color:' + rel[2] + '">' + rel[1] + '</span></div>';
-          });
+      // Übersicht mit Überschriften wie die übrigen Abschnitte des Reiters; Klick wählt in der Grafik aus
+      var row = function(key, v, name, cells, extra) {
+          return '<div class="grp_row' + (extra || '') + (window.grpSel == key ? ' sel' : '') + '" onclick="window.grpView=\'' + v + '\'; window.grpSel=\'' + key + '\'; window.drawGroups();">' +
+              '<span class="grp_rname">' + name + '</span>' + cells + '</div>';
+      };
+      var relCell = function(r) { var s = grpRel(r); return '<span class="grp_rel" style="color:' + s[2] + '">' + s[1] + '</span>'; };
+      html += '<h1>Parteien</h1><p class="poll_note">Umfragewert und Verhältnis ' + zur + '.</p>';
+      GRP_PARTIES.forEach(function(p) {
+          html += row('p:' + p, 'parties', partyName[p], '<span class="grp_val">' + econNum(votes(p), 0) + ' %</span>' + (Q[p + '_relation'] !== undefined ? relCell(Q[p + '_relation']) : ''));
+      });
+      html += '<h1>Strömungen</h1><p class="poll_note">Stärke in ' + (Q.pp_dat || 'der Partei') + ' und Unmut.</p>';
+      facs.forEach(function(f) {
+          var dis = grpDis(Q[f[0] + '_dissent'] || 0);
+          html += row('f:' + f[0], 'facs', grpEsc(facName[f[0]]), '<span class="grp_val">' + grpStep(GRP_FSTR, Q[f[0] + '_strength'] || 0)[1] + '</span>' +
+              '<span class="grp_rel" style="color:' + dis[2] + '">Unmut ' + dis[1] + '</span>');
+      });
+      html += '<h1>Gruppen</h1><p class="poll_note">Balken = Stärke, Pfeil = Konjunktur, rechts das Verhältnis ' + zur + '.</p>';
+      G.forEach(function(d) {
+          html += row(d.id, 'groups', grpEsc(d.g.short) + (d.a ? '' : ' <i>(kaum aktiv)</i>'),
+              '<span class="grp_bar"><span style="background:' + d.g.color + ';width:' + Math.max(1, Math.min(100, d.s)) + '%"></span></span>' +
+              '<span class="grp_trend ' + (d.m > 0.4 ? 'up' : d.m < -0.4 ? 'down' : '') + '">' + (trendTxt(d.m) || '►') + '</span>' + relCell(d.r), d.a ? '' : ' inactive');
       });
       html += '<p class="poll_note">Stärke: Mitglieder, Mobilisierung und Durchsetzungskraft im Verhältnis zueinander (Spielmodell). Sie folgt Wirtschaftslage, Ereignissen und Politik und hat eine eigene Konjunktur. Starke Gruppen verschieben die Strömungen ' + (Q.pp_dat || '') + ' und machen manche Vorhaben leichter oder schwerer. Mit der Karte „Bündnisarbeit“ lässt sich das Verhältnis gezielt verbessern oder auf Abstand gehen.</p>';
       box.innerHTML = html;
 
       // Zeichnen
       var svg = d3.select('#grp_graph').attr('width', W).attr('height', H).attr('viewBox', '0 0 ' + W + ' ' + H);
-      svg.append('circle').attr('class', 'grp_ring').attr('cx', cx).attr('cy', cy).attr('r', R);
+      if (view != 'parties') svg.append('circle').attr('class', 'grp_ring').attr('cx', cx).attr('cy', cy).attr('r', R);
       var eg = svg.append('g');
       var path = function(e) {
           if (!e.curve) return 'M' + e.x1 + ',' + e.y1 + 'L' + e.x2 + ',' + e.y2;
@@ -855,14 +847,15 @@
           .attr('class', function(e) { return 'grp_edge ' + (e.col ? 'rel' : e.sign > 0 ? 'pos' : 'neg') + (e.own ? ' own' : ''); })
           .style('stroke', function(e) { return e.col || null; })
           .attr('d', path).attr('stroke-width', function(e) { return e.w; }).attr('stroke-opacity', function(e) { return e.o; });
-      // Spielerpartei und Strömungen
+      // Knoten je Ansicht: Parteien, oder Gruppen (mit Strömungen), die Spielerpartei immer in der Mitte und zuletzt (oben)
       var ng = svg.append('g');
       var nodes = [];
-      // je Ansicht nur die nötigen Knoten: Strömungen beim Einfluss, andere Parteien bei den Verhältnissen
-      if (view == 'infl') facs.forEach(function(f) { nodes.push({key: 'f:' + f[0], f: f[0], x: facPos[f[0]].x, y: facPos[f[0]].y, kind: 'fac'}); });
-      if (view == 'links') parties.forEach(function(o) { nodes.push({key: 'p:' + o.p, p: o.p, x: o.x, y: o.y, kind: 'party', o: o}); });
-      G.forEach(function(d) { nodes.push({key: d.id, d: d, x: d.x, y: d.y, kind: 'group'}); });
-      nodes.push({key: 'player', x: cx, y: cy, kind: 'player'}); // zuletzt, damit die Mitte oben liegt
+      if (view == 'parties') parties.forEach(function(o) { nodes.push({key: 'p:' + o.p, p: o.p, x: o.x, y: o.y, kind: 'party', o: o}); });
+      else {
+          if (view == 'facs') facs.forEach(function(f) { nodes.push({key: 'f:' + f[0], f: f[0], x: facPos[f[0]].x, y: facPos[f[0]].y, kind: 'fac'}); });
+          G.forEach(function(d) { nodes.push({key: d.id, d: d, x: d.x, y: d.y, kind: 'group'}); });
+      }
+      nodes.push({key: 'player', x: cx, y: cy, kind: 'player'});
       var nodeSel = ng.selectAll(null).data(nodes).enter().append('g')
           .attr('class', function(nd) { return 'grp_node ' + nd.kind + (nd.d && !nd.d.a ? ' inactive' : ''); })
           .attr('transform', function(nd) { return 'translate(' + nd.x + ',' + nd.y + ')'; })
@@ -883,18 +876,21 @@
               var sz = nd.o.sz;
               g.append('rect').attr('x', -sz).attr('y', -sz).attr('width', 2 * sz).attr('height', 2 * sz).attr('rx', 2)
                   .attr('class', 'grp_party ' + nd.p).attr('fill', partyColor[nd.p]);
-              g.append('text').attr('class', 'grp_party_label').attr('y', sz + 9).attr('text-anchor', 'middle').text(partyName[nd.p]);
+              g.append('text').attr('class', 'grp_party_label').attr('y', sz + 11).attr('text-anchor', 'middle').text(partyName[nd.p]);
           } else {
-              var d = nd.d, ci = camps[d.g.camp].k;
-              g.append('circle').attr('r', d.rad).attr('class', 'grp_dot grp_c' + ci);
+              var d = nd.d;
+              g.append('circle').attr('r', d.rad).attr('class', 'grp_dot').attr('fill', d.g.color);
               var sin = Math.sin(d.ang), cos = Math.cos(d.ang);
-              var lx = sin * (d.rad + 4), ly = -cos * (d.rad + 4);
+              var lines = grpLines(d.g.short), tr = trendTxt(d.m);
               var anchor = Math.abs(sin) < 0.3 ? 'middle' : sin > 0 ? 'start' : 'end';
-              var t = g.append('text').attr('class', 'grp_label').attr('x', lx).attr('y', ly)
-                  .attr('dy', cos > 0.3 ? '-0.2em' : cos < -0.3 ? '0.9em' : '0.35em').attr('text-anchor', anchor);
-              t.append('tspan').text(d.g.short);
-              var tr = trendTxt(d.m);
-              if (tr) t.append('tspan').attr('class', 'grp_arrow ' + (d.m > 0 ? 'up' : 'down')).text(' ' + tr);
+              var lx = sin * (d.rad + 4), ly = -cos * (d.rad + 4);
+              // oben: Text über dem Punkt endet am Punkt, unten beginnt er dort
+              var dy0 = cos > 0.3 ? -(lines.length - 1) * 1.1 - 0.2 : cos < -0.3 ? 0.9 : 0.35 - (lines.length - 1) * 0.55;
+              var t = g.append('text').attr('class', 'grp_label').attr('y', ly).attr('text-anchor', anchor);
+              lines.forEach(function(line, i) {
+                  var ts = t.append('tspan').attr('x', lx).attr('dy', (i == 0 ? dy0 : 1.1) + 'em').text(line);
+                  if (tr && i == lines.length - 1) t.append('tspan').attr('class', 'grp_arrow ' + (d.m > 0 ? 'up' : 'down')).text(' ' + tr);
+              });
           }
       });
 
@@ -916,13 +912,12 @@
           var el = document.getElementById('grp_card');
           if (!el) return;
           if (!key) {
-              el.innerHTML = '<span class="poll_note">Zeige auf einen Kreis oder tippe ihn an: Stärke, Verhältnis ' + zur + ' und Beschreibung.' +
-                  (view == 'links' ? ' Tippe ' + partyName.spd + ' an, um ihre Verhältnisse zu Gruppen und Parteien zu sehen.' : '') + '</span>';
+              el.innerHTML = '<span class="poll_note">Zeige auf einen Kreis oder tippe ihn an: Stärke, Verhältnis ' + zur + ' und Beschreibung.</span>';
               return;
           }
           var h = '';
           if (byId[key]) {
-              var d = byId[key], g = d.g, ci = camps[g.camp].k;
+              var d = byId[key], g = d.g;
               var infl = g.infl[P] || {}, up = [], down = [];
               for (var f in infl) if (facName[f]) (infl[f] > 0 ? up : down).push(facName[f]);
               var near = (g.parties || []).map(function(pn) { return partyName[GRP.slot(Q, pn)]; });
@@ -938,8 +933,8 @@
               else if (opp.length) txt += ' Im Konflikt mit ' + grpList(opp) + '.';
               if (up.length || down.length) txt += ' In ' + (Q.pp_dat || 'der Partei') + ' ' + (up.length ? 'stärkt sie ' + grpList(up) : '') + (up.length && down.length ? ' und ' : '') +
                   (down.length ? 'schwächt ' + grpList(down) : '') + (d.s > g.base + 5 ? ', derzeit spürbar, weil sie stärker ist als gewöhnlich' : '') + '.';
-              h = '<div class="grp_card_head"><span class="econ_swatch grp_c' + ci + '"></span><b>' + grpEsc(g.name) + '</b></div>' +
-                  '<div class="poll_note">' + camps[g.camp].name + (d.a ? '' : ', derzeit kaum aktiv') + '</div>' +
+              h = '<div class="grp_card_head"><span class="econ_swatch" style="background:' + g.color + '"></span><b>' + grpEsc(g.name) + '</b></div>' +
+                  (d.a ? '' : '<div class="poll_note">derzeit kaum aktiv</div>') +
                   '<div class="grp_card_stats">' + stat('Stärke:', '<b>' + grpStep(GRP_STR, d.s)[1] + '</b>, ' + trendWord(d.m)) + relTo(d.r) + '</div>' +
                   '<p class="grp_card_text">' + grpEsc(txt) + '</p>';
           } else if (key.slice(0, 2) == 'f:') {
@@ -952,14 +947,14 @@
               var ftxt = (GRP.FAC_DESC[P] || {})[fk] || '';
               if (fk == 'reformist' && P == 'spd' && Q.spd_prussia) ftxt += ' In den SPD-geführten Ländern haben sie großen Einfluss.'; // wie in der Bibliothek
               var ext = (up2.length ? 'Von außen gestärkt durch ' + grpList(up2) : '') + (up2.length && down2.length ? ', geschwächt durch ' : down2.length ? 'Von außen geschwächt durch ' : '') + grpList(down2);
-              h = '<div class="grp_card_head"><b>' + grpEsc(facName[fk]) + '</b></div><div class="poll_note">Strömung ' + (Q.pp_dat || '') + '</div>' +
+              h = '<div class="grp_card_head"><b>' + grpEsc(facName[fk] || fk) + '</b></div><div class="poll_note">Strömung ' + (Q.pp_dat || '') + '</div>' +
                   '<div class="grp_card_stats">' + stat('Stärke:', '<b>' + grpStep(GRP_FSTR, Q[fk + '_strength'] || 0)[1] + '</b>') + stat('Unmut:', grpWord(dis[1], dis[2])) + '</div>' +
                   '<p class="grp_card_text">' + grpEsc(ftxt) + (ext ? ' <span class="poll_note">' + grpEsc(ext) + '.</span>' : '') + '</p>';
           } else if (key.slice(0, 2) == 'p:') {
               var pk = key.slice(2), o = parties.filter(function(x) { return x.p == pk; })[0];
               h = '<div class="grp_card_head"><b>' + partyName[pk] + '</b></div>' +
                   '<div class="grp_card_stats">' + stat('Umfrage:', '<b>' + econNum(votes(pk), 0) + ' %</b>') + (Q[pk + '_relation'] !== undefined ? relTo(Q[pk + '_relation']) : '') + '</div>' +
-                  '<p class="grp_card_text">Nahestehende Gruppen: ' + grpList(o.members.map(function(id) { return byId[id].g.short; })) + '.</p>';
+                  (o.members.length ? '<p class="grp_card_text">Nahestehende Gruppen: ' + grpList(o.members.map(function(id) { return byId[id].g.short; })) + '.</p>' : '');
           } else {
               var act = G.filter(function(d) { return d.a; });
               var good = act.filter(function(d) { return d.r >= 54.9; }), bad = act.filter(function(d) { return d.r < 29.9; });
@@ -967,8 +962,7 @@
               var dis2 = grpDis(Q.dissent_percent || 0);
               h = '<div class="grp_card_head"><b>' + grpEsc(Q.pp_Full || partyName.spd) + '</b></div>' +
                   '<div class="grp_card_stats">' + stat('Umfrage:', '<b>' + econNum(votes('spd'), 0) + ' %</b>') + stat('Unmut in der Partei:', grpWord(dis2[1], dis2[2])) + '</div>' +
-                  '<p class="grp_card_text">Gutes Verhältnis (warm oder besser): ' + names(good) + '. Schlechtes Verhältnis (kalt oder schlechter): ' + names(bad) + '.' +
-                  (view == 'links' ? '' : ' Die Linien zu den Strömungen zeigen ihren Unmut.') + '</p>';
+                  '<p class="grp_card_text">Gutes Verhältnis (warm oder besser): ' + names(good) + '. Schlechtes Verhältnis (kalt oder schlechter): ' + names(bad) + '.</p>';
           }
           el.innerHTML = h;
       };
