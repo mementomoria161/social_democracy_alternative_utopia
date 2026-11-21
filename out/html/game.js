@@ -768,7 +768,7 @@
       var edges = [];
       var view = window.grpView == 'infl' ? 'infl' : 'links';
       var relEdge = function(a, b, x1, y1, x2, y2, r, w, extra) {
-          var e = {a: a, b: b, x1: x1, y1: y1, x2: x2, y2: y2, col: grpRel(r)[2], cold: r < 39.9, w: w, o: 0.8};
+          var e = {a: a, b: b, x1: x1, y1: y1, x2: x2, y2: y2, col: grpRel(r)[2], w: w, o: 0.8};
           for (var key in extra) e[key] = extra[key];
           edges.push(e);
       };
@@ -786,8 +786,7 @@
           // Unmut der Strömungen gegenüber der Parteiführung
           facs.forEach(function(f) {
               var dis = Q[f[0] + '_dissent'] || 0;
-              edges.push({a: 'player', b: 'f:' + f[0], x1: cx, y1: cy, x2: facPos[f[0]].x, y2: facPos[f[0]].y, col: grpDis(dis)[2],
-                          cold: dis >= 30.999, w: 2.5 * k, o: 0.9});
+              edges.push({a: 'player', b: 'f:' + f[0], x1: cx, y1: cy, x2: facPos[f[0]].x, y2: facPos[f[0]].y, col: grpDis(dis)[2], w: 2.5 * k, o: 0.9});
           });
       } else {
           GRP.links.forEach(function(l) {
@@ -809,16 +808,16 @@
 
       // HTML-Gerüst
       var views = [['infl', 'Einfluss auf die Strömungen'], ['links', 'Verhältnisse']];
-      var swatch = function(col, txt, cold) { return '<span><span class="grp_line' + (cold ? ' cold' : '') + '" style="border-top-color:' + col + '"></span>' + txt + '</span>'; };
+      var swatch = function(col, txt) { return '<span><span class="grp_line" style="border-top-color:' + col + '"></span>' + txt + '</span>'; };
       var html = '<div class="grp_views">' + views.map(function(v) {
           return '<button class="grp_view_btn' + (view == v[0] ? ' active' : '') + '" onclick="window.grpView=\'' + v[0] + '\'; window.drawGroups();">' + v[1] + '</button>';
       }).join('') + '</div>' +
           '<svg id="grp_graph" class="grp" role="img" aria-label="Netzwerk der Interessengruppen und Bewegungen"></svg>' +
           '<div class="econ_legend grp_legend">' +
-          (view == 'links' ? '<span>Verhältnis:</span>' + GRP_REL.map(function(s) { return swatch(s[2], s[1], s[0] < 40); }).join('') +
+          (view == 'links' ? '<span>Verhältnis:</span>' + GRP_REL.map(function(s) { return swatch(s[2], s[1]); }).join('') +
                              '<span>Nähe zu einer Partei = warm. Tippe ' + partyName.spd + ' an für ihre Verhältnisse.</span>'
            : '<span><span class="grp_line pos"></span>stärkt</span><span><span class="grp_line neg"></span>schwächt</span><span>kräftig = Gruppe stärker als gewöhnlich</span></div>' +
-             '<div class="econ_legend grp_legend"><span>Unmut der Strömung:</span>' + GRP_DIS.map(function(s) { return swatch(GRP_REL[s[2]][2], s[1], s[0] > 31); }).join('')) +
+             '<div class="econ_legend grp_legend"><span>Unmut der Strömung:</span>' + GRP_DIS.map(function(s) { return swatch(GRP_REL[s[2]][2], s[1]); }).join('')) +
           '</div><div class="econ_legend grp_legend"><span>Größe = Stärke (' + partyName.spd + ' und Parteien: Umfragewert).</span>' + GRP.CAMPS.map(function(c, i) {
               return '<span><span class="econ_swatch grp_c' + (i + 1) + '"></span>' + c.name + '</span>';
           }).join('') + '</div>' +
@@ -853,7 +852,7 @@
           return 'M' + e.x1 + ',' + e.y1 + 'Q' + (mx + 0.45 * (cx - mx)) + ',' + (my + 0.45 * (cy - my)) + ' ' + e.x2 + ',' + e.y2;
       };
       var edgeSel = eg.selectAll(null).data(edges).enter().append('path')
-          .attr('class', function(e) { return 'grp_edge ' + (e.col ? 'rel' + (e.cold ? ' cold' : '') : e.sign > 0 ? 'pos' : 'neg') + (e.own ? ' own' : ''); })
+          .attr('class', function(e) { return 'grp_edge ' + (e.col ? 'rel' : e.sign > 0 ? 'pos' : 'neg') + (e.own ? ' own' : ''); })
           .style('stroke', function(e) { return e.col || null; })
           .attr('d', path).attr('stroke-width', function(e) { return e.w; }).attr('stroke-opacity', function(e) { return e.o; });
       // Spielerpartei und Strömungen

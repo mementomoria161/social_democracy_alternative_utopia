@@ -76,7 +76,7 @@ subtitle: -1 Haushaltsspielraum
 view-if: kp_ee = 1
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
-on-arrival: kp_ee = 2; budget -= 1; coalition_dissent += 1 if union_in_government or fdp_in_government; gr_klima += 4; gr_eigentuemer -= 5; new_middle_spd += 1*(1-dissent); old_middle_spd -= 0.5; shock_energie += 0.7; shock_bau += 0.5
+on-arrival: kp_ee = 2; budget -= 1; coalition_dissent += 1 if union_in_government or fdp_in_government; gr_klima += 4; gr_bda -= 2.5; new_middle_spd += 1*(1-dissent); old_middle_spd -= 0.5; shock_energie += 0.7; shock_bau += 0.5
 
 Jedes neue Dach bekommt Solarmodule, alte Windräder werden durch leistungsstärkere ersetzt, und vor den Küsten werden zusätzliche Flächen ausgeschrieben. Eigentümerverbände klagen über die Solarpflicht, Handwerk und Industrie freuen sich über volle Auftragsbücher.
 
@@ -120,7 +120,7 @@ subtitle: -1 Haushaltsspielraum. Eigentümerverbände protestieren.
 view-if: kp_waerme <= 0
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
-on-arrival: kp_waerme = 1; budget -= 1; coalition_dissent += 1 if union_in_government; gr_eigentuemer -= 8; gm_eigentuemer += 2; gr_mieter += 5; gr_klima += 5; gr_vdk += 3; old_middle_spd -= 1.5; rentner_spd -= 1; workers_spd += 1*(1-dissent); new_middle_spd += 1.5*(1-dissent); shock_bau += 0.4; left_dissent -= 2; reformist_dissent += 2
+on-arrival: kp_waerme = 1; budget -= 1; coalition_dissent += 1 if union_in_government; gr_bda -= 4; gm_bda += 1; gr_vdk += 5; gr_klima += 5; old_middle_spd -= 1.5; rentner_spd -= 1; workers_spd += 1*(1-dissent); new_middle_spd += 1.5*(1-dissent); shock_bau += 0.4; left_dissent -= 2; reformist_dissent += 2
 
 Neue Heizungen sollen zu 65 Prozent mit erneuerbarer Energie laufen, aber wer wenig verdient, bekommt bis zu 70 Prozent der Wärmepumpe bezahlt. Vermieter\*innen dürfen die Kosten nur begrenzt auf die Miete umlegen. Der Mieterbund lobt die Regeln, Haus & Grund spricht von „Enteignung durch die Hintertür“.
 
@@ -130,7 +130,7 @@ subtitle: -2 Haushaltsspielraum (mit dem Sondervermögen Infrastruktur -1)
 view-if: kp_waerme = 1
 choose-if: budget >= 2 or (sondervermoegen = 2 and budget >= 1)
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
-on-arrival: kp_waerme = 2; budget -= 2 if sondervermoegen != 2 else budget -= 1; shock_bau += 1; gr_eigentuemer += 3; gr_mieter += 3; gr_klima += 3; workers_spd += 1*(1-dissent); new_middle_spd += 1*(1-dissent)
+on-arrival: kp_waerme = 2; budget -= 2 if sondervermoegen != 2 else budget -= 1; shock_bau += 1; gr_bda += 1.5; gr_vdk += 3; gr_klima += 3; workers_spd += 1*(1-dissent); new_middle_spd += 1*(1-dissent)
 
 Stadtwerke bauen Fernwärme aus Abwärme, Großwärmepumpen und Geothermie aus, der Bund übernimmt einen Großteil der Kosten. Dazu kommt ein Sanierungsprogramm für die schlechtesten Gebäude. Das Bauhandwerk sucht händeringend Fachkräfte.
 
@@ -138,7 +138,7 @@ Stadtwerke bauen Fernwärme aus Abwärme, Großwärmepumpen und Geothermie aus, 
 title: Dem Druck nachgeben und das Heizungsgesetz entschärfen.
 subtitle: Entlastet die Koalition, verärgert Umweltverbände und die eigene Linke.
 view-if: kp_waerme >= 0 and kp_waerme < 2 and (union_in_government or fdp_in_government)
-on-arrival: kp_waerme = -1; coalition_dissent -= 1 if coalition_dissent >= 1; union_relation += 4; fdp_relation += 2; gr_eigentuemer += 10; gr_klima -= 10; left_dissent += 4; old_middle_spd += 1*(1-dissent); rentner_spd += 0.5*(1-dissent); new_middle_spd -= 1.5
+on-arrival: kp_waerme = -1; coalition_dissent -= 1 if coalition_dissent >= 1; union_relation += 4; fdp_relation += 2; gr_bda += 5; gr_klima -= 10; left_dissent += 4; old_middle_spd += 1*(1-dissent); rentner_spd += 0.5*(1-dissent); new_middle_spd -= 1.5
 
 Die 65-Prozent-Regel fällt, neue Gasheizungen bleiben erlaubt, wenn sie „wasserstofffähig“ sind. Die Koalitionspartner sind zufrieden. Umweltverbände sprechen von einer „Kostenfalle für Mieter\*innen“, wenn der CO2-Preis steigt, und kündigen Klagen an.
 
@@ -251,7 +251,7 @@ Der Bund garantiert den Bau des Wasserstoff-Kernnetzes und fördert Elektrolyseu
 title: Einen verlässlich steigenden CO2-Preis festschreiben.
 subtitle: Bringt Einnahmen (+1 Haushaltsspielraum ohne Klimageld), belastet Heizen und Tanken.
 view-if: kp_co2 <= 0
-on-arrival: kp_co2 = 1; budget += 1 if kp_klimageld = 0; coalition_dissent += 1 if union_in_government; rentner_spd -= 1.5; rural_spd -= 2; workers_spd -= 1; new_middle_spd += 1*(1-dissent); gr_eigentuemer -= 6; gr_klima += 6; gr_bda -= 2; fdp_relation += 2; left_dissent += 2 if kp_klimageld = 0
+on-arrival: kp_co2 = 1; budget += 1 if kp_klimageld = 0; coalition_dissent += 1 if union_in_government; rentner_spd -= 1.5; rural_spd -= 2; workers_spd -= 1; new_middle_spd += 1*(1-dissent); gr_bda -= 3; gr_klima += 6; fdp_relation += 2; left_dissent += 2 if kp_klimageld = 0
 
 Ein Mindestpreis mit festem Anstiegspfad gibt Planungssicherheit: Wer heute eine Heizung oder ein Auto kauft, weiß, was Öl und Benzin in zehn Jahren kosten. Ökonom\*innen loben das Instrument, Sozialverbände warnen: Ohne Ausgleich zahlen die Ärmsten drauf.
 

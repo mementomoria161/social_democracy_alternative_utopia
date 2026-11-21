@@ -41,7 +41,7 @@ view-if: spd_in_government
 subtitle: -1 Haushaltsspielraum.
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
-on-arrival: budget -= 1; gr_klima += 5; gr_eigentuemer -= 3; new_middle_spd += 1*(1-dissent); rural_spd += 1*(1-dissent); pro_republic += 1; coalition_dissent += 1 if fdp_in_government
+on-arrival: budget -= 1; gr_klima += 5; gr_bda -= 1.5; new_middle_spd += 1*(1-dissent); rural_spd += 1*(1-dissent); pro_republic += 1; coalition_dissent += 1 if fdp_in_government
 
 Neben Soforthilfen beschließen wir eine Pflichtversicherung gegen Elementarschäden, Hitzeschutzpläne für Städte, Kliniken und Pflegeheime und mehr Geld für Deiche, Auen und Entsiegelung. Eigentümerverbände klagen über die Versicherungskosten.
 

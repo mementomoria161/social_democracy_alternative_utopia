@@ -535,7 +535,7 @@ if (Q.month_actions >= 1) {
         var grr = Q.g_rechts || 0;
         if (grr > 45 && afd_opp) shift('Starke rechte Mobilisierung', Math.min(0.04, 0.01 * (grr - 45) / 10 + 0.005), not(['afd']), ['afd']);
         if (grr < 25 && afd_opp) shift('Schwache rechte Mobilisierung', Math.min(0.03, 0.01 * (25 - grr) / 10 + 0.005), ['afd'], not(['afd']));
-        if (Q.ga_mieter && Q.g_mieter > 55) shift('Mieten- und Sozialproteste', Math.min(0.03, 0.01 * (Q.g_mieter - 55) / 10), gov, ['spd', 'linke', 'sapd'].filter(function(p) { return gov.indexOf(p) < 0; }));
+        if (Q.ga_vdk && Q.g_vdk > 70) shift('Sozialproteste', Math.min(0.03, 0.01 * (Q.g_vdk - 70) / 10), gov, ['spd', 'linke', 'sapd'].filter(function(p) { return gov.indexOf(p) < 0; }));
         // 6. slow return to long-term camp strengths (about the mean of the elections 2017-2025, scaled to 100),
         //    only for the AI parties: the player's own result stays the player's achievement
         var LONG = {union: 28, afd: 19, gruene: 12, bsw: 3, fdp: 7, other: 5};

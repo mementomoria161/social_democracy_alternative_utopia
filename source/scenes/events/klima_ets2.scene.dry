@@ -5,7 +5,7 @@ tags: event
 view-if: year = 2027 and month >= 9 and chancellor_party != "AfD"
 max-visits: 1
 on-arrival: {!
-Q.klima_ets2_seen = 1; Q.gm_eigentuemer += 1;
+Q.klima_ets2_seen = 1; Q.gm_bda += 0.5;
 // ohne die Spielerpartei: eine Regierung mit der Union entlastet über die Stromsteuer (Koalitionsvertrag 2025)
 if (!Q.spd_in_government && Q.union_in_government) Q.stromsteuer_alle = 1;
 !}

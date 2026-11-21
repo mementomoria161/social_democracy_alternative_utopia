@@ -18,9 +18,7 @@ Stärke, Konjunktur und Verhältnis aller Gruppen zeigt der Reiter „Politik“
 
 - @w_dgb
 - @w_vdk
-- @w_mieter
 - @w_bda
-- @w_eigentuemer
 - @w_klima
 - @w_demo
 - @w_palaestina
@@ -36,9 +34,7 @@ Mit wem stattdessen?
 
 - @w_dgb
 - @w_vdk
-- @w_mieter
 - @w_bda
-- @w_eigentuemer
 - @w_klima
 - @w_demo
 - @w_palaestina
@@ -109,22 +105,15 @@ on-arrival: grp_target = "dgb"; grp_rel_now = gr_dgb
 go-to: aktion
 
 @w_vdk
-title: Sozialverbände (VdK, SoVD, Paritätischer)
-subtitle: Sozialverbände
+title: Sozialverbände und Sozialbewegungen (VdK, SoVD, Paritätischer, Mieterbund)
+subtitle: Sozialverbände und Sozialbewegungen
 view-if: ga_vdk = 1
 on-arrival: grp_target = "vdk"; grp_rel_now = gr_vdk
 go-to: aktion
 
-@w_mieter
-title: Mieter\*innen und Sozialproteste
-subtitle: Sozialverbände und Mieter\*innen
-view-if: ga_mieter = 1
-on-arrival: grp_target = "mieter"; grp_rel_now = gr_mieter
-go-to: aktion
-
 @w_bda
-title: Arbeitgeber- und Industrieverbände (BDA, BDI, VDA, Familienunternehmer)
-subtitle: Arbeitgeber und Wirtschaft
+title: Wirtschafts- und Eigentümerverbände (BDA, BDI, VDA, Familienunternehmer, Haus & Grund)
+subtitle: Wirtschaft und Eigentümer
 view-if: ga_bda = 1
 on-arrival: grp_target = "bda"; grp_rel_now = gr_bda
 go-to: aktion
@@ -171,9 +160,3 @@ view-if: ga_bauern = 1
 on-arrival: grp_target = "bauern"; grp_rel_now = gr_bauern
 go-to: aktion
 
-@w_eigentuemer
-title: Haus & Grund und Eigentümerverbände
-subtitle: Arbeitgeber und Wirtschaft
-view-if: ga_eigentuemer = 1
-on-arrival: grp_target = "eigentuemer"; grp_rel_now = gr_eigentuemer
-go-to: aktion

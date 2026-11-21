@@ -980,8 +980,7 @@ body.dark-mode { --grp-c4: #b08d5c; }
 .grp_ring { fill: none; stroke: currentColor; stroke-opacity: 0.12; stroke-dasharray: 2 4; }
 .grp_edge { fill: none; stroke-linecap: round; transition: stroke-opacity 0.15s; }
 .grp_edge.pos { stroke: var(--econ-pos); }
-.grp_edge.neg { stroke: var(--econ-neg); stroke-dasharray: 4 3; }
-.grp_edge.cold { stroke-dasharray: 5 3; }
+.grp_edge.neg { stroke: var(--econ-neg); }
 /* Verhältnis zur Spielerpartei: nur sichtbar, wenn sie oder die Gruppe gewählt ist */
 .grp_edge.own { display: none; }
 .grp_edge.own.hi { display: inline; }
@@ -1013,8 +1012,7 @@ body.dark-mode .grp_party.union { fill: #888; }
   vertical-align: middle;
   margin-right: 0.3em;
 }
-.grp_line.neg { border-top: 2px dashed var(--econ-neg); }
-.grp_line.cold { border-top-style: dashed; }
+.grp_line.neg { border-top-color: var(--econ-neg); }
 .grp_line { border-top-width: 3px; }
 .grp_card {
   border: 1px solid var(--unavailable-bg-color);

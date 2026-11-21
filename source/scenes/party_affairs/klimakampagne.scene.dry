@@ -44,7 +44,7 @@ title: Eine Kampagne „Klimaschutz, den sich alle leisten können“: Klimageld
 subtitle: -1 Ressourcen
 choose-if: resources >= 1
 unavailable-subtitle: Nicht genug Ressourcen.
-on-arrival: resources -= 1; gl_dgb_klima += 3; workers_spd += 1.5*(1-dissent); unemployed_spd += 1.5*(1-dissent); new_middle_spd += 1*(1-dissent); gr_vdk += 4; gr_klima += 4; gr_mieter += 3; left_dissent -= 2; labor_dissent -= 2; cl_pressure += 0.5
+on-arrival: resources -= 1; gl_dgb_klima += 3; workers_spd += 1.5*(1-dissent); unemployed_spd += 1.5*(1-dissent); new_middle_spd += 1*(1-dissent); gr_vdk += 4; gr_klima += 4; left_dissent -= 2; labor_dissent -= 2; cl_pressure += 0.5
 
 Wir rechnen vor, was der CO2-Preis eine Familie kostet und was sie mit Klimageld und Sozialtarifen zurückbekäme. Sozialverbände und Klimagruppen tragen die Kampagne gemeinsam, an Infoständen sprechen wir Menschen an, die mit „Klima“ sonst wenig anfangen können.
 

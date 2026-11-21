@@ -32,7 +32,7 @@ on-arrival: {!
 Q.budget -= 2;
 Q.kp_ee = Math.max(Q.kp_ee || 0, 1); Q.kp_waerme = Math.max(Q.kp_waerme || 0, 1); Q.kp_bahn = Math.max(Q.kp_bahn || 0, 1);
 if (Q.union_in_government || Q.fdp_in_government) Q.coalition_dissent += 1;
-Q.gr_klima += 6; Q.gr_eigentuemer -= 4;
+Q.gr_klima += 6; Q.gr_bda -= 2;
 Q.new_middle_spd += 1.5 * (1 - Q.dissent); Q.left_dissent -= 3;
 Q.shock_bau += 0.5; Q.shock_energie += 0.5;
 !}

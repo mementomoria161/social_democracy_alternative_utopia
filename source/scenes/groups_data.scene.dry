@@ -25,8 +25,8 @@ var ym = function(Q) { return Q.year * 12 + Q.month; };
 var GRP = {
     CAMPS: [
         {id: 'gew', name: 'Gewerkschaften'},
-        {id: 'sozial', name: 'Sozialverbände und Mieter*innen'},
-        {id: 'wirt', name: 'Arbeitgeber und Wirtschaft'},
+        {id: 'sozial', name: 'Sozialverbände und Sozialbewegungen'},
+        {id: 'wirt', name: 'Wirtschaft und Eigentümer'},
         {id: 'rechts', name: 'Rechte Mobilisierung und Bauernproteste'},
         {id: 'ges', name: 'Kirchen und Religionsgemeinschaften'},
         {id: 'zivil', name: 'Demokratie-, Friedens- und Solidaritätsbewegungen'},
@@ -58,11 +58,11 @@ var GRP = {
              if ((Q.inflation || 0) > 3) return 'deutliche Lohnerhöhungen zum Inflationsausgleich';
              return 'ein Bundestariftreuegesetz, mehr Tarifbindung und mehr Personal in Pflege und Kitas';
          }},
-        // Zusammengelegt (Nov. 2026): BDA/BDI, Auto- und Energiewirtschaft, Familienunternehmer und Handwerk (id bda)
-        {id: 'bda', name: 'Arbeitgeber- und Industrieverbände (BDA, BDI, VDA, Familienunternehmer)', short: 'Arbeitgeber', camp: 'wirt', base: 60, start: 62,
-         rel: {spd: 33, linke: 5}, parties: ['Union', 'FDP'], voters: ['old_middle'],
-         infl: {spd: {reformist: 0.8, left: -0.3}, linke: {left: 0.3}},
-         desc: 'Bundesvereinigung der Deutschen Arbeitgeberverbände, Bundesverband der Deutschen Industrie, der Verband der Automobilindustrie und die Verbände der Familienunternehmen und des Handwerks: Tarifgegner der Gewerkschaften und einflussreichste Lobby im Land. Sie verlangen Entlastung bei Steuern, Abgaben und Energiepreisen und lehnen eine Vermögensteuer ab.',
+        // Zusammengelegt (Nov. 2026): BDA/BDI, Auto- und Energiewirtschaft, Familienunternehmer und Handwerk, Haus & Grund (id bda)
+        {id: 'bda', name: 'Wirtschafts- und Eigentümerverbände (BDA, BDI, VDA, Familienunternehmer, Haus & Grund)', short: 'Wirtschaft', camp: 'wirt', base: 60, start: 62,
+         rel: {spd: 31, linke: 5}, parties: ['Union', 'FDP'], voters: ['old_middle'],
+         infl: {spd: {reformist: 0.9, left: -0.3}, linke: {left: 0.3, reformist: 0.1}},
+         desc: 'Bundesvereinigung der Deutschen Arbeitgeberverbände, Bundesverband der Deutschen Industrie, der Verband der Automobilindustrie, die Verbände der Familienunternehmen und des Handwerks sowie Haus & Grund mit rund 950 000 privaten Eigentümer*innen und Vermieter*innen: Tarifgegner der Gewerkschaften und einflussreichste Lobby im Land. Sie verlangen Entlastung bei Steuern, Abgaben und Energiepreisen, lehnen eine Vermögensteuer ab und kämpfen seit dem Streit um das Heizungsgesetz 2023 gegen Heizungsvorschriften, Sanierungspflichten und Mietenregulierung.',
          drive: function(Q, why) {
              var d = 0, g = Q.economic_growth || 0;
              if (g < 0) { d += Math.min(12, -4 * g); why.push('Rezession: Ruf nach Entlastung der Unternehmen'); }
@@ -72,25 +72,16 @@ var GRP = {
              if (Q.welfare > 1) { d += 4; why.push('steigende Sozialausgaben'); }
              if (Q.working_hours >= 1) { d += 4; why.push('neue Arbeitszeitregeln'); }
              if (Q.in_popular_front && Q.spd_in_government) { d += 8; why.push('Rot-Grün-Rot regiert'); }
-             return d;
-         },
-         demand: function(Q) { return (Q.economic_growth || 0) < 0.5 ? 'niedrigere Unternehmenssteuern, günstigen Industriestrom, ein Moratorium für Sozialabgaben und flexiblere Arbeitszeiten' : 'stabile Sozialabgaben unter 40 Prozent, keine Vermögensteuer und weniger Bürokratie'; }},
-        // Durchgang 4.6 (Klima): Eigentümerverbände gegen Heizungsgesetz und CO2-Preis
-        {id: 'eigentuemer', name: 'Haus & Grund und Eigentümerverbände', short: 'Haus & Grund', camp: 'wirt', base: 35, start: 38,
-         rel: {spd: 25, linke: 5}, parties: ['Union', 'FDP', 'AfD'], voters: ['old_middle', 'rentner'],
-         infl: {spd: {reformist: 0.4}, linke: {reformist: 0.1}},
-         desc: 'Haus & Grund mit rund 950 000 Mitgliedern und weitere Verbände privater Eigentümer*innen und Vermieter*innen. Seit dem Streit um das Heizungsgesetz 2023 laut gegen Heizungsvorschriften, Sanierungspflichten und einen steigenden CO2-Preis.',
-         drive: function(Q, why) {
-             var d = 0;
-             if (Q.kp_waerme >= 1) { d += 8 + 4 * (Q.kp_waerme - 1); why.push('Heizungsgesetz mit 65-Prozent-Regel'); }
-             if (Q.kp_waerme < 0) { d -= 8; why.push('Heizungsgesetz entschärft'); }
-             if (Q.kp_ee >= 2) { d += 3; why.push('Solarpflicht'); }
+             if (Q.kp_waerme >= 1) { d += 4 + 2 * (Q.kp_waerme - 1); why.push('Heizungsgesetz mit 65-Prozent-Regel'); }
+             if (Q.kp_waerme < 0) { d -= 4; why.push('Heizungsgesetz entschärft'); }
              var co2 = (Q.cl_price || [])[3] || 55;
-             if (co2 > 65) { d += Math.min(10, (co2 - 65) / 4); why.push('steigender CO2-Preis auf Heizöl und Gas'); }
-             if (Q.year == 2026 && Q.month <= 6 && Q.union_in_government) { d += 6; why.push('Streit um die Abschaffung des Heizungsgesetzes'); }
+             if (co2 > 65) { d += Math.min(5, (co2 - 65) / 8); why.push('steigender CO2-Preis auf Heizöl und Gas'); }
              return d;
          },
-         demand: function(Q) { return Q.kp_waerme >= 1 ? 'die 65-Prozent-Regel abschaffen und Sanierungen freiwillig fördern statt vorschreiben' : 'Technologieoffenheit beim Heizen und keinen weiteren Anstieg des CO2-Preises'; }},
+         demand: function(Q) {
+             if (Q.kp_waerme >= 1) return 'die 65-Prozent-Regel beim Heizen abschaffen, niedrigere Unternehmenssteuern und günstigen Industriestrom';
+             return (Q.economic_growth || 0) < 0.5 ? 'niedrigere Unternehmenssteuern, günstigen Industriestrom, ein Moratorium für Sozialabgaben und flexiblere Arbeitszeiten' : 'stabile Sozialabgaben unter 40 Prozent, keine Vermögensteuer und keine schärfere Mietpreisbremse';
+         }},
         {id: 'bauern', link: 'bauern', name: 'Bauern- und Mittelstandsproteste', short: 'Bauernproteste', camp: 'rechts', base: 40,
          rel: {spd: 15, linke: 10}, parties: ['Union', 'AfD', 'BSW'], voters: ['rural'],
          infl: {spd: {reformist: 0.3, neorevisionist: 0.3}, linke: {neorevisionist: 0.3}},
@@ -161,43 +152,31 @@ var GRP = {
              return d;
          },
          demand: function(Q) { return ym(Q) < 2025 * 12 + 10 ? 'einen sofortigen Waffenstillstand in Gaza und einen Stopp aller Rüstungsexporte nach Israel' : Q.ukraine_ceasefire_seen ? 'Abrüstung, zivile Konfliktprävention und humanitäre Hilfe für Gaza' : 'Verhandlungen statt Aufrüstung, keine neue Wehrpflicht und die Anerkennung Palästinas'; }},
-        // Zusammengelegt (Nov. 2026): Mieterbewegung und Bündnisse gegen Sozialabbau (id mieter)
-        {id: 'mieter', name: 'Mieter*innen und Sozialproteste', short: 'Mieten & Soziales', camp: 'sozial', base: 35, start: 36,
-         rel: {spd: 45, linke: 68}, parties: ['Linke', 'SPD', 'Grüne'], voters: ['workers', 'new_middle', 'unemployed'],
-         infl: {spd: {left: 0.7, labor: 0.2}, linke: {labor: 0.6, center: 0.6}},
-         desc: 'Der Deutsche Mieterbund, Mietervereine und Initiativen wie „Deutsche Wohnen & Co enteignen“, dazu Erwerbslosengruppen und lokale Bündnisse gegen Sozialabbau, die in Krisen auf die Straße gehen wie 2004 die Montagsdemonstrationen gegen Hartz IV. Die Angebotsmieten in den Großstädten sind seit 2015 um mehr als die Hälfte gestiegen.',
-         drive: function(Q, why) {
-             var d = 0, u = Q.unemployed || 0;
-             if (Q.mietenkampagne > 0) { d += 7 * Math.min(3, Q.mietenkampagne); why.push('Mieten-Kampagne der Linken'); }
-             if (Q.bau_offensive > 0) { d -= 4 * Math.min(2, Q.bau_offensive); why.push('Bau-Offensive entlastet'); }
-             if (Q.berlin_2026 == 2) { d += 4; why.push('Vergesellschaftungsdebatte in Berlin'); }
-             if ((Q.inflation || 0) > 3) { d += 4; why.push('hohe Preise'); }
-             if (u > 8) { d += Math.min(18, 5 * (u - 8)); why.push('Massenarbeitslosigkeit'); }
-             if (Q.welfare <= -2) { d += 6; why.push('Kürzungen bei Sozialleistungen'); }
-             if ((Q.inflation || 0) > 5) { d += 6; why.push('Inflation frisst die Grundsicherung auf'); }
-             return d;
-         },
-         demand: function(Q) { return (Q.unemployed || 0) > 8 || Q.welfare <= -2 ? 'keine Kürzungen in der Grundsicherung, ein Ende der Sanktionen und einen Mietenstopp' : 'einen bundesweiten Mietenstopp, eine scharfe Mietpreisbremse und mehr gemeinnützigen Wohnungsbau'; }},
-        {id: 'vdk', name: 'Sozialverbände (VdK, SoVD, Paritätischer)', short: 'VdK & Co.', camp: 'sozial', base: 55, start: 55,
-         rel: {spd: 60, linke: 55}, parties: ['SPD', 'Linke'], voters: ['rentner', 'unemployed'],
-         infl: {spd: {labor: 0.5, center: 0.4}, linke: {labor: 0.5, reformist: 0.3}},
-         desc: 'Der Sozialverband VdK ist mit über 2,3 Millionen Mitgliedern der größte Verband Deutschlands; mit SoVD und Paritätischem Wohlfahrtsverband die Lobby für Rentner*innen, Kranke und Arme.',
+        // Zusammengelegt (Nov. 2026): Sozialverbände, Mieterbewegung und Bündnisse gegen Sozialabbau (id vdk)
+        {id: 'vdk', name: 'Sozialverbände und Sozialbewegungen (VdK, SoVD, Paritätischer, Mieterbund)', short: 'Soziales', camp: 'sozial', base: 55, start: 56,
+         rel: {spd: 58, linke: 60}, parties: ['SPD', 'Linke'], voters: ['rentner', 'unemployed', 'workers'],
+         infl: {spd: {labor: 0.5, center: 0.3, left: 0.4}, linke: {labor: 0.6, center: 0.4, reformist: 0.2}},
+         desc: 'Der Sozialverband VdK ist mit über 2,3 Millionen Mitgliedern der größte Verband Deutschlands; mit SoVD und Paritätischem Wohlfahrtsverband die Lobby für Rentner*innen, Kranke und Arme. Dazu kommen der Deutsche Mieterbund, Mieterinitiativen wie „Deutsche Wohnen & Co enteignen“ und lokale Bündnisse gegen Sozialabbau, die in Krisen auf die Straße gehen wie 2004 die Montagsdemonstrationen gegen Hartz IV. Die Angebotsmieten in den Großstädten sind seit 2015 um mehr als die Hälfte gestiegen.',
          drive: function(Q, why) {
              var d = 0, u = Q.unemployed || 0;
              if (Q.welfare < 0) { d += Math.min(20, -6 * Q.welfare); why.push('Kürzungen bei Sozialleistungen'); }
-             if (u > 7) { d += Math.min(10, 2 * (u - 7)); why.push('steigende Arbeitslosigkeit'); }
+             if (u > 7) { d += Math.min(15, 3 * (u - 7)); why.push('steigende Arbeitslosigkeit'); }
              if (Q.year == 2025 && Q.month >= 10) { d += 6; why.push('Streit um Rentenpaket und Grundsicherung'); }
              if (Q.rentenkommission_seen && Q.year == 2026) { d += 4; why.push('Rentenkommission'); }
+             if (Q.mietenkampagne > 0) { d += 4 * Math.min(3, Q.mietenkampagne); why.push('Mieten-Kampagne der Linken'); }
+             if (Q.bau_offensive > 0) { d -= 3 * Math.min(2, Q.bau_offensive); why.push('Bau-Offensive entlastet'); }
+             if (Q.berlin_2026 == 2) { d += 3; why.push('Vergesellschaftungsdebatte in Berlin'); }
+             if ((Q.inflation || 0) > 3) { d += 4; why.push('hohe Preise'); }
              return d;
          },
-         demand: function(Q) { return 'ein Rentenniveau von mindestens 48 Prozent, keine Kürzungen beim Bürgergeld und eine Pflegereform'; }}
+         demand: function(Q) { return (Q.unemployed || 0) > 8 || Q.welfare <= -2 ? 'keine Kürzungen in der Grundsicherung, ein Ende der Sanktionen und einen Mietenstopp' : 'ein Rentenniveau von mindestens 48 Prozent, einen bundesweiten Mietenstopp und eine Pflegereform'; }}
     ],
     // Verhältnis zwischen zwei Gruppen: Startwert 0-100 auf derselben Skala wie Verhältnisse zu Parteien (qdisplays/relationships:
     // unter 5 feindselig ... ab 75 sehr freundlich). Ab 55 gilt das als Bündnis, unter 40 als Gegnerschaft (allied/opposed).
-    // Im Spiel veränderlich: Quality gl_<a>_<b> (Reihenfolge wie hier, z. B. gl_dgb_klima += 10), kehrt sehr langsam zum Startwert zurück.
+    // Im Spiel veränderlich: Quality gl_<a>_<b> (Reihenfolge wie hier, z. B. gl_dgb_klima += 10); ändert sich nur durch Handlungen im Spiel.
     links: [
-        ['dgb', 'bda', 25], ['dgb', 'vdk', 72], ['vdk', 'kirchen', 70], ['mieter', 'dgb', 68], ['mieter', 'vdk', 68],
-        ['bda', 'bauern', 65], ['bauern', 'rechts', 56], ['eigentuemer', 'bda', 72], ['eigentuemer', 'mieter', 8], ['eigentuemer', 'klima', 22],
+        ['dgb', 'bda', 25], ['dgb', 'vdk', 72], ['vdk', 'kirchen', 70], ['bda', 'vdk', 20],
+        ['bda', 'bauern', 65], ['bauern', 'rechts', 56],
         ['dgb', 'klima', 35], ['klima', 'bda', 15], ['klima', 'bauern', 28], ['klima', 'demo', 72],
         ['demo', 'rechts', 0], ['demo', 'kirchen', 72], ['demo', 'dgb', 75], ['israel', 'demo', 60], ['israel', 'rechts', 5],
         ['palaestina', 'israel', 3], ['palaestina', 'kirchen', 55], ['palaestina', 'klima', 58]
@@ -266,10 +245,10 @@ var GRP = {
         if (!Q.grp_hist) GRP.init(Q);
         if (Q.grp_party !== P) GRP.initRelations(Q);
         Q.grp_why = {};
-        // Verhältnisse zwischen Gruppen: fehlende anlegen (alte Spielstände), sonst sehr langsam zum Startwert zurück
+        // Verhältnisse zwischen Gruppen: fehlende anlegen (alte Spielstände). Sie ändern sich nur durch Handlungen im Spiel.
         GRP.links.forEach(function(l) {
-            var k = 'gl_' + l[0] + '_' + l[1], v = Q[k];
-            Q[k] = v === undefined ? l[2] : r1(clamp(v + 0.01 * (l[2] - v), 0, 100));
+            var k = 'gl_' + l[0] + '_' + l[1];
+            if (Q[k] === undefined) Q[k] = l[2];
         });
         var fac = {}, dis = {}, vot = {};
         GRP.groups.forEach(function(g) {
