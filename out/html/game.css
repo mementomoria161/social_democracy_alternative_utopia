@@ -1155,3 +1155,10 @@ body.dark-mode {
 .poll_overview .poll_stack { margin: 0.3em 0 0; }
 #poll_view .poll_bars, #poll_view #poll_graph { margin-bottom: 1.3em; }
 #poll_view .poll_why { margin: 0 0 1.3em; }
+
+/* Dropdown-Auswahllisten deckend (keine Transparenz) */
+select, select option, select optgroup {
+  background-color: var(--content-bg-color);
+  color: var(--text-color);
+  opacity: 1;
+}
