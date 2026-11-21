@@ -50,15 +50,11 @@ Klimakurs: [+ cl_status_text +]
 
 = Wirtschaft
 
-[+ month : month +] [+ year +]
-
 {!<div id="econ_view"></div>!}
 
 @klima
 
 = Klima und Energie
-
-[+ month : month +] [+ year +]
 
 {!<div id="klima_view"></div>!}
 
@@ -210,8 +206,6 @@ d3.select(svg).datum(rows.map(function(x) { return {id: x.id, legend: P[x.id][0]
 @paramilitaries
 
 = Gruppen und Bewegungen
-
-[+ month : month +] [+ year +]
 
 {!<div id="groups_view"></div>!}
 

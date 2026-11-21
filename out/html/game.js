@@ -376,7 +376,7 @@
               econNum(value, digits) + unit + '</div>' + trend + (note ? '<div class="econ_trend">' + note + '</div>' : '') + '</div>';
       };
       var html = '<div class="econ econ_tiles">' +
-          tile('Wachstum (Jahresrate)', now.growth, yearAgo.growth, ' %', 1, function(d) { return d > 0; }) +
+          tile('Wirtschaftswachstum', now.growth, yearAgo.growth, ' %', 1, function(d) { return d > 0; }) +
           tile('Arbeitslosenquote', now.unemployment, yearAgo.unemployment, ' %', 1, function(d) { return d < 0; }) +
           tile('Inflation', now.inflation, yearAgo.inflation, ' %', 1,
                function(d) { return Math.abs(now.inflation - 2) < Math.abs(now.inflation - d - 2); }) +
