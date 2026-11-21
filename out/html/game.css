@@ -1157,7 +1157,7 @@ body.dark-mode {
 #poll_view .poll_why { margin: 0 0 1.3em; }
 
 /* Dropdown-Auswahllisten deckend (keine Transparenz) */
-select, select option, select optgroup {
+select option, select optgroup {
   background-color: var(--content-bg-color);
   color: var(--text-color);
   opacity: 1;
