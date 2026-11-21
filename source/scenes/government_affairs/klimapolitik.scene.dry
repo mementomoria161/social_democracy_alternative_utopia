@@ -3,7 +3,11 @@ subtitle: Strom, Wärme, Verkehr, Industrie: Wie kommt Deutschland auf den Paris
 new-page: true
 is-card: true
 tags: govt_affairs, cabinet
-on-arrival: klimapolitik_timer = 4; month_actions += 1
+on-arrival: {!
+Q.klimapolitik_timer = 4; Q.month_actions += 1;
+if (!this.game.CLIM) this._runActions(this.game.scenes.climate_data.onArrival);
+Q.kp_summary = this.game.CLIM.measures(Q);
+!}
 view-if: spd_in_government = 1 and klimapolitik_timer <= 0
 card-image: img/windpark.jpg
 
@@ -16,7 +20,9 @@ Deutschland stößt derzeit rund [+ cl_total_i +] Millionen Tonnen Treibhausgase
 
 [? if union_in_government : Die Union will „Klimaschutz mit Augenmaß“: Industriestrom und Wasserstoff ja, Tempolimit, schärfere Heizungsregeln und ein früherer Kohleausstieg eher nicht. ?][? if gruene_in_government : Die Grünen drängen auf mehr Tempo und erinnern an das Heizungsgesetz von 2023: Ohne sozialen Ausgleich kippt die Stimmung. ?][? if fdp_in_government : Die FDP setzt auf den CO2-Preis und lehnt Tempolimit und neue Subventionen ab. ?][? if linke_in_government and player = "spd" : Die Linke will Klimaschutz vor allem sozial: Klimageld, Deutschlandticket, Wärmenetze in öffentlicher Hand. ?][? if linke_in_government and player = "linke" : Die SPD achtet auf Industriearbeitsplätze und die Kohleregionen. ?]
 
-Wo setzen wir an? Details zu Strommix, Preisen und Prognose zeigt der Reiter „Klima“.
+Bisher gilt: [+ kp_summary +]
+
+Wo setzen wir an? Verlauf und Prognose von Emissionen, Strommix und Preisen zeigt der Reiter „Klima“.
 
 - @strom: Strom: Kohleausstieg, Wind und Sonne, Netze.
 - @waerme: Wärme und Gebäude.

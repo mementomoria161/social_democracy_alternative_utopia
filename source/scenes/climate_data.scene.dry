@@ -108,6 +108,7 @@ var CLIM = {
         Q.cl_cum = Math.round(CLIM.co2Of(CLIM.START) * 10 / 12);
         Q.cl_proj = []; Q.cl_p2030 = 0; Q.cl_gap2030 = 0; Q.cl_budget_year = 0; Q.cl_status = 0; Q.cl_y2030 = 0;
         Q.cl_why = ['', '', '', '', '', '']; Q.cl_records = [];
+        Q.kp_summary = CLIM.measures(Q);
         ['kp_kohle', 'kp_kohle_t', 'kp_ee', 'kp_netz', 'kp_waerme', 'kp_bahn', 'kp_tempolimit', 'kp_eauto', 'kp_industrie', 'kp_h2',
          'kp_co2', 'kp_klimageld', 'stromsteuer_alle', 'cl_bremse', 'cl_pressure', 'duerre_year', 'flut_year', 'cl_gaskrise'].forEach(function(k) { if (Q[k] === undefined) Q[k] = 0; });
         if (Q.timers && Q.timers.indexOf('klimapolitik') < 0) Q.timers.push('klimapolitik', 'klimakampagne');
@@ -257,6 +258,23 @@ var CLIM = {
         CLIM.project(Q);
     },
     // Text für Status und Szenen
+    // Stand der Klimapolitik als kurzer Text für die Karte „Klimaschutz und Energie“ (früher Liste im Reiter „Klima“)
+    measures: function(Q) {
+        var M = [
+            ['Kohleausstieg', Q.kp_kohle ? '2030' : '2038 (Gesetz)'],
+            ['Wind und Solar', ['gebremst', 'Grundtempo', 'beschleunigt', 'Ausbauoffensive'][(Q.kp_ee || 0) + 1]],
+            ['Netze und Speicher', Q.kp_netz ? 'Ausbau beschlossen' : 'Grundtempo'],
+            ['Wärme und Gebäude', ['Heizungsgesetz entschärft', 'Gebäudeenergiegesetz', 'sozial gestaffelt', 'sozial gestaffelt, Wärmenetze'][(Q.kp_waerme || 0) + 1]],
+            ['Bahn', ['Status quo', 'Deutschlandticket gesichert', 'Schienenoffensive'][Q.kp_bahn || 0]],
+            ['Tempolimit', Q.kp_tempolimit ? '130 km/h' : 'keins'],
+            ['Autos', ['Verbrenner-Aus aufgeweicht', 'EU-Flottengrenzwerte', 'Social Leasing'][(Q.kp_eauto || 0) + 1]],
+            ['Industrie', ['Grundtempo', 'Klimaschutzverträge', 'Klimaschutzverträge, Industriestrompreis'][Q.kp_industrie || 0]],
+            ['Wasserstoff', Q.kp_h2 ? 'Kernnetz gefördert' : 'Grundtempo'],
+            ['CO2-Preis', ['gedeckelt', 'nach Gesetz', 'höherer Pfad'][(Q.kp_co2 || 0) + 1]],
+            ['Sozialer Ausgleich', Q.kp_klimageld ? 'Klimageld' : (Q.stromsteuer_alle ? 'Stromsteuer gesenkt' : 'keiner')]
+        ];
+        return M.map(function(m) { return m[0] + ': ' + m[1]; }).join('; ') + '.';
+    },
     statusText: function(Q) {
         return ['nicht auf Kurs', 'Ziel 2030 in Reichweite, Paris verfehlt', 'auf Paris-Kurs'][Q.cl_status || 0];
     }
