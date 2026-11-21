@@ -282,7 +282,7 @@ blockquote + blockquote.attribution {
     position: relative;
     max-width: 540px;
     margin: 100px auto;
-    background: rgba(50,50,50,0.7);
+    background: rgb(50,50,50);
     border: 2px solid;
     color: white;
 }
