@@ -38,8 +38,6 @@ Arbeitslosenquote: [+ unemployed_2 +] %
 
 Wirtschaftswachstum: [+ economic_growth_2 +] %
 
-Verlauf und Branchen im Reiter „Wirtschaft“.
-
 = Klima
 
 Treibhausgase: [+ cl_total_i +] Mio. t im Jahr (Ziel 2030: 438)
@@ -47,8 +45,6 @@ Treibhausgase: [+ cl_total_i +] Mio. t im Jahr (Ziel 2030: 438)
 Erneuerbare am Strom: [+ cl_ee_i +]%
 
 Klimakurs: [+ cl_status_text +]
-
-Emissionen, Strommix, Energiepreise und Prognose im Reiter „Klima“.
 
 @economy
 
