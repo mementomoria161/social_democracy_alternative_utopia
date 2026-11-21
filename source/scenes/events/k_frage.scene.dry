@@ -20,19 +20,17 @@ Olaf Scholz will wieder antreten. Doch in den Umfragen ist er der unbeliebteste 
 - @mitglieder: Die Mitglieder entscheiden lassen.
 
 @scholz
-subtitle: Geschlossenheit und Amtsbonus. Die Seeheimer murren.
 on-arrival: spd_candidate = "Scholz"; reformist_dissent += 5; center_dissent -= 3
 
 Pistorius erklärt in einem Video, er stehe nicht zur Verfügung; Olaf Scholz sei der richtige Kanzlerkandidat. Wenige Tage später nominiert der Parteivorstand den Kanzler einstimmig. Die Debatte ist beendet, der Ärger in Teilen der Partei nicht.
 
 @pistorius
-subtitle: Ein populärer Kandidat, aber ein beschädigter Kanzler und eine skeptische Parteilinke.
 on-arrival: spd_candidate = "Pistorius"; workers_spd += 2*(1-dissent); rentner_spd += 2*(1-dissent); rural_spd += 2*(1-dissent); old_middle_spd += 1*(1-dissent); new_middle_spd -= 1; left_dissent += 8; reformist_dissent -= 8; center_dissent += 5; union_relation += 2; pacifism -= 1
 
 Nach einem nächtlichen Gespräch im Kanzleramt verzichtet Olaf Scholz auf die Kandidatur. Er bleibt bis zur Wahl Kanzler, aber das Gesicht der Kampagne ist ab sofort Boris Pistorius. Die Umfragewerte der SPD ziehen an. Die Parteilinke fürchtet einen Wahlkampf, der nur noch von Aufrüstung handelt, und manche im Kanzleramt sprechen von einem „Putsch“.
 
 @mitglieder
-subtitle: -1 Ressource. Basisdemokratisch, aber es kostet Zeit und Geld.
+subtitle: -1 Ressource.
 choose-if: resources >= 1
 unavailable-subtitle: Für eine Mitgliederbefragung fehlen uns die Mittel.
 on-arrival: resources -= 1; spd_candidate = "Pistorius"; workers_spd += 2*(1-dissent); rentner_spd += 1.5*(1-dissent); rural_spd += 2*(1-dissent); new_middle_spd += 0.5*(1-dissent); left_dissent += 3; reformist_dissent -= 8; center_dissent -= 2; democratization += 1

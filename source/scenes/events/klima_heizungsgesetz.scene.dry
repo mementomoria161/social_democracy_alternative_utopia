@@ -31,14 +31,13 @@ Handwerk und Heizungsindustrie warnen vor einem neuen Hin und Her, nachdem der A
 
 @mittragen
 view-if: spd_in_government
-subtitle: Koalitionsfrieden, Umweltverbände und Parteilinke verärgert
 on-arrival: kp_waerme = -1; union_relation += 5; coalition_dissent -= 1 if coalition_dissent >= 1; gr_eigentuemer += 10; gr_umwelt -= 10; gr_klima -= 6; left_dissent += 4; new_middle_spd -= 1; old_middle_spd += 1*(1-dissent); rentner_spd += 0.5*(1-dissent)
 
 Wir stimmen zu. Die Union feiert die „Rückkehr der Vernunft“, [+ pp_youth +] spricht von einem „klimapolitischen Offenbarungseid“. Im Reiter „Klima“ zeigt sich, was das für die Emissionen der Gebäude bedeutet.
 
 @kompromiss
 view-if: spd_in_government
-subtitle: -1 Haushaltsspielraum, Koalitionsstreit
+subtitle: -1 Haushaltsspielraum.
 choose-if: budget >= 1
 unavailable-subtitle: Ohne Geld für die Förderung lässt sich die Union nicht auf einen Kompromiss ein.
 on-arrival: budget -= 1; coalition_dissent += 1; gr_umwelt += 3; gr_eigentuemer -= 2; gr_mieter += 2; old_middle_spd += 0.5*(1-dissent); new_middle_spd += 0.5*(1-dissent)
@@ -47,14 +46,13 @@ Nach nächtelangen Verhandlungen steht ein Kompromiss: Die Regeln werden einfach
 
 @festhalten
 view-if: spd_in_government
-subtitle: Koalitionsstreit ++, Umweltverbände und Parteilinke zufrieden
 on-arrival: coalition_dissent += 2; union_relation -= 2; gr_umwelt += 6; gr_klima += 4; gr_eigentuemer -= 8; old_middle_spd -= 1; left_dissent -= 3; reformist_dissent += 3
 
 Wir blockieren den Entwurf. Die Union wirft uns Vertragsbruch vor, die Bild-Zeitung titelt „Heizungs-Hammer bleibt!“. Doch Umweltverbände und Handwerk danken uns für Planungssicherheit.
 
 @opp_mieter
 view-if: not spd_in_government
-subtitle: -1 Ressourcen
+subtitle: -1 Ressourcen.
 choose-if: resources >= 1
 unavailable-subtitle: Nicht genug Ressourcen.
 on-arrival: resources -= 1; gr_mieter += 8; gr_umwelt += 3; workers_spd += 1*(1-dissent); new_middle_spd += 0.5*(1-dissent); cl_pressure += 0.5

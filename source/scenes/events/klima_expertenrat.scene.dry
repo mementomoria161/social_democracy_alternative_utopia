@@ -25,7 +25,7 @@ Der Expertenrat für Klimafragen legt seinen Prüfbericht vor. Mit den beschloss
 
 @sofort
 view-if: spd_in_government
-subtitle: -2 Haushaltsspielraum, Koalitionsstreit. Mehrere Maßnahmen auf einmal.
+subtitle: -2 Haushaltsspielraum.
 choose-if: budget >= 2
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
 on-arrival: {!
@@ -41,7 +41,7 @@ Wir legen ein Sofortprogramm vor: mehr Flächen und schnellere Genehmigungen fü
 
 @klein
 view-if: spd_in_government
-subtitle: -1 Haushaltsspielraum
+subtitle: -1 Haushaltsspielraum.
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
 on-arrival: {!
@@ -54,7 +54,6 @@ Ein paar Programme werden aufgestockt, ein paar Fristen verkürzt. Die Umweltver
 
 @zweifel
 view-if: spd_in_government
-subtitle: Umweltverbände und Klimabewegung empört
 on-arrival: gr_umwelt -= 8; gr_klima -= 6; klima_strength += 30; new_middle_spd -= 1; union_relation += 1; left_dissent += 3
 
 Wir verweisen auf Unsicherheiten in den Modellen und auf künftige Technologien wie die CO2-Abscheidung. Die Fachwelt reagiert mit Kopfschütteln, und die Klimabewegung ruft zu Protesten auf.

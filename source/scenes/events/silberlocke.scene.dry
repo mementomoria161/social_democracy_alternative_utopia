@@ -24,7 +24,7 @@ Sicher sind uns bisher nur zwei Wahlkreise, in Leipzig und in Berlin-Lichtenberg
 - @nein: Keine Silberlocken. Wir setzen auf die Zweitstimme.
 
 @alle
-subtitle: -1 Ressource. Zwei weitere Wahlkreise werden wahrscheinlich, ein dritter ist möglich.
+subtitle: -1 Ressource.
 choose-if: resources >= 1
 unavailable-subtitle: Dafür fehlen uns die Mittel.
 on-arrival: resources -= 1; direct_mandates += 2; gysi_dm = 1; ramelow_dm = 1; bartsch_dm = 1; rentner_spd += 1*(1-dissent); reformist_dissent -= 5; center_dissent += 2
@@ -32,13 +32,11 @@ on-arrival: resources -= 1; direct_mandates += 2; gysi_dm = 1; ramelow_dm = 1; b
 Die „Mission Silberlocke“ wird zum Selbstläufer. Plakate mit drei grauen Haarschöpfen hängen in Berlin, Erfurt und Rostock, die Veranstaltungen sind überfüllt. Selbst Menschen, die die Linke nie wählen würden, wünschen den dreien Glück.
 
 @gysi
-subtitle: Ein sicherer dritter Wahlkreis, ohne großen Aufwand.
 on-arrival: direct_mandates += 1; gysi_dm = 1; rentner_spd += 0.5*(1-dissent)
 
 Gysi tritt wie immer in Treptow-Köpenick an. Ramelow und Bartsch unterstützen den Wahlkampf, ohne selbst zu kandidieren.
 
 @nein
-subtitle: Alles auf das Spitzenduo. Ein Risiko.
 on-arrival: center_dissent -= 3; reformist_dissent += 5; new_middle_spd += 0.5*(1-dissent)
 
 Wir verzichten auf die Aktion. Die Botschaft: Die Linke braucht keine Rettungsschirme, sie will fünf Prozent aus eigener Kraft. In den ostdeutschen Landesverbänden schüttelt man den Kopf.

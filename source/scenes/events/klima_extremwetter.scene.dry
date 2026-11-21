@@ -29,7 +29,7 @@ Die Klimaforschung ist eindeutig: Solche Extreme werden mit der Erderhitzung hä
 
 @hilfe
 view-if: spd_in_government
-subtitle: -1 Haushaltsspielraum
+subtitle: -1 Haushaltsspielraum.
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
 on-arrival: budget -= 1; rural_spd += 2*(1-dissent); rentner_spd += 1*(1-dissent); pro_republic += 1
@@ -38,7 +38,7 @@ Der Bund stellt Milliarden für Betroffene, Landwirtschaft und Kommunen bereit, 
 
 @anpassung
 view-if: spd_in_government
-subtitle: -1 Haushaltsspielraum, Umweltverbände +
+subtitle: -1 Haushaltsspielraum.
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
 on-arrival: budget -= 1; gr_umwelt += 5; gr_eigentuemer -= 3; new_middle_spd += 1*(1-dissent); rural_spd += 1*(1-dissent); pro_republic += 1; coalition_dissent += 1 if fdp_in_government

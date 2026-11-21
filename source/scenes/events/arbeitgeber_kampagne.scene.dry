@@ -22,19 +22,17 @@ Die Wirtschaft steht unter Druck, und viele Medien greifen die Forderungen dankb
 - @gegenkampagne: Mit Gewerkschaften und Sozialverbänden eine Gegenkampagne starten.
 
 @dagegen
-subtitle: Gewerkschaften und Sozialverbände +, Arbeitgeber −
 on-arrival: gr_bda -= 12; gr_dgb += 6; gr_vdk += 6; labor_dissent -= 3; left_dissent -= 2; reformist_dissent += 4; workers_spd += 0.5*(1-dissent); rentner_spd += 0.5*(1-dissent); old_middle_spd -= 0.5; capital_strike_progress += 1 if spd_in_government
 
 Wir halten dagegen. In den Gewerkschaften kommt das gut an. Die Arbeitgeberverbände kündigen an, sich „die Namen zu merken“, und im Wirtschaftsflügel [? if player = "spd" : der Union ?][? if player = "linke" : der anderen Parteien ?] gilt [+ pp_full +] nun endgültig als wirtschaftsfeindlich.
 
 @kompromiss
-subtitle: Arbeitgeber +, Gewerkschaften −
 on-arrival: gr_bda += 6; gr_dgb -= 4; gr_vdk -= 3; reformist_dissent -= 3; labor_dissent += 3; left_dissent += 2; union_relation += 2
 
 Wir bieten an, über niedrigere Lohnnebenkosten zu reden, solange die Leistungen nicht gekürzt werden. Die Arbeitgeber loben unsere „Vernunft“, in den Gewerkschaften fragt man sich, auf welcher Seite wir eigentlich stehen.
 
 @gegenkampagne
-subtitle: −1 Ressource. Gewerkschaften und Sozialverbände ++, Arbeitgeber verlieren an Schwung
+subtitle: −1 Ressource.
 choose-if: resources >= 1
 unavailable-subtitle: Dafür fehlen uns die Mittel (1 Ressource).
 on-arrival: resources -= 1; gr_dgb += 12; gr_vdk += 12; gr_verdi += 8; gr_bda -= 15; gm_bda -= 3; gm_dgb += 2; gm_vdk += 2; labor_dissent -= 5; left_dissent -= 3; reformist_dissent += 5; workers_spd += 1*(1-dissent); rentner_spd += 1*(1-dissent); old_middle_spd -= 1; capital_strike_progress += 1 if spd_in_government; coalition_dissent += 1 if spd_in_government and in_grand_coalition

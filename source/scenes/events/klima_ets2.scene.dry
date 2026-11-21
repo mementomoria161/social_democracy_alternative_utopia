@@ -31,7 +31,7 @@ Seit Jahren versprechen Regierungen, die Einnahmen als Klimageld an die Bürger\
 
 @klimageld
 view-if: spd_in_government and kp_klimageld = 0
-subtitle: -1 Haushaltsspielraum. Sozialverbände und Klimabewegung +
+subtitle: -1 Haushaltsspielraum.
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
 on-arrival: kp_klimageld = 1; budget -= 1; unemployed_spd += 3*(1-dissent); workers_spd += 2*(1-dissent); rentner_spd += 1*(1-dissent); gr_vdk += 6; gr_klima += 5; gr_umwelt += 4; left_dissent -= 3; coalition_dissent += 1 if union_in_government or fdp_in_government
@@ -40,7 +40,7 @@ Ab 2028 bekommt jede und jeder einmal im Jahr denselben Betrag überwiesen. Wer 
 
 @deckel
 view-if: spd_in_government and kp_co2 >= 0
-subtitle: -1 Haushaltsspielraum. Bremst den Klimaschutz in Gebäuden und Verkehr.
+subtitle: -1 Haushaltsspielraum.
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
 on-arrival: kp_co2 = -1; budget -= 1; rural_spd += 1.5*(1-dissent); rentner_spd += 1*(1-dissent); gr_klima -= 10; gr_umwelt -= 8; union_relation += 2; left_dissent += 2
@@ -49,7 +49,7 @@ Wir setzen in Brüssel einen Preisdeckel durch und gleichen den Rest aus dem Hau
 
 @entlasten
 view-if: spd_in_government and stromsteuer_alle = 0
-subtitle: -1 Haushaltsspielraum
+subtitle: -1 Haushaltsspielraum.
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
 on-arrival: stromsteuer_alle = 1; budget -= 1; workers_spd += 1*(1-dissent); rentner_spd += 1*(1-dissent); new_middle_spd += 0.5*(1-dissent); gr_bda += 2; gr_mittelstand += 2; union_relation += 1
@@ -58,14 +58,13 @@ Die Stromsteuer sinkt für alle auf das europäische Minimum. Wer mit Strom heiz
 
 @abwarten
 view-if: spd_in_government
-subtitle: Kostet nichts, rächt sich womöglich später.
 on-arrival: left_dissent += 3; labor_dissent += 2; gr_vdk -= 3
 
 Wir lassen die Dinge laufen. Wenn die Heizkostenabrechnungen 2029 kommen, wird sich zeigen, ob das klug war.
 
 @opp_klimageld
 view-if: not spd_in_government
-subtitle: -1 Ressourcen
+subtitle: -1 Ressourcen.
 choose-if: resources >= 1
 unavailable-subtitle: Nicht genug Ressourcen.
 on-arrival: resources -= 1; unemployed_spd += 1.5*(1-dissent); workers_spd += 1*(1-dissent); gr_vdk += 4; gr_klima += 4; cl_pressure += 0.5

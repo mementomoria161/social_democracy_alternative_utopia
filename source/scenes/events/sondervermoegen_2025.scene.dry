@@ -31,7 +31,7 @@ Noch bevor der neu gewählte Bundestag zusammentritt, liegt ein Vorschlag auf de
 
 @gross
 # party-ok: SPD (die reale SPD im historischen Ablauf, in beiden Spielen richtig)
-subtitle: +2 Haushaltsspielraum, mehr Wachstum. Die Union muss mitziehen.
+subtitle: +2 Haushaltsspielraum.
 choose-if: union_in_government or union_relation >= 25
 unavailable-subtitle: Die Union verweigert uns die nötigen Stimmen.
 on-arrival: sondervermoegen = 2; budget += 2; wtb_support += 1; economic_growth += 0.2; bundeswehr_strength += 5; gruene_relation += 3; union_relation += 3; left_dissent -= 3; labor_dissent -= 5; reformist_dissent -= 2
@@ -39,13 +39,12 @@ on-arrival: sondervermoegen = 2; budget += 2; wtb_support += 1; economic_growth 
 Union, SPD und Grüne ändern das Grundgesetz mit der nötigen Mehrheit, der Bundesrat stimmt zu. Es ist die größte finanzpolitische Wende seit Jahrzehnten. Kommunen und Bauindustrie atmen auf, Ökonominnen warnen, das Geld müsse auch wirklich zusätzlich investiert werden. AfD, Linke und FDP klagen vergeblich in Karlsruhe.
 
 @verteidigung
-subtitle: +1 Haushaltsspielraum. Die Investitionen bleiben aus.
+subtitle: +1 Haushaltsspielraum.
 on-arrival: sondervermoegen = 1; budget += 1; bundeswehr_strength += 5; gruene_relation -= 2; labor_dissent += 5; left_dissent += 5; reformist_dissent -= 3; crisis_urgency += 1
 
 Nur die Bundeswehr bekommt freie Hand. Für marode Brücken und Schulen bleibt es beim alten Spardiktat der Schuldenbremse. Gewerkschaften und Kommunen sind enttäuscht.
 
 @nein
-subtitle: Grundsatztreue, aber kein neuer Haushaltsspielraum.
 on-arrival: sondervermoegen = 0; union_relation -= 8; gruene_relation -= 3; coalition_dissent += 2 if union_in_government; old_middle_spd += 0.5*(1-dissent); labor_dissent += 8; left_dissent += 3; crisis_urgency += 1
 
 Wir verweigern die Zustimmung. Der neue Bundestag soll entscheiden, auch wenn dort keine Zweidrittelmehrheit mehr möglich ist. Manche loben die Prinzipientreue; in den Kommunen und bei den Gewerkschaften fragt man, wovon jetzt Schulen und Brücken saniert werden sollen.

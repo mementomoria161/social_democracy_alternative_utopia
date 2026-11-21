@@ -23,19 +23,16 @@ Am 8. August verkündet Friedrich Merz eine Kehrtwende: Bis auf Weiteres genehmi
 - @kritik: Die Entscheidung kritisieren: Israel muss sich gegen die Hamas verteidigen können.
 
 @mittragen
-subtitle: Ausgleich
 on-arrival: gr_israel -= 3; gr_palaestina += 4; center_dissent -= 2; union_relation += 1 if player = "spd"; left_dissent += 3 if player = "linke"
 
 [? if player = "spd" : Wir stellen uns hinter den Kanzler. Es ist eine der seltenen Fragen, in der die Koalition nach außen geschlossener wirkt als die Union selbst. ?][? if player = "linke" : Wir nennen die Entscheidung einen überfälligen ersten Schritt. Der Parteilinken ist das zu zahm, den Reformer\*innen gerade recht. ?]
 
 @weiter
-subtitle: Palästina-Bewegung +, jüdische Gemeinden −
 on-arrival: gr_palaestina += 12; gr_israel -= 10; left_dissent -= 4; reformist_dissent += 5; union_relation -= 4; coalition_dissent += 1 if spd_in_government and union_in_government; palestine_debate += 0.5
 
 Wir verlangen einen vollständigen Stopp aller Rüstungsexporte nach Israel und die Anerkennung eines palästinensischen Staates. Die Palästina-Bewegung lobt uns ausdrücklich. In der Union ist man empört, und auch in der eigenen Partei warnen einige vor einem Bruch mit der deutschen Staatsräson.
 
 @kritik
-subtitle: Jüdische Gemeinden +, Palästina-Bewegung −, Parteilinke verärgert
 on-arrival: gr_israel += 10; gr_palaestina -= 12; left_dissent += 6; left_dissent += 4 if player = "linke"; left_dissent += 3 if g_palaestina >= 50; reformist_dissent -= 3; union_relation += 2
 
 Wir halten die Entscheidung für falsch: Wer Israel Waffen verweigert, stärke die Hamas, die noch immer Geiseln festhält. Die Israel-solidarischen Gruppen sind dankbar, die Parteilinke fassungslos.

@@ -28,7 +28,6 @@ Jens Spahn ist neuer CDU-Vorsitzender. Mit ihm rückt die Partei nach rechts und
 
 @joos
 unavailable-subtitle: Unser Verhältnis zur Union ist nicht gut genug.
-subtitle: Mit Wüst dürfte die Zusammenarbeit leichter werden als mit Spahn.
 view-if: player = "spd"
 choose-if: union_relation >= 70
 on-arrival: union_party_leader = "Wüst"; rentner_spd += 5; workers_union += 3
@@ -39,7 +38,7 @@ on-arrival: union_party_leader = "Wüst"; rentner_spd += 5; workers_union += 3
 choose-if: union_relation >= 62 and resources >= 1
 view-if: player = "spd" and union_relation < 70
 unavailable-subtitle: [? if union_relation <= 62 : Unser Verhältnis zur Union ist nicht gut genug. ?] [? if resources < 1 : Wir haben nicht genug Ressourcen. ?]
-subtitle: -1 Ressource. Mit Wüst dürfte die Zusammenarbeit leichter werden als mit Spahn.
+subtitle: -1 Ressource.
 on-arrival: resources -= 1; union_party_leader = "Wüst"; rentner_spd += 5; workers_union += 3
 
 Mit unseren Kontakten in die Union und einer geschickten Medienstrategie, die Wüst als Garanten der Stabilität erscheinen lässt, setzt er sich auf dem Parteitag durch. Mit ihm wird die Zusammenarbeit leichter, und die CDU spricht wieder stärker Beschäftigte an.
@@ -52,7 +51,7 @@ Mit unseren Kontakten in die Union und einer geschickten Medienstrategie, die W�
 view-if: player = "linke"
 choose-if: union_relation >= 0 and resources >= 2
 unavailable-subtitle: [? if union_relation < 0 : Die Union redet nicht mehr mit uns. ?] [? if resources < 2 : Wir haben nicht genug Ressourcen. ?]
-subtitle: -2 Ressourcen. Die Linke-Fraktionen in Erfurt und Dresden machen deutlich, wem sie Mehrheiten verschaffen.
+subtitle: -2 Ressourcen.
 on-arrival: resources -= 2; union_party_leader = "Wüst"; union_relation += 3; reformist_strength += 2; reformist_dissent -= 3; left_dissent += 4; workers_union += 2
 
 In Thüringen und Sachsen regiert die CDU ohne eigene Mehrheit, und ihre Haushalte hängen an unseren Stimmen. Unsere Landtagsfraktionen erklären vor dem Parteitag nüchtern: Verlässliche Absprachen gibt es nur mit einer CDU, die die Brandmauer hält. Die ostdeutschen CDU-Verbände, bisher Spahns sichere Bank, schwenken um, und Hendrik Wüst gewinnt knapp.

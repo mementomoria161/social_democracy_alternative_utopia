@@ -26,7 +26,6 @@ Wie besänftigen wir die Linke?
 
 @thalmann
 choose-if: linke_r >= spd_r and brandmauer == 1
-subtitle: Das könnte die extreme Rechte zu einem Umsturzversuch treiben.
 unavailable-subtitle: [? if linke_r < spd_r : Als kleinerer Partner hat die Linke keinen Anspruch auf das Kanzleramt. ?] [? if brandmauer == 0 : Die Union würde sofort mit der AfD ein Misstrauensvotum organisieren. ?]
 on-arrival: chancellor = linke_leader; chancellor_party = "Linke"
 
@@ -42,7 +41,7 @@ Die extreme Rechte reagiert sofort. Reichsbürger, rechte Netzwerke und Teile de
 @resources
 choose-if: resources >= 3 and linke_ultimatum_seen = 0
 unavailable-subtitle: -3 Ressourcen – [? if resources < 3 : Wir haben nicht genug Ressourcen. ?][? if linke_ultimatum_seen : Mit Ressourcen ist da nichts mehr zu retten. ?]
-subtitle: -3 Ressourcen
+subtitle: -3 Ressourcen.
 on-arrival: resources -= 3; linke_coalition_dissent -= 1;
 
 Mit Zugeständnissen bei Projekten und Posten, die der Linken wichtig sind, entschärfen wir den Streit. Unschön, aber wirksam.

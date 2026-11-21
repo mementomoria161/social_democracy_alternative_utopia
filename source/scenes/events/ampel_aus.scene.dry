@@ -26,19 +26,16 @@ In der SPD-Fraktion wollen viele zuerst noch retten, was zu retten ist: höheres
 - @sofort: Sofort die Vertrauensfrage stellen: Neuwahl schon im Januar.
 
 @spaet
-subtitle: Mehr Zeit für Gesetze und Wahlkampf, aber die Union blockiert und das Land wird ungeduldig.
 on-arrival: vf_year = 2025; vf_month = 1; next_election_year = 2025; next_election_month = 3; next_election_time = 5; election_scheduled = 1; election_date_text = "30. März 2025"; prolog_laws = 3; union_relation -= 8; fdp_relation -= 3; pro_republic -= 2; new_middle_spd -= 1; old_middle_spd -= 1; center_dissent -= 3; reformist_dissent += 5
 
 Der Kanzler bleibt bei seinem Zeitplan. Die Union spricht von „Insolvenzverschleppung“ und kündigt an, bis zur Vertrauensfrage keine Hand zu rühren. Dafür hat die Minderheitsregierung Zeit, im Bundestag noch um Mehrheiten zu werben, und die SPD gewinnt einige Wochen für ihren Wahlkampf. Gewählt wird am 30. März 2025.
 
 @frueh
-subtitle: Ein geordneter Übergang, ausgehandelt mit der Union.
 on-arrival: vf_year = 2024; vf_month = 12; next_election_year = 2025; next_election_month = 2; next_election_time = 4; election_scheduled = 1; election_date_text = "23. Februar 2025"; prolog_laws = 2; union_relation += 3; gruene_relation += 2
 
 Nach einigen Tagen öffentlichen Drucks verständigen sich die Fraktionsspitzen von SPD und Union: Der Kanzler stellt die Vertrauensfrage am 16. Dezember, gewählt wird am 23. Februar 2025. Bis Weihnachten bleibt Zeit für einige Gesetze, bei denen die Union mitziehen will.
 
 @sofort
-subtitle: Klarheit sofort, aber ein überhasteter Wahlkampf und kaum noch Gesetze.
 on-arrival: vf_year = 2024; vf_month = 11; next_election_year = 2025; next_election_month = 1; next_election_time = 3; election_scheduled = 1; election_date_text = "26. Januar 2025"; prolog_laws = 1; union_relation += 6; pro_republic += 1; center_dissent += 5; resources -= 1 if resources >= 1
 
 Wir nehmen der Union den Wind aus den Segeln: Der Kanzler stellt die Vertrauensfrage noch im November. Gewählt wird schon am 26. Januar 2025, mitten im Winter. Die Kommunen müssen die Wahl in Rekordzeit organisieren, und in der Parteizentrale fehlt es an allem: an Plakaten, an Geld, an einem fertigen Programm.
@@ -55,19 +52,16 @@ Für uns bleiben gut drei Monate. In den Umfragen liegen wir bei drei bis vier P
 - @linke_basis: Keine Zeit mit dem Bundestag verlieren: Alle Kraft in den Haustürwahlkampf.
 
 @linke_soziales
-subtitle: Verantwortung zeigen. Die Reformer*innen sind zufrieden.
 on-arrival: linke_relation += 5; gruene_relation += 3; reformist_dissent -= 5; left_dissent += 3; rentner_spd += 0.5*(1-dissent)
 
 Wir bieten SPD und Grünen unsere Stimmen für Mietpreisbremse, Rentenpaket und Kindergeld an. Für eine Mehrheit reicht das nicht, doch die Botschaft kommt an: Die Linke stimmt nicht aus Prinzip dagegen.
 
 @linke_angriff
-subtitle: Klare Kante. Die SPD ist verärgert.
 on-arrival: linke_relation -= 5; workers_spd += 1*(1-dissent); unemployed_spd += 1*(1-dissent); left_dissent -= 5
 
 Drei Jahre Ampel, sagen wir, das waren Heizungsstreit, Kürzungen beim Bürgergeld und ein Rekordhaushalt für die Bundeswehr. Wir sind die einzige Partei, die nicht mitregiert hat und trotzdem nicht nach rechts zeigt.
 
 @linke_basis
-subtitle: Organizing statt Pressekonferenzen. Kostet Kraft, bringt neue Mitglieder.
 on-arrival: center_dissent -= 5; dues += 1; workers_spd += 0.5*(1-dissent); unemployed_spd += 0.5*(1-dissent)
 
 Der Parteivorstand ruft alle Mitglieder auf, an Türen zu klopfen. Das Ziel: 100.000 Gespräche bis zur Wahl. Aus den ersten Wochen kommen gute Nachrichten, und überraschend viele Menschen treten ein.

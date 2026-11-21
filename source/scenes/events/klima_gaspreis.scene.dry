@@ -25,7 +25,7 @@ Ein früher Kälteeinbruch, Ausfälle bei Flüssiggaslieferungen und knappe Spei
 
 @bremse
 view-if: spd_in_government
-subtitle: -2 Haushaltsspielraum. Deckelt sechs Monate lang die Preise.
+subtitle: -2 Haushaltsspielraum.
 choose-if: budget >= 2
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
 on-arrival: cl_bremse = 6; budget -= 2; workers_spd += 2*(1-dissent); rentner_spd += 2*(1-dissent); old_middle_spd += 1*(1-dissent); gr_mittelstand += 4; gr_vdk += 3; gr_umwelt -= 2
@@ -34,7 +34,7 @@ Für 80 Prozent des Vorjahresverbrauchs gilt ein Höchstpreis, den Rest zahlt de
 
 @sozial
 view-if: spd_in_government
-subtitle: -1 Haushaltsspielraum
+subtitle: -1 Haushaltsspielraum.
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
 on-arrival: budget -= 1; unemployed_spd += 2*(1-dissent); workers_spd += 1*(1-dissent); rentner_spd += 0.5*(1-dissent); gr_vdk += 5; old_middle_spd -= 0.5; gr_mittelstand -= 2
@@ -43,7 +43,6 @@ Wohngeldbeziehende, Rentner\*innen mit Grundsicherung und Studierende bekommen e
 
 @markt
 view-if: spd_in_government
-subtitle: Kostet nichts, die Inflation steigt.
 on-arrival: workers_spd -= 1; rentner_spd -= 1.5; old_middle_spd -= 1; inflation += 0.3; gr_vdk -= 4; gr_mittelstand -= 3; left_dissent += 4; labor_dissent += 3
 
 Wir greifen nicht ein. Die Inflation zieht an, und die Heizkostenabrechnungen werden für viele zum Schock.

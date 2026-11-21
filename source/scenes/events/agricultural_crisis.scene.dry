@@ -35,7 +35,7 @@ on-arrival: rural_spd -= 4; rural_gruene -= 4; rural_afd -= 2
 Die Polizei löst die Blockaden auf und verhindert, dass die Lage eskaliert. Doch die wirtschaftliche Not der Höfe bleibt, und auf dem Land verflucht man [+ pp_full +] mehr denn je.
 
 @financing_1
-subtitle: -1 Haushaltsspielraum – wir unterstützen die Höfe bereits, doch es braucht mehr.
+subtitle: -1 Haushaltsspielraum.
 choose-if: budget >= 1
 unavailable-subtitle: -1 Haushaltsspielraum – dafür fehlt uns das Geld.
 view-if: agricultural_finance == 1
@@ -43,7 +43,7 @@ on-arrival: budget -= 1; agricultural_finance += 1; rural_policy += 1
 go-to: financing_done
 
 @financing_2
-subtitle: -2 Haushaltsspielraum
+subtitle: -2 Haushaltsspielraum.
 choose-if: budget >= 2
 unavailable-subtitle: -2 Haushaltsspielraum – dafür fehlt uns das Geld.
 view-if: agricultural_finance < 1

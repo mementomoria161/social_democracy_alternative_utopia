@@ -18,21 +18,18 @@ Die Bundesagentur für Arbeit ist tief im Defizit; mit so vielen Arbeitslosen ha
 - @balance: Die Beiträge für Arbeitgeber und Beschäftigte erhöhen.
 
 @cut_benefits
-subtitle: Die Beschäftigten werden das als Verrat empfinden.
 on-arrival: workers_spd -= 0.12*workers_spd; unemployed_spd -= 0.2*unemployed_spd; workers_linke += 6; workers_afd += 6; unemployed_linke += 5; unemployed_afd += 5; left_dissent += 15; center_dissent += 10; labor_dissent += 15; reformist_dissent += 5; welfare -= 2; budget += 1; unemployed += 1.5; pro_republic -= 4; linke_relation -= 8; inflation -= 2; unemployment_insurance_threshold = unemployed; unemployment_insurance_timer = 10; economic_growth -= 0.4;
 
 Aus Haushaltsgründen verkürzen wir die Bezugsdauer des Arbeitslosengeldes und senken die Leistungen. Für die Beschäftigten ist unsere Haushaltsdisziplin unverständlich. Sie sind wütend über den Verrat, ebenso große Teile unserer Mitgliedschaft in allen Flügeln. Was wir verlieren, gewinnt [+ op_full +], und selbst die AfD prangert jetzt scheinheilig unseren Sozialabbau an.
 
 
 @increase_employers
-subtitle: Die Arbeitgeber laufen Sturm dagegen. [? if in_grand_coalition: Der Wirtschaftsflügel der Union wird wohl die Koalition infrage stellen. ?]
 on-arrival: capital_strike_progress += 2; coalition_dissent = 2 if in_grand_coalition; coalition_dissent += 1; welfare += 1; workers_spd += 6*(1-dissent); unemployed_spd += 6*(1-dissent); old_middle_spd -= 6*(1-dissent); new_middle_spd -= 2*(1-dissent); unemployment_insurance_threshold = unemployed; unemployment_insurance_timer = 10; economic_growth -= 0.4;
 
 Wir heben den Arbeitgeberanteil an der Arbeitslosenversicherung an. So bleibt das Leistungsniveau erhalten, ohne Beschäftigte und Arbeitslose zusätzlich zu belasten. Arbeitgeber und Wirtschaftsverbände sind erwartungsgemäß empört, Gewerkschaften und Arbeitslose zufrieden.
 
 
 @balance
-subtitle: Weder Beschäftigte noch Arbeitgeber werden ganz zufrieden sein. [? if in_grand_coalition and fdp_relation < 30: Der Wirtschaftsflügel der Union wird den Kompromiss wohl ablehnen. ?][? if in_grand_coalition and fdp_relation >= 30: Der Wirtschaftsflügel der Union könnte den Kompromiss zähneknirschend mittragen. ?]
 on-arrival: workers_spd -= 4; unemployed_spd -= 5; workers_linke += 4; unemployed_linke += 3; unemployed_afd += 3; left_dissent += 10; labor_dissent += 8; center_dissent += 5; welfare -= 1; budget += 1; linke_relation -= 4; inflation -= 1; unemployment_insurance_threshold = unemployed; unemployment_insurance_timer = 10; coalition_dissent = 2 if in_grand_coalition and fdp_relation < 30; coalition_dissent += 1 if in_grand_coalition; economic_growth -= 0.2;
 
 Mit unserem Kompromiss ist niemand ganz glücklich. Viele Beschäftigte und Arbeitslose sehen darin einen Verrat, auch wenn wir ihn als Abwendung von Schlimmerem verkaufen. [? if in_grand_coalition: Der Wirtschaftsflügel der Union ist entsetzt über jede zusätzliche Belastung der Unternehmen. ?]

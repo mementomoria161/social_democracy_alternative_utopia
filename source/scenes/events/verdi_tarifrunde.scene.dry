@@ -22,19 +22,16 @@ Wer ist schuld am Chaos? In den Talkshows streiten Gewerkschafter\*innen und Arb
 - @kritik: Die Flughafenstreiks kritisieren: Sie treffen die Falschen.
 
 @solidaritaet
-subtitle: ver.di +, Arbeitgeber −
 on-arrival: gr_verdi += 10; gr_dgb += 3; gr_bda -= 5; labor_dissent -= 3; left_dissent -= 2; workers_spd += 0.5*(1-dissent); old_middle_spd -= 0.5
 
 Wir besuchen Streikposten vor Kitas und Krankenhäusern. Die Beschäftigten freuen sich über die Unterstützung, die Arbeitgeberverbände werfen uns vor, die Kommunen in die Pleite zu treiben.
 
 @schlichtung
-subtitle: Ausgleich
 on-arrival: gr_verdi += 2; gr_bda += 2; center_dissent -= 2
 
 Wir rufen beide Seiten an einen Tisch. Tatsächlich einigen sie sich Anfang April nach einer Schlichtung. Gedankt wird es uns von keiner Seite, aber geschadet hat es auch nicht.
 
 @kritik
-subtitle: Arbeitgeber +, ver.di −
 on-arrival: gr_verdi -= 12; gr_bda += 6; labor_dissent += 5; left_dissent += 3; old_middle_spd += 0.5*(1-dissent)
 
 Wir kritisieren, dass Urlauber\*innen und Eltern die Leidtragenden sind. Die Mittelständler nicken, doch auf der nächsten Betriebsversammlung wird es für unsere Leute ungemütlich.

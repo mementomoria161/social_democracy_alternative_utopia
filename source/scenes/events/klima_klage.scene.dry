@@ -23,7 +23,7 @@ Die Klimabewegung feiert vor dem Gericht. [? if spd_in_government : Jetzt liegt 
 
 @umsetzen
 view-if: spd_in_government
-subtitle: -1 Haushaltsspielraum, Koalitionsstreit mit Union oder FDP
+subtitle: -1 Haushaltsspielraum.
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
 on-arrival: {!
@@ -37,7 +37,6 @@ Wir legen einen verbindlichen Jahrespfad bis 2045 vor, beschleunigen den Netzaus
 
 @minimal
 view-if: spd_in_government
-subtitle: Umweltverbände empört, die Klimabewegung wächst
 on-arrival: gr_umwelt -= 10; gr_klima -= 8; klima_strength += 80; new_middle_spd -= 1; left_dissent += 3
 
 Ein neuer Paragraf, ein neuer Bericht, keine neue Maßnahme. Umweltverbände kündigen die nächste Klage an, und Juristinnen sprechen von einer „Missachtung des Gerichts“.

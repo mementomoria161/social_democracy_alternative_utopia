@@ -25,14 +25,13 @@ face-image: img/ortsverein.jpg
 - @laufen: Die Basis frei entscheiden lassen.
 
 @werben
-subtitle: -1 Ressource
+subtitle: -1 Ressource.
 choose-if: resources >= 1
 unavailable-subtitle: Dafür fehlen uns die Mittel.
 on-arrival: resources -= 1; mv_result = mv_base + 6
 go-to: ergebnis
 
 @zugestaendnis
-subtitle: Die Partner werden das nicht gern sehen.
 on-arrival: mv_result = mv_base + 4; left_dissent -= 5; coalition_dissent += 1; union_relation -= 2 if union_in_government; welfare += 1
 go-to: ergebnis
 
@@ -64,14 +63,13 @@ if (Q.mv_result < 70) {
 - @lk_laufen: Die Basis frei entscheiden lassen.
 
 @lk_werben
-subtitle: -1 Ressource
+subtitle: -1 Ressource.
 choose-if: resources >= 1
 unavailable-subtitle: Dafür fehlen uns die Mittel.
 on-arrival: resources -= 1; mv_result = mv_base + 2
 go-to: ergebnis
 
 @lk_zugestaendnis
-subtitle: Die Partner werden das nicht gern sehen.
 on-arrival: mv_result = mv_base + 1; left_dissent -= 5; linke_relation -= 3; gruene_relation -= 2; pacifism += 1
 go-to: ergebnis
 

@@ -20,19 +20,16 @@ Für eine Neuwahl im Februar muss die Linke schnell entscheiden, wer sie anführ
 - @vorsitz: Die beiden Vorsitzenden, Ines Schwerdtner und Jan van Aken.
 
 @duo
-subtitle: Ein Generationenduo. Die Partei ist zufrieden.
 on-arrival: spd_candidate = "Reichinnek"; new_middle_spd += 1*(1-dissent); unemployed_spd += 0.5*(1-dissent); center_dissent -= 3
 
 Van Aken und Reichinnek treten gemeinsam vor die Presse. Er steht für Friedenspolitik und Erfahrung, sie für eine junge, kämpferische Linke. Die Fotos gehen um, die Partei zieht mit.
 
 @alte_garde
-subtitle: Bekannt und beliebt, aber kein Signal des Neuanfangs.
 on-arrival: spd_candidate = "Gysi"; rentner_spd += 1*(1-dissent); new_middle_spd -= 0.5; reformist_dissent -= 3; center_dissent += 3
 
 Gregor Gysi lässt sich noch einmal überreden. Bei älteren Wählerinnen und Wählern im Osten kommt das gut an. Junge Mitglieder fragen, wofür der Neuanfang von Halle gut war.
 
 @vorsitz
-subtitle: Klare Verhältnisse an der Spitze, aber wenig Glanz.
 on-arrival: spd_candidate = "Schwerdtner"; center_dissent -= 2; workers_spd += 0.5*(1-dissent)
 
 Die beiden Vorsitzenden führen die Partei auch in den Wahlkampf. Das sorgt für Ruhe, aber in den Talkshows bleiben die Einladungen selten.

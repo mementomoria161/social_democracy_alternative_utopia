@@ -23,19 +23,16 @@ Die Waffenruhe ist brüchig, aber die wöchentlichen Demonstrationen in deutsche
 - @abwarten: Die Waffenruhe begrüßen und zu unseren Themen zurückkehren: Mieten, Löhne, Renten.
 
 @wiederaufbau
-subtitle: Ausgleich
 on-arrival: gr_palaestina += 4; gr_israel += 1; center_dissent -= 2; pro_republic += 1
 
 Wir fordern einen internationalen Wiederaufbaufonds mit deutscher Beteiligung und sichere Wege für humanitäre Hilfe. Kaum jemand widerspricht, und die Debatte in der Partei kühlt ab.
 
 @anerkennung
-subtitle: Palästina-Bewegung +, jüdische Gemeinden −
 on-arrival: gr_palaestina += 10; gr_israel -= 6; left_dissent -= 3; reformist_dissent += 3; union_relation -= 2
 
 Wir verlangen, dass Deutschland einen palästinensischen Staat anerkennt. Die Bewegung begrüßt das, die Bundesregierung verweist auf die Staatsräson, und jüdische Verbände warnen vor einer Belohnung der Hamas.
 
 @abwarten
-subtitle: Palästina-Bewegung −, Parteilinke leicht verärgert
 on-arrival: gr_palaestina -= 5; left_dissent += 2; left_dissent += 2 if player = "linke"; palestine_debate -= 0.5 if palestine_debate >= 0.5; workers_spd += 0.3
 
 Wir begrüßen die Waffenruhe und konzentrieren uns wieder auf die Themen, die die meisten Menschen im Alltag beschäftigen. Ein Teil der Aktivist\*innen ist enttäuscht, der Streit in der Partei verliert an Schärfe.
