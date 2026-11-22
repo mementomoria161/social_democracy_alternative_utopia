@@ -47,14 +47,16 @@ max-cards: 4
 
 
 @party
-title: Parteiangelegenheiten
+# Unsichtbarer weicher Trennstrich (U+00AD) an der Wortfuge: die Kartenbeschriftung bricht dort um, nicht mitten im Wort.
+title: Partei­angelegenheiten
 card-image: img/ortsverein.jpg
 is-deck: true
 
 - #party_affairs
 
 @govt
-title: Regierungsangelegenheiten
+# Weicher Trennstrich (U+00AD) wie bei @party
+title: Regierungs­angelegenheiten
 card-image: img/reichstag_2.jpg
 is-deck: true
 

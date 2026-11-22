@@ -322,6 +322,11 @@
   // TODO: have some code for tabbed sidebar browsing.
   window.updateSidebar = function() {
       $('#qualities').empty();
+      // Startmenü: Vor Spielbeginn sind alle Werte 0 („Rolle 0“, „regulär 0 0“); dann nur einen Hinweis zeigen.
+      if (!dendryUI.dendryEngine.state.qualities.year) {
+          $('#qualities').append('<h1>Übersicht</h1><p>Hier stehen während des Spiels die Lage deiner Partei, Umfragen, Regierung, Wirtschaft und Klima. Die Reiter füllen sich, sobald das Spiel beginnt.</p>');
+          return;
+      }
       // the Linke as player party swaps the colours of the seat slots spd/linke (game.css)
       document.body.classList.toggle('player-linke', dendryUI.dendryEngine.state.qualities.player == 'linke');
       window.applyPartyImages(dendryUI.dendryEngine.state.qualities.player);

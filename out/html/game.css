@@ -82,14 +82,16 @@ header h1, header h2 {
   font-weight: normal;
   margin: 0;
   font-size: 1em;
+  /* readable over the map background */
+  background-color: var(--bg-color);
+  padding: 0 0.4em;
 }
 header h1 {
   font-weight: bold;
 }
-header h2:before {
-  content: "by";
+header h2 {
   font-style: italic;
-  padding: 0 0.3em 0 0;
+  margin-left: -0.4em;
 }
 
 .button-image {
@@ -384,6 +386,11 @@ div.blank-card {
   text-align: center;
   display: block;
   font-size: 1em;
+  /* long German compounds ("Regierungsangelegenheiten") must not run into the next card */
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: anywhere;
+  line-height: 1.25;
 }
 
 .card-tooltip {
