@@ -41,6 +41,19 @@
       if (qDisplayId === '__number_de') { return window.formatNumberDE(value); }
       return origQDisplay.apply(this, arguments);
     };
+
+    // Engine-Texte (dendrynexus) ins Deutsche übertragen. Die Engine liegt in node_modules (nicht im Repo), deshalb
+    // wird hier übersetzt statt dort geändert. Alle Strings: 'Continue...' (engine.js, Standardauswahl, wenn eine Szene
+    // keine wählbare Option hat), 'Game Over (reload to read again)' (ui/browser.js). Die Dialoge zum Speichern und Laden
+    // übersetzt window.onload weiter unten.
+    var ENGINE_CHOICE_DE = {'Continue...': 'Weiter'};
+    var origDisplayChoices = ui.displayChoices;
+    ui.displayChoices = function(choices) {
+      return origDisplayChoices.call(this, (choices || []).map(function(c) {
+        return ENGINE_CHOICE_DE[c.title] ? Object.assign({}, c, {title: ENGINE_CHOICE_DE[c.title]}) : c;
+      }));
+    };
+    ui.getGameOverMsg = function() { return 'Ende des Spiels (zum erneuten Lesen die Seite neu laden)'; };
   };
 
   var TITLE = "Social Democracy: An Alternate History" + '_' + "Autumn Chen";
