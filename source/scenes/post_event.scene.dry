@@ -45,8 +45,10 @@ for (var c of Q.classes) {
 // Kampagneneffekt (Nov. 2026): Überzeugungseffekte von Wahlkampf-Kontakten und -Werbung sind in Hauptwahlen im Mittel null,
 // frühe Effekte verfliegen (Kalla/Broockman, American Political Science Review 2018: 40 Feldexperimente plus 9 eigene);
 // Mobilisierung kurz vor der Wahl wirkt. Die Karten Medien, Kundgebung, Wahlkampf, Bündnis für Demokratie, Demokratiebewegung
-// und „Der AfD entgegentreten“ (Mobilisierung) setzen kampagne_card: Ihr Zugewinn für
-// die Spielerpartei bleibt nur zu 20 % dauerhaft; die Hälfte des Rests wirkt als Kampagneneffekt (Q.kampagne, Prozentpunkte),
+// und „Der AfD entgegentreten“ (Mobilisierung) sowie die Werbekarten „Volkspartei“ (SPD) und „Wieder Volkspartei im Osten?“
+// (Linke) setzen kampagne_card = 1: Ihr Zugewinn für die Spielerpartei bleibt nur zu 10 % dauerhaft. Wahlkampf vor Ort
+// (Karte Wahlkampf mit Haustürgesprächen, kampagne_card = 2) bleibt zu 30 %: Haustürwahlkampf überzeugt in Europa auch
+// dauerhaft (Pons, American Economic Review 2018). Die Hälfte des Rests wirkt als Kampagneneffekt (Q.kampagne, Prozentpunkte),
 // der mit 15 % im Monat abklingt (Monatswechsel unten), in den drei Monaten vor einer Wahl anderthalbfach. Vorher blieb alles
 // dauerhaft, und die Medienkarte war die dominante Strategie.
 var natShare = function(p) {
@@ -63,7 +65,7 @@ if (Q.kampagne_card && Q.pp_snap) {
     var k_before = natShare('spd');
     for (var c of Q.classes) {
         var k_gain = (Q[c + '_spd'] || 0) - (Q.pp_snap[c] || 0);
-        if (k_gain > 0) Q[c + '_spd'] -= 0.8 * k_gain;
+        if (k_gain > 0) Q[c + '_spd'] -= (Q.kampagne_card == 2 ? 0.7 : 0.9) * k_gain;
     }
     var k_near = Q.next_election_time && Q.next_election_time - Q.time <= 3;
     Q.kampagne = Math.round(((Q.kampagne || 0) + 0.5 * (k_before - natShare('spd')) * (k_near ? 1.5 : 1)) * 100) / 100;
@@ -444,8 +446,12 @@ if (Q.month_actions >= 1) {
     // Calibrated with node tools/sim.js . 60 linke (random play): 2025 election about 9.5 % of the votes / 11 % of the
     // seats (real 8.8 / 10.2), Dec 2025 and Nov 2026 about 12.5-13 % (real 10.6 / about 11). Without it: 10.8, 15.6, 17.2.
     // Durchgang 4.7: targeted play pays off. Every organizing action (Haustürgespräche, Sozialsprechstunden,
-    // Mietwucher-Rechner: lk_orga) earns attention, from 0.35 up to 0.7 after five of them.
-    var LK_GAIN = Math.min(0.7, 0.35 + 0.07 * (Q.lk_orga || 0));
+    // Mietwucher-Rechner: lk_orga) earns attention (bis Nov. 2026: +0.07 je Aktion bis 0.7).
+    // Nov. 2026, Balance nach der Forschung: Organisationsarbeit wirkt in Europa auch dauerhaft (Pons, American Economic Review
+    // 2018: Haustürwahlkampf für Hollande 2012 +3,2 Punkte in besuchten Bezirken, landesweit etwa ein Viertel des Vorsprungs,
+    // noch 2014 messbar), aber nicht in der Größe, die 0.7 ergab (Linke +4 Punkte bis März 2029 gegenüber dem Grundspiel).
+    // Jetzt +0.04 je Aktion bis 0.55. Frühere Kalibrierung mit sim.js zählte versehentlich den Debug-Schnellstart (SPD) mit.
+    var LK_GAIN = Math.min(0.55, 0.35 + 0.04 * (Q.lk_orga || 0));
     if (Q.player == 'linke' && Q.lk_prev_support && !Q.spd_in_government) {
         for (var c of Q.classes) {
             var prev = Q.lk_prev_support[c];

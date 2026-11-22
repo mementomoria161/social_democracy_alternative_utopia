@@ -15,8 +15,8 @@ function UI() {}
 engine.UserInterface.makeParentOf(UI);
 
 // smart: plausible play, e.g. no deliberate failure of coalition talks after an election
-const BAD = /bundestagswahl\.no_majority$|bundestagswahl\.new_elections$|reduce_spending|promise_cuts|bring_down|destroy|austerity|cut_benefits|sozial_kuerzen|vote_yes|give_up|\.accept$|regressive|cut_rich|raise_poor|support_employers|markt|let_it_happen|resign|nothing_to_do|ban_klima|persecute_klima|\.alter$|kaas|trad_major|buendnisarbeit\.distanz/;
-const SKIP = /easy_discard|cancel_advisor_action|library|backSpecialScene|credits|election_simulation|custom|mod_loader/;
+const BAD = /bundestagswahl\.no_majority$|bundestagswahl\.lk_keine_duldung$|bundestagswahl\.new_elections$|reduce_spending|promise_cuts|bring_down|destroy|austerity|cut_benefits|sozial_kuerzen|vote_yes|give_up|\.accept$|regressive|cut_rich|raise_poor|support_employers|markt|let_it_happen|resign|nothing_to_do|ban_klima|persecute_klima|\.alter$|kaas|trad_major|buendnisarbeit\.distanz/;
+const SKIP = /debug_start|easy_discard|cancel_advisor_action|library|backSpecialScene|credits|election_simulation|custom|mod_loader/;
 const runs = +process.argv[3] || 10, opts = process.argv.slice(4), smartAll = opts.includes('smart');
 const party = opts.find(o => o === 'spd' || o === 'linke');
 const summary = [], errs = {};

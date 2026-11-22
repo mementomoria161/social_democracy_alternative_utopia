@@ -613,7 +613,7 @@ Das Undenkbare ist eingetreten. AfD und BSW verfügen gemeinsam über eine Mehrh
 @brandmauer_coalition
 title: Die Brandmauer fällt.
 subtitle: Union + AfD ([+ hitler_right_coalition +] %)
-view-if: hitler_right_coalition >= 50 and brandmauer = 0 and far_right_coalition < 50 and (mitte_coalition < 50 or (afd_r <= union_r and player = "spd" and union_relation < 40))
+view-if: hitler_right_coalition >= 50 and brandmauer = 0 and far_right_coalition < 50 and (mitte_coalition < 50 or (afd_r <= union_r and player = "spd" and union_relation < 40)) and (player = "spd" or mitte_coalition + spd_r < 50 or union_relation < -20)
 # Nov. 2026: Auch ohne Brandmauer wählt die Union die AfD nicht automatisch. Liegt die AfD vorn, müsste die Union als
 # Juniorpartnerin eine AfD-Kanzlerschaft mittragen; das geschieht nur, wenn es keine Mehrheit der Mitte gibt (in Österreich
 # scheiterten ÖVP-Verhandlungen als Juniorpartnerin der FPÖ im Februar 2025). Liegt die Union vorn, regiert sie mit der AfD,
@@ -977,6 +977,8 @@ Wir geben das Verteidigungsministerium an den Koalitionspartner ab. Verbleibende
 - @lk_majority
 - @lk_r2g
 - @lk_rotrot
+- @lk_duldung
+- @lk_keine_duldung
 - @lk_toleration
 - @far_right_coalition
 - @brandmauer_coalition
@@ -1073,6 +1075,27 @@ go-to: ministries if not in_spd_majority
 
 Ines Schwerdtner [? if in_spd_majority : wird zur Bundeskanzlerin gewählt. ?][? if not in_spd_majority : soll Bundeskanzlerin werden. ?]
 
+@lk_duldung
+title: Eine Regierung der Mitte dulden, damit die AfD nicht mitregiert.
+subtitle: Wir wählen die Kanzlerin oder den Kanzler mit, ohne Koalitionsvertrag, und entscheiden über jedes Gesetz einzeln.
+view-if: player = "linke" and brandmauer = 0 and hitler_right_coalition >= 50 and far_right_coalition < 50 and mitte_coalition < 50 and mitte_coalition + spd_r >= 50 and union_relation >= -20
+priority: 2
+on-arrival: lk_duldung = 1; union_relation += 5; left_dissent += 10; reformist_dissent -= 5; reformist_strength += 3; pro_republic += 3
+go-to: lk_opposition
+# Nov. 2026: Ohne diese Wahl war im Linke-Spiel Union + AfD erzwungen, sobald die Brandmauer gefallen war und Union, SPD und
+# Grüne allein keine Mehrheit hatten, auch wenn die Linke eine Mehrheit gegen die AfD hätte sichern können. Vorbild (real):
+# Am 12.12.2024 wurde Mario Voigt (CDU) in Thüringen im ersten Wahlgang mit 51 Stimmen gewählt, seine Koalition aus CDU, BSW
+# und SPD hatte 44 von 88 Sitzen; die übrigen Stimmen kamen nach übereinstimmenden Berichten von der Linken (geheime Wahl).
+# Eine Duldung schloss die Linke danach aus. Was im Spiel im Bund geschieht, ist Fiktion.
+
+@lk_keine_duldung
+title: Niemanden dulden: Wir bleiben in der Opposition.
+subtitle: Dann kann die Union mit der AfD regieren.
+view-if: player = "linke" and brandmauer = 0 and hitler_right_coalition >= 50 and far_right_coalition < 50 and mitte_coalition < 50 and mitte_coalition + spd_r >= 50 and union_relation >= -20
+priority: 2
+on-arrival: left_dissent -= 5; reformist_dissent += 10; pro_republic -= 3
+go-to: brandmauer_coalition
+
 @lk_opposition
 title: In die Opposition gehen.
 subtitle: Die anderen Parteien bilden eine Regierung ohne uns.
@@ -1111,4 +1134,4 @@ var share = {foreign: lead, interior: lead, economic: p2 || lead, agriculture: l
 for (var post in share) Q[post + '_minister_party'] = share[post];
 !}
 
-[? if spd_r = 0 : Ohne Sitze im Bundestag bleibt uns nur die außerparlamentarische Opposition: auf der Straße, in den Betrieben, in den Landtagen und Rathäusern. ?][? if spd_r > 0 : Die Regierung wird ohne uns gebildet. ?] [+ chancellor +] wird Bundeskanzler\*in, es regiert: [+ coalition_name +]. Unsere Aufgabe ist jetzt, die soziale Opposition zu sein.
+[? if lk_duldung = 1 : Wir wählen [+ chancellor +] mit, damit die AfD nicht mitregiert. Einen Koalitionsvertrag gibt es nicht; für jedes Gesetz muss die Regierung eine Mehrheit suchen, oft bei uns. In der Sozialistischen Linken ist der Ärger groß, viele Wähler\*innen sind erleichtert. ?][? if spd_r = 0 : Ohne Sitze im Bundestag bleibt uns nur die außerparlamentarische Opposition: auf der Straße, in den Betrieben, in den Landtagen und Rathäusern. ?][? if spd_r > 0 : Die Regierung wird ohne uns gebildet. ?] [+ chancellor +] wird Bundeskanzler\*in, es regiert: [+ coalition_name +]. Unsere Aufgabe ist jetzt, die soziale Opposition zu sein.

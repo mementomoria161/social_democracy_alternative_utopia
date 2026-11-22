@@ -1,12 +1,14 @@
 title: Die Brandmauer wackelt
 subtitle: Rechte Kräfte schließen sich gegen die Regierung zusammen.
 new-page: true
-on-arrival: harzburg_front_seen = 1; brandmauer = 0 if (player = "spd" and union_relation < 25) or (player = "linke" and union_relation < 0) or afd_votes >= union_votes + 10; bauern_strength += 100; rechts_strength += 100; old_middle_afd += 2; unemployed_afd += 2; rural_afd += 2; nazi_urgency += 1; iron_front_timer = 0
+on-arrival: harzburg_front_seen = 1; brandmauer = 0 if (player = "spd" and union_relation < 25) or afd_votes >= union_votes + 10; bauern_strength += 100; rechts_strength += 100; old_middle_afd += 2; unemployed_afd += 2; rural_afd += 2; nazi_urgency += 1; iron_front_timer = 0
 tags: event
 view-if: (year = 2028 and month >= 10 and chancellor_party != "AfD") or (coup_progress >= 6)
 max-visits: 1
 
-# Linke-Spiel (4.3): union_relation ist dort das Verhältnis Union-Linke (Start 10), daher eigene, niedrigere Schwelle.
+# Linke-Spiel: union_relation ist dort das Verhältnis Union–Linke (Start 10). Die frühere Bedingung „unter 0“ war fast immer
+# erfüllt (Brandmauer fiel in 58 von 60 Läufen), sagt aber nichts über den Kurs der CDU gegenüber der AfD (die CDU hat einen
+# Unvereinbarkeitsbeschluss auch gegenüber der Linken). Seit Nov. 2026 im Linke-Spiel nur noch der AfD-Vorsprung in den Umfragen.
 # Wann die Brandmauer fällt (Nov. 2026 nach Umfragen neu gefasst): Sie bröckelt real. Im September 2026 waren 51 % gegen einen
 # grundsätzlichen Ausschluss der Zusammenarbeit, unter Unionsanhänger*innen 55 % (YouGov, 11.-14.09.2026; August: 44 %).
 # Auslöser im Spiel: AfD in den Umfragen mindestens 10 Punkte vor der Union (September 2026: 29 zu 18, Mittel November:
