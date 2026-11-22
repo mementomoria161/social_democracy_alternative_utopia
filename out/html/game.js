@@ -769,8 +769,16 @@
       var facs = GRP_FACTIONS.filter(function(f) { return f[0] != 'neorevisionist' || showNeo; });
       var facName = {};
       facs.forEach(function(f) { facName[f[0]] = Q[f[1]] || f[0]; });
-      var partyName = {spd: Q.pp_name || 'SPD', linke: Q.op_name || 'Linke', union: 'CDU/CSU', gruene: 'Grüne', fdp: 'FDP', bsw: 'BSW', afd: 'AfD'};
-      var partyColor = {spd: Q.pp_color || '#E3000F', linke: Q.op_color || '#BE3075', union: '#151518', gruene: '#46962B', fdp: '#E6C800', bsw: '#7D254F', afd: '#009EE0'};
+      var partyName = {spd: Q.pp_name || 'SPD', linke: Q.op_name || 'Linke', union: 'CDU/CSU', gruene: 'Grüne', fdp: 'FDP', bsw: 'BSW', afd: 'AfD',
+                       sapd: 'Soziale Linke', srpd: 'Neue Mitte'};
+      var partyColor = {spd: Q.pp_color || '#E3000F', linke: Q.op_color || '#BE3075', union: '#151518', gruene: '#46962B', fdp: '#E6C800', bsw: '#7D254F', afd: '#009EE0',
+                        sapd: '#c40000', srpd: '#F4A460'};
+      // Abspaltungen der eigenen Partei (events/sapd_formed: Parteilinke, events/srpd_formed: rechter Flügel) erscheinen,
+      // sobald sie gegründet sind, an ihrem Platz im Spektrum: Soziale Linke neben der Linken, Neue Mitte zwischen Grünen und FDP
+      var PL = GRP_PARTIES.slice();
+      if (Q.sapd_formed) PL.splice(PL.indexOf('linke') + 1, 0, 'sapd');
+      if (Q.srpd_formed) PL.splice(PL.indexOf('fdp'), 0, 'srpd');
+      var splitOf = {sapd: 'Die Parteilinke', srpd: 'Der rechte Flügel'};
       // vor dem ersten Monatswechsel gibt es noch keine Spielumfrage: letzter realer Monatswert (Oktober 2024)
       var lastReal = REAL_POLLS[REAL_POLLS.length - 1];
       var votes = function(p) {
@@ -793,8 +801,8 @@
           // Fläche ~ Stärke, aber nicht größer als der Platz auf dem Kreis
           d.rad = Math.min((2 + 17 * Math.sqrt(Math.max(0, d.s) / 100)) * k, 0.45 * slot * R);
       });
-      var parties = GRP_PARTIES.map(function(p, i) {
-          var a = (-120 + i * 60) * Math.PI / 180; // links die linken, rechts die rechten Parteien, das BSW unten dazwischen
+      var parties = PL.map(function(p, i) {
+          var a = (-120 + i * 360 / PL.length) * Math.PI / 180; // links die linken, rechts die rechten Parteien, das BSW unten dazwischen
           return {p: p, x: cx + 0.8 * R * Math.sin(a), y: cy - 0.8 * R * Math.cos(a), sz: (4 + 26 * Math.sqrt(votes(p) / 100)) * k,
                   members: G.filter(function(d) { return (d.g.parties || []).some(function(pn) { return GRP.slot(Q, pn) == p; }); }).map(function(d) { return d.id; })};
       });
@@ -888,7 +896,7 @@
       var colTxt = function(txt, col) { return '<span style="color:' + col + '">' + txt + '</span>'; };
       var relTxt = function(r) { var s = grpRel(r); return 'Verhältnis ' + colTxt(s[1], s[2]); };
       html += '<h1>Parteien</h1>';
-      GRP_PARTIES.forEach(function(p) {
+      PL.forEach(function(p) {
           html += line('p:' + p, 'parties', partyName[p], econNum(votes(p), 0) + ' %' + (Q[p + '_relation'] !== undefined ? ', ' + relTxt(Q[p + '_relation']) : ''));
       });
       html += '<h1>Strömungen</h1>';
@@ -1037,6 +1045,7 @@
               var pk = key.slice(2), o = parties.filter(function(x) { return x.p == pk; })[0];
               h = '<div class="grp_card_head"><b>' + partyName[pk] + '</b></div>' +
                   '<div class="grp_card_stats">' + stat('Umfrage:', '<b>' + econNum(votes(pk), 0) + ' %</b>') + (Q[pk + '_relation'] !== undefined ? relTo(Q[pk + '_relation']) : '') + '</div>' +
+                  (splitOf[pk] ? '<p class="grp_card_text">Abspaltung ' + grpEsc(Q.pp_dat || 'der SPD') + ': ' + splitOf[pk] + ' hat die Partei verlassen und tritt mit eigenen Listen an.</p>' : '') +
                   (o.members.length ? '<p class="grp_card_text">Nahestehende Gruppen: ' + grpList(o.members.map(function(id) { return byId[id].g.short; })) + '.</p>' : '');
           } else {
               var act = G.filter(function(d) { return d.a; });

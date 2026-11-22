@@ -3,13 +3,19 @@ on-arrival: {!
 Q.sapd_formed = 1;
 Q.parties.push('sapd');
 
-Q.workers_sapd = 10;
-Q.workers_spd -= 4;
+// Nach der Abspaltung der Parteilinken allein (left_split) eine kleine Partei; mit den Funktionär*innen der Parteimitte
+// (centrists_resign, vorher oder später, dann in centrist_leaders_resign) die ernsthafte Konkurrenz aus dem Ereignistext.
+Q.workers_sapd = 6;
 Q.new_middle_sapd = 1;
 Q.old_middle_sapd = 0;
 Q.rural_sapd = 0;
-Q.unemployed_sapd = 2;
+Q.unemployed_sapd = 1;
 Q.rentner_sapd = 0;
+if (Q.centrists_resign) {
+    Q.workers_sapd += 4;
+    Q.unemployed_sapd += 1;
+    Q.workers_spd -= 4;
+}
 
 Q.workers_other -= 5;
 
