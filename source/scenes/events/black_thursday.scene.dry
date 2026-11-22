@@ -1,13 +1,16 @@
 title: Zollkrieg
 subtitle: Der Handelskonflikt mit den USA eskaliert …
 new-page: true
-on-arrival: black_thursday_seen = 1; workers_linke += 5; workers_afd += 3; new_middle_afd += 4; old_middle_afd += 5; rural_afd += 5; unemployed_afd += 5; unemployed += 1; budget -= 1 if budget > 0; dues -= 1 if dues > 2; inflation -= 1; economic_growth -= 1;
+on-arrival: black_thursday_seen = 1; workers_linke += 2; workers_afd += 1; old_middle_afd += 2; rural_afd += 1; unemployed += 1; budget -= 1 if budget > 0; dues -= 1 if dues > 2; inflation -= 1; economic_growth -= 1;
 tags: event
 view-if: year = 2027 and month >= 4
 max-visits: 1
 face-image: img/boerse.jpg
 
 # Ehemals Börsenkrach 1929. black_thursday_seen ist seit Spielbeginn 1 (Krise läuft), hier nur der zusätzliche Schock.
+# Zustimmung zur AfD (Nov. 2026 gesenkt, vorher +3 bis +5 in allen Gruppen): Ein Handelskonflikt ist keine Finanzkrise; nach
+# solchen Schocks legen Rechtsaußen-Parteien historisch nicht systematisch zu (Funke/Schularick/Trebesch 2016). Den Unmut über
+# die Regierung bildet der Umfragetrend in post_event ab (Arbeitslosigkeit, Wachstum).
 
 = Zollkrieg
 

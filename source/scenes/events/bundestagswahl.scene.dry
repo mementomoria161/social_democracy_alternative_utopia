@@ -91,6 +91,8 @@ var srpd = Q.srpd_r || 0;
 Q.grand_coalition = Q.spd_r + Q.union_r + srpd;
 // Kenia
 Q.weimar_coalition = Q.spd_r + Q.union_r + Q.gruene_r + srpd;
+// Mehrheit der Mitte (Union + SPD + Grüne, im Linke-Spiel steht die SPD im Slot linke): ohne sie kein Bündnis ohne AfD
+Q.mitte_coalition = Q.player == 'linke' ? Q.union_r + Q.linke_r + Q.gruene_r : Q.weimar_coalition;
 // Ampel
 Q.ampel_coalition = Q.fdp_r > 0 ? Q.spd_r + Q.gruene_r + Q.fdp_r + srpd : 0;
 // Rot-Grün
@@ -269,7 +271,7 @@ Schwarz-Grün (Union + Grüne): [+ schwarz_gruen_coalition +] %
 
 [? if nazi_urgency < 3 and afd_r >= 25 : Das Ergebnis der AfD ist ein Schock. Ein Viertel des Parlaments gehört nun einer Partei, die der Verfassungsschutz in Teilen als gesichert rechtsextrem einstuft. ?]
 
-[? if hitler_right_coalition >= 50 : Union und AfD hätten zusammen eine Mehrheit. Alles hängt davon ab, ob die Brandmauer hält. ?]
+[? if hitler_right_coalition >= 50 : Union und AfD hätten zusammen eine Mehrheit. Alles hängt davon ab, ob die Brandmauer hält. ?][? if brandmauer = 0 and hitler_right_coalition >= 50 and far_right_coalition < 50 and mitte_coalition >= 50 and afd_r > union_r : Die Brandmauer ist zwar gefallen, doch als Juniorpartnerin unter einer AfD-Kanzlerschaft will die Union nicht regieren, solange es eine Mehrheit der Mitte gibt. ?]
 
 [? if anti_democratic_coalition >= 34 : AfD und BSW verfügen zusammen über eine Sperrminorität: Ohne sie sind keine Grundgesetzänderungen mehr möglich. ?]
 
@@ -611,7 +613,12 @@ Das Undenkbare ist eingetreten. AfD und BSW verfügen gemeinsam über eine Mehrh
 @brandmauer_coalition
 title: Die Brandmauer fällt.
 subtitle: Union + AfD ([+ hitler_right_coalition +] %)
-view-if: hitler_right_coalition >= 50 and brandmauer = 0 and far_right_coalition < 50
+view-if: hitler_right_coalition >= 50 and brandmauer = 0 and far_right_coalition < 50 and (mitte_coalition < 50 or (afd_r <= union_r and (union_party_leader = "Spahn" or (player = "spd" and union_relation < 40))))
+# Nov. 2026: Auch ohne Brandmauer wählt die Union die AfD nicht automatisch. Liegt die AfD vorn, müsste die Union als
+# Juniorpartnerin eine AfD-Kanzlerschaft mittragen; das geschieht nur, wenn es keine Mehrheit der Mitte gibt (in Österreich
+# scheiterten ÖVP-Verhandlungen als Juniorpartnerin der FPÖ im Februar 2025). Liegt die Union vorn, regiert sie mit der AfD,
+# wenn Spahn sie führt oder das Verhältnis zur SPD schlecht ist (unter 40). 69 % der Unionsanhänger*innen halten die AfD für
+# rechtsextrem (YouGov, September 2026).
 priority: 2
 on-arrival: spd_in_government = 0; union_in_government = 1; afd_in_government = 1; coalition_name = "Schwarz-Blau"; pro_republic -= 10; coup_progress += 3; demo_strength += 500; foreign_minister_party = "Union"; interior_minister_party = "AfD"; interior_minister = "Chrupalla"; justice_minister_party = "AfD"; justice_minister = "Brandner"; labor_minister_party = "Union"; bundeswehr_minister_party = "Union"; economic_minister_party = "Union"; finance_minister_party = "Union"; agriculture_minister_party = "AfD"; agriculture_minister = "Protschka"
 go-to: brandmauer_afd_lead if afd_r > union_r; brandmauer_union_lead if afd_r <= union_r
@@ -690,15 +697,18 @@ Q.new_middle_spd -= 3;
 Q.old_middle_spd -= 3;
 Q.rural_spd -= 3;
 Q.rentner_spd -= 2;
-Q.workers_afd += 4;
-Q.old_middle_afd += 4;
-Q.new_middle_afd += 3;
-Q.rural_afd += 4;
-Q.unemployed_afd += 4;
+// AfD-Zugewinn bei gescheiterter Regierungsbildung (Nov. 2026 halbiert, vorher +3/+4 je Gruppe und weitere +4 bei geringem
+// Vertrauen; Weimar-Vorlage 1932). Eine Bundestagsauflösung mangels Mehrheit gab es noch nie; Spielannahme: Die Opposition
+// gegen „die Altparteien“ profitiert, aber nicht im Ausmaß der Reichstagswahlen 1932.
+Q.workers_afd += 2;
+Q.old_middle_afd += 2;
+Q.new_middle_afd += 1;
+Q.rural_afd += 2;
+Q.unemployed_afd += 2;
 if (Q.pro_republic < 45) {
-    Q.workers_spd -= 4;
-    Q.workers_afd += 4;
-    Q.rural_afd += 4;
+    Q.workers_spd -= 2;
+    Q.workers_afd += 2;
+    Q.rural_afd += 2;
 }
 if (Q.far_right_coalition >= 40) {
     Q.rechts_strength += 30;

@@ -396,44 +396,10 @@ if (Q.month_actions >= 1) {
         Q.pro_republic -= 1;
     }
 
-    ///////////////////////////// change party support based on pro_republic
-    // if trust in democracy is lower than the support of the democratic center (SPD + Union + Grüne), voters drift to the AfD
-    if (Q.pro_republic < (Q.spd_votes + Q.gruene_votes + Q.union_votes - 3)) {
-        if (Q.new_middle_spd > 0) {
-            Q.new_middle_spd -= 4/12;
-            Q.new_middle_afd += 2/12;
-        }
-        if (Q.old_middle_spd > 0) {
-            Q.old_middle_spd -= 4/12;
-            Q.old_middle_afd += 3/12;
-        }
-        if (Q.rural_spd > 0) {
-            Q.rural_spd -= 4/12;
-            Q.rural_afd += 3/12;
-        }
-        if (Q.workers_spd_normalized > 10) {
-            Q.workers_spd -= 4/12;
-            Q.workers_afd += 3/12;
-        }
-        if (Q.rentner_spd > 0) {
-            Q.rentner_spd -= 3/12;
-        }
-        if (Q.unemployed_spd_normalized > 8) {
-            Q.unemployed_spd -= 4/12;
-        }
-        if (Q.old_middle_union > 0) {
-            Q.old_middle_union -= 4/12;
-            Q.old_middle_afd += 3/12;
-        }
-        if (Q.rural_union > 0) {
-            Q.rural_union -= 4/12;
-            Q.rural_afd += 3/12;
-        }
-        if (Q.workers_union > 0) {
-            Q.workers_union -= 3/12;
-            Q.workers_afd += 3/12;
-        }
-    }
+    ///////////////////////////// (bis Nov. 2026: Abwanderung zur AfD, wenn pro_republic < SPD + Union + Grüne − 3)
+    // Entfernt (Weimar-Vorlage: Vertrauen in die Republik gegen Stimmenanteil der Weimarer Koalition). Der Vergleich von
+    // Vertrauen mit Stimmenanteilen hat keine empirische Grundlage und wirkte zusätzlich zum Treiber „Vertrauen in die
+    // Demokratie“ im Umfragetrend unten (doppelt gezählt).
 
     ////////////////////////// Linke game: less attention for a small opposition party (Durchgang 4.3)
     // In opposition, gains of the player slot since the last month change count only with LK_GAIN (losses fully).
@@ -529,14 +495,21 @@ if (Q.month_actions >= 1) {
         var econ = Math.max(-3, Math.min(4, (Q.unemployed - 6.5) + 0.5 * Math.max(0, Q.inflation - 2.5) - 0.4 * ((Q.economic_growth || 0) - 1)));
         var etext = 'Wirtschaftslage (Arbeitslosigkeit ' + de(Q.unemployed) + ' %, Inflation ' + de(Q.inflation) + ' %, Wachstum ' + de(Q.economic_growth || 0) + ' %)';
         if (econ > 0) {
-            // discontent goes to the opposition, the AfD profits 1.5 times as much (as long as it is not governing itself)
-            var w = {}; opp.forEach(function(p) { w[p] = sh[p] * (p == 'afd' ? 1.5 : 1); });
-            shift(etext + ': Unmut über die Regierung', 0.04 * econ, gov, opp, w);
-            if (econ > 2 && afd_opp) shift('Krisenstimmung: Protest wählt rechts', 0.03 * (econ - 2), not(['afd']), ['afd']);
-            if (econ > 2 && !Q.works_program && afd_opp) shift('Kein Investitionsprogramm gegen die Krise', 0.02, gov, ['afd']);
+            // Unmut trifft die Regierung, die Opposition gewinnt nach ihrer Stärke (wirtschaftliches Wählen). Kein Extra für die
+            // AfD (bis Nov. 2026: Faktor 1,5, „Protest wählt rechts“, „Kein Investitionsprogramm“ nur zur AfD): Nach normalen
+            // Rezessionen legen Rechtsaußen-Parteien historisch nicht systematisch zu (Funke/Schularick/Trebesch, „Going to
+            // extremes“, European Economic Review 2016), und die AfD-Sympathie erklärt sich vor allem aus Migrationssorgen,
+            // kaum aus Einkommen, Bildung oder Job (SOEP 2014–2024, Schröder/Rehm/Röcke 2026). Spielannahme: Ohne
+            // Investitionsprogramm wiegt der Unmut in einer tiefen Krise ein Viertel schwerer.
+            shift(etext + ': Unmut über die Regierung', 0.04 * econ * (econ > 2 && !Q.works_program ? 1.25 : 1), gov, opp);
         } else if (econ < 0) {
             shift(etext + ': Rückenwind für die Regierung', 0.04 * -econ, opp, gov);
         }
+        // Finanzkrise: Nach systemischen Bankenkrisen gewinnen Rechtsaußen-Parteien in den fünf Jahren danach im Mittel rund
+        // ein Drittel ihres Stimmenanteils hinzu (Funke/Schularick/Trebesch 2016: 20 Länder, über 800 Wahlen 1870–2014).
+        // Im Spiel nach der Bankenkrise (banking_crisis_seen, Monat in sector_done): 60 Monate lang 0,55 % des AfD-Anteils im Monat.
+        var bk = Q.sector_done && Q.sector_done.banking_crisis_seen;
+        if (bk && afd_opp && Q.time - bk < 60) shift('Nach der Bankenkrise: Vertrauensverlust in die etablierten Parteien', 0.0055 * sh.afd, not(['afd']), ['afd']);
         // 2. wear in office: the chancellor's party loses a little every month
         if (CH && has(CH)) shift('Abnutzung im Amt (Kanzlerpartei)', 0.02, [CH], opp);
         // 3. trust in democracy (pro_republic; the stronger effect on the AfD above remains)
@@ -559,12 +532,24 @@ if (Q.month_actions >= 1) {
         if (grr < 25 && afd_opp) shift('Schwache rechte Mobilisierung', Math.min(0.03, 0.01 * (25 - grr) / 10 + 0.005), ['afd'], not(['afd']));
         if (Q.ga_vdk && Q.g_vdk > 70) shift('Sozialproteste', Math.min(0.03, 0.01 * (Q.g_vdk - 70) / 10), gov, ['spd', 'linke', 'sapd'].filter(function(p) { return gov.indexOf(p) < 0; }));
         // 6. slow return to long-term camp strengths (about the mean of the elections 2017-2025, scaled to 100),
-        //    only for the AI parties: the player's own result stays the player's achievement
-        var LONG = {union: 28, afd: 19, gruene: 12, bsw: 3, fdp: 7, other: 5};
+        //    only for the AI parties: the player's own result stays the player's achievement.
+        //    AfD 24 (bis Nov. 2026: 19): Mittel aus der Bundestagswahl 2025 (20,8 %) und dem Umfrageniveau seit Frühjahr 2025
+        //    (25–29 %); die Wahlen 2017/2021 liegen vor ihrem Aufstieg zur stärksten Partei in den Umfragen.
+        var LONG = {union: 28, afd: 24, gruene: 12, bsw: 3, fdp: 7, other: 5};
         LONG[Q.player == 'linke' ? 'linke' : 'spd'] = 19; LONG[Q.player == 'linke' ? 'spd' : 'linke'] = 7;
         var rev = {};
         PT.forEach(function(p) { if (p != 'spd' && LONG[p] !== undefined) rev[p] = 0.008 * (LONG[p] - sh[p]); });
         drv.push(['Langfristige Lagerstärken: Ausreißer bilden sich langsam zurück', rev]);
+        // Wählerpotenzial der AfD: Laut Forsa (Güllner, Juni 2026) wollen 20 % der Wahlberechtigten die AfD wählen, weitere 8 %
+        // können es sich vorstellen; das Potenzial sei „nahezu ausgeschöpft“. 28 % der Wahlberechtigten sind bei rund 80 %
+        // Wahlbeteiligung etwa 35 % der Stimmen; nach einer Bankenkrise 38 % (siehe oben). Gewinne der AfD aus den Treibern
+        // werden ab 28 % zunehmend gebremst, über dem Potenzial bröckelt die Zustimmung zurück (auch nach Ereignissen).
+        if (has('afd')) {
+            var pot = 35 + (bk ? 3 : 0), gain = 0;
+            drv.forEach(function(x) { if ((x[1].afd || 0) > 0) gain += x[1].afd; });
+            var brake = gain * Math.min(1, Math.max(0, (sh.afd - 28) / (pot - 28))) + 0.1 * Math.max(0, sh.afd - pot);
+            shift('Wählerpotenzial der AfD weitgehend ausgeschöpft', brake, ['afd'], not(['afd']));
+        }
         // 7. a little chance
         var rnd = {};
         PT.forEach(function(p) { rnd[p] = (Math.random() - 0.5) * 0.16 * Math.sqrt(sh[p] / 10); });

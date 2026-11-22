@@ -429,11 +429,16 @@ Gerhard Trabert, der Kandidat der Linken, wird Bundespräsident. Für die extrem
 - @civil_war: Das ist die Staatskrise.
 
 @hitler_wins
-on-arrival: president = afd_candidate; chancellor = afd_leader; chancellor_party = "AfD"; brandmauer = 0
+on-arrival: president = afd_candidate; brandmauer = 0 if hitler_majority; pro_republic -= 5; rechts_strength += 30; coalition_dissent += 1 if spd_in_government
 
-Mit den Stimmen von AfD und einem Teil der Union im dritten Wahlgang wird [+ president +] Bundespräsident. Die Brandmauer ist gefallen. Der neue Bundespräsident verweigert der Regierung die Unterschrift unter mehrere Gesetze und löst nach einer verlorenen Vertrauensfrage den Bundestag auf. Wenige Wochen später wählt eine Mehrheit aus AfD und abtrünnigen Unionsabgeordneten [+ chancellor +] zur Kanzlerin.
+# Nov. 2026: vorher wurde die AfD damit automatisch Kanzlerpartei (Weimar: Hindenburg ernennt Hitler). Nach Art. 63 GG wählt
+# allein der Bundestag die Kanzlerin oder den Kanzler; der Bundespräsident kann weder eine Regierung einsetzen noch den Bundestag
+# nach Belieben auflösen (Art. 63 Abs. 4, Art. 68). Mit absoluter Mehrheit braucht die AfD Stimmen aus der Union (Brandmauer
+# fällt), im dritten Wahlgang reicht die relative Mehrheit, wenn sich die anderen nicht einigen.
 
-- @afd_takes_power: Was tun wir jetzt?
+[? if hitler_majority : Mit den Stimmen der AfD und eines Teils der Unionsdelegierten wird der AfD-Kandidat [+ president +] Bundespräsident. Die Brandmauer ist gefallen. ?][? if not hitler_majority : Im dritten Wahlgang genügt die relative Mehrheit, und die demokratischen Parteien haben sich nicht auf eine gemeinsame Kandidatur geeinigt: Der AfD-Kandidat [+ president +] wird Bundespräsident. ?]
+
+Zum ersten Mal zieht ein AfD-Politiker ins Schloss Bellevue. Gleich das erste umstrittene Gesetz bekommt keine Unterschrift, die Prüfung liege „noch nicht abgeschlossen“ vor. Die Regierung bleibt im Amt: Kanzlerin oder Kanzler wählt nach Artikel 63 des Grundgesetzes allein der Bundestag. Doch das höchste Staatsamt gibt der AfD eine Bühne, die sie nie hatte, und rechte Netzwerke fühlen sich ermutigt.
 
 
 @schwesig_wins
