@@ -3,7 +3,7 @@ new-page: true
 is-card: true
 tags: party_affairs
 view-if: rally_timer <= 0
-on-arrival: month_actions += 1; rally_timer = 6
+on-arrival: month_actions += 1; rally_timer = 6; kampagne_card = 1
 card-image: img/kundgebung.jpg
 go-to: main_rally; rechts_disrupt if rechts_strength > 135 and not rechts_banned and not return_to_normalcy
 

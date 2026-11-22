@@ -2,7 +2,7 @@ title: Bündnis für Demokratie
 new-page: true
 is-card: true
 view-if: iron_front_formed == 1 and iron_front_timer = 0
-on-arrival: iron_front_timer = 7; month_actions += 1; demo_militarization_cost = 2 if demo_radicalism > 0.1 else demo_militarization_cost = 1; demo_militarization_cost = 3 if demo_radicalism > 0.25
+on-arrival: iron_front_timer = 7; month_actions += 1; kampagne_card = 1; demo_militarization_cost = 2 if demo_radicalism > 0.1 else demo_militarization_cost = 1; demo_militarization_cost = 3 if demo_radicalism > 0.25
 card-image: img/buendnis_demokratie.jpg
 frequency: 200
 tags: party_affairs, antifascism

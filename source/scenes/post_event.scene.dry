@@ -42,6 +42,44 @@ for (var c of Q.classes) {
     }
 }
 
+// Kampagneneffekt (Nov. 2026): Überzeugungseffekte von Wahlkampf-Kontakten und -Werbung sind in Hauptwahlen im Mittel null,
+// frühe Effekte verfliegen (Kalla/Broockman, American Political Science Review 2018: 40 Feldexperimente plus 9 eigene);
+// Mobilisierung kurz vor der Wahl wirkt. Die Karten Medien, Kundgebung, Wahlkampf, Bündnis für Demokratie, Demokratiebewegung
+// und „Der AfD entgegentreten“ (Mobilisierung) setzen kampagne_card: Ihr Zugewinn für
+// die Spielerpartei bleibt nur zu 20 % dauerhaft; die Hälfte des Rests wirkt als Kampagneneffekt (Q.kampagne, Prozentpunkte),
+// der mit 15 % im Monat abklingt (Monatswechsel unten), in den drei Monaten vor einer Wahl anderthalbfach. Vorher blieb alles
+// dauerhaft, und die Medienkarte war die dominante Strategie.
+var natShare = function(p) {
+    var num = 0, den = 0;
+    for (var c of Q.classes) {
+        var t = 0;
+        for (var q of Q.parties) t += Math.max(0, Q[c + '_' + q] || 0);
+        if (t > 0) num += Q[c] * Math.max(0, Q[c + '_' + p] || 0) / t;
+        den += Q[c];
+    }
+    return den ? 100 * num / den : 0;
+};
+if (Q.kampagne_card && Q.pp_snap) {
+    var k_before = natShare('spd');
+    for (var c of Q.classes) {
+        var k_gain = (Q[c + '_spd'] || 0) - (Q.pp_snap[c] || 0);
+        if (k_gain > 0) Q[c + '_spd'] -= 0.8 * k_gain;
+    }
+    var k_near = Q.next_election_time && Q.next_election_time - Q.time <= 3;
+    Q.kampagne = Math.round(((Q.kampagne || 0) + 0.5 * (k_before - natShare('spd')) * (k_near ? 1.5 : 1)) * 100) / 100;
+}
+Q.kampagne_card = 0;
+// den Kampagneneffekt als vorübergehende Abweichung anwenden: Spielerpartei in allen Gruppen auf den aktuellen Wert skalieren
+var k_delta = (Q.kampagne || 0) - (Q.kampagne_applied || 0);
+if (Math.abs(k_delta) > 0.01) {
+    var k_sh = natShare('spd');
+    if (k_sh > 0.5) {
+        var k_f = Math.max(0.85, Math.min(1.15, (k_sh + k_delta) / k_sh));
+        for (var c of Q.classes) Q[c + '_spd'] *= k_f;
+        Q.kampagne_applied = Math.round(((Q.kampagne_applied || 0) + natShare('spd') - k_sh) * 100) / 100;
+    }
+}
+
 Q.pro_republic = Math.round(Q.pro_republic);
 Q.nationalism = Math.round(Q.nationalism);
 Q.socialism = Math.round(Q.socialism);
@@ -470,6 +508,9 @@ if (Q.month_actions >= 1) {
     // Danach: Grundlinie 10 + 0,15 je Tausend Erstanträge (ergibt im November 2026 die realen ~21 %), verdrängt durch hohe
     // Arbeitslosigkeit (ein Punkt je Prozentpunkt über 7 %); der Zugang kehrt mit 4 % im Monat zu 71.000 zurück.
     // Wirkung auf die Umfragen: Treiber „Migration“ im Umfragetrend unten.
+    // Kampagneneffekt (15 %) und eigenes Profil als Juniorpartner (4 %) klingen jeden Monat ab (siehe oben und Umfragetrend)
+    Q.kampagne = Math.round((Q.kampagne || 0) * 0.85 * 100) / 100;
+    Q.profil = Math.round((Q.profil || 0) * 0.96 * 100) / 100;
     var tm = Q.year * 12 + Q.month, MM = function(y, m) { return y * 12 + m; };
     var lin = function(pts) {
         if (tm <= pts[0][0]) return pts[0][1];
@@ -510,17 +551,28 @@ if (Q.month_actions >= 1) {
         var de = function(x) { return (+x).toFixed(1).replace('.', ',').replace('-', '−'); };
         var drv = [];
         // move `amount` pp from the parties `from` to the parties `to` (by share, or by the weights wto)
-        var shift = function(text, amount, from, to, wto) {
+        // (wfrom: factors on the shares of the losing side, e.g. responsibility weights)
+        var shift = function(text, amount, from, to, wto, wfrom) {
             from = from.filter(has); to = to.filter(has);
             if (!(amount > 0.002) || !from.length || !to.length) return;
-            var d = {}, sf = 0, st = 0;
-            from.forEach(function(p) { sf += sh[p]; });
+            var d = {}, sf = 0, st = 0, wf = function(p) { return wfrom ? (wfrom[p] || 0) : 1; };
+            from.forEach(function(p) { sf += sh[p] * wf(p); });
             to.forEach(function(p) { st += wto ? wto[p] : sh[p]; });
             if (!sf || !st) return;
-            from.forEach(function(p) { d[p] = (d[p] || 0) - amount * sh[p] / sf; });
+            from.forEach(function(p) { d[p] = (d[p] || 0) - amount * sh[p] * wf(p) / sf; });
             to.forEach(function(p) { d[p] = (d[p] || 0) + amount * (wto ? wto[p] : sh[p]) / st; });
             drv.push([text, d]);
         };
+        // Verantwortung (Nov. 2026): In Koalitionen bekommt die Kanzlerpartei überproportional Lob und Tadel für die Wirtschaft
+        // (Duch/Stevenson, The Economic Vote 2008); die Partei des Finanzressorts teilt ihn, wenn ihre Zuständigkeit sichtbar ist
+        // (Duch/Falcó-Gimeno 2021), im Spiel bei eigenem Investitionsprogramm oder Sondervermögen. Gewichte: Kanzlerpartei 2,
+        // sichtbares Finanzressort 1,5, übrige Regierungsparteien 0,6.
+        var SLOT = {'SPD': 'spd', 'Union': 'union', 'Grüne': 'gruene', 'Linke': 'linke', 'FDP': 'fdp', 'BSW': 'bsw', 'AfD': 'afd'};
+        var FIN = SLOT[Q.finance_minister_party], resp = {}, wresp = {};
+        gov.forEach(function(p) {
+            resp[p] = p == CH ? 2 : (p == FIN && (Q.works_program > 0 || Q.sondervermoegen >= 1) ? 1.5 : 0.6);
+            wresp[p] = sh[p] * resp[p];
+        });
         // 1. economy: unemployment above 6.5 %, inflation above 2.5 %, growth below 1 % (real wages fall when prices outrun growth)
         var econ = Math.max(-3, Math.min(4, (Q.unemployed - 6.5) + 0.5 * Math.max(0, Q.inflation - 2.5) - 0.4 * ((Q.economic_growth || 0) - 1)));
         var etext = 'Wirtschaftslage (Arbeitslosigkeit ' + de(Q.unemployed) + ' %, Inflation ' + de(Q.inflation) + ' %, Wachstum ' + de(Q.economic_growth || 0) + ' %)';
@@ -531,17 +583,27 @@ if (Q.month_actions >= 1) {
             // extremes“, European Economic Review 2016), und die AfD-Sympathie erklärt sich vor allem aus Migrationssorgen,
             // kaum aus Einkommen, Bildung oder Job (SOEP 2014–2024, Schröder/Rehm/Röcke 2026). Spielannahme: Ohne
             // Investitionsprogramm wiegt der Unmut in einer tiefen Krise ein Viertel schwerer.
-            shift(etext + ': Unmut über die Regierung', 0.04 * econ * (econ > 2 && !Q.works_program ? 1.25 : 1), gov, opp);
+            shift(etext + ': Unmut über die Regierung', 0.04 * econ * (econ > 2 && !Q.works_program ? 1.25 : 1), gov, opp, undefined, resp);
         } else if (econ < 0) {
-            shift(etext + ': Rückenwind für die Regierung', 0.04 * -econ, opp, gov);
+            shift(etext + ': Rückenwind für die Regierung', 0.04 * -econ, opp, gov, wresp);
         }
         // Finanzkrise: Nach systemischen Bankenkrisen gewinnen Rechtsaußen-Parteien in den fünf Jahren danach im Mittel rund
         // ein Drittel ihres Stimmenanteils hinzu (Funke/Schularick/Trebesch 2016: 20 Länder, über 800 Wahlen 1870–2014).
         // Im Spiel nach der Bankenkrise (banking_crisis_seen, Monat in sector_done): 60 Monate lang 0,55 % des AfD-Anteils im Monat.
         var bk = Q.sector_done && Q.sector_done.banking_crisis_seen;
         if (bk && afd_opp && Q.time - bk < 60) shift('Nach der Bankenkrise: Vertrauensverlust in die etablierten Parteien', 0.0055 * sh.afd, not(['afd']), ['afd']);
-        // 2. wear in office: the chancellor's party loses a little every month
-        if (CH && has(CH)) shift('Abnutzung im Amt (Kanzlerpartei)', 0.02, [CH], opp);
+        // 2. Kosten des Regierens (bis Nov. 2026 nur die Kanzlerpartei, 0,02 im Monat): Regierungen verlieren im Mittel rund
+        //    2¼ Punkte je Wahlperiode (Nannestad/Paldam 1999, 282 Wahlen in 19 Demokratien; spätere Schätzungen 1,6–2,5),
+        //    ~0,047 im Monat, verteilt nach Stärke. Juniorpartner verlieren zusätzlich, weil ihr Profil neben der Kanzlerpartei
+        //    verwischt (Klüver/Spoon, Journal of Politics 2020, 219 Wahlen in 28 Ländern: Oppositionsparteien schneiden in der
+        //    Folgewahl rund 3 % besser ab): 0,06 % ihres Anteils im Monat (~3 % je Wahlperiode). Die Spielerpartei schützt sich mit
+        //    eigenem Profil (Q.profil: sichtbare Erfolge bei Sozialstaat, Arbeit, Investitionen, offen ausgetragener Sachstreit;
+        //    klingt mit 4 % im Monat ab, Monatswechsel oben); ab 3 Punkten entfällt der Zusatzverlust. KI-Juniorpartner: halb.
+        if (gov.length) shift('Kosten des Regierens', 0.047, gov, opp);
+        gov.filter(function(p) { return p != CH; }).forEach(function(p) {
+            var prot = p == 'spd' ? Math.min(1, (Q.profil || 0) / 3) : 0.5;
+            if (prot < 1) shift(p == 'spd' ? 'Juniorpartner ohne eigenes Profil' : 'Juniorpartner verliert Profil', 0.0006 * sh[p] * (1 - prot), [p], opp);
+        });
         // 3. trust in democracy (pro_republic; the stronger effect on the AfD above remains)
         var dem = ['spd', 'union', 'gruene', 'fdp', 'linke', 'sapd', 'srpd'];
         if (afd_opp && Q.pro_republic < 45) shift('Geringes Vertrauen in die Demokratie (' + Math.round(Q.pro_republic) + ' %)', Math.min(0.06, 0.01 * (45 - Q.pro_republic) / 5), dem, ['afd']);
@@ -668,6 +730,8 @@ if (Q.month_actions >= 1) {
         }
     }
 }
+Q.pp_snap = {};
+for (var c of Q.classes) Q.pp_snap[c] = Math.round((Q[c + '_spd'] || 0) * 1000) / 1000;
 Q.has_event = 0;
 // check if there are any cards in #event, and then go to main if not.
 var scene = this.game.scenes['post_event.events_choice'];

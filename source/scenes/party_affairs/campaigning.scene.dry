@@ -1,6 +1,6 @@
 title: Wahlkampf
 new-page: true
-on-arrival: month_actions += 1
+on-arrival: month_actions += 1; kampagne_card = 1
 max-visits: 36
 is-card: true
 card-image: img/wahlkampf.jpg

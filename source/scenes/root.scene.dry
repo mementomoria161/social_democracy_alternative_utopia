@@ -647,6 +647,9 @@ Q.afd_candidate = "Chrupalla";
 // Migration (post_event): Bedeutung des Themas in % (ARD-DeutschlandTrend), Abweichung durch Spielzüge, Asylerstanträge
 // aufs Jahr in Tausend (BAMF); fiktive neue Fluchtbewegung (events/fluchtbewegung) in knapp jedem zweiten Spiel 2027–2029
 Q.mig_sal = 33; Q.mig_dev = 0; Q.mig_asyl = 191; Q.mig_crisis_seen = 0;
+// Balance nach der Forschung (post_event): eigenes Profil als Juniorpartner, Kampagneneffekt (vorübergehend) und Stand der
+// Spielerpartei nach der letzten Auswertung (Grundlage, um Kampagnengewinne zu erkennen)
+Q.profil = 0; Q.kampagne = 0; Q.kampagne_applied = 0; Q.kampagne_card = 0; Q.pp_snap = 0;
 Q.mig_crisis_year = Math.random() < 0.45 ? 2027 + Math.floor(Math.random() * 3) : 0;
 Q.k_frage_seen = 0;
 Q.restgesetze_seen = 0;

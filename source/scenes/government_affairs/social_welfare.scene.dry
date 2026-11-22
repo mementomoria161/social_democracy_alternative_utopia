@@ -35,14 +35,14 @@ view-if: unemployed <= 8
 choose-if: budget > 0 or (budget = 0 and g_vdk >= 65 and gr_vdk >= 60)
 unavailable-subtitle: Kein Haushaltsspielraum. (Mit starken, uns nahestehenden Sozialverbänden ginge es auch bei null.)
 subtitle: -1 Haushaltsspielraum
-on-arrival: gr_vdk += 6; gr_kirchen += 2; budget -= 1; workers_spd += 6*(1-dissent); unemployed_spd += 6*(1-dissent); rentner_spd += 3*(1-dissent); welfare += 1; reformist_dissent -= 5; labor_dissent -= 5; center_dissent -= 5; left_dissent -= 5; neorevisionist_dissent -= 5; coalition_dissent += 1 if welfare > 1; welfare_goal_completed += 1; inflation += 0.3; unemployed -= 0.2; economic_growth += 0.2;
+on-arrival: profil += 1; gr_vdk += 6; gr_kirchen += 2; budget -= 1; workers_spd += 6*(1-dissent); unemployed_spd += 6*(1-dissent); rentner_spd += 3*(1-dissent); welfare += 1; reformist_dissent -= 5; labor_dissent -= 5; center_dissent -= 5; left_dissent -= 5; neorevisionist_dissent -= 5; coalition_dissent += 1 if welfare > 1; welfare_goal_completed += 1; inflation += 0.3; unemployed -= 0.2; economic_growth += 0.2;
 
 Wir sichern das Rentenniveau dauerhaft, entlasten Pflegebedürftige und erhöhen die Kindergrundsicherung. Unsere Stammwählerschaft ist zufrieden.
 
 @increase_spending_post_depression
 view-if: unemployed > 8
 choose-if: budget > 0
-on-arrival: budget -= 1; workers_spd += 3*(1-dissent); unemployed_spd += 3*(1-dissent); coalition_dissent += 1 if welfare > 0; welfare_goal_completed += 1; inflation += 0.3
+on-arrival: profil += 1; budget -= 1; workers_spd += 3*(1-dissent); unemployed_spd += 3*(1-dissent); coalition_dissent += 1 if welfare > 0; welfare_goal_completed += 1; inflation += 0.3
 subtitle: Bei steigender Arbeitslosigkeit braucht es mehr Geld, nur um das Niveau zu halten. -1 Haushaltsspielraum
 
 Mehr Ausgaben sind nötig, weil immer mehr Menschen auf Hilfe angewiesen sind. Im Grunde treten wir auf der Stelle.

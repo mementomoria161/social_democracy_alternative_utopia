@@ -9,6 +9,9 @@ Q.inflation_2 = de1(Q.inflation);
 Q.cl_status_text = ['nicht auf Kurs', 'Ziel 2030 in Reichweite, Paris verfehlt', 'auf Paris-Kurs'][Q.cl_status || 0];
 Q.cl_ee_i = Math.round(Q.cl_ee || 0);
 Q.economic_growth_2 = de1(Q.economic_growth);
+// eigenes Profil als Juniorpartner (post_event: ab 3 entfällt der Zusatzverlust)
+var pf = Q.profil || 0;
+Q.profil_text = pf < 1 ? 'kaum erkennbar' : pf < 2 ? 'schwach' : pf < 3 ? 'erkennbar' : 'klar';
 !}
 
 = Status
@@ -21,6 +24,8 @@ Rolle [+ pp_dat +]: [? if spd_toleration : Tolerierung ?][? if spd_in_government
 [? if spd_in_government or spd_toleration : [+ coalition_name +] ?]
 
 [? if spd_in_government and not in_spd_majority and not in_left_front : Koalitionskonflikte: [+ coalition_dissent : coalition_dissent +] ?]
+
+[? if spd_in_government and chancellor_party != "SPD" : Eigenes Profil in der Regierung: [+ profil_text +] ?]
 
 [? if spd_in_government and (in_left_front or in_popular_front): Konflikte mit [+ op_dat +]: [+ linke_coalition_dissent : coalition_dissent +] ?]
 

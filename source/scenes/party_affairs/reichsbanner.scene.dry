@@ -4,7 +4,7 @@ is-card: true
 tags: party_affairs
 view-if: reichsbanner_timer <= 0
 card-image: img/demo_gegen_rechts.jpg
-on-arrival: month_actions += 1; reichsbanner_timer += 6; demo_militarization_cost = 2 if demo_radicalism > 0.1 else demo_militarization_cost = 1; demo_militarization_cost = 3 if demo_radicalism > 0.25
+on-arrival: month_actions += 1; reichsbanner_timer += 6; kampagne_card = 1; demo_militarization_cost = 2 if demo_radicalism > 0.1 else demo_militarization_cost = 1; demo_militarization_cost = 3 if demo_radicalism > 0.25
 max-visits: 6
 
 = Demokratiebewegung

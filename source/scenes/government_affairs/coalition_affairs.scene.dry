@@ -34,13 +34,17 @@ on-arrival: resources -= 2; coalition_dissent -= 1
 Wir geben bei Projekten nach, die den Partnern wichtig sind, und unterstützen ihre Wahlkreisabgeordneten. Manche nennen das Kuhhandel, aber so funktionieren Koalitionen.
 
 @no_change
+on-arrival: profil += 0.5
 
-Nein. Darauf lassen wir uns nicht ein.
+Nein. Darauf lassen wir uns nicht ein. Den Streit tragen wir offen aus, und man sieht, wofür wir stehen.
 
 @bring_down
 subtitle: Die Koalition beenden, bevor die anderen es tun.
-on-arrival: spd_in_government = 0; in_grand_coalition = 0; in_weimar_coalition = 0; in_popular_front = 0; coalition_name = "geschäftsführende Regierung"; next_election_time = time + 3 if next_election_time > time+3; next_election_month = month + 3 if next_election_time >= time+3; next_election_year = year if next_election_time >= time+3; next_election_year += 1 if next_election_month > 12; next_election_month -= 12 if next_election_month > 12; spd_toleration = 0; left_strength += 8; pro_republic -= 5; new_middle_spd -= 3; rural_spd -= 3; old_middle_spd -= 3; rentner_spd -= 3; reformist_dissent += 5
+on-arrival: spd_in_government = 0; in_grand_coalition = 0; in_weimar_coalition = 0; in_popular_front = 0; coalition_name = "geschäftsführende Regierung"; next_election_time = time + 3 if next_election_time > time+3; next_election_month = month + 3 if next_election_time >= time+3; next_election_year = year if next_election_time >= time+3; next_election_year += 1 if next_election_month > 12; next_election_month -= 12 if next_election_month > 12; spd_toleration = 0; left_strength += 8; pro_republic -= 5; new_middle_spd -= 3 if coalition_dissent < 3; rural_spd -= 3 if coalition_dissent < 3; old_middle_spd -= 3 if coalition_dissent < 3; rentner_spd -= 3 if coalition_dissent < 3; profil += 2 if coalition_dissent >= 3; reformist_dissent += 5
+# Nov. 2026: Wähler*innen bestrafen Koalitionsbrüche aus Sachkonflikten nicht, Juniorpartner können sogar gewinnen; Brüche ohne
+# erkennbaren Sachgrund (Taktik, Skandal) kosten Stimmen (So, American Political Science Review 2024). Sichtbarer Sachkonflikt:
+# coalition_dissent >= 3 (Koalitionskonflikte „hoch“). Vorher kostete jeder Bruch −3 in vier Gruppen.
 
-Wir verlassen die Koalition. Wie nach dem Ende der Ampel im November 2024 führt der Weg über eine verlorene Vertrauensfrage zu Neuwahlen. Bis dahin regiert Bundeskanzler\*in [+ chancellor +] geschäftsführend.
+Wir verlassen die Koalition. Wie nach dem Ende der Ampel im November 2024 führt der Weg über eine verlorene Vertrauensfrage zu Neuwahlen. [? if coalition_dissent >= 3 : Weil der Streit in der Sache seit Monaten öffentlich ist, nehmen uns viele den Schritt ab: Wir stehen zu unseren Positionen. ?][? if coalition_dissent < 3 : Für viele kommt der Bruch aus heiterem Himmel. Er wirkt wie Taktik, und das kostet uns Vertrauen. ?] Bis dahin regiert Bundeskanzler\*in [+ chancellor +] geschäftsführend.
 
 Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt.
