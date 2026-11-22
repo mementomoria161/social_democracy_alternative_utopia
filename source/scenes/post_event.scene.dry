@@ -598,6 +598,11 @@ if (Q.month_actions >= 1) {
     if (Q.year == 2026 && Q.month == 1) {
         Q.economic_growth += 0.6;
     }
+    // EU: nationale Ausweichklausel für Verteidigungsausgaben, im Juli 2025 für 15 Staaten aktiviert, bis Februar 2026 für 18
+    // einschließlich Deutschlands (Rat der EU, „European defence readiness“). Text in foreign_policy (young_plan_seen, Weimar-Name).
+    if (Q.year * 12 + Q.month >= 2025 * 12 + 8) {
+        Q.young_plan_seen = 1;
+    }
 
     ////////////////////////// annual changes outside the polls
     // (until Durchgang 4.6 this block also held a fixed annual poll drift 2026-2029; replaced by the real

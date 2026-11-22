@@ -636,6 +636,9 @@ Q.brandmauer_tested = 0;
 Q.mv_base = 0;
 // prologue and 2025 events already seen
 Q.ampel_aus_seen = 0;
+// EU-Ausnahme für Verteidigungsausgaben (ab August 2025, post_event); Österreich: Nationalratswahl 2029 (fiktiv, events/oesterreich_2029),
+// austrian_civil_war_seen bleibt 0 (Weimar-Rest, sperrt die Österreich-Optionen der Außenpolitik nicht mehr).
+Q.young_plan_seen = 0; Q.austrian_parliament_seen = 0; Q.austrian_civil_war_seen = 0;
 Q.k_frage_seen = 0;
 Q.restgesetze_seen = 0;
 Q.vertrauensfrage_seen = 0;

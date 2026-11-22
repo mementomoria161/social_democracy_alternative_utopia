@@ -2,7 +2,7 @@ title: Sozialverbände gegen Kürzungen
 subtitle: VdK, Paritätischer, Diakonie und Gewerkschaften rufen zu Kundgebungen auf.
 new-page: true
 tags: event
-view-if: year >= 2026 and g_vdk >= 55 and ga_vdk = 1 and (haushaltsluecke_2027_seen = 1 or welfare <= -1)
+view-if: year >= 2026 and g_vdk >= 55 and ga_vdk = 1 and (haushaltsluecke_seen = 1 or welfare <= -1)
 max-visits: 1
 on-arrival: sozialverbaende_protest_seen = 1; gm_vdk += 2
 face-image: img/sozialstaat.jpg

@@ -393,7 +393,7 @@ go-to: grand_coalition_union_lead_2 if union_relation >= 25; grand_coalition_fai
 
 @grand_coalition_union_lead_2
 
-Die Union ist stärkste Kraft der beiden. [+ union_leader +] lädt uns zu Koalitionsverhandlungen ein. [? if austerity >= 2 : Nach den Kürzungen der letzten Jahre sind viele unserer Mitglieder skeptisch. Manche wollen lieber eine Minderheitsregierung der Union tolerieren, andere fordern den Gang in die Opposition. ?]
+Die Union ist stärkste Kraft der beiden. [+ union_leader +] lädt uns zu Koalitionsverhandlungen ein. [? if welfare <= -2 : Nach den Kürzungen der letzten Jahre sind viele unserer Mitglieder skeptisch. Manche wollen lieber eine Minderheitsregierung der Union tolerieren, andere fordern den Gang in die Opposition. ?]
 
 Ohne uns gibt es keine Mehrheit jenseits der AfD. [? if hitler_right_coalition >= 50 : Wenn wir ablehnen, wächst in der Union der Druck, es mit der AfD zu versuchen. ?]
 

@@ -84,7 +84,7 @@ on-arrival: linke_relation += 8*(1-dissent); communist_coalition += 1 if linke_f
 [? if player = "spd" : Wir laden die Linke zu Gesprächen über die Friedensinitiative ein. Jan van Aken betont, die Linke lasse sich nicht vereinnahmen und lehne Waffenlieferungen weiter ab. ?][? if player = "linke" : Wir laden die SPD-Fraktion zu Gesprächen über die Friedensinitiative ein. Rolf Mützenich, der in der SPD seit Langem für Diplomatie wirbt, sagt zu. ?] Trotzdem wird der Ton zwischen unseren Fraktionen spürbar freundlicher.
 
 @wittorf
-view-if: player = "spd" and wittorf_secret = 1 and ((year = 2027 and month < 6) or year = 2026) and wittorf_soviet_union = 0
+view-if: player = "spd" and ((year = 2027 and month < 6) or year = 2026) and wittorf_soviet_union = 0
 unavailable-subtitle: Daran würde auch kein Lagebild etwas ändern.
 on-arrival: wittorf_soviet_union = 1; linke_relation += 6*(1-dissent); linke_foreign_seen = 1
 max-visits: 1
@@ -163,7 +163,7 @@ achievement: reichskonkordat
 Der Vertrag ist unterzeichnet: Die Staatsleistungen werden gegen eine einmalige Entschädigung abgelöst, und die kirchlichen Sozialträger erhalten verlässliche Rahmenbedingungen für Kitas, Pflege und Beratungsstellen. Kirchennahe Wählerinnen und Wähler, vor allem ältere, sind zufrieden, ebenso die Union.
 
 @support_austria
-title: Österreichs Demokratie diplomatisch gegen die FPÖ-Regierung unterstützen.
+title: Österreichs Demokratie diplomatisch gegen die Regierung Kickl unterstützen.
 view-if: austrian_parliament_seen = 1 and austrian_civil_war_seen = 0
 on-arrival: sdapo_strength += 1; left_dissent -= 3; center_dissent -= 3
 
@@ -176,7 +176,7 @@ choose-if: budget >= 1
 view-if: austrian_parliament_seen = 1 and austrian_civil_war_seen = 0
 on-arrival: budget -= 1; sdapo_strength += 3; left_dissent -= 6; center_dissent -= 6
 
-Öffentlich stellen wir uns hinter die österreichische Demokratie und drängen auf ein Rechtsstaatsverfahren. Über parteinahe Stiftungen fördern wir zusätzlich unabhängige Medien, Gewerkschaften und unsere Genossinnen und Genossen von der SPÖ.
+Öffentlich stellen wir uns hinter die österreichische Demokratie und drängen auf ein Rechtsstaatsverfahren. Über parteinahe Stiftungen fördern wir zusätzlich unabhängige Medien, Gewerkschaften und [? if player = "spd" : unsere Genossinnen und Genossen von der SPÖ ?][? if player = "linke" : die Opposition im Nationalrat ?].
 
 @european_union
 title: Schritte zu einer Europäischen Föderation einleiten.

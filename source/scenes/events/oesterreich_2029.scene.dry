@@ -1,0 +1,31 @@
+title: Nationalratswahl in Österreich
+subtitle: Die FPÖ wird stärkste Kraft und stellt den Kanzler.
+new-page: true
+tags: event
+view-if: year = 2029 and month >= 10
+max-visits: 1
+on-arrival: austrian_parliament_seen = 1; rechts_strength += 2
+face-image: img/international.jpg
+
+# Fiktives Szenario (nach dem Spielstart). Regulärer Termin: Herbst 2029, fünf Jahre nach der Wahl vom 29.09.2024,
+# bei der die FPÖ mit 28,8 % stärkste Kraft wurde, die Regierungsbildung mit der ÖVP im Februar 2025 aber scheiterte.
+# Schaltet in der Außenpolitik-Karte die Optionen support_austria und support_austria_2 frei.
+
+= Nationalratswahl in Österreich
+
+Ende September hat Österreich einen neuen Nationalrat gewählt. Die FPÖ ist klar stärkste Kraft geworden, und diesmal einigt sie sich mit der ÖVP: Herbert Kickl wird Bundeskanzler. Seine Regierung kündigt an, den öffentlich-rechtlichen Rundfunk umzubauen, das Asylrecht auszusetzen und die „Systemmedien“ in die Schranken zu weisen.
+
+Die Opposition, Journalist\*innen und Richter\*innen warnen vor einem Umbau des Staates nach ungarischem Vorbild. In Deutschland feiert die AfD den Wahlsieg als Vorbild, und viele fragen sich, ob hier droht, was in Wien gerade geschieht.
+
+- @klar: Klare Worte: Wir stehen an der Seite der österreichischen Demokratinnen und Demokraten.
+- @zurueckhaltung: Zurückhaltung: Österreich hat gewählt, wir respektieren das Ergebnis.
+
+@klar
+on-arrival: left_dissent -= 3; center_dissent -= 2; union_relation -= 2; pro_republic += 1
+
+Wir warnen öffentlich vor dem Angriff auf Medien und Justiz und kündigen an, die österreichische Zivilgesellschaft zu unterstützen. Die Union ist verärgert, weil ihre Schwesterpartei ÖVP mitregiert, doch in unserer Partei und bei vielen, die gegen Rechts auf die Straße gehen, kommt das gut an. [? if spd_in_government and foreign_minister_party = "SPD" : Über die Außenpolitik können wir jetzt gezielt helfen. ?]
+
+@zurueckhaltung
+on-arrival: left_dissent += 3; union_relation += 1
+
+Wir halten uns zurück: Österreich ist ein demokratischer Nachbar, und Belehrungen aus Berlin würden nur Kickl nützen. In der Partei finden viele das zu leise. [? if spd_in_government and foreign_minister_party = "SPD" : Unterstützen könnten wir die österreichische Opposition über die Außenpolitik trotzdem. ?]
