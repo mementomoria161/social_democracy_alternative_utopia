@@ -830,10 +830,51 @@ go-to: ministries_menu
 title: Keine weiteren Ministerien.
 subtitle: [? if leverage >= 10 : Wir hätten noch Verhandlungsmasse für weitere Ressorts. ?][? if leverage < 10 : Unsere Verhandlungsmasse ist weitgehend aufgebraucht. ?]
 tags: mins_bund
+on-arrival: {!
+// Ressorts der eigenen Partei, die nie einzeln verhandelt wurden (z. B. Rot-Rot, Minderheitsregierung), tragen sonst noch die
+// Namen der Vorgängerregierung: hier die Standardbesetzung setzen (dieselben Namen wie in den Verhandlungsszenen).
+var DEF = Q.player == 'linke'
+    ? {foreign: 'van Aken', interior: 'Bartsch', justice: 'Bünger', labor: 'Reichinnek', bundeswehr: 'Pellmann', economic: 'Ramelow', finance: 'Görke', agriculture: 'Schwerdtner'}
+    : {foreign: 'Mützenich', interior: 'Fiedler', justice: 'Hubig', labor: 'Bas', bundeswehr: 'Pistorius', economic: 'Hubertz', finance: 'Klingbeil', agriculture: 'Miersch'};
+for (var k in DEF) {
+    if (Q[k + '_minister_party'] == 'SPD') Q[k + '_minister'] = DEF[k];
+}
+!}
+on-display: {!
+// Kabinett nach Partei gruppiert, die eigene Partei zuerst
+var box = document.getElementById('cabinet_final');
+if (!box) return;
+var P = {'SPD': [Q.pp_name || 'SPD', Q.pp_color || '#E3000F'], 'Linke': [Q.op_name || 'Linke', Q.op_color || '#BE3075'],
+         'Union': ['CDU/CSU', '#151518'], 'Grüne': [Q.gruene_name || 'Grüne', '#46962B'], 'FDP': ['FDP', '#FFED00'], 'AfD': ['AfD', '#009EE0'],
+         'BSW': ['BSW', '#7D254F']};
+var posts = [['chancellor', 'Bundeskanzler*in'], ['foreign', 'Auswärtiges Amt'], ['interior', 'Inneres'], ['justice', 'Justiz'],
+             ['labor', 'Arbeit und Soziales'], ['bundeswehr', 'Verteidigung'], ['economic', 'Wirtschaft und Energie'],
+             ['finance', 'Finanzen'], ['agriculture', 'Landwirtschaft, Ernährung und Heimat']];
+var groups = {}, order = ['SPD'];
+posts.forEach(function(x) {
+    var party = x[0] == 'chancellor' ? Q.chancellor_party : Q[x[0] + '_minister_party'];
+    var name = x[0] == 'chancellor' ? Q.chancellor : Q[x[0] + '_minister'];
+    if (!groups[party]) { groups[party] = []; if (order.indexOf(party) < 0) order.push(party); }
+    groups[party].push([x[1], name || 'N. N.']);
+});
+var html = '<table class="gov_table">';
+order.forEach(function(party) {
+    if (!groups[party]) return;
+    var info = P[party] || [party, '#909090'];
+    html += '<tr><td colspan="2"><span class="box" style="background-color:' + info[1] + '; outline: 1px solid var(--border-color);"></span> <b>' + info[0] +
+        '</b> (' + groups[party].length + ')</td></tr>';
+    groups[party].forEach(function(r) { html += '<tr><td>' + r[0] + '</td><td style="text-align:right">' + r[1] + '</td></tr>'; });
+});
+box.innerHTML = html + '</table>';
+!}
 
-Der Koalitionsvertrag ist unterschrieben. Die Ressortverteilung ist für alle Partner tragbar.
+[? if in_minority_government : Die Ressortverteilung steht. ?][? if not in_minority_government : Der Koalitionsvertrag ist unterschrieben. Die Ressortverteilung ist für alle Partner tragbar. ?] [? if year = 2025 and kanzlerwahl_seen = 0 : Nun fehlt nur noch die Kanzlerwahl im Bundestag: [+ chancellor +] stellt sich in den nächsten Wochen zur Wahl. ?][? if year != 2025 or kanzlerwahl_seen = 1 : Danach wählt der Bundestag [+ chancellor +] zum Bundeskanzler, und die neue Regierung wird vereidigt. ?]
 
-[? if year = 2025 and kanzlerwahl_seen = 0 : Nun fehlt nur noch die Kanzlerwahl im Bundestag: [+ chancellor +] stellt sich in den nächsten Wochen zur Wahl. ?][? if year != 2025 or kanzlerwahl_seen = 1 : Danach wählt der Bundestag [+ chancellor +] zum Bundeskanzler, und die neue Regierung wird vereidigt. ?]
+[? if leverage > 0 : Die übrige Verhandlungsmasse von [+ leverage +] verfällt mit der Unterschrift: Sie hat im weiteren Spiel keine Wirkung, bei der nächsten Wahl wird sie neu bestimmt. ?]
+
+**Das Kabinett:**
+
+{!<div id="cabinet_final"></div>!}
 
 @drop_labor
 title: Arbeit und Soziales abgeben.
