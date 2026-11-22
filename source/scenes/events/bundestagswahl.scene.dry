@@ -717,14 +717,23 @@ go-to: ministries_menu
 Wir verhandeln über die Ministerien. Jedes Ressort, das wir besetzen, gibt uns direkten Einfluss auf die Politik in diesem Bereich. Wir starten mit einer Verhandlungsmasse von [+ leverage +]. [? if in_left_front : Ressorts, die wir abgeben, übernimmt [+ op_full +]. ?]
 
 @ministries_menu
+on-arrival: {!
+// Stand der Verhandlung: Ressorts, die jetzt bei uns liegen (auch solche, die wir von Anfang an hielten)
+var posts = [['labor', 'Arbeit und Soziales'], ['interior', 'Inneres'], ['finance', 'Finanzen'], ['economic', 'Wirtschaft und Energie'],
+             ['justice', 'Justiz'], ['foreign', 'Auswärtiges Amt'], ['agriculture', 'Landwirtschaft'], ['bundeswehr', 'Verteidigung']];
+var mine = posts.filter(function(x) { return Q[x[0] + '_minister_party'] == 'SPD'; }).map(function(x) { return x[1]; });
+Q.mins_secured = mine.length ? 'Unsere Ressorts bisher: ' + mine.join(', ') + '.' : 'Bisher haben wir noch kein Ressort gesichert.';
+!}
+
+[+ mins_secured +]
 
 - #mins_bund
 - #drop_mins_bund
 
 @labor
 title: Arbeit und Soziales
-subtitle: Das Arbeitsministerium gilt als unser Stammressort.
-unavailable-subtitle: Unsere Verhandlungsmasse reicht nicht.
+subtitle: Kosten: 5 Verhandlungsmasse. Das Arbeitsministerium gilt als unser Stammressort.
+unavailable-subtitle: Kostet 5 Verhandlungsmasse, uns bleiben nur [+ leverage +].
 tags: mins_bund
 choose-if: leverage >= 5
 view-if: labor_minister_party != "SPD"
@@ -735,8 +744,8 @@ go-to: ministries_menu
 
 @interior
 title: Inneres
-subtitle: Das Innenministerium ist für Polizei, Verfassungsschutz und Migration zuständig.
-unavailable-subtitle: Unsere Verhandlungsmasse reicht nicht.
+subtitle: Kosten: 10 Verhandlungsmasse. Das Innenministerium ist für Polizei, Verfassungsschutz und Migration zuständig.
+unavailable-subtitle: Kostet 10 Verhandlungsmasse, uns bleiben nur [+ leverage +].
 tags: mins_bund
 choose-if: leverage >= 10
 view-if: interior_minister_party != "SPD"
@@ -747,8 +756,8 @@ go-to: ministries_menu
 
 @finance
 title: Finanzen
-subtitle: Das Finanzministerium verantwortet Haushalt, Steuern und Schuldenbremse.
-unavailable-subtitle: Unsere Verhandlungsmasse reicht nicht.
+subtitle: Kosten: 10 Verhandlungsmasse. Das Finanzministerium verantwortet Haushalt, Steuern und Schuldenbremse.
+unavailable-subtitle: Kostet 10 Verhandlungsmasse, uns bleiben nur [+ leverage +].
 tags: mins_bund
 choose-if: leverage >= 10
 view-if: finance_minister_party != "SPD"
@@ -759,8 +768,8 @@ go-to: ministries_menu
 
 @economic
 title: Wirtschaft und Energie
-subtitle: Das Wirtschaftsministerium verantwortet Industrie- und Energiepolitik.
-unavailable-subtitle: Unsere Verhandlungsmasse reicht nicht.
+subtitle: Kosten: 10 Verhandlungsmasse. Das Wirtschaftsministerium verantwortet Industrie- und Energiepolitik.
+unavailable-subtitle: Kostet 10 Verhandlungsmasse, uns bleiben nur [+ leverage +].
 tags: mins_bund
 choose-if: leverage >= 10
 view-if: economic_minister_party != "SPD"
@@ -771,8 +780,8 @@ go-to: ministries_menu
 
 @justice
 title: Justiz
-subtitle: Das Justizministerium verantwortet Rechtspolitik und Verbraucherschutz.
-unavailable-subtitle: Unsere Verhandlungsmasse reicht nicht.
+subtitle: Kosten: 5 Verhandlungsmasse. Das Justizministerium verantwortet Rechtspolitik und Verbraucherschutz.
+unavailable-subtitle: Kostet 5 Verhandlungsmasse, uns bleiben nur [+ leverage +].
 tags: mins_bund
 choose-if: leverage >= 5
 view-if: justice_minister_party != "SPD"
@@ -783,8 +792,8 @@ go-to: ministries_menu
 
 @foreign
 title: Auswärtiges Amt
-subtitle: Das Außenministerium ist traditionell ein Prestigeressort des größeren Partners.
-unavailable-subtitle: Unsere Verhandlungsmasse reicht nicht.
+subtitle: Kosten: 10 Verhandlungsmasse. Das Außenministerium ist traditionell ein Prestigeressort des größeren Partners.
+unavailable-subtitle: Kostet 10 Verhandlungsmasse, uns bleiben nur [+ leverage +].
 tags: mins_bund
 choose-if: leverage >= 10
 view-if: foreign_minister_party != "SPD"
@@ -795,8 +804,8 @@ go-to: ministries_menu
 
 @agriculture
 title: Landwirtschaft, Ernährung und Heimat
-subtitle: Nicht unser übliches Terrain, aber wichtig für den ländlichen Raum.
-unavailable-subtitle: Unsere Verhandlungsmasse reicht nicht.
+subtitle: Kosten: 5 Verhandlungsmasse. Nicht unser übliches Terrain, aber wichtig für den ländlichen Raum.
+unavailable-subtitle: Kostet 5 Verhandlungsmasse, uns bleiben nur [+ leverage +].
 choose-if: leverage >= 5
 view-if: agriculture_minister_party != "SPD"
 on-arrival: leverage -= 5; agriculture_minister_party = "SPD"; agriculture_minister = "Miersch"; agriculture_minister = "Schwerdtner" if player = "linke"
@@ -807,8 +816,8 @@ tags: mins_bund
 
 @reichswehr
 title: Verteidigung
-subtitle: [? if player = "spd" : Seit 2023 hat Boris Pistorius das Verteidigungsministerium zu einem Aushängeschild der SPD gemacht. ?][? if player = "linke" : Ausgerechnet die Linke an der Spitze der Bundeswehr? Abrüstung beginnt im Ministerium. ?]
-unavailable-subtitle: Unsere Verhandlungsmasse reicht nicht.
+subtitle: Kosten: 10 Verhandlungsmasse. [? if player = "spd" : Seit 2023 hat Boris Pistorius das Verteidigungsministerium zu einem Aushängeschild der SPD gemacht. ?][? if player = "linke" : Ausgerechnet die Linke an der Spitze der Bundeswehr? Abrüstung beginnt im Ministerium. ?]
+unavailable-subtitle: Kostet 10 Verhandlungsmasse, uns bleiben nur [+ leverage +].
 tags: mins_bund
 choose-if: leverage >= 10
 view-if: bundeswehr_minister_party != "SPD"

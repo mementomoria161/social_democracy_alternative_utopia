@@ -417,6 +417,8 @@ Q.in_grand_coalition = 0;
 // display name of the current coalition and the main coalition partner (used when the SPD gives up ministries)
 Q.coalition_name = "Rot-Grün (Minderheit)";
 Q.partner_party = "Grüne";
+// Stand der Ressortverhandlung (Text, wird in events/bundestagswahl.ministries_menu gesetzt)
+Q.mins_secured = "";
 // does the Union refuse any cooperation with the AfD? (1 = yes)
 Q.brandmauer = 1;
 // in_popular_front = Rot-Grün-Rot (SPD + Grüne + Linke)
