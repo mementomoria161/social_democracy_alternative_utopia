@@ -472,10 +472,11 @@
   var KL_X0 = 2020, KL_X1 = 2045.5, KL_START = 2024 + 10 / 12;
   var KL_VIEWS = [['emis', 'Emissionen'], ['mix', 'Strommix'], ['preis', 'Energiepreise']];
   // [Name, Einheit, Nachkommastellen, reale Jahreswerte]
-  var KL_PRICES = [['Haushaltsstrom', 'ct/kWh', 1, [[2020, 31.81], [2021, 32.16], [2022, 37.91], [2023, 45.73]]],
+  var HISTORY_KLIMA = (window.HISTORY && window.HISTORY.klima) || {haushaltsstrom: [], co2_national: []}; // out/html/history_data.js
+  var KL_PRICES = [['Haushaltsstrom', 'ct/kWh', 1, HISTORY_KLIMA.haushaltsstrom],
                    ['Gas für Haushalte', 'ct/kWh', 1, []],
                    ['Industriestrom', 'ct/kWh', 1, []],
-                   ['CO2-Preis Heizen und Tanken', 'Euro/t', 0, [[2021, 25], [2022, 30], [2023, 30]]]];
+                   ['CO2-Preis Heizen und Tanken', 'Euro/t', 0, HISTORY_KLIMA.co2_national]];
   var KL_P0 = [40.9, 12.3, 17.2, 45];
   // Einschätzung der Preise (ANNAHME des Spiels): Obergrenzen für sehr niedrig, niedrig, mittel, hoch, darüber sehr hoch.
   // Grob an der Spanne 2020-2024 ausgerichtet (Haushaltsstrom 32-46 ct, Gas 7 bis über 15 ct, Industriestrom 17-43 ct, CO2 25-45 Euro).
@@ -621,8 +622,12 @@
       var width = box.clientWidth, height = Math.min(320, Math.max(230, width * 0.65));
       var m = {top: 22, right: 72, bottom: 26, left: 36};
       var svg = d3.select('#kl_graph').attr('width', width).attr('height', height);
-      var x = d3.scaleLinear([KL_X0, KL_X1], [m.left, width - m.right]);
-      var visible = function(d) { return d[0] >= KL_X0 - 1; };
+      // Die Achse beginnt bei der frühesten Reihe der Ansicht (mindestens 2020); ohne reale Werte beim Spielstart,
+      // statt leere Vergangenheit zu zeigen. Historische Werte: out/html/history_data.js
+      var firstT = d3.min(series, function(s) { return d3.min(s.pts.filter(function(d) { return d[1] !== null && d[1] !== undefined; }), function(d) { return d[0]; }); });
+      var x0 = Math.max(KL_X0, Math.floor(firstT));
+      var x = d3.scaleLinear([x0, KL_X1], [m.left, width - m.right]);
+      var visible = function(d) { return d[0] >= x0 - 1; };
       var hi = d3.max(series, function(s) { return d3.max(s.pts.filter(visible), function(d) { return d[1]; }); }) || 1;
       marks.forEach(function(mk) { hi = Math.max(hi, mk.v); });
       var yS = d3.scaleLinear([0, hi * 1.08], [height - m.bottom, m.top]).nice();
@@ -634,7 +639,7 @@
           .attr('height', height - m.top - m.bottom);
       svg.append('line').attr('class', 'econ_start').attr('x1', startX).attr('x2', startX).attr('y1', m.top).attr('y2', height - m.bottom);
       svg.append('g').attr('class', 'econ_axis').attr('transform', 'translate(0,' + (height - m.bottom) + ')')
-          .call(d3.axisBottom(x).tickValues(width > 340 ? [2020, 2025, 2030, 2035, 2040, 2045] : [2020, 2030, 2040]).tickFormat(d3.format('d')).tickSizeOuter(0));
+          .call(d3.axisBottom(x).tickValues((width > 340 ? [2020, 2025, 2030, 2035, 2040, 2045] : [2020, 2030, 2040]).filter(function(y) { return y >= x0; })).tickFormat(d3.format('d')).tickSizeOuter(0));
       svg.append('g').attr('class', 'econ_axis').attr('transform', 'translate(' + m.left + ',0)')
           .call(d3.axisLeft(yS).ticks(5).tickFormat(function(v) { return econNum(v, 0); }).tickSize(-(width - m.left - m.right)))
           .call(function(g) { g.select('.domain').remove(); });
