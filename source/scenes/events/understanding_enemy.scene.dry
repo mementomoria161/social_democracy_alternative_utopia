@@ -37,7 +37,7 @@ on-arrival: peoples_party_support += 1; neorevisionist_strength += 5; left_stren
 
 
 @p3
-on-arrival: neorevisionist_strength += 10; nazi_urgency += 1; neorevisionism += 1;
+on-arrival: neorevisionist_strength += 10; nazi_urgency += 1; neorevisionism += 1; mig_dev += 2 if player = "spd"
 
 [? if player = "spd" : Eine Gruppe um Innenpolitiker\*innen der Fraktion entwickelt nach dänischem Vorbild eine neue Strategie: klare Regeln und konsequente Abschiebungen, zugleich deutlich mehr Geld für Wohnen, Pflege und Rente, vermittelt mit einfachen Botschaften und emotionalen Bildern statt langer Programme. ?][? if player = "linke" : Ältere Kommunalpolitiker*innen aus Sachsen und Thüringen bekommen mehr Raum: Ostermärsche, Verhandlungen statt Waffenlieferungen, und die Forderung, Kommunen bei der Unterbringung Geflüchteter nicht allein zu lassen. ?] Ob das wirkt, wird sich zeigen, und in der Partei ist der Kurs heftig umstritten.
 

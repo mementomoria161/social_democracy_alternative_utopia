@@ -643,6 +643,10 @@ Q.young_plan_seen = 0; Q.austrian_parliament_seen = 0; Q.austrian_civil_war_seen
 Q.mitte_coalition = 0;
 // AfD-Kandidat für die Bundespräsidentenwahl 2027 (fiktiv); vorher nur im SPD-Ereignis gesetzt, im Linke-Spiel fehlte der Name
 Q.afd_candidate = "Chrupalla";
+// Migration (post_event): Bedeutung des Themas in % (ARD-DeutschlandTrend), Abweichung durch Spielzüge, Asylerstanträge
+// aufs Jahr in Tausend (BAMF); fiktive neue Fluchtbewegung (events/fluchtbewegung) in knapp jedem zweiten Spiel 2027–2029
+Q.mig_sal = 33; Q.mig_dev = 0; Q.mig_asyl = 191; Q.mig_crisis_seen = 0;
+Q.mig_crisis_year = Math.random() < 0.45 ? 2027 + Math.floor(Math.random() * 3) : 0;
 Q.k_frage_seen = 0;
 Q.restgesetze_seen = 0;
 Q.vertrauensfrage_seen = 0;

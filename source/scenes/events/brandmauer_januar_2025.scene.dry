@@ -5,7 +5,7 @@ tags: event
 view-if: year = 2025 and month = 1 and n_elections = 0 and next_election_month >= 2 and brandmauer_januar_seen = 0
 max-visits: 1
 priority: 0
-on-arrival: brandmauer_januar_seen = 1; brandmauer_tested = 1; demo_strength += 300
+on-arrival: brandmauer_januar_seen = 1; brandmauer_tested = 1; demo_strength += 300; mig_dev += 2
 face-image: img/brandmauer_demo.jpg
 
 # Prolog (Ende Januar 2025). Historisch: Entschließungsantrag der Union am 29.01.2025 mit AfD-Stimmen angenommen

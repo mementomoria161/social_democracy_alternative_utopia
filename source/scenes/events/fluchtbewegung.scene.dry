@@ -1,0 +1,48 @@
+title: Neue Fluchtbewegung
+subtitle: Die Zahl der Asylanträge steigt wieder stark.
+new-page: true
+tags: event
+view-if: year = mig_crisis_year and month >= 6 and mig_crisis_seen = 0
+max-visits: 1
+on-arrival: mig_crisis_seen = 1; mig_asyl += 120; mig_dev += 6
+face-image: img/international.jpg
+
+# Fiktives Szenario (nach dem Spielstart), in knapp jedem zweiten Spiel in einem der Jahre 2027 bis 2029 (mig_crisis_year,
+# root.start). Der Asylzugang steigt von rund 71.000 auf etwa 190.000 im Jahr, weniger als 2023 (329.120 Erstanträge) und
+# 2024 (229.751), und kehrt danach langsam zurück (post_event). Wirkung auf die Umfragen über die Bedeutung des Themas (mig_sal).
+# Übernehmen Volksparteien die Forderungen der Rechten, hält das das Thema oben und schwächt die Rechte nicht; Wechsel zu ihr
+# werden eher wahrscheinlicher (Krause/Cohen/Abou-Chadi, Political Science Research and Methods 2023).
+
+= Neue Fluchtbewegung
+
+Nach neuen Kämpfen und einer Dürre in mehreren Ländern Nordafrikas und des Nahen Ostens machen sich Hunderttausende auf den Weg nach Europa. In Deutschland hat sich die Zahl der Asylanträge binnen weniger Monate fast verdreifacht. Kommunen melden, dass Turnhallen und Containerdörfer wieder belegt werden müssen.
+
+Die AfD spricht von „Kontrollverlust“, die Union verlangt Zurückweisungen an allen Grenzen, und die Städte und Gemeinden fordern Geld für Unterbringung, Kitas und Sprachkurse. [? if spd_in_government : Als Regierungspartei müssen wir handeln, und alle schauen auf uns. ?][? if not spd_in_government : Auch in der Opposition müssen wir sagen, wo wir stehen. ?]
+
+- @europa: Auf eine europäische Lösung setzen: Verteilung nach dem neuen Asylsystem, schnelle Verfahren, Hilfe in den Herkunftsregionen.
+- @kommunen: Den Kommunen helfen und über Wohnungen, Kitas und Integration reden statt über Obergrenzen.
+- @haerte: Mit der Union gleichziehen: Zurückweisungen an allen Grenzen, Leistungen kürzen.
+- @solidaritaet: Sichere Fluchtwege und faire Verfahren verteidigen.
+
+@europa
+view-if: player = "spd"
+on-arrival: mig_dev -= 2; new_middle_spd += 1*(1-dissent); rural_spd -= 0.5; gruene_relation += 3; union_relation -= 2
+
+Wir drängen in Brüssel darauf, das neue Gemeinsame Europäische Asylsystem konsequent anzuwenden: Verfahren an den Außengrenzen, Verteilung auf alle Mitgliedstaaten, mehr Geld für die Nachbarländer der Krisenregionen. Das dauert, und die Bilder aus den Erstaufnahmen bleiben. Doch die Debatte wird sachlicher.
+
+@kommunen
+on-arrival: mig_dev -= 1; workers_spd += 0.5*(1-dissent); left_dissent -= 3; center_dissent -= 2
+
+Wir besuchen Erstaufnahmen, Rathäuser und Schulen und reden über das, was vor Ort fehlt: Wohnungen, Kita-Plätze, Lehrkräfte, Sprachkurse. Wer dort arbeitet, ist froh, dass jemand zuhört. Die Talkshows interessieren sich allerdings mehr für Obergrenzen.
+
+@haerte
+view-if: player = "spd"
+on-arrival: mig_dev += 3; rural_spd += 1*(1-dissent); workers_spd += 1*(1-dissent); new_middle_spd -= 1; workers_afd += 1; rural_afd += 1; left_dissent += 10; neorevisionist_strength += 3; union_relation += 3; gruene_relation -= 4
+
+Wir ziehen mit der Union gleich. Einen Teil unserer Stammwählerschaft beruhigt das. Die AfD aber jubelt: „Die Altparteien geben uns recht“, und das Thema beherrscht die Nachrichten noch wochenlang. In der Parteilinken und bei den Jusos rumort es.
+
+@solidaritaet
+view-if: player = "linke"
+on-arrival: new_middle_spd += 1*(1-dissent); workers_spd -= 0.5; left_dissent -= 5; gruene_relation += 2
+
+Wir stellen uns gegen Zurückweisungen und Leistungskürzungen und verlangen sichere Fluchtwege und faire Verfahren. In den Großstädten, bei Kirchen und Flüchtlingsinitiativen findet das Zustimmung, in vielen Kleinstädten stoßen wir auf Unverständnis.

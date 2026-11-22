@@ -28,6 +28,8 @@ Innerparteilicher Unmut: [+ dissent_percent : dissent +]
 
 [? if spd_in_government = 1 : Haushaltsspielraum: [+ budget +] ?]
 
+Migration als wichtiges Problem: [+ mig_sal +] % der Befragten
+
 Nächste Bundestagswahl: [? if election_scheduled : [+ next_election_month : month +] [+ next_election_year +] ?][? if not election_scheduled : noch nicht terminiert (regulär [+ next_election_month : month +] [+ next_election_year +]) ?]
 
 = Wirtschaft

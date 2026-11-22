@@ -460,6 +460,36 @@ if (Q.month_actions >= 1) {
             }
         });
     }
+    ////////////////////////// Migration (Nov. 2026): wie wichtig das Thema ist und wie viele Menschen Asyl suchen
+    // mig_sal: Anteil der Wahlberechtigten, die Zuwanderung/Flucht als wichtigstes oder zweitwichtigstes Problem nennen
+    //   (ARD-DeutschlandTrend, infratest dimap, offene Frage mit zwei Nennungen): Juli 2025 33 %, November 2025 32 %,
+    //   etwa Juni 2026 21 % (die Wirtschaft löste die Migration als wichtigstes Problem ab). November 2024 = 33 ist Annahme.
+    // mig_asyl: Asylerstanträge aufs Jahr gerechnet in Tausend (BAMF): 2024 229.751, 2025 113.236, Januar–August 2026
+    //   47.296 (≈ 71.000 im Jahr); Stützwerte jeweils zur Jahresmitte.
+    // Bis November 2026 der reale Verlauf plus mig_dev (Abweichung durch Ereignisse und Spielzüge, klingt mit 8 % im Monat ab).
+    // Danach: Grundlinie 10 + 0,15 je Tausend Erstanträge (ergibt im November 2026 die realen ~21 %), verdrängt durch hohe
+    // Arbeitslosigkeit (ein Punkt je Prozentpunkt über 7 %); der Zugang kehrt mit 4 % im Monat zu 71.000 zurück.
+    // Wirkung auf die Umfragen: Treiber „Migration“ im Umfragetrend unten.
+    var tm = Q.year * 12 + Q.month, MM = function(y, m) { return y * 12 + m; };
+    var lin = function(pts) {
+        if (tm <= pts[0][0]) return pts[0][1];
+        for (var i = 1; i < pts.length; i++) if (tm <= pts[i][0]) return pts[i - 1][1] + (pts[i][1] - pts[i - 1][1]) * (tm - pts[i - 1][0]) / (pts[i][0] - pts[i - 1][0]);
+        return pts[pts.length - 1][1];
+    };
+    var mig_base;
+    if (tm <= MM(2026, 11)) {
+        Q.mig_asyl = Math.round(lin([[MM(2024, 7), 230], [MM(2025, 7), 113], [MM(2026, 5), 71]]));
+        mig_base = lin([[MM(2024, 11), 33], [MM(2025, 7), 33], [MM(2025, 11), 32], [MM(2026, 6), 21], [MM(2026, 11), 20.5]]);
+    } else {
+        var asyl = Q.mig_asyl || 71;
+        Q.mig_asyl = Math.round((asyl + 0.04 * (71 - asyl)) * 10) / 10;
+        mig_base = 10 + 0.15 * Q.mig_asyl - Math.max(0, Q.unemployed - 7);
+    }
+    // Dänischer Kurs (SPD): Wer dauerhaft über Migration redet, hält das Thema oben (Gleichgewicht etwa +2,5 Punkte)
+    if (Q.player != 'linke' && Q.neorevisionism >= 1) Q.mig_dev = (Q.mig_dev || 0) + 0.2;
+    Q.mig_dev = Math.round((Q.mig_dev || 0) * 0.92 * 100) / 100;
+    Q.mig_sal = Math.round(Math.max(5, Math.min(70, mig_base + Q.mig_dev)));
+
     ////////////////////////// Umfragetrend ab Dezember 2026 (Durchgang 4.7): die Zukunft ist offen
     // Instead of a fixed annual drift, explainable drivers move the national share of each party (pp per month).
     // Each party is then scaled in all voter groups like the gravity above, so the group structure stays.
@@ -526,6 +556,13 @@ if (Q.month_actions >= 1) {
         var epi = Q.energy_price || 100;
         if (epi > 105 && afd_opp) shift('Hohe Energiepreise (Index ' + Math.round(epi) + ')', Math.min(0.04, 0.01 * (epi - 105) / 5), gov.length ? gov : not(['afd']), ['afd']);
         if (epi < 95 && gov.length) shift('Günstige Energie (Index ' + Math.round(epi) + ')', 0.01, opp, gov);
+        // Migration: Die Umfragewerte von Rechtsaußen-Parteien folgen eng der Bedeutung des Themas (Dennison/Geddes, „A Rising
+        // Tide?“, Political Quarterly 2019, 15 westeuropäische Länder 2005–2018); Migrationssorgen erklären rund 75 % der
+        // AfD-Sympathie (SOEP 2014–2024). Neutral bei 18–22 % (Niveau 2026). Steigung 0,006 Punkte je Prozentpunkt und Monat,
+        // etwa halb so steil wie 2015/16 (Thema bei zeitweise über 80 %, AfD binnen eines Jahres von gut 4 auf über 10 %).
+        var ms = Q.mig_sal || 22;
+        if (afd_opp && ms > 22) shift('Migration als wichtiges Problem (' + Math.round(ms) + ' %)', Math.min(0.15, 0.006 * (ms - 22)), not(['afd']), ['afd']);
+        if (afd_opp && ms < 18) shift('Migration im Hintergrund (' + Math.round(ms) + ' %)', Math.min(0.03, 0.006 * (18 - ms)), ['afd'], not(['afd']));
         // 5. groups: right-wing mobilisation (base 35) and social protest
         var grr = Q.g_rechts || 0;
         if (grr > 45 && afd_opp) shift('Starke rechte Mobilisierung', Math.min(0.04, 0.01 * (grr - 45) / 10 + 0.005), not(['afd']), ['afd']);

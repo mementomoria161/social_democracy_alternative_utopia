@@ -5,7 +5,7 @@ tags: event
 view-if: year = 2025 and month = 1 and n_elections = 0 and migrationsdebatte_seen = 0
 max-visits: 1
 priority: 1
-on-arrival: migrationsdebatte_seen = 1
+on-arrival: migrationsdebatte_seen = 1; mig_dev += 6
 face-image: img/medien.jpg
 
 # Prolog (Januar 2025). Anschläge sachlich benennen, keine Sensationalisierung.
@@ -23,12 +23,12 @@ Die Trauer ist groß, und schnell geht es nicht mehr um Behördenversagen und ps
 
 @haerte
 view-if: player = "spd"
-on-arrival: rural_spd += 1*(1-dissent); workers_spd += 1*(1-dissent); new_middle_spd -= 1; left_dissent += 5; neorevisionist_strength += 3; gruene_relation -= 3
+on-arrival: rural_spd += 1*(1-dissent); workers_spd += 1*(1-dissent); new_middle_spd -= 1; left_dissent += 5; neorevisionist_strength += 3; gruene_relation -= 3; mig_dev += 2
 
 Wir überbieten die Union nicht, aber wir halten mit: mehr Rückführungen, verlängerte Grenzkontrollen, mehr Befugnisse für die Polizei. In der Parteilinken und bei den Grünen wächst der Unmut.
 
 @behoerden
-on-arrival: pro_republic += 1; center_dissent -= 2; old_middle_spd += 0.5*(1-dissent); rentner_spd += 0.5*(1-dissent)
+on-arrival: pro_republic += 1; center_dissent -= 2; old_middle_spd += 0.5*(1-dissent); rentner_spd += 0.5*(1-dissent); mig_dev -= 1
 
 Wir lenken den Blick auf das, was der Staat tun kann: Warnungen ernst nehmen, Daten zwischen Ländern und Bund austauschen, kranke Menschen behandeln. Das ist sachlich und richtig, dringt im Lärm des Wahlkampfs aber nur schwer durch.
 

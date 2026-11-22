@@ -19,7 +19,7 @@ Ihr Argument: Die SPD habe ihre Stammwählerschaft verloren, weil sie über Migr
 - @easy_discard
 
 @support_neo
-on-arrival: neorevisionist_strength += 10; nazi_urgency += 1; neorevisionism = 1; peoples_party_support += 1; left_dissent += 10; nationalism += 2
+on-arrival: neorevisionist_strength += 10; nazi_urgency += 1; neorevisionism = 1; peoples_party_support += 1; left_dissent += 10; nationalism += 2; mig_dev += 3
 
 Wir geben der neuen Strömung Raum. Ihre Vertreter dürfen auf dem Parteitag reden und in Talkshows für den neuen Kurs werben. Wie die Wähler reagieren, ist noch offen.
 
