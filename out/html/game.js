@@ -732,7 +732,8 @@
       var view = window.grpView == 'facs' || window.grpView == 'parties' ? window.grpView : 'groups';
 
       // Geometrie
-      var W = box.clientWidth || 320, H = Math.round(Math.min(W, 560) * 0.98);
+      var tree = view == 'facs'; // Strömungen: Baum statt Kreis (oben die eigene Partei, mittig die Strömungen, unten die Gruppen)
+      var W = box.clientWidth || 320, H = Math.round(Math.min(W, 560) * (tree ? 1.02 : 0.98));
       var cx = W / 2, cy = H / 2, lab = W < 400 ? 64 : 76;
       var R = Math.min(W / 2, H / 2) - lab, k = Math.max(0.75, Math.min(1.2, W / 440));
       var slot = 2 * Math.PI / G.length;
@@ -754,6 +755,26 @@
           facPos[f[0]] = {x: cx + 0.38 * R * Math.sin(a), y: cy - 0.38 * R * Math.cos(a), s: s, rad: (3 + 20 * Math.sqrt(s / 100)) * k};
       });
 
+      // Baum: Gruppen unten nach dem Schwerpunkt ihrer Einflüsse auf die Strömungen sortiert (wenig Kreuzungen), Beschriftung senkrecht
+      var treeLab = W < 400 ? 96 : 108, tyP = 26, tyG = H - treeLab - 14, tyF = tree ? tyP + 0.42 * (tyG - tyP) : 0;
+      if (tree) {
+          var bary = function(d) {
+              var infl = d.g.infl[P] || {}, sw = 0, sx = 0;
+              facs.forEach(function(f, j) { var w = Math.abs(infl[f[0]] || 0); sw += w; sx += w * j; });
+              return sw ? sx / sw : 99;
+          };
+          var mg = 16, gs = (W - 2 * mg) / G.length;
+          G.slice().sort(function(a, b) { return bary(a) - bary(b) || G.indexOf(a) - G.indexOf(b); }).forEach(function(d, i) {
+              d.x = mg + gs * (i + 0.5); d.y = tyG; d.ang = Math.PI; // ang = unten, für die Beschriftung
+              d.rad = Math.min((2 + 17 * Math.sqrt(Math.max(0, d.s) / 100)) * k, 0.46 * gs);
+          });
+          facs.forEach(function(f, j) {
+              facPos[f[0]].x = mg + (W - 2 * mg) * (j + 0.5) / facs.length;
+              facPos[f[0]].y = tyF;
+          });
+          cy = tyP;
+      }
+
       // Kanten der gewählten Ansicht. col = Farbe der Verhältnisskala
       var edges = [];
       var relEdge = function(a, b, x1, y1, x2, y2, r, w, extra) {
@@ -772,14 +793,14 @@
               for (var f in infl) {
                   if (!facPos[f]) continue;
                   var p = (d.s - d.g.base) / 20;
-                  edges.push({a: d.id, b: 'f:' + f, x1: d.x, y1: d.y, x2: facPos[f].x, y2: facPos[f].y, sign: infl[f] > 0 ? 1 : -1,
+                  edges.push({a: d.id, b: 'f:' + f, x1: d.x, y1: d.y, x2: facPos[f].x, y2: facPos[f].y, sign: infl[f] > 0 ? 1 : -1, tree: true,
                               w: 0.6 + 3.2 * Math.abs(infl[f]) * d.s / 100, o: 0.3 + 0.6 * Math.max(0, Math.min(1, p))});
               }
           });
           // Unmut der Strömungen gegenüber der Parteiführung
           facs.forEach(function(f) {
               var dis = Q[f[0] + '_dissent'] || 0;
-              edges.push({a: 'player', b: 'f:' + f[0], x1: cx, y1: cy, x2: facPos[f[0]].x, y2: facPos[f[0]].y, col: grpDis(dis)[2], w: 2.5 * k, o: 0.9});
+              edges.push({a: 'player', b: 'f:' + f[0], x1: cx, y1: cy, x2: facPos[f[0]].x, y2: facPos[f[0]].y, col: grpDis(dis)[2], w: 2.5 * k, o: 0.9, tree: true});
           });
       } else {
           GRP.links.forEach(function(l) {
@@ -799,7 +820,7 @@
       };
       var relScale = scale(GRP_REL.map(function(s) { return [s[2], s[1]]; }), 'feindselig', 'sehr freundlich');
       var legend = view == 'facs'
-          ? '<span>Linien zur Mitte: Unmut ' + scale(GRP_DIS.map(function(s) { return [GRP_REL[s[2]][2], s[1]]; }), 'gering', 'hoch') + '</span>' +
+          ? '<span>Linien zur Partei: Unmut ' + scale(GRP_DIS.map(function(s) { return [GRP_REL[s[2]][2], s[1]]; }), 'gering', 'hoch') + '</span>' +
             '<span><span class="grp_line pos"></span>stärkt</span><span><span class="grp_line neg"></span>schwächt die Strömung</span>'
           : '<span>Verhältnis ' + relScale + '</span>';
       var html = '<div class="grp_views">' + views.map(function(v) {
@@ -835,9 +856,10 @@
 
       // Zeichnen
       var svg = d3.select('#grp_graph').attr('width', W).attr('height', H).attr('viewBox', '0 0 ' + W + ' ' + H);
-      if (view != 'parties') svg.append('circle').attr('class', 'grp_ring').attr('cx', cx).attr('cy', cy).attr('r', R);
+      if (view == 'groups') svg.append('circle').attr('class', 'grp_ring').attr('cx', cx).attr('cy', cy).attr('r', R);
       var eg = svg.append('g');
       var path = function(e) {
+          if (e.tree) { var ty = (e.y1 + e.y2) / 2; return 'M' + e.x1 + ',' + e.y1 + 'C' + e.x1 + ',' + ty + ' ' + e.x2 + ',' + ty + ' ' + e.x2 + ',' + e.y2; }
           if (!e.curve) return 'M' + e.x1 + ',' + e.y1 + 'L' + e.x2 + ',' + e.y2;
           var mx = (e.x1 + e.x2) / 2, my = (e.y1 + e.y2) / 2;
           return 'M' + e.x1 + ',' + e.y1 + 'Q' + (mx + 0.45 * (cx - mx)) + ',' + (my + 0.45 * (cy - my)) + ' ' + e.x2 + ',' + e.y2;
@@ -864,13 +886,15 @@
           if (nd.kind == 'player') {
               g.append('rect').attr('x', -playerSz).attr('y', -playerSz).attr('width', 2 * playerSz).attr('height', 2 * playerSz).attr('rx', 2)
                   .attr('fill', partyColor.spd).attr('class', 'grp_player');
-              g.append('text').attr('class', 'grp_party_label').attr('y', playerSz + 11).attr('text-anchor', 'middle').text(partyName.spd);
+              if (tree) g.append('text').attr('class', 'grp_party_label').attr('x', playerSz + 5).attr('dy', '0.35em').attr('text-anchor', 'start').text(partyName.spd);
+              else g.append('text').attr('class', 'grp_party_label').attr('y', playerSz + 11).attr('text-anchor', 'middle').text(partyName.spd);
           } else if (nd.kind == 'fac') {
               var fp = facPos[nd.f];
               g.append('circle').attr('r', fp.rad).attr('class', 'grp_fac').attr('fill', partyColor.spd);
               var a = GRP_FACTIONS.filter(function(f) { return f[0] == nd.f; })[0][2];
               var right = a > 0 && a < 180;
-              g.append('text').attr('class', 'grp_fac_label').attr('x', a == 180 ? 0 : (right ? 1 : -1) * (fp.rad + 3)).attr('y', a == 180 ? fp.rad + 3 : 0)
+              if (tree) g.append('text').attr('class', 'grp_fac_label tree').attr('y', -fp.rad - 3).attr('text-anchor', 'middle').text(facName[nd.f]);
+              else g.append('text').attr('class', 'grp_fac_label').attr('x', a == 180 ? 0 : (right ? 1 : -1) * (fp.rad + 3)).attr('y', a == 180 ? fp.rad + 3 : 0)
                   .attr('dy', a == 180 ? '0.8em' : '0.35em').attr('text-anchor', a == 180 ? 'middle' : right ? 'start' : 'end').text(facName[nd.f]);
           } else if (nd.kind == 'party') {
               var sz = nd.o.sz;
@@ -882,6 +906,15 @@
               g.append('circle').attr('r', d.rad).attr('class', 'grp_dot').attr('fill', d.g.color);
               var sin = Math.sin(d.ang), cos = Math.cos(d.ang);
               var lines = grpLines(d.g.short), tr = trendTxt(d.m);
+              if (tree) {
+                  // senkrecht unter dem Punkt, von oben nach unten lesbar
+                  var tt = g.append('text').attr('class', 'grp_label tree').attr('transform', 'rotate(90)').attr('x', d.rad + 4).attr('text-anchor', 'start');
+                  lines.forEach(function(line, i) {
+                      tt.append('tspan').attr('x', d.rad + 4).attr('dy', (i == 0 ? 0.35 - (lines.length - 1) * 0.55 : 1.1) + 'em').text(line);
+                      if (tr && i == lines.length - 1) tt.append('tspan').attr('class', 'grp_arrow ' + (d.m > 0 ? 'up' : 'down')).text(' ' + tr);
+                  });
+                  return;
+              }
               var anchor = Math.abs(sin) < 0.3 ? 'middle' : sin > 0 ? 'start' : 'end';
               var lx = sin * (d.rad + 4), ly = -cos * (d.rad + 4);
               // oben: Text über dem Punkt endet am Punkt, unten beginnt er dort

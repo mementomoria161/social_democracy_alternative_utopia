@@ -987,6 +987,7 @@ body.dark-mode {
 .grp_arrow.down { fill: var(--econ-bad); }
 .grp_fac { fill-opacity: 0.55; stroke: var(--content-bg-color); stroke-width: 1; }
 .grp_fac_label { font-size: 9px; font-style: italic; opacity: 0.85; }
+.grp_fac_label.tree, .grp_label.tree { paint-order: stroke; stroke: var(--content-bg-color); stroke-width: 3px; stroke-linejoin: round; }
 .grp_party { stroke: var(--content-bg-color); stroke-width: 1; }
 body.dark-mode .grp_party.union { fill: #888; }
 .grp_party_label { font-size: 9px; opacity: 0.85; }
