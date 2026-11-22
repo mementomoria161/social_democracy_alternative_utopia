@@ -413,7 +413,7 @@ view-if: grand_coalition >= 50 or weimar_coalition >= 50
 on-arrival: spd_in_government = 1; union_in_government = 1; gruene_in_government = 1 if in_weimar_coalition; spd_toleration = 0; in_grand_coalition = 1 if in_weimar_coalition == 0; chancellor = union_leader; chancellor_party = "Union"; leverage = 25 if leverage >= 25; coalition_dissent = 1;
 go-to: ministries
 
-[+ union_leader +] wird zum Bundeskanzler gewählt. Nun verhandeln wir über die Ministerien.
+[+ union_leader +] soll Bundeskanzler werden. Zuerst verhandeln wir über die Ministerien, danach folgt die Kanzlerwahl.
 
 @union_lead
 
@@ -440,7 +440,7 @@ Wir tolerieren eine Minderheitsregierung der Union. Wir stellen keine Ministerin
 on-arrival: chancellor = "Brantner"; chancellor_party = "Grüne"; leverage += 5
 go-to: ministries
 
-Die Grünen sind stärker als wir und stellen die Kanzlerin. Franziska Brantner wird zur Bundeskanzlerin gewählt. Immerhin: Wir bekommen dafür mehr Ministerien.
+Die Grünen sind stärker als wir und stellen die Kanzlerin. Franziska Brantner soll Bundeskanzlerin werden. Immerhin: Wir bekommen dafür mehr Ministerien.
 
 
 @spd_chancellor_choice
@@ -462,7 +462,7 @@ view-if: n_elections = 1 and spd_candidate = "Scholz"
 on-arrival: spd_in_government = 1; chancellor = "Scholz"; chancellor_party = "SPD"; center_dissent -= 3
 go-to: ministries
 
-Olaf Scholz wird erneut zum Bundeskanzler gewählt. Kaum jemand hatte ihm das im November noch zugetraut.
+Olaf Scholz soll erneut Bundeskanzler werden. Kaum jemand hatte ihm das im November noch zugetraut.
 
 @klingbeil
 title: Lars Klingbeil wird Kanzler.
@@ -470,7 +470,7 @@ subtitle: Als Parteivorsitzender hat Klingbeil den ersten Zugriff. Er gilt als v
 on-arrival: spd_in_government = 1; chancellor = "Klingbeil"; chancellor_party = "SPD"
 go-to: ministries
 
-Lars Klingbeil wird zum Bundeskanzler gewählt.
+Lars Klingbeil soll Bundeskanzler werden.
 
 @pistorius
 title: Boris Pistorius wird Kanzler.
@@ -478,7 +478,7 @@ subtitle: Der beliebteste Politiker des Landes. Die SPD-Linke ist skeptisch, die
 on-arrival: spd_in_government = 1; chancellor = "Pistorius"; chancellor_party = "SPD"; left_dissent += 5; reformist_dissent -= 5; union_relation += 3
 go-to: ministries
 
-Boris Pistorius wird zum Bundeskanzler gewählt.
+Boris Pistorius soll Bundeskanzler werden.
 
 @schwesig
 title: Manuela Schwesig wird Kanzlerin.
@@ -487,7 +487,7 @@ view-if: not historical_mode
 on-arrival: spd_in_government = 1; chancellor = "Schwesig"; chancellor_party = "SPD"; leverage -= 5
 go-to: ministries
 
-Manuela Schwesig wird zur ersten sozialdemokratischen Bundeskanzlerin gewählt.
+Manuela Schwesig soll die erste sozialdemokratische Bundeskanzlerin werden.
 
 @bas
 title: Bärbel Bas wird Kanzlerin.
@@ -495,7 +495,7 @@ subtitle: Die Parteivorsitzende genießt das Vertrauen der Gewerkschaften.
 on-arrival: spd_in_government = 1; chancellor = "Bas"; chancellor_party = "SPD"; labor_dissent -= 5
 go-to: ministries
 
-Bärbel Bas wird zur Bundeskanzlerin gewählt.
+Bärbel Bas soll Bundeskanzlerin werden.
 
 @muetzenich_coalition_chancellor
 title: Rolf Mützenich wird Kanzler.
@@ -504,7 +504,7 @@ view-if: in_popular_front or in_left_front
 on-arrival: spd_in_government = 1; chancellor = "Mützenich"; chancellor_party = "SPD"; linke_relation += 5; left_dissent -= 5
 go-to: ministries
 
-Rolf Mützenich wird zum Bundeskanzler gewählt.
+Rolf Mützenich soll Bundeskanzler werden.
 
 @union_chancellor
 title: Der Union das Kanzleramt überlassen.
@@ -821,6 +821,8 @@ tags: mins_bund
 
 Der Koalitionsvertrag ist unterschrieben. Die Ressortverteilung ist für alle Partner tragbar.
 
+[? if year = 2025 and kanzlerwahl_seen = 0 : Nun fehlt nur noch die Kanzlerwahl im Bundestag: [+ chancellor +] stellt sich in den nächsten Wochen zur Wahl. ?][? if year != 2025 or kanzlerwahl_seen = 1 : Danach wählt der Bundestag [+ chancellor +] zum Bundeskanzler, und die neue Regierung wird vereidigt. ?]
+
 @drop_labor
 title: Arbeit und Soziales abgeben.
 subtitle: Das bringt 5 Verhandlungsmasse zurück.
@@ -981,7 +983,7 @@ subtitle: Das Gesicht des Wahlkampfs, bei Jungen beliebt, bei Union und Wirtscha
 on-arrival: chancellor = "Reichinnek"; chancellor_party = "SPD"; left_dissent -= 3; union_relation -= 2
 go-to: ministries if not in_spd_majority
 
-Heidi Reichinnek wird zur ersten Bundeskanzlerin der Linken gewählt.
+Heidi Reichinnek [? if in_spd_majority : wird zur ersten Bundeskanzlerin der Linken gewählt. ?][? if not in_spd_majority : soll die erste Bundeskanzlerin der Linken werden. ?]
 
 @lk_vanaken
 title: Jan van Aken wird Kanzler.
@@ -989,7 +991,7 @@ subtitle: Der Parteivorsitzende und Friedensaktivist hält die Partei zusammen.
 on-arrival: chancellor = "van Aken"; chancellor_party = "SPD"; center_dissent -= 3; left_dissent -= 2; gruene_relation -= 2
 go-to: ministries if not in_spd_majority
 
-Jan van Aken wird zum Bundeskanzler gewählt.
+Jan van Aken [? if in_spd_majority : wird zum Bundeskanzler gewählt. ?][? if not in_spd_majority : soll Bundeskanzler werden. ?]
 
 @lk_ramelow
 title: Bodo Ramelow wird Kanzler.
@@ -997,7 +999,7 @@ subtitle: Der frühere Ministerpräsident von Thüringen hat Regierungserfahrung
 on-arrival: chancellor = "Ramelow"; chancellor_party = "SPD"; reformist_dissent -= 5; left_dissent += 5; linke_relation += 3; gruene_relation += 2
 go-to: ministries if not in_spd_majority
 
-Bodo Ramelow wird zum Bundeskanzler gewählt. 2014 war er in Erfurt der erste Ministerpräsident der Linken geworden.
+Bodo Ramelow [? if in_spd_majority : wird zum Bundeskanzler gewählt. ?][? if not in_spd_majority : soll Bundeskanzler werden. ?] 2014 war er in Erfurt der erste Ministerpräsident der Linken geworden.
 
 @lk_schwerdtner
 title: Ines Schwerdtner wird Kanzlerin.
@@ -1005,7 +1007,7 @@ subtitle: Die Parteivorsitzende hat den Neuaufbau der Partei organisiert.
 on-arrival: chancellor = "Schwerdtner"; chancellor_party = "SPD"; center_dissent -= 5
 go-to: ministries if not in_spd_majority
 
-Ines Schwerdtner wird zur Bundeskanzlerin gewählt.
+Ines Schwerdtner [? if in_spd_majority : wird zur Bundeskanzlerin gewählt. ?][? if not in_spd_majority : soll Bundeskanzlerin werden. ?]
 
 @lk_opposition
 title: In die Opposition gehen.
