@@ -1,7 +1,7 @@
 title: Die Brandmauer wackelt
 subtitle: Rechte Kräfte schließen sich gegen die Regierung zusammen.
 new-page: true
-on-arrival: harzburg_front_seen = 1; brandmauer = 0 if union_party_leader == "Spahn" or (player = "spd" and union_relation < 25) or (player = "linke" and union_relation < 0) or afd_votes >= union_votes + 10; bauern_strength += 100; rechts_strength += 100; old_middle_afd += 2; unemployed_afd += 2; rural_afd += 2; nazi_urgency += 1; iron_front_timer = 0
+on-arrival: harzburg_front_seen = 1; brandmauer = 0 if (player = "spd" and union_relation < 25) or (player = "linke" and union_relation < 0) or afd_votes >= union_votes + 10; bauern_strength += 100; rechts_strength += 100; old_middle_afd += 2; unemployed_afd += 2; rural_afd += 2; nazi_urgency += 1; iron_front_timer = 0
 tags: event
 view-if: (year = 2028 and month >= 10 and chancellor_party != "AfD") or (coup_progress >= 6)
 max-visits: 1
@@ -11,7 +11,10 @@ max-visits: 1
 # grundsätzlichen Ausschluss der Zusammenarbeit, unter Unionsanhänger*innen 55 % (YouGov, 11.-14.09.2026; August: 44 %).
 # Auslöser im Spiel: AfD in den Umfragen mindestens 10 Punkte vor der Union (September 2026: 29 zu 18, Mittel November:
 # 27,7 zu 19,9; vorher Sitzanteile von 2025 + 12), ein kaltes Verhältnis zur SPD als einziger Partnerin der Mitte
-# (unter 25, vorher unter 35 = Startwert) oder Spahn als CDU-Vorsitzender. AfD-Zugewinne durch das Ereignis gesenkt (+5 -> +2).
+# (unter 25, vorher unter 35 = Startwert). AfD-Zugewinne durch das Ereignis gesenkt (+5 -> +2).
+# Bis Nov. 2026 fiel sie auch mit Spahn als CDU-Vorsitzendem; entfernt nach seinem Rücktritt als Fraktionschef (18.07.2026)
+# und weil die Brandmauer am Kurs der Partei hängt, nicht an einer Person: Auch der Kandidat des konservativen Flügels
+# (center_party_conference) schließt eine Zusammenarbeit mit der AfD aus.
 
 = Die Brandmauer wackelt
 

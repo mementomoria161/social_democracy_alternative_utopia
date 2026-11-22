@@ -370,7 +370,7 @@ subtitle: Union + SPD + [+ gruene_name +] ([+ weimar_coalition +] %)
 view-if: weimar_coalition >= 50 and grand_coalition < 50 and rotgruen_coalition < 50
 choose-if: gruene_relation >= 30 and union_relation >= 30
 unavailable-subtitle: Union + SPD + [+ gruene_name +] ([+ weimar_coalition +] %) – [? if union_relation < 30 : Die Union verweigert sich. ?][? if gruene_relation < 30 : Die Grünen verweigern sich. ?]
-on-arrival: in_weimar_coalition = 1; spd_in_government = 1; union_in_government = 1; gruene_in_government = 1; coalition_dissent = 1; coalition_name = "Kenia"; partner_party = "Union"; foreign_minister_party = "Union"; foreign_minister = "Wadephul"; interior_minister_party = "Union"; interior_minister = "Dobrindt"; justice_minister_party = "Grüne"; justice_minister = "Haßelmann"; labor_minister_party = "Union"; labor_minister = "Linnemann"; bundeswehr_minister_party = "Union"; bundeswehr_minister = "Kiesewetter"; economic_minister_party = "Grüne"; economic_minister = "Dröge"; finance_minister_party = "Union"; finance_minister = "Spahn"; agriculture_minister_party = "Union"; agriculture_minister = "Rainer";
+on-arrival: in_weimar_coalition = 1; spd_in_government = 1; union_in_government = 1; gruene_in_government = 1; coalition_dissent = 1; coalition_name = "Kenia"; partner_party = "Union"; foreign_minister_party = "Union"; foreign_minister = "Wadephul"; interior_minister_party = "Union"; interior_minister = "Dobrindt"; justice_minister_party = "Grüne"; justice_minister = "Haßelmann"; labor_minister_party = "Union"; labor_minister = "Linnemann"; bundeswehr_minister_party = "Union"; bundeswehr_minister = "Kiesewetter"; economic_minister_party = "Grüne"; economic_minister = "Dröge"; finance_minister_party = "Union"; finance_minister = "Frei"; agriculture_minister_party = "Union"; agriculture_minister = "Rainer";
 achievement: weimar_coalition
 go-to: spd_chancellor_choice if spd_r > union_r; union_lead if spd_r <= union_r
 
@@ -381,7 +381,7 @@ Schwarz-Rot allein hat keine Mehrheit mehr. Nur mit den Grünen reicht es für e
 title: Schwarz-Rot hat eine Mehrheit.
 view-if: grand_coalition >= 50 and grand_coalition_failed == 0 and spd_r < 50
 subtitle: Union + SPD ([+ grand_coalition +] %)
-on-arrival: coalition_name = "Schwarz-Rot"; partner_party = "Union"; foreign_minister_party = "Union"; foreign_minister = "Wadephul"; interior_minister_party = "Union"; interior_minister = "Dobrindt"; justice_minister_party = "Union"; justice_minister = "Krings"; labor_minister_party = "Union"; labor_minister = "Linnemann"; bundeswehr_minister_party = "Union"; bundeswehr_minister = "Kiesewetter"; economic_minister_party = "Union"; economic_minister = "Reiche"; finance_minister_party = "Union"; finance_minister = "Spahn"; agriculture_minister_party = "Union"; agriculture_minister = "Rainer";
+on-arrival: coalition_name = "Schwarz-Rot"; partner_party = "Union"; foreign_minister_party = "Union"; foreign_minister = "Wadephul"; interior_minister_party = "Union"; interior_minister = "Dobrindt"; justice_minister_party = "Union"; justice_minister = "Krings"; labor_minister_party = "Union"; labor_minister = "Linnemann"; bundeswehr_minister_party = "Union"; bundeswehr_minister = "Kiesewetter"; economic_minister_party = "Union"; economic_minister = "Reiche"; finance_minister_party = "Union"; finance_minister = "Frei"; agriculture_minister_party = "Union"; agriculture_minister = "Rainer";
 go-to: grand_coalition_spd_lead if spd_r > union_r; grand_coalition_union_lead if spd_r <= union_r
 
 @grand_coalition_spd_lead
@@ -613,12 +613,13 @@ Das Undenkbare ist eingetreten. AfD und BSW verfügen gemeinsam über eine Mehrh
 @brandmauer_coalition
 title: Die Brandmauer fällt.
 subtitle: Union + AfD ([+ hitler_right_coalition +] %)
-view-if: hitler_right_coalition >= 50 and brandmauer = 0 and far_right_coalition < 50 and (mitte_coalition < 50 or (afd_r <= union_r and (union_party_leader = "Spahn" or (player = "spd" and union_relation < 40))))
+view-if: hitler_right_coalition >= 50 and brandmauer = 0 and far_right_coalition < 50 and (mitte_coalition < 50 or (afd_r <= union_r and player = "spd" and union_relation < 40))
 # Nov. 2026: Auch ohne Brandmauer wählt die Union die AfD nicht automatisch. Liegt die AfD vorn, müsste die Union als
 # Juniorpartnerin eine AfD-Kanzlerschaft mittragen; das geschieht nur, wenn es keine Mehrheit der Mitte gibt (in Österreich
 # scheiterten ÖVP-Verhandlungen als Juniorpartnerin der FPÖ im Februar 2025). Liegt die Union vorn, regiert sie mit der AfD,
-# wenn Spahn sie führt oder das Verhältnis zur SPD schlecht ist (unter 40). 69 % der Unionsanhänger*innen halten die AfD für
-# rechtsextrem (YouGov, September 2026).
+# wenn das Verhältnis zur SPD schlecht ist (unter 40). Im Linke-Spiel ist das Verhältnis Union–SPD nicht modelliert, dort nur
+# ohne Mehrheit der Mitte. 69 % der Unionsanhänger*innen halten die AfD für rechtsextrem (YouGov, September 2026).
+# Bis Nov. 2026 auch mit Spahn als CDU-Vorsitzendem; entfernt nach seinem Rücktritt als Fraktionschef am 18.07.2026.
 priority: 2
 on-arrival: spd_in_government = 0; union_in_government = 1; afd_in_government = 1; coalition_name = "Schwarz-Blau"; pro_republic -= 10; coup_progress += 3; demo_strength += 500; foreign_minister_party = "Union"; interior_minister_party = "AfD"; interior_minister = "Chrupalla"; justice_minister_party = "AfD"; justice_minister = "Brandner"; labor_minister_party = "Union"; bundeswehr_minister_party = "Union"; economic_minister_party = "Union"; finance_minister_party = "Union"; agriculture_minister_party = "AfD"; agriculture_minister = "Protschka"
 go-to: brandmauer_afd_lead if afd_r > union_r; brandmauer_union_lead if afd_r <= union_r
@@ -910,7 +911,7 @@ Wir geben das Innenministerium an den Koalitionspartner ab. Verbleibende Verhand
 title: Finanzen abgeben.
 subtitle: Das bringt 10 Verhandlungsmasse zurück.
 view-if: finance_minister_party = "SPD"
-on-arrival: {! Q.leverage += 10; Q.finance_minister_party = Q.partner_party; Q.finance_minister = {'Union': 'Spahn', 'Grüne': 'Kellner', 'Linke': 'van Aken', 'FDP': 'Dürr'}[Q.partner_party] || 'N. N.'; !}
+on-arrival: {! Q.leverage += 10; Q.finance_minister_party = Q.partner_party; Q.finance_minister = {'Union': 'Frei', 'Grüne': 'Kellner', 'Linke': 'van Aken', 'FDP': 'Dürr'}[Q.partner_party] || 'N. N.'; !}
 tags: drop_mins_bund
 go-to: ministries_menu
 

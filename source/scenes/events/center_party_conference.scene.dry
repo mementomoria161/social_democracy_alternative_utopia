@@ -10,21 +10,25 @@ new-page: true
 # party-ok: SPD (die reale SPD als Partnerin der CDU)
 
 # Fiktives Szenario nach dem Vorbild von 2018, als die Kanzlerin den Parteivorsitz abgab und im Amt blieb.
+# Kandidat des konservativen Flügels bis Nov. 2026: Jens Spahn. Er trat am 18.07.2026 als Vorsitzender der Unionsfraktion
+# zurück (Kritik aus der eigenen Partei an einer Leihmutterschaft; ZDFheute 18.07.2026); Nachfolger ist seit 29.07.2026
+# Thorsten Frei. Seither tritt Carsten Linnemann an (bis Juli 2026 Generalsekretär, seit 29.07.2026 Gesundheitsminister;
+# Euronews 23.07.2026). Beide Kandidaten schließen eine Zusammenarbeit mit der AfD aus; was am Parteitag geschieht, ist Fiktion.
 
 Friedrich Merz hat angekündigt, den CDU-Vorsitz abzugeben, um sich ganz auf das Kanzleramt zu konzentrieren. Ein Parteitag soll die Nachfolge regeln, und damit auch die Frage, wer die Union in die Bundestagswahl 2029 führt.
 
-Als Favorit des konservativen Flügels gilt Jens Spahn, der eine härtere Linie bei Migration und Sozialstaat verspricht und eine Zusammenarbeit mit der SPD nur noch als Notlösung sieht. Gegenkandidat ist Hendrik Wüst, Ministerpräsident von Nordrhein-Westfalen, der für einen Kurs der Mitte steht und sich klar von der AfD abgrenzt.
+Als Kandidat des Wirtschaftsflügels und der Konservativen gilt Carsten Linnemann, bis zum Sommer 2026 Generalsekretär und seitdem Gesundheitsminister. Er verspricht einen härteren Kurs bei Bürgergeld, Rente und Migration; mit ihm würde die CDU der SPD weniger entgegenkommen. Gegenkandidat ist Hendrik Wüst, Ministerpräsident von Nordrhein-Westfalen, der für einen Kurs der Mitte steht. Eine Zusammenarbeit mit der AfD schließen beide aus.
 
-- @kaas: Die CDU wählt Jens Spahn zum Vorsitzenden.
+- @kaas: Die CDU wählt Carsten Linnemann zum Vorsitzenden.
 - @joos: Den Parteitag zugunsten von Hendrik Wüst beeinflussen.
 - @joos_campaign: Gezielt für eine Wahl von Hendrik Wüst werben.
 - @lk_laender: Über die Zusammenarbeit in Thüringen und Sachsen die CDU-Mitte stärken.
 - @lk_appell: Öffentlich an die CDU-Mitte appellieren, die Brandmauer zu halten.
 
 @kaas
-on-arrival: union_party_leader = "Spahn"; union_relation -= 5
+on-arrival: union_party_leader = "Linnemann"; union_relation -= 5
 
-Jens Spahn ist neuer CDU-Vorsitzender. Mit ihm rückt die Partei nach rechts und wird weniger bereit sein, Kompromisse mit der SPD einzugehen.
+Carsten Linnemann ist neuer CDU-Vorsitzender. Die Partei schärft ihr Profil bei Sozialstaat und Migration und wird weniger bereit sein, Kompromisse mit der SPD einzugehen.
 
 @joos
 unavailable-subtitle: Unser Verhältnis zur Union ist nicht gut genug.
@@ -54,13 +58,13 @@ unavailable-subtitle: [? if union_relation < 0 : Die Union redet nicht mehr mit 
 subtitle: -2 Ressourcen.
 on-arrival: resources -= 2; union_party_leader = "Wüst"; union_relation += 3; reformist_strength += 2; reformist_dissent -= 3; left_dissent += 4; workers_union += 2
 
-In Thüringen und Sachsen regiert die CDU ohne eigene Mehrheit, und ihre Haushalte hängen an unseren Stimmen. Unsere Landtagsfraktionen erklären vor dem Parteitag nüchtern: Verlässliche Absprachen gibt es nur mit einer CDU, die die Brandmauer hält. Die ostdeutschen CDU-Verbände, bisher Spahns sichere Bank, schwenken um, und Hendrik Wüst gewinnt knapp.
+In Thüringen und Sachsen regiert die CDU ohne eigene Mehrheit, und ihre Haushalte hängen an unseren Stimmen. Unsere Landtagsfraktionen erklären vor dem Parteitag nüchtern: Verlässliche Absprachen gibt es nur mit einer CDU, die die Brandmauer hält. Die ostdeutschen CDU-Verbände schwenken um, und Hendrik Wüst gewinnt knapp.
 
 Die Sozialistische Linke murrt, wir hätten der CDU den Parteitag gerettet. Die Reformer\*innen sehen sich bestätigt.
 
 @lk_appell
 view-if: player = "linke"
-on-arrival: union_party_leader = "Wüst" if union_relation >= 5 and afd_votes < union_votes + 12; union_party_leader = "Spahn" if union_relation < 5 or afd_votes >= union_votes + 12; union_relation -= 3 if union_party_leader = "Spahn"
+on-arrival: union_party_leader = "Wüst" if union_relation >= 5 and afd_votes < union_votes + 12; union_party_leader = "Linnemann" if union_relation < 5 or afd_votes >= union_votes + 12; union_relation -= 3 if union_party_leader = "Linnemann"
 
-Unsere Fraktionsspitze ruft die CDU-Delegierten in einer viel beachteten Bundestagsrede auf, sich an Angela Merkels Kritik am gemeinsamen Abstimmen mit der AfD im Januar 2025 zu erinnern. [? if union_party_leader = "Wüst" : Der Appell ist nicht entscheidend, aber er hilft: Viele Delegierte wollen nicht als Steigbügelhalter der AfD dastehen, und Hendrik Wüst gewinnt knapp. ?][? if union_party_leader = "Spahn" : Die Delegierten wollen sich von der Linken nichts sagen lassen. Jens Spahn gewinnt deutlich und kündigt eine härtere Gangart an, auch gegenüber „linken Belehrungen“. ?]
+Unsere Fraktionsspitze ruft die CDU-Delegierten in einer viel beachteten Bundestagsrede auf, sich an Angela Merkels Kritik am gemeinsamen Abstimmen mit der AfD im Januar 2025 zu erinnern. [? if union_party_leader = "Wüst" : Der Appell ist nicht entscheidend, aber er hilft: Viele Delegierte wollen ein klares Signal der Mitte senden, und Hendrik Wüst gewinnt knapp. ?][? if union_party_leader = "Linnemann" : Die Delegierten wollen sich von der Linken nichts sagen lassen. Carsten Linnemann gewinnt deutlich und kündigt einen härteren Kurs gegenüber der Linken an. ?]
 

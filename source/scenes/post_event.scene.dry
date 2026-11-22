@@ -6,7 +6,7 @@ Q.last_cabinet_action = 0;
 // many events hand a ministry to another party without naming a minister: use that party's default then
 var default_ministers = {
     'SPD': {foreign: 'Mützenich', interior: 'Fiedler', justice: 'Hubig', labor: 'Bas', bundeswehr: 'Pistorius', economic: 'Hubertz', finance: 'Klingbeil', agriculture: 'Miersch'},
-    'Union': {foreign: 'Wadephul', interior: 'Dobrindt', justice: 'Krings', labor: 'Linnemann', bundeswehr: 'Kiesewetter', economic: 'Reiche', finance: 'Spahn', agriculture: 'Rainer'},
+    'Union': {foreign: 'Wadephul', interior: 'Dobrindt', justice: 'Krings', labor: 'Linnemann', bundeswehr: 'Kiesewetter', economic: 'Reiche', finance: 'Frei', agriculture: 'Rainer'},
     'Grüne': {foreign: 'Brantner', interior: 'von Notz', justice: 'Haßelmann', labor: 'Banaszak', bundeswehr: 'Nouripour', economic: 'Dröge', finance: 'Kellner', agriculture: 'Özdemir'},
     'Linke': {foreign: 'van Aken', interior: 'Bartsch', justice: 'Bünger', labor: 'Reichinnek', bundeswehr: 'Pellmann', economic: 'Ramelow', finance: 'Görke', agriculture: 'Schwerdtner'},
     'FDP': {foreign: 'Lambsdorff', interior: 'Kubicki', justice: 'Kubicki', labor: 'Vogel', bundeswehr: 'Strack-Zimmermann', economic: 'Dürr', finance: 'Dürr', agriculture: 'Vogel'},

@@ -157,7 +157,8 @@ Q.afd_relation = 0;
 // Linke: "Schwerdtner" (default), "Reformer" (friendlier, government-oriented)
 Q.linke_leader = "Reichinnek";
 Q.linke_party_leader = "Schwerdtner";
-// Union: "Merz" (default), "Wüst" (friendlier, centrist), "Spahn" (opens up to the AfD)
+// Union: "Merz" (default), "Wüst" (friendlier, centrist), "Linnemann" (CDU-Parteitag 2028: konservativer/wirtschaftsliberaler
+// Kurs, weniger kompromissbereit gegenüber der SPD; bis Nov. 2026 "Spahn", vor seinem Rücktritt als Fraktionschef im Juli 2026)
 Q.union_leader = "Merz";
 Q.union_party_leader = "Merz";
 Q.afd_leader = "Weidel";
