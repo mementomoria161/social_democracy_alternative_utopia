@@ -712,8 +712,11 @@ Das Vertrauen in die Demokratie ist erschüttert. Die AfD nutzt die Lage: „Die
 
 
 @ministries
+go-to: ministries_menu
 
-Wir verhandeln über die Ministerien. Jedes Ressort, das wir besetzen, gibt uns direkten Einfluss auf die Politik in diesem Bereich. Verhandlungsmasse: [+ leverage +]. [? if in_left_front : Ressorts, die wir abgeben, übernimmt [+ op_full +]. ?]
+Wir verhandeln über die Ministerien. Jedes Ressort, das wir besetzen, gibt uns direkten Einfluss auf die Politik in diesem Bereich. Wir starten mit einer Verhandlungsmasse von [+ leverage +]. [? if in_left_front : Ressorts, die wir abgeben, übernimmt [+ op_full +]. ?]
+
+@ministries_menu
 
 - #mins_bund
 - #drop_mins_bund
@@ -726,9 +729,9 @@ tags: mins_bund
 choose-if: leverage >= 5
 view-if: labor_minister_party != "SPD"
 on-arrival: leverage -= 5; labor_minister_party = "SPD"; labor_minister = "Bas"; labor_minister = "Reichinnek" if player = "linke"
-go-to: ministries
+go-to: ministries_menu
 
-[? if player = "spd" : Bärbel Bas wird Ministerin für Arbeit und Soziales. ?][? if player = "linke" : Heidi Reichinnek wird Ministerin für Arbeit und Soziales. ?]
+[? if player = "spd" : Bärbel Bas ?][? if player = "linke" : Heidi Reichinnek ?]übernimmt Arbeit und Soziales. Verbleibende Verhandlungsmasse: [+ leverage +].
 
 @interior
 title: Inneres
@@ -738,9 +741,9 @@ tags: mins_bund
 choose-if: leverage >= 10
 view-if: interior_minister_party != "SPD"
 on-arrival: leverage -= 10; interior_minister_party = "SPD"; interior_minister = "Fiedler"; interior_minister = "Bartsch" if player = "linke"
-go-to: ministries
+go-to: ministries_menu
 
-[? if player = "spd" : Sebastian Fiedler wird Bundesinnenminister. ?][? if player = "linke" : Dietmar Bartsch wird Bundesinnenminister. ?]
+[? if player = "spd" : Sebastian Fiedler ?][? if player = "linke" : Dietmar Bartsch ?]übernimmt das Innenministerium. Verbleibende Verhandlungsmasse: [+ leverage +].
 
 @finance
 title: Finanzen
@@ -750,9 +753,9 @@ tags: mins_bund
 choose-if: leverage >= 10
 view-if: finance_minister_party != "SPD"
 on-arrival: leverage -= 10; finance_minister_party = "SPD"; finance_minister = "Klingbeil"; finance_minister = "Görke" if player = "linke"
-go-to: ministries
+go-to: ministries_menu
 
-[? if player = "spd" : Lars Klingbeil wird Bundesfinanzminister. ?][? if player = "linke" : Christian Görke wird Bundesfinanzminister. ?]
+[? if player = "spd" : Lars Klingbeil ?][? if player = "linke" : Christian Görke ?]übernimmt das Finanzministerium. Verbleibende Verhandlungsmasse: [+ leverage +].
 
 @economic
 title: Wirtschaft und Energie
@@ -762,9 +765,9 @@ tags: mins_bund
 choose-if: leverage >= 10
 view-if: economic_minister_party != "SPD"
 on-arrival: leverage -= 10; economic_minister_party = "SPD"; economic_minister = "Hubertz"; economic_minister = "Ramelow" if player = "linke"
-go-to: ministries
+go-to: ministries_menu
 
-[? if player = "spd" : Verena Hubertz wird Bundeswirtschaftsministerin. ?][? if player = "linke" : Bodo Ramelow wird Bundeswirtschaftsminister. ?]
+[? if player = "spd" : Verena Hubertz ?][? if player = "linke" : Bodo Ramelow ?]übernimmt Wirtschaft und Energie. Verbleibende Verhandlungsmasse: [+ leverage +].
 
 @justice
 title: Justiz
@@ -774,9 +777,9 @@ tags: mins_bund
 choose-if: leverage >= 5
 view-if: justice_minister_party != "SPD"
 on-arrival: leverage -= 5; justice_minister_party = "SPD"; justice_minister = "Hubig"; justice_minister = "Bünger" if player = "linke"
-go-to: ministries
+go-to: ministries_menu
 
-[? if player = "spd" : Stefanie Hubig wird Bundesjustizministerin. ?][? if player = "linke" : Clara Bünger wird Bundesjustizministerin. ?]
+[? if player = "spd" : Stefanie Hubig ?][? if player = "linke" : Clara Bünger ?]übernimmt das Justizministerium. Verbleibende Verhandlungsmasse: [+ leverage +].
 
 @foreign
 title: Auswärtiges Amt
@@ -786,9 +789,9 @@ tags: mins_bund
 choose-if: leverage >= 10
 view-if: foreign_minister_party != "SPD"
 on-arrival: leverage -= 10; foreign_minister_party = "SPD"; foreign_minister = "Mützenich"; foreign_minister = "van Aken" if player = "linke"
-go-to: ministries
+go-to: ministries_menu
 
-[? if player = "spd" : Rolf Mützenich wird Bundesaußenminister. ?][? if player = "linke" : Jan van Aken wird Bundesaußenminister. ?]
+[? if player = "spd" : Rolf Mützenich ?][? if player = "linke" : Jan van Aken ?]übernimmt das Auswärtige Amt. Verbleibende Verhandlungsmasse: [+ leverage +].
 
 @agriculture
 title: Landwirtschaft, Ernährung und Heimat
@@ -797,10 +800,10 @@ unavailable-subtitle: Unsere Verhandlungsmasse reicht nicht.
 choose-if: leverage >= 5
 view-if: agriculture_minister_party != "SPD"
 on-arrival: leverage -= 5; agriculture_minister_party = "SPD"; agriculture_minister = "Miersch"; agriculture_minister = "Schwerdtner" if player = "linke"
-go-to: ministries
+go-to: ministries_menu
 tags: mins_bund
 
-[? if player = "spd" : Matthias Miersch wird Bundeslandwirtschaftsminister. ?][? if player = "linke" : Ines Schwerdtner wird Bundeslandwirtschaftsministerin. ?]
+[? if player = "spd" : Matthias Miersch ?][? if player = "linke" : Ines Schwerdtner ?]übernimmt Landwirtschaft, Ernährung und Heimat. Verbleibende Verhandlungsmasse: [+ leverage +].
 
 @reichswehr
 title: Verteidigung
@@ -810,9 +813,9 @@ tags: mins_bund
 choose-if: leverage >= 10
 view-if: bundeswehr_minister_party != "SPD"
 on-arrival: leverage -= 10; bundeswehr_minister_party = "SPD"; bundeswehr_minister = "Pistorius"; bundeswehr_minister = "Pellmann" if player = "linke"
-go-to: ministries
+go-to: ministries_menu
 
-[? if player = "spd" : Boris Pistorius wird Bundesverteidigungsminister. ?][? if player = "linke" : Sören Pellmann wird Bundesverteidigungsminister. ?]
+[? if player = "spd" : Boris Pistorius ?][? if player = "linke" : Sören Pellmann ?]übernimmt das Verteidigungsministerium. Verbleibende Verhandlungsmasse: [+ leverage +].
 
 @no_more
 title: Keine weiteren Ministerien.
@@ -829,9 +832,9 @@ subtitle: Das bringt 5 Verhandlungsmasse zurück.
 view-if: labor_minister_party = "SPD"
 on-arrival: {! Q.leverage += 5; Q.labor_minister_party = Q.partner_party; Q.labor_minister = {'Union': 'Linnemann', 'Grüne': 'Banaszak', 'Linke': 'Reichinnek', 'FDP': 'Vogel'}[Q.partner_party] || 'N. N.'; !}
 tags: drop_mins_bund
-go-to: ministries
+go-to: ministries_menu
 
-Wir geben Arbeit und Soziales an den Koalitionspartner ab. Das bringt 5 Verhandlungsmasse zurück.
+Wir geben Arbeit und Soziales an den Koalitionspartner ab. Verbleibende Verhandlungsmasse: [+ leverage +].
 
 @drop_interior
 title: Inneres abgeben.
@@ -839,9 +842,9 @@ subtitle: Das bringt 10 Verhandlungsmasse zurück.
 view-if: interior_minister_party = "SPD"
 on-arrival: {! Q.leverage += 10; Q.interior_minister_party = Q.partner_party; Q.interior_minister = {'Union': 'Dobrindt', 'Grüne': 'von Notz', 'Linke': 'Schwerdtner', 'FDP': 'Kubicki'}[Q.partner_party] || 'N. N.'; !}
 tags: drop_mins_bund
-go-to: ministries
+go-to: ministries_menu
 
-Wir geben das Innenministerium an den Koalitionspartner ab. Das bringt 10 Verhandlungsmasse zurück.
+Wir geben das Innenministerium an den Koalitionspartner ab. Verbleibende Verhandlungsmasse: [+ leverage +].
 
 @drop_finance
 title: Finanzen abgeben.
@@ -849,9 +852,9 @@ subtitle: Das bringt 10 Verhandlungsmasse zurück.
 view-if: finance_minister_party = "SPD"
 on-arrival: {! Q.leverage += 10; Q.finance_minister_party = Q.partner_party; Q.finance_minister = {'Union': 'Spahn', 'Grüne': 'Kellner', 'Linke': 'van Aken', 'FDP': 'Dürr'}[Q.partner_party] || 'N. N.'; !}
 tags: drop_mins_bund
-go-to: ministries
+go-to: ministries_menu
 
-Wir geben das Finanzministerium an den Koalitionspartner ab. Das bringt 10 Verhandlungsmasse zurück.
+Wir geben das Finanzministerium an den Koalitionspartner ab. Verbleibende Verhandlungsmasse: [+ leverage +].
 
 @drop_economic
 title: Wirtschaft und Energie abgeben.
@@ -859,9 +862,9 @@ subtitle: Das bringt 10 Verhandlungsmasse zurück.
 view-if: economic_minister_party = "SPD"
 on-arrival: {! Q.leverage += 10; Q.economic_minister_party = Q.partner_party; Q.economic_minister = {'Union': 'Reiche', 'Grüne': 'Dröge', 'Linke': 'van Aken', 'FDP': 'Dürr'}[Q.partner_party] || 'N. N.'; !}
 tags: drop_mins_bund
-go-to: ministries
+go-to: ministries_menu
 
-Wir geben Wirtschaft und Energie an den Koalitionspartner ab. Das bringt 10 Verhandlungsmasse zurück.
+Wir geben Wirtschaft und Energie an den Koalitionspartner ab. Verbleibende Verhandlungsmasse: [+ leverage +].
 
 @drop_justice
 title: Justiz abgeben.
@@ -869,9 +872,9 @@ subtitle: Das bringt 5 Verhandlungsmasse zurück.
 view-if: justice_minister_party = "SPD"
 on-arrival: {! Q.leverage += 5; Q.justice_minister_party = Q.partner_party; Q.justice_minister = {'Union': 'Krings', 'Grüne': 'Haßelmann', 'Linke': 'Schwerdtner', 'FDP': 'Kubicki'}[Q.partner_party] || 'N. N.'; !}
 tags: drop_mins_bund
-go-to: ministries
+go-to: ministries_menu
 
-Wir geben das Justizministerium an den Koalitionspartner ab. Das bringt 5 Verhandlungsmasse zurück.
+Wir geben das Justizministerium an den Koalitionspartner ab. Verbleibende Verhandlungsmasse: [+ leverage +].
 
 @drop_foreign
 title: Das Auswärtige Amt abgeben.
@@ -879,9 +882,9 @@ subtitle: Das bringt 10 Verhandlungsmasse zurück.
 view-if: foreign_minister_party = "SPD"
 on-arrival: {! Q.leverage += 10; Q.foreign_minister_party = Q.partner_party; Q.foreign_minister = {'Union': 'Wadephul', 'Grüne': 'Brantner', 'Linke': 'van Aken', 'FDP': 'Lambsdorff'}[Q.partner_party] || 'N. N.'; !}
 tags: drop_mins_bund
-go-to: ministries
+go-to: ministries_menu
 
-Wir geben das Auswärtige Amt an den Koalitionspartner ab. Das bringt 10 Verhandlungsmasse zurück.
+Wir geben das Auswärtige Amt an den Koalitionspartner ab. Verbleibende Verhandlungsmasse: [+ leverage +].
 
 @drop_agriculture
 title: Landwirtschaft abgeben.
@@ -889,9 +892,9 @@ subtitle: Das bringt 5 Verhandlungsmasse zurück.
 view-if: agriculture_minister_party = "SPD"
 on-arrival: {! Q.leverage += 5; Q.agriculture_minister_party = Q.partner_party; Q.agriculture_minister = {'Union': 'Rainer', 'Grüne': 'Özdemir', 'Linke': 'Schwerdtner', 'FDP': 'Vogel'}[Q.partner_party] || 'N. N.'; !}
 tags: drop_mins_bund
-go-to: ministries
+go-to: ministries_menu
 
-Wir geben Landwirtschaft, Ernährung und Heimat an den Koalitionspartner ab. Das bringt 5 Verhandlungsmasse zurück.
+Wir geben Landwirtschaft, Ernährung und Heimat an den Koalitionspartner ab. Verbleibende Verhandlungsmasse: [+ leverage +].
 
 @drop_bundeswehr
 title: Verteidigung abgeben.
@@ -899,9 +902,9 @@ subtitle: Das bringt 10 Verhandlungsmasse zurück.
 view-if: bundeswehr_minister_party = "SPD"
 on-arrival: {! Q.leverage += 10; Q.bundeswehr_minister_party = Q.partner_party; Q.bundeswehr_minister = {'Union': 'Kiesewetter', 'Grüne': 'Nouripour', 'Linke': 'van Aken', 'FDP': 'Strack-Zimmermann'}[Q.partner_party] || 'N. N.'; !}
 tags: drop_mins_bund
-go-to: ministries
+go-to: ministries_menu
 
-Wir geben das Verteidigungsministerium an den Koalitionspartner ab. Das bringt 10 Verhandlungsmasse zurück.
+Wir geben das Verteidigungsministerium an den Koalitionspartner ab. Verbleibende Verhandlungsmasse: [+ leverage +].
 
 
 ###################### Koalitionsbildung, wenn die Linke gespielt wird (Durchgang 4.2)
