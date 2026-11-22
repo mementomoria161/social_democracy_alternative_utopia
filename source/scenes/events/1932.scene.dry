@@ -8,7 +8,7 @@ if (Q.works_program && Q.works_program >= 2) {
     Q.economic_growth += 0.4;
 }
 if (!Q.works_program) {
-    Q.unemployed += 1;
+    Q.unemployed += 0.5; // vorher +1 (Konjunkturerholung in post_event)
     Q.inflation -= 0.3;
     Q.economic_growth -= 0.4;
 }
@@ -19,6 +19,6 @@ view-if: year = 2030 and month = 1
 priority: 2
 max-visits: 1
 
-Ein neues Jahr beginnt. [? if works_program = 0 : Gute Nachrichten gibt es kaum. Die Krise hat ihren Tiefpunkt noch immer nicht erreicht. ?][? if works_program >= 1 and unemployed >= 10 : Unser Investitionsprogramm läuft, doch die Arbeitslosigkeit bleibt hartnäckig hoch. Immerhin schöpfen die Menschen wieder etwas Hoffnung. ?][? if works_program >= 1 and unemployed < 10 : Unser Investitionsprogramm zeigt Wirkung, die Arbeitslosigkeit sinkt endlich. Die Menschen schöpfen wieder Hoffnung. ?]
+Ein neues Jahr beginnt. [? if works_program = 0 and economic_growth < 0 : Gute Nachrichten gibt es kaum. Die Krise hat ihren Tiefpunkt noch immer nicht erreicht. ?][? if works_program = 0 and economic_growth >= 0 : Die Wirtschaft erholt sich langsam, doch die Arbeitslosigkeit bleibt hoch, und viele fühlen sich von der Politik im Stich gelassen. ?][? if works_program >= 1 and unemployed >= 10 : Unser Investitionsprogramm läuft, doch die Arbeitslosigkeit bleibt hartnäckig hoch. Immerhin schöpfen die Menschen wieder etwas Hoffnung. ?][? if works_program >= 1 and unemployed < 10 : Unser Investitionsprogramm zeigt Wirkung, die Arbeitslosigkeit sinkt endlich. Die Menschen schöpfen wieder Hoffnung. ?]
 
 Es ist das letzte Jahr dieses Jahrzehnts der Krisen. Was wir jetzt erreichen, wird darüber entscheiden, wie man sich an uns erinnert.

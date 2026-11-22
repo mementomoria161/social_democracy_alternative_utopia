@@ -284,7 +284,7 @@ if (Q.month_actions >= 1) {
         Q.unemployed += 0.02;
     }
     if (Q.economic_growth < -0.5 && Q.unemployed <= 10) {
-        Q.unemployed += 0.08;
+        Q.unemployed += 0.06;
     }
     if (Q.economic_growth < -3 && Q.unemployed <= 11) {
         Q.unemployed += 0.1;
@@ -350,6 +350,28 @@ if (Q.month_actions >= 1) {
         }
         if (Q.economic_growth < Q.science_bonus/2 - 1) {
             Q.economic_growth += 0.05;
+        }
+    }
+    // Konjunktur kehrt zum Trend zurück (Port 2026, nach dem realen Verlauf bis November 2026): Schocks aus Ereignissen
+    // (Jahreswechsel, Zollkrieg, Bankenkrise, Investitionsstreik) klingen ab, statt das Wachstum für den Rest des Spiels
+    // zu senken (vorher bis −5 bis −9 % im Jahr 2030; schlechtestes reales Jahr: 2009 mit −5,7 %).
+    // Trend = Potenzialwachstum 0,4 % (Sachverständigenrat, Frühjahrsgutachten Mai 2024: 0,5 % im Jahr 2024, danach sinkend;
+    // 0,4 % für die späten 2020er ist eine Spielannahme) plus Politik (Spielannahmen):
+    // Investitionsprogramm (works_program, je Stufe +0,4, höchstens drei), Sondervermögen Infrastruktur (sondervermoegen),
+    // Forschung (science_bonus, höchstens +1,5). Tempo: 4 % der Lücke je Monat, gut 40 % im Jahr.
+    if (Q.year * 12 + Q.month > 2026 * 12 + 11) {
+        var trend = 0.4 + 0.4 * Math.min(3, Q.works_program || 0) + 0.25 * Math.min(6, Q.science_bonus || 0);
+        if (Q.sondervermoegen >= 1) trend += 0.3;
+        if (Q.sondervermoegen >= 2) trend += 0.2;
+        Q.growth_trend = Math.round(trend * 100) / 100;
+        Q.economic_growth += 0.04 * (trend - Q.economic_growth);
+        // Erholung baut Arbeitslosigkeit ab (Okun, grob): ab 0,5 % Wachstum sinkt die Quote langsam Richtung 5,5 %,
+        // ab 1 % schneller (zusammen mit der Regel ab 1,5 % oben bis gut 1 Prozentpunkt im Jahr)
+        if (Q.economic_growth >= 0.5 && Q.unemployed > 5.5) {
+            Q.unemployed -= 0.02;
+        }
+        if (Q.economic_growth >= 1 && Q.unemployed > 5.5) {
+            Q.unemployed -= 0.02;
         }
     }
     // accumulated economic growth/decline
