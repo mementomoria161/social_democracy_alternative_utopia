@@ -254,10 +254,10 @@ Q.schwesig_plurality = (Q.schwesig_votes >= Q.hindenburg_votes && Q.schwesig_vot
 Q.election_round += 1;
 
 // making the vote numbers nicer for the display
-Q.hindenburg_votes_disp = Q.hindenburg_votes.toFixed(1);
-Q.schwesig_votes_disp = Q.schwesig_votes.toFixed(1);
-Q.hitler_votes_disp = Q.hitler_votes.toFixed(1);
-Q.thalmann_votes_disp = Q.thalmann_votes.toFixed(1);
+Q.hindenburg_votes_disp = Q.hindenburg_votes.toFixed(1).replace('.', ',');
+Q.schwesig_votes_disp = Q.schwesig_votes.toFixed(1).replace('.', ',');
+Q.hitler_votes_disp = Q.hitler_votes.toFixed(1).replace('.', ',');
+Q.thalmann_votes_disp = Q.thalmann_votes.toFixed(1).replace('.', ',');
 !}
 go-to: hindenburg_wins if hindenburg_majority == 1; thalmann_wins if thalmann_majority == 1; hitler_wins if hitler_majority == 1; schwesig_wins if schwesig_majority == 1; no_majority_round1 if any_majority == 0 and election_round == 1; round2_results if election_round >= 2
 

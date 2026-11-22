@@ -42,7 +42,7 @@ Wirtschaftswachstum: [+ economic_growth_2 +] %
 
 Treibhausgase: [+ cl_total_i +] Mio. t im Jahr (Ziel 2030: 438)
 
-Erneuerbare am Strom: [+ cl_ee_i +]%
+Erneuerbare am Strom: [+ cl_ee_i +] %
 
 Klimakurs: [+ cl_status_text +]
 
@@ -193,4 +193,4 @@ Q.socialism_disp = Math.round(Q.socialism);
 
 {!<div id="poll_view"> </div>!}
 
-Vertrauen in die Demokratie: [+ pro_republic_disp +]%
+Vertrauen in die Demokratie: [+ pro_republic_disp +] %

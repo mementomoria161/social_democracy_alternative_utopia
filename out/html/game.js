@@ -13,7 +13,34 @@
     ui = dendryUI;
     game = ui.game;
 
-    // Add your custom code here.
+    // Zentrale Zahlenformatierung für alle `[+ wert +]`-Einfügungen in Szenentexten.
+    // Die Engine ruft ohne Anzeigeformat `value.toString()` auf und liefert dann
+    // Fließkomma-Rauschen wie 68.39999999999999. Hier: Kommazahlen auf eine
+    // Nachkommastelle runden, deutsches Komma, echtes Minuszeichen. Ganze Zahlen
+    // und Texte bleiben unverändert; Einfügungen mit eigenem Format (`: month` usw.)
+    // laufen weiter über die Engine. Der Haken sitzt am Prototyp, gilt also auch
+    // für Engines, die beim Laden eines Spielstands neu entstehen.
+    window.formatNumberDE = function(value) {
+      if (typeof value !== 'number' || !isFinite(value) || Math.floor(value) === value) {
+        return String(value);
+      }
+      var r = Math.round(Math.abs(value) * 10) / 10;
+      if (r === 0 && value !== 0) { r = Math.round(Math.abs(value) * 100) / 100; } // sehr kleine Werte nicht zu 0 runden
+      var s = String(r).replace('.', ',');
+      return (value < 0 && r !== 0 ? '−' : '') + s;
+    };
+    var enginePrototype = Object.getPrototypeOf(ui.dendryEngine);
+    var origEvaluate = enginePrototype._evaluateStateDependencies;
+    var origQDisplay = enginePrototype._getQDisplay;
+    enginePrototype._evaluateStateDependencies = function(defs) {
+      return origEvaluate.call(this, defs.map(function(d) {
+        return (d.type === 'insert' && !d.qdisplay) ? Object.assign({}, d, {qdisplay: '__number_de'}) : d;
+      }));
+    };
+    enginePrototype._getQDisplay = function(value, qDisplayId) {
+      if (qDisplayId === '__number_de') { return window.formatNumberDE(value); }
+      return origQDisplay.apply(this, arguments);
+    };
   };
 
   var TITLE = "Social Democracy: An Alternate History" + '_' + "Autumn Chen";
