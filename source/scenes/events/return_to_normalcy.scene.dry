@@ -1,16 +1,18 @@
 title: Zurück zur Normalität
 subtitle: Haben wir endlich einen Weg aus der Krise gefunden?
 new-page: true
-view-if: ((year = 2029 and month > 7) or (year >= 2030)) and pro_republic >= 50 and unemployed <= 7 and inflation < 7 and chancellor_party != "AfD" and coup_progress < 9
+view-if: (zollkrieg_2027 = 1 or banking_crisis_seen = 1 or capital_strike_seen = 1) and ((year = 2029 and month > 7) or (year >= 2030)) and pro_republic >= 50 and unemployed <= 7 and inflation < 7 and chancellor_party != "AfD" and coup_progress < 9
 max-visits: 1
-on-arrival: return_to_normalcy = 1; workers_afd -= 8; new_middle_afd -= 8; old_middle_afd -= 8; rural_afd -= 8; unemployed_afd -= 8; rechts_strength *= 0.7; coup_progress -= 4 if coup_progress > 4; new_middle_gruene += 5; new_middle_fdp += 3; old_middle_gruene += 3; old_middle_fdp += 5; old_middle_bsw += 3; rural_bsw += 6; rural_gruene += 2; rural_fdp += 2; unemployed_linke += 3; unemployed_spd += 3; strife -= 2
+on-arrival: return_to_normalcy = 1; workers_afd -= 1; unemployed_afd -= 1; rechts_strength *= 0.85; coup_progress -= 4 if coup_progress > 4; strife -= 2
+# Nov. 2026: Weimarer Vorlage (NSDAP-Krise Ende 1932) entfernt: vorher −8 für die AfD in allen Gruppen. Die AfD überstand die
+# Abspaltungen 2015 und 2017 ohne dauerhaften Einbruch; Wirtschaftslage erklärt ihre Zustimmung kaum (SOEP). Nur nach einer echten Krise.
 tags: event
 
 = Zurück zur Normalität
 
 Deutschland kommt endlich aus der Krise. Mit der Wirtschaft beruhigt sich nach und nach auch die politische Lage.
 
-Und die AfD holen ihre inneren Widersprüche ein. Wirtschaftsnahe Unterstützer wenden sich ab, seit die Krise vorbei ist, und zwischen dem völkischen Flügel und den Marktliberalen in der Partei bricht ein offener Machtkampf aus. Austritte, Spaltungen in Landesverbänden und öffentliche Schlammschlachten kratzen am Image der Stärke, und die Partei verliert in fast allen Wählergruppen.
+Die AfD verliert etwas von ihrer Zugkraft, doch ihre Stammwählerschaft bleibt ihr treu. Ihr Zuspruch hat sich über Jahre verfestigt und hängt mehr an der Migrationsdebatte als an der Konjunktur.
 
 - @celebrate: Ein Grund zum Feiern.
 - @complacency: Die AfD bleibt eine Gefahr. Wir dürfen nicht nachlassen.

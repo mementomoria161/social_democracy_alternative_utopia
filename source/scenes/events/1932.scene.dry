@@ -1,18 +1,7 @@
 title: 2030
 subtitle: Ein neues Jahr
 on-arrival: {!
-// TODO: if a public works program has started, unemployment is not so bad.
-if (Q.works_program && Q.works_program >= 2) {
-    Q.unemployed -= 0.4;
-    Q.inflation += 0.4;
-    Q.economic_growth += 0.4;
-}
-if (!Q.works_program) {
-    Q.unemployed += 0.5; // vorher +1 (Konjunkturerholung in post_event)
-    Q.inflation -= 0.3;
-    Q.economic_growth -= 0.4;
-}
-// moved demographic changes to post_event
+// Nov. 2026: feste Weimarer Jahresschocks (Arbeitslosigkeit, Inflation, Wachstum) entfernt; Grundpfad nach Prognosen in post_event
 !}
 tags: event
 view-if: year = 2030 and month = 1

@@ -652,6 +652,8 @@ Q.mig_sal = 33; Q.mig_dev = 0; Q.mig_asyl = 191; Q.mig_crisis_seen = 0;
 Q.profil = 0; Q.kampagne = 0; Q.kampagne_applied = 0; Q.kampagne_card = 0; Q.pp_snap = 0;
 // Linke-Spiel: Duldung einer Regierung der Mitte gegen die AfD nach einer Bundestagswahl (events/bundestagswahl.lk_duldung)
 Q.lk_duldung = 0;
+// Zollkrieg 2027 (events/black_thursday) nur in rund einem Drittel der Spiele; zollkrieg_2027 = er hat stattgefunden
+Q.zollkrieg_roll = Math.random(); Q.zollkrieg_2027 = 0;
 Q.mig_crisis_year = Math.random() < 0.45 ? 2027 + Math.floor(Math.random() * 3) : 0;
 Q.k_frage_seen = 0;
 Q.restgesetze_seen = 0;

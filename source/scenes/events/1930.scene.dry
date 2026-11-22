@@ -1,18 +1,11 @@
 title: 2028
 subtitle: Ein neues Jahr
 on-arrival: {!
-// Krisenjahr: Zollkrieg wirkt nach (seit der Konjunkturerholung in post_event gedämpft: vorher +1,5)
-Q.unemployed += 0.7;
-Q.inflation -= 0.5;
-if (Q.budget > 0) {
-    Q.budget -= 1;
-}
-Q.economic_growth -= 0.5;
-// moved demographic changes to post_event
+// Nov. 2026: feste Weimarer Jahresschocks (Arbeitslosigkeit, Inflation, Wachstum) entfernt; Grundpfad nach Prognosen in post_event
 !}
 tags: event
 view-if: year = 2028 and month = 1
 priority: 2
 max-visits: 1
 
-Ein neues Jahr beginnt. Die Wirtschaftskrise verschärft sich weltweit, ein Ende ist nicht in Sicht. Die AfD legt in Umfragen und bei Kommunalwahlen weiter zu. In den USA wird im November ein neuer Präsident gewählt, und in Bayern und Hessen stehen Landtagswahlen an. Alles beunruhigende Zeichen.
+Ein neues Jahr beginnt. [? if economic_growth < 0 : Die Wirtschaft steckt in der Krise, ein Ende ist nicht in Sicht. ?][? if economic_growth >= 0 and economic_growth < 0.8 : Die Konjunktur verliert an Schwung, und im Bundeshaushalt klaffen Lücken. ?][? if economic_growth >= 0.8 : Die Wirtschaft wächst, doch im Bundeshaushalt klaffen Lücken. ?] Die AfD bleibt in den Umfragen stark. In den USA wird im November ein neuer Präsident gewählt, und in Bayern und Hessen stehen Landtagswahlen an.

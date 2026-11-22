@@ -1,26 +1,11 @@
 title: 2029
 subtitle: Ein neues Jahr
 on-arrival: {!
-// TODO: if a public works program has started, unemployment is not so bad.
-Q.unemployed += 0.6; // vorher +1,2 (Konjunkturerholung in post_event)
-Q.inflation -= 0.5;
-// leave some economic decline for the banking crisis event
-Q.economic_growth -= 2;
-if (Q.works_program) {
-    Q.unemployed -= 0.4;
-    Q.inflation += 0.4;
-    Q.economic_growth += 1.4;
-}
-if (Q.works_program && Q.works_program > 1) {
-    Q.unemployed -= 0.3;
-    Q.inflation += 0.4;
-    Q.economic_growth += 0.6;
-}
-// moved demographic changes to post_event
+// Nov. 2026: feste Weimarer Jahresschocks (Arbeitslosigkeit, Inflation, Wachstum) entfernt; Grundpfad nach Prognosen in post_event
 !}
 tags: event
 view-if: year = 2029 and month = 1
 priority: 2
 max-visits: 1
 
-Ein neues Jahr beginnt, das Wahljahr. Im Februar wird der Bundestag gewählt, im Juni das Europäische Parlament, und im Herbst wählen Sachsen, Thüringen und Brandenburg neue Landtage. [? if works_program = 0 : Die Arbeitslosigkeit steigt weiter, und mit ihr die AfD. ?][? if works_program > 0 : Unser Investitionsprogramm läuft und soll die Arbeitslosigkeit senken. ?] [? if works_program > 0 and unemployed > 8 : Doch die Arbeitslosigkeit ist noch immer beunruhigend hoch. ?]
+Ein neues Jahr beginnt, das Wahljahr. Im Februar wird der Bundestag gewählt, im Juni das Europäische Parlament, und im Herbst wählen Sachsen, Thüringen und Brandenburg neue Landtage. [? if works_program = 0 and unemployed >= 8 : Die Arbeitslosigkeit ist hoch, und die AfD macht sie zum Wahlkampfthema. ?][? if works_program > 0 : Unser Investitionsprogramm läuft und soll die Arbeitslosigkeit senken. ?] [? if works_program > 0 and unemployed > 8 : Doch die Arbeitslosigkeit ist noch immer beunruhigend hoch. ?]

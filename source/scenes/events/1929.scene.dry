@@ -2,7 +2,7 @@ title: 2027
 subtitle: Ein neues Jahr
 on-arrival: {!
 // see post_event.scene.dry for changes.
-Q.economic_growth -= 1.5;
+// Nov. 2026: fester Schock (−1,5) entfernt, Grundpfad nach Prognosen in post_event
 
 !}
 tags: event
@@ -10,4 +10,4 @@ view-if: year = 2027 and month = 1
 priority: 2
 max-visits: 1
 
-Ein neues Jahr beginnt. Die Konjunktur schwächelt weiter, in der Industrie wird Personal abgebaut, und die Arbeitslosigkeit steigt im ganzen Land. Den meisten Menschen geht es noch gut, doch die Sorgen wachsen. Im Februar wählt die Bundesversammlung ein neues Staatsoberhaupt, und im Mai stehen wichtige Landtagswahlen an, darunter in Nordrhein-Westfalen.
+Ein neues Jahr beginnt. [? if economic_growth >= 0.8 : Die Wirtschaft wächst wieder, die Investitionen aus dem Sondervermögen kommen in Gang. Doch in Industrie und Autobranche werden weiter Stellen abgebaut, und auf dem Arbeitsmarkt kommt der Aufschwung kaum an. ?][? if economic_growth < 0.8 : Die Konjunktur bleibt schwach, in der Industrie wird Personal abgebaut, und die Sorgen wachsen. ?] Im Februar wählt die Bundesversammlung ein neues Staatsoberhaupt, und im Mai stehen wichtige Landtagswahlen an, darunter in Nordrhein-Westfalen.
