@@ -360,7 +360,6 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 
 [? if game_achievement_eiserne_front : **Bündnis für Demokratie** – ein breites Bündnis für Demokratie schmieden. ?]
 
-[? if game_achievement_civil_war : **Staatskrise** – in eine lang anhaltende Staatskrise geraten. ?]
 
 [? if game_achievement_einigkeit : **Einigkeit** – das Spielende ohne Staatskrise auf „Leicht“ erreichen. ?]
 
@@ -372,7 +371,6 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 
 [? if game_achievement_in_kummernis_und_dunkelheit : **In Kümmernis und Dunkelheit** – das Spielende ohne Staatskrise auf der schwersten eigenen Schwierigkeit erreichen. ?]
 
-[? if game_achievement_victory_for_the_republic: **Sieg für die Demokratie** – die Staatskrise gewinnen. ?]
 
 [? if game_achievement_bollwerk_der_demokratie: **Bollwerk der Demokratie** – einen Umsturzversuch abwehren und gewinnen. ?]
 
@@ -446,7 +444,7 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 
 [? if game_achievement_syndikalismus: **Syndikalismus** – Werksübernahmen durch die Belegschaften unterstützen. ?]
 
-[? if game_achievement_drei_pfeile: **Drei Pfeile** – einen Umsturzversuch ohne Staatskrise abwehren. ?]
+[? if game_achievement_drei_pfeile: **Drei Pfeile** – nach aufgedeckten Umsturzplänen die Netzwerke verbieten. ?]
 
 [? if game_achievement_ausnahmezustand: **Ausnahmezustand** – mit Notstandsbefugnissen Wahlen aussetzen. ?]
 
@@ -475,7 +473,6 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 
 [? if achievement_eiserne_front : **Bündnis für Demokratie** – ein breites Bündnis für Demokratie schmieden. ?]
 
-[? if achievement_civil_war : **Staatskrise** – in eine lang anhaltende Staatskrise geraten. ?]
 
 [? if achievement_einigkeit : **Einigkeit** – das Spielende ohne Staatskrise auf „Leicht“ erreichen. ?]
 
@@ -487,7 +484,6 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 
 [? if achievement_in_kummernis_und_dunkelheit : **In Kümmernis und Dunkelheit** – das Spielende ohne Staatskrise auf der schwersten eigenen Schwierigkeit erreichen. ?]
 
-[? if achievement_victory_for_the_republic: **Sieg für die Demokratie** – die Staatskrise gewinnen. ?]
 
 [? if achievement_bollwerk_der_demokratie: **Bollwerk der Demokratie** – einen Umsturzversuch abwehren und gewinnen. ?]
 
@@ -561,7 +557,7 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 
 [? if achievement_syndikalismus: **Syndikalismus** – Werksübernahmen durch die Belegschaften unterstützen. ?]
 
-[? if achievement_drei_pfeile: **Drei Pfeile** – einen Umsturzversuch ohne Staatskrise abwehren. ?]
+[? if achievement_drei_pfeile: **Drei Pfeile** – nach aufgedeckten Umsturzplänen die Netzwerke verbieten. ?]
 
 [? if achievement_ausnahmezustand: **Ausnahmezustand** – mit Notstandsbefugnissen Wahlen aussetzen. ?]
 
@@ -588,7 +584,6 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 
 [? if not achievement_eiserne_front : **Bündnis für Demokratie** – ein breites Bündnis für Demokratie schmieden. ?]
 
-[? if not achievement_civil_war : **Staatskrise** – in eine lang anhaltende Staatskrise geraten. ?]
 
 [? if not achievement_einigkeit : **Einigkeit** – das Spielende ohne Staatskrise auf „Leicht“ erreichen. ?]
 
@@ -600,7 +595,6 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 
 [? if not achievement_in_kummernis_und_dunkelheit : **In Kümmernis und Dunkelheit** – das Spielende ohne Staatskrise auf der schwersten eigenen Schwierigkeit erreichen. ?]
 
-[? if not achievement_victory_for_the_republic: **Sieg für die Demokratie** – die Staatskrise gewinnen. ?]
 
 [? if not achievement_bollwerk_der_demokratie: **Bollwerk der Demokratie** – einen Umsturzversuch abwehren und gewinnen. ?]
 
@@ -674,7 +668,7 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 
 [? if not achievement_syndikalismus: **Syndikalismus** – Werksübernahmen durch die Belegschaften unterstützen. ?]
 
-[? if not achievement_drei_pfeile: **Drei Pfeile** – einen Umsturzversuch ohne Staatskrise abwehren. ?]
+[? if not achievement_drei_pfeile: **Drei Pfeile** – nach aufgedeckten Umsturzplänen die Netzwerke verbieten. ?]
 
 [? if not achievement_ausnahmezustand: **Ausnahmezustand** – mit Notstandsbefugnissen Wahlen aussetzen. ?]
 

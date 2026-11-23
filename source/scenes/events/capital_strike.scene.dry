@@ -1,12 +1,15 @@
-title: Investitionsstreik
-subtitle: Die Konzerne legen ihre Investitionen auf Eis …
+title: Unternehmen halten Investitionen zurück
+subtitle: Die Konzerne legen Projekte auf Eis …
 view-if: (capital_strike_progress >= 10 or budget <= -5) and spd_in_government
 new-page: true
 max-visits: 1
-on-arrival: unemployed += 2.5; workers_spd*= 0.7; new_middle_spd -= 15; old_middle_spd -= 15; unemployed_spd*=0.7; rural_spd -= 15; pro_republic -= 15; capital_strike_seen = 1; union_relation -= 10; fdp_relation -= 10; workers_afd += 8; unemployed_afd += 10; new_middle_afd += 15; old_middle_afd += 15; rural_afd += 15; economic_growth -= 4;
+on-arrival: unemployed += 0.8; workers_spd *= 0.95; new_middle_spd -= 4; old_middle_spd -= 5; rural_spd -= 3; pro_republic -= 4; capital_strike_seen = 1; union_relation -= 10; fdp_relation -= 10; workers_afd += 1; old_middle_afd += 2; new_middle_afd += 1; rural_afd += 1; economic_growth -= 1.5;
+# Nov. 2026: vorher Weimar-Größenordnung (Wachstum −4, Arbeitslosigkeit +2,5, SPD −15 und AfD +15 in mehreren Gruppen).
+# Politische Unsicherheit dämpft Investitionen und Beschäftigung messbar, aber nicht in dieser Größe (Baker/Bloom/Davis,
+# Quarterly Journal of Economics 2016: Index wirtschaftspolitischer Unsicherheit). Jetzt Wachstum −1,5, Arbeitslosigkeit +0,8.
 tags: event
 
-= Investitionsstreik
+= Unternehmen halten Investitionen zurück
 
 Unsere Politik hat die Konzerne gegen uns aufgebracht. Investitionen werden gestoppt oder ins Ausland verlagert, Werke stehen still, Kapital fließt ab. Wirtschaftsverbände drohen mit „Standortflucht“, und die wirtschaftsnahe Presse überzieht uns Tag für Tag mit Kampagnen gegen unsere Wirtschaftspolitik.
 

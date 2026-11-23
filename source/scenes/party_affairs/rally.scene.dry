@@ -17,14 +17,15 @@ Rechtsextreme haben unsere Kundgebung ins Visier genommen! Eine aufgeheizte Meng
 - @cancel: Die Kundgebung absagen.
 
 @police_protect
-view-if: spd_prussia == 1
-on-arrival: police_protect_success = prussian_police_loyalty * prussian_police_radicalism * prussian_police_strength*2 - rechts_radicalism*rechts_strength;
+# Nov. 2026: vorher nur, wenn die SPD „Preußen“ regiert, und abhängig von der Loyalität der Polizei (Weimar). Heute schützt die
+# Polizei jede angemeldete Versammlung (Art. 8 GG, Versammlungsgesetze der Länder).
+on-arrival: police_protect_success = 1;
 go-to: police_protect_win if police_protect_success >= 0; police_protect_lose if police_protect_success < 0
 
 @police_protect_win
 go-to: main_rally
 
-Die Polizei sichert den Platz. Die Kundgebung kann wie geplant stattfinden.
+Die Polizei trennt die Gruppen und sichert den Platz, wie es ihre Pflicht ist. Die Kundgebung kann wie geplant stattfinden.
 
 @police_protect_lose
 on-arrival: strife += 1; workers_afd += 3

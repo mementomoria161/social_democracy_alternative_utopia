@@ -424,9 +424,10 @@ Wie erwartet wird Norbert Lammert zum Bundespräsidenten gewählt. Hoffen wir, d
 @thalmann_wins
 on-arrival: president = "Trabert"; linke_relation = 80;
 
-Gerhard Trabert, der Kandidat der Linken, wird Bundespräsident. Für die extreme Rechte ist das das Signal: Reichsbürger und rechte Netzwerke erklären die Wahl für „illegitim“ und rufen zum Umsturz auf. Uns bleibt nichts anderes übrig, als gemeinsam mit der Linken die Verfassung zu verteidigen …
+Gerhard Trabert, der Kandidat der Linken, wird Bundespräsident. Reichsbürger und rechte Netzwerke erklären die Wahl für „illegitim“ und rufen zu Protesten auf, doch die Aufmärsche bleiben klein, und die Sicherheitsbehörden haben die Szene im Blick. Union und AfD sprechen von einem „Linksrutsch im Schloss Bellevue“.
 
-- @civil_war: Das ist die Staatskrise.
+# Nov. 2026: führte vorher automatisch in die Staatskrise (Weimar-Vorlage). Ein Bundespräsident ist nach der Wahl im Amt;
+# Umsturzaufrufe sind ein Fall für Polizei und Verfassungsschutz.
 
 @hitler_wins
 on-arrival: president = afd_candidate; brandmauer = 0 if hitler_majority; pro_republic -= 5; rechts_strength += 30; coalition_dissent += 1 if spd_in_government

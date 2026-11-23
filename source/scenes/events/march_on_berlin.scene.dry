@@ -1,168 +1,40 @@
-title: Sturm auf Berlin
-subtitle: Die extreme Rechte schreitet zur Tat …
-view-if: ((spd_in_government = 1 and coup_progress >= 10 and year >= 2027 and (rechts_banned=0 or bauern_banned=0)) or (year >= 2029 and month >= 2 and afd_normalized + bsw_normalized >= 0.5)) and march_on_berlin_timer = 0
+title: Umsturzpläne aufgedeckt
+subtitle: Ermittler heben ein Netzwerk aus, das den Bundestag stürmen wollte.
 new-page: true
-max-visits: 4
-on-arrival: march_on_berlin_seen += 1; rechts_strength += 80; bauern_strength += 80; strife += 1; march_on_berlin_timer += 8
-go-to: ask_resign if spd_in_government and president == "Chrupalla"; govt_menu if president != "Chrupalla"; non_govt_menu if spd_in_government = 0 and president == "Chrupalla"
+view-if: year >= 2027 and coup_progress >= 10 and march_on_berlin_timer = 0
+on-arrival: march_on_berlin_seen += 1; march_on_berlin_timer += 12; coup_progress -= 5; strife += 1; pro_republic -= 2
 tags: event
+max-visits: 2
+face-image: img/reichstag_2.jpg
 
-# Ehemals Marsch auf Berlin. Nur ein Bundespräsident der AfD verhält sich wie Hindenburg; alle anderen stehen zur Verfassung.
+# Nov. 2026: ersetzt den „Sturm auf Berlin“ (Weimar: Kapp-Putsch 1920, Marsch auf Rom/Berlin). Dort entschied die Stärke von
+# Demokratiebewegung und rechter Straße über Putsch, Generalstreik und Bürgerkrieg, und ein AfD-Bundespräsident konnte den
+# Rücktritt der Regierung verlangen. Heute entscheiden Sicherheitsbehörden und Gerichte. Vorbild (real): Razzia gegen die
+# Reichsbürger-Gruppe um Heinrich XIII. Prinz Reuß am 7.12.2022 (25 Festnahmen, rund 3.000 Einsatzkräfte; die Gruppe plante,
+# den Bundestag zu stürmen). Was hier geschieht, ist Fiktion. Auslöser: coup_progress (Radikalisierung der extremen Rechten).
 
-= Sturm auf Berlin
+= Umsturzpläne aufgedeckt
 
-Die extreme Rechte macht mobil. Zehntausende aus der rechten Szene, radikalisierte Teile der Bauern- und Mittelstandsproteste und Reichsbürger-Gruppen ziehen nach Berlin, umstellen das Regierungsviertel und belagern den Reichstag. In Chatgruppen kursieren Pläne, Abgeordnete festzusetzen, und aus Reservistenkreisen wird zur „Befreiung“ aufgerufen.
+Im Morgengrauen durchsuchen Tausende Polizistinnen und Polizisten Wohnungen in mehreren Bundesländern. Ein Netzwerk aus Reichsbürgern, ehemaligen Soldaten und Verschwörungsideologen soll geplant haben, den Bundestag zu stürmen, Abgeordnete festzusetzen und eine „Übergangsregierung“ auszurufen. Die Ermittler stellen Waffen und Listen mit Namen von Politikerinnen und Politikern sicher.
 
-Sie fordern den sofortigen Rücktritt der Regierung und Neuwahlen unter „Aufsicht des Volkes“[? if hitler_deported : , dazu die Aufhebung des Urteils gegen die AfD ?]. Unverhohlen drohen sie mit Gewalt, wenn ihre Forderungen nicht erfüllt werden.
+Der Rechtsstaat hat funktioniert. Doch die Frage bleibt, wie weit die Radikalisierung schon reicht. [? if afd_votes >= 20 : Die AfD spricht von einer „Inszenierung“. ?]
 
-@non_govt_menu
+- @verbot: Die Netzwerke verbieten und das Waffenrecht verschärfen.
+- @afd_pruefen: Ein Verbotsverfahren gegen die AfD in Karlsruhe prüfen lassen.
+- @besonnen: Besonnen bleiben und die Aufklärung den Behörden überlassen.
 
-[? if president == "Chrupalla" : Bundespräsident [+ president +] zeigt offen Sympathie für die Forderungen der Straße. ?] Bundeskanzler\*in [+ chancellor +] kündigt an, zurückzutreten.
-
-- @fight
-- @accept
-
-@accept
-title: Wir können nichts tun.
-go-to: accept_election if (afd_normalized + bsw_normalized >= 0.5 and far_right_coalition < 50); accept_hitler if (afd_normalized + bsw_normalized < 0.5 or far_right_coalition >= 50)
-
-@accept_election
-on-arrival: next_election_time = time + 1 if next_election_time > time+1; next_election_month = month + 1 if next_election_time >= time+1; next_election_year = year if next_election_time >= time+1; next_election_year += 1 if next_election_month > 12; next_election_month -= 12 if next_election_month > 12; old_middle_afd += 10; new_middle_afd += 10; workers_afd += 10; rural_afd += 10; unemployed_afd += 8; workers_spd -= 10; workers_linke -= 10; rechts_strength += 100;
-
-Bundespräsident [+ president +] löst den Bundestag auf und setzt Neuwahlen für den kommenden Monat an. Eine geschäftsführende Regierung bleibt im Amt. Rechte „Bürgerwehren“ ziehen ungehindert durch die Straßen und schüchtern Wählerinnen und Wähler ein.
-
-
-@accept_hitler
-on-arrival: chancellor = afd_leader; chancellor_party = "AfD"; spd_in_government = 0
-
-Nach dem Rücktritt der Regierung wählt eine rechte Mehrheit im Bundestag [+ chancellor +] zur Bundeskanzlerin.
-
-- @afd_takes_power
-
-@ask_resign
-
-Bundespräsident [+ president +] fordert unsere Regierung öffentlich zum Rücktritt auf und droht, den Bundestag aufzulösen.
-
-- @fight
-- @fight_constitution
-- @resign
-
-# Wenn Demokratiebewegung + Landespolizeien >= rechte Mobilisierung + Bauernproteste, ziehen die Rechten ab.
-
-@govt_menu
-
-
-- @fight
-- @new_elections
-
-@fight
-title: Die Demokratiebewegung mobilisieren und zum Generalstreik aufrufen!
-on-arrival: defense_strength = demo_strength*demo_radicalism*(1-dissent/2); defense_strength += prussian_police_strength*prussian_police_radicalism*prussian_police_loyalty if spd_prussia; enemy_strength = rechts_strength*rechts_radicalism + bauern_strength*bauern_radicalism; defense_strength += workers_spd_normalized*(2 - dissent)*(2 - unemployed/100); defense_strength += bundeswehr_strength*bundeswehr_loyalty*bundeswehr_radicalism if president != "Chrupalla" and spd_in_government
-go-to: fight_2_win if defense_strength >= enemy_strength and march_on_berlin_seen <= 1; fight_2_win_2 if defense_strength >= enemy_strength and march_on_berlin_seen > 1; fight_2_pre_civil_war if defense_strength < enemy_strength
-
-Die Demokratiebewegung zählt [+ demo_strength +] Tausend Menschen; viele strömen nach Berlin, bilden Menschenketten um Reichstag und Kanzleramt und blockieren friedlich die Zufahrten. Die Gewerkschaften rufen zum Generalstreik auf.
-
-[? if spd_prussia: Die Landespolizeien der Länder, in denen wir regieren, schicken Hundertschaften nach Berlin. ?] [? if spd_in_government and president != "Chrupalla" : Der Bundespräsident ruft den inneren Notstand aus, und verfassungstreue Einheiten der Bundeswehr sichern Regierungsgebäude und Infrastruktur. ?]
-
-
-@fight_2_win
-on-arrival: coup_progress = 0; rechts_strength *= 0.7; bauern_strength *= 0.7; demo_strength *= 0.9; workers_afd -= 12*(1-dissent); unemployed_afd -= 10*(1-dissent); new_middle_afd -= 6*(1-dissent); workers_spd += 8*(1-dissent); unemployed_spd += 6*(1-dissent); pro_republic += 15
+@verbot
 achievement: drei_pfeile
+on-arrival: coup_progress -= 2; rechts_strength *= 0.85; pro_republic += 2; union_relation += 2; left_dissent -= 2
 
-Hunderttausende stellen sich den Belagerern entgegen, und tatsächlich: Die Rechten ziehen ab! Angesichts der Masse der Demokratinnen und Demokraten verlieren sie den Mut, die Rädelsführer werden festgenommen. Der Umsturzversuch ist gescheitert, zumindest vorerst.
+Innenministerien von Bund und Ländern verbieten die Vereinigungen, der Bundestag verschärft das Waffenrecht für Extremisten. Auch die Union stimmt zu.
 
-Die Bilder vom friedlichen Widerstand stärken den Rückhalt für die Demokratie und für [+ pp_full +], und die extreme Rechte ist geschwächt.
+@afd_pruefen
+on-arrival: coup_progress -= 1; nazi_urgency += 1; left_dissent -= 5; reformist_dissent += 3; union_relation -= 3; pro_republic += 1
 
-@fight_2_win_2
-on-arrival: coup_progress = 0; pro_republic += 5; workers_afd -= 2*(1-dissent); unemployed_afd -= 2*(1-dissent); new_middle_afd -= 2*(1-dissent); demo_strength *= 0.9; rechts_strength *= 0.9; bauern_strength *= 0.9
+Wir verlangen, dass Bundestag und Bundesrat ein Verbotsverfahren vorbereiten. Viele in der Partei sind erleichtert, andere warnen: Scheitert das Verfahren in Karlsruhe, triumphiert die AfD.
 
-# wenn der Sturm auf Berlin schon einmal stattgefunden hat
+@besonnen
+on-arrival: center_dissent -= 2; left_dissent += 3
 
-Hunderttausende stellen sich den Belagerern entgegen, und die Rechten ziehen erneut ab. Der Umsturzversuch ist gescheitert, zumindest vorerst.
-
-Der friedliche Widerstand stärkt den Rückhalt für die Demokratie und für [+ pp_full +] ein weiteres Mal, und die extreme Rechte ist geschwächt.
-
-
-@fight_2_pre_civil_war
-
-Vor dem Reichstag kommt es zu schweren Ausschreitungen. Bewaffnete Reichsbürger-Gruppen besetzen einen Sender und mehrere Behörden, in anderen Städten brennen Parteibüros. Keine Seite weicht.
-
-- @civil_war: Das ist die Staatskrise.
-
-
-@fight_constitution
-title: Das ist verfassungswidrig! Wir bleiben im Amt und rufen das Bundesverfassungsgericht an.
-choose-if: judicial_reform >= 3
-unavailable-subtitle: Die Gerichte würden uns nicht beistehen.
-
-Das Bundesverfassungsgericht stellt klar: Der Bundespräsident kann eine Regierung nicht nach Belieben entlassen, und die Auflösung des Bundestages ist nur nach einer verlorenen Vertrauensfrage zulässig. Bundespräsident [+ president +] fügt sich vorerst, die Menge auf der Straße aber nicht. Sie fordert weiter Neuwahlen oder unseren Rücktritt und will bleiben, bis wir nachgeben oder sie vertrieben wird.
-
-- @new_elections
-- @fight
-
-
-@new_elections
-title: Neuwahlen anbieten.
-subtitle: Wir treten nicht unter Druck der Straße zurück, aber wir stellen uns dem Votum der Wählerinnen und Wähler und sorgen für saubere Wahlen.
-go-to: new_elections_schwesig if president != "Chrupalla"; new_elections_hindenburg if president == "Chrupalla" and union_relation >= 40 and far_right_coalition < 50; new_elections_hindenburg_reject if president == "Chrupalla" and (union_relation < 40 or far_right_coalition >= 50)
-
-
-@new_elections_schwesig
-go-to: new_elections_schwesig_2 if afd_normalized + bsw_normalized >= 0.5 and far_right_coalition < 50; new_elections_schwesig_reject if (afd_normalized + bsw_normalized < 0.5 or far_right_coalition >= 50)
-
-# Haben AfD und BSW eine Mehrheit, wollen die Rechten sofort wählen lassen.
-
-
-@new_elections_schwesig_reject
-
-Die Belagerer lehnen saubere Neuwahlen ab. Sie fordern, dass sofort eine „Regierung der nationalen Rettung“ unter Führung der AfD gebildet wird. [? if far_right_coalition >= 50 : Sie verweisen darauf, dass AfD und rechte Union im Bundestag eine Mehrheit hätten, und damit haben sie leider nicht ganz unrecht. ?]
-
-- @schwesig_appoints_hitler
-- @fight
-
-@new_elections_schwesig_2
-go-to: new_elections_2
-
-Die Rechten glauben, eine Wahl jetzt gewinnen zu können, und stimmen Neuwahlen im kommenden Monat zu.
-
-
-@new_elections_hindenburg
-go-to: new_elections_2
-
-Unter Vermittlung von Kirchen, Gewerkschaften und früheren Bundespräsidenten werden Neuwahlen für den kommenden Monat vereinbart, ohne „Aufsicht“ durch die rechte Straße.
-
-
-@new_elections_2
-on-arrival: next_election_time = time + 1 if next_election_time > time+1; next_election_month = month + 1 if next_election_time >= time+1; next_election_year = year if next_election_time >= time+1; next_election_year += 1 if next_election_month > 12; next_election_month -= 12 if next_election_month > 12;
-
-
-@new_elections_hindenburg_reject
-
-Bestärkt durch sein Umfeld und die Menge auf der Straße lehnt Bundespräsident [+ president +] saubere Neuwahlen ab und verlangt erneut unseren Rücktritt. Er lässt nicht mit sich reden.
-
-- @resign
-- @fight
-
-
-
-@resign
-title: Zurücktreten.
-choose-if: president == "Chrupalla"
-unavailable-subtitle: Unter diesem Bundespräsidenten gibt es keinen Grund zum Rücktritt.
-on-arrival: chancellor = union_leader; chancellor_party = "Union"; spd_in_government = 0;
-go-to: accept
-
-Wir sind zurückgetreten.
-
-
-
-@schwesig_appoints_hitler
-title: Uns bleibt nichts, als eine AfD-Regierung hinzunehmen.
-view-if: president != "Chrupalla"
-choose-if: afd_normalized >= 0.5 or largest_party == "AfD"
-unavailable-subtitle: Bundespräsident\*in [+ president +] würde einer solchen Erpressung niemals nachgeben.
-on-arrival: chancellor = afd_leader; chancellor_party = "AfD"; spd_in_government = 0
-
-Unter der Drohung eines Bürgerkriegs und ohne Kraft für weiteren Widerstand wählt eine rechte Mehrheit im Bundestag [+ chancellor +] zur Bundeskanzlerin. Bundespräsident\*in [+ president +] sieht keinen verfassungsrechtlichen Weg, die Ernennung zu verweigern.
-
-- @afd_takes_power
+Wir danken den Ermittlerinnen und Ermittlern und mahnen zur Besonnenheit. Manchen in der Partei ist das zu wenig.
