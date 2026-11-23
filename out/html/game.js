@@ -232,7 +232,7 @@
 
   window.enableLightMode = function() {
       window.dendryUI.dark_mode = false;
-      document.body.classList.remove('dark-mode');
+      if (window.theme != 'zeitung') document.body.classList.remove('dark-mode'); // Design Zeitung ist immer dunkel
       window.dendryUI.saveSettings();
   };
   window.enableDarkMode = function() {
@@ -272,6 +272,55 @@
     } else {
         $('#light_mode')[0].checked = true;
     }
+    $(window.theme == 'zeitung' ? '#theme_zeitung' : '#theme_classic')[0].checked = true;
+  };
+
+  // Design: „classic“ (wie das Originalspiel) oder „zeitung“ (Entwurf design/zeitung_muster.html, CSS am Ende von game.css).
+  // Eigener Schlüssel im localStorage, weil saveSettings der Engine nur feste Felder speichert.
+  var THEME_KEY = 'sozialdemokratie_theme';
+  window.theme = 'classic';
+  try { if (localStorage.getItem(THEME_KEY) == 'zeitung') window.theme = 'zeitung'; } catch (e) {}
+
+  window.applyTheme = function() {
+      var zt = window.theme == 'zeitung';
+      document.body.classList.toggle('theme-zeitung', zt);
+      // Zeitung nur dunkel; dark-mode auch für die Diagrammfarben der Reiter
+      document.body.classList.toggle('dark-mode', zt || !!(window.dendryUI && window.dendryUI.dark_mode));
+      window.decorateContent();
+      if (window.dendryUI && window.dendryUI.dendryEngine && window.updateSidebar) window.updateSidebar();
+  };
+
+  window.setTheme = function(t) {
+      window.theme = t == 'zeitung' ? 'zeitung' : 'classic';
+      try { localStorage.setItem(THEME_KEY, window.theme); } catch (e) {}
+      window.applyTheme();
+  };
+
+  // Ergänzungen im Inhalt, die nur das Design Zeitung zeigt (game.css: .zt-kicker, .zt-caption):
+  // - Dachzeile „Ereignis“ über der Überschrift von Szenen mit dem Tag event
+  // - Kartentitel im Link selbst, damit Stapel, Hand und Berater als klickbare Textzeilen erscheinen
+  window.decorateContent = function() {
+      var content = document.getElementById('content');
+      if (!content) return;
+      content.querySelectorAll('a.card').forEach(function(a) {
+          if (a.querySelector('.zt-caption')) return;
+          var cap = document.createElement('span');
+          cap.className = 'zt-caption';
+          cap.textContent = a.getAttribute('title') || '';
+          a.insertBefore(cap, a.firstChild);
+      });
+      var ui = window.dendryUI, engine = ui && ui.dendryEngine;
+      if (!engine || !engine.state || !engine.state.sceneId) return;
+      var scene = ui.game.scenes[String(engine.state.sceneId).split('.')[0]];
+      var heads = content.querySelectorAll('h1');
+      var h = heads[heads.length - 1];
+      if (scene && scene.tags && scene.tags.indexOf('event') >= 0 && h &&
+          !(h.previousElementSibling && h.previousElementSibling.classList.contains('zt-kicker'))) {
+          var k = document.createElement('p');
+          k.className = 'zt-kicker';
+          k.textContent = 'Ereignis';
+          h.parentNode.insertBefore(k, h);
+      }
   };
 
   
@@ -1322,6 +1371,13 @@
     if (window.dendryUI.dark_mode) {
         document.body.classList.add('dark-mode');
     }
+    window.applyTheme();
+    // neue Inhalte (Szenentext, Auswahl, Karten) für das Design Zeitung ergänzen
+    var ztTimer = null;
+    new MutationObserver(function() {
+        if (ztTimer) return;
+        ztTimer = setTimeout(function() { ztTimer = null; window.decorateContent(); }, 0);
+    }).observe(document.getElementById('content'), {childList: true, subtree: true}); // Karten ersetzt die Engine innerhalb der Listen
     // fresh browser profiles have no saved font size yet
     if (typeof window.dendryUI.font_size !== 'number') {
         window.dendryUI.font_size = 1.1;

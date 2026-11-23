@@ -1123,3 +1123,239 @@ select option, select optgroup {
   color: var(--text-color);
   opacity: 1;
 }
+
+/* ======================================================================================
+   Design „Zeitung“ (umschaltbar in den Einstellungen, body.theme-zeitung; Entwurf: design/zeitung_muster.html,
+   Regeln: PORT_2026.md, Abschnitt „Design: Zeitungslook“). Das klassische Design oben bleibt unverändert.
+   Nur Dunkelmodus: game.js setzt zusätzlich body.dark-mode, damit die Diagrammfarben der Reiter passen.
+   Schriften selbst ausgeliefert (SIL Open Font License, fonts/OFL-*.txt): Archivo, Source Serif 4 (Fontsource 5.3).
+   ====================================================================================== */
+@font-face {
+  font-family: "Archivo"; font-style: normal; font-display: swap; font-weight: 100 900; font-stretch: 62% 125%;
+  src: url(fonts/archivo-latin-standard-normal.woff2) format("woff2-variations");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Archivo"; font-style: normal; font-display: swap; font-weight: 100 900; font-stretch: 62% 125%;
+  src: url(fonts/archivo-latin-ext-standard-normal.woff2) format("woff2-variations");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: "Source Serif 4"; font-style: normal; font-display: swap; font-weight: 200 900;
+  src: url(fonts/source-serif-4-latin-standard-normal.woff2) format("woff2-variations");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Source Serif 4"; font-style: normal; font-display: swap; font-weight: 200 900;
+  src: url(fonts/source-serif-4-latin-ext-standard-normal.woff2) format("woff2-variations");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: "Source Serif 4"; font-style: italic; font-display: swap; font-weight: 200 900;
+  src: url(fonts/source-serif-4-latin-standard-italic.woff2) format("woff2-variations");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Source Serif 4"; font-style: italic; font-display: swap; font-weight: 200 900;
+  src: url(fonts/source-serif-4-latin-ext-standard-italic.woff2) format("woff2-variations");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* Elemente, die nur im Design Zeitung erscheinen */
+.zt-kicker, .zt-caption { display: none; }
+
+body.theme-zeitung {
+  --zt-paper: #131313; --zt-side: #1b1a19; --zt-ink: #ecebe7; --zt-ink2: #c9c7c2; --zt-muted: #9a9792;
+  --zt-hair: #34322f; --zt-tint: #262522; --zt-red: #f0453c; --zt-red-ink: #ff6a60;
+  --zt-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --zt-sans: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Variablen des klassischen Designs auf die Zeitungsfarben legen */
+  --bg-color: var(--zt-paper); --border-color: var(--zt-ink); --content-bg-color: var(--zt-side); --text-color: var(--zt-ink);
+  --link-color: var(--zt-ink); --link-hover-color: transparent; --unavailable-bg-color: var(--zt-hair); --unavailable-color: var(--zt-muted);
+  --tab-bg-color: transparent; --tab-color: transparent; --tab-hover-color: transparent;
+  --card-border-color: var(--zt-hair); --card-bg-color: var(--zt-tint);
+  font-family: var(--zt-serif);
+  background: var(--zt-paper) !important;
+  color: var(--zt-ink);
+  line-height: 1.6;
+  margin: 0;
+}
+/* #bg1/#bg2 bekommen von der Engine display:block als Inline-Stil */
+body.theme-zeitung .background, body.theme-zeitung #contentSpriteContainer { display: none !important; }
+body.theme-zeitung a { color: var(--zt-ink); }
+
+/* Kopfzeile */
+body.theme-zeitung header {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; text-align: left; overflow: visible;
+  padding: 12px 28px 11px; border-bottom: 1px solid var(--zt-hair); max-width: none; margin: 0;
+}
+body.theme-zeitung header h1, body.theme-zeitung header h2 { background: none; padding: 0; margin: 0; }
+body.theme-zeitung header h1 { font: 700 22px/1.2 var(--zt-sans); }
+body.theme-zeitung header h2 { font: 400 14px/1.3 var(--zt-serif); font-style: normal; color: var(--zt-muted); }
+body.theme-zeitung #header-links {
+  order: 3; margin: 0 0 0 auto; padding: 0; float: none; box-shadow: none; background: none;
+  font: 500 13.5px var(--zt-sans);
+}
+body.theme-zeitung #header-links a { color: var(--zt-ink2); padding: 0 0 0 18px; }
+body.theme-zeitung #header-links a:hover { color: var(--zt-ink); text-decoration: underline; text-underline-offset: 3px; }
+
+/* Zweiteilung: links Reiter, rechts Inhalt */
+body.theme-zeitung #mid_panel { margin: 0; }
+body.theme-zeitung #tools_wrapper { position: static; max-width: none; }
+body.theme-zeitung .tools, body.theme-zeitung .tools.left {
+  float: none; width: auto; margin: 0; padding: 0 32px 40px; box-shadow: none; border: 0;
+  background: var(--zt-side); color: var(--zt-ink); font-family: var(--zt-sans);
+}
+body.theme-zeitung #content {
+  max-width: 760px; margin: 0; padding: 26px 48px 80px; background: transparent; box-shadow: none; border: 0;
+  color: var(--zt-ink); overflow: visible;
+}
+body.theme-zeitung footer { display: none; }
+@media screen and (min-width: 1000px) {
+  body.theme-zeitung #mid_panel {
+    display: grid; grid-template-columns: minmax(440px, 46%) minmax(0, 1fr); column-gap: 0;
+    max-width: none; margin: 0; padding: 0; align-items: start;
+  }
+  body.theme-zeitung #tools_wrapper {
+    position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--zt-side); border-right: 1px solid var(--zt-hair);
+  }
+}
+@media screen and (max-width: 999px) {
+  body.theme-zeitung #page { position: static; }
+  body.theme-zeitung #content { max-width: none; padding: 20px 16px 60px; }
+  body.theme-zeitung .tools, body.theme-zeitung .tools.left { padding: 0 16px 24px; border-bottom: 1px solid var(--zt-hair); }
+  body.theme-zeitung header { padding: 10px 16px; }
+}
+
+/* Reiter */
+body.theme-zeitung .tab_container {
+  display: flex; flex-wrap: wrap; gap: 0 24px; background: none; margin: 0 -32px 20px; padding: 0 32px;
+  border-bottom: 1px solid var(--zt-hair);
+}
+body.theme-zeitung .tab_button {
+  font: 600 13.5px/1 var(--zt-sans); color: var(--zt-muted); background: none; border: 0;
+  border-bottom: 3px solid transparent; padding: 14px 0 10px; cursor: pointer;
+}
+body.theme-zeitung .tab_button:hover { color: var(--zt-ink); background: none; }
+body.theme-zeitung .tab_button.active { color: var(--zt-ink); background: none; border-bottom-color: var(--zt-red); }
+body.theme-zeitung .tab_button:focus-visible { outline: 2px solid var(--zt-red); outline-offset: -2px; }
+@media screen and (max-width: 999px) {
+  body.theme-zeitung .tab_container { margin: 0 -16px 16px; padding: 0 16px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  body.theme-zeitung .tab_button { white-space: nowrap; }
+}
+
+/* Inhalt der Seitenleiste */
+body.theme-zeitung #qualities { font: 400 14px/1.45 var(--zt-sans); color: var(--zt-ink); }
+body.theme-zeitung #qualities h1 {
+  font: 600 13.5px/1.2 var(--zt-sans); text-align: left; text-transform: none; letter-spacing: 0; text-shadow: none;
+  border-top: 1px solid var(--zt-ink); padding-top: 8px; margin: 24px 0 8px;
+}
+body.theme-zeitung #qualities h1:first-child { margin-top: 0; }
+body.theme-zeitung #qualities > p { margin: 0; padding: 7px 0; border-bottom: 1px solid var(--zt-hair); text-indent: 0; }
+body.theme-zeitung #qualities > p:empty { display: none; }
+body.theme-zeitung .poll_heading { font: 600 13.5px/1.2 var(--zt-sans); }
+body.theme-zeitung .poll_note { font-size: 12px; color: var(--zt-muted); opacity: 1; }
+body.theme-zeitung select {
+  font: 500 13px var(--zt-sans); color: var(--zt-ink); background: var(--zt-tint); border: 1px solid var(--zt-hair); padding: 3px 6px;
+}
+body.theme-zeitung .grp_views { gap: 0 20px; border-bottom: 1px solid var(--zt-hair); }
+body.theme-zeitung .grp_view_btn {
+  font: 500 13px var(--zt-sans); color: var(--zt-muted); background: none; border: 0; border-bottom: 2px solid transparent;
+  padding: 6px 0 7px; margin-bottom: -1px;
+}
+body.theme-zeitung .grp_view_btn:hover { color: var(--zt-ink); }
+body.theme-zeitung .grp_view_btn.active { color: var(--zt-ink); background: none; border-bottom-color: var(--zt-red); }
+body.theme-zeitung .gov_chart { text-align: left; }
+body.theme-zeitung .gov_row { justify-content: flex-start; gap: 12px 28px; }
+body.theme-zeitung .gov_line { display: none; }
+body.theme-zeitung .gov_row { margin-bottom: 14px; }
+body.theme-zeitung .gov_cabinet { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 20px; border-top: 1px solid var(--zt-hair); padding-top: 14px; margin-top: 14px; }
+body.theme-zeitung .gov_card { display: grid; grid-template-columns: 40px 1fr; grid-template-rows: auto auto auto; column-gap: 12px; text-align: left; font-size: 13px; }
+body.theme-zeitung .gov_card .gov_photo { grid-row: 1 / 4; }
+body.theme-zeitung .gov_card.big { grid-template-columns: 48px 1fr; }
+body.theme-zeitung .gov_photo {
+  width: 40px; height: 50px; margin: 0; border: 0; border-bottom: 3px solid; border-radius: 0; box-shadow: none;
+  background-color: var(--zt-tint) !important; color: var(--zt-muted);
+}
+body.theme-zeitung .gov_card.big .gov_photo { width: 48px; height: 60px; }
+body.theme-zeitung .gov_photo img { filter: grayscale(1) contrast(1.1); }
+body.theme-zeitung .gov_role, body.theme-zeitung .gov_party { opacity: 1; color: var(--zt-muted); font-size: 12px; }
+body.theme-zeitung .gov_name { font-weight: 600; font-size: 14px; }
+body.theme-zeitung .gov_card.big .gov_name { font-size: 16px; }
+body.theme-zeitung .gov_table td { border-bottom: 1px solid var(--zt-hair); padding: 4px 0; }
+
+/* Text im Inhalt */
+body.theme-zeitung #content p { text-indent: 0; margin: 0 0 1em; }
+body.theme-zeitung #content h1 {
+  font: 700 1.8em/1.15 var(--zt-sans); text-align: left; text-transform: none; letter-spacing: -0.005em; text-shadow: none;
+  margin: 0.6em 0 0.5em;
+}
+body.theme-zeitung #content h1:first-child { margin-top: 0; }
+body.theme-zeitung #content .zt-kicker { display: block; font: 600 13px/1.2 var(--zt-sans); color: var(--zt-red-ink); margin: 1.6em 0 6px; text-indent: 0; }
+body.theme-zeitung #content .zt-kicker:first-child { margin-top: 0; }
+body.theme-zeitung #content .zt-kicker + h1 { margin-top: 0; }
+body.theme-zeitung #content hr { border: 0; border-top: 1px solid var(--zt-hair); margin: 1.6em 0; height: 0; }
+body.theme-zeitung #content #read-marker { width: 100%; border-top: 1px solid var(--zt-ink); margin: 2em 0; }
+body.theme-zeitung #content p a, body.theme-zeitung #content li > a:not(.card) { color: var(--zt-ink); }
+body.theme-zeitung blockquote { margin: 1em 0; padding: 0 0 0 1em; border-left: 1px solid var(--zt-hair); color: var(--zt-ink2); }
+body.theme-zeitung p.game-over { border: 0; border-top: 1px solid var(--zt-hair); border-radius: 0; color: var(--zt-muted); padding: 1em 0 0; }
+
+/* Ereignisbilder in Graustufen: Themenbilder breit, Porträts klein daneben */
+body.theme-zeitung .face-figure {
+  display: block; float: none; max-width: 100%; border: 0; margin: 0 0 1.4em; overflow: hidden; background: var(--zt-tint);
+}
+body.theme-zeitung .face-img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; filter: grayscale(1) contrast(1.12) brightness(1.03); }
+body.theme-zeitung .face-figure:has(img[src*="portraits/"]) { float: right; width: 120px; max-width: 32%; margin: 0.3em 0 1em 1.4em; }
+body.theme-zeitung .face-figure:has(img[src*="portraits/"]) .face-img { aspect-ratio: 4 / 5; }
+body.theme-zeitung #content img { filter: grayscale(1) contrast(1.1); }
+
+/* Auswahl: nummerierte Liste mit dünnen Linien */
+body.theme-zeitung ul.choices { border: 0; border-top: 1px solid var(--zt-ink); border-radius: 0; margin: 1.2em 0 0; counter-reset: zt-choice; clear: both; }
+body.theme-zeitung ul.choices li {
+  position: relative; border-bottom: 1px solid var(--zt-hair); padding: 12px 0 12px 30px; counter-increment: zt-choice;
+}
+body.theme-zeitung ul.choices li:last-child { border-bottom: 1px solid var(--zt-hair); }
+body.theme-zeitung ul.choices li::before {
+  content: counter(zt-choice) "."; position: absolute; left: 0; top: 14px;
+  font: 500 14px/1.6 var(--zt-sans); color: var(--zt-muted); font-variant-numeric: tabular-nums;
+}
+body.theme-zeitung ul.choices li:hover { background: none; }
+body.theme-zeitung ul.choices a { color: var(--zt-ink); font-weight: 500; }
+body.theme-zeitung ul.choices li:hover a { text-decoration: underline; text-decoration-color: var(--zt-red); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+body.theme-zeitung ul.choices li div.subtitle { margin: 3px 0 0; font: 400 14px/1.45 var(--zt-sans); font-style: normal; color: var(--zt-muted); }
+body.theme-zeitung ul.choices li.unavailable { background: none !important; color: var(--zt-muted); }
+body.theme-zeitung ul.choices li.unavailable div.subtitle { font: italic 400 15px/1.45 var(--zt-serif); }
+
+/* Stapel, Hand und Berater als Listen ohne Bilder */
+body.theme-zeitung .deck-description, body.theme-zeitung .hand-description, body.theme-zeitung .pinned-text-description {
+  font: 600 15px/1.3 var(--zt-sans); color: var(--zt-ink); margin: 0 0 4px; text-indent: 0;
+}
+body.theme-zeitung ul.decks, body.theme-zeitung ul.hand, body.theme-zeitung ul.pinned-cards { margin: 0 0 0.6em; padding: 0; }
+body.theme-zeitung .card-in-hand, body.theme-zeitung .pinned-card, body.theme-zeitung .deck {
+  display: block; position: relative; max-width: none; margin: 0; padding: 0; border-bottom: 1px solid var(--zt-hair);
+}
+body.theme-zeitung .card-in-hand:has(.blank-card) { display: none; }
+body.theme-zeitung a.card {
+  display: block; position: static; width: auto; height: auto; border: 0; box-shadow: none; margin: 0; padding: 12px 0;
+  color: var(--zt-ink); left: auto; top: auto;
+}
+body.theme-zeitung a.card::after { content: ""; position: absolute; inset: 0; }
+body.theme-zeitung a.card:hover { box-shadow: none; left: auto; top: auto; }
+body.theme-zeitung a.card .card-img, body.theme-zeitung .card-caption { display: none; }
+body.theme-zeitung a.card .zt-caption { display: block; font: 600 1.1em/1.35 var(--zt-serif); }
+body.theme-zeitung a.card:hover .zt-caption { text-decoration: underline; text-decoration-color: var(--zt-red); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+body.theme-zeitung a.card:focus-visible { outline: 2px solid var(--zt-red); outline-offset: 2px; }
+body.theme-zeitung .card-tooltip {
+  position: static; visibility: visible; display: block; width: auto; max-width: none; border: 0; padding: 0; margin-top: 2px;
+  background: none; font: 400 15px/1.45 var(--zt-serif); color: var(--zt-ink2);
+}
+body.theme-zeitung .unavailable-card, body.theme-zeitung .unavailable-card .zt-caption { color: var(--zt-muted); background: none !important; }
+body.theme-zeitung div.blank-card { display: none; }
+
+/* Einstellungen und Spielstände */
+body.theme-zeitung .overlay_top { background: var(--zt-side); color: var(--zt-ink); border: 1px solid var(--zt-hair); box-shadow: none; font-family: var(--zt-sans); }
+body.theme-zeitung .overlay_top hr { border: 0; border-top: 1px solid var(--zt-hair); }
+body.theme-zeitung .overlay button, body.theme-zeitung .overlay .b {
+  font: 500 13px var(--zt-sans); color: var(--zt-ink); background: none; border: 1px solid var(--zt-hair); padding: 4px 10px; cursor: pointer;
+}
+body.theme-zeitung #color_scheme_row, body.theme-zeitung #color_scheme_sep { display: none; }

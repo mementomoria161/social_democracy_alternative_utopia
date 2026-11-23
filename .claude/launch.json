@@ -13,6 +13,13 @@
       "runtimeArgs": ["-m", "http.server", "8769", "-d", "out/html"],
       "port": 8769,
       "autoPort": false
+    },
+    {
+      "name": "muster",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8771", "--bind", "127.0.0.1"],
+      "port": 8771,
+      "autoPort": false
     }
   ]
 }
