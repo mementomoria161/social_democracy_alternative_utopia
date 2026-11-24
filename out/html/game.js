@@ -311,15 +311,33 @@
       });
       var ui = window.dendryUI, engine = ui && ui.dendryEngine;
       if (!engine || !engine.state || !engine.state.sceneId) return;
-      var scene = ui.game.scenes[String(engine.state.sceneId).split('.')[0]];
+      var id = String(engine.state.sceneId), scene = ui.game.scenes[id.split('.')[0]], sub = ui.game.scenes[id] || scene;
       var heads = content.querySelectorAll('h1');
       var h = heads[heads.length - 1];
-      if (scene && scene.tags && scene.tags.indexOf('event') >= 0 && h &&
-          !(h.previousElementSibling && h.previousElementSibling.classList.contains('zt-kicker'))) {
+      // jede Überschrift nur einmal, und zwar mit der Szene, mit der sie erscheint
+      if (!scene || !h || h.dataset.zt) return;
+      h.dataset.zt = '1';
+      var isEvent = !!(scene.tags && scene.tags.indexOf('event') >= 0);
+      if (isEvent) {
           var k = document.createElement('p');
           k.className = 'zt-kicker';
           k.textContent = 'Ereignis';
           h.parentNode.insertBefore(k, h);
+      }
+      // Bilder ausgewählt: bei Ereignissen immer (face-image), sonst nur bei Personen (Porträts, z. B. Berater*innen);
+      // gewöhnliche Handlungskarten bleiben ohne Bild. Unabhängig von der Einstellung „Ereignisbilder“ des klassischen Designs.
+      var face = sub.faceImage || scene.faceImage || '', card = scene.cardImage || '';
+      var src = face || (card.indexOf('portraits/') >= 0 ? card : '');
+      if (src && (isEvent || src.indexOf('portraits/') >= 0)) {
+          var fig = document.createElement('div');
+          fig.className = 'face-figure zt-figure';
+          var img = new Image();
+          img.className = 'face-img';
+          img.alt = '';
+          img.onerror = function() { fig.remove(); };
+          img.src = src;
+          fig.appendChild(img);
+          h.parentNode.insertBefore(fig, h.nextSibling);
       }
   };
 
