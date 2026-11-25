@@ -1112,13 +1112,19 @@ select option, select optgroup {
   src: url(fonts/archivo-latin-ext-standard-normal.woff2) format("woff2-variations");
   unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
 }
+/* Seite immer genau so hoch wie das Fenster: Kopfleiste fest, gescrollt wird nur in Seitenleiste und Spielfläche */
+html, body { height: 100%; overflow: hidden; }
 body { margin: 0; --cw: 150px; --ch: 220px; --fan-step: 8deg; --fan-r: 1000px; }
-#page { position: static; }
-#mid_panel { margin: 0; padding: 0; }
-footer { display: none; }
+#page { position: static; height: 100%; }
+#mid_panel {
+  margin: 0; padding: 0; height: 100vh; height: 100dvh;
+  display: grid; grid-template-columns: minmax(420px, 40%) minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr);
+}
+footer, #view_toggle { display: none; }
 
 /* Kopfleiste */
 header {
+  grid-column: 1 / -1;
   display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; text-align: left; overflow: visible;
   max-width: none; margin: 0; padding: 12px 28px 11px; position: relative; z-index: 3;
   background-color: var(--content-bg-color); border-bottom: 1px solid var(--card-border-color);
@@ -1134,39 +1140,65 @@ header h2 { font-size: 14px; line-height: 1.3; opacity: 0.75; }
 #header-links a { color: var(--text-color); padding: 0 0 0 18px; }
 #header-links a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
-/* Seitenleiste: fest, nicht schwebend */
-#tools_wrapper { position: static; max-width: none; background-color: var(--content-bg-color); }
+/* Seitenleiste: feste Spalte mit eigener Scrollleiste, Reiter bleiben oben stehen */
+#tools_wrapper {
+  position: static; max-width: none; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
+  background-color: var(--content-bg-color);
+  border-right: 1px solid var(--card-border-color); box-shadow: 2px 0 12px rgba(0, 0, 0, 0.2); z-index: 1;
+}
 .tools, .tools.left, body.dark-mode .tools {
   float: none; width: auto; margin: 0; padding: 0.6em 1.4em 2em; box-shadow: none; border: 0;
 }
-.tab_container { margin: -0.6em -1.4em 0.6em; padding: 0 0.8em; }
+.tab_container { margin: -0.6em -1.4em 0.6em; padding: 0 0.8em; position: sticky; top: 0; z-index: 2; }
 
-/* Spielfläche */
-#stage { display: flex; justify-content: center; align-items: flex-start; gap: 2em; padding: 2em 1.5em; }
-#content { flex: 0 1 600px; max-width: 600px; margin: 0; position: relative; }
-#played_card { position: sticky; top: 2em; flex: none; }
-#played_card:empty, body.hand-view #played_card { display: none; }
-
-@media screen and (min-width: 1000px) {
-  #mid_panel { display: grid; grid-template-columns: minmax(420px, 40%) minmax(0, 1fr); align-items: start; }
-  header { grid-column: 1 / -1; }
-  #tools_wrapper {
-    position: sticky; top: 0; height: 100vh; overflow-y: auto;
-    border-right: 1px solid var(--card-border-color); box-shadow: 2px 0 12px rgba(0, 0, 0, 0.2);
-  }
-  #stage { min-height: calc(100vh - 54px); box-sizing: border-box; }
+/* Spielfläche: scrollt selbst, wenn ein Szenentext länger ist */
+#stage {
+  display: flex; justify-content: center; align-items: flex-start; gap: 2em; padding: 2em 1.5em; box-sizing: border-box;
+  min-height: 0; overflow-y: auto; overscroll-behavior: contain;
 }
-@media screen and (max-width: 999px) {
-  header { padding: 10px 16px; }
-  #tools_wrapper { border-bottom: 1px solid var(--card-border-color); }
+#content { flex: 0 1 600px; max-width: 600px; margin: 0; position: relative; }
+#played_card { position: sticky; top: 0; flex: none; }
+#played_card:empty, body.hand-view #played_card { display: none; }
+body.hand-view #stage { overflow: hidden; }
+
+/* Tablet und Handy: eine Ansicht auf einmal, unten Umschalter zwischen Infos (Seitenleiste) und Handlungen */
+@media screen and (max-width: 1023px) {
+  #mid_panel { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto; }
+  #tools_wrapper, #stage { grid-row: 2; grid-column: 1; }
+  #tools_wrapper { border-right: 0; box-shadow: none; }
+  body:not(.view-info) #tools_wrapper, body.view-info #stage { display: none; }
+  header { padding: 8px 16px; gap: 2px 14px; }
+  header h1 { font-size: 18px; }
+  header h2 { display: none; }
+  #header-links a { padding-left: 14px; }
   .tools, .tools.left, body.dark-mode .tools { padding: 0.6em 16px 1.5em; }
   .tab_container { margin: -0.6em -16px 0.6em; padding: 0; display: flex; overflow-x: auto; }
   .tab_button { white-space: nowrap; }
-  #stage { flex-direction: column; align-items: center; padding: 1em 16px; gap: 1em; min-height: 100vh; box-sizing: border-box; }
+  #stage { flex-direction: column; justify-content: flex-start; align-items: center; padding: 1em 16px; gap: 1em; }
   #content { flex: none; width: 100%; box-sizing: border-box; }
   #played_card { position: static; }
-  body { --cw: 112px; --ch: 168px; --fan-step: 6deg; --fan-r: 650px; }
-  .card-title { font-size: 0.75em; }
+  .card.played { --cw: 140px !important; --ch: 200px !important; }
+  #view_toggle {
+    display: flex; grid-row: 3; grid-column: 1; z-index: 3;
+    background-color: var(--content-bg-color); border-top: 1px solid var(--card-border-color);
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.2); padding-bottom: env(safe-area-inset-bottom);
+  }
+  #view_toggle button {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 0 6px;
+    border: 0; background: none; color: var(--text-color); opacity: 0.6; cursor: pointer;
+    font: 500 12px "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+    border-top: 3px solid transparent; margin-top: -1px;
+  }
+  #view_toggle button[aria-pressed="true"] { opacity: 1; border-top-color: var(--link-color); }
+  #view_toggle button:focus-visible { outline: 2px solid var(--link-color); outline-offset: -2px; }
+}
+@media screen and (max-width: 700px) {
+  body { --cw: 108px; --ch: 162px; --fan-step: 5deg; --fan-r: 650px; }
+  .card-title { font-size: 0.66em; }
+  header h1 { font-size: 16px; }
+  #header-links { margin-left: 0; font-size: 13px; }
+  #header-links a { padding: 0 14px 0 0; }
+  .card.played { --cw: 110px !important; --ch: 160px !important; font-size: 1em; }
 }
 
 /* Spielkarten: abgerundet, Bild oben, Titel in der Karte */
@@ -1200,7 +1232,7 @@ li.unavailable-card a.card { filter: grayscale(0.85); opacity: 0.6; cursor: defa
 /* Handansicht: kein Fenster, nur Stapel und Fächer auf der Karte */
 body.hand-view #content {
   flex: 1; max-width: none; align-self: stretch; background: none; box-shadow: none; border: 0; padding: 0;
-  overflow: visible; min-height: calc(100vh - 54px - 4em);
+  overflow: visible;
 }
 body.hand-view #content > :not(ul.decks):not(ul.hand):not(ul.pinned-cards):not(.pinned-text-description) { display: none; }
 body.hand-view ul.decks { position: absolute; top: 0; right: 0; display: flex; gap: 1.6em; margin: 0; }
@@ -1229,7 +1261,6 @@ body.hand-view .pinned-text-description {
   font-size: 0.85em; padding: 0.1em 0.8em; border-radius: 10px; background-color: var(--content-bg-color);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
-@media screen and (max-width: 999px) {
-  body.hand-view #content { min-height: calc(100vh - 2em); width: 100%; }
+@media screen and (max-width: 700px) {
   body.hand-view ul.decks { left: 50%; right: auto; transform: translateX(-50%); }
 }

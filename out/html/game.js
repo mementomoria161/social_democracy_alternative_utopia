@@ -54,6 +54,23 @@
       }));
     };
     ui.getGameOverMsg = function() { return 'Ende des Spiels (zum erneuten Lesen die Seite neu laden)'; };
+    // Die Seite scrollt nicht mehr (game.css „Layout“), nur die Spielfläche: dort zur Lesemarke springen
+    // statt html/body zu scrollen wie die Engine (ui/browser.js endOutput).
+    ui.endOutput = function() {
+      var stage = $('#stage'), marker = $('#read-marker');
+      if (!stage.length) return;
+      var top = marker.length ? marker.offset().top - stage.offset().top + stage.scrollTop() : 0;
+      // neue Szene ohne alten Text davor: ganz nach oben, damit die gespielte Karte sichtbar bleibt
+      if (marker.length && marker.offset().top - $('#content').offset().top < 100) top = 0;
+      stage.stop().animate({scrollTop: top}, this.animate ? this.fade_time : 0);
+    };
+  };
+
+  // Tablet und Handy: Umschalter unten zwischen Infos (Seitenleiste) und Handlungen (Spielfläche)
+  window.setMobileView = function(view) {
+    document.body.classList.toggle('view-info', view == 'info');
+    document.getElementById('toggle_info').setAttribute('aria-pressed', view == 'info');
+    document.getElementById('toggle_play').setAttribute('aria-pressed', view != 'info');
   };
 
   var TITLE = "Social Democracy: An Alternate History" + '_' + "Autumn Chen";
