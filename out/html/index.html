@@ -126,26 +126,6 @@
                 <tr>
                     <td> <hr> </td>
                 </tr>
-                <tr id="theme_row">
-                    <td id="theme_text">
-                        Design:
-                    </td>
-                    <td>
-                        <label id="theme_classic_label" for="theme_classic">Klassisch</label>
-                    </td>
-                    <td>
-                        <input type="radio" id="theme_classic" name="theme" value="classic" onclick="window.setTheme('classic');">
-                    </td>
-                    <td>
-                        <label id="theme_zeitung_label" for="theme_zeitung">Zeitung</label>
-                    </td>
-                    <td>
-                        <input type="radio" id="theme_zeitung" name="theme" value="zeitung" onclick="window.setTheme('zeitung');">
-                    </td>
-                </tr>
-                <tr>
-                    <td> <hr> </td>
-                </tr>
                 <tr id="color_scheme_row">
                     <td id="color_scheme_text">
                         Farbschema:
@@ -384,8 +364,11 @@
                 </div>
             </div>
 
-            <div id='content'>
+            <div id="stage">
+                <div id="played_card"></div>
+                <div id='content'>
 
+                </div>
             </div>
 
             <footer>
