@@ -314,15 +314,30 @@
       });
       var hand = !!content.querySelector('ul.hand');
       document.body.classList.toggle('hand-view', hand);
+      var engine = window.dendryUI && window.dendryUI.dendryEngine;
+      var resting = [];
       if (hand) {
           playedCard = null;
           var lis = [].filter.call(content.querySelectorAll('ul.hand > li, ul.pinned-cards > li'), function(li) { return !li.querySelector('.blank-card'); });
-          lis.forEach(function(li, i) {
-              li.style.setProperty('--o', i - (lis.length - 1) / 2); // Abstand zur Mitte des Fächers
-              li.style.zIndex = i + 1;
+          // Berater*innen in der Wartezeit sinken aus dem Fächer an den unteren Rand (Kabinett bleibt oben)
+          var waiting = !!(engine && engine.state && engine.state.qualities.advisor_action_timer > 0);
+          var fan = lis.filter(function(li) {
+              var a = li.querySelector('a.card'), id = a && a.getAttribute('card-id');
+              var scene = id && window.dendryUI.game.scenes[id];
+              var rests = waiting && id != 'cabinet' && !!(scene && scene.tags && scene.tags.indexOf('advisor') >= 0);
+              li.classList.toggle('resting', rests);
+              if (rests) resting.push(li);
+              return !rests;
+          });
+          [resting, fan].forEach(function(group, g) {
+              group.forEach(function(li, i) {
+                  li.style.setProperty('--o', i - (group.length - 1) / 2); // Abstand zur Mitte des Fächers
+                  li.style.zIndex = i + 1 + g * resting.length;
+              });
           });
       }
-      var engine = window.dendryUI && window.dendryUI.dendryEngine;
+      document.body.classList.toggle('has-resting', resting.length > 0);
+      document.body.style.setProperty('--rest-n', resting.length);
       var sceneId = engine && engine.state && engine.state.sceneId ? String(engine.state.sceneId) : '';
       if (playedCard && sceneId.split('.')[0] != playedCard.id.split('.')[0]) playedCard = null;
       var box = document.getElementById('played_card');
