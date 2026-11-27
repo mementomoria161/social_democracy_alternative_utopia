@@ -16,12 +16,6 @@
     <script src="game.js"></script>
   </head>
   <body>
-    <div class="background" id="bg2">
-    </div>
-
-    <div class="background" id="bg1">
-    </div>
-
     <div id="options" class="overlay options" style="display: none;">
 
         <div class="overlay_top">
@@ -66,7 +60,7 @@
                 <tr>
                     <td> <hr> </td>
                 </tr>
-                <tr id="event_images_row">
+                <tr>
                     <td id="event_images_text">
                         Ereignisbilder:
                     <td>
@@ -82,7 +76,7 @@
                         <input type="radio" id="images_no" name="images" value="0" onclick="window.disableImages();">
                     </td>
                 </tr>
-                <tr id="event_images_sep">
+                <tr>
                     <td> <hr> </td>
                 </tr>
  
@@ -121,26 +115,6 @@
                     </td>
                     <td>
                         <input type="radio" id="audio_no" name="audio" value="0" onclick="window.disableAudio();">
-                    </td>
-                </tr>
-                <tr>
-                    <td> <hr> </td>
-                </tr>
-                <tr id="theme_row">
-                    <td id="theme_text">
-                        Design:
-                    </td>
-                    <td>
-                        <label id="theme_classic_label" for="theme_classic">Klassisch</label>
-                    </td>
-                    <td>
-                        <input type="radio" id="theme_classic" name="theme" value="classic" onclick="window.setTheme('classic');">
-                    </td>
-                    <td>
-                        <label id="theme_zeitung_label" for="theme_zeitung">Zeitung</label>
-                    </td>
-                    <td>
-                        <input type="radio" id="theme_zeitung" name="theme" value="zeitung" onclick="window.setTheme('zeitung');">
                     </td>
                 </tr>
                 <tr>
@@ -384,9 +358,27 @@
                 </div>
             </div>
 
-            <div id='content'>
+            <!-- Hintergrund (set-bg) nur hinter der Spielfläche, game.css „Layout“ -->
+            <div class="background" id="bg2"></div>
+            <div class="background" id="bg1"></div>
+            <div id="stage">
+                <div id="played_card"></div>
+                <div id='content'>
 
+                </div>
             </div>
+
+            <!-- nur auf Tablet und Handy sichtbar (game.css „Layout“); Symbol links: Bootstrap Icons bar-chart-fill (MIT) -->
+            <nav id="view_toggle" aria-label="Ansicht">
+                <button id="toggle_info" aria-pressed="false" onclick="window.setMobileView('info');">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z"/></svg>
+                    Infos
+                </button>
+                <button id="toggle_play" aria-pressed="true" onclick="window.setMobileView('play');">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.2" y="3" width="7" height="10" rx="1.4" transform="rotate(-12 5.7 8)" fill-opacity="0.55"/><rect x="6.8" y="3" width="7" height="10" rx="1.4" transform="rotate(10 10.3 8)"/></svg>
+                    Handlungen
+                </button>
+            </nav>
 
             <footer>
       <!--

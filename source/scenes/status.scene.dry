@@ -18,6 +18,9 @@ Q.profil_text = pf < 1 ? 'kaum erkennbar' : pf < 2 ? 'schwach' : pf < 3 ? 'erken
 
 [+ month : month +] [+ year +]
 
+# Lagebeschreibung, früher als Text über der Hand (main.scene.dry)
+[? if year = 2024 and month = 11 : Die Ampel ist Geschichte. Bis zur Neuwahl regieren SPD und Grüne ohne eigene Mehrheit. ?]
+
 Verfügbare Ressourcen: [+ resources +]
 
 Rolle [+ pp_dat +]: [? if spd_toleration : Tolerierung ?][? if spd_in_government : Regierung – ?][? if spd_toleration == 0 and spd_in_government == 0 and spd_caretaker == 0 : Opposition ?][? if spd_caretaker : geschäftsführende Regierung ?]

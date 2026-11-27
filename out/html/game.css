@@ -610,35 +610,6 @@ body.player-linke .seat.linke {
     text-decoration-style: dotted;
 }
 
-/* wide screens: sidebar and content as two equally wide columns */
-@media screen and (min-width: 1000px) {
-  #mid_panel {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    column-gap: 1.5em;
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 0 1em;
-  }
-  header, footer {
-    grid-column: 1 / -1;
-    max-width: none;
-  }
-  #tools_wrapper {
-    position: static;
-    max-width: none;
-  }
-  .tools, .tools.left {
-    float: none;
-    width: auto;
-    margin: 0;
-  }
-  #content {
-    max-width: none;
-    margin: 0;
-  }
-}
-
 /* polls tab */
 #poll_graph {
   display: block;
@@ -1125,10 +1096,11 @@ select option, select optgroup {
 }
 
 /* ======================================================================================
-   Design „Zeitung“ (umschaltbar in den Einstellungen, body.theme-zeitung; Entwurf: design/zeitung_muster.html,
-   Regeln: PORT_2026.md, Abschnitt „Design: Zeitungslook“). Das klassische Design oben bleibt unverändert.
-   Nur Dunkelmodus: game.js setzt zusätzlich body.dark-mode, damit die Diagrammfarben der Reiter passen.
-   Schriften selbst ausgeliefert (SIL Open Font License, fonts/OFL-*.txt): Archivo, Source Serif 4 (Fontsource 5.3).
+   Layout (Nov. 2026): Kopfleiste über die ganze Breite, links feste Seitenleiste, rechts die Spielfläche
+   auf der Deutschlandkarte (Hintergrund aus set-bg). Stapel oben rechts, Hand und Berater als Kartenfächer unten,
+   gespielte Karte groß neben dem Szenenfenster. Farben und Inhalte wie im klassischen Design.
+   Zugehöriges JS: decorateContent in game.js (Kartentitel, Fächerwinkel, body.hand-view, #played_card).
+   Schrift der Kopfleiste: Archivo (SIL Open Font License, fonts/OFL-Archivo.txt; Fontsource 5.3).
    ====================================================================================== */
 @font-face {
   font-family: "Archivo"; font-style: normal; font-display: swap; font-weight: 100 900; font-stretch: 62% 125%;
@@ -1140,230 +1112,162 @@ select option, select optgroup {
   src: url(fonts/archivo-latin-ext-standard-normal.woff2) format("woff2-variations");
   unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
 }
-@font-face {
-  font-family: "Source Serif 4"; font-style: normal; font-display: swap; font-weight: 200 900;
-  src: url(fonts/source-serif-4-latin-standard-normal.woff2) format("woff2-variations");
-  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+/* Seite immer genau so hoch wie das Fenster: Kopfleiste fest, gescrollt wird nur in Seitenleiste und Spielfläche */
+html, body { height: 100%; overflow: hidden; }
+body { margin: 0; --cw: 150px; --ch: 220px; --fan-step: 8deg; --fan-r: 1000px; }
+#page { position: static; height: 100%; }
+#mid_panel {
+  margin: 0; padding: 0; height: 100vh; height: 100dvh;
+  display: grid; grid-template-columns: minmax(420px, 40%) minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr);
 }
-@font-face {
-  font-family: "Source Serif 4"; font-style: normal; font-display: swap; font-weight: 200 900;
-  src: url(fonts/source-serif-4-latin-ext-standard-normal.woff2) format("woff2-variations");
-  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;
-}
-@font-face {
-  font-family: "Source Serif 4"; font-style: italic; font-display: swap; font-weight: 200 900;
-  src: url(fonts/source-serif-4-latin-standard-italic.woff2) format("woff2-variations");
-  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-}
-@font-face {
-  font-family: "Source Serif 4"; font-style: italic; font-display: swap; font-weight: 200 900;
-  src: url(fonts/source-serif-4-latin-ext-standard-italic.woff2) format("woff2-variations");
-  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF;
-}
+footer, #view_toggle { display: none; }
 
-/* Elemente, die nur im Design Zeitung erscheinen */
-.zt-kicker, .zt-caption, .zt-figure { display: none; }
-
-body.theme-zeitung {
-  --zt-paper: #131313; --zt-side: #1b1a19; --zt-ink: #ecebe7; --zt-ink2: #c9c7c2; --zt-muted: #9a9792;
-  --zt-hair: #34322f; --zt-tint: #262522; --zt-red: #f0453c; --zt-red-ink: #ff6a60;
-  --zt-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
-  --zt-sans: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
-  /* Variablen des klassischen Designs auf die Zeitungsfarben legen */
-  --bg-color: var(--zt-paper); --border-color: var(--zt-ink); --content-bg-color: var(--zt-side); --text-color: var(--zt-ink);
-  --link-color: var(--zt-ink); --link-hover-color: transparent; --unavailable-bg-color: var(--zt-hair); --unavailable-color: var(--zt-muted);
-  --tab-bg-color: transparent; --tab-color: transparent; --tab-hover-color: transparent;
-  --card-border-color: var(--zt-hair); --card-bg-color: var(--zt-tint);
-  font-family: var(--zt-serif);
-  background: var(--zt-paper) !important;
-  color: var(--zt-ink);
-  line-height: 1.6;
-  margin: 0;
-}
-/* #bg1/#bg2 bekommen von der Engine display:block als Inline-Stil */
-body.theme-zeitung .background, body.theme-zeitung #contentSpriteContainer { display: none !important; }
-body.theme-zeitung a { color: var(--zt-ink); }
-
-/* Kopfzeile */
-body.theme-zeitung header {
+/* Kopfleiste */
+header {
+  grid-column: 1 / -1;
   display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; text-align: left; overflow: visible;
-  padding: 12px 28px 11px; border-bottom: 1px solid var(--zt-hair); max-width: none; margin: 0;
+  max-width: none; margin: 0; padding: 12px 28px 11px; position: relative; z-index: 3;
+  background-color: var(--content-bg-color); border-bottom: 1px solid var(--card-border-color);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
 }
-body.theme-zeitung header h1, body.theme-zeitung header h2 { background: none; padding: 0; margin: 0; }
-body.theme-zeitung header h1 { font: 700 22px/1.2 var(--zt-sans); }
-body.theme-zeitung header h2 { font: 400 14px/1.3 var(--zt-serif); font-style: normal; color: var(--zt-muted); }
-body.theme-zeitung #header-links {
+header h1, header h2 { background: none; padding: 0; margin: 0; }
+header h1 { font: 700 22px/1.2 "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif; }
+header h2 { font-size: 14px; line-height: 1.3; opacity: 0.75; }
+#header-links {
   order: 3; margin: 0 0 0 auto; padding: 0; float: none; box-shadow: none; background: none;
-  font: 500 13.5px var(--zt-sans);
+  font: 500 13.5px "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
-body.theme-zeitung #header-links a { color: var(--zt-ink2); padding: 0 0 0 18px; }
-body.theme-zeitung #header-links a:hover { color: var(--zt-ink); text-decoration: underline; text-underline-offset: 3px; }
+#header-links a { color: var(--text-color); padding: 0 0 0 18px; }
+#header-links a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
-/* Zweiteilung: links Reiter, rechts Inhalt */
-body.theme-zeitung #mid_panel { margin: 0; }
-body.theme-zeitung #tools_wrapper { position: static; max-width: none; }
-body.theme-zeitung .tools, body.theme-zeitung .tools.left {
-  float: none; width: auto; margin: 0; padding: 0 32px 40px; box-shadow: none; border: 0;
-  background: var(--zt-side); color: var(--zt-ink); font-family: var(--zt-sans);
+/* Seitenleiste: feste Spalte mit eigener Scrollleiste, Reiter bleiben oben stehen */
+#tools_wrapper {
+  position: static; max-width: none; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
+  background-color: var(--content-bg-color);
+  border-right: 1px solid var(--card-border-color); box-shadow: 2px 0 12px rgba(0, 0, 0, 0.2); z-index: 1;
 }
-body.theme-zeitung #content {
-  max-width: 760px; margin: 0; padding: 26px 48px 80px; background: transparent; box-shadow: none; border: 0;
-  color: var(--zt-ink); overflow: visible;
+.tools, .tools.left, body.dark-mode .tools {
+  float: none; width: auto; margin: 0; padding: 0.6em 1.4em 2em; box-shadow: none; border: 0;
 }
-body.theme-zeitung footer { display: none; }
-@media screen and (min-width: 1000px) {
-  body.theme-zeitung #mid_panel {
-    display: grid; grid-template-columns: minmax(440px, 46%) minmax(0, 1fr); column-gap: 0;
-    max-width: none; margin: 0; padding: 0; align-items: start;
+.tab_container { margin: -0.6em -1.4em 0.6em; padding: 0 0.8em; position: sticky; top: 0; z-index: 2; }
+
+/* Spielfläche: scrollt selbst, wenn ein Szenentext länger ist */
+#stage {
+  display: flex; justify-content: center; align-items: flex-start; gap: 2em; padding: 2em 1.5em; box-sizing: border-box;
+  min-height: 0; overflow-y: auto; overscroll-behavior: contain;
+}
+#content { flex: 0 1 600px; max-width: 600px; margin: 0; position: relative; }
+#played_card { position: sticky; top: 0; flex: none; }
+/* Hintergrundbild nur in der Spielfläche: gleiche Rasterzelle wie #stage, darunter */
+#mid_panel > .background {
+  position: relative; grid-row: 2; grid-column: 2; width: auto; height: auto; min-height: 0;
+  background-attachment: scroll; background-position: center; z-index: 0;
+}
+#stage { grid-row: 2; grid-column: 2; position: relative; z-index: 1; }
+#played_card:empty, body.hand-view #played_card { display: none; }
+body.hand-view #stage { overflow: hidden; }
+
+/* Tablet und Handy: eine Ansicht auf einmal, unten Umschalter zwischen Infos (Seitenleiste) und Handlungen */
+@media screen and (max-width: 1023px) {
+  #mid_panel { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto; }
+  #tools_wrapper, #stage, #mid_panel > .background { grid-row: 2; grid-column: 1; }
+  #tools_wrapper { z-index: 2; }
+  #tools_wrapper { border-right: 0; box-shadow: none; }
+  body:not(.view-info) #tools_wrapper, body.view-info #stage { display: none; }
+  header { padding: 8px 16px; gap: 2px 14px; }
+  header h1 { font-size: 18px; }
+  header h2 { display: none; }
+  #header-links a { padding-left: 14px; }
+  .tools, .tools.left, body.dark-mode .tools { padding: 0.6em 16px 1.5em; }
+  .tab_container { margin: -0.6em -16px 0.6em; padding: 0; display: flex; overflow-x: auto; }
+  .tab_button { white-space: nowrap; }
+  #stage { flex-direction: column; justify-content: flex-start; align-items: center; padding: 1em 16px; gap: 1em; }
+  #content { flex: none; width: 100%; box-sizing: border-box; }
+  #played_card { position: static; }
+  .card.played { --cw: 140px !important; --ch: 200px !important; }
+  #view_toggle {
+    display: flex; grid-row: 3; grid-column: 1; z-index: 3;
+    background-color: var(--content-bg-color); border-top: 1px solid var(--card-border-color);
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.2); padding-bottom: env(safe-area-inset-bottom);
   }
-  body.theme-zeitung #tools_wrapper {
-    position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--zt-side); border-right: 1px solid var(--zt-hair);
+  #view_toggle button {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 0 6px;
+    border: 0; background: none; color: var(--text-color); opacity: 0.6; cursor: pointer;
+    font: 500 12px "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+    border-top: 3px solid transparent; margin-top: -1px;
   }
+  #view_toggle button[aria-pressed="true"] { opacity: 1; border-top-color: var(--link-color); }
+  #view_toggle button:focus-visible { outline: 2px solid var(--link-color); outline-offset: -2px; }
 }
-@media screen and (max-width: 999px) {
-  body.theme-zeitung #page { position: static; }
-  body.theme-zeitung #content { max-width: none; padding: 20px 16px 60px; }
-  body.theme-zeitung .tools, body.theme-zeitung .tools.left { padding: 0 16px 24px; border-bottom: 1px solid var(--zt-hair); }
-  body.theme-zeitung header { padding: 10px 16px; }
-}
-
-/* Reiter */
-body.theme-zeitung .tab_container {
-  display: flex; flex-wrap: wrap; gap: 0 24px; background: none; margin: 0 -32px 20px; padding: 0 32px;
-  border-bottom: 1px solid var(--zt-hair);
-}
-body.theme-zeitung .tab_button {
-  font: 600 13.5px/1 var(--zt-sans); color: var(--zt-muted); background: none; border: 0;
-  border-bottom: 3px solid transparent; padding: 14px 0 10px; cursor: pointer;
-}
-body.theme-zeitung .tab_button:hover { color: var(--zt-ink); background: none; }
-body.theme-zeitung .tab_button.active { color: var(--zt-ink); background: none; border-bottom-color: var(--zt-red); }
-body.theme-zeitung .tab_button:focus-visible { outline: 2px solid var(--zt-red); outline-offset: -2px; }
-@media screen and (max-width: 999px) {
-  body.theme-zeitung .tab_container { margin: 0 -16px 16px; padding: 0 16px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
-  body.theme-zeitung .tab_button { white-space: nowrap; }
+@media screen and (max-width: 700px) {
+  body { --cw: 108px; --ch: 162px; --fan-step: 5deg; --fan-r: 650px; }
+  .card-title { font-size: 0.66em; }
+  header h1 { font-size: 16px; }
+  #header-links { margin-left: 0; font-size: 13px; }
+  #header-links a { padding: 0 14px 0 0; }
+  .card.played { --cw: 110px !important; --ch: 160px !important; font-size: 1em; }
 }
 
-/* Inhalt der Seitenleiste */
-body.theme-zeitung #qualities { font: 400 14px/1.45 var(--zt-sans); color: var(--zt-ink); }
-body.theme-zeitung #qualities h1 {
-  font: 600 13.5px/1.2 var(--zt-sans); text-align: left; text-transform: none; letter-spacing: 0; text-shadow: none;
-  border-top: 1px solid var(--zt-ink); padding-top: 8px; margin: 24px 0 8px;
+/* Spielkarten: abgerundet, Bild oben, Titel in der Karte */
+a.card, .card.played {
+  display: flex; flex-direction: column; box-sizing: border-box; width: var(--cw); height: var(--ch);
+  padding: 7px; margin: 0; border: 1px solid var(--card-border-color); border-radius: 12px;
+  background-color: var(--content-bg-color); color: var(--text-color);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35); position: relative; left: auto; top: auto;
+  transition: box-shadow 0.15s;
 }
-body.theme-zeitung #qualities h1:first-child { margin-top: 0; }
-body.theme-zeitung #qualities > p { margin: 0; padding: 7px 0; border-bottom: 1px solid var(--zt-hair); text-indent: 0; }
-body.theme-zeitung #qualities > p:empty { display: none; }
-body.theme-zeitung .poll_heading { font: 600 13.5px/1.2 var(--zt-sans); }
-body.theme-zeitung .poll_note { font-size: 12px; color: var(--zt-muted); opacity: 1; }
-body.theme-zeitung select {
-  font: 500 13px var(--zt-sans); color: var(--zt-ink); background: var(--zt-tint); border: 1px solid var(--zt-hair); padding: 3px 6px;
+a.card:hover { left: auto; top: auto; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45); }
+a.card:focus-visible { outline: 3px solid var(--link-color); outline-offset: 2px; }
+a.card .card-img, .card.played .card-img {
+  display: block; width: 100%; height: auto; flex: 0 0 64%; min-height: 0; border-radius: 7px; object-fit: cover;
+  max-width: none; max-height: none;
 }
-body.theme-zeitung .grp_views { gap: 0 20px; border-bottom: 1px solid var(--zt-hair); }
-body.theme-zeitung .grp_view_btn {
-  font: 500 13px var(--zt-sans); color: var(--zt-muted); background: none; border: 0; border-bottom: 2px solid transparent;
-  padding: 6px 0 7px; margin-bottom: -1px;
+.card-title {
+  flex: 1; display: flex; align-items: center; justify-content: center; text-align: center;
+  padding: 4px 2px 0; font-size: 0.85em; line-height: 1.2; font-weight: bold;
+  hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word;
 }
-body.theme-zeitung .grp_view_btn:hover { color: var(--zt-ink); }
-body.theme-zeitung .grp_view_btn.active { color: var(--zt-ink); background: none; border-bottom-color: var(--zt-red); }
-body.theme-zeitung .gov_chart { text-align: left; }
-body.theme-zeitung .gov_row { justify-content: flex-start; gap: 12px 28px; }
-body.theme-zeitung .gov_line { display: none; }
-body.theme-zeitung .gov_row { margin-bottom: 14px; }
-body.theme-zeitung .gov_cabinet { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 20px; border-top: 1px solid var(--zt-hair); padding-top: 14px; margin-top: 14px; }
-body.theme-zeitung .gov_card { display: grid; grid-template-columns: 40px 1fr; grid-template-rows: auto auto auto; column-gap: 12px; text-align: left; font-size: 13px; }
-body.theme-zeitung .gov_card .gov_photo { grid-row: 1 / 4; }
-body.theme-zeitung .gov_card.big { grid-template-columns: 48px 1fr; }
-body.theme-zeitung .gov_photo {
-  width: 40px; height: 50px; margin: 0; border: 0; border-bottom: 3px solid; border-radius: 0; box-shadow: none;
-  background-color: var(--zt-tint) !important; color: var(--zt-muted);
+.card-caption, div.blank-card, .card-in-hand:has(.blank-card) { display: none; }
+li.unavailable-card { background: none !important; }
+li.unavailable-card a.card { filter: grayscale(0.85); opacity: 0.6; cursor: default; }
+.card-tooltip {
+  left: 50%; bottom: 100%; transform: translateX(-50%); margin-bottom: 10px; width: 210px; max-width: none;
+  border-radius: 6px; padding: 0.4em 0.6em; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); font-weight: normal;
 }
-body.theme-zeitung .gov_card.big .gov_photo { width: 48px; height: 60px; }
-body.theme-zeitung .gov_photo img { filter: grayscale(1) contrast(1.1); }
-body.theme-zeitung .gov_role, body.theme-zeitung .gov_party { opacity: 1; color: var(--zt-muted); font-size: 12px; }
-body.theme-zeitung .gov_name { font-weight: 600; font-size: 14px; }
-body.theme-zeitung .gov_card.big .gov_name { font-size: 16px; }
-body.theme-zeitung .gov_table td { border-bottom: 1px solid var(--zt-hair); padding: 4px 0; }
+.card.played { --cw: 230px; --ch: 330px; font-size: 1.2em; }
 
-/* Text im Inhalt */
-body.theme-zeitung #content p { text-indent: 0; margin: 0 0 1em; }
-body.theme-zeitung #content h1 {
-  font: 700 1.8em/1.15 var(--zt-sans); text-align: left; text-transform: none; letter-spacing: -0.005em; text-shadow: none;
-  margin: 0.6em 0 0.5em;
+/* Handansicht: kein Fenster, nur Stapel und Fächer auf der Karte */
+body.hand-view #content {
+  flex: 1; max-width: none; align-self: stretch; background: none; box-shadow: none; border: 0; padding: 0;
+  overflow: visible;
 }
-body.theme-zeitung #content h1:first-child { margin-top: 0; }
-body.theme-zeitung #content .zt-kicker { display: block; font: 600 13px/1.2 var(--zt-sans); color: var(--zt-red-ink); margin: 1.6em 0 6px; text-indent: 0; }
-body.theme-zeitung #content .zt-kicker:first-child { margin-top: 0; }
-body.theme-zeitung #content .zt-kicker + h1 { margin-top: 0; }
-body.theme-zeitung #content hr { border: 0; border-top: 1px solid var(--zt-hair); margin: 1.6em 0; height: 0; }
-body.theme-zeitung #content #read-marker { width: 100%; border-top: 1px solid var(--zt-ink); margin: 2em 0; }
-body.theme-zeitung #content p a, body.theme-zeitung #content li > a:not(.card) { color: var(--zt-ink); }
-body.theme-zeitung blockquote { margin: 1em 0; padding: 0 0 0 1em; border-left: 1px solid var(--zt-hair); color: var(--zt-ink2); }
-body.theme-zeitung p.game-over { border: 0; border-top: 1px solid var(--zt-hair); border-radius: 0; color: var(--zt-muted); padding: 1em 0 0; }
-
-/* Ereignisbilder in Graustufen: Themenbilder breit, Porträts klein daneben */
-/* Bilder setzt im Design Zeitung nur decorateContent (game.js, .zt-figure); das Engine-Bild entfällt */
-body.theme-zeitung .face-figure:not(.zt-figure) { display: none; }
-body.theme-zeitung .face-figure {
-  display: block; float: none; max-width: 100%; border: 0; margin: 0 0 1.4em; overflow: hidden; background: var(--zt-tint);
+body.hand-view #content > :not(ul.decks):not(ul.hand):not(ul.pinned-cards):not(.pinned-text-description) { display: none; }
+body.hand-view ul.decks { position: absolute; top: 0; right: 0; display: flex; gap: 1.6em; margin: 0; }
+body.hand-view .deck { margin: 0; max-width: none; }
+body.hand-view .deck a.card {
+  box-shadow: 3px 3px 0 -1px var(--content-bg-color), 3px 3px 0 0 var(--card-border-color),
+              6px 6px 0 -1px var(--content-bg-color), 6px 6px 0 0 var(--card-border-color), 0 8px 18px rgba(0, 0, 0, 0.35);
+  transition: transform 0.15s;
 }
-body.theme-zeitung .face-img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; filter: grayscale(1) contrast(1.12) brightness(1.03); }
-body.theme-zeitung .face-figure:has(img[src*="portraits/"]) { float: right; width: 120px; max-width: 32%; margin: 0.3em 0 1em 1.4em; }
-body.theme-zeitung .face-figure:has(img[src*="portraits/"]) .face-img { aspect-ratio: 4 / 5; }
-body.theme-zeitung #content img { filter: grayscale(1) contrast(1.1); }
-
-/* Auswahl: nummerierte Liste mit dünnen Linien */
-body.theme-zeitung ul.choices { border: 0; border-top: 1px solid var(--zt-ink); border-radius: 0; margin: 1.2em 0 0; counter-reset: zt-choice; clear: both; }
-body.theme-zeitung ul.choices li {
-  position: relative; border-bottom: 1px solid var(--zt-hair); padding: 12px 0 12px 30px; counter-increment: zt-choice;
+body.hand-view .deck a.card:hover { transform: translateY(-6px); }
+body.hand-view ul.hand, body.hand-view ul.pinned-cards {
+  position: absolute; left: 50%; bottom: 2.6em; width: 0; height: var(--ch); margin: 0;
 }
-body.theme-zeitung ul.choices li:last-child { border-bottom: 1px solid var(--zt-hair); }
-body.theme-zeitung ul.choices li::before {
-  content: counter(zt-choice) "."; position: absolute; left: 0; top: 14px;
-  font: 500 14px/1.6 var(--zt-sans); color: var(--zt-muted); font-variant-numeric: tabular-nums;
+body.hand-view .card-in-hand, body.hand-view .pinned-card {
+  position: absolute; left: calc(var(--cw) / -2); bottom: 0; margin: 0; max-width: none;
+  transform-origin: 50% var(--fan-r);
+  transform: rotate(calc(var(--o, 0) * var(--fan-step)));
+  transition: transform 0.18s ease-out;
 }
-body.theme-zeitung ul.choices li:hover { background: none; }
-body.theme-zeitung ul.choices a { color: var(--zt-ink); font-weight: 500; }
-body.theme-zeitung ul.choices li:hover a { text-decoration: underline; text-decoration-color: var(--zt-red); text-decoration-thickness: 2px; text-underline-offset: 4px; }
-body.theme-zeitung ul.choices li div.subtitle { margin: 3px 0 0; font: 400 14px/1.45 var(--zt-sans); font-style: normal; color: var(--zt-muted); }
-body.theme-zeitung ul.choices li.unavailable { background: none !important; color: var(--zt-muted); }
-body.theme-zeitung ul.choices li.unavailable div.subtitle { font: italic 400 15px/1.45 var(--zt-serif); }
-
-/* Stapel, Hand und Berater als Listen ohne Bilder */
-body.theme-zeitung .deck-description, body.theme-zeitung .hand-description, body.theme-zeitung .pinned-text-description {
-  font: 600 15px/1.3 var(--zt-sans); color: var(--zt-ink); margin: 0 0 4px; text-indent: 0;
+body.hand-view .card-in-hand:hover, body.hand-view .pinned-card:hover,
+body.hand-view .card-in-hand:focus-within, body.hand-view .pinned-card:focus-within {
+  transform: rotate(calc(var(--o, 0) * var(--fan-step))) translateY(-40px); z-index: 50 !important;
 }
-body.theme-zeitung ul.decks, body.theme-zeitung ul.hand, body.theme-zeitung ul.pinned-cards { margin: 0 0 0.6em; padding: 0; }
-body.theme-zeitung .card-in-hand, body.theme-zeitung .pinned-card, body.theme-zeitung .deck {
-  display: block; position: relative; max-width: none; margin: 0; padding: 0; border-bottom: 1px solid var(--zt-hair);
+body.hand-view .pinned-text-description {
+  position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); margin: 0; text-indent: 0; white-space: nowrap;
+  font-size: 0.85em; padding: 0.1em 0.8em; border-radius: 10px; background-color: var(--content-bg-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
-body.theme-zeitung .card-in-hand:has(.blank-card) { display: none; }
-body.theme-zeitung a.card {
-  display: block; position: static; width: auto; height: auto; border: 0; box-shadow: none; margin: 0; padding: 12px 0;
-  color: var(--zt-ink); left: auto; top: auto;
+@media screen and (max-width: 700px) {
+  body.hand-view ul.decks { left: 50%; right: auto; transform: translateX(-50%); }
 }
-body.theme-zeitung a.card::after { content: ""; position: absolute; inset: 0; }
-body.theme-zeitung a.card:hover { box-shadow: none; left: auto; top: auto; }
-body.theme-zeitung a.card .card-img, body.theme-zeitung .card-caption { display: none; }
-body.theme-zeitung a.card .zt-caption { display: block; font: 600 1.1em/1.35 var(--zt-serif); }
-body.theme-zeitung a.card:hover .zt-caption { text-decoration: underline; text-decoration-color: var(--zt-red); text-decoration-thickness: 2px; text-underline-offset: 4px; }
-body.theme-zeitung a.card:focus-visible { outline: 2px solid var(--zt-red); outline-offset: 2px; }
-body.theme-zeitung .card-tooltip {
-  position: static; visibility: visible; display: block; width: auto; max-width: none; border: 0; padding: 0; margin-top: 2px;
-  background: none; font: 400 15px/1.45 var(--zt-serif); color: var(--zt-ink2);
-}
-body.theme-zeitung .unavailable-card, body.theme-zeitung .unavailable-card .zt-caption { color: var(--zt-muted); background: none !important; }
-body.theme-zeitung div.blank-card { display: none; }
-body.theme-zeitung .pinned-card a.card { display: grid; grid-template-columns: 40px 1fr; column-gap: 14px; align-items: center; }
-body.theme-zeitung .pinned-card a.card .card-img {
-  display: block; grid-row: 1 / 3; grid-column: 1; order: -1; width: 40px; height: 50px; object-fit: cover; filter: grayscale(1) contrast(1.1);
-}
-body.theme-zeitung .pinned-card a.card .zt-caption, body.theme-zeitung .pinned-card a.card .card-tooltip { grid-column: 2; }
-
-/* Einstellungen und Spielstände */
-body.theme-zeitung .overlay_top { background: var(--zt-side); color: var(--zt-ink); border: 1px solid var(--zt-hair); box-shadow: none; font-family: var(--zt-sans); }
-body.theme-zeitung .overlay_top hr { border: 0; border-top: 1px solid var(--zt-hair); }
-body.theme-zeitung .overlay button, body.theme-zeitung .overlay .b {
-  font: 500 13px var(--zt-sans); color: var(--zt-ink); background: none; border: 1px solid var(--zt-hair); padding: 4px 10px; cursor: pointer;
-}
-body.theme-zeitung #color_scheme_row, body.theme-zeitung #color_scheme_sep,
-body.theme-zeitung #event_images_row, body.theme-zeitung #event_images_sep { display: none; }

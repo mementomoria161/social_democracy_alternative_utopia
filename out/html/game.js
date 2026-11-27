@@ -54,6 +54,23 @@
       }));
     };
     ui.getGameOverMsg = function() { return 'Ende des Spiels (zum erneuten Lesen die Seite neu laden)'; };
+    // Die Seite scrollt nicht mehr (game.css „Layout“), nur die Spielfläche: dort zur Lesemarke springen
+    // statt html/body zu scrollen wie die Engine (ui/browser.js endOutput).
+    ui.endOutput = function() {
+      var stage = $('#stage'), marker = $('#read-marker');
+      if (!stage.length) return;
+      var top = marker.length ? marker.offset().top - stage.offset().top + stage.scrollTop() : 0;
+      // neue Szene ohne alten Text davor: ganz nach oben, damit die gespielte Karte sichtbar bleibt
+      if (marker.length && marker.offset().top - $('#content').offset().top < 100) top = 0;
+      stage.stop().animate({scrollTop: top}, this.animate ? this.fade_time : 0);
+    };
+  };
+
+  // Tablet und Handy: Umschalter unten zwischen Infos (Seitenleiste) und Handlungen (Spielfläche)
+  window.setMobileView = function(view) {
+    document.body.classList.toggle('view-info', view == 'info');
+    document.getElementById('toggle_info').setAttribute('aria-pressed', view == 'info');
+    document.getElementById('toggle_play').setAttribute('aria-pressed', view != 'info');
   };
 
   var TITLE = "Social Democracy: An Alternate History" + '_' + "Autumn Chen";
@@ -232,7 +249,7 @@
 
   window.enableLightMode = function() {
       window.dendryUI.dark_mode = false;
-      if (window.theme != 'zeitung') document.body.classList.remove('dark-mode'); // Design Zeitung ist immer dunkel
+      document.body.classList.remove('dark-mode');
       window.dendryUI.saveSettings();
   };
   window.enableDarkMode = function() {
@@ -272,74 +289,65 @@
     } else {
         $('#light_mode')[0].checked = true;
     }
-    $(window.theme == 'zeitung' ? '#theme_zeitung' : '#theme_classic')[0].checked = true;
   };
 
-  // Design: „classic“ (wie das Originalspiel) oder „zeitung“ (Entwurf design/zeitung_muster.html, CSS am Ende von game.css).
-  // Eigener Schlüssel im localStorage, weil saveSettings der Engine nur feste Felder speichert.
-  var THEME_KEY = 'sozialdemokratie_theme';
-  window.theme = 'classic';
-  try { if (localStorage.getItem(THEME_KEY) == 'zeitung') window.theme = 'zeitung'; } catch (e) {}
+  // Spielfläche rechts (game.css „Layout“): Karten als Spielkarten mit Titel, Hand und Berater als Fächer,
+  // die gespielte Karte bleibt neben dem Szenenfenster liegen, bis ihre Szene vorbei ist.
+  var playedCard = null;
+  document.addEventListener('click', function(e) {
+      // Capture-Phase: läuft vor dem Klick-Handler der Engine, die danach den Inhalt ersetzt
+      var a = e.target.closest && e.target.closest('#content ul.hand a.card, #content ul.pinned-cards a.card');
+      if (!a || a.parentNode.classList.contains('unavailable-card')) return;
+      var img = a.querySelector('.card-img');
+      playedCard = {id: a.getAttribute('card-id') || '', title: a.getAttribute('title') || '', img: img ? img.getAttribute('src') : ''};
+  }, true);
 
-  window.applyTheme = function() {
-      var zt = window.theme == 'zeitung';
-      document.body.classList.toggle('theme-zeitung', zt);
-      // Zeitung nur dunkel; dark-mode auch für die Diagrammfarben der Reiter
-      document.body.classList.toggle('dark-mode', zt || !!(window.dendryUI && window.dendryUI.dark_mode));
-      window.decorateContent();
-      if (window.dendryUI && window.dendryUI.dendryEngine && window.updateSidebar) window.updateSidebar();
-  };
-
-  window.setTheme = function(t) {
-      window.theme = t == 'zeitung' ? 'zeitung' : 'classic';
-      try { localStorage.setItem(THEME_KEY, window.theme); } catch (e) {}
-      window.applyTheme();
-  };
-
-  // Ergänzungen im Inhalt, die nur das Design Zeitung zeigt (game.css: .zt-kicker, .zt-caption):
-  // - Dachzeile „Ereignis“ über der Überschrift von Szenen mit dem Tag event
-  // - Kartentitel im Link selbst, damit Stapel, Hand und Berater als klickbare Textzeilen erscheinen
   window.decorateContent = function() {
       var content = document.getElementById('content');
       if (!content) return;
       content.querySelectorAll('a.card').forEach(function(a) {
-          if (a.querySelector('.zt-caption')) return;
+          if (a.querySelector('.card-title')) return;
           var cap = document.createElement('span');
-          cap.className = 'zt-caption';
+          cap.className = 'card-title';
           cap.textContent = a.getAttribute('title') || '';
-          a.insertBefore(cap, a.firstChild);
+          a.appendChild(cap);
       });
-      var ui = window.dendryUI, engine = ui && ui.dendryEngine;
-      if (!engine || !engine.state || !engine.state.sceneId) return;
-      var id = String(engine.state.sceneId), scene = ui.game.scenes[id.split('.')[0]], sub = ui.game.scenes[id] || scene;
-      var heads = content.querySelectorAll('h1');
-      var h = heads[heads.length - 1];
-      // jede Überschrift nur einmal, und zwar mit der Szene, mit der sie erscheint
-      if (!scene || !h || h.dataset.zt) return;
-      h.dataset.zt = '1';
-      var isEvent = !!(scene.tags && scene.tags.indexOf('event') >= 0);
-      if (isEvent) {
-          var k = document.createElement('p');
-          k.className = 'zt-kicker';
-          k.textContent = 'Ereignis';
-          h.parentNode.insertBefore(k, h);
+      var hand = !!content.querySelector('ul.hand');
+      document.body.classList.toggle('hand-view', hand);
+      if (hand) {
+          playedCard = null;
+          var lis = [].filter.call(content.querySelectorAll('ul.hand > li, ul.pinned-cards > li'), function(li) { return !li.querySelector('.blank-card'); });
+          lis.forEach(function(li, i) {
+              li.style.setProperty('--o', i - (lis.length - 1) / 2); // Abstand zur Mitte des Fächers
+              li.style.zIndex = i + 1;
+          });
       }
-      // Bilder ausgewählt: bei Ereignissen immer (face-image), sonst nur bei Personen (Porträts, z. B. Berater*innen);
-      // gewöhnliche Handlungskarten bleiben ohne Bild. Unabhängig von der Einstellung „Ereignisbilder“ des klassischen Designs.
-      var face = sub.faceImage || scene.faceImage || '', card = scene.cardImage || '';
-      var src = face || (card.indexOf('portraits/') >= 0 ? card : '');
-      if (src && (isEvent || src.indexOf('portraits/') >= 0)) {
-          var fig = document.createElement('div');
-          fig.className = 'face-figure zt-figure';
-          var img = new Image();
-          img.className = 'face-img';
-          img.alt = '';
-          img.onerror = function() { fig.remove(); };
-          img.src = src;
-          fig.appendChild(img);
-          h.parentNode.insertBefore(fig, h.nextSibling);
+      var engine = window.dendryUI && window.dendryUI.dendryEngine;
+      var sceneId = engine && engine.state && engine.state.sceneId ? String(engine.state.sceneId) : '';
+      if (playedCard && sceneId.split('.')[0] != playedCard.id.split('.')[0]) playedCard = null;
+      var box = document.getElementById('played_card');
+      if (!box) return;
+      var key = playedCard ? playedCard.id : '';
+      if (box.getAttribute('data-card') == key) return;
+      box.setAttribute('data-card', key);
+      box.innerHTML = '';
+      if (!playedCard) return;
+      var card = document.createElement('div');
+      card.className = 'card played';
+      if (playedCard.img) {
+          var im = document.createElement('img');
+          im.className = 'card-img';
+          im.src = playedCard.img;
+          im.alt = '';
+          card.appendChild(im);
       }
+      var t = document.createElement('span');
+      t.className = 'card-title';
+      t.textContent = playedCard.title;
+      card.appendChild(t);
+      box.appendChild(card);
   };
+
 
   
   // This function allows you to modify the text before it's displayed.
@@ -1389,8 +1397,7 @@
     if (window.dendryUI.dark_mode) {
         document.body.classList.add('dark-mode');
     }
-    window.applyTheme();
-    // neue Inhalte (Szenentext, Auswahl, Karten) für das Design Zeitung ergänzen
+    // neue Inhalte (Szenentext, Auswahl, Karten) für die Spielfläche aufbereiten
     var ztTimer = null;
     new MutationObserver(function() {
         if (ztTimer) return;
