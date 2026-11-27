@@ -474,13 +474,20 @@
   var ECON_GROUPS = ['Industrie', 'Bau', 'Handel, Verkehr, Gastgewerbe', 'Öffentliche Dienste, Erziehung, Gesundheit',
                      'Grundstücks- und Wohnungswesen', 'Unternehmensdienstleister', 'Information und Kommunikation',
                      'Übrige (Energie, Finanzen, Landwirtschaft, Sonstige)'];
-  // [Feld, Name, kurzer Name für die Beschriftung am Linienende]
-  var ECON_LINES = [['growth', 'Wachstum', 'Wachstum'], ['unemployment', 'Arbeitslosenquote', 'Arbeitslose'], ['inflation', 'Inflation', 'Inflation']];
+  // [Feld, Name, Farbe, steigend ist gut]
+  var ECON_LINES = [['growth', 'Wachstum', '--viz-s1', true], ['unemployment', 'Arbeitslose', '--viz-s2', false], ['inflation', 'Inflation', '--viz-s3', false]];
   var econNum = function(x, digits) {
       return (x < 0 ? '−' : '') + Math.abs(x).toFixed(digits === undefined ? 1 : digits).replace('.', ',');
   };
   var econDate = function(d) { return d3.timeFormat('%b %Y')(new Date(d)); };
   window.econOpen = {};
+  window.econFocus = null; // hervorgehobene Reihe im Verlauf (Klick auf eine Kachel)
+  // Umschalter statt Auswahlliste: [[Wert, Beschriftung]]
+  var vizSeg = function(options, current, onclick, label) {
+      return '<div class="viz_seg" role="group" aria-label="' + label + '">' + options.map(function(o) {
+          return '<button type="button" class="' + (o[0] == current ? 'active' : '') + '" aria-pressed="' + (o[0] == current) + '" onclick="' + onclick(o[0]) + '">' + o[1] + '</button>';
+      }).join('') + '</div>';
+  };
 
   window.drawEconomy = function() {
       var box = document.getElementById('econ_view');
@@ -493,8 +500,20 @@
       });
       var game = records.concat([now]);
 
-      var html = '';
-      html += '<svg id="econ_graph" class="econ"></svg><div id="econ_readout" class="poll_note"></div>';
+      var data = REAL_ECON.concat(game);
+      // Kacheln: aktueller Wert und Veränderung zum Wert vor etwa einem Jahr; Klick hebt die Reihe im Verlauf hervor
+      var yearAgo = new Date(now.date.getFullYear() - 1, now.date.getMonth());
+      var before = data.reduce(function(a, d) { return Math.abs(new Date(d.date) - yearAgo) < Math.abs(new Date(a.date) - yearAgo) ? d : a; });
+      var html = '<div class="viz_tiles">' + ECON_LINES.map(function(l) {
+          var v = now[l[0]], delta = v - before[l[0]], flat = Math.abs(delta) < 0.05;
+          var mood = flat ? '' : (delta > 0) == l[3] ? ' good' : ' bad';
+          var sel = window.econFocus == l[0];
+          return '<button type="button" class="viz_tile' + (sel ? ' sel' : window.econFocus ? ' dim' : '') + '" aria-pressed="' + sel + '"' +
+              ' style="--tile:var(' + l[2] + ')" onclick="window.econFocus = ' + (sel ? 'null' : '\'' + l[0] + '\'') + '; window.drawEconomy();">' +
+              '<span class="viz_tile_label"><i></i>' + l[1] + '</span>' +
+              '<span class="viz_tile_value">' + econNum(v) + '<small> %</small></span>' +
+              '<span class="viz_tile_delta' + mood + '">' + (flat ? '±' : delta > 0 ? '▲ ' : '▼ ') + econNum(Math.abs(delta)) + ' Pkt.</span></button>';
+      }).join('') + '</div><p class="viz_note">Veränderung zum Vorjahr</p><div id="econ_graph" class="viz_card"></div>';
 
       // Sektoren: schlichte Listen wie die Parteien im Reiter Regierung
       var started = Q.sector_value && Q.sector_value.length == ECON_SECTORS.length;
@@ -507,65 +526,37 @@
       });
       var jTotal = rows.reduce(function(a, r) { return a + r.jobs; }, 0);
       rows.forEach(function(r) { r.jobShare = 100 * r.jobs / jTotal; });
-      var GROUP_COLORS = ['--econ-s1', '--econ-s2', '--econ-s3', '--econ-s4', '--econ-s5', '--econ-s6', '--econ-s7', '--econ-other'];
-      var VIEWS = [['rate', 'Wachstum der Wirtschaftsbereiche', true], ['share', 'Anteile an der Wertschöpfung', false], ['jobShare', 'Anteile der Beschäftigten', false]];
+      var VIEWS = [['rate', 'Wachstum', true], ['share', 'Wertschöpfung', false], ['jobShare', 'Beschäftigte', false]];
       var view = VIEWS.filter(function(v) { return v[0] == window.econView; })[0] || VIEWS[0];
       var key = view[0], diverging = view[2];
       var fmt = function(v) { return v === null || v === undefined ? '–' : (diverging && v > 0 ? '+' : '') + econNum(v) + ' %'; };
       var maxV = Math.max(diverging ? 3 : 1, d3.max(rows, function(r) { return Math.abs(r[key] || 0); }));
-      html += '<label class="poll_select">Anzeige: <select onchange="window.econView = this.value; window.drawEconomy();">' + VIEWS.map(function(v) {
-          return '<option value="' + v[0] + '"' + (v[0] == key ? ' selected' : '') + '>' + v[1] + '</option>';
-      }).join('') + '</select></label><table class="gov_table econ_table">' +
+      html += '<div class="viz_card"><div class="viz_card_title">Wirtschaftsbereiche</div>' +
+          vizSeg(VIEWS.map(function(v) { return [v[0], v[1]]; }), key,
+                 function(v) { return 'window.econView = \'' + v + '\'; window.drawEconomy();'; }, 'Anzeige') +
           rows.slice().sort(function(a, b) { return (b[key] || 0) - (a[key] || 0); }).map(function(r) {
               var v = r[key] || 0, w = 100 * Math.abs(v) / maxV / (diverging ? 2 : 1);
-              var bar = '<span class="econ_div"><span class="' + (diverging ? (v < 0 ? 'neg' : 'pos') : 'pos') + '" style="width:' + w + '%;' +
-                  (diverging ? (v < 0 ? 'right:50%' : 'left:50%') : 'left:0') + ';background:var(' + GROUP_COLORS[r.s.group] + ')"></span>' +
-                  (diverging ? '<span class="econ_zero"></span>' : '') + '</span>';
-              return '<tr><td>' + r.s.name + '</td><td class="econ_bar_cell">' + bar + '</td><td style="text-align:right;white-space:nowrap">' + fmt(r[key]) + '</td></tr>';
-          }).join('') + '</table>';
+              var cls = diverging ? (v < 0 ? 'neg' : 'pos') : 'one';
+              return '<div class="viz_row"><span class="viz_row_name">' + r.s.name + '</span><span class="viz_row_val">' + fmt(r[key]) + '</span>' +
+                  '<span class="viz_track' + (diverging ? ' diverging' : '') + '"><span class="' + cls + '" style="width:' + w + '%"></span></span></div>';
+          }).join('') + '</div>';
       box.innerHTML = html;
 
       // Liniendiagramm
-      var data = REAL_ECON.concat(game);
-      var width = box.clientWidth, height = Math.min(260, Math.max(190, width * 0.5));
-      var m = {top: 12, right: 96, bottom: 26, left: 30};
-      var svg = d3.select('#econ_graph').attr('width', width).attr('height', height);
-      var x = d3.scaleTime([new Date(2019, 0, 1), d3.max(data, function(d) { return new Date(d.date); })], [m.left, width - m.right]);
-      var lo = Math.min(-1, d3.min(data, function(d) { return Math.min(d.growth, d.inflation, d.unemployment); }));
-      var hi = d3.max(data, function(d) { return Math.max(d.growth, d.inflation, d.unemployment); }) + 0.5;
-      var yS = d3.scaleLinear([Math.floor(lo), Math.ceil(hi)], [height - m.bottom, m.top]);
-      svg.append('g').attr('class', 'econ_axis').attr('transform', 'translate(0,' + (height - m.bottom) + ')')
-          .call(d3.axisBottom(x).ticks(Math.max(3, Math.floor((width - m.left - m.right) / 55))).tickFormat(d3.timeFormat('%Y')).tickSizeOuter(0));
-      svg.append('g').attr('class', 'econ_axis').attr('transform', 'translate(' + m.left + ',0)')
-          .call(d3.axisLeft(yS).ticks(6).tickFormat(function(v) { return econNum(v, 0); }).tickSize(-(width - m.left - m.right)))
-          .call(function(g) { g.select('.domain').remove(); });
-      svg.append('line').attr('class', 'econ_zero_line').attr('x1', m.left).attr('x2', width - m.right).attr('y1', yS(0)).attr('y2', yS(0));
-      var labels = [];
-      ECON_LINES.forEach(function(l, i) {
-          var series = data.filter(function(d) { return d[l[0]] !== undefined && d[l[0]] !== null; });
-          svg.append('path').attr('class', 'econ_line s' + (i + 1))
-              .attr('d', d3.line().x(function(d) { return x(new Date(d.date)); }).y(function(d) { return yS(d[l[0]]); })(series));
-          var last = series[series.length - 1];
-          labels.push({i: i, text: l[2] + ' ' + econNum(last[l[0]]), y: yS(last[l[0]]) + 4});
-      });
-      labels.sort(function(a, b) { return a.y - b.y; });
-      for (var k = 1; k < labels.length; k++) labels[k].y = Math.max(labels[k].y, labels[k - 1].y + 12);
-      labels.forEach(function(lb) {
-          svg.append('text').attr('class', 'econ_end_label').attr('x', width - m.right + 6).attr('y', lb.y).text(lb.text);
-      });
-      // Hover: Fadenkreuz und Werte des nächstgelegenen Monats bzw. Jahres
-      var rule = svg.append('line').attr('class', 'econ_rule').attr('y1', m.top).attr('y2', height - m.bottom).style('display', 'none');
-      var readout = document.getElementById('econ_readout');
-      var bisect = d3.bisector(function(d) { return new Date(d.date); }).center;
-      svg.append('rect').attr('x', m.left).attr('y', 0).attr('width', width - m.left - m.right).attr('height', height)
-          .attr('fill', 'transparent')
-          .on('pointermove', function(ev) {
-              var d = data[bisect(data, x.invert(d3.pointer(ev)[0]))];
-              rule.attr('x1', x(new Date(d.date))).attr('x2', x(new Date(d.date))).style('display', null);
-              readout.textContent = (d.real ? String(new Date(d.date).getFullYear()) : econDate(d.date)) + ': ' +
-                  ECON_LINES.filter(function(l) { return typeof d[l[0]] == 'number'; }).map(function(l) { return l[1] + ' ' + econNum(d[l[0]]) + ' %'; }).join(', ');
+      var time = function(d) { return new Date(d.date).getTime(); };
+      var realTimes = {};
+      REAL_ECON.forEach(function(d) { realTimes[time(d)] = true; });
+      VIZ.line(document.getElementById('econ_graph'), {
+          time: true, area: true, legend: false, focus: window.econFocus, label: 'Wachstum, Arbeitslosenquote und Inflation seit 2019',
+          xDomain: [new Date(2019, 0, 1).getTime(), d3.max(data, time)],
+          past: {to: GAME_START.getTime(), label: 'Jahreswerte'},
+          xFormat: function(t) { return d3.timeFormat('%Y')(new Date(t)); },
+          title: function(t) { return realTimes[t] ? 'Jahr ' + new Date(t).getFullYear() : econDate(t); },
+          value: function(v) { return econNum(v) + ' %'; },
+          series: ECON_LINES.map(function(l) {
+              return {key: l[0], name: l[1], color: 'var(' + l[2] + ')', points: data.map(function(d) { return [time(d), d[l[0]]]; })};
           })
-          .on('pointerleave', function() { rule.style('display', 'none'); });
+      });
   };
 
   // Klima-Reiter in zwei Abschnitten: unten der aktuelle Stand aller drei Bereiche nebeneinander (Ring der Emissionen nach Sektoren,
@@ -597,9 +588,10 @@
   // Strommix zusammengefasst: [Name, Indizes in CLIM.MIX, Farbe]
   var KL_MIX = [['Erneuerbare', [0, 1, 2, 3, 4], '--kl-paris'], ['Wind', [0], '--kl-m1'], ['Photovoltaik', [1], '--kl-m2'],
                 ['Erdgas', [5], '--kl-m6'], ['Kohle', [6, 7], '--kl-m8']];
-  var KL_SEC_COLORS = ['--econ-s1', '--econ-s2', '--econ-s3', '--econ-s4', '--econ-s5', '--econ-s7'];
+  var KL_SEC_COLORS = ['--viz-s1', '--viz-s2', '--viz-s3', '--viz-s4', '--viz-s5', '--viz-s6'];
   window.klView = 'emis';
   window.klFilter = {emis: '', preis: '0'};
+  window.klFocus = null;
 
   window.drawClimate = function() {
       var box = document.getElementById('klima_view');
@@ -709,105 +701,51 @@
                   '<div class="kl_level_name">' + p[0] + '</div><div class="kl_level_word' + (i < 3 ? ' l' + lv : '') + '">' + KL_WORDS[lv] + '</div>' +
                   '<div class="kl_level_num">' + econNum(v, p[2]) + ' ' + p[1] + '</div></div>';
           }).join('') + '</div></div></div>';
-      box.innerHTML = '<h3 class="poll_heading">Verlauf</h3><div class="kl_controls">' +
-          sel('Ansicht', KL_VIEWS, view, 'window.klView = this.value; window.drawClimate();') +
+      box.innerHTML = vizSeg(KL_VIEWS, view, function(v) { return 'window.klView = \'' + v + '\'; window.klFocus = null; window.drawClimate();'; }, 'Ansicht') +
           (filter ? sel(filter.label, filter.options, window.klFilter[filter.key], 'window.klFilter.' + filter.key + ' = this.value; window.drawClimate();') : '') +
-          '</div><svg id="kl_graph"></svg><div id="kl_readout" class="poll_note"></div>' +
+          '<div id="kl_graph" class="viz_card"></div>' +
           '<h3 class="poll_heading">Aktueller Stand</h3>' + top;
       rings.forEach(function(r, j) {
-          var R = 58, g0 = d3.select('#kl_ring' + j).append('g').attr('transform', 'translate(60,60)');
+          var R = 56, g0 = d3.select('#kl_ring' + j).append('g').attr('transform', 'translate(60,60)');
           g0.selectAll(null).data(d3.pie().sort(null)(r.vals.map(function(v) { return Math.max(0, v); }))).enter().append('path')
               .attr('class', function(d, k) { return 'kl_arc' + (r.sel !== null && r.sel != String(k) ? ' dim' : ''); })
               .style('fill', function(d, k) { return 'var(' + r.colors[k] + ')'; })
               .on('click', function(ev, d) { (new Function(r.pick(d.index)))(); })
-              .attr('d', d3.arc().innerRadius(R * 0.62).outerRadius(R).padAngle(0.012))
+              .attr('d', d3.arc().innerRadius(R * 0.74).outerRadius(R).padAngle(0.03).cornerRadius(3))
               .append('title').text(function(d, k) { return r.names[k] + ': ' + r.fmt(r.vals[k]); });
           g0.append('text').attr('class', 'kl_ring_big').attr('text-anchor', 'middle').attr('y', 4).text(r.big);
           g0.append('text').attr('class', 'kl_ring_small').attr('text-anchor', 'middle').attr('y', 18).text(r.small);
       });
 
-      // Diagramm
-      var width = box.clientWidth, height = Math.min(320, Math.max(230, width * 0.65));
-      var m = {top: 22, right: 72, bottom: 26, left: 36};
-      var svg = d3.select('#kl_graph').attr('width', width).attr('height', height);
-      // Die Achse beginnt bei der frühesten Reihe der Ansicht (mindestens 2020); ohne reale Werte beim Spielstart,
+      // Diagramm. Die Achse beginnt bei der frühesten Reihe der Ansicht (mindestens 2020); ohne reale Werte beim Spielstart,
       // statt leere Vergangenheit zu zeigen. Historische Werte: out/html/history_data.js
       var firstT = d3.min(series, function(s) { return d3.min(s.pts.filter(function(d) { return d[1] !== null && d[1] !== undefined; }), function(d) { return d[0]; }); });
       var x0 = Math.max(KL_X0, Math.floor(firstT));
-      var x = d3.scaleLinear([x0, KL_X1], [m.left, width - m.right]);
-      var visible = function(d) { return d[0] >= x0 - 1; };
-      var hi = d3.max(series, function(s) { return d3.max(s.pts.filter(visible), function(d) { return d[1]; }); }) || 1;
-      marks.forEach(function(mk) { hi = Math.max(hi, mk.v); });
-      var yS = d3.scaleLinear([0, hi * 1.08], [height - m.bottom, m.top]).nice();
-      var col = function(c) { return 'var(' + c + ')'; };
-      svg.append('defs').append('clipPath').attr('id', 'kl_clip').append('rect')
-          .attr('x', m.left).attr('y', 0).attr('width', width - m.left - m.right).attr('height', height);
-      var startX = x(KL_START);
-      svg.append('rect').attr('class', 'econ_real_band').attr('x', m.left).attr('y', m.top).attr('width', Math.max(0, startX - m.left))
-          .attr('height', height - m.top - m.bottom);
-      svg.append('line').attr('class', 'econ_start').attr('x1', startX).attr('x2', startX).attr('y1', m.top).attr('y2', height - m.bottom);
-      svg.append('g').attr('class', 'econ_axis').attr('transform', 'translate(0,' + (height - m.bottom) + ')')
-          .call(d3.axisBottom(x).tickValues((width > 340 ? [2020, 2025, 2030, 2035, 2040, 2045] : [2020, 2030, 2040]).filter(function(y) { return y >= x0; })).tickFormat(d3.format('d')).tickSizeOuter(0));
-      svg.append('g').attr('class', 'econ_axis').attr('transform', 'translate(' + m.left + ',0)')
-          .call(d3.axisLeft(yS).ticks(5).tickFormat(function(v) { return econNum(v, 0); }).tickSize(-(width - m.left - m.right)))
-          .call(function(g) { g.select('.domain').remove(); });
-      svg.append('text').attr('class', 'econ_end_label kl_unit').attr('x', 0).attr('y', 10).text(unit);
-      var line = d3.line().defined(function(d) { return d[1] !== null && d[1] !== undefined; })
-          .x(function(d) { return x(d[0]); }).y(function(d) { return yS(d[1]); });
-      var plot = svg.append('g').attr('clip-path', 'url(#kl_clip)');
-      series.forEach(function(s) {
-          plot.append('path').attr('class', 'kl_line ' + s.cls).style('stroke', col(s.color)).attr('d', line(s.pts));
-          // Punkt auf dem aktuellen Wert (zu Spielbeginn gibt es nur diesen)
-          if (s.cls.indexOf('main') >= 0) {
-              var cur = s.pts.filter(function(d) { return d[0] <= nowT + 0.01 && d[1] !== null; }).pop();
-              if (cur) svg.append('circle').attr('class', 'kl_now').style('fill', col(s.color)).attr('r', 3).attr('cx', x(cur[0])).attr('cy', yS(cur[1]));
-          }
-      });
-      marks.forEach(function(mk) {
-          svg.append('circle').attr('class', 'kl_target').style('stroke', col(mk.color)).attr('r', 4).attr('cx', x(mk.t)).attr('cy', yS(mk.v));
-          svg.append('text').attr('class', 'econ_end_label').attr('x', x(mk.t) + 7).attr('y', yS(mk.v) - 6).text(mk.text);
-      });
-      // Beschriftung am rechten Ende (bei Serien, die bis 2045 reichen) bzw. am letzten Spielwert
-      var labels = [];
-      series.forEach(function(s) {
-          if (!s.end) return;
-          var last = s.pts[s.pts.length - 1];
-          labels.push({text: s.end, color: s.color, x: Math.min(x(last[0]), width - m.right) + 5, y: yS(last[1]) + 4});
-      });
-      labels.sort(function(a, b) { return a.y - b.y; });
-      for (var k = 1; k < labels.length; k++) {
-          if (Math.abs(labels[k].x - labels[k - 1].x) < 60) labels[k].y = Math.max(labels[k].y, labels[k - 1].y + 13);
-      }
-      labels.forEach(function(lb) {
-          svg.append('text').attr('class', 'econ_end_label').style('fill', col(lb.color)).attr('x', lb.x).attr('y', lb.y).text(lb.text);
-      });
-
-      // Hover: Werte aller Serien zum Zeitpunkt
-      var at = function(pts, t) {
-          pts = pts.filter(function(d) { return d[1] !== null && d[1] !== undefined; });
-          if (!pts.length || t < pts[0][0] - 0.5 || t > pts[pts.length - 1][0] + 0.05) return null;
-          if (t <= pts[0][0]) return pts[0][1];
-          for (var i = 1; i < pts.length; i++) {
-              if (t <= pts[i][0]) return pts[i - 1][1] + (pts[i][1] - pts[i - 1][1]) * (t - pts[i - 1][0]) / (pts[i][0] - pts[i - 1][0] || 1);
-          }
-          return pts[pts.length - 1][1];
-      };
-      var rule = svg.append('line').attr('class', 'econ_rule').attr('y1', m.top).attr('y2', height - m.bottom).style('display', 'none');
-      var readout = document.getElementById('kl_readout');
       var shortUnit = view == 'mix' ? ' %' : view == 'preis' ? ' ' + unit : ' Mio. t';
-      readout.textContent = 'Zeige auf das Diagramm für einzelne Werte.';
-      svg.append('rect').attr('x', m.left).attr('y', 0).attr('width', width - m.left - m.right).attr('height', height).attr('fill', 'transparent')
-          .on('pointermove', function(ev) {
-              var t = x.invert(d3.pointer(ev)[0]);
-              rule.attr('x1', x(t)).attr('x2', x(t)).style('display', null);
-              var parts = series.map(function(s) {
-                  var v = at(s.pts, t);
-                  return v === null ? null : s.label + ' ' + econNum(Math.max(0, v), view == 'preis' ? digits : 0);
-              }).filter(function(p) { return p; });
-              var when = t < KL_START ? String(Math.floor(t)) : econDate(new Date(Math.floor(t), Math.floor((t % 1) * 12 + 0.001)));
-              readout.textContent = when + ': ' + (parts.length ? parts.join(', ') + shortUnit : 'keine Werte');
+      var col = function(c) { return 'var(' + c + ')'; };
+      var hiV = d3.max(series, function(s) { return d3.max(s.pts.filter(function(d) { return d[0] >= x0 - 1; }), function(d) { return d[1]; }); }) || 1;
+      marks.forEach(function(mk) { hiV = Math.max(hiV, mk.v); });
+      VIZ.line(document.getElementById('kl_graph'), {
+          label: filter ? filter.label : unit, unit: unit, legend: true, area: true,
+          focus: window.klFocus, onFocus: function(k) { window.klFocus = k; },
+          xDomain: [x0, KL_X1], yDomain: [0, hiV * 1.08],
+          xTicks: [2020, 2025, 2030, 2035, 2040, 2045],
+          past: {to: KL_START, label: 'bisher'},
+          snap: function(t) { return t < KL_START ? Math.floor(t) + 0.5 : Math.floor(t * 12 + 0.001) / 12; },
+          title: function(t) { return t < KL_START ? String(Math.floor(t)) : econDate(new Date(Math.floor(t), Math.floor((t % 1) * 12 + 0.001))); },
+          value: function(v) { return econNum(Math.max(0, v), view == 'preis' ? digits : 0) + shortUnit; },
+          marks: marks.map(function(mk) { return {x: mk.t, y: mk.v, color: col(mk.color), text: mk.text}; }),
+          series: series.map(function(s, i) {
+              return {key: String(i), name: s.label, color: col(s.color), points: s.pts, range: 0.5,
+                      dash: s.cls == 'main' || s.cls == 'main bold' ? '' : s.cls, bold: s.cls == 'main bold',
+                      dot: false};
+          }).map(function(s, i) {
+              // Punkt auf dem aktuellen Wert nur bei den Reihen des Spielverlaufs
+              var pts = s.points.filter(function(d) { return d[1] !== null && d[1] !== undefined; });
+              if (series[i].cls.indexOf('main') >= 0 && pts.length && pts[pts.length - 1][0] <= nowT + 0.01) delete s.dot;
+              return s;
           })
-          .on('pointerleave', function() { rule.style('display', 'none'); readout.textContent = 'Zeige auf das Diagramm für einzelne Werte.'; });
+      });
   };
 
   // Politik-Reiter (Durchgang 4.5, umgebaut Nov. 2026): Grafik mit drei Ansichten (Parteien, Strömungen, Interessengruppen), Infokarte,
@@ -818,8 +756,8 @@
   window.grpView = 'groups'; // beim Start die Interessengruppen
   var GRP_FACTIONS = [['left', 'f_left', 270], ['labor', 'f_labor', 325], ['center', 'f_center', 35], ['reformist', 'f_reformist', 90], ['neorevisionist', 'f_neorev', 180]];
   // Eine Farbskala für alle Verhältnisse (Gruppen, Parteien): Stufen wie source/qdisplays/relationships.qdisplay.dry
-  var GRP_REL = [[5, 'feindselig', '#7a0b0b'], [14.9, 'eisig', '#b3261e'], [29.9, 'kalt', '#e0533d'], [39.9, 'kühl', '#ef9a6a'],
-                 [54.9, 'neutral', '#9a9a9a'], [64.9, 'warm', '#9fd67f'], [74.9, 'freundlich', '#56b85a'], [Infinity, 'sehr freundlich', '#1f8a3a']];
+  var GRP_REL = [[5, 'feindselig', '#9d174d'], [14.9, 'eisig', '#d1334a'], [29.9, 'kalt', '#e8663d'], [39.9, 'kühl', '#e9a15f'],
+                 [54.9, 'neutral', '#90939c'], [64.9, 'warm', '#7cc79a'], [74.9, 'freundlich', '#2fa774'], [Infinity, 'sehr freundlich', '#0d7a5f']];
   // Unmut der Strömungen (qdisplays/dissent) auf dieselben Farben: wenig Unmut grün, viel Unmut rot
   var GRP_DIS = [[4.999, 'sehr gering', 7], [14.999, 'gering', 5], [30.999, 'mittel', 3], [49.999, 'hoch', 2], [Infinity, 'sehr hoch', 0]];
   var GRP_STR = [[10, 'kaum vorhanden'], [25, 'schwach'], [45, 'mittel'], [65, 'stark'], [Infinity, 'sehr stark']];
@@ -1295,7 +1233,7 @@
       };
       var nowGroup = groups.indexOf(window.pollNowGroup) >= 0 ? window.pollNowGroup : '';
       var html = select('Verlauf seit Januar 2023', group, 'pollGroup') +
-          '<svg id="poll_graph"></svg>' +
+          '<div id="poll_graph" class="viz_card"></div>' +
           pollWhy(Q, names) +
           select('Aktuelle Umfrage', nowGroup, 'pollNowGroup') +
           bars(nowGroup ? groupValues(nowGroup) : now) +
@@ -1308,13 +1246,17 @@
           }).join('') + '</div>';
       box.innerHTML = html;
 
-      var width = box.clientWidth;
-      var height = Math.min(360, Math.max(240, width * 0.6));
-      var spanMonths = (now.date - REAL_POLLS[0].date) / (30 * 24 * 3600 * 1000);
-      // Platz rechts für die Parteinamen
-      var lines = d3.linegraph(true, false, parties, colors, names, undefined, undefined, Math.ceil(spanMonths * 0.15) + 1);
-      lines.width(width).height(height);
-      d3.select('#poll_graph').attr('width', width).attr('height', height).datum(data).call(lines);
+      VIZ.line(document.getElementById('poll_graph'), {
+          time: true, legend: 'values', label: 'Umfrageverlauf seit Januar 2023',
+          focus: window.pollFocus, onFocus: function(k) { window.pollFocus = k; },
+          past: {to: GAME_START.getTime(), label: 'reale Umfragen'},
+          title: function(t) { return econDate(t); },
+          value: function(v) { return VIZ.num(v, 1) + ' %'; },
+          series: parties.map(function(p) {
+              return {key: p, name: names[p], color: p == 'union' ? 'var(--party-union)' : colors[p],
+                      points: data.map(function(d) { return [new Date(d.date).getTime(), d[p]]; })};
+          })
+      });
   };
 
   window.changeTab = function(newTab, tabId) {

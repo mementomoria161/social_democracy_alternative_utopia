@@ -611,13 +611,14 @@ body.player-linke .seat.linke {
 }
 
 /* polls tab */
-#poll_graph {
-  display: block;
-  overflow: visible;
-}
 .poll_select select {
-  font-family: inherit;
-  font-size: 1em;
+  font-family: var(--viz-font);
+  font-size: 0.85em;
+  color: var(--viz-ink);
+  background-color: var(--viz-surface);
+  border: 1px solid var(--viz-line);
+  border-radius: 8px;
+  padding: 0.2em 0.5em;
   margin-left: 0.3em;
 }
 .poll_heading {
@@ -636,11 +637,14 @@ body.player-linke .seat.linke {
 }
 .poll_bar {
   flex-grow: 1;
-  height: 0.9em;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--viz-soft);
 }
 .poll_bar span {
   display: block;
   height: 100%;
+  border-radius: 0 4px 4px 0;
 }
 .poll_val {
   width: 3em;
@@ -660,8 +664,10 @@ body.player-linke .seat.linke {
 }
 .poll_stack {
   display: flex;
-  height: 0.6em;
+  height: 8px;
+  gap: 2px;
   margin: 0.3em 0 0 1.1em;
+  border-radius: 4px;
   overflow: hidden;
 }
 .poll_group .poll_bars {
@@ -674,13 +680,6 @@ body.player-linke .seat.linke {
 body.dark-mode .poll_bar .union, body.dark-mode .poll_stack .union {
   background: #888 !important;
 }
-body.dark-mode .union.party-line {
-  stroke: #888;
-}
-body.dark-mode .union.party-node {
-  fill: #888;
-}
-
 /* Regierungs-Reiter */
 .gov_table {
     border-spacing: 0.3em 0.15em;
@@ -786,19 +785,104 @@ body.dark-mode .union.party-node {
   }
 }
 
-/* Wirtschafts-Reiter (Durchgang 4.4): Reihenfarben = validierte Kategorienpalette, je Modus eigene Stufen */
+/* ---------- Diagramme: gemeinsame Farben und Bausteine (Zeichencode: charts.js und game.js) ----------
+   Reihenfarben s1–s7 in fester Reihenfolge, geprüft auf Farbfehlsichtigkeit und Kontrast (hell auf #fff, dunkel auf #1d1e22).
+   Texte tragen nie die Reihenfarbe; die Zuordnung zeigt eine Marke daneben. */
 body {
-  --econ-s1: #2a78d6; --econ-s2: #eb6834; --econ-s3: #1baf7a; --econ-s4: #eda100;
-  --econ-s5: #e87ba4; --econ-s6: #008300; --econ-s7: #6250d6; --econ-other: #a8a69f;
-  --econ-pos: #2a78d6; --econ-neg: #e34948; --econ-good: #0a7d0a; --econ-bad: #c03030;
-  --econ-grid: rgba(0, 0, 0, 0.1); --econ-band: rgba(0, 0, 0, 0.05);
+  --viz-s1: #4263eb; --viz-s2: #e8710a; --viz-s3: #0ca678; --viz-s4: #7048c4;
+  --viz-s5: #d6336c; --viz-s6: #e0a100; --viz-s7: #1098c4; --viz-other: #a3a6ae;
+  --viz-pos: #0ca678; --viz-neg: #d6336c; --viz-good: #087f5b; --viz-bad: #c2255c;
+  --viz-surface: #ffffff; --viz-ink: #1d1f24; --viz-muted: #6b6f7a; --viz-line: #e4e5e9; --viz-zero: #a3a6ae;
+  --viz-soft: #f1f2f5; --viz-shadow: 0 1px 2px rgba(20, 22, 30, 0.07), 0 4px 14px rgba(20, 22, 30, 0.05);
+  --viz-font: "Archivo", system-ui, sans-serif;
+  --party-union: #151518;
 }
 body.dark-mode {
-  --econ-s1: #3987e5; --econ-s2: #d95926; --econ-s3: #199e70; --econ-s4: #c98500;
-  --econ-s5: #d55181; --econ-s6: #0ca30c; --econ-s7: #9085e9; --econ-other: #77756f;
-  --econ-pos: #3987e5; --econ-neg: #e66767; --econ-good: #3cc43c; --econ-bad: #ff7b7b;
-  --econ-grid: rgba(255, 255, 255, 0.12); --econ-band: rgba(255, 255, 255, 0.06);
+  --viz-s1: #5c7cfa; --viz-s2: #d9660f; --viz-s3: #12a37a; --viz-s4: #9775e0;
+  --viz-s5: #d9548a; --viz-s6: #b98a00; --viz-s7: #1a93bd; --viz-other: #767983;
+  --viz-pos: #12a37a; --viz-neg: #d9548a; --viz-good: #38d9a9; --viz-bad: #f783ac;
+  --viz-surface: #1d1e22; --viz-ink: #eceef2; --viz-muted: #9a9ea8; --viz-line: #32343a; --viz-zero: #6b6f7a;
+  --viz-soft: #2a2c31; --viz-shadow: 0 0 0 1px #34363c;
+  --party-union: #a5a8b0;
 }
+.viz_card, .viz_tile {
+  background: var(--viz-surface);
+  color: var(--viz-ink);
+  border-radius: 12px;
+  box-shadow: var(--viz-shadow);
+}
+.viz_card { padding: 0.8em 0.8em 0.6em; margin: 0 0 1em; font-family: var(--viz-font); text-indent: 0; }
+.viz_card_title { font-weight: 650; margin: 0 0 0.5em; }
+.viz { font-family: var(--viz-font); line-height: 1.35; }
+.viz_plot { position: relative; }
+.viz_plot svg { display: block; overflow: visible; touch-action: pan-y; }
+.viz_unit { font-size: 0.75em; color: var(--viz-muted); margin: 0 0 0.2em; }
+.viz_axis text { fill: var(--viz-muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.viz_grid { stroke: var(--viz-line); stroke-width: 1; }
+.viz_zero { stroke: var(--viz-zero); stroke-width: 1; }
+.viz_past { fill: var(--viz-soft); opacity: 0.7; }
+.viz_past_label { fill: var(--viz-muted); font-size: 10px; }
+.viz_line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.viz_line.bold { stroke-width: 3; }
+.viz_line.proj { stroke-dasharray: 6 5; }
+.viz_line.ksg { stroke-dasharray: 1 5; stroke-width: 2.5; }
+.viz_line.paris { stroke-dasharray: 9 4 1 4; }
+.viz_series { transition: opacity 0.15s; }
+.viz_series.dim { opacity: 0.18; }
+.viz_dot { stroke: var(--viz-surface); stroke-width: 2; }
+.viz_target { fill: var(--viz-surface); stroke-width: 2; }
+.viz_mark_label { fill: var(--viz-ink); font-size: 11px; font-weight: 600; paint-order: stroke; stroke: var(--viz-surface); stroke-width: 3px; stroke-linejoin: round; }
+.viz_rule { stroke: var(--viz-muted); stroke-width: 1; }
+.viz_tip {
+  position: absolute; top: 4px; z-index: 5; pointer-events: none; min-width: 9em;
+  background: var(--viz-surface); border: 1px solid var(--viz-line); border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18); padding: 0.4em 0.6em; font-size: 0.78em; white-space: nowrap;
+}
+.viz_tip_title { color: var(--viz-muted); margin: 0 0 0.2em; }
+.viz_tip_row { display: flex; align-items: center; gap: 0.5em; }
+.viz_tip_row b { margin-left: auto; padding-left: 0.8em; font-variant-numeric: tabular-nums; }
+.viz_tip i, .viz_key i { display: inline-block; width: 0.9em; height: 3px; border-radius: 2px; background: currentColor; flex-shrink: 0; }
+.viz_key i.dashed { background: repeating-linear-gradient(90deg, currentColor 0 4px, transparent 4px 6px); }
+.viz_legend { display: flex; flex-wrap: wrap; gap: 0.3em; margin: 0 0 0.6em; }
+.viz_key {
+  display: inline-flex; align-items: center; gap: 0.35em; font: inherit; font-size: 0.76em; line-height: 1.5; color: var(--viz-ink);
+  background: var(--viz-soft); border: 1px solid transparent; border-radius: 999px; padding: 0.1em 0.65em; cursor: pointer;
+}
+.viz_key b { font-variant-numeric: tabular-nums; }
+.viz_key.sel { border-color: var(--viz-ink); }
+.viz_key.dim { opacity: 0.45; }
+/* Umschalter */
+.viz_seg { display: flex; flex-wrap: wrap; gap: 2px; padding: 3px; margin: 0 0 0.8em; border-radius: 10px; background: var(--viz-soft); font-family: var(--viz-font); }
+.viz_seg button {
+  flex: 1 1 auto; font: inherit; font-size: 0.8em; color: var(--viz-muted); background: transparent; border: 0; border-radius: 8px;
+  padding: 0.25em 0.7em; cursor: pointer;
+}
+.viz_seg button.active { background: var(--viz-surface); color: var(--viz-ink); font-weight: 600; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15); }
+/* Kennzahl-Kacheln */
+.viz_tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6em; font-family: var(--viz-font); }
+.viz_tile {
+  display: flex; flex-direction: column; align-items: flex-start; font: inherit; font-family: var(--viz-font); text-align: left;
+  border: 2px solid transparent; padding: 0.5em 0.65em; cursor: pointer; line-height: 1.3; min-width: 0;
+}
+.viz_tile.sel { border-color: var(--tile); }
+.viz_tile.dim { opacity: 0.55; }
+.viz_tile_label { display: flex; align-items: center; gap: 0.35em; font-size: 0.75em; color: var(--viz-muted); white-space: nowrap; }
+.viz_tile_label i { width: 0.65em; height: 0.65em; border-radius: 50%; background: var(--tile); }
+.viz_tile_value { font-size: 1.6em; font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; }
+.viz_tile_value small { font-size: 0.55em; font-weight: 500; color: var(--viz-muted); }
+.viz_tile_delta { font-size: 0.72em; color: var(--viz-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.viz_tile_delta.good { color: var(--viz-good); }
+.viz_tile_delta.bad { color: var(--viz-bad); }
+.viz_note { font-family: var(--viz-font); font-size: 0.7em; color: var(--viz-muted); text-align: right; text-indent: 0; margin: 0.3em 0 0.6em; }
+/* Rangliste mit Balken: Name und Wert, darunter der Balken */
+.viz_row { display: grid; grid-template-columns: 1fr auto; gap: 0.1em 0.8em; margin: 0 0 0.65em; font-size: 0.85em; }
+.viz_row_val { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.viz_track { grid-column: 1 / -1; position: relative; height: 6px; border-radius: 3px; background: var(--viz-soft); }
+.viz_track span { position: absolute; top: 0; bottom: 0; left: 0; border-radius: 0 3px 3px 0; background: var(--viz-s1); }
+.viz_track.diverging span.pos { left: 50%; background: var(--viz-pos); }
+.viz_track.diverging span.neg { left: auto; right: 50%; border-radius: 3px 0 0 3px; background: var(--viz-neg); }
+.viz_track.diverging::after { content: ""; position: absolute; left: 50%; top: -3px; bottom: -3px; border-left: 1px solid var(--viz-zero); }
+
 /* Kennzahlen oben in Wirtschaft und Klima: schlichte Textzeilen wie im Status-Reiter */
 .econ_tiles { margin: 0.5em 0; }
 .econ_tiles .econ_tile { margin: 0 0 0.6em; line-height: 1.4; }
@@ -815,25 +899,8 @@ body.dark-mode {
   font-weight: bold;
   font-variant-numeric: tabular-nums;
 }
-.econ_trend.good { color: var(--econ-good); opacity: 1; }
-.econ_trend.bad { color: var(--econ-bad); opacity: 1; }
-#econ_graph {
-  display: block;
-  overflow: visible;
-}
-.econ_axis { font-size: 0.75em; }
-.econ_axis .tick line { stroke: var(--econ-grid); }
-.econ_axis .domain { stroke: var(--econ-grid); }
-.econ_real_band { fill: var(--econ-band); }
-.econ_band_label, .econ_end_label { fill: currentColor; font-size: 0.75em; }
-.econ_band_label { opacity: 0.7; }
-.econ_start, .econ_rule { stroke: currentColor; stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.5; }
-.econ_zero_line { stroke: currentColor; stroke-width: 1; opacity: 0.45; }
-.econ_line { fill: none; stroke-width: 2; stroke-linejoin: round; }
-.econ_dot { stroke: var(--content-bg-color); stroke-width: 2; }
-.econ_line.s1 { stroke: var(--econ-s1); } .econ_dot.s1 { fill: var(--econ-s1); }
-.econ_line.s2 { stroke: var(--econ-s2); } .econ_dot.s2 { fill: var(--econ-s2); }
-.econ_line.s3 { stroke: var(--econ-s3); } .econ_dot.s3 { fill: var(--econ-s3); }
+.econ_trend.good { color: var(--viz-good); opacity: 1; }
+.econ_trend.bad { color: var(--viz-bad); opacity: 1; }
 .econ_legend {
   display: flex;
   flex-wrap: wrap;
@@ -843,80 +910,10 @@ body.dark-mode {
 }
 .econ_swatch {
   display: inline-block;
-  width: 0.9em;
-  height: 0.9em;
+  width: 0.75em;
+  height: 0.75em;
+  border-radius: 3px;
   margin-right: 0.3em;
-  vertical-align: -0.1em;
-}
-.econ_swatch.s1, .econ_stack .g1, .econ_swatch.g1 { background: var(--econ-s1); }
-.econ_swatch.s2, .econ_stack .g2, .econ_swatch.g2 { background: var(--econ-s2); }
-.econ_swatch.s3, .econ_stack .g3, .econ_swatch.g3 { background: var(--econ-s3); }
-.econ_stack .g4, .econ_swatch.g4 { background: var(--econ-s4); }
-.econ_stack .g5, .econ_swatch.g5 { background: var(--econ-s5); }
-.econ_stack .g6, .econ_swatch.g6 { background: var(--econ-s6); }
-.econ_stack .g7, .econ_swatch.g7 { background: var(--econ-s7); }
-.econ_stack .g8, .econ_swatch.g8 { background: var(--econ-other); }
-.econ_row {
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-}
-.econ_name {
-  width: 11em;
-  flex-shrink: 0;
-  font-size: 0.9em;
-  line-height: 1.2;
-}
-.econ_div {
-  position: relative;
-  flex-grow: 1;
-  height: 0.9em;
-}
-.econ_div .pos, .econ_div .neg {
-  position: absolute;
-  top: 0;
-  height: 100%;
-}
-.econ_div .pos { background: var(--econ-pos); }
-.econ_div .neg { background: var(--econ-neg); }
-.econ_zero {
-  position: absolute;
-  left: 50%;
-  top: -0.15em;
-  bottom: -0.15em;
-  border-left: 1px solid currentColor;
-  opacity: 0.5;
-}
-.econ_detail {
-  font-size: 0.9em;
-  line-height: 1.4;
-  margin: 0.4em 0 0.3em 1.1em;
-}
-.econ_year {
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-  margin: 0.25em 0;
-}
-.econ_year_label {
-  width: 5.5em;
-  flex-shrink: 0;
-  font-size: 0.85em;
-}
-.econ_stack {
-  display: flex;
-  flex-grow: 1;
-  gap: 2px;
-  height: 1.1em;
-}
-.econ_stack span:first-child { }
-.econ_stack span:last-child { }
-.econ_val {
-  width: 4em;
-  flex-shrink: 0;
-  text-align: right;
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
 }
 
 /* Gruppen-Reiter (Durchgang 4.5): Lagerfarben aus der Kategorienpalette des Wirtschafts-Reiters, rechts braun */
@@ -924,13 +921,14 @@ body.dark-mode {
   display: flex;
   flex-wrap: wrap;
   gap: 0.3em;
-  margin: 0 0 0.6em; /* Abstände wie im Klima-Reiter (kl_controls, kl_graph, kl_readout) */
+  margin: 0 0 0.6em;
 }
 .grp_view_btn {
   font-family: inherit;
   font-size: 0.8em;
   padding: 0.2em 0.6em;
-  border: 1px solid var(--unavailable-bg-color);
+  border: 1px solid var(--viz-line);
+  border-radius: 999px;
   background: transparent;
   color: inherit;
   cursor: pointer;
@@ -949,8 +947,8 @@ body.dark-mode {
 }
 .grp_ring { fill: none; stroke: currentColor; stroke-opacity: 0.12; stroke-dasharray: 2 4; }
 .grp_edge { fill: none; stroke-linecap: round; transition: stroke-opacity 0.15s; }
-.grp_edge.pos { stroke: var(--econ-pos); }
-.grp_edge.neg { stroke: var(--econ-neg); }
+.grp_edge.pos { stroke: var(--viz-pos); }
+.grp_edge.neg { stroke: var(--viz-neg); }
 .grp_edge.dim { stroke-opacity: 0.06 !important; }
 .grp_edge.hi { stroke-opacity: 0.95 !important; }
 .grp_node { cursor: pointer; outline: none; transition: opacity 0.15s; }
@@ -961,8 +959,8 @@ body.dark-mode {
 .grp_node.sel .grp_dot, .grp_node.sel .grp_fac, .grp_node.sel .grp_party, .grp_node:focus .grp_dot { stroke: currentColor; stroke-width: 2.5; }
 .grp_label, .grp_fac_label, .grp_party_label { fill: currentColor; }
 .grp_label { font-size: 10px; }
-.grp_arrow.up { fill: var(--econ-good); }
-.grp_arrow.down { fill: var(--econ-bad); }
+.grp_arrow.up { fill: var(--viz-good); }
+.grp_arrow.down { fill: var(--viz-bad); }
 .grp_fac { fill-opacity: 0.55; stroke: var(--content-bg-color); stroke-width: 1; }
 .grp_fac_label { font-size: 9px; font-style: italic; opacity: 0.85; }
 .grp_fac_label.tree, .grp_label.tree { paint-order: stroke; stroke: var(--content-bg-color); stroke-width: 3px; stroke-linejoin: round; }
@@ -975,14 +973,17 @@ body.dark-mode .grp_party.union { fill: #888; }
   display: inline-block;
   width: 1.4em;
   height: 0;
-  border-top: 2px solid var(--econ-pos);
+  border-top: 2px solid var(--viz-pos);
   vertical-align: middle;
   margin-right: 0.3em;
 }
-.grp_line.neg { border-top-color: var(--econ-neg); }
+.grp_line.neg { border-top-color: var(--viz-neg); }
 .grp_line { border-top-width: 3px; }
 .grp_card {
-  border: 1px solid var(--unavailable-bg-color);
+  background: var(--viz-surface);
+  color: var(--viz-ink);
+  border-radius: 12px;
+  box-shadow: var(--viz-shadow);
   padding: 0.5em 0.6em;
   margin: 0.5em 0;
   font-size: 0.9em;
@@ -997,96 +998,60 @@ body.dark-mode .grp_party.union { fill: #888; }
   align-items: flex-end;
 }
 .grp_card_stats .econ_value small { font-size: 0.55em; opacity: 0.7; }
-.econ_trend.up { color: var(--econ-good); opacity: 1; }
-.econ_trend.down { color: var(--econ-bad); opacity: 1; }
+.econ_trend.up { color: var(--viz-good); opacity: 1; }
+.econ_trend.down { color: var(--viz-bad); opacity: 1; }
 .grp_scale { white-space: nowrap; }
 .grp_scale i { display: inline-block; width: 0.8em; height: 0.6em; vertical-align: middle; }
 .grp_card_text { margin: 0.4em 0 0.1em; line-height: 1.4; }
 .grp_word { font-weight: bold; }
 /* Übersicht unter der Grafik: Zeilen wie die übrigen Absätze des Reiters, anklickbar */
 .grp_item { cursor: pointer; }
-.grp_item:hover, .grp_item.sel { background: var(--econ-band); }
+.grp_item:hover, .grp_item.sel { background: var(--viz-soft); }
 .grp_trend { font-size: 0.8em; }
 .grp_card:empty { display: none; }
-.grp_trend.up { color: var(--econ-good); }
-.grp_trend.down { color: var(--econ-bad); }
+.grp_trend.up { color: var(--viz-good); }
+.grp_trend.down { color: var(--viz-bad); }
 
 /* Klima-Reiter (Durchgang 4.6): Strommix-Farben nach Energieträger, Ampel, Pfade. Hell und dunkel über CSS-Variablen. */
 body {
-  --kl-m1: #2a78d6; --kl-m2: #e8b100; --kl-m3: #5a9e2f; --kl-m4: #1baf9a; --kl-m5: #9cc97a;
-  --kl-m6: #eb6834; --kl-m7: #4b4b4b; --kl-m8: #8b6a3e; --kl-m9: #a8a69f;
-  --kl-real: #555; --kl-game: #c03030; --kl-ksg: #6250d6; --kl-paris: #0a7d0a;
-  --kl-red: #c03030; --kl-amber: #c98500; --kl-green: #0a7d0a; --kl-fill: #8a8a8a;
+  --kl-m1: #4263eb; --kl-m2: #e0a100; --kl-m3: #5c940d; --kl-m4: #0ca6a6; --kl-m5: #94c973;
+  --kl-m6: #e8710a; --kl-m7: #4b4e57; --kl-m8: #8d6748; --kl-m9: #a3a6ae;
+  --kl-game: #d6336c; --kl-ksg: #7048c4; --kl-paris: #0ca678;
+  --kl-red: #c2255c; --kl-green: #087f5b;
 }
 body.dark-mode {
-  --kl-m1: #3987e5; --kl-m2: #e0b42a; --kl-m3: #6fb544; --kl-m4: #22c2ab; --kl-m5: #a8d888;
-  --kl-m6: #d95926; --kl-m7: #9a9a9a; --kl-m8: #a9824f; --kl-m9: #77756f;
-  --kl-real: #bbb; --kl-game: #ff7b7b; --kl-ksg: #9085e9; --kl-paris: #3cc43c;
-  --kl-red: #ff7b7b; --kl-amber: #e0b42a; --kl-green: #3cc43c; --kl-fill: #9a9a9a;
+  --kl-m1: #5c7cfa; --kl-m2: #d9a400; --kl-m3: #74b816; --kl-m4: #22b8b8; --kl-m5: #a9d88b;
+  --kl-m6: #d9660f; --kl-m7: #8d919b; --kl-m8: #b08560; --kl-m9: #767983;
+  --kl-game: #d9548a; --kl-ksg: #9775e0; --kl-paris: #12a37a;
+  --kl-red: #f783ac; --kl-green: #38d9a9;
 }
-/* Klima-Reiter: Auswahlen links (Ansicht) und rechts (Filter), ein Liniendiagramm */
-.kl_controls { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.4em 1em; margin: 0 0 0.6em; }
-.kl_controls .poll_select { margin: 0; }
-#kl_graph { display: block; overflow: visible; margin: 0 0 0.3em; }
-#kl_readout { min-height: 1.2em; margin: 0 0 1em; }
-.kl_unit { text-anchor: start; opacity: 0.8; }
-.kl_line { fill: none; stroke-width: 2; stroke-linejoin: round; }
-.kl_line.main { stroke-width: 2.2; }
-.kl_line.bold { stroke-width: 3.2; }
-.kl_line.proj { stroke-dasharray: 5 3; opacity: 0.85; }
-.kl_line.ksg { stroke-dasharray: 2 3; }
-.kl_line.paris { stroke-dasharray: 6 3 1 3; }
-.kl_target { fill: var(--content-bg-color); stroke-width: 2; }
-.kl_now { stroke: var(--content-bg-color); stroke-width: 1; }
-.kl_now_grid { display: flex; flex-wrap: wrap; gap: 0.6em; margin: 0 0 0.5em; }
-.kl_panel { flex: 1 1 150px; min-width: 0; border: 1px solid var(--card-border-color); padding: 0.4em 0.5em; }
-.kl_panel.sel { border-color: currentColor; }
-.kl_panel_title { font-weight: bold; margin: 0 0 0.3em; }
-.kl_ring { display: block; margin: 0 auto 0.3em; }
-.kl_ringlegend { font-size: 0.8em; }
-.kl_leg { display: flex; align-items: center; gap: 0.3em; padding: 0.05em 0.2em; cursor: pointer; }
-.kl_leg:hover, .kl_leg.sel { background: var(--econ-band); }
+#klima_view .poll_select { display: block; margin: 0 0 0.6em; }
+.kl_now_grid { display: flex; flex-wrap: wrap; gap: 0.6em; margin: 0 0 0.5em; font-family: var(--viz-font); text-indent: 0; line-height: 1.4; }
+.kl_panel { flex: 1 1 150px; min-width: 0; padding: 0.6em 0.7em; background: var(--viz-surface); color: var(--viz-ink); border: 2px solid transparent; border-radius: 12px; box-shadow: var(--viz-shadow); }
+.kl_panel.sel { border-color: var(--viz-line); }
+.kl_panel_title { font-weight: 650; margin: 0 0 0.4em; }
+.kl_ring { display: block; margin: 0 auto 0.5em; }
+.kl_ringlegend { font-size: 0.78em; }
+.kl_leg { display: flex; align-items: center; gap: 0.4em; padding: 0.1em 0.3em; border-radius: 6px; cursor: pointer; }
+.kl_leg:hover, .kl_leg.sel { background: var(--viz-soft); }
 .kl_leg .econ_swatch { flex-shrink: 0; margin-right: 0; }
 .kl_leg_name { flex-grow: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.kl_leg_val { white-space: nowrap; font-variant-numeric: tabular-nums; }
-.kl_arc { stroke: var(--content-bg-color); stroke-width: 1; cursor: pointer; }
+.kl_leg_val { white-space: nowrap; font-weight: 600; font-variant-numeric: tabular-nums; }
+.kl_arc { cursor: pointer; }
 .kl_arc.dim { opacity: 0.3; }
-.kl_ring_big { fill: currentColor; font-size: 1.05em; font-weight: bold; }
-.kl_ring_small { fill: currentColor; font-size: 0.65em; opacity: 0.8; }
+.kl_ring_big { fill: currentColor; font-size: 1.25em; font-weight: 700; }
+.kl_ring_small { fill: var(--viz-muted); font-size: 0.68em; }
 .kl_levels { display: grid; grid-template-columns: repeat(auto-fit, minmax(105px, 1fr)); gap: 0.4em; }
-.kl_level { border: 1px solid var(--card-border-color); padding: 0.3em 0.5em; cursor: pointer; line-height: 1.3; }
-.kl_level:hover { background: var(--econ-band); }
-.kl_level.sel { border-color: currentColor; background: var(--econ-band); }
+.kl_level { background: var(--viz-soft); border: 2px solid transparent; border-radius: 8px; padding: 0.35em 0.55em; cursor: pointer; line-height: 1.3; }
+.kl_level:hover, .kl_level.sel { border-color: var(--viz-line); }
+.kl_level.sel { border-color: var(--viz-muted); }
 .kl_panel_prices { flex-basis: 200px; }
-.kl_level_name { font-size: 0.8em; opacity: 0.85; }
-.kl_level_word { font-size: 1.15em; font-weight: bold; }
+.kl_level_name { font-size: 0.76em; color: var(--viz-muted); }
+.kl_level_word { font-size: 1.1em; font-weight: 700; }
 .kl_level_word.l0, .kl_level_word.l1 { color: var(--kl-green); }
 .kl_level_word.l3, .kl_level_word.l4 { color: var(--kl-red); }
-.kl_level_num { font-size: 0.8em; opacity: 0.85; font-variant-numeric: tabular-nums; }
-#klima_view .poll_heading { margin: 1em 0 0.5em; }
-#klima_view .poll_heading:first-child { margin-top: 0.3em; }
-
-.econ_table { width: 100%; }
-.econ_bar_cell { width: 35%; }
-.econ_table .econ_div { display: block; }
-
-/* Wirtschaft-Reiter: Abstände wie im Rest der Seitenleiste (1em zwischen Blöcken) */
-#econ_view #econ_graph { margin: 0.5em 0 0.3em; }
-#econ_view #econ_readout { min-height: 1.2em; margin: 0 0 1em; }
-#econ_view .poll_select { display: block; margin: 1em 0 0.6em; }
-#econ_view .econ_table { border-spacing: 0.3em 0.55em; margin: 0 0 1em; }
-
-/* Umfragen-Reiter: Abstände wie im Rest der Seitenleiste */
-#poll_view .poll_select { display: block; margin: 0 0 0.6em; }
-#poll_view #poll_graph { margin: 0 0 1em; }
-#poll_view .poll_heading { margin: 1.2em 0 0.6em; }
-#poll_view .poll_bars { margin: 0 0 1em; }
-#poll_view .poll_row { margin: 0.35em 0; }
-.poll_overview { margin: 0 0 0.8em; }
-.poll_overview .poll_top { opacity: 0.75; }
-.poll_overview .poll_stack { margin: 0.3em 0 0; }
-#poll_view .poll_bars, #poll_view #poll_graph { margin-bottom: 1.3em; }
-#poll_view .poll_why { margin: 0 0 1.3em; }
+.kl_level_num { font-size: 0.76em; color: var(--viz-muted); font-variant-numeric: tabular-nums; }
+#klima_view .poll_heading { margin: 0.4em 0 0.5em; }
 
 /* Dropdown-Auswahllisten deckend (keine Transparenz) */
 select option, select optgroup {
