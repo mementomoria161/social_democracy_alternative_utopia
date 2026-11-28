@@ -833,6 +833,8 @@ body {
 .viz_series.dim { opacity: 0.16; }
 .viz_dot { stroke: var(--viz-surface); stroke-width: 2; }
 .viz_target { fill: var(--viz-surface); stroke-width: 2; }
+.viz_anchor { fill: var(--viz-surface); stroke-width: 2; transition: opacity 0.15s; }
+.viz_anchor.dim { opacity: 0.16; }
 .viz_mark_label { fill: var(--viz-ink); font-size: 11px; font-weight: 600; paint-order: stroke; stroke: var(--viz-surface); stroke-width: 3px; stroke-linejoin: round; }
 .viz_rule { stroke: var(--viz-ink); stroke-width: 1; }
 .viz_tip {

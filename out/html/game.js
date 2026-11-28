@@ -584,10 +584,13 @@
   var KL_X0 = 2020, KL_X1 = 2045.5, KL_START = 2024 + 10 / 12;
   var KL_VIEWS = [['emis', 'Emissionen'], ['mix', 'Strommix'], ['preis', 'Energiepreise']];
   // [Name, Einheit, Nachkommastellen, reale Jahreswerte]
-  var HISTORY_KLIMA = Object.assign({haushaltsstrom: [], co2_national: [], sektoren: [], strommix: {}, eu_ets: []}, window.HISTORY && window.HISTORY.klima); // out/html/history_data.js
+  var HISTORY_KLIMA = Object.assign({haushaltsstrom: [], co2_national: [], sektoren: [], strommix: {}, eu_ets: [], gas_haushalte: [], industriestrom: [], geschaetzt: {}},
+      window.HISTORY && window.HISTORY.klima);
+  // geschätzte Werte (history_data.js, „geschaetzt“) bis einschließlich dieses Jahres, als Zeitpunkt in der Jahresmitte
+  var klEst = function(key) { var y = HISTORY_KLIMA.geschaetzt[key]; return y ? y + 0.5 : null; }; // out/html/history_data.js
   var KL_PRICES = [['Haushaltsstrom', 'ct/kWh', 1, HISTORY_KLIMA.haushaltsstrom],
-                   ['Gas für Haushalte', 'ct/kWh', 1, []],
-                   ['Industriestrom', 'ct/kWh', 1, []],
+                   ['Gas für Haushalte', 'ct/kWh', 1, HISTORY_KLIMA.gas_haushalte, 'gas_haushalte'],
+                   ['Industriestrom', 'ct/kWh', 1, HISTORY_KLIMA.industriestrom, 'industriestrom'],
                    ['CO2-Preis Heizen und Tanken', 'Euro/t', 0, HISTORY_KLIMA.co2_national]];
   var KL_P0 = [40.9, 12.3, 17.2, 45];
   // Einschätzung der Preise (ANNAHME des Spiels): Obergrenzen für sehr niedrig, niedrig, mittel, hoch, darüber sehr hoch.
@@ -663,13 +666,13 @@
           unit = 'Prozent der Stromerzeugung';
           KL_MIX.forEach(function(g) {
               series.push({pts: hist(HISTORY_KLIMA.strommix[g[0]] || [], sum(C.MIX_2024, g[1]), function(r) { return sum(r.m, g[1]); }), color: g[2],
-                           cls: g[0] == 'Erneuerbare' ? 'main bold' : 'main', label: g[0], end: g[0]});
+                           cls: g[0] == 'Erneuerbare' ? 'main bold' : 'main', label: g[0], end: g[0], estTo: g[0] == 'Erneuerbare' ? null : klEst('strommix')});
           });
       } else {
           filter = {key: 'preis', label: 'Preis', options: KL_PRICES.map(function(p, i) { return [String(i), p[0]]; })};
           var pi = Math.max(0, Math.min(3, parseInt(window.klFilter.preis, 10) || 0)), P = KL_PRICES[pi];
           unit = P[1]; digits = P[2];
-          series.push({pts: hist(P[3], KL_P0[pi], function(r) { return r.p[pi]; }), color: '--kl-game', cls: 'main', label: P[0]});
+          series.push({pts: hist(P[3], KL_P0[pi], function(r) { return r.p[pi]; }), color: '--kl-game', cls: 'main', label: P[0], estTo: P[4] ? klEst(P[4]) : null});
           // CO2-Preis im EU-Emissionshandel (Kraftwerke und Industrie) zum Vergleich
           if (pi == 3) series.push({pts: hist(HISTORY_KLIMA.eu_ets, 65, function(r) { return r.p.length > 4 ? r.p[4] : null; }).filter(function(d) { return d[1] !== null; }),
                                     color: '--kl-ksg', cls: 'main', label: 'EU-Emissionshandel', end: 'EU-ETS'});
@@ -749,7 +752,7 @@
           value: function(v) { return econNum(Math.max(0, v), view == 'preis' ? digits : 0) + shortUnit; },
           marks: marks.map(function(mk) { return {x: mk.t, y: mk.v, color: col(mk.color), text: mk.text}; }),
           series: series.map(function(s, i) {
-              return {key: String(i), name: s.label, color: col(s.color), points: s.pts, range: 0.5,
+              return {key: String(i), name: s.label, color: col(s.color), points: s.pts, range: 0.5, estTo: s.estTo,
                       dash: s.cls == 'main' || s.cls == 'main bold' ? '' : s.cls, bold: s.cls == 'main bold',
                       dot: false};
           }).map(function(s, i) {
@@ -1158,6 +1161,79 @@
                      'unemployed': 'Arbeitslose & Grundsicherung', 'rentner': 'Rentner*innen'};
   window.pollGroup = '';
   window.pollOpen = {};
+  // Wahltagsbefragungen von infratest dimap für die ARD: einzige öffentlich belegte Werte nach Gruppen vor dem Spielstart
+  // (Monatsumfragen nach Gruppen gibt es nicht frei). Zahlen wie veröffentlicht in den Tabellen der englischen Wikipedia
+  // („2021 German federal election“, Abschnitt „Sociology of the electorate“, Quelle tagesschau.de vom 27.09.2021;
+  // „2024 European Parliament election in Germany“, Abschnitt „Electorate“, Quelle tagesschau.de „Wer wählte wen bei der
+  // Europawahl 2024?“ vom 09.06.2024). Freie Wähler 2021 zu Sonstige gezählt. Zuordnung zu den Wählergruppen des Spiels:
+  // Rentner*innen = Rentner, Arbeitnehmer*innen = Arbeiter, Selbstständige & Mittelstand = Selbstständige,
+  // Akademische Mittelschicht = hohe Bildung (nur 2024), Arbeitslose = Arbeitslose (nur 2021), Ländlicher Raum = sehr ländliche
+  // Kreise (nur 2021, amtliches Ergebnis nach Thünen-Institut, keine Befragung).
+  // Werte: Union, SPD, Grüne, FDP, AfD, Linke, BSW, Sonstige
+  var EXIT_POLLS = [
+      {date: new Date(2021, 8, 26), label: 'Bundestagswahl 2021', short: 'BTW 21', groups: {
+          total: ['alle', 24.1, 25.7, 14.8, 11.5, 10.3, 4.9, null, 8.7],
+          rentner: ['Rentner', 34, 35, 10, 7, 7, 4, null, 5],
+          workers: ['Arbeiter', 20, 26, 8, 9, 21, 5, null, 11],
+          old_middle: ['Selbstständige', 26, 16, 16, 19, 9, 5, null, 9],
+          unemployed: ['Arbeitslose', 14, 23, 17, 8, 17, 11, null, 10],
+          // Ländlicher Raum: keine Befragung, sondern das amtliche Ergebnis in den sehr ländlichen Kreisen (Thünen-Typologie):
+          // Klärner/Osigus, Ergebnisse der Bundestagswahl 2021: ländliche Räume im Fokus, Thünen Working Paper 181 (2021), Tabellen 2-8
+          rural: ['sehr ländliche Kreise, amtliches Ergebnis', 27.7, 26.0, 10.6, 10.8, 11.4, 3.8, null, 9.7]}},
+      {date: new Date(2024, 5, 9), label: 'Europawahl 2024', short: 'EW 24', groups: {
+          total: ['alle', 30.0, 13.9, 11.9, 5.2, 15.9, 2.7, 6.2, 14.2],
+          rentner: ['Rentner', 41, 21, 8, 5, 11, 2, 7, 5],
+          workers: ['Arbeiter', 24, 12, 6, 3, 33, 3, 6, 13],
+          old_middle: ['Selbstständige', 30, 9, 15, 10, 17, 2, 6, 11],
+          new_middle: ['hohe Bildung', 27, 13, 18, 7, 10, 3, 6, 16]}}
+  ];
+  // SCHÄTZUNG der Monatswerte einer Wählergruppe vor dem Spielstart (Januar 2023 bis Oktober 2024): Gesamtumfrage des Monats
+  // mal Verhältnis Gruppe/alle je Partei. Das Verhältnis stammt aus den Wahltagsbefragungen (EXIT_POLLS, Gruppe geteilt durch
+  // Gesamtergebnis derselben Befragung) und aus dem ersten Spielmonat (Startwerte in root.start) und wird dazwischen linear
+  // über die Zeit verschoben; davor und danach bleibt es gleich. Danach auf 100 % normiert.
+  var estimateGroup = function(group, Q, realRecs, startRec) {
+      var tot = {};
+      exitAnchors('total', Q).forEach(function(a) { tot[a.x] = a.values; });
+      var ratios = exitAnchors(group, Q).map(function(a) {
+          var r = {};
+          for (var p in a.values) if (tot[a.x][p]) r[p] = a.values[p] / tot[a.x][p];
+          return {t: a.x, r: r};
+      });
+      var r0 = {};
+      for (var p in startRec) {
+          var m = /^(.*)_([a-z]+)$/.exec(p);
+          if (m && m[1] == group && startRec[m[2]] > 0) r0[m[2]] = startRec[p] / startRec[m[2]];
+      }
+      ratios.push({t: new Date(startRec.date).getTime(), r: r0});
+      var ratio = function(p, t) {
+          var pts = ratios.filter(function(x) { return isFinite(x.r[p]); });
+          if (!pts.length) return 1;
+          if (t <= pts[0].t) return pts[0].r[p];
+          for (var i = 1; i < pts.length; i++) {
+              if (t <= pts[i].t) return pts[i - 1].r[p] + (pts[i].r[p] - pts[i - 1].r[p]) * (t - pts[i - 1].t) / (pts[i].t - pts[i - 1].t);
+          }
+          return pts[pts.length - 1].r[p];
+      };
+      return realRecs.map(function(rec) {
+          var t = new Date(rec.date).getTime(), out = {date: rec.date}, sum = 0;
+          Q.parties.forEach(function(p) {
+              if (rec[p] === null || rec[p] === undefined) return;
+              out[p] = rec[p] * ratio(p, t);
+              sum += out[p];
+          });
+          Q.parties.forEach(function(p) { if (out[p] !== undefined && sum) out[p] = 100 * out[p] / sum; });
+          return out;
+      });
+  };
+  var exitAnchors = function(group, Q) {
+      var keys = ['union', 'spd', 'gruene', 'fdp', 'afd', 'linke', 'bsw', 'other'];
+      if (Q.player == 'linke') keys = ['union', 'linke', 'gruene', 'fdp', 'afd', 'spd', 'bsw', 'other'];
+      return EXIT_POLLS.filter(function(e) { return e.groups[group]; }).map(function(e) {
+          var row = e.groups[group], values = {};
+          keys.forEach(function(k, i) { if (row[i + 1] !== null) values[k] = row[i + 1]; });
+          return {x: e.date.getTime(), label: e.label + (/amtlich/.test(row[0]) ? ': ' : ', Wahltagsbefragung: ') + row[0], short: e.short, values: values};
+      });
+  };
 
   // Treiber des Umfragetrends im letzten Monat (post_event, Durchgang 4.7): Q.poll_why = [{t: Text, d: [[Partei, Punkte], ...]}]
   var pollWhy = function(Q, names) {
@@ -1211,6 +1287,13 @@
           for (var p of parties) d[p] = r[group ? group + '_' + p : p];
           return d;
       });
+      // vor dem Spielstart gibt es keine Monatswerte nach Gruppen: geschätzt (estimateGroup), gepunktet gezeichnet
+      var estTo = null;
+      if (group && real.length) {
+          var est = estimateGroup(group, Q, records.slice(0, real.length), records[real.length]);
+          est.forEach(function(e, i) { data[i] = e; });
+          estTo = new Date(records[real.length - 1].date).getTime();
+      }
 
       // real: Q.poll_real (post_event, bis November 2026) = reale Monatsmittel je Slot zum Vergleich mit unserem Verlauf
       var bars = function(values, real) {
@@ -1245,9 +1328,13 @@
               }).join('') + '</select></label>';
       };
       var nowGroup = groups.indexOf(window.pollNowGroup) >= 0 ? window.pollNowGroup : '';
-      var html = select('Verlauf seit Januar 2023', group, 'pollGroup') +
+      var html = select(group ? 'Verlauf' : 'Verlauf seit Januar 2023', group, 'pollGroup') +
           '<div id="poll_graph" class="viz_card"></div>' +
-          (group ? '<p class="poll_note">Umfragen nach Wählergruppen werden nicht monatlich veröffentlicht; der Verlauf beginnt deshalb beim Spielstart im November 2024.</p>' : '') +
+          (group ? '<p class="poll_note">Umfragen nach Wählergruppen werden nicht monatlich veröffentlicht. Vor dem Spielstart ist der Verlauf geschätzt: ' +
+              'die Gesamtumfrage des Monats, verschoben um den Abstand der Gruppe ' +
+              (group == 'rural' ? 'bei der Bundestagswahl 2021 (amtliches Ergebnis in sehr ländlichen Kreisen, offene Punkte) und beim Spielstart.' :
+                  'bei den Wahltagsbefragungen von infratest dimap (offene Punkte) und beim Spielstart. ' +
+                  'Bei der Europawahl gab es keine Fünf-Prozent-Hürde, deshalb wählten mehr Menschen kleine Parteien.') + '</p>' : '') +
           pollWhy(Q, names) +
           select('Aktuelle Umfrage', nowGroup, 'pollNowGroup') +
           bars(nowGroup ? groupValues(nowGroup) : now) +
@@ -1263,12 +1350,17 @@
       VIZ.line(document.getElementById('poll_graph'), {
           time: true, legend: 'values', label: 'Umfrageverlauf seit Januar 2023',
           focus: window.pollFocus, onFocus: function(k) { window.pollFocus = k; },
-          past: {to: GAME_START.getTime(), label: 'reale Umfragen'},
+          past: {to: GAME_START.getTime(), label: group ? '' : 'reale Umfragen'},
+          xFormat: function(t) {
+              var d = new Date(t);
+              return d.getMonth() ? ['', 'Feb', 'März', 'Apr', 'Mai', 'Juni', 'Juli', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'][d.getMonth()] : String(d.getFullYear());
+          },
+          anchors: group ? exitAnchors(group, Q) : null,
           title: function(t) { return econDate(t); },
           value: function(v) { return VIZ.num(v, 1) + ' %'; },
           series: parties.map(function(p) {
               return {key: p, name: names[p], color: p == 'union' ? 'var(--party-union)' : colors[p],
-                      points: data.map(function(d) { return [new Date(d.date).getTime(), d[p]]; })};
+                      points: data.map(function(d) { return [new Date(d.date).getTime(), d[p]]; }), estTo: estTo};
           })
       });
   };

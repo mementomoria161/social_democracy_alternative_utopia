@@ -1,7 +1,8 @@
 /* Gemeinsames Liniendiagramm für Seitenleiste und Bibliothek (Farben und Aussehen: game.css, „Diagramme“).
  *
  * VIZ.line(container, {
- *     series: [{key, name, short, color, points: [[x, y], ...], dash, bold, dot, digits, range}],
+ *     series: [{key, name, short, color, points: [[x, y], ...], dash, bold, dot, digits, range, estTo}],
+ *                              estTo: Werte bis einschließlich x sind geschätzt („≈“ im Tooltip)
  *     time: true,              x sind Zeitstempel in ms (sonst Zahlen, z. B. Jahre)
  *     height, yDomain, xDomain, xTicks: [..], xFormat(x), yFormat(v),
  *     title(x),                Kopfzeile im Tooltip
@@ -13,6 +14,8 @@
  *     dots: true,              Punkt je Wert (wenige Werte, z. B. Wahlen)
  *     past: {to: x, label},    hinterlegter Bereich (Werte vor dem Spielstart)
  *     marks: [{x, y, color, text}], unit, label (aria)
+ *     anchors: [{x, label, values: {key: v}}]  einzelne belegte Werte ohne Verlauf (z. B. Wahltagsbefragungen):
+ *                              offene Punkte in der Farbe der Reihe, nicht mit der Linie verbunden
  * })
  */
 window.VIZ = (function() {
@@ -75,6 +78,12 @@ window.VIZ = (function() {
 
         var all = [];
         series.forEach(function(s) { all = all.concat(s.points); });
+        var anchors = (o.anchors || []).filter(function(a) { return a && a.values; });
+        var anchorAt = {};
+        anchors.forEach(function(a) {
+            anchorAt[a.x] = a;
+            series.forEach(function(s) { if (has(a.values[s.key])) all.push([a.x, a.values[s.key]]); });
+        });
         var xDom = o.xDomain || d3.extent(all, function(d) { return d[0]; });
         if (xDom[0] === xDom[1]) { var pad = o.time ? 30 * 864e5 : 0.5; xDom = [xDom[0] - pad, xDom[1] + pad]; }
         var visible = all.filter(function(d) { return d[0] >= xDom[0] && d[0] <= xDom[1]; });
@@ -160,6 +169,15 @@ window.VIZ = (function() {
             }
         });
 
+        anchors.forEach(function(a) {
+            svg.append('text').attr('class', 'viz_past_label').attr('x', x(a.x)).attr('y', m.top + 10).attr('text-anchor', 'middle').text(a.short || a.label);
+            series.forEach(function(s) {
+                if (!has(a.values[s.key])) return;
+                g.append('circle').attr('class', 'viz_anchor' + (focus !== null && s.key !== focus ? ' dim' : '')).style('stroke', s.color)
+                    .attr('r', 4).attr('cx', x(a.x)).attr('cy', y(a.values[s.key]));
+            });
+        });
+
         (o.marks || []).forEach(function(mk) {
             svg.append('circle').attr('class', 'viz_target').style('stroke', mk.color).attr('r', 4.5).attr('cx', x(mk.x)).attr('cy', y(mk.y));
             if (mk.text) svg.append('text').attr('class', 'viz_mark_label').attr('x', x(mk.x) + 8).attr('y', y(mk.y) - 7).text(mk.text);
@@ -176,9 +194,9 @@ window.VIZ = (function() {
             .on('pointermove pointerdown', function(ev) {
                 var raw = +x.invert(d3.pointer(ev)[0]);
                 var t = o.snap ? o.snap(raw) : xs[d3.bisectCenter(xs, raw)];
-                var slack = o.time ? 20 * 864e5 : 0.05;
+                var slack = o.time ? 20 * 864e5 : 0.05, an = anchorAt[t];
                 var rows = series.map(function(s) {
-                    var v = at(s.points, t, s.range === undefined ? slack : s.range);
+                    var v = an ? (has(an.values[s.key]) ? an.values[s.key] : null) : at(s.points, t, s.range === undefined ? slack : s.range);
                     return v === null ? null : {s: s, v: v};
                 }).filter(function(r) { return r; });
                 if (!rows.length) return hide();
@@ -191,12 +209,13 @@ window.VIZ = (function() {
                 });
                 tip.selectAll('*').remove();
                 tip.style('display', null);
-                tip.append('div').attr('class', 'viz_tip_title').text(o.title ? o.title(t) : xFormat(t));
+                tip.append('div').attr('class', 'viz_tip_title').text(an ? an.label : o.title ? o.title(t) : xFormat(t));
                 rows.forEach(function(r) {
                     var row = tip.append('div').attr('class', 'viz_tip_row');
                     row.append('i').style('color', r.s.color);
                     row.append('span').text(r.s.name);
-                    row.append('b').text(value(r.v, r.s));
+                    var est = !an && r.s.estTo !== undefined && r.s.estTo !== null && t <= r.s.estTo;
+                    row.append('b').text((est ? '≈ ' : '') + value(r.v, r.s));
                 });
                 var w = tip.node().offsetWidth;
                 var left = tx + 12 + w > width ? tx - 12 - w : tx + 12;
