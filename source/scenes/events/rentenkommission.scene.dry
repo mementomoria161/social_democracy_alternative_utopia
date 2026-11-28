@@ -1,46 +1,78 @@
 title: Die Rentenkommission legt ihren Bericht vor
-subtitle: Wie soll die Rente in Zukunft finanziert werden?
+subtitle: 33 Empfehlungen und ein Gesetz bis Jahresende
 new-page: true
 tags: event
-view-if: year = 2027 and month >= 6 and month <= 9 and ((player = "spd" and spd_in_government) or (player = "linke" and not spd_in_government))
-go-to: linke if player = "linke" and not spd_in_government
+view-if: year = 2026 and month = 7 and rentenkommission_seen = 0
+go-to: linke if player = "linke"; regierung if player = "spd" and spd_in_government; opposition if player = "spd" and not spd_in_government
 max-visits: 1
 on-arrival: rentenkommission_seen = 1
 face-image: img/sozialstaat.jpg
 
+# Realer Verlauf (ZDF „33 Vorschläge“, Bundesregierung FAQ Rentenreform, DRV-Stellungnahme 23.06.2026): Die
+# Alterssicherungskommission legt am 23.06.2026 ihren Bericht vor: Regelaltersgrenze ab 2032 im Verhältnis 2:1 an die
+# Lebenserwartung koppeln, abschlagsfreie Rente nach 45 Beitragsjahren abschaffen, Haltelinie 48 % bis 2031 (Rentenpaket 2025),
+# danach wieder Nachhaltigkeitsfaktor, teilweise Kapitaldeckung. Koalitionsausschuss 02.07.2026: vollständige Umsetzung,
+# Gesetz bis Ende 2026, Bundestag/Bundesrat im ersten Quartal 2027. Vorher lag das Ereignis im Spiel 2027 und war nur in der
+# Regierung erreichbar. rente_reform: 1 vollständig umgesetzt, 2 mit Härtefallregel, 3 Rente mit 63 verteidigt, 4 Opposition.
+
 = Die Rentenkommission
 
-Die Rentenkommission der Bundesregierung legt ihren Bericht vor. Die Babyboomer gehen in Rente, die Beiträge steigen, und der Zuschuss aus dem Bundeshaushalt wächst Jahr für Jahr. Die Kommission schlägt verschiedene Wege vor; die Union favorisiert ein späteres Renteneintrittsalter, die Gewerkschaften wollen das Rentenniveau sichern.
+Am 23. Juni legt die Alterssicherungskommission ihren Bericht vor: 33 Empfehlungen. Die Regelaltersgrenze soll ab 2032 mit der Lebenserwartung steigen, zwei Drittel jedes gewonnenen Jahres für die Arbeit, ein Drittel für die Rente. Die abschlagsfreie Rente nach 45 Beitragsjahren soll wegfallen. Die Haltelinie von 48 Prozent gilt bis 2031, danach soll das Rentenniveau wieder sinken dürfen. Dazu kommt ein Einstieg in eine kapitalgedeckte Säule.
 
-- @niveau: Das Rentenniveau bei 48 Prozent dauerhaft sichern und Beamte und Selbstständige einbeziehen.
-- @alter: Das Renteneintrittsalter an die Lebenserwartung koppeln.
-- @kapital: Eine kapitalgedeckte Säule nach schwedischem Vorbild aufbauen.
+Anfang Juli verständigt sich der Koalitionsausschuss darauf, die Empfehlungen vollständig umzusetzen; das Gesetz soll bis Jahresende stehen. Gewerkschaften und Sozialverbände laufen Sturm, die Arbeitgeber finden, es gehe nicht weit genug.
 
-@niveau
-on-arrival: welfare += 1; rentner_spd += 6*(1-dissent); workers_spd += 3*(1-dissent); old_middle_spd -= 4; new_middle_spd -= 2; labor_dissent -= 8; left_dissent -= 5; coalition_dissent += 1 if in_grand_coalition; union_relation -= 5; fdp_relation -= 5
+@regierung
+# party: spd
 
-Das Rentenniveau wird dauerhaft gesichert, und schrittweise zahlen auch neue Beamte und Selbstständige in die gesetzliche Rente ein. Die Gewerkschaften jubeln, Beamtenbund und Union protestieren.
+[? if labor_minister = "Bas" : Bärbel Bas muss das Gesetz schreiben ?][? if labor_minister != "Bas" : Das Gesetz kommt aus dem Arbeitsministerium?], und in der Fraktion rumort es. Die Gewerkschafter\*innen sagen, die „Rente mit 63“ sei für Dachdecker und Pflegekräfte keine Wohltat, sondern Notwendigkeit. Wo ziehen wir die Grenze?
 
-@alter
-on-arrival: budget += 1; rentner_spd -= 3; workers_spd -= 6; labor_dissent += 12; left_dissent += 8; union_relation += 5; fdp_relation += 5; workers_afd += 3; workers_linke += 3
+- @voll: Vollständig umsetzen, wie verabredet.
+- @haerte: Umsetzen, aber mit einer Härtefallregel für lange Erwerbsbiografien und körperlich harte Berufe.
+- @verteidigen: Die abschlagsfreie Rente nach 45 Jahren verteidigen und die Haltelinie über 2031 hinaus verlangen.
 
-Das Renteneintrittsalter steigt künftig mit der Lebenserwartung. Für Beschäftigte in harten Berufen ist das eine bittere Nachricht, und AfD und Linke greifen das Thema dankbar auf.
+@voll
+on-arrival: rente_reform = 1; budget += 1; union_relation += 4; coalition_dissent -= 1 if coalition_dissent > 0; labor_dissent += 8; left_dissent += 6; workers_spd -= 2*(1-dissent); rentner_spd -= 1.5*(1-dissent); workers_linke += 1; rentner_afd += 1; gr_dgb -= 6; gr_vdk -= 6
 
-@kapital
-subtitle: -1 Haushaltsspielraum
-choose-if: budget >= 1
-unavailable-subtitle: Dafür fehlt uns der Haushaltsspielraum.
-on-arrival: budget -= 1; new_middle_spd += 3*(1-dissent); old_middle_spd += 2*(1-dissent); rentner_spd += 1; left_dissent += 3; fdp_relation += 6; economic_growth += 0.1
+Wir halten Wort. Ökonom\*innen und Union loben die Verlässlichkeit, der Haushalt atmet etwas auf. In den Betrieben aber heißt es, die SPD habe die Rente mit 63 abgeschafft, und die Gewerkschaften kündigen Widerstand an.
 
-Ein staatlich verwalteter Fonds nach schwedischem Vorbild soll die gesetzliche Rente ergänzen. Ökonomen loben den Schritt, die Parteilinke fürchtet den Einstieg in die Privatisierung.
+@haerte
+on-arrival: rente_reform = 2; union_relation -= 2; coalition_dissent += 1; labor_dissent -= 2; left_dissent += 2; profil += 1; rentner_spd += 0.5*(1-dissent); gr_dgb += 3
+
+Nach zähen Verhandlungen steht ein Kompromiss: Wer 45 Jahre gearbeitet hat und körperlich schwer arbeitet, kann weiter ohne Abschläge früher gehen. Die Union murrt über die Kosten, die Gewerkschaften nennen es einen Teilerfolg.
+
+@verteidigen
+on-arrival: rente_reform = 3; union_relation -= 7; coalition_dissent += 2; labor_dissent -= 8; left_dissent -= 5; reformist_dissent += 5; profil += 1.5; workers_spd += 1.5*(1-dissent); rentner_spd += 1.5*(1-dissent); gr_dgb += 6; gr_vdk += 5; gr_bda -= 6
+
+Wir stellen uns quer: Ohne die Rente nach 45 Jahren und ohne eine Haltelinie über 2031 hinaus gibt es kein Gesetz. Die Union spricht von Wortbruch, der Koalitionsausschuss tagt bis in die Nacht. In den Betrieben und bei den Sozialverbänden gewinnen wir Vertrauen zurück.
+
+@opposition
+# party: spd
+
+Wir sitzen nicht am Kabinettstisch, aber ohne die Länder und ohne Mehrheiten im Bundestag geht auch dieses Gesetz nicht durch. Wie positionieren wir uns?
+
+- @opp_kampagne: Eine Kampagne mit Gewerkschaften und Sozialverbänden gegen die Abschaffung der Rente mit 63.
+- @opp_mitarbeit: Einen Gegenentwurf vorlegen: Erwerbstätigenversicherung, in die auch Beamte und Selbstständige einzahlen.
+
+@opp_kampagne
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: rente_reform = 4; resources -= 1; workers_spd += 2*(1-dissent); rentner_spd += 2*(1-dissent); labor_dissent -= 5; gr_dgb += 5; gr_vdk += 4
+
+Mit DGB, ver.di und dem VdK gehen wir auf die Straße. Die Kampagne „45 Jahre sind genug“ trifft einen Nerv.
+
+@opp_mitarbeit
+on-arrival: rente_reform = 4; new_middle_spd += 1*(1-dissent); rentner_spd += 1*(1-dissent); labor_dissent -= 2; reformist_dissent -= 1
+
+Unser Gegenentwurf rechnet vor, wie eine Erwerbstätigenversicherung das Rentenniveau stabilisieren könnte. Die Fachpresse nimmt ihn ernst, die Regierung lehnt ab.
 
 @linke
-# Linke in der Opposition (Durchgang 4.3).
+# Linke in der Opposition (Durchgang 4.3, Nov. 2026 auf den realen Bericht umgestellt).
 
-[? if player = "linke" : In der Regierung wird über ein höheres Rentenalter gestritten. Wir sind in der Opposition, aber die Rente ist eines unserer stärksten Themen. ?]
+Wir sind in der Opposition, aber die Rente ist eines unserer stärksten Themen, und die SPD steht unter Druck.
 
 - @lk_oesterreich: Für eine Rente nach österreichischem Vorbild werben: Alle zahlen ein, die Renten sind höher.
-- @lk_rente70: Eine Kampagne gegen die „Rente mit 70“ starten.
+- @lk_rente70: Eine Kampagne gegen das höhere Rentenalter und gegen die Abschaffung der Rente nach 45 Jahren.
 - @lk_ost: Die Renten im Osten und die Grundrente in den Mittelpunkt stellen.
 
 @lk_oesterreich
@@ -54,7 +86,7 @@ choose-if: resources >= 1
 unavailable-subtitle: Nicht genug Ressourcen.
 on-arrival: resources -= 1; rentner_spd += 3*(1-dissent); workers_spd += 2*(1-dissent); labor_dissent -= 4; labor_strength += 2
 
-„Wer am Bau arbeitet, schafft es nicht bis 70“: Mit Gewerkschafter\*innen, Pflegekräften und Dachdeckern starten wir eine Kampagne. Sie kommt an, gerade bei denen, die körperlich arbeiten.
+„Wer am Bau arbeitet, schafft es nicht bis 69“: Mit Gewerkschafter\*innen, Pflegekräften und Dachdeckern starten wir eine Kampagne. Sie kommt an, gerade bei denen, die körperlich arbeiten.
 
 @lk_ost
 on-arrival: rentner_spd += 2*(1-dissent); rural_spd += 1*(1-dissent); neorevisionist_dissent -= 3; reformist_dissent -= 2

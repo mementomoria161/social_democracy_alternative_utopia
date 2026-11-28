@@ -1,0 +1,36 @@
+title: Landtagswahl in Niedersachsen
+subtitle: Ein SPD-Kernland wählt.
+new-page: true
+tags: event
+view-if: year = 2027 and month = 10 and nds_2027_seen = 0
+max-visits: 1
+on-arrival: nds_2027_seen = 1; nds_lost = 1 if (player = "spd" and spd_votes < 15) or (player = "linke" and linke_votes < 15); spd_prussia = 0 if nds_lost and saar_lost and rp_lost and player = "spd"; center_dissent += 6 if nds_lost and player = "spd"; reformist_dissent += 4 if nds_lost and player = "spd"; pro_republic += 1 if not nds_lost
+go-to: linke if player = "linke"
+face-image: img/wahlkampf.jpg
+
+# Termin real: Herbst 2027 (Bundeswahlleiterin, wahlrecht.de), genaues Datum noch offen. 2022: SPD 33,4 %, CDU 28,1, Grüne 14,5,
+# AfD 11,0; Rot-Grün. Ministerpräsident seit Mai 2025 Olaf Lies (Nachfolger von Stephan Weil). Ausgang Fiktion.
+
+= Landtagswahl in Niedersachsen
+
+# party-ok: SPD, Willy-Brandt-Haus (reale Landesregierung)
+In Niedersachsen, wo Gerhard Schröder, Sigmar Gabriel, Stephan Weil und Lars Klingbeil herkommen, verteidigt Olaf Lies die Staatskanzlei. Es ist das größte Land, das die SPD noch regiert.
+
+[? if not nds_lost : Lies hält das Land knapp, die SPD bleibt stärkste Kraft und regiert weiter mit den Grünen. In Hannover wird gefeiert, im Willy-Brandt-Haus durchgeatmet. ?][? if nds_lost : Die CDU gewinnt die Wahl, die AfD wird zweitstärkste Kraft vor der SPD. Nach zehn Jahren verliert die SPD Niedersachsen. ?]
+
+- @weiter: Weiter.
+
+@weiter
+
+[? if nds_lost : In der Partei beginnt die Suche nach Schuldigen, und manche fragen, ob die Bundespartei noch die richtige Richtung hat. ?][? if not nds_lost : Der Sieg zeigt, dass die SPD gewinnen kann, wo sie verlässlich regiert. ?]
+
+@linke
+# Linke-Fassung. 2022: Linke 2,7 %.
+
+[? if spd_votes >= 8 : Die Linke zieht in den Landtag in Hannover ein, getragen von Göttingen, Hannover, Oldenburg und Osnabrück. ?][? if spd_votes < 8 : Die Linke bleibt in Niedersachsen unter fünf Prozent. ?] [? if nds_lost : Die SPD verliert eines ihrer Kernländer. ?]
+
+- @lk_weiter: Weiter.
+
+@lk_weiter
+
+Weiter geht es.

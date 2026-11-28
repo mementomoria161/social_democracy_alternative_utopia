@@ -1,0 +1,55 @@
+title: Haushaltswoche
+subtitle: Der Bundestag beschließt den Etat für das nächste Jahr.
+new-page: true
+tags: event
+view-if: (year = 2027 or year = 2028) and month = 11 and haushaltswoche_last != year
+on-arrival: haushaltswoche_last = year
+go-to: regierung if spd_in_government; opposition if not spd_in_government
+face-image: img/bundestag_plenum.jpg
+
+# G2 (Realitätscheck Nov. 2026): wiederkehrendes Format im Spätspiel. Real wird der Haushalt jeweils Ende November beschlossen
+# (2026: Haushaltsausschuss 13.11., Lücke von 34 Mrd. Euro geschlossen). Ausgang und Zahlen ab 2027 Fiktion.
+
+= Haushaltswoche
+
+Ende November debattiert der Bundestag vier Tage lang den Haushalt für das kommende Jahr. Die Steuereinnahmen [? if economic_growth >= 1 : steigen wieder, ?][? if economic_growth < 1 : bleiben hinter den Erwartungen zurück, ?]die Zinsen und die Verteidigungsausgaben wachsen, und die Mittel aus dem Sondervermögen müssen endlich abfließen.
+
+@regierung
+
+Im Koalitionsausschuss wird um jede Milliarde gerungen. Wo setzen wir den Schwerpunkt?
+
+- @invest: Investitionen: Schulen, Schiene, Wohnungen, auch wenn dafür an anderer Stelle gespart werden muss.
+- @sozial: Den Sozialstaat sichern: keine Kürzungen bei Grundsicherung, Pflege und Kitas.
+- @konsolidieren: Konsolidieren: Ausgaben begrenzen, um Spielraum für die Zukunft zu gewinnen.
+
+@invest
+on-arrival: budget -= 1 if budget > 0; invest_bonus += 1; shock_bau += 0.5; new_middle_spd += 0.5*(1-dissent); workers_spd += 0.5*(1-dissent); gr_dgb += 2
+
+Wir setzen durch, dass zusätzliche Mittel in Schulen, Schiene und Wohnungsbau fließen. Die Bauwirtschaft und die Kommunen loben uns, die Haushälter\*innen der Union verlangen dafür Einsparungen bei der Verwaltung.
+
+@sozial
+on-arrival: welfare += 1 if welfare < 3; budget -= 1 if budget > 0; rentner_spd += 0.5*(1-dissent); unemployed_spd += 0.5*(1-dissent); gr_vdk += 3; coalition_dissent += 1 if union_in_government
+
+Die geplanten Kürzungen bei Pflege und Grundsicherung fallen weg. Die Union verbucht das als teures Zugeständnis, die Sozialverbände als Erfolg.
+
+@konsolidieren
+on-arrival: budget += 1; union_relation += 3; left_dissent += 3; labor_dissent += 2; gr_vdk -= 3
+
+Wir begrenzen die Ausgaben. Die Ratingagenturen und die Union sind zufrieden, an der Basis fragt man, wofür [+ pp_full +] in dieser Koalition eigentlich sitzt.
+
+@opposition
+
+In der Opposition haben wir in der Haushaltswoche vor allem die Redezeit. Wofür nutzen wir sie?
+
+- @opp_gegenhaushalt: Einen Gegenhaushalt vorlegen: was wir mit dem Geld anders machen würden.
+- @opp_kuerzungen: Die Kürzungen beim Sozialstaat anprangern.
+
+@opp_gegenhaushalt
+on-arrival: new_middle_spd += 1*(1-dissent); old_middle_spd += 0.5*(1-dissent); reformist_dissent -= 2
+
+Unser Gegenhaushalt ist durchgerechnet. Die Regierung lehnt ihn ab, aber die Fachpresse vergleicht.
+
+@opp_kuerzungen
+on-arrival: unemployed_spd += 1*(1-dissent); rentner_spd += 0.5*(1-dissent); left_dissent -= 2; gr_vdk += 2
+
+Wir greifen jede Kürzung beim Sozialstaat an. In den Talkshows ist das wirkungsvoll, in der Mitte überzeugt es nicht jeden.

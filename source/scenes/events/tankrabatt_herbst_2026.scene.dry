@@ -1,0 +1,35 @@
+title: Der Tankrabatt kehrt zurück
+subtitle: Inflation über drei Prozent.
+new-page: true
+tags: event
+view-if: year = 2026 and month = 9 and tankrabatt2_seen = 0 and golfkrieg_seen = 1
+max-visits: 1
+on-arrival: tankrabatt2_seen = 1; tankrabatt = 3
+face-image: img/international.jpg
+
+# Real (Destatis, Bundestag 25.09.2026, Auto Bild, DIW-Tankrabatt-Monitor): Inflation August 2,9 %, September 3,3 % (höchster
+# Wert seit Dezember 2023). Neue Energiesteuersenkung vom 1. Oktober bis 31. Dezember 2026, rund 17 Cent je Liter; das
+# Bundeskartellamt leitet Verfahren gegen alle Raffineriebetreiber ein; für die Zeit danach ist ein Spritpreisdeckel im Gespräch.
+
+= Der Tankrabatt kehrt zurück
+
+Im September steigt die Inflation auf 3,3 Prozent, so hoch wie seit drei Jahren nicht. Die Koalition beschließt einen zweiten Tankrabatt für Oktober bis Dezember, rund 17 Cent je Liter. Das Bundeskartellamt ermittelt gegen alle Raffinerien, weil die Preise stärker gestiegen sind, als der Ölpreis erklärt. Für die Zeit danach wird über einen Spritpreisdeckel gestritten.
+
+- @deckel: Einen Spritpreisdeckel nach dem Rabatt fordern.
+- @klimageld: Die Debatte drehen: Klimageld und günstiger Nahverkehr statt immer neuer Rabatte.
+- @konzerne: Die Raffinerien zur Rechenschaft ziehen: Übergewinne abschöpfen, Preise offenlegen.
+
+@deckel
+on-arrival: rural_spd += 1*(1-dissent); workers_spd += 0.5*(1-dissent); gr_bda -= 2; reformist_dissent += 2
+
+Ein Preisdeckel ist populär, aber Ökonom\*innen warnen vor Engpässen an der Tankstelle. In der Koalition wird weiter verhandelt.
+
+@klimageld
+on-arrival: new_middle_spd += 1*(1-dissent); gr_klima += 4; gr_umwelt += 2; rural_spd -= 0.5; kp_klimageld_debatte = 1
+
+Wir rechnen vor: Ein Klimageld von 150 Euro pro Kopf würde Familien mit kleinen Einkommen mehr entlasten als jeder Rabatt. In den Städten kommt das an, auf dem Land weniger.
+
+@konzerne
+on-arrival: left_dissent -= 3; workers_spd += 1*(1-dissent); unemployed_spd += 0.5*(1-dissent); union_relation -= 2; gr_bda -= 3
+
+Wir verlangen, dass die Raffinerien ihre Kalkulation offenlegen und Übergewinne abgeschöpft werden. Die Union bremst, aber das Thema bleibt in den Schlagzeilen.

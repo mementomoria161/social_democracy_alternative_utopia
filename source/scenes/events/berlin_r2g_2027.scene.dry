@@ -1,0 +1,39 @@
+title: Rot-Grün-Rot in Berlin
+subtitle: Die SPD als Juniorpartnerin der Linken?
+new-page: true
+tags: event
+view-if: player = "spd" and year = 2027 and month = 1 and berlin_r2g_seen = 0
+max-visits: 1
+on-arrival: berlin_r2g_seen = 1
+face-image: img/bundesrat.jpg
+
+# Real (bpb, Jüdische Allgemeine, Volksstimme, Stand November 2026): Nach der Wahl vom 20.09.2026 (Linke 25,7, CDU 18,8, AfD
+# 16,3, Grüne 14,3, SPD 12,1) verhandeln Linke, Grüne und SPD seit dem 02.11.2026; Koalitionsvertrag laut SPD-Landeschefin
+# Bettina König Anfang 2027; Elif Eralp wäre die erste Regierende Bürgermeisterin der Linken. Ausgang ab Januar 2027 Fiktion.
+
+= Rot-Grün-Rot in Berlin
+
+In Berlin liegt der Koalitionsvertrag von Linken, Grünen und SPD auf dem Tisch. Elif Eralp soll Regierende Bürgermeisterin werden, die SPD wäre zum ersten Mal Juniorpartnerin der Linken in einem Land. Der Vertrag verspricht einen Mietendeckel für landeseigene Wohnungen, ein Gesetz zur Vergesellschaftung großer Wohnungskonzerne und ein günstigeres Ticket. Streit gab es vor allem über das Geld und über den Umgang mit Antisemitismus. Die CDU warnt vor einem „Linksbündnis“, die Wirtschaft vor Enteignungen.
+
+Die Berliner SPD lässt ihre Mitglieder abstimmen. Was empfiehlt die Bundespartei?
+
+- @ja: Zustimmen: Eine Regierung der linken Mitte in der Hauptstadt ist besser als die Opposition.
+- @frei: Die Berliner entscheiden lassen und sich aus Berlin heraushalten.
+- @nein: Abraten: Die SPD darf nicht Anhängsel der Linken werden.
+
+@ja
+on-arrival: berlin_r2g = 1; linke_relation += 6; union_relation -= 3; left_dissent -= 4; reformist_dissent += 4; new_middle_spd += 0.5*(1-dissent); old_middle_spd -= 0.5
+
+Zwei Drittel der Berliner Mitglieder stimmen zu, Elif Eralp wird gewählt. Für die Linke ist es ein historischer Tag. Für uns ist es eine neue Erfahrung: regieren in der zweiten Reihe.
+
+@frei
+on-arrival: berlin_r2g = 1; center_dissent -= 2
+
+Die Berliner Mitglieder stimmen knapp zu. Die Bundespartei schweigt, was ihr in Berlin niemand übelnimmt und im Rest der Republik kaum jemand bemerkt.
+
+@nein
+on-arrival: berlin_r2g = 0; linke_relation -= 8; reformist_dissent -= 4; left_dissent += 6; union_relation += 2
+
+Die Berliner Mitglieder lehnen den Vertrag knapp ab. Die Linke bildet mit den Grünen eine Minderheitsregierung, die von Fall zu Fall Mehrheiten sucht. In der Berliner SPD hängt der Haussegen schief.
+
+(Der Ausgang ist Fiktion; die Verhandlungen liefen Ende November 2026 noch.)

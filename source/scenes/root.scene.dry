@@ -655,6 +655,15 @@ Q.bas_ruecktritt_seen = 0;
 // einer Unions-Minderheitsregierung (events/minderheitsregierung, _ende): minderheit_seen (Wahlperiode des letzten Auftretens),
 // minderheit_frist (Monat, bis zu dem der Tolerierungsvertrag läuft; 0 = keiner)
 Q.union_alt = 0; Q.minderheit_seen = 0; Q.minderheit_frist = 0;
+// Realitätscheck Etappe 2 (Nov. 2026): reale Ereignisse 2026–2028 (events/golfkrieg_2026, tankrabatt_2026, tankrabatt_herbst_2026,
+// rentenkommission, sachsen_anhalt_mp_2026, spd_parteitag_2027, berlin_r2g_2027, saarland_2027, niedersachsen_2027,
+// bayern_hessen_2028, haushaltswoche). oil_shock/tankrabatt: Kraftstoffanteil im Energiepreisindex (climate_data);
+// rente_reform 0–4; sa_mp 0 offen/1 Siegmund/2 demokratisch/3 Neuwahl; spd_vorsitz_2027 0/1 Klingbeil-Schwesig/2 Heil-Duo;
+// berlin_r2g 1 = Rot-Grün-Rot unter Eralp; saar_lost, nds_lost; csu_stark (K-Frage); invest_bonus (Wachstumstrend).
+Q.golfkrieg_seen = 0; Q.oil_shock = 0; Q.tankrabatt = 0; Q.tankrabatt_seen = 0; Q.tankrabatt2_seen = 0; Q.kp_klimageld_debatte = 0;
+Q.rente_reform = 0; Q.sa_mp_seen = 0; Q.sa_mp = 0; Q.afd_land = 0; Q.spd_parteitag_2027_seen = 0; Q.spd_vorsitz_2027 = 0;
+Q.berlin_r2g_seen = 0; Q.berlin_r2g = 0; Q.saarland_2027_seen = 0; Q.saar_lost = 0; Q.nds_2027_seen = 0; Q.nds_lost = 0;
+Q.rentenkommission_seen = Q.rentenkommission_seen || 0; Q.by_he_2028_seen = 0; Q.csu_stark = 0; Q.afd_land_stark = 0; Q.haushaltswoche_last = 0; Q.invest_bonus = 0;
 Q.schwesig_campaign = 0; Q.gruene_support_schwesig = 0; Q.linke_support_schwesig = 0; Q.spd_support_thalmann = 0;
 Q.hitler_support_hindenburg = 0; Q.election_round = 0; Q.bv_mode = 0; Q.bv_round = 0;
 Q.hindenburg_votes = 0; Q.thalmann_votes = 0; Q.hitler_votes = 0; Q.schwesig_votes = 0;

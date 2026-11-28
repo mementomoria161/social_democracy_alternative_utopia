@@ -1,0 +1,37 @@
+title: Landtagswahl im Saarland
+subtitle: Kann Anke Rehlinger die Staatskanzlei halten?
+new-page: true
+tags: event
+view-if: year = 2027 and month = 4 and saarland_2027_seen = 0
+max-visits: 1
+on-arrival: saarland_2027_seen = 1; saar_lost = 1 if (player = "spd" and spd_votes < 13) or (player = "linke" and linke_votes < 13); left_dissent += 2 if saar_lost and player = "spd"; center_dissent += 3 if saar_lost and player = "spd"
+go-to: linke if player = "linke"
+face-image: img/wahlkampf.jpg
+
+# Termin real: 18.04.2027 (Ministerrat des Saarlandes, 03.03.2026). 2022: SPD 43,5 % und absolute Mehrheit (Rehlinger),
+# CDU 28,5, AfD 5,7, Linke 2,6. Ausgang Fiktion, abhängig von der Bundesumfrage der SPD (im Linke-Spiel Slot linke).
+
+= Landtagswahl im Saarland
+
+# party-ok: SPD (reale Landesregierung)
+Im Saarland regiert die SPD seit 2022 mit absoluter Mehrheit, Anke Rehlinger ist eine der beliebtesten Ministerpräsidentinnen. Doch der Bundestrend ist schlecht, und an der Saar haben Stahl und Autozulieferer Tausende Arbeitsplätze abgebaut.
+
+[? if not saar_lost : Rehlinger verliert die absolute Mehrheit, bleibt aber mit großem Abstand vorn und regiert künftig mit einem Partner. ?][? if saar_lost : Die CDU wird knapp stärkste Kraft, die AfD legt kräftig zu. Rehlinger verliert die Staatskanzlei. ?]
+
+- @weiter: Weiter.
+
+@weiter
+
+[? if not saar_lost : Ein seltener guter Abend für die SPD in diesen Jahren. ?][? if saar_lost : Wieder ein Land weniger. ?]
+
+@linke
+# Linke-Fassung. Die Saar war einst Lafontaines Hochburg (2009: 21,3 %), 2022 nur noch 2,6 %.
+
+[? if spd_votes >= 9 : Die Linke zieht nach fünf Jahren wieder in den Saarbrücker Landtag ein. ?][? if spd_votes < 9 : Die Linke scheitert an der Saar erneut an der Fünf-Prozent-Hürde. In der einstigen Hochburg ist vom Aufbruch im Bund wenig zu spüren. ?]
+
+- @lk_weiter: Weiter.
+
+@lk_weiter
+on-arrival: reformist_dissent -= 2 if spd_votes >= 9
+
+Weiter geht es.

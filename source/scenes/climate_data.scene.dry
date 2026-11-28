@@ -238,7 +238,13 @@ var CLIM = {
         if (brake) { sh = Math.min(sh, 40); gh = Math.min(gh, 12); si = Math.min(si, 17); Q.cl_bremse -= 1; }
         Q.cl_price = [r1(sh), r1(gh), r1(si), Math.round(res.co2n), Math.round(res.co2e), Math.round(whole)];
         var old_ep = Q.energy_price || 100;
-        Q.energy_price = r1(100 * (0.35 * si / CLIM.P0[2] + 0.35 * sh / CLIM.P0[0] + 0.3 * gh / CLIM.P0[1]));
+        // Nov. 2026: Kraftstoffe als vierte Komponente (15 %): Ölpreisschock durch den Krieg am Golf (oil_shock, Indexpunkte,
+        // events/golfkrieg_2026, klingt mit 4 % im Monat ab), Tankrabatt (tankrabatt = verbleibende Monate, rund 17 ct je Liter,
+        // etwa 9 % des Literpreises). Real: Energie im VPI September 2026 +14,9 %, Oktober +12,2 % zum Vorjahr (Destatis).
+        var fuel = 100 + (Q.oil_shock || 0) - ((Q.tankrabatt || 0) > 0 ? 9 : 0);
+        Q.oil_shock = Math.abs(Q.oil_shock || 0) < 0.5 ? 0 : r1(Q.oil_shock * 0.96);
+        if ((Q.tankrabatt || 0) > 0) Q.tankrabatt -= 1;
+        Q.energy_price = r1(100 * (0.3 * si / CLIM.P0[2] + 0.3 * sh / CLIM.P0[0] + 0.25 * gh / CLIM.P0[1]) + 0.15 * fuel);
         // milde Kopplung an die Inflation (Energie im Warenkorb rund 7 %, mit Weitergabe)
         var dep = Q.energy_price - old_ep;
         if (Math.abs(dep) > 0.2) Q.inflation = (Q.inflation || 0) + clamp(0.03 * dep, -0.3, 0.3);

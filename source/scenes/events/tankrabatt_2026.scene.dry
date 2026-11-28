@@ -1,0 +1,34 @@
+title: Ein Tankrabatt
+subtitle: Die Koalition senkt die Steuer auf Sprit.
+new-page: true
+tags: event
+view-if: year = 2026 and month = 5 and tankrabatt_seen = 0 and golfkrieg_seen = 1
+max-visits: 1
+on-arrival: tankrabatt_seen = 1; tankrabatt = 2
+face-image: img/international.jpg
+
+# Real (Bundesregierung „Energiesteuersenkung im Mai und Juni“; Monopolkommission): befristete Senkung der Energiesteuer auf
+# Benzin und Diesel im Mai und Juni 2026; ein großer Teil kam an, aber nicht alles. tankrabatt = Monate mit Rabatt (climate_data).
+
+= Ein Tankrabatt
+
+Die Spritpreise bleiben hoch, und in der Koalition setzt sich die Union mit einer schnellen Lösung durch: Für Mai und Juni sinkt die Energiesteuer auf Benzin und Diesel. Ökonom\*innen kritisieren, dass davon vor allem profitiert, wer viel fährt, und dass die Mineralölkonzerne einen Teil der Senkung einbehalten könnten.
+
+- @mittragen: Den Tankrabatt mittragen: Die Leute brauchen jetzt Entlastung.
+- @gezielt: Stattdessen ein Mobilitätsgeld für kleine Einkommen und ein günstigeres Deutschlandticket fordern.
+- @kontrolle: Den Rabatt mittragen, aber eine Preisbeobachtung durch das Kartellamt durchsetzen.
+
+@mittragen
+on-arrival: rural_spd += 1*(1-dissent); workers_spd += 0.5*(1-dissent); new_middle_spd -= 0.5; gr_klima -= 3; union_relation += 1
+
+Der Rabatt kommt, und an der Tankstelle sieht man ihn auch, wenn auch nicht ganz. Die Klimabewegung ist enttäuscht.
+
+@gezielt
+on-arrival: new_middle_spd += 1*(1-dissent); unemployed_spd += 0.5*(1-dissent); rural_spd -= 0.5; gr_klima += 3; coalition_dissent += 1 if spd_in_government and union_in_government; profil += 0.5 if spd_in_government
+
+Wir rechnen vor, dass ein Mobilitätsgeld bei Geringverdienenden mehr ankommt als ein Rabatt für alle. Die Union bleibt beim Tankrabatt, aber die Debatte hat unser Profil geschärft.
+
+@kontrolle
+on-arrival: workers_spd += 0.5*(1-dissent); rural_spd += 0.5*(1-dissent); gr_vdk += 2
+
+Das Kartellamt beobachtet die Preise, und als sich zeigt, dass Raffinerien einen Teil einbehalten, ist der Ärger groß. Wir haben es kommen sehen und können das sagen.

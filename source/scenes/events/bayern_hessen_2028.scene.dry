@@ -1,0 +1,24 @@
+title: Bayern und Hessen wählen
+subtitle: Ein Stimmungstest für die Union
+new-page: true
+tags: event
+view-if: year = 2028 and month = 10 and by_he_2028_seen = 0
+max-visits: 1
+on-arrival: by_he_2028_seen = 1; csu_stark = 1 if union_votes >= 20; afd_land_stark = 1 if afd_votes >= 27
+face-image: img/wahlkampf.jpg
+
+# Termine real: Herbst 2028 (Bundeswahlleiterin). 2023: Bayern CSU 37,0, FW 15,8, AfD 14,6, Grüne 14,4, SPD 8,4; Hessen CDU 34,6,
+# AfD 18,4, SPD 15,1, Grüne 14,8; seit 2024 CDU/SPD-Koalition unter Boris Rhein. Ausgang Fiktion; csu_stark wirkt auf die
+# Unions-K-Frage (events/center_party_conference).
+
+= Bayern und Hessen wählen
+
+Im Oktober wählen Bayern und Hessen ihre Landtage, ein Jahr vor der Bundestagswahl.
+
+[? if csu_stark : Die CSU bleibt in Bayern mit Abstand stärkste Kraft, und Markus Söder lässt keinen Zweifel daran, dass er bei der Frage mitreden will, wer die Union 2029 anführt. ?][? if not csu_stark : Die CSU verliert deutlich, und in München wird gefragt, ob der Bundestrend der Union auch Söder beschädigt. ?] In Hessen bleibt Boris Rhein Ministerpräsident[? if player = "spd" : , mit der SPD als Juniorpartnerin?]. [? if afd_land_stark : Die AfD wird in beiden Ländern zweitstärkste Kraft. ?]
+
+- @weiter: Weiter.
+
+@weiter
+
+Die Landtagswahlen sind vorbei. Die Union ringt nun um ihre Spitze für 2029.

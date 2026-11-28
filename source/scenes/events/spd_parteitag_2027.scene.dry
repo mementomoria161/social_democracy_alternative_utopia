@@ -1,0 +1,80 @@
+title: Parteitag in Bremen
+subtitle: Die SPD wählt ihre Spitze neu.
+new-page: true
+tags: event
+view-if: year = 2027 and month = 1 and spd_parteitag_2027_seen = 0 and bas_ruecktritt_seen = 1
+go-to: linke if player = "linke"; spd if player = "spd"
+max-visits: 1
+on-arrival: spd_parteitag_2027_seen = 1
+face-image: img/parteitag.jpg
+
+# Realer Stand (dpa, ZDF, Stuttgarter Zeitung, Ende November 2026): Nach dem Rücktritt von Bärbel Bas wählt die SPD auf einem
+# Bundesparteitag am 16./17.01.2027 in Bremen den gesamten Vorstand neu. Hubertus Heil hat seine Kandidatur erklärt, Lars
+# Klingbeil hat sich nicht festgelegt (Pistorius und Miersch unterstützen ihn), Manuela Schwesig gilt vielen als Favoritin, hat
+# eine Kandidatur aber mehrfach ausgeschlossen; Pistorius tritt nicht an, Rehlinger sagt wegen der Saarland-Wahl ab. Die Partei
+# will an der Doppelspitze aus Frau und Mann festhalten. Der Ausgang ist Fiktion.
+# spd_vorsitz_2027: 1 Klingbeil und Schwesig, 2 Heil und eine Vertreterin der Parteilinken.
+
+# party-ok: SPD, Willy-Brandt-Haus, Parlamentarischen Linken (Parteitag der realen SPD, auch im Linke-Spiel)
+= Parteitag in Bremen
+
+Mitte Januar kommen in Bremen 600 Delegierte zusammen, um nach dem Rücktritt von Bärbel Bas die gesamte Parteispitze neu zu wählen. Hubertus Heil, bis 2025 Arbeitsminister, hat als Erster seine Kandidatur erklärt: Die SPD müsse wieder als Partei der Arbeit erkennbar sein. Lars Klingbeil hat lange gezögert. Viele hoffen auf Manuela Schwesig, die eine Kandidatur aber mehrfach ausgeschlossen hat.
+
+@spd
+# party: spd
+
+In den Landesverbänden wird seit Wochen sortiert, wer mit wem antritt. Am Ende stehen zwei Teams zur Wahl. Wen unterstützt die Parteiführung?
+
+- @team_klingbeil: Klingbeil und Schwesig: Erfahrung, Regierungsfähigkeit, eine Ostdeutsche an der Spitze.
+- @team_heil: Heil und eine Vertreterin der Parteilinken: ein sichtbarer Neuanfang mit sozialem Kurs.
+- @mitglieder: Keine Empfehlung: Die Delegierten sollen frei entscheiden.
+
+@team_klingbeil
+on-arrival: spd_vorsitz_2027 = 1
+go-to: ergebnis
+
+Schwesig lässt sich nach langem Zögern überzeugen, wenn sie ihr Amt in Schwerin behalten kann. Das Team wirbt mit Stabilität.
+
+@team_heil
+on-arrival: spd_vorsitz_2027 = 2
+go-to: ergebnis
+
+Heil tritt mit einer jungen Abgeordneten aus der Parlamentarischen Linken an. Ihr Versprechen: Löhne, Rente, Mieten, und eine SPD, die in der Koalition wieder Konflikte austrägt.
+
+@mitglieder
+on-arrival: spd_vorsitz_2027 = 2 if left_strength + labor_strength > center_strength + reformist_strength; spd_vorsitz_2027 = 1 if left_strength + labor_strength <= center_strength + reformist_strength; center_dissent -= 2; left_dissent -= 2; labor_dissent -= 2
+go-to: ergebnis
+
+Die Parteiführung hält sich heraus. Die Delegierten sollen entscheiden, und das rechnen ihr viele hoch an.
+
+@ergebnis
+on-arrival: {!
+var k = Q.spd_vorsitz_2027 == 1, h = Q.spd_vorsitz_2027 == 2, d = 1 - (Q.dissent || 0);
+if (k) { Q.center_dissent -= 6; Q.reformist_dissent -= 3; Q.left_dissent += 5; Q.union_relation += 3; Q.rentner_spd += d; Q.rural_spd += d;
+    if (!Q.schwesig_advisor && Q.n_advisors < 3) { Q.schwesig_advisor = 1; Q.n_advisors += 1; } }
+if (h) { Q.labor_dissent -= 6; Q.left_dissent -= 6; Q.center_dissent += 6; Q.union_relation -= 3; Q.workers_spd += 1.5 * d;
+    if (Q.spd_in_government) { Q.coalition_dissent += 1; Q.profil = (Q.profil || 0) + 1; }
+    if (!Q.heil_advisor && Q.n_advisors < 3 && !Q.unions_independent) { Q.heil_advisor = 1; Q.n_advisors += 1; } }
+!}
+
+[? if spd_vorsitz_2027 = 1 : Lars Klingbeil und Manuela Schwesig werden mit soliden Ergebnissen gewählt. Die Partei atmet durch, die Union auch. Die SPD-Linke hält sich zurück, aber sie hat sich einen Neuanfang anders vorgestellt. ?][? if spd_vorsitz_2027 = 2 : Hubertus Heil und seine Co-Vorsitzende gewinnen mit deutlicher Mehrheit. Klingbeil bleibt Finanzminister, aber nicht mehr Parteichef. Die Gewerkschaften jubeln, im Seeheimer Kreis und in der Union wächst die Sorge vor einer unruhigeren SPD. ?]
+
+(Der Ausgang ist Fiktion; der Parteitag fand nach dem Stand dieses Spiels, November 2026, noch nicht statt.)
+
+@linke
+# Linke-Fassung: Parteitag der KI-Partei SPD
+
+Für uns ist die Frage, ob die SPD nach links rückt oder sich in der Koalition einrichtet.
+
+- @lk_angebot: Der neuen SPD-Spitze ein Gesprächsangebot machen: Mieten, Rente, Vermögensteuer.
+- @lk_abgrenzen: Abwarten: Neue Gesichter ändern nichts an der Politik der Koalition.
+
+@lk_angebot
+on-arrival: linke_relation += 4; reformist_dissent -= 2; left_dissent += 1
+
+Wir gratulieren und schlagen gemeinsame Initiativen vor, wo es Mehrheiten jenseits der Union gäbe. Die Antwort aus dem Willy-Brandt-Haus ist höflich und unverbindlich.
+
+@lk_abgrenzen
+on-arrival: left_dissent -= 2; linke_relation -= 1
+
+Wir bleiben bei unserer Linie: Solange die SPD mit der Union regiert, ändert ein neuer Vorsitz wenig.

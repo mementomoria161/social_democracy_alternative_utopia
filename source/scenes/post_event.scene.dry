@@ -409,7 +409,8 @@ if (Q.month_actions >= 1) {
     // Spielannahme). Die Prognosen setzen das Sondervermögen voraus: ohne es −0,5, mit halbem −0,2. Die festen Weimarer
     // Jahresschocks 2027–2030 (Jahres-Events 1929–1932) sind entfernt; Krisen kommen nur noch aus Ereignissen.
     if (Q.year * 12 + Q.month > 2026 * 12 + 11) {
-        var trend = (Q.year == 2027 ? 1.1 : (Q.year == 2028 ? 0.4 : 0.6)) + 0.4 * Math.min(3, Q.works_program || 0) + 0.25 * Math.min(6, Q.science_bonus || 0);
+        // invest_bonus: Investitionsschwerpunkte in der Haushaltswoche (events/haushaltswoche), je +0,1, höchstens +0,4
+        var trend = (Q.year == 2027 ? 1.1 : (Q.year == 2028 ? 0.4 : 0.6)) + 0.4 * Math.min(3, Q.works_program || 0) + 0.25 * Math.min(6, Q.science_bonus || 0) + 0.1 * Math.min(4, Q.invest_bonus || 0);
         if (!(Q.sondervermoegen >= 1)) trend -= 0.5;
         else if (Q.sondervermoegen < 2) trend -= 0.2;
         Q.growth_trend = Math.round(trend * 100) / 100;

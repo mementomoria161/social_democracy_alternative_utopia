@@ -1,0 +1,84 @@
+title: Ministerpräsidentenwahl in Magdeburg
+subtitle: Wird Ulrich Siegmund der erste Ministerpräsident der AfD?
+new-page: true
+tags: event
+view-if: year = 2026 and month = 12 and sa_mp_seen = 0
+go-to: linke if player = "linke"; spd if player = "spd"
+max-visits: 1
+on-arrival: sa_mp_seen = 1
+face-image: img/bundesrat.jpg
+
+# Ausgangslage real (ZDF, LTO, Stuttgarter Zeitung, Stand Oktober/November 2026): Landtagswahl 06.09.2026, AfD 43,8 %,
+# 39 von 83 Sitzen; CDU 17,2 %. Geschäftsführend regiert Sven Schulze (CDU). Ulrich Siegmund (AfD) will sich im Dezember
+# im Landtag zur Wahl stellen; im dritten Wahlgang genügt die Mehrheit der abgegebenen Stimmen (Art. 65 LV). Die CDU kündigte
+# an, an der Wahl nicht teilzunehmen und den Saal zu verlassen; das BSW will sich im dritten Wahlgang enthalten und schlägt
+# einen überparteilichen Ministerpräsidenten vor; Linke-Fraktionschefin Eva von Angern erwägt eine Kandidatur.
+# Der Ausgang ist Fiktion (nach dem 28.11.2026). Vorbild für eine Wahl mit Stimmen der Linken: Thüringen, 12.12.2024 (Voigt).
+# sa_mp: 1 Siegmund gewählt, 2 Kandidat der demokratischen Parteien gewählt, 3 Neuwahl.
+
+= Ministerpräsidentenwahl in Magdeburg
+
+Drei Monate nach der Landtagswahl tritt der Landtag von Sachsen-Anhalt zur Wahl des Ministerpräsidenten zusammen. Die AfD hat 39 der 83 Sitze. Ulrich Siegmund tritt an. Im dritten Wahlgang genügt ihm die Mehrheit der abgegebenen Stimmen: Wenn die anderen Parteien sich nicht auf einen gemeinsamen Kandidaten einigen oder den Saal verlassen, ist er gewählt.
+
+Die CDU will nicht mitstimmen, um nicht mit der AfD in einen Topf geworfen zu werden, will aber auch keinen Kandidaten, der nur mit Stimmen von links gewählt würde. Das BSW will sich enthalten und schlägt eine überparteiliche Persönlichkeit vor.
+
+@spd
+# party: spd
+
+Die SPD sitzt mit einer kleinen Fraktion im Landtag. In Berlin richten sich alle Augen auf die Union: Hält die Brandmauer, wenn es darauf ankommt?
+
+- @spd_gemeinsam: Die CDU drängen, mit Sven Schulze anzutreten, notfalls auch mit Stimmen der Linken, wie 2024 in Thüringen.
+- @spd_ueberparteilich: Eine überparteiliche Kandidatur unterstützen und das BSW beim Wort nehmen.
+- @spd_neuwahl: Eine Neuwahl verlangen.
+
+@spd_gemeinsam
+on-arrival: sa_mp = 2 if union_relation >= 25 and brandmauer = 1; sa_mp = 1 if union_relation < 25 or brandmauer = 0; union_relation -= 2
+go-to: ergebnis
+
+Wir verhandeln Tag und Nacht mit der CDU in Magdeburg und mit der Parteispitze in Berlin.
+
+@spd_ueberparteilich
+on-arrival: sa_mp = 2 if union_relation >= 40 and brandmauer = 1; sa_mp = 1 if union_relation < 40 or brandmauer = 0; bsw_relation += 3
+go-to: ergebnis
+
+Wir werben für eine Persönlichkeit, die keiner Partei angehört: eine frühere Landrätin, die im ganzen Land Ansehen genießt.
+
+@spd_neuwahl
+on-arrival: sa_mp = 3; pro_republic -= 1
+go-to: ergebnis
+
+Wir verlangen, den Landtag aufzulösen und neu wählen zu lassen. Dafür braucht es eine Zweidrittelmehrheit, und die gibt es nur mit der AfD, die zustimmt, weil sie sich noch mehr Sitze erhofft.
+
+@linke
+# Linke-Fassung
+
+Die Linke ist mit einer kleinen Fraktion im Landtag. Eva von Angern könnte selbst antreten. Doch jede Stimme, die nicht beim Kandidaten der CDU landet, hilft Siegmund.
+
+- @lk_cdu: Den Kandidaten der CDU mitwählen, damit die AfD nicht regiert, wie 2024 in Thüringen.
+- @lk_angern: Eva von Angern kandidieren lassen: Wir wählen keinen Christdemokraten.
+- @lk_neuwahl: Eine Neuwahl verlangen.
+
+@lk_cdu
+on-arrival: sa_mp = 2 if brandmauer = 1 and union_relation >= -15; sa_mp = 1 if brandmauer = 0 or union_relation < -15; reformist_dissent -= 4; left_dissent += 5; pro_republic += 1
+go-to: ergebnis
+
+Wir erklären öffentlich, dass wir Sven Schulze mitwählen, ohne Gegenleistung. In der Sozialistischen Linken ist der Ärger groß, die Reformer\*innen sprechen von Verantwortung.
+
+@lk_angern
+on-arrival: sa_mp = 1; left_dissent -= 4; reformist_dissent += 8
+go-to: ergebnis
+
+Eva von Angern tritt an und bekommt die Stimmen der Linken.
+
+@lk_neuwahl
+on-arrival: sa_mp = 3; pro_republic -= 1
+go-to: ergebnis
+
+Wir verlangen eine Neuwahl, die nur mit den Stimmen der AfD zustande kommt.
+
+@ergebnis
+on-arrival: pro_republic -= 4 if sa_mp = 1; rechts_strength += 15 if sa_mp = 1; nazi_urgency += 1 if sa_mp = 1 and nazi_urgency < 3; pro_republic += 2 if sa_mp = 2; gm_rechts += 2 if sa_mp = 1; gm_demo += 2 if sa_mp = 1; afd_land = 1 if sa_mp = 1
+
+[? if sa_mp = 2 : Im dritten Wahlgang wird Sven Schulze mit den Stimmen von CDU, SPD, Grünen und Linken gewählt, gegen Siegmund. Die CDU spricht von einem „Sonderfall“, die AfD von einem „Kartell der Verlierer“. Doch die erste Landesregierung der AfD ist verhindert, vorerst. ?][? if sa_mp = 1 : Im dritten Wahlgang wird Ulrich Siegmund mit den 39 Stimmen der AfD gewählt, weil die anderen sich nicht auf einen Gegenkandidaten einigen können. Zum ersten Mal führt die AfD eine Landesregierung. Bundesweit gehen Zehntausende auf die Straße, und in der Union beginnt eine heftige Debatte darüber, wer daran schuld ist. ?][? if sa_mp = 3 : Der Landtag löst sich auf, im Frühjahr wird neu gewählt. Bis dahin bleibt die Regierung Schulze geschäftsführend im Amt. Viele fürchten, dass die AfD dann die absolute Mehrheit holt. ?]
+
+(Der Ausgang ist Fiktion; die Wahl stand Ende November 2026 noch aus.)

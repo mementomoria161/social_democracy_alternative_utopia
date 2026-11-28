@@ -1,0 +1,41 @@
+title: Krieg am Golf
+subtitle: Die Straße von Hormus ist gesperrt.
+new-page: true
+tags: event
+view-if: year = 2026 and month = 3 and golfkrieg_seen = 0
+max-visits: 1
+on-arrival: golfkrieg_seen = 1; oil_shock = 18; cl_gas_shock += 8; gm_bda += 1; gm_vdk += 1
+face-image: img/international.jpg
+
+# Realer Verlauf (SRF, Stuttgarter Zeitung, Bundesregierung „Fragen und Antworten zu Energiepreisen“): Am 28.02.2026 greifen
+# USA und Israel Ziele im Iran an; Iran sperrt die Straße von Hormus (Seeminen, Drohungen gegen Handelsschiffe). Brent am
+# 11.03.2026 bei 92 Dollar, später um 100–110 Dollar. Energie im VPI im September +14,9 %, im Oktober +12,2 % zum Vorjahr.
+# Durch Hormus gehen rund ein Fünftel des weltweit verbrauchten Öls und ein großer Teil des Flüssiggases aus Katar (EIA).
+# oil_shock: Aufschlag auf den Kraftstoffpreis-Index in Punkten (klingt ab, climate_data), cl_gas_shock: Gaspreisaufschlag.
+# Die Umfragen bis November 2026 folgen ohnehin dem realen Verlauf; die Optionen verschieben nur die Abweichung.
+
+= Krieg am Golf
+
+Am 28. Februar greifen die USA und Israel Ziele im Iran an. Teheran antwortet mit der Sperrung der Straße von Hormus: Seeminen, Drohungen gegen Tanker, brennende Schiffe. Durch die Meerenge geht rund ein Fünftel des Öls der Welt und ein großer Teil des Flüssiggases aus Katar. Binnen zwei Wochen steigt der Ölpreis auf über 90 Dollar je Barrel, an den Tankstellen und bei den Heizölhändlern ziehen die Preise kräftig an.
+
+Die Gasspeicher sind besser gefüllt als 2022, eine Versorgungskrise droht nicht. Doch Pendler\*innen, Speditionen und die chemische Industrie spüren die Preise sofort, und die Frage ist, wer die Last trägt.
+
+- @diplomatie: Auf Diplomatie und eine gemeinsame europäische Linie drängen, keine deutsche Beteiligung am Krieg.
+- @entlastung: Rasch eine gezielte Entlastung für Pendler\*innen und kleine Einkommen vorbereiten.
+- @uebergewinne: Übergewinne der Mineralölkonzerne abschöpfen.
+
+@diplomatie
+on-arrival: pro_republic += 1; left_dissent -= 2; west_relation += 1; rentner_spd += 0.5*(1-dissent)
+
+Wir fordern eine europäische Initiative für eine Waffenruhe und freie Seewege und stellen klar, dass sich Deutschland nicht militärisch beteiligt. Das beruhigt viele, ändert aber nichts an den Preisen.
+
+@entlastung
+subtitle: -1 Haushaltsspielraum, wenn wir regieren.
+on-arrival: budget -= 1 if spd_in_government and budget > 0; workers_spd += 1*(1-dissent); rural_spd += 1*(1-dissent); profil += 0.5 if spd_in_government
+
+[? if spd_in_government : Wir setzen in der Koalition ein Entlastungspaket auf die Tagesordnung: höhere Pendlerpauschale für kleine Einkommen, Heizkostenzuschuss für Wohngeldhaushalte. ?][? if not spd_in_government : Wir legen im Bundestag ein Entlastungspaket für Pendler\*innen und Haushalte mit kleinen Einkommen vor. ?] Wirtschaftsforscher\*innen loben, dass es gezielt ist und nicht mit der Gießkanne verteilt.
+
+@uebergewinne
+on-arrival: left_dissent -= 3; reformist_dissent += 2; workers_spd += 1*(1-dissent); unemployed_spd += 0.5*(1-dissent); old_middle_spd -= 0.5; union_relation -= 2; gr_bda -= 3
+
+Wir fordern, die Krisengewinne der Ölkonzerne abzuschöpfen, wie es Spanien und Großbritannien 2022 getan haben. Die Arbeitgeberverbände sprechen von Enteignung, an der Basis kommt die Forderung gut an.
