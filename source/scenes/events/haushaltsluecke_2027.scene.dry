@@ -2,8 +2,9 @@ title: Die Haushaltslücke
 subtitle: Im Haushalt 2027 fehlen über 30 Milliarden Euro.
 new-page: true
 tags: event
-view-if: year = 2026 and month >= 6 and month <= 8 and ((player = "spd" and spd_in_government and finance_minister_party == "SPD") or (player = "linke" and not spd_in_government and linke_in_government and finance_minister_party == "Linke"))
-go-to: linke if player = "linke" and not spd_in_government
+view-if: year = 2026 and month >= 6 and month <= 8 and (player = "spd" or (player = "linke" and not spd_in_government and linke_in_government and finance_minister_party == "Linke"))
+# Realitätscheck Nov. 2026 (P1): vorher nur mit SPD-Finanzminister; jetzt auch ohne Finanzressort und in der Opposition (@ohne).
+go-to: linke if player = "linke" and not spd_in_government; ohne if player = "spd" and finance_minister_party != "SPD"
 max-visits: 1
 on-arrival: haushaltsluecke_seen = 1; budget -= 1 if budget >= 1; crisis_urgency += 1
 face-image: img/portraits/Klingbeil.jpg
@@ -12,7 +13,7 @@ face-image: img/portraits/Klingbeil.jpg
 
 # party-ok: SPD (die SPD stellt den Finanzminister)
 
-Die Steuereinnahmen bleiben hinter den Erwartungen zurück, Zinsen und Verteidigungsausgaben steigen. Für den Haushalt 2027 fehlen über 30 Milliarden Euro, und als Finanzminister muss die SPD einen Weg finden, die Lücke zu schließen. Die Union lehnt Steuererhöhungen ab und verlangt Einschnitte beim Sozialstaat.
+Die Steuereinnahmen bleiben hinter den Erwartungen zurück, Zinsen und Verteidigungsausgaben steigen. Für den Haushalt 2027 fehlen über 30 Milliarden Euro, und [? if finance_minister_party = "SPD" : als Finanzminister muss die SPD einen Weg finden, die Lücke zu schließen?][? if finance_minister_party != "SPD" : das Finanzministerium muss einen Weg finden, die Lücke zu schließen?]. Die Union lehnt Steuererhöhungen ab und verlangt Einschnitte beim Sozialstaat.
 
 - @sozial_kuerzen: Bei Bürgergeld und Rentenzuschüssen kürzen.
 - @reiche: Einen Krisenbeitrag für sehr hohe Einkommen und Vermögen durchsetzen.
@@ -40,6 +41,30 @@ Mit Verweis auf Industriekrise und Arbeitslosigkeit erklärt der Bundestag eine 
 on-arrival: budget += 1; gruene_relation += 5; rural_spd -= 3; workers_spd -= 2; new_middle_spd += 2*(1-dissent); coalition_dissent += 1 if in_grand_coalition
 
 Wir streichen Dienstwagenprivileg, Dieselsubventionen und Steuervorteile für Kerosin. Das schließt einen Teil der Lücke. Pendler, Landwirtschaft und Autoindustrie sind empört, die Grünen loben uns.
+
+@ohne
+# party: spd
+
+[? if spd_in_government : Das Finanzministerium führt nicht die SPD, aber ohne unsere Stimmen kommt kein Haushalt durch. ?][? if not spd_in_government : Wir sitzen in der Opposition. Die Regierung muss die Lücke allein schließen, doch im Bundesrat reden unsere Länder mit. ?] Wofür setzen wir uns ein?
+
+- @ohne_sozial: Kürzungen bei Grundsicherung und Rente verhindern.
+- @ohne_invest: Die Investitionen aus dem Sondervermögen vor dem Rotstift schützen.
+- @ohne_gegenvorschlag: Einen durchgerechneten Gegenvorschlag mit einem Krisenbeitrag sehr hoher Einkommen vorlegen.
+
+@ohne_sozial
+on-arrival: welfare += 1 if spd_in_government; coalition_dissent += 1 if spd_in_government; unemployed_spd += 1*(1-dissent); rentner_spd += 1*(1-dissent); left_dissent -= 3; gr_vdk += 3
+
+[? if spd_in_government : Wir setzen durch, dass Grundsicherung und Rentenzuschüsse unangetastet bleiben. Die Union verlangt dafür Einsparungen an anderer Stelle. ?][? if not spd_in_government : Mit den Sozialverbänden machen wir Druck. Die schlimmsten Kürzungen werden abgemildert. ?]
+
+@ohne_invest
+on-arrival: invest_bonus += 1; new_middle_spd += 0.5*(1-dissent); workers_spd += 0.5*(1-dissent); gr_dgb += 2
+
+Wir erreichen, dass die Investitionen in Schienen, Brücken und Schulen nicht gekürzt werden. Bauindustrie und Gewerkschaften loben das.
+
+@ohne_gegenvorschlag
+on-arrival: workers_spd += 1*(1-dissent); new_middle_spd += 0.5*(1-dissent); old_middle_spd -= 0.5; left_dissent -= 2; union_relation -= 2
+
+Unser Gegenvorschlag rechnet vor, wie ein befristeter Krisenbeitrag die Lücke zur Hälfte schließen würde. Die Union lehnt ab, aber das Thema bleibt.
 
 @linke
 # Linke in der Opposition: SPD-Finanzminister (Slot "Linke") muss die Lücke schließen (Durchgang 4.3).

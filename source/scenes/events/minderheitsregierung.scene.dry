@@ -13,7 +13,7 @@ face-image: img/bundestag_plenum.jpg
 
 = Ein Haushalt ohne Mehrheit
 
-Seit der Wahl regiert [+ union_leader +] mit einer Minderheitsregierung, die wir tolerieren. Jedes Gesetz wird einzeln ausgehandelt, im Haushaltsausschuss geht es Woche für Woche um Einzelposten. Nun steht der Haushalt für das kommende Jahr an, und in der Union wächst der Druck: Entweder tritt die SPD in die Regierung ein, oder der Kanzler stellt die Vertrauensfrage und sucht in einer Neuwahl eine klare Mehrheit.
+Seit der Wahl regiert [+ chancellor +] mit einer Minderheitsregierung, die wir tolerieren. Jedes Gesetz wird einzeln ausgehandelt, im Haushaltsausschuss geht es Woche für Woche um Einzelposten. Nun steht der Haushalt für das kommende Jahr an, und in der Union wächst der Druck: Entweder tritt die SPD in die Regierung ein, oder der Kanzler stellt die Vertrauensfrage und sucht in einer Neuwahl eine klare Mehrheit.
 
 Eine Minderheitsregierung über eine ganze Wahlperiode hat es im Bund nie gegeben. In der Partei sind die einen froh, nicht für die Politik der Union haften zu müssen; die anderen sagen, wir trügen die Verantwortung ohnehin, nur ohne Ministerien.
 
@@ -25,7 +25,7 @@ Eine Minderheitsregierung über eine ganze Wahlperiode hat es im Bund nie gegebe
 on-arrival: {!
 var kenia = (Q.union_r || 0) + (Q.spd_r || 0) < 50;
 Q.spd_in_government = 1; Q.spd_toleration = 0; Q.minority_government = 0; Q.union_in_government = 1;
-Q.partner_party = 'Union'; Q.chancellor_party = 'Union'; Q.chancellor = Q.union_leader;
+Q.partner_party = 'Union'; Q.chancellor_party = 'Union';
 Q.coalition_dissent = (Q.union_relation || 0) < 25 ? 2 : 1;
 if (kenia) { Q.in_weimar_coalition = 1; Q.gruene_in_government = 1; Q.coalition_name = 'Kenia'; }
 else { Q.in_grand_coalition = 1; Q.coalition_name = 'Schwarz-Rot'; }
@@ -52,4 +52,4 @@ Q.next_election_time = Q.time + 3; Q.next_election_month = Q.month + 3; Q.next_e
 if (Q.next_election_month > 12) { Q.next_election_month -= 12; Q.next_election_year += 1; }
 !}
 
-Wir kündigen die Tolerierung auf. [+ union_leader +] stellt die Vertrauensfrage und verliert sie, wie es in Berlin inzwischen fast schon üblich ist. Der Bundespräsident löst den Bundestag auf. Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt. Viele Wähler\*innen fragen, warum sie schon wieder an die Urne sollen.
+Wir kündigen die Tolerierung auf. [+ chancellor +] stellt die Vertrauensfrage und verliert sie, wie es in Berlin inzwischen fast schon üblich ist. Der Bundespräsident löst den Bundestag auf. Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt. Viele Wähler\*innen fragen, warum sie schon wieder an die Urne sollen.

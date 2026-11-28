@@ -258,3 +258,7 @@ portraits/Aigner.jpg: Syn 2023. „Ilse Aigner (2026, Foto- Christian Brecheis) 
 portraits/Schweitzer.jpg: Sven Teschke. „2014-02-20 - Alexander Schweitzer - Landesregierung Rheinland-Pfalz - 2676.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2014-02-20_-_Alexander_Schweitzer_-_Landesregierung_Rheinland-Pfalz_-_2676.jpg. Lizenz: CC BY-SA 3.0 de https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
 
 portraits/Berthold.jpg: Whitezombie68. „Thomas Berthold 2014.JPG“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Thomas_Berthold_2014.JPG. Lizenz: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0
+
+portraits/Wuest.jpg: Raimond Spekking. „Eröffnung ICE-Instandhaltungswerk Köln-Nippes-9251 (cropped).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Er%C3%B6ffnung_ICE-Instandhaltungswerk_K%C3%B6ln-Nippes-9251_(cropped).jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
+
+portraits/Soeder.jpg: Sandro Halank, Wikimedia Commons. „2023-10-08 Wahlabend Bayern by Sandro Halank–052.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2023-10-08_Wahlabend_Bayern_by_Sandro_Halank%E2%80%93052.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0

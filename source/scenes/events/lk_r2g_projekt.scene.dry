@@ -1,0 +1,36 @@
+title: Ein Projekt Rot-Grün-Rot?
+subtitle: Gespräche über ein Bündnis für 2029
+new-page: true
+tags: event
+view-if: player = "linke" and year = 2028 and month = 9 and lk_r2g_projekt_seen = 0
+max-visits: 1
+on-arrival: lk_r2g_projekt_seen = 1
+face-image: img/linke_fraktion.jpg
+
+# Realitätscheck Nov. 2026 (G1, Siegpfad für die Linke): Berlin (Rot-Grün-Rot unter Eralp ab 2027) und Mecklenburg-Vorpommern
+# (Rot-Rot-Grün unter Schwesig, Sondierungen ab September 2026) als Modelle. Fiktion. Wirkung über das Verhältnis zu SPD (Slot
+# linke) und Grünen, das die Koalitionsbildung nach der Wahl braucht.
+
+= Ein Projekt Rot-Grün-Rot?
+
+# party-ok: SPD (die reale SPD als mögliche Partnerin)
+Ein Jahr vor der Bundestagswahl laden Abgeordnete von SPD, Grünen und Linken zu einem Treffen ein: Was wäre, wenn es 2029 eine Mehrheit links der Union gäbe? [? if berlin_2026 = 2 or berlin_r2g = 1 : In Berlin regiert Rot-Grün-Rot unter Elif Eralp, und es hält. ?] Die Parteispitzen von SPD und Grünen sind vorsichtig: Die Wähler\*innen der Mitte schreckt das Wort „Linksbündnis“.
+
+- @offen: Offen für das Projekt werben, mit einem gemeinsamen Papier zu Mieten, Rente und Investitionen.
+- @leise: Leise vorbereiten: Gespräche ja, Schlagzeilen nein.
+- @eigenstaendig: Eigenständig bleiben: Wir sind die soziale Opposition, nicht der Mehrheitsbeschaffer.
+
+@offen
+on-arrival: linke_relation += 8; gruene_relation += 5; reformist_dissent -= 5; left_dissent += 5; new_middle_spd += 1*(1-dissent); old_middle_spd -= 0.5; union_relation -= 3
+
+Das Papier „Gerechte Mitte“ macht Schlagzeilen. Die Union warnt vor einem Linksbündnis, viele in SPD und Grünen sind elektrisiert. Die Sozialistische Linke fürchtet, wir verkauften uns.
+
+@leise
+on-arrival: linke_relation += 5; gruene_relation += 3; reformist_dissent -= 2
+
+In vertraulichen Runden lernen sich die Fachleute der drei Parteien kennen. Öffentlich passiert wenig, aber das Vertrauen wächst.
+
+@eigenstaendig
+on-arrival: left_dissent -= 4; reformist_dissent += 4; workers_spd += 0.5*(1-dissent); unemployed_spd += 0.5*(1-dissent)
+
+Wir bleiben auf Abstand. Unsere Stammwähler\*innen honorieren das, für SPD und Grüne bleiben wir ein unsicherer Kantonist.

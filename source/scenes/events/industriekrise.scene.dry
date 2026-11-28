@@ -2,8 +2,9 @@ title: Industriekrise
 subtitle: Ein großer Autozulieferer will Werke schließen.
 new-page: true
 tags: event
-view-if: year = 2026 and month >= 10 and ((player = "spd" and spd_in_government) or (player = "linke" and not spd_in_government))
-go-to: linke if player = "linke" and not spd_in_government
+view-if: year = 2026 and month >= 10 and (player = "spd" or (player = "linke" and not spd_in_government))
+# Realitätscheck Nov. 2026 (P1): jetzt auch für die SPD in der Opposition (@opp).
+go-to: linke if player = "linke" and not spd_in_government; opp if player = "spd" and not spd_in_government
 max-visits: 1
 on-arrival: industriekrise_seen = 1; impuls_alq += 0.3; workers_afd += 2; crisis_urgency += 1
 face-image: img/werksschliessung.jpg
@@ -36,6 +37,24 @@ Wir verlängern das Kurzarbeitergeld und finanzieren Weiterbildung für Beschäf
 on-arrival: workers_spd -= 4; labor_dissent += 8; left_dissent += 5; workers_afd += 3; workers_linke += 2; fdp_relation += 3
 
 Wir mischen uns nicht ein. Die Werke werden geschlossen, und vor den Werkstoren hört man bittere Worte über [+ pp_full +].
+
+@opp
+# party: spd
+
+In der Opposition können wir keine Werke retten, aber wir können zeigen, auf wessen Seite wir stehen.
+
+- @opp_werkstor: Mit der IG Metall vor die Werkstore: Standortgarantien statt Verlagerung.
+- @opp_gesetz: Einen Gesetzentwurf vorlegen: Staatshilfen nur gegen Standort- und Beschäftigungszusagen.
+
+@opp_werkstor
+on-arrival: workers_spd += 1.5*(1-dissent); labor_dissent -= 4; gr_dgb += 4
+
+Unsere Abgeordneten stehen mit den Beschäftigten vor den Toren. In den Betrieben wird registriert, wer kommt und wer nicht.
+
+@opp_gesetz
+on-arrival: workers_spd += 1*(1-dissent); new_middle_spd += 0.5*(1-dissent); reformist_dissent -= 1; labor_dissent -= 2
+
+Unser Entwurf bindet Subventionen an Zusagen für Standorte und Arbeitsplätze. Die Regierung lehnt ab, Gewerkschaften und Fachpresse loben den Ansatz.
 
 @linke
 # Linke in der Opposition (Durchgang 4.3).

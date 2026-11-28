@@ -6,14 +6,12 @@ priority: 2
 view-if: year >= 2030 and month >= 7
 max-visits: 1
 on-arrival: {!
-if (Q.unemployed >= 10) {
-    Q.unemployed -= 1;
-    Q.inflation += 0.4;
-}
+// Realitätscheck Nov. 2026: vorher Weimar-Text („das Leid ist groß“, „Rettungsprogramm“) auch bei 5,5 % Arbeitslosigkeit
+// und ein pauschaler Rückgang der Arbeitslosigkeit um einen Punkt. Jetzt nur eine Lagebeschreibung aus dem Zustand.
+Q.halbzeit_alq = Math.round((Q.unemployed || 0) * 10) / 10;
+Q.halbzeit_alq_disp = String(Q.halbzeit_alq).replace('.', ',');
 !}
 
 = Halbzeit 2030
 
-Das Jahr ist halb vorbei. [? if works_program = 0 : Die Krise scheint ihren Tiefpunkt erreicht zu haben, doch das Leid ist groß. Noch ist es nicht zu spät für ein Rettungsprogramm. ?][? if works_program >= 1 and unemployed >= 8 : Unser Investitionsprogramm läuft, doch die Wirtschaft ist noch angeschlagen. Die Erholung hat begonnen, aber es muss mehr geschehen. ?][? if works_program >= 1 and unemployed < 8 : Unser Investitionsprogramm hat uns durch das Schlimmste geführt. Die Wirtschaft erholt sich, und die Menschen blicken endlich wieder zuversichtlich in die Zukunft. ?]
-
-[? if return_to_normalcy: Mit der Rückkehr zur Normalität verschiebt sich die politische Landschaft. Die Parteien der Mitte gewinnen in der Mittelschicht zurück, und die extreme Rechte verliert an Boden. ?]
+Das Jahr ist halb vorbei. [? if unemployed >= 8 : Die Wirtschaft ist angeschlagen, die Arbeitslosenquote liegt bei [+ halbzeit_alq_disp +] Prozent, und in vielen Regionen wächst die Angst vor dem Abstieg. ?][? if unemployed >= 6 and unemployed < 8 : Die Wirtschaft kommt nur langsam voran, die Arbeitslosenquote liegt bei [+ halbzeit_alq_disp +] Prozent. ?][? if unemployed < 6 : Die Wirtschaft läuft ordentlich, die Arbeitslosenquote ist auf [+ halbzeit_alq_disp +] Prozent gesunken. ?] [? if works_program >= 1 or sondervermoegen >= 2 : Überall im Land sind die Baustellen des Sondervermögens zu sehen, an Brücken, Schienen und Schulen. ?][? if spd_in_government : Die Regierung, der wir angehören, geht in ihre zweite Hälfte. ?][? if not spd_in_government : In der Opposition bereiten wir uns auf die nächsten Jahre vor. ?]

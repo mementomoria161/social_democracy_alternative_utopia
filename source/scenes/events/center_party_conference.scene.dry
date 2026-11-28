@@ -1,70 +1,92 @@
-title: CDU-Parteitag
-subtitle: Die CDU wählt einen neuen Vorsitzenden …
-view-if: year = 2028 and month = 11 and union_party_leader = "Merz"
+title: Wer führt die Union in die Wahl?
+subtitle: Die K-Frage der Union für 2029
+view-if: year = 2028 and month = 11 and union_kfrage_seen = 0
 max-visits: 1
 tags: event
 new-page: true
+on-arrival: union_kfrage_seen = 1
 
-= CDU-Parteitag
+# Realitätscheck Nov. 2026: vorher „CDU-Parteitag“, auf dem Merz den Vorsitz abgab und Linnemann fast immer gewann, während
+# Merz 2029 trotzdem wieder Kanzler wurde. Real hat Merz laut dpa angekündigt, nach der Wahl 2029 eine zweite Amtszeit
+# anzustreben (bei der Wahl wäre er 73); Generalsekretär Linnemann nannte die Debatte verfrüht. Seit dem Rücktritt von Jens
+# Spahn als Fraktionschef (18.07.2026) führt Thorsten Frei die Fraktion; Linnemann ist seit 29.07.2026 Gesundheitsminister.
+# Die Entscheidung im November 2028 ist Fiktion. union_leader = Kanzlerkandidat*in (wird nach der Wahl Kanzler*in, wenn die
+# Union die Regierung führt); union_kandidat: 1 Merz, 2 Wüst, 3 Söder, 4 Linnemann. csu_stark aus events/bayern_hessen_2028.
 
-# party-ok: SPD (die reale SPD als Partnerin der CDU)
+= Wer führt die Union in die Wahl?
 
-# Fiktives Szenario nach dem Vorbild von 2018, als die Kanzlerin den Parteivorsitz abgab und im Amt blieb.
-# Kandidat des konservativen Flügels bis Nov. 2026: Jens Spahn. Er trat am 18.07.2026 als Vorsitzender der Unionsfraktion
-# zurück (Kritik aus der eigenen Partei an einer Leihmutterschaft; ZDFheute 18.07.2026); Nachfolger ist seit 29.07.2026
-# Thorsten Frei. Seither tritt Carsten Linnemann an (bis Juli 2026 Generalsekretär, seit 29.07.2026 Gesundheitsminister;
-# Euronews 23.07.2026). Beide Kandidaten schließen eine Zusammenarbeit mit der AfD aus; was am Parteitag geschieht, ist Fiktion.
+# party-ok: SPD (die reale SPD als Partnerin der Union)
 
-Friedrich Merz hat angekündigt, den CDU-Vorsitz abzugeben, um sich ganz auf das Kanzleramt zu konzentrieren. Ein Parteitag soll die Nachfolge regeln, und damit auch die Frage, wer die Union in die Bundestagswahl 2029 führt.
+Ein knappes Jahr vor der Bundestagswahl muss die Union entscheiden, mit wem sie antritt. Friedrich Merz hat früh erklärt, er wolle eine zweite Amtszeit; bei der Wahl wäre er 73 Jahre alt. Hendrik Wüst, Ministerpräsident von Nordrhein-Westfalen, steht für einen Kurs der Mitte und wartet auf seine Chance. [? if csu_stark : Markus Söder lässt nach seinem Wahlsieg in Bayern wissen, dass er bereitstünde. ?] Carsten Linnemann, der Gesundheitsminister, gilt als Hoffnung des Wirtschaftsflügels und der Konservativen. Eine Zusammenarbeit mit der AfD schließen alle aus.
 
-Als Kandidat des Wirtschaftsflügels und der Konservativen gilt Carsten Linnemann, bis zum Sommer 2026 Generalsekretär und seitdem Gesundheitsminister. Er verspricht einen härteren Kurs bei Bürgergeld, Rente und Migration; mit ihm würde die CDU der SPD weniger entgegenkommen. Gegenkandidat ist Hendrik Wüst, Ministerpräsident von Nordrhein-Westfalen, der für einen Kurs der Mitte steht. Eine Zusammenarbeit mit der AfD schließen beide aus.
-
-- @kaas: Die CDU wählt Carsten Linnemann zum Vorsitzenden.
-- @joos: Den Parteitag zugunsten von Hendrik Wüst beeinflussen.
-- @joos_campaign: Gezielt für eine Wahl von Hendrik Wüst werben.
+- @abwarten: Uns heraushalten: Das ist Sache der Union.
+- @merz: Merz als verlässlichen Partner würdigen.
+- @joos: Über unsere Drähte in die Union für Hendrik Wüst werben.
 - @lk_laender: Über die Zusammenarbeit in Thüringen und Sachsen die CDU-Mitte stärken.
 - @lk_appell: Öffentlich an die CDU-Mitte appellieren, die Brandmauer zu halten.
 
-@kaas
-on-arrival: union_party_leader = "Linnemann"; union_relation -= 5
+@abwarten
+view-if: player = "spd"
+go-to: entscheidung
 
-Carsten Linnemann ist neuer CDU-Vorsitzender. Die Partei schärft ihr Profil bei Sozialstaat und Migration und wird weniger bereit sein, Kompromisse mit der SPD einzugehen.
+Wir halten uns heraus. Die Union entscheidet allein.
+
+@merz
+view-if: player = "spd"
+choose-if: spd_in_government and union_in_government
+unavailable-subtitle: Wir regieren nicht mit der Union.
+on-arrival: union_kandidat = 1; union_relation += 3; left_dissent += 3; reformist_dissent -= 2
+go-to: ergebnis
+
+Klingbeil lobt Merz im Bundestag als einen Kanzler, auf dessen Wort Verlass sei. Die Parteilinke verdreht die Augen, in der Unionsfraktion wird es registriert.
 
 @joos
-unavailable-subtitle: Unser Verhältnis zur Union ist nicht gut genug.
 view-if: player = "spd"
-choose-if: union_relation >= 70
-on-arrival: union_party_leader = "Wüst"; rentner_spd += 5; workers_union += 3
+choose-if: union_relation >= 55 or (union_relation >= 45 and resources >= 1)
+unavailable-subtitle: Unser Verhältnis zur Union ist nicht gut genug.
+on-arrival: union_kandidat = 2; resources -= 1 if union_relation < 55
+go-to: ergebnis
 
-Über unsere guten Drähte in die Union, von den Ländern bis zu den Sozialausschüssen der CDA, stärken wir das Lager von Hendrik Wüst, und er setzt sich durch. Mit ihm wird die Zusammenarbeit leichter, und die CDU spricht wieder stärker Beschäftigte an.
+Über unsere guten Drähte in die Union, von den Ländern bis zu den Sozialausschüssen der CDA, stärken wir das Lager von Hendrik Wüst. In Nordrhein-Westfalen und im Bundesrat arbeiten wir sichtbar mit ihm zusammen.
 
-@joos_campaign
-choose-if: union_relation >= 62 and resources >= 1
-view-if: player = "spd" and union_relation < 70
-unavailable-subtitle: [? if union_relation <= 62 : Unser Verhältnis zur Union ist nicht gut genug. ?] [? if resources < 1 : Wir haben nicht genug Ressourcen. ?]
-subtitle: -1 Ressource.
-on-arrival: resources -= 1; union_party_leader = "Wüst"; rentner_spd += 5; workers_union += 3
-
-Mit unseren Kontakten in die Union und einer geschickten Medienstrategie, die Wüst als Garanten der Stabilität erscheinen lässt, setzt er sich auf dem Parteitag durch. Mit ihm wird die Zusammenarbeit leichter, und die CDU spricht wieder stärker Beschäftigte an.
-
-# Linke-Spiel (Durchgang 4.7): Die Schwellen 62/70 gelten für das Verhältnis Union–SPD und sind bei einem Start von 10 unerreichbar
-# (Ende 2028 liegt union_relation im Linke-Spiel meist zwischen -20 und +10). harzburg_front: Linke-Schwelle < 0.
-# Real: In Thüringen (Voigt) und Sachsen (Kretschmer) regiert die CDU seit 2024/25 ohne eigene Mehrheit und braucht
-# für Haushalte Stimmen der Linken. Was am Parteitag 2028 geschieht, ist Fiktion.
+# Linke-Spiel (Durchgang 4.7): Die Union redet mit der Linken kaum; in Thüringen (Voigt) und Sachsen (Kretschmer) regiert die CDU
+# seit 2024/25 ohne eigene Mehrheit und braucht für Haushalte Stimmen der Linken.
 @lk_laender
 view-if: player = "linke"
 choose-if: union_relation >= 0 and resources >= 2
 unavailable-subtitle: [? if union_relation < 0 : Die Union redet nicht mehr mit uns. ?] [? if resources < 2 : Wir haben nicht genug Ressourcen. ?]
 subtitle: -2 Ressourcen.
-on-arrival: resources -= 2; union_party_leader = "Wüst"; union_relation += 3; reformist_strength += 2; reformist_dissent -= 3; left_dissent += 4; workers_union += 2
+on-arrival: resources -= 2; union_kandidat = 2; union_relation += 3; reformist_strength += 2; reformist_dissent -= 3; left_dissent += 4; workers_union += 2
+go-to: ergebnis
 
-In Thüringen und Sachsen regiert die CDU ohne eigene Mehrheit, und ihre Haushalte hängen an unseren Stimmen. Unsere Landtagsfraktionen erklären vor dem Parteitag nüchtern: Verlässliche Absprachen gibt es nur mit einer CDU, die die Brandmauer hält. Die ostdeutschen CDU-Verbände schwenken um, und Hendrik Wüst gewinnt knapp.
-
-Die Sozialistische Linke murrt, wir hätten der CDU den Parteitag gerettet. Die Reformer\*innen sehen sich bestätigt.
+In Thüringen und Sachsen hängen die Haushalte der CDU an unseren Stimmen. Unsere Landtagsfraktionen erklären nüchtern: Verlässliche Absprachen gibt es nur mit einer Union, die die Brandmauer hält. Die ostdeutschen CDU-Verbände stellen sich hinter Wüst. Die Sozialistische Linke murrt, die Reformer\*innen sehen sich bestätigt.
 
 @lk_appell
 view-if: player = "linke"
-on-arrival: union_party_leader = "Wüst" if union_relation >= 5 and afd_votes < union_votes + 12; union_party_leader = "Linnemann" if union_relation < 5 or afd_votes >= union_votes + 12; union_relation -= 3 if union_party_leader = "Linnemann"
+on-arrival: union_relation -= 2
+go-to: entscheidung
 
-Unsere Fraktionsspitze ruft die CDU-Delegierten in einer viel beachteten Bundestagsrede auf, sich an Angela Merkels Kritik am gemeinsamen Abstimmen mit der AfD im Januar 2025 zu erinnern. [? if union_party_leader = "Wüst" : Der Appell ist nicht entscheidend, aber er hilft: Viele Delegierte wollen ein klares Signal der Mitte senden, und Hendrik Wüst gewinnt knapp. ?][? if union_party_leader = "Linnemann" : Die Delegierten wollen sich von der Linken nichts sagen lassen. Carsten Linnemann gewinnt deutlich und kündigt einen härteren Kurs gegenüber der Linken an. ?]
+Unsere Fraktionsspitze erinnert die Union in einer viel beachteten Rede an Angela Merkels Kritik am gemeinsamen Abstimmen mit der AfD im Januar 2025.
 
+@entscheidung
+on-arrival: {!
+// Ausgang, wenn niemand von außen eingreift (Spielannahmen): eine schwache Union mit starker CSU greift zu Söder (wie 1980
+// und 2002), ein großer AfD-Vorsprung stärkt den konservativen Flügel, eine schwache Union sucht den Wechsel, sonst Merz.
+var u = Q.union_votes || 0, a = Q.afd_votes || 0;
+if (Q.csu_stark && u < 21) Q.union_kandidat = 3;
+else if (a >= u + 8 && Q.union_relation < 30) Q.union_kandidat = 4;
+else if (u < 19) Q.union_kandidat = 2;
+else Q.union_kandidat = 1;
+!}
+go-to: ergebnis
+
+@ergebnis
+on-arrival: {!
+var k = Q.union_kandidat;
+Q.union_leader = ['Merz', 'Merz', 'Wüst', 'Söder', 'Linnemann'][k] || 'Merz';
+if (k == 2) { Q.union_party_leader = 'Wüst'; Q.union_relation += 5; Q.workers_union += 2; Q.rentner_union += 1; }
+if (k == 3) { Q.union_relation -= 2; Q.rural_union += 2; Q.old_middle_union += 1; }
+if (k == 4) { Q.union_party_leader = 'Linnemann'; Q.union_relation -= 5; Q.mig_dev = (Q.mig_dev || 0) + 2; }
+!}
+
+[? if union_kandidat = 1 : Die Union zieht mit Friedrich Merz in die Wahl. Die Partei setzt auf Erfahrung, die Kritik am Alter des Kanzlers verstummt nicht. ?][? if union_kandidat = 2 : Merz verzichtet und unterstützt Hendrik Wüst, der Kanzlerkandidat und CDU-Vorsitzender wird. Mit ihm wird die Zusammenarbeit leichter, und die CDU spricht wieder stärker Beschäftigte an. ?][? if union_kandidat = 3 : Nach zähem Ringen verständigen sich CDU und CSU auf Markus Söder, zum dritten Mal in der Geschichte führt ein Bayer die Union in die Wahl. Er setzt auf Heimat, Mittelstand und eine harte Linie bei der Migration. ?][? if union_kandidat = 4 : Merz verzichtet, und Carsten Linnemann setzt sich als Kanzlerkandidat und CDU-Vorsitzender durch. Die Union schärft ihr Profil bei Bürgergeld, Rente und Migration und wird weniger bereit sein, Kompromisse mit uns einzugehen. ?]

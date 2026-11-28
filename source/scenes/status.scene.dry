@@ -12,6 +12,30 @@ Q.economic_growth_2 = de1(Q.economic_growth);
 // eigenes Profil als Juniorpartner (post_event: ab 3 entfällt der Zusatzverlust)
 var pf = Q.profil || 0;
 Q.profil_text = pf < 1 ? 'kaum erkennbar' : pf < 2 ? 'schwach' : pf < 3 ? 'erkennbar' : 'klar';
+// Ziele bis 2030 (Realitätscheck Nov. 2026, G1): sichtbare Zwischenziele je Partei, erfüllt (✓) oder offen (○)
+var ok = function(b) { return b ? '✓' : '○'; };
+var r2g = (Q.spd_r || 0) + (Q.linke_r || 0) + (Q.gruene_r || 0) + (Q.sapd_r || 0);
+var Z = Q.player == 'linke' ? [
+    [Q.spd_r > 0, 'Im Bundestag vertreten'],
+    [(Q.spd_votes || 0) >= 10, 'Zweistellig in den Umfragen'],
+    [(Q.lk_orga || 0) >= 3 || (Q.mietenkampagne || 0) >= 2, 'Organisiert vor Ort: Haustür, Sozialsprechstunden, Mieten'],
+    [Q.berlin_2026 == 2 || Q.berlin_r2g == 1 || Q.spd_prussia == 1, 'In einem Land regieren'],
+    [r2g >= 50, 'Rot-Grün-Rot im Bundestag rechnerisch möglich'],
+    [Q.brandmauer == 1, 'Die Brandmauer hält'],
+    [(Q.afd_votes || 0) < 25, 'AfD unter 25 Prozent'],
+    [(Q.cl_status || 0) >= 1, 'Klimaziel 2030 in Reichweite']
+] : [
+    [Q.spd_in_government == 1, Q.chancellor_party == 'SPD' ? 'Das Kanzleramt erobert' : 'Regieren (Kanzleramt noch offen)'],
+    [(Q.spd_votes || 0) >= 20, 'Über 20 Prozent in den Umfragen'],
+    [(Q.welfare || 0) >= 1 || Q.rente_reform == 2 || Q.rente_reform == 3, 'Sozialstaat gesichert, Rente mit Augenmaß'],
+    [(Q.works_program || 0) >= 1 || (Q.invest_bonus || 0) >= 1, 'Investitionen auf den Weg gebracht'],
+    [!Q.nds_lost && !Q.saar_lost, 'Die eigenen Länder gehalten'],
+    [Q.brandmauer == 1, 'Die Brandmauer hält'],
+    [(Q.afd_votes || 0) < 25, 'AfD unter 25 Prozent'],
+    [(Q.cl_status || 0) >= 1, 'Klimaziel 2030 in Reichweite']
+];
+Z.forEach(function(z, i) { Q['ziel_' + (i + 1)] = ok(z[0]) + ' ' + z[1]; });
+Q.ziele_n = Z.filter(function(z) { return z[0]; }).length + ' von ' + Z.length;
 !}
 
 = Status
@@ -39,6 +63,26 @@ Innerparteilicher Unmut: [+ dissent_percent : dissent +]
 Migration als wichtiges Problem: [+ mig_sal +] % der Befragten
 
 Nächste Bundestagswahl: [? if election_scheduled : [+ next_election_month : month +] [+ next_election_year +] ?][? if not election_scheduled : noch nicht terminiert (regulär [+ next_election_month : month +] [+ next_election_year +]) ?]
+
+= Ziele bis 2030
+
+Erreicht: [+ ziele_n +]
+
+[+ ziel_1 +]
+
+[+ ziel_2 +]
+
+[+ ziel_3 +]
+
+[+ ziel_4 +]
+
+[+ ziel_5 +]
+
+[+ ziel_6 +]
+
+[+ ziel_7 +]
+
+[+ ziel_8 +]
 
 = Wirtschaft
 

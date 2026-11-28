@@ -10,7 +10,7 @@ face-image: img/bundestag_plenum.jpg
 
 = Die Vertrauensfrage
 
-Das Jahr des Tolerierungsvertrags ist um. [+ union_leader +] kündigt an, die Vertrauensfrage zu stellen: Er wolle wissen, ob die SPD Verantwortung übernehme oder nicht. Eine weitere Tolerierung schließt die Union aus.
+Das Jahr des Tolerierungsvertrags ist um. [+ chancellor +] kündigt an, die Vertrauensfrage zu stellen: Er wolle wissen, ob die SPD Verantwortung übernehme oder nicht. Eine weitere Tolerierung schließt die Union aus.
 
 - @koalition: In die Regierung eintreten.
 - @neuwahl: Nein sagen und die Neuwahl annehmen.
@@ -19,7 +19,7 @@ Das Jahr des Tolerierungsvertrags ist um. [+ union_leader +] kündigt an, die Ve
 on-arrival: {!
 var kenia = (Q.union_r || 0) + (Q.spd_r || 0) < 50;
 Q.spd_in_government = 1; Q.spd_toleration = 0; Q.minority_government = 0; Q.union_in_government = 1;
-Q.partner_party = 'Union'; Q.chancellor_party = 'Union'; Q.chancellor = Q.union_leader;
+Q.partner_party = 'Union'; Q.chancellor_party = 'Union';
 Q.coalition_dissent = 2;
 if (kenia) { Q.in_weimar_coalition = 1; Q.gruene_in_government = 1; Q.coalition_name = 'Kenia'; }
 else { Q.in_grand_coalition = 1; Q.coalition_name = 'Schwarz-Rot'; }

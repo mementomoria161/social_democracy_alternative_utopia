@@ -666,7 +666,8 @@ Q.union_alt = 0; Q.minderheit_seen = 0; Q.minderheit_frist = 0;
 Q.golfkrieg_seen = 0; Q.oil_shock = 0; Q.tankrabatt = 0; Q.tankrabatt_seen = 0; Q.tankrabatt2_seen = 0; Q.kp_klimageld_debatte = 0;
 Q.rente_reform = 0; Q.sa_mp_seen = 0; Q.sa_mp = 0; Q.afd_land = 0; Q.spd_parteitag_2027_seen = 0; Q.spd_vorsitz_2027 = 0;
 Q.berlin_r2g_seen = 0; Q.berlin_r2g = 0; Q.saarland_2027_seen = 0; Q.saar_lost = 0; Q.nds_2027_seen = 0; Q.nds_lost = 0;
-Q.rentenkommission_seen = Q.rentenkommission_seen || 0; Q.by_he_2028_seen = 0; Q.csu_stark = 0; Q.afd_land_stark = 0; Q.haushaltswoche_last = 0; Q.invest_bonus = 0;
+Q.rentenkommission_seen = Q.rentenkommission_seen || 0; Q.union_kfrage_seen = 0; Q.union_kandidat = 0; Q.mv_lost = Q.mv_lost || 0; Q.rp_lost = Q.rp_lost || 0; Q.spd_kandidatur_seen = 0; Q.spd_rueckenwind = 0; Q.lk_r2g_projekt_seen = 0; Q.ziele_n = ''; for (var zi = 1; zi <= 8; zi++) Q['ziel_' + zi] = ''; Q.left_split_warn = 0; Q.halbzeit_alq = 0; Q.ende_afd = 0; Q.ende_pp = 0; Q.president_full = '';
+Q.by_he_2028_seen = 0; Q.csu_stark = 0; Q.afd_land_stark = 0; Q.haushaltswoche_last = 0; Q.invest_bonus = 0;
 Q.schwesig_campaign = 0; Q.gruene_support_schwesig = 0; Q.linke_support_schwesig = 0; Q.spd_support_thalmann = 0;
 Q.hitler_support_hindenburg = 0; Q.election_round = 0; Q.bv_mode = 0; Q.bv_round = 0;
 Q.hindenburg_votes = 0; Q.thalmann_votes = 0; Q.hitler_votes = 0; Q.schwesig_votes = 0;
@@ -820,7 +821,7 @@ on-arrival: difficulty = 1; resources = 0; starting_resources = 0; dues = 1; sta
 go-to: party_choice
 
 @intro_historical
-subtitle: Speichern, Laden und Umfragen sind deaktiviert. [? if not achievement_game_completed: Nicht für das erste Spiel empfohlen. ?]
+subtitle: Die Landtagswahlen bis heute enden wie in der Wirklichkeit. Schwer: Speichern, Laden und Umfragen sind deaktiviert. [? if not achievement_game_completed: Nicht für das erste Spiel empfohlen. ?]
 on-arrival: {!
 Q.hand_size = 3;
 Q.difficulty = 2;

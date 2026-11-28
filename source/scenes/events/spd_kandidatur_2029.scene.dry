@@ -1,0 +1,52 @@
+title: Wer führt die SPD in die Wahl?
+subtitle: Die Kanzlerkandidatur für 2029
+new-page: true
+tags: event
+view-if: player = "spd" and year = 2028 and month = 9 and spd_kandidatur_seen = 0
+max-visits: 1
+on-arrival: spd_kandidatur_seen = 1
+face-image: img/wahlkampf.jpg
+
+# Realitätscheck Nov. 2026 (G1, Siegpfad): eine erarbeitbare Kette zur Kanzlerschaft. Fiktion. Boris Pistorius führt seit
+# Jahren die Beliebtheitslisten an (ARD-DeutschlandTrend, ZDF-Politbarometer). Rückenwind gibt es, wenn die Partei geschlossen
+# ist und in der Regierung ein eigenes Profil hat (profil, dissent) und die eigenen Länder gehalten hat.
+
+= Wer führt die SPD in die Wahl?
+
+# party-ok: SPD (nur im SPD-Spiel)
+Ein halbes Jahr vor der Bundestagswahl muss die SPD entscheiden, wer als Kanzlerkandidat\*in antritt. [? if dissent < 0.25 and profil >= 2 and nds_lost = 0 : Die Partei ist geschlossen, in der Regierung erkennbar, und sie hat ihre Länder gehalten: Zum ersten Mal seit Jahren reden Kommentator\*innen von einem offenen Rennen ums Kanzleramt. ?][? if not (dissent < 0.25 and profil >= 2 and nds_lost = 0) : Die Ausgangslage ist schwierig, aber Wahlkämpfe haben schon manches gedreht. ?]
+
+- @pistorius: Boris Pistorius, der beliebteste Politiker des Landes.
+- @vorsitz: Die Parteispitze tritt an: [? if spd_vorsitz_2027 = 2 : Hubertus Heil ?][? if spd_vorsitz_2027 != 2 : Lars Klingbeil?].
+- @schwesig: Manuela Schwesig, die Ostdeutsche, die die AfD in ihrem Land geschlagen hat.
+
+@pistorius
+on-arrival: spd_candidate = "Pistorius"; rentner_spd += 1.5*(1-dissent); rural_spd += 1.5*(1-dissent); old_middle_spd += 1*(1-dissent); workers_spd += 1*(1-dissent); left_dissent += 4; reformist_dissent -= 4
+go-to: rueckenwind
+
+Pistorius sagt zu. Die Umfragen zu seiner Person sind glänzend; die Parteilinke fremdelt mit einem Verteidigungsminister an der Spitze.
+
+@vorsitz
+on-arrival: spd_candidate = "Heil" if spd_vorsitz_2027 = 2; spd_candidate = "Klingbeil" if spd_vorsitz_2027 != 2; center_dissent -= 4; labor_dissent -= 2; workers_spd += 1*(1-dissent); new_middle_spd += 0.5*(1-dissent)
+go-to: rueckenwind
+
+Die Partei stellt sich hinter ihre Führung. Das sorgt für Ruhe, ein Aufbruch ist es nicht.
+
+@schwesig
+view-if: president != "Schwesig" and mv_lost = 0
+on-arrival: spd_candidate = "Schwesig"; rural_spd += 1.5*(1-dissent); rentner_spd += 1*(1-dissent); workers_spd += 1*(1-dissent); center_dissent -= 2
+go-to: rueckenwind
+
+Schwesig zögert lange und sagt dann zu. Im Osten, wo die SPD fast verschwunden schien, horchen viele auf.
+
+@rueckenwind
+on-arrival: {!
+// Siegpfad: Geschlossenheit, Profil und gehaltene Länder geben dauerhaften Rückenwind (rund 1,5 Punkte)
+if ((Q.dissent || 0) < 0.25 && (Q.profil || 0) >= 2 && !Q.nds_lost) {
+    var d = 1 - (Q.dissent || 0);
+    ['workers', 'new_middle', 'rentner', 'rural'].forEach(function(c) { Q[c + '_spd'] += 1.5 * d; });
+    Q.spd_rueckenwind = 1;
+}
+!}
+
+[? if spd_rueckenwind : Die Kandidatur zündet: Die Partei zieht mit, die Umfragen steigen. Das Kanzleramt ist in Reichweite. ?][? if not spd_rueckenwind : Die Entscheidung ist gefallen. Jetzt kommt es auf den Wahlkampf an. ?]

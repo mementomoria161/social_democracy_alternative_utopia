@@ -1,0 +1,41 @@
+title: Brandbriefe aus der Parteilinken
+subtitle: Die SPD-Linke droht mit dem Bruch.
+new-page: true
+tags: event
+view-if: player = "spd" and left_dissent >= 45 and left_split_warn = 0 and left_split = 0
+max-visits: 1
+on-arrival: left_split_warn = time
+face-image: img/parteitag.jpg
+
+# Realitätscheck Nov. 2026 (P2): Vorher spaltete sich die Parteilinke ohne Vorwarnung ab, sobald left_dissent 60 erreichte.
+# Eine Abspaltung von links wäre ein Beben (die letzte relevante war die WASG 2004/05) und hätte Vorzeichen. Jetzt gibt es
+# zuerst diese Warnung; die Abspaltung (events/left_split) kommt frühestens drei Monate später und nur bei weiter hohem Unmut.
+
+= Brandbriefe aus der Parteilinken
+
+# party-ok: SPD (nur im SPD-Spiel)
+Ein Brief der Parlamentarischen Linken, unterschrieben von Dutzenden Abgeordneten, Landtagsabgeordneten und Juso-Vorsitzenden, macht die Runde: Die Parteiführung habe die SPD „zur Verwalterin des Mangels“ gemacht. Mehrere bekannte Abgeordnete kündigen an, über einen Austritt nachzudenken. In Berlin und im Ruhrgebiet sammeln Mitglieder Unterschriften für ein Mitgliederbegehren.
+
+Noch ist Zeit, den Bruch zu verhindern. Was tun wir?
+
+- @zugestaendnis: Der Parteilinken entgegenkommen: ein Kurswechsel bei Rente, Mieten und Vermögen.
+- @forum: Ein Mitgliederforum einberufen und offen über den Kurs streiten.
+- @hart: Hart bleiben: Wer gehen will, soll gehen.
+
+@zugestaendnis
+on-arrival: left_dissent -= 18; center_dissent += 6; reformist_dissent += 8; union_relation -= 3; coalition_dissent += 1 if spd_in_government and union_in_government
+
+Die Parteiführung legt ein Papier vor, das viele Forderungen der Linken aufnimmt. Der Seeheimer Kreis ist verärgert, die Union misstrauisch. Die Austrittsdrohungen verstummen.
+
+@forum
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: resources -= 1; left_dissent -= 10; center_dissent -= 2; reformist_dissent += 2
+
+Auf Regionalkonferenzen wird hart gestritten, aber man redet miteinander. Ein Teil des Unmuts verraucht.
+
+@hart
+on-arrival: center_dissent -= 3; reformist_dissent -= 3; left_dissent += 5
+
+Die Parteiführung erklärt, die SPD lasse sich nicht erpressen. Die Seeheimer applaudieren. In der Parteilinken beginnen die Vorbereitungen für eine neue Partei.

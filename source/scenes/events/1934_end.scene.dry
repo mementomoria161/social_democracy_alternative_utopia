@@ -1,14 +1,27 @@
-title: Ein neuer Tag für Deutschland
-subtitle: Hat die Demokratie gesiegt?
+title: Bilanz am Ende des Jahrzehnts
+subtitle: Wie steht die Demokratie da?
 tags: event
 priority: 3
 view-if: (hindenburg_dead = 1 or (year >= 2030 and month >= 12)) and chancellor_party != "AfD"
 max-visits: 1
 on-arrival: {!
+// Realitätscheck Nov. 2026: vorher stand hier immer „der Höhenflug der extremen Rechten ist gebrochen“ (Weimar-Vorlage),
+// auch wenn die AfD gerade stärkste Fraktion geworden war. Jetzt wird die Bilanz aus dem Zustand gebaut.
+Q.ende_afd = Math.round(Q.afd_votes || 0);
+Q.ende_pp = Math.round(Q.spd_votes || 0);
+Q.ende_alq_disp = (Math.round((Q.unemployed || 0) * 10) / 10).toFixed(1).replace('.', ',');
+Q.president_full = ({Aigner: 'Bundespräsidentin Ilse Aigner', Schwesig: 'Bundespräsidentin Manuela Schwesig', Trabert: 'Bundespräsident Gerhard Trabert', Berthold: 'Bundespräsident Thomas Berthold', Lammert: 'Bundespräsident Norbert Lammert', Chrupalla: 'Bundespräsident Tino Chrupalla'})[Q.president] || Q.president;
 !}
 new-page: true
 go-to: game_over_1934
 
-= Ein neuer Tag für Deutschland
+= Bilanz am Ende des Jahrzehnts
 
-Das Jahr 2030 geht zu Ende, und mit ihm scheint ein Kapitel zu schließen. Die schlimmsten Jahre der politischen und wirtschaftlichen Krise liegen hinter uns, und der Höhenflug der extremen Rechten ist gebrochen. Vielleicht bricht für Deutschland nun endlich eine Zeit des Friedens und der Zuversicht an …
+# party-ok: SPD (Spielerpartei-Slot, Bilanz)
+Das Jahr 2030 geht zu Ende. [+ chancellor_title +] ist [+ chancellor +], es regiert: [+ coalition_name +]. [? if spd_in_government and chancellor_party = "SPD" : Das Kanzleramt ist in unserer Hand. Das hatte 2024 kaum jemand für möglich gehalten. ?][? if spd_in_government and chancellor_party != "SPD" : Wir regieren mit, als Juniorpartner. ?][? if not spd_in_government : Wir sind in der Opposition. ?] In den Umfragen liegt [+ pp_full +] bei rund [+ ende_pp +] Prozent.
+
+[? if ende_afd >= 25 and brandmauer = 1 : Die AfD bleibt mit rund [+ ende_afd +] Prozent eine der stärksten Kräfte. Dass sie nicht regiert, verdankt das Land einer Brandmauer, die bisher gehalten hat. ?][? if ende_afd >= 25 and brandmauer = 0 : Die AfD liegt bei rund [+ ende_afd +] Prozent, und die Brandmauer ist gefallen. Ob die Mitte die nächste Wahl ohne sie übersteht, ist offen. ?][? if ende_afd >= 20 and ende_afd < 25 : Die AfD ist mit rund [+ ende_afd +] Prozent noch immer stark, aber ihr Aufstieg ist gebremst. ?][? if ende_afd < 20 : Der Höhenflug der AfD ist vorbei: Sie liegt in den Umfragen unter 20 Prozent. ?]
+
+Die Arbeitslosenquote liegt bei [+ ende_alq_disp +] Prozent. [? if cl_status = 2 : Beim Klimaschutz ist Deutschland auf dem Paris-Kurs. ?][? if cl_status = 1 : Das Klimaziel für 2030 wird knapp verfehlt. ?][? if cl_status = 0 : Das Klimaziel für 2030 wird deutlich verfehlt. ?] [? if president != "Steinmeier" : Im Schloss Bellevue amtiert [+ president_full +]. ?]
+
+Ob das reicht, wird sich zeigen. Die Demokratie hat dieses Jahrzehnt überstanden; gewonnen ist sie nie für immer.

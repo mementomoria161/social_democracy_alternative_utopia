@@ -2,7 +2,8 @@ title: Abspaltung der Parteilinken
 new-page: true 
 subtitle: Der Streit mit der Parteilinken ist eskaliert.
 tags: event
-view-if: player = "spd" and (left_dissent >= 60)
+view-if: player = "spd" and left_dissent >= 60 and left_split_warn > 0 and time >= left_split_warn + 3
+# Nov. 2026: erst nach der Vorwarnung (events/parteilinke_warnung) und frühestens drei Monate später.
 on-arrival: left_split = 1; left_strength = left_strength/2; workers_spd -= 5; unemployed_spd -= 5; workers_other += 5; workers_linke += 3; n_advisors -= 1 if stegner_advisor == 1; stegner_advisor = 0; demo_strength -= 300; linke_relation -= 5; demo_radicalism -= 0.05 if demo_radicalism >= 0.1; n_advisors -= 1 if kuehnert_advisor == 1; kuehnert_advisor = 0; n_advisors -= 1 if tuermer_advisor == 1; tuermer_advisor = 0; n_advisors -= 1 if rosenthal_advisor == 1; rosenthal_advisor = 0
 go-to: sapd_formed if not sapd_formed
 # Nov. 2026: Der Text kündigt die Gründung der Sozialen Linken an; vorher entstand die Partei nur, wenn auch die Parteimitte
