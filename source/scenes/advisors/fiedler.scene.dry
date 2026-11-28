@@ -1,7 +1,7 @@
 # party: spd
 title: Sebastian Fiedler
 is-pinned-card: true
-tags: advisor, neorevisionist
+tags: advisor, reformist
 card-image: img/portraits/Fiedler.jpg
 view-if: fiedler_advisor = 1
 new-page: true

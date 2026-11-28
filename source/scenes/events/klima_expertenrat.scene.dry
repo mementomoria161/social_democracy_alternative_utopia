@@ -9,11 +9,14 @@ face-image: img/windpark.jpg
 
 # Durchgang 4.6 (Klima). Real: Der Expertenrat für Klimafragen prüft jedes Frühjahr die Projektionsdaten des Umweltbundesamts;
 # nach dem Klimaschutzgesetz (Novelle 2024) muss die Bundesregierung nachsteuern, wenn zwei Jahre in Folge eine Zielverfehlung
-# projiziert wird. Zahlen aus dem Klimamodell (cl_p2030, cl_gap2030); der Inhalt der Prüfberichte ab 2026 ist Fiktion.
+# projiziert wird. 2026 real (Prüfbericht 18.05.2026, Pressemitteilung ERK; hib 440/2026): Die Projektionsdaten 2026 (62,6 %
+# Minderung, Puffer 4,5 Mt) unterschätzen die Emissionen; mittlerer Pfad überschreitet das Budget 2021–2030 um 60–100 Mt.
+# Zahlen danach aus dem Klimamodell (cl_p2030, cl_gap2030), als eigene Rechnung gekennzeichnet; das Modell liegt ohne neue
+# Maßnahmen rund 40–50 Mt über der UBA-Projektion (468 Mt), weil es Verkehr und Gebäude träger ansetzt.
 
 = Expertenrat meldet Zielverfehlung
 
-Der Expertenrat für Klimafragen legt seinen Prüfbericht vor. Mit den beschlossenen Maßnahmen lägen die Emissionen 2030 bei rund [+ cl_p2030 +] Millionen Tonnen statt der erlaubten 438, eine Lücke von etwa [+ cl_gap2030 +] Millionen Tonnen. [? if cl_budget_year > 0 : Das Paris-kompatible CO2-Budget wäre um [+ cl_budget_year +] aufgebraucht. ?] Besonders schlecht sieht es bei Verkehr und Gebäuden aus.
+[? if year = 2026 : Der Expertenrat für Klimafragen legt seinen Prüfbericht vor und widerspricht der Bundesregierung: Die Projektionen sähen das Klimaziel nur hauchdünn erreicht, tatsächlich werde das Emissionsbudget bis 2030 voraussichtlich um 60 bis 100 Millionen Tonnen überschritten. Auch das Klimaschutzprogramm reiche nicht. ?][? if year > 2026 : Der Expertenrat für Klimafragen legt seinen nächsten Prüfbericht vor. ?]Nach unserer eigenen Rechnung lägen die Emissionen 2030 bei rund [+ cl_p2030 +] Millionen Tonnen statt der erlaubten 438, eine Lücke von etwa [+ cl_gap2030 +] Millionen Tonnen. [? if cl_budget_year > 0 : Das Paris-kompatible CO2-Budget wäre um [+ cl_budget_year +] aufgebraucht. ?] Besonders schlecht sieht es bei Verkehr und Gebäuden aus.
 
 [? if klima_expertenrat_seen > 1 : Es ist nicht die erste Warnung: Nach dem Klimaschutzgesetz muss die Bundesregierung jetzt ein Klimaschutzprogramm nachlegen. ?][? if klima_expertenrat_seen = 1 : Umweltverbände kündigen an, die Regierung notfalls vor Gericht zu zwingen. ?]
 

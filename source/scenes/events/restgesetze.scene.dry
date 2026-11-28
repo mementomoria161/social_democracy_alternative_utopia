@@ -30,9 +30,12 @@ SPD und Grüne haben im Bundestag keine Mehrheit mehr. Jedes Gesetz braucht jetz
 - @fertig
 
 @kindergeld
+# Nov. 2026: Schwellen gesenkt. Real kamen trotz der scharfen Rede in der Vertrauensfrage im Dezember 2024 Kindergeld/kalte
+# Progression (19.12.), die Absicherung des BVerfG (19.12., mit Union und FDP) und das Deutschlandticket (20.12., Einigung
+# SPD, Grüne, Union vom 17.12.; Bundestag/Bundesrat, Regionalisierungsgesetz) durch.
 title: Kindergeld erhöhen und die kalte Progression ausgleichen.
 subtitle: Braucht die Stimmen der FDP oder der Union.
-choose-if: prolog_laws >= 1 and (fdp_relation >= 10 or union_relation >= 30)
+choose-if: prolog_laws >= 1 and (fdp_relation >= 5 or union_relation >= 18)
 unavailable-subtitle: [? if prolog_laws < 1 : Bis zur Auflösung bleibt dafür keine Zeit. ?][? if prolog_laws >= 1 : Weder FDP noch Union machen mit. ?]
 max-visits: 1
 on-arrival: prolog_laws -= 1; workers_spd += 1*(1-dissent); new_middle_spd += 0.5*(1-dissent); fdp_relation += 2
@@ -43,7 +46,7 @@ Mit den Stimmen der FDP beschließt der Bundestag ein höheres Kindergeld und ei
 @deutschlandticket
 title: Das Deutschlandticket für 2025 sichern.
 subtitle: Braucht die Stimmen der FDP oder der Union.
-choose-if: prolog_laws >= 1 and (fdp_relation >= 10 or union_relation >= 30)
+choose-if: prolog_laws >= 1 and (fdp_relation >= 5 or union_relation >= 18)
 unavailable-subtitle: [? if prolog_laws < 1 : Bis zur Auflösung bleibt dafür keine Zeit. ?][? if prolog_laws >= 1 : Weder FDP noch Union machen mit. ?]
 max-visits: 1
 on-arrival: prolog_laws -= 1; new_middle_spd += 1*(1-dissent); workers_spd += 0.5*(1-dissent); gruene_relation += 2
@@ -54,7 +57,7 @@ Der Bundestag sichert die Finanzierung des Deutschlandtickets für 2025. Million
 @bverfg
 title: Das Bundesverfassungsgericht im Grundgesetz absichern.
 subtitle: Grundgesetzänderung: braucht Union und FDP.
-choose-if: prolog_laws >= 1 and union_relation >= 30 and fdp_relation >= 5
+choose-if: prolog_laws >= 1 and union_relation >= 18
 unavailable-subtitle: [? if prolog_laws < 1 : Bis zur Auflösung bleibt dafür keine Zeit. ?][? if prolog_laws >= 1 : Ohne die Union gibt es keine Zweidrittelmehrheit. ?]
 max-visits: 1
 on-arrival: prolog_laws -= 1; pro_republic += 2; union_relation += 2; nazi_urgency += 1 if nazi_urgency < 3

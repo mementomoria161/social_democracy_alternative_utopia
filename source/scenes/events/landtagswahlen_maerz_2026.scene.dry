@@ -12,9 +12,9 @@ face-image: img/wahlkampf.jpg
 
 # party-ok: SPD (die reale SPD; Ergebnisse 08.03. und 22.03.2026: BW Grüne 30,2, CDU 29,7, AfD 18,8, SPD 5,5, Linke 4,4; RP CDU 31,0, SPD 25,9, AfD 19,5, Linke 4,4)
 
-In Baden-Württemberg liefern sich Grüne und CDU ein Kopf-an-Kopf-Rennen; am Ende liegen die Grünen knapp vorn. Die AfD kommt auf fast ein Fünftel der Stimmen, die SPD bleibt einstellig bis knapp zweistellig.
+In Baden-Württemberg liefern sich Grüne und CDU ein Kopf-an-Kopf-Rennen. Am Ende liegen die Grünen mit Cem Özdemir knapp vorn (30,2 zu 29,7 Prozent) und regieren weiter mit der CDU. Die AfD kommt auf fast ein Fünftel der Stimmen, die SPD stürzt auf 5,5 Prozent und rettet sich nur knapp in den Landtag.
 
-[? if rp_lost : In Rheinland-Pfalz verliert die SPD nach 35 Jahren die Staatskanzlei. Die CDU wird stärkste Kraft, die SPD bleibt als Juniorpartnerin in der Regierung. ?][? if rp_lost and player = "spd" : Für die Bundespartei ist das ein schwerer Schlag. ?][? if not rp_lost : In Rheinland-Pfalz verteidigt die SPD überraschend die Staatskanzlei, wenn auch knapp. ?][? if not rp_lost and player = "spd" : Für die Bundespartei ist das ein wichtiges Signal. ?]
+[? if rp_lost : In Rheinland-Pfalz verliert die SPD nach 35 Jahren die Staatskanzlei. Die CDU wird stärkste Kraft, die SPD bleibt als Juniorpartnerin in der Regierung. ?][? if rp_lost and player = "spd" : Für die Bundespartei ist das ein schwerer Schlag. ?][? if not rp_lost : In Rheinland-Pfalz verteidigt die SPD überraschend die Staatskanzlei, wenn auch knapp. (Wirklich gewann die CDU mit 31,0 zu 25,9 Prozent, Gordon Schnieder wurde Ministerpräsident.) ?][? if not rp_lost and player = "spd" : Für die Bundespartei ist das ein wichtiges Signal. ?]
 
 - @analyse: Die Ergebnisse gründlich analysieren.
 - @weiter: Weitermachen wie bisher.
@@ -31,7 +31,7 @@ Landtagswahlen haben ihre eigenen Gesetze. Wir lassen uns nicht beirren.
 @linke
 on-arrival: lk_sw_in = 1 if spd_votes >= 12 and not historical_mode
 
-[? if lk_sw_in : Für die Linke ist es ein historischer Abend: Zum ersten Mal zieht sie in beide Landtage ein. Der Aufschwung im Bund trägt bis in den Südwesten. ?][? if not lk_sw_in : Für die Linke reicht es in beiden Ländern nicht: Mit jeweils gut vier Prozent scheitert sie an der Fünf-Prozent-Hürde, obwohl sie sich fast verdoppelt hat. In Freiburg, Tübingen und Mainz holt sie zweistellige Ergebnisse, auf dem Land kaum etwas. ?]
+[? if lk_sw_in : Für die Linke ist es ein historischer Abend: Zum ersten Mal zieht sie in beide Landtage ein. Der Aufschwung im Bund trägt bis in den Südwesten. (Wirklich scheiterte sie in beiden Ländern mit 4,4 Prozent.) ?][? if not lk_sw_in : Für die Linke reicht es in beiden Ländern nicht: Mit jeweils gut vier Prozent scheitert sie an der Fünf-Prozent-Hürde, obwohl sie sich fast verdoppelt hat. In Freiburg, Tübingen und Mainz holt sie zweistellige Ergebnisse, auf dem Land kaum etwas. ?]
 
 - @lk_land: Daraus lernen: Wir müssen auch in Kleinstädten und auf dem Land präsent sein.
 - @lk_weiter: Weitermachen. Der Westen ist für uns ein Marathon.

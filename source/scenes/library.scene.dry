@@ -285,7 +285,8 @@ Aktuelles Verhältnis: [+ gruene_relation : relationships +]
 
 Aktuelles Verhältnis: [+ fdp_relation : relationships +]
 
-**BSW** – *Bündnis Sahra Wagenknecht*. Linkskonservativ und populistisch: sozialpolitisch links, gesellschaftspolitisch konservativ, gegen Waffenlieferungen an die Ukraine. 2024 als Abspaltung der Linken gegründet und auf Anhieb in drei Landtage eingezogen.
+# BSW: Parteitag Magdeburg Dez. 2025 (De Masi 93,3 %, Mohamed Ali 82,6 %), Umbenennung zum 1.10.2026 (ZDF, ORF).
+**BSW** – *Bündnis Sahra Wagenknecht*. Linkskonservativ und populistisch: sozialpolitisch links, gesellschaftspolitisch konservativ, gegen Waffenlieferungen an die Ukraine. 2024 als Abspaltung der Linken gegründet und auf Anhieb in drei Landtage eingezogen. [? if year > 2025 or (year = 2025 and month = 12) : Seit Dezember 2025 führen Fabio De Masi und Amira Mohamed Ali die Partei, Sahra Wagenknecht leitet die Grundwertekommission. ?][? if year > 2026 or (year = 2026 and month >= 10) : Seit Oktober 2026 heißt sie „Bündnis Soziale Gerechtigkeit und Wirtschaftliche Vernunft“, das Kürzel bleibt. ?]
 
 Aktuelles Verhältnis: [+ bsw_relation : relationships +]
 

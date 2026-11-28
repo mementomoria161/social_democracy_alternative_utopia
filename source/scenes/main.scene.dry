@@ -45,7 +45,7 @@ max-cards: 4
 @party
 # Unsichtbarer weicher Trennstrich (U+00AD) an der Wortfuge: die Kartenbeschriftung bricht dort um, nicht mitten im Wort.
 title: Partei­angelegenheiten
-card-image: img/ortsverein.jpg
+card-image: img/volkspartei.jpg
 is-deck: true
 
 - #party_affairs

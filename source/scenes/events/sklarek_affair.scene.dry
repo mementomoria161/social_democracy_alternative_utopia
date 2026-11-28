@@ -33,7 +33,7 @@ Wir spielen die Affäre herunter und handeln nur, wenn wir dazu gezwungen werden
 @turn_back
 title: Die Firma hat auch Politiker von Union und BSW bedacht. Den Spieß umdrehen.
 choose-if: judicial_reform > 1 and prussian_police_loyalty > 0.5
-unavailable-subtitle: Justiz und Polizei sind gegen uns.
+unavailable-subtitle: Dafür fehlen belastbare Ermittlungsergebnisse.
 on-arrival: new_middle_spd -= 1; old_middle_spd -= 1; rural_spd -= 1; rentner_spd -= 1; new_middle_gruene -= 1; workers_bsw -= 1; new_middle_bsw -= 1; old_middle_bsw -= 1; rural_bsw -= 1; pro_republic -= 2
 
 Die Ermittlungen zeigen, dass die Firma keine Parteigrenzen kannte: Auch Politiker von Union und BSW standen auf der Liste. Wir drehen den Spieß um.

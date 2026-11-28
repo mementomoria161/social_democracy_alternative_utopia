@@ -7,9 +7,12 @@ max-visits: 1
 on-arrival: europawahl_2029_seen = 1; pro_republic += 2 if eu or eu_progress >= 1; pro_republic -= 2 if not eu and eu_progress < 1
 face-image: img/international.jpg
 
+# Nov. 2026: Die EU-Direktwahlakt-Reform (Sperrklausel 2–5 % für große Staaten) ist noch nicht in Kraft; BVerfG 6.2.2024:
+# Zustimmungsgesetz nicht in Kraft, ratifizieren müssen noch u. a. Spanien und Zypern. Gilt sie 2029, wäre die Hürde 2 %.
+
 = Europawahl
 
-Wenige Monate nach der Bundestagswahl wählt Deutschland das Europäische Parlament. Ohne Fünf-Prozent-Hürde ziehen auch kleine Parteien ein, und die Wahl gilt als Stimmungstest für die neue Bundesregierung.
+Wenige Monate nach der Bundestagswahl wählt Deutschland das Europäische Parlament. Noch gilt in Deutschland bei der Europawahl keine Sperrklausel, kleine Parteien ziehen also schon mit weniger als einem Prozent ein, und die Wahl gilt als Stimmungstest für die neue Bundesregierung.
 
 [? if player = "spd" and spd_r >= 20 : Die SPD schneidet ordentlich ab und kann sich als proeuropäische Kraft profilieren. ?][? if player = "spd" and spd_r < 20 : Die SPD bleibt hinter ihren Erwartungen zurück. ?][? if player = "linke" and spd_votes >= 9 : Die Linke erzielt ihr bestes Europawahlergebnis seit Jahren und wird zur stärksten Gruppe in der Linksfraktion des Europaparlaments. ?][? if player = "linke" and spd_votes < 9 : Die Linke bleibt hinter ihren Erwartungen zurück. ?] [? if afd_r >= 25 : Die AfD wird zur größten deutschen Gruppe im Europäischen Parlament, was in Brüssel für Unruhe sorgt. ?] [? if eu : Die neue Europäische Föderation ist das große Thema des Wahlkampfs. ?]
 

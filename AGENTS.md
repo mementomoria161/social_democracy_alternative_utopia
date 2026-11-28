@@ -24,6 +24,8 @@ npx dendrynexus make-html          # baut out/game.json (Warnung "Overwriting ex
 cp out/game.json out/html/
 python -I tools/check_links.py     # 0 kaputte Verweise
 node tools/sim.js . 20             # 20 Zufallsläufe headless; meldet Fehler, Endlosschleifen, gesehene Events
+python -I tools/check_text_style.py # 0 Fundstellen: Gender-Sternchen als \*, Leerzeichen an [? … ?], Kanzleranrede
+node tools/playlog.js . spd 7 /tmp/spd.md   # optional: kompletter Textmitschnitt eines Spiels zum Gegenlesen
 ```
 
 Browser: `.claude/launch.json` (`python -m http.server 8765 -d out/html`), dann `http://localhost:8765`.

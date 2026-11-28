@@ -10,7 +10,7 @@ view-if: panzerkreuzer_b_seen = 0 and year = 2028 and month >= 2 and (spd_in_gov
 
 Die Bundeswehr fordert ein weiteres Milliardenpaket: neue Fregatten und Langstreckenraketen, um das NATO-Ziel zu erreichen. [? if panzerkreuzer_funded: Die Kampfjets wurden bestellt, die ersten Maschinen sind ausgeliefert. Das neue Paket wäre der nächste große Schritt der Aufrüstung. ?][? if not panzerkreuzer_funded: Die Kampfjets wurden dank uns nicht bestellt. Die Bundeswehrführung ist verbittert, verfolgt ihre Pläne aber weiter und braucht dafür die Zustimmung des Bundestages. ?]
 
-Große Teile unserer Partei lehnen die Aufrüstung ab, während Union und Mitte geschlossen dafür sind. Was tun wir?
+[? if player = "spd" : Die Parteilinke und Teile der Fraktion lehnen das Paket ab, ?][? if player = "linke" : Große Teile unserer Partei lehnen die Aufrüstung ab, ?]während Union und Mitte geschlossen dafür sind. Was tun wir?
 
 - @vote_yes: Mit Ja stimmen, für das Rüstungspaket.
 - @vote_no: Mit Nein stimmen, gegen das Rüstungspaket.

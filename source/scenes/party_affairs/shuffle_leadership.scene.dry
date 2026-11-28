@@ -216,37 +216,37 @@ Rosenthal gehört nicht mehr zum Beraterkreis. Die SPD-Linke ist verärgert.
 
 
 
-# neorevisionists
+# Seeheimer/pragmatisch (bis Nov. 2026 unter „Dänischer Kurs“)
 
 @remove_grote
 # party: spd
 title: Grote aus dem Beraterkreis nehmen
 view-if: grote_advisor = 1
 tags: remove_advisor
-on-arrival: grote_advisor = 0; neorevisionist_dissent += 5; n_advisors -= 1
+on-arrival: grote_advisor = 0; reformist_dissent += 5; n_advisors -= 1
 go-to: rm_main
 
-Grote gehört nicht mehr zum Beraterkreis. Der Dänische Kurs ist verärgert.
+Grote gehört nicht mehr zum Beraterkreis. Der Seeheimer Kreis ist verärgert.
 
 @remove_wiese
 # party: spd
 title: Wiese aus dem Beraterkreis nehmen
 view-if: wiese_advisor = 1
 tags: remove_advisor
-on-arrival: wiese_advisor = 0; neorevisionist_dissent += 3; n_advisors -= 1
+on-arrival: wiese_advisor = 0; reformist_dissent += 3; n_advisors -= 1
 go-to: rm_main
 
-Wiese gehört nicht mehr zum Beraterkreis. Der Dänische Kurs ist verärgert.
+Wiese gehört nicht mehr zum Beraterkreis. Der Seeheimer Kreis ist verärgert.
 
 @remove_fiedler
 # party: spd
 title: Fiedler aus dem Beraterkreis nehmen
 view-if: fiedler_advisor = 1
 tags: remove_advisor
-on-arrival: fiedler_advisor = 0; neorevisionist_dissent += 3; n_advisors -= 1
+on-arrival: fiedler_advisor = 0; reformist_dissent += 3; n_advisors -= 1
 go-to: rm_main
 
-Fiedler gehört nicht mehr zum Beraterkreis. Der Dänische Kurs ist verärgert.
+Fiedler gehört nicht mehr zum Beraterkreis. Der Seeheimer Kreis ist verärgert.
 
 
 ## nonfactional
@@ -318,7 +318,6 @@ frequency: 1
 - @left: Aus der Strömung [+ f_left +]
 - @reformist: Aus der Strömung [+ f_reformist +]
 - @labor: Aus dem [+ f_labor +]
-- @neorev: Aus der Strömung [+ f_neorev +]
 - @nonfactional: Ohne Strömungszugehörigkeit
 - @rm_main: Stattdessen Berater entlassen.
 - @remove_none: Keine weiteren Änderungen.
@@ -342,11 +341,6 @@ view-if: n_advisors < 3
 view-if: n_advisors < 3
 
 - #labor_advisor
-
-@neorev
-view-if: player = "spd" and neorevisionism > 0 and n_advisors < 3
-
-- #neorev_advisor
 
 @nonfactional
 view-if: n_advisors < 3
@@ -494,7 +488,7 @@ Philipp Türmer gehört nun zum Beraterkreis.
 
 @add_kuehnert
 title: Kevin Kühnert
-subtitle: Kevin Kühnert – Ehemaliger Generalsekretär und begabter Rhetoriker der Parteilinken. {!<br><br>!}Aktionen: Verteilungskampf, Jusos stärken, Tolerierung aufkündigen
+subtitle: Kevin Kühnert – Ehemaliger Generalsekretär, 2024 aus der Politik zurückgezogen; ein Comeback ist hier Fiktion. {!<br><br>!}Aktionen: Verteilungskampf, Jusos stärken, Tolerierung aufkündigen
 is-card: true
 card-image: img/portraits/Kuehnert.jpg
 view-if: player = "spd" and kuehnert_advisor = 0 and n_advisors < 3 and left_split = 0
@@ -570,7 +564,8 @@ go-to: advisor_menu
 Jens Südekum gehört nun zum Beraterkreis.
 
 
-# neorevisionist leaders
+# Nov. 2026: Grote, Fiedler, Wiese gehören zum Seeheimer/pragmatischen Flügel, nicht mehr zum „Dänischen Kurs“ (Regel 3:
+# keine Position zuschreiben, die sie öffentlich nicht vertreten). Der Dänische Kurs hat bewusst keine realen Berater.
 
 @add_grote
 title: Andy Grote
@@ -578,9 +573,9 @@ subtitle: Andy Grote – Hamburger Innensenator, Verfechter der wehrhaften Demok
 is-card: true
 card-image: img/portraits/Grote.jpg
 view-if: player = "spd" and grote_advisor = 0 and n_advisors < 3
-on-arrival: grote_advisor = 1; n_advisors += 1; neorevisionist_strength += 5
+on-arrival: grote_advisor = 1; n_advisors += 1; reformist_strength += 5
 go-to: advisor_menu
-tags: neorev_advisor
+tags: reformist_advisor
 
 Andy Grote gehört nun zum Beraterkreis.
 
@@ -589,9 +584,9 @@ title: Sebastian Fiedler
 subtitle: Sebastian Fiedler – Kriminalbeamter und Sicherheitspolitiker. {!<br><br>!}Aktionen: Spendenaufruf, Demokratiebewegung, Innere Sicherheit
 is-card: true
 card-image: img/portraits/Fiedler.jpg
-tags: neorev_advisor
+tags: reformist_advisor
 view-if: player = "spd" and fiedler_advisor = 0 and n_advisors < 3
-on-arrival: fiedler_advisor = 1; n_advisors += 1; neorevisionist_strength += 5
+on-arrival: fiedler_advisor = 1; n_advisors += 1; reformist_strength += 5
 go-to: advisor_menu
 
 Sebastian Fiedler gehört nun zum Beraterkreis.
@@ -602,9 +597,9 @@ subtitle: Dirk Wiese – Parlamentarischer Geschäftsführer aus dem Sauerland. 
 is-card: true
 card-image: img/portraits/Wiese.jpg
 view-if: player = "spd" and wiese_advisor = 0 and n_advisors < 3
-on-arrival: wiese_advisor = 1; n_advisors += 1; neorevisionist_strength += 5
+on-arrival: wiese_advisor = 1; n_advisors += 1; reformist_strength += 5
 go-to: advisor_menu
-tags: neorev_advisor
+tags: reformist_advisor
 
 Dirk Wiese gehört nun zum Beraterkreis.
 
