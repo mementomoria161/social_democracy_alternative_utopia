@@ -47,4 +47,4 @@ Im ersten Wahlgang fehlen [+ chancellor +] sechs Stimmen. Im Saal herrscht ungl�
 @opposition
 view-if: not spd_in_government
 
-[+ chancellor +] wird gew채hlt[? if spd_toleration : , auch mit unseren Stimmen ?]. [? if spd_toleration : Wir tolerieren die Minderheitsregierung und werden uns jede Unterst체tzung teuer bezahlen lassen. ?][? if not spd_toleration : F체r uns beginnt die Arbeit in der Opposition: Wir m체ssen zeigen, dass [+ pp_full +] auch dort gebraucht wird. ?]
+[+ chancellor +] wird gew채hlt[? if spd_toleration : , auch mit unseren Stimmen?]. [? if spd_toleration : Wir tolerieren die Minderheitsregierung und werden uns jede Unterst체tzung teuer bezahlen lassen. ?][? if not spd_toleration : F체r uns beginnt die Arbeit in der Opposition: Wir m체ssen zeigen, dass [+ pp_full +] auch dort gebraucht wird. ?]

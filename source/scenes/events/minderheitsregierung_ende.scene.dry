@@ -1,0 +1,43 @@
+title: Die Vertrauensfrage
+subtitle: Der Kanzler will Klarheit.
+new-page: true
+tags: event
+view-if: player = "spd" and spd_toleration = 1 and spd_in_government = 0 and chancellor_party = "Union" and minderheit_frist > 0 and time >= minderheit_frist
+on-arrival: minderheit_frist = 0
+face-image: img/bundestag_plenum.jpg
+
+# Ende des befristeten Tolerierungsvertrags (events/minderheitsregierung): Koalition oder Neuwahl, keine weitere Tolerierung.
+
+= Die Vertrauensfrage
+
+Das Jahr des Tolerierungsvertrags ist um. [+ union_leader +] kündigt an, die Vertrauensfrage zu stellen: Er wolle wissen, ob die SPD Verantwortung übernehme oder nicht. Eine weitere Tolerierung schließt die Union aus.
+
+- @koalition: In die Regierung eintreten.
+- @neuwahl: Nein sagen und die Neuwahl annehmen.
+
+@koalition
+on-arrival: {!
+var kenia = (Q.union_r || 0) + (Q.spd_r || 0) < 50;
+Q.spd_in_government = 1; Q.spd_toleration = 0; Q.minority_government = 0; Q.union_in_government = 1;
+Q.partner_party = 'Union'; Q.chancellor_party = 'Union'; Q.chancellor = Q.union_leader;
+Q.coalition_dissent = 2;
+if (kenia) { Q.in_weimar_coalition = 1; Q.gruene_in_government = 1; Q.coalition_name = 'Kenia'; }
+else { Q.in_grand_coalition = 1; Q.coalition_name = 'Schwarz-Rot'; }
+var spd = {finance: 'Klingbeil', labor: Q.bas_ruecktritt_seen ? 'Schweitzer' : 'Bas', bundeswehr: 'Pistorius', justice: 'Hubig'};
+for (var p in spd) { Q[p + '_minister_party'] = 'SPD'; Q[p + '_minister'] = spd[p]; }
+if (kenia) { Q.economic_minister_party = 'Grüne'; Q.economic_minister = 'Dröge'; }
+Q.reformist_dissent += -4; Q.left_dissent += 8;
+!}
+
+Wir treten in die Regierung ein, ein Jahr später als möglich und zu schlechteren Bedingungen. Die SPD-Linke ist verbittert, im Seeheimer Kreis heißt es: endlich.
+
+@neuwahl
+on-arrival: {!
+Q.spd_toleration = 0; Q.union_relation -= 5; Q.left_dissent -= 3; Q.reformist_dissent += 6;
+Q.new_middle_spd -= 1; Q.rentner_spd -= 1;
+Q.coalition_name = 'geschäftsführende Regierung';
+Q.next_election_time = Q.time + 3; Q.next_election_month = Q.month + 3; Q.next_election_year = Q.year;
+if (Q.next_election_month > 12) { Q.next_election_month -= 12; Q.next_election_year += 1; }
+!}
+
+Der Kanzler verliert die Vertrauensfrage, der Bundespräsident löst den Bundestag auf. Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt.

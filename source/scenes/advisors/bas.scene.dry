@@ -8,7 +8,7 @@ new-page: true
 
 = Bärbel Bas
 
-Bas ist seit Juni 2025 Co-Vorsitzende der SPD und Bundesministerin für Arbeit und Soziales. Die frühere Bundestagspräsidentin stammt aus Duisburg, hat als Sozialversicherungsfachangestellte gearbeitet und gilt als eine, die die Sprache der Beschäftigten spricht.
+Bas ist seit Juni 2025 Co-Vorsitzende der SPD [? if labor_minister = "Bas" : und Bundesministerin für Arbeit und Soziales?]. Die frühere Bundestagspräsidentin stammt aus Duisburg, hat als Sozialversicherungsfachangestellte gearbeitet und gilt als eine, die die Sprache der Beschäftigten spricht.
 
 - @clear_agenda
 - @party_discipline

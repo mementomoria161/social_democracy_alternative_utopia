@@ -2,10 +2,15 @@ title: Post Event
 new-page: true
 on-arrival: {!
 Q.last_advisor_action = 0;
+// alte Spielstände: AfD-Bundespräsident hieß bis Nov. 2026 im Spiel Chrupalla (seitdem afd_president, Kandidat Berthold)
+if (Q.president == 'Chrupalla') Q.afd_president = 1;
+// Anrede im Text: [+ chancellor_title +] [+ chancellor +] statt „Bundeskanzler*in Merz“ (Realitätscheck Nov. 2026)
+Q.chancellor_title = ['Schwesig', 'Bas', 'Weidel', 'Reichinnek', 'Schwerdtner', 'Brantner', 'Wagenknecht', 'Baerbock', 'Rehlinger', 'Esken', 'Midyatli', 'Hubertz', 'Hubig', 'Dröge', 'Haßelmann', 'Klöckner', 'Aigner', 'Wissler', 'Bünger', 'Reiche', 'Faeser', 'Fahimi', 'Rosenthal'].indexOf(Q.chancellor) >= 0 ? 'Bundeskanzlerin' : 'Bundeskanzler';
 Q.last_cabinet_action = 0;
 // many events hand a ministry to another party without naming a minister: use that party's default then
 var default_ministers = {
-    'SPD': {foreign: 'Mützenich', interior: 'Fiedler', justice: 'Hubig', labor: 'Bas', bundeswehr: 'Pistorius', economic: 'Hubertz', finance: 'Klingbeil', agriculture: 'Miersch'},
+    // Arbeit: Bärbel Bas bis zu ihrem Rücktritt am 12.10.2026, danach Alexander Schweitzer (events/bas_ruecktritt)
+    'SPD': {foreign: 'Mützenich', interior: 'Fiedler', justice: 'Hubig', labor: Q.bas_ruecktritt_seen ? 'Schweitzer' : 'Bas', bundeswehr: 'Pistorius', economic: 'Hubertz', finance: 'Klingbeil', agriculture: 'Miersch'},
     'Union': {foreign: 'Wadephul', interior: 'Dobrindt', justice: 'Krings', labor: 'Linnemann', bundeswehr: 'Kiesewetter', economic: 'Reiche', finance: 'Frei', agriculture: 'Rainer'},
     'Grüne': {foreign: 'Brantner', interior: 'von Notz', justice: 'Haßelmann', labor: 'Banaszak', bundeswehr: 'Nouripour', economic: 'Dröge', finance: 'Kellner', agriculture: 'Özdemir'},
     'Linke': {foreign: 'van Aken', interior: 'Bartsch', justice: 'Bünger', labor: 'Reichinnek', bundeswehr: 'Pellmann', economic: 'Ramelow', finance: 'Görke', agriculture: 'Schwerdtner'},
@@ -20,7 +25,7 @@ if (Q.player == 'linke') {
 var real_spd = Q.player == 'linke' ? 'Linke' : 'SPD';
 // ministers of the start cabinet (Scholz, November 2024) that are not default ministers
 var minister_party_of = {'Frei': 'Union', 'Wissing': 'parteilos', 'Baerbock': 'Grüne', 'Habeck': 'Grüne',
-                         'Faeser': real_spd, 'Kukies': real_spd, 'Heil': real_spd};
+                         'Faeser': real_spd, 'Kukies': real_spd, 'Heil': real_spd, 'Bas': real_spd, 'Schweitzer': real_spd};
 for (var mp in default_ministers) {
     for (var post in default_ministers[mp]) {
         minister_party_of[default_ministers[mp][post]] = mp;

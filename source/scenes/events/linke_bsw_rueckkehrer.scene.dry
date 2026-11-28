@@ -10,7 +10,7 @@ max-visits: 1
 
 = Zurück zur Linken?
 
-Das BSW ist nicht im Bundestag. [? if bsw_votes >= 4.5 : Knapp unter fünf Prozent, ein paar Tausend Stimmen fehlten, und Sahra Wagenknecht verlangt eine Neuauszählung. ?] In den Ländern, wo das BSW mitregiert, gibt es Streit, und viele frühere Linke, die 2024 mitgegangen sind, fragen vorsichtig, ob sie zurückkommen können. Darunter sind Kommunalpolitiker*innen aus Thüringen und Sachsen, aber auch Leute, die die Linke damals öffentlich beschimpft haben.
+Das BSW ist nicht im Bundestag. [? if bsw_votes >= 4.5 : Knapp unter fünf Prozent, ein paar Tausend Stimmen fehlten, und Sahra Wagenknecht verlangt eine Neuauszählung. ?] In den Ländern, wo das BSW mitregiert, gibt es Streit, und viele frühere Linke, die 2024 mitgegangen sind, fragen vorsichtig, ob sie zurückkommen können. Darunter sind Kommunalpolitiker\*innen aus Thüringen und Sachsen, aber auch Leute, die die Linke damals öffentlich beschimpft haben.
 
 - @offen: Die Tür weit öffnen: Wer zurück will, ist willkommen.
 - @einzeln: Jeden Fall einzeln prüfen: Wer unsere Positionen zu Migration und Ukraine teilt, kann zurück.
@@ -29,4 +29,4 @@ Die Kreisverbände führen Gespräche, manche Rückkehrer werden aufgenommen, an
 @nein
 on-arrival: left_dissent -= 4; center_dissent -= 2; neorevisionist_dissent += 8; bsw_relation -= 5
 
-Wir bleiben hart. Die Bewegungslinke ist erleichtert. Im Osten verlieren wir damit ein paar erfahrene Kommunalpolitiker*innen, die nun als Unabhängige antreten.
+Wir bleiben hart. Die Bewegungslinke ist erleichtert. Im Osten verlieren wir damit ein paar erfahrene Kommunalpolitiker\*innen, die nun als Unabhängige antreten.

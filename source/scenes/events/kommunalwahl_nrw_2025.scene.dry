@@ -46,9 +46,9 @@ choose-if: resources >= 1
 unavailable-subtitle: Dafür fehlen uns die Mittel.
 on-arrival: resources -= 1; workers_spd += 1.5*(1-dissent); unemployed_spd += 1.5*(1-dissent); workers_afd -= 0.5; labor_dissent -= 3; center_strength += 2
 
-Wir eröffnen Büros in Marxloh, Gelsenkirchen-Ückendorf und Dortmund-Nord. Die Arbeit ist mühsam, aber die ersten Mieter*inneninitiativen entstehen.
+Wir eröffnen Büros in Marxloh, Gelsenkirchen-Ückendorf und Dortmund-Nord. Die Arbeit ist mühsam, aber die ersten Mieter\*inneninitiativen entstehen.
 
 @lk_raete
 on-arrival: reformist_strength += 2; reformist_dissent -= 3; dues += 1 if dues < 4
 
-Über 200 neue Mandatsträger*innen treffen sich in Bochum zu einem Kommunalkongress. Mit ihren Mandatsabgaben füllt sich auch die Parteikasse.
+Über 200 neue Mandatsträger\*innen treffen sich in Bochum zu einem Kommunalkongress. Mit ihren Mandatsabgaben füllt sich auch die Parteikasse.

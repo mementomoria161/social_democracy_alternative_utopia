@@ -52,7 +52,7 @@ Wir enthalten uns, das Rentenpaket kommt durch. Die SPD bedankt sich nicht öffe
 @lk_nein
 on-arrival: left_dissent -= 4; reformist_dissent += 4; rentner_spd -= 0.5; linke_relation -= 4
 
-Wir stimmen mit Nein. Am Ende reicht es trotzdem: Die Unionsspitze bringt fast alle eigenen Abgeordneten auf Linie. Rentner*innenverbände fragen, warum ausgerechnet wir gegen die Haltelinie gestimmt haben.
+Wir stimmen mit Nein. Am Ende reicht es trotzdem: Die Unionsspitze bringt fast alle eigenen Abgeordneten auf Linie. Rentner\*innenverbände fragen, warum ausgerechnet wir gegen die Haltelinie gestimmt haben.
 
 @lk_alle
 on-arrival: rentner_spd += 2*(1-dissent); workers_spd += 1*(1-dissent); left_dissent -= 1; reformist_dissent -= 2; welfare += 1

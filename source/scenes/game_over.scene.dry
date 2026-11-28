@@ -114,7 +114,7 @@ if (Q.factory_takeovers >= 2) {
     this.achieve("syndikalismus");
 }
 // Stolperstein - lose the civil war against Hitler.
-if ((Q.chancellor_party == "AfD" || Q.president == "Chrupalla") && Q.total_defeat) {
+if ((Q.chancellor_party == "AfD" || Q.afd_president) && Q.total_defeat) {
     this.achieve('stolperstein');
 }
 // Heidelberger Programm - fulfill the goals of the Heidelberg programm - increase welfare, reform justice, support women's rights, progressive taxation, works councils, build a European Union.
@@ -133,7 +133,7 @@ if ((Q.welfare > 0 && Q.judicial_reform >= 2 && Q.womens_work >= 1 && Q.family_l
 
 
 @hitler_wins
-view-if: (chancellor_party == "AfD" or president == "Chrupalla") and (total_defeat==1 or civil_war_seen == 0)
+view-if: (chancellor_party == "AfD" or afd_president == 1) and (total_defeat==1 or civil_war_seen == 0)
 title: Die AfD beherrscht Deutschland.
 tags: endings
 go-to: eg_menu
@@ -143,7 +143,7 @@ Die AfD hat die Macht in Deutschland übernommen und baut den Staat nach ihren V
 [? if civil_war_seen == 1 : Immerhin haben wir uns gewehrt. Vielleicht wird man sich in einer heute noch nicht absehbaren Zukunft an unseren Widerstand erinnern. ?]
 
 @war_against_hitler
-view-if: (chancellor_party == "AfD" or president == "Chrupalla") and (long_war == 1)
+view-if: (chancellor_party == "AfD" or afd_president == 1) and (long_war == 1)
 title: Die AfD regiert, doch wir leisten Widerstand.
 tags: endings
 go-to: eg_menu
@@ -152,7 +152,7 @@ Die AfD hat die Macht übernommen. Doch wir haben die demokratischen Kräfte des
 
 
 @no_hitler
-view-if: chancellor_party != "AfD" and president != "Chrupalla"
+view-if: chancellor_party != "AfD" and afd_president != 1
 title: Die AfD regiert (noch) nicht …
 tags: endings
 go-to: eg_menu
@@ -207,12 +207,12 @@ go-to: eg_menu
 Manuela Schwesig ist Bundespräsidentin, die erste Sozialdemokratin in diesem Amt. Sie wollte nie in die erste Reihe der Bundespolitik, und nun steht sie an der Spitze des Staates.
 
 @president_fiedler
-title: Norbert Lammert im Schloss Bellevue
-view-if: president == "Lammert"
+title: Ilse Aigner im Schloss Bellevue
+view-if: president == "Aigner"
 tags: endings
 go-to: eg_menu
 
-Norbert Lammert ist Bundespräsident. Als Kandidat der demokratischen Mitte soll er das zerrissene Land zusammenhalten.
+Ilse Aigner ist Bundespräsidentin, die erste Frau in diesem Amt. Als gemeinsame Kandidatin der demokratischen Mitte soll sie das zerrissene Land zusammenhalten.
 
 @president_midyatli
 # party-ok: der Linken (Trabert, Kandidat der realen Linken)
@@ -225,7 +225,7 @@ Gerhard Trabert, Arzt für Wohnungslose und Kandidat der Linken, ist Bundespräs
 
 @president_einstein
 title: Ein AfD-Bundespräsident
-view-if: president == "Chrupalla"
+view-if: afd_president == 1
 tags: endings
 go-to: eg_menu
 
@@ -322,7 +322,7 @@ view-if: peoples_party == 1
 tags: endings
 go-to: eg_menu
 
-[? if player = "spd" : Die SPD versteht sich wieder als Volkspartei für alle, nicht nur für die Beschäftigten. ?][? if player = "linke" : Die Linke versteht sich wieder als Kümmererpartei für die Menschen im Osten, nicht nur für die jungen Großstädter*innen. ?] Der Kurs hat Anhänger und Kritiker, und was aus der Partei wird, ist offen.
+[? if player = "spd" : Die SPD versteht sich wieder als Volkspartei für alle, nicht nur für die Beschäftigten. ?][? if player = "linke" : Die Linke versteht sich wieder als Kümmererpartei für die Menschen im Osten, nicht nur für die jungen Großstädter\*innen. ?] Der Kurs hat Anhänger und Kritiker, und was aus der Partei wird, ist offen.
 
 @nationalization_achieved
 title: Schlüsselindustrien sind in öffentlicher Hand.

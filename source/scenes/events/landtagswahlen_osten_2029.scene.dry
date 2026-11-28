@@ -34,4 +34,4 @@ In Sachsen, Thüringen und Brandenburg werden neue Landtage gewählt. [? if afd_
 @lk_weiter
 on-arrival: reformist_dissent -= 3 if spd_votes >= 10; reformist_dissent += 4 if spd_votes < 10; neorevisionist_dissent += 3 if spd_votes < 10
 
-[? if spd_votes >= 10 : Ein Lichtblick in schwierigen Zeiten. ?][? if spd_votes < 10 : Die Reformer*innen aus dem Osten fordern, die Partei müsse sich wieder mehr um ihre alten Hochburgen kümmern. ?]
+[? if spd_votes >= 10 : Ein Lichtblick in schwierigen Zeiten. ?][? if spd_votes < 10 : Die Reformer\*innen aus dem Osten fordern, die Partei müsse sich wieder mehr um ihre alten Hochburgen kümmern. ?]

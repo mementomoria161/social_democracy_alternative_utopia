@@ -51,7 +51,7 @@ if (Q.mv_result < 70) {
 }
 !}
 
-[+ mv_result +] Prozent der abstimmenden Mitglieder sagen Ja [? if player = "linke" and spd_toleration : zur Tolerierung ?][? if not (player = "linke" and spd_toleration) : zum Koalitionsvertrag ?]. [? if mv_result >= 80 : Ein klares Mandat. Die Parteiführung kann mit Rückenwind in die Regierung gehen. ?][? if mv_result >= 70 and mv_result < 80 : Eine solide Mehrheit, aber die Kritikerinnen und Kritiker haben gezeigt, wie viele sie sind. ?][? if mv_result < 70 : Ein Ergebnis, das niemand feiert. Ein großer Teil der Partei geht nur widerwillig mit in diese Koalition. ?]
+[+ mv_result +] Prozent der abstimmenden Mitglieder sagen Ja [? if player = "linke" and spd_toleration : zur Tolerierung ?][? if not (player = "linke" and spd_toleration) : zum Koalitionsvertrag?]. [? if mv_result >= 80 : Ein klares Mandat. Die Parteiführung kann mit Rückenwind in die Regierung gehen. ?][? if mv_result >= 70 and mv_result < 80 : Eine solide Mehrheit, aber die Kritikerinnen und Kritiker haben gezeigt, wie viele sie sind. ?][? if mv_result < 70 : Ein Ergebnis, das niemand feiert. Ein großer Teil der Partei geht nur widerwillig mit in diese Koalition. ?]
 
 @linke
 # Linke-Fassung (Durchgang 4.3): Mitgliederentscheid über Koalition oder Tolerierung (wie in Berlin 2016 und 2021).
@@ -59,7 +59,7 @@ if (Q.mv_result < 70) {
 [? if spd_toleration : Die rot-grüne Minderheitsregierung soll mit unseren Stimmen ins Amt kommen. Das Tolerierungsabkommen steht, aber in der Linken entscheiden über so etwas die Mitglieder. ?][? if spd_in_government : Zum ersten Mal sitzt die Linke im Bund mit am Kabinettstisch, wenn die Mitglieder zustimmen. Der Koalitionsvertrag für [+ coalition_name +] ist ausverhandelt. ?] Die Sozialistische Linke und Teile der Linksjugend werben für ein Nein: Aufrüstung und Abschiebungen werde die Linke nicht verhindern, aber mittragen müssen. Viele Neumitglieder sind gerade erst eingetreten und fragen, was sie eigentlich wählen.
 
 - @lk_werben: In Mitgliederversammlungen im ganzen Land um jede Stimme werben.
-- @lk_zugestaendnis: Den Kritiker*innen entgegenkommen: rote Haltelinien bei Abschiebungen und Waffenexporten beschließen.
+- @lk_zugestaendnis: Den Kritiker\*innen entgegenkommen: rote Haltelinien bei Abschiebungen und Waffenexporten beschließen.
 - @lk_laufen: Die Basis frei entscheiden lassen.
 
 @lk_werben

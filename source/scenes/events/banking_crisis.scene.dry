@@ -15,7 +15,7 @@ Den Streit haben Konzerne und Regierungen ausgefochten, die Rechnung zahlen die 
 
 - @nothing_to_do: Wir können nichts tun.
 - @stabilization: Die Wirtschaft stabilisieren!
-- @austerity: Die Antwort von Bundeskanzler\*in [+ chancellor +] ist, wie immer, ein Sparpaket.
+- @austerity: Die Antwort von [+ chancellor_title +] [+ chancellor +] ist, wie immer, ein Sparpaket.
 - @end_toleration: Wir haben genug vom Sparkurs. Die Tolerierung beenden!
 
 @nothing_to_do
@@ -36,13 +36,13 @@ Mit einem Rettungsschirm wie in der Finanzkrise 2008 stützen wir die Banken, ga
 view-if: spd_in_government = 0
 on-arrival: welfare -= 1; workers_spd -= 3; unemployed_spd -= 3; pro_republic -= 3; economic_growth -= 1;
 
-Bundeskanzler\*in [+ chancellor +] antwortet auf die Bankenkrise mit weiteren Kürzungen bei den Sozialausgaben.
+[+ chancellor_title +] [+ chancellor +] antwortet auf die Bankenkrise mit weiteren Kürzungen bei den Sozialausgaben.
 
 @end_toleration
 view-if: spd_toleration = 1
 on-arrival: time_to_election = 3; spd_in_government = 0; in_grand_coalition = 0; spd_toleration = 0;
 call: set_next_election_time
 
-Wir haben genug vom Sparkurs. Als die Regierung ein weiteres Kürzungspaket vorlegt, verweigern wir dem Haushalt die Zustimmung. Bundeskanzler\*in [+ chancellor +] verliert die Vertrauensfrage, der Bundespräsident löst den Bundestag auf.
+Wir haben genug vom Sparkurs. Als die Regierung ein weiteres Kürzungspaket vorlegt, verweigern wir dem Haushalt die Zustimmung. [+ chancellor_title +] [+ chancellor +] verliert die Vertrauensfrage, der Bundespräsident löst den Bundestag auf.
 
 Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt.

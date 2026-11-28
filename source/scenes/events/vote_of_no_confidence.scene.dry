@@ -89,13 +89,13 @@ go-to: let_it_happen_hindenburg if chancellor_party != "SPD"; let_it_happen_schw
 @let_it_happen_hindenburg
 on-arrival: chancellor = union_leader; chancellor_party = "Union"; welfare -= 2;
 
-Die Koalition ist zerbrochen, unsere Ministerinnen und Minister haben ihre Entlassungsurkunden erhalten. Bundeskanzler\*in [+ chancellor +] verliert die Vertrauensfrage und führt bis zur Neuwahl eine Minderheitsregierung der Union, unsere Ressorts übernehmen Unionsminister kommissarisch. Als Erstes werden die Sozialausgaben deutlich gekürzt.
+Die Koalition ist zerbrochen, unsere Ministerinnen und Minister haben ihre Entlassungsurkunden erhalten. [+ chancellor_title +] [+ chancellor +] verliert die Vertrauensfrage und führt bis zur Neuwahl eine Minderheitsregierung der Union, unsere Ressorts übernehmen Unionsminister kommissarisch. Als Erstes werden die Sozialausgaben deutlich gekürzt.
 
 Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt.
 
 @let_it_happen_schwesig
 on-arrival: spd_caretaker = 1
 
-Die Koalition ist zerbrochen. Bundeskanzler\*in [+ chancellor +] verliert die Vertrauensfrage und bleibt bis zur Neuwahl geschäftsführend im Amt, kann aber keine neuen Vorhaben mehr durchsetzen.
+Die Koalition ist zerbrochen. [+ chancellor_title +] [+ chancellor +] verliert die Vertrauensfrage und bleibt bis zur Neuwahl geschäftsführend im Amt, kann aber keine neuen Vorhaben mehr durchsetzen.
 
 Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt.

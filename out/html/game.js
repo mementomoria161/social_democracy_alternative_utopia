@@ -305,6 +305,12 @@
   window.decorateContent = function() {
       var content = document.getElementById('content');
       if (!content) return;
+      // Leerzeichen vor Satzzeichen entfernen: Bedingte Textteile ([? if … ?]) behalten ihr Leerzeichen am Ende, und wenn
+      // der folgende Teil leer bleibt, stand im Spiel „hat .“ (Realitätscheck Nov. 2026)
+      var walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT), tn;
+      while ((tn = walker.nextNode())) {
+          if (/\s[.,;!?]/.test(tn.nodeValue)) tn.nodeValue = tn.nodeValue.replace(/(\S)\s+([.,;!?])(?=\s|$|["“”»)])/g, '$1$2');
+      }
       content.querySelectorAll('a.card').forEach(function(a) {
           if (a.querySelector('.card-title')) return;
           var cap = document.createElement('span');

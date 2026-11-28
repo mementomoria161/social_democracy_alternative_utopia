@@ -2,84 +2,78 @@ title: Die Bundesversammlung
 subtitle: Wer folgt auf Frank-Walter Steinmeier?
 new-page: true
 tags: event
-view-if: player = "linke" and year = 2027 and (month = 2 or month = 3) and presidential_election_seen = 0
+view-if: player = "linke" and year = 2027 and (month = 1 or month = 2) and presidential_election_seen = 0
 max-visits: 1
-on-arrival: presidential_election_seen = 1; bv_left = linke_r + gruene_r + spd_r; bv_right = union_r + fdp_r + bsw_r + other_r
+on-arrival: presidential_election_seen = 1; afd_candidate = "Berthold"
 face-image: img/bundesversammlung.jpg
 
-# Linke-Fassung von presidential_election_1932 (Durchgang 4.2, ausgebaut in 4.3). Fiktive Kandidaturen wie im SPD-Spiel:
-# Lammert (Union), Schwesig (SPD, Slot linke), Trabert (parteilos, von der Linken nominiert), AfD: afd_candidate.
-# Vereinfachtes Kräfteverhältnis: Sitzanteile im Bundestag (die Ländervertreter verteilen sich ähnlich).
-# bv_left/bv_right: Lager links und rechts der Mitte; im dritten Wahlgang reicht die relative Mehrheit.
+# Linke-Fassung von presidential_election_1932. Realer Stand Nov. 2026: Bundesversammlung am 30.01.2027 (1260 Mitglieder,
+# absolute Mehrheit 631); Ilse Aigner (CSU) als gemeinsame Kandidatin von Union, SPD und Grünen (9.11.2026), AfD: Thomas
+# Berthold (14.11.2026). Die Linke hatte bis Ende November niemanden nominiert (Reichinnek nannte die Petition für Hape
+# Kerkeling „einen gut geeigneten Vorschlag“); im Spiel stellt sie wie 2022 Gerhard Trabert auf (Fiktion).
+# Stimmen wie im SPD-Ereignis: Bundestagsteil aus den Sitzanteilen, Länderteil fest (Slots getauscht).
 
 = Die Bundesversammlung
 
-Die Amtszeit von Frank-Walter Steinmeier endet. Die Bundesversammlung, Bundestagsabgeordnete und ebenso viele Vertreterinnen und Vertreter der Länder, wählt seine Nachfolge. Die Union schickt Norbert Lammert ins Rennen, SPD und Grüne Manuela Schwesig, die AfD [+ afd_candidate +]. In den ersten beiden Wahlgängen braucht es die absolute Mehrheit, im dritten reicht die einfache.
+Am 30. Januar 2027 wählt die Bundesversammlung, 630 Bundestagsabgeordnete und ebenso viele Delegierte der Landtage, die Nachfolge von Frank-Walter Steinmeier. Union, SPD und Grüne haben sich schon im November auf Ilse Aigner verständigt, die CSU-Präsidentin des Bayerischen Landtags. Die AfD schickt den früheren Fußballnationalspieler Thomas Berthold ins Rennen. In den ersten beiden Wahlgängen braucht es 631 Stimmen, im dritten reicht die einfache Mehrheit.
 
 Wen unterstützt die Linke?
 
-- @trabert: Einen eigenen Kandidaten nominieren: den Sozialmediziner Gerhard Trabert.
-- @bedingung: Schwesig unterstützen, aber nur gegen Zusagen: ein Armutsbericht des Staatsoberhaupts, ein klares Wort zu Abschiebungen.
-- @schwesig: Von Anfang an mit SPD und Grünen für Manuela Schwesig stimmen.
+- @trabert: Einen eigenen Kandidaten nominieren: den Sozialmediziner Gerhard Trabert, wie schon 2022.
+- @aigner: Für Aigner stimmen: ein gemeinsames Zeichen aller Demokrat\*innen gegen die AfD.
+- @frei: Die Wahl freigeben und auf eine eigene Kandidatur verzichten.
 
 @trabert
-on-arrival: spd_support_thalmann = 1; left_dissent -= 5; center_dissent -= 2; reformist_dissent += 3
+on-arrival: spd_support_thalmann = 1; bv_mode = 1; left_dissent -= 5; center_dissent -= 2; reformist_dissent += 2
+go-to: count
 
-Trabert fährt seit Jahrzehnten mit seinem Arztmobil zu Obdachlosen. Seine Bewerbungsrede über Armut in einem reichen Land wird im Saal mit langem Applaus bedacht, auch von manchen Grünen. In den ersten beiden Wahlgängen erhält er etwa so viele Stimmen, wie wir Wahlleute haben. Niemand erreicht die absolute Mehrheit.
+Trabert fährt seit Jahrzehnten mit seinem Arztmobil zu Obdachlosen. Seine Bewerbungsrede über Armut in einem reichen Land wird im Saal mit langem Applaus bedacht, auch von manchen Grünen.
 
-[? if afd_r > union_r + fdp_r and afd_r > linke_r + gruene_r : Vor dem dritten Wahlgang wird es gefährlich: Die AfD hat die meisten Wahlleute. Wenn sich die übrigen nicht einigen, könnte [+ afd_candidate +] mit relativer Mehrheit gewinnen. ?]
+@aigner
+on-arrival: spd_support_thalmann = 0; bv_mode = 2; reformist_dissent -= 4; left_dissent += 5; linke_relation += 3; gruene_relation += 2; union_relation += 3
+go-to: count
 
-- @round3_trabert: Im dritten Wahlgang bei Trabert bleiben.
-- @round3_schwesig: Trabert zurückziehen und für Schwesig stimmen, um Lammert und die AfD zu verhindern.
+Wir stimmen für Aigner. Die Reformer\*innen sprechen von politischer Reife, in der Sozialistischen Linken heißt es, wir hätten uns für eine CSU-Politikerin hergegeben, die beim Bürgergeld nie auf unserer Seite stand.
 
-@bedingung
-subtitle: -1 Ressource
-choose-if: resources >= 1 and linke_relation >= 30
-unavailable-subtitle: [? if resources < 1 : Dafür fehlen uns die Mittel. ?][? if linke_relation < 30 : Die SPD will mit uns nicht verhandeln. ?]
-on-arrival: resources -= 1; left_dissent -= 2; reformist_dissent -= 2; linke_relation += 2; welfare += 1
-go-to: vote_schwesig
+@frei
+on-arrival: spd_support_thalmann = 0; bv_mode = 3; center_dissent += 2; left_dissent += 1
+go-to: count
 
-Schwesig trifft sich mit unseren Vorsitzenden und sagt öffentlich zu, als Bundespräsidentin jedes Jahr einen Bericht über Armut in Deutschland vorzulegen. Das reicht, um die meisten in der Partei zu überzeugen.
+Wir geben die Wahl frei. Die meisten unserer Wahlleute enthalten sich, einige stimmen für Aigner. In der Presse heißt es, die Linke drücke sich vor einer Entscheidung.
 
-@schwesig
-on-arrival: reformist_dissent -= 4; left_dissent += 4; linke_relation += 5; gruene_relation += 2
-go-to: vote_schwesig
-
-Wir stimmen vom ersten Wahlgang an für Schwesig. Die Reformer*innen sprechen von politischer Reife, in der Sozialistischen Linken heißt es, wir hätten uns für eine „Agenda-Sozialdemokratin“ hergegeben.
-
-@vote_schwesig
+@count
 on-arrival: {!
-var left = (Q.linke_r || 0) + (Q.gruene_r || 0) + (Q.spd_r || 0), right = Q.bv_right || 0, afd = Q.afd_r || 0;
-Q.president = left > right && left > afd ? 'Schwesig' : (afd > right && afd > left ? Q.afd_candidate : 'Lammert');
+// Bundesversammlung 2027 (siehe presidential_election_1932): Länderteil fest, im Linke-Spiel Slots SPD/Linke getauscht.
+var land = {union: 223, spd: 14, linke: 134, gruene: 109, afd: 107, fw: 18, fdp: 13};
+var bt = function(p) { return Math.round(630 * (Q[p + '_r'] || 0) / 100); };
+var seats = function(p) { return bt(p) + (land[p] || 0); };
+var own = seats('spd') + (Q.sapd_formed ? bt('sapd') : 0);   // Slot spd = Linke (Spielerpartei)
+Q.hindenburg_votes = seats('union') + seats('linke') + seats('gruene') + land.fw + seats('fdp');
+Q.thalmann_votes = 0;
+Q.hitler_votes = seats('afd');
+if (Q.bv_mode == 1) Q.thalmann_votes = own;               // eigener Kandidat Trabert
+else if (Q.bv_mode == 2) Q.hindenburg_votes += own;       // geschlossen für Aigner
+else Q.hindenburg_votes += Math.round(own / 3);           // freigegeben: etwa ein Drittel für Aigner, Rest Enthaltung
+Q.president = Q.hindenburg_votes >= 631 || (Q.hindenburg_votes >= Q.hitler_votes && Q.hindenburg_votes >= Q.thalmann_votes) ? 'Aigner'
+    : (Q.thalmann_votes >= Q.hitler_votes ? 'Trabert' : Q.afd_candidate);
+Q.bv_round = Q.hindenburg_votes >= 631 ? 1 : 3;
+Q.hindenburg_votes_disp = String(Q.hindenburg_votes);
+Q.thalmann_votes_disp = String(Q.thalmann_votes);
+Q.hitler_votes_disp = String(Q.hitler_votes);
 !}
-go-to: afd_wins if president != "Schwesig" and president != "Lammert"; result if president = "Schwesig" or president = "Lammert"
-
-@round3_trabert
-on-arrival: {!
-var left = (Q.linke_r || 0) + (Q.gruene_r || 0), right = Q.bv_right || 0, afd = Q.afd_r || 0, tr = Q.spd_r || 0;
-var m = Math.max(left, right, afd, tr);
-Q.president = m == tr ? 'Trabert' : (m == afd ? Q.afd_candidate : (m == left ? 'Schwesig' : 'Lammert'));
-Q.left_dissent -= 3; Q.linke_relation -= 5;
-!}
-go-to: afd_wins if president != "Schwesig" and president != "Lammert" and president != "Trabert"; trabert_wins if president = "Trabert"; result if president = "Schwesig" or president = "Lammert"
-
-Wir bleiben bei unserem Kandidaten.
-
-@round3_schwesig
-on-arrival: reformist_dissent -= 3; left_dissent += 3; linke_relation += 5
-go-to: vote_schwesig
-
-Trabert zieht nach dem zweiten Wahlgang zurück und bittet seine Wahlleute, für Schwesig zu stimmen.
+go-to: afd_wins if president != "Aigner" and president != "Trabert"; trabert_wins if president = "Trabert"; result if president = "Aigner"
 
 @result
 
-[? if president = "Schwesig" : Manuela Schwesig wird die erste Bundespräsidentin. SPD und Grüne feiern, und auch bei uns gibt es Applaus. ?][? if president = "Lammert" : Norbert Lammert wird Bundespräsident. Der frühere Bundestagspräsident gilt als überzeugter Demokrat, für eine linke Politik aber wird er kein Verbündeter sein. ?][? if president = "Lammert" and spd_support_thalmann : SPD und Grüne werfen uns vor, ihn möglich gemacht zu haben. ?]
+Ergebnis im [? if bv_round = 1 : ersten?][? if bv_round > 1 : dritten?] Wahlgang: Ilse Aigner [+ hindenburg_votes_disp +] Stimmen, Thomas Berthold [+ hitler_votes_disp +][? if thalmann_votes > 0 : , Gerhard Trabert [+ thalmann_votes_disp +]?].
+
+Ilse Aigner wird die erste Bundespräsidentin. Am 19. März tritt sie ihr Amt an. [? if spd_support_thalmann : Unser Kandidat hat gezeigt, wofür die Linke steht; gewonnen hat die Mitte. ?] Für eine linke Politik wird sie keine Verbündete sein, gegen die AfD aber eine klare Stimme.
 
 
 @trabert_wins
 on-arrival: hindenburg_relation = 80
 
-Sensation in der Bundesversammlung: Weil sich Union und SPD gegenseitig blockieren, wird Gerhard Trabert mit relativer Mehrheit zum Bundespräsidenten gewählt. Ein Armenarzt im Schloss Bellevue! Die Rechte tobt, und Reichsbürger-Netzwerke erklären die Wahl für „illegitim“.
+Sensation in der Bundesversammlung: Gerhard Trabert wird im dritten Wahlgang mit relativer Mehrheit zum Bundespräsidenten gewählt. Ein Armenarzt im Schloss Bellevue! Die Rechte tobt, und Reichsbürger-Netzwerke erklären die Wahl für „illegitim“.
 
 
 @afd_wins

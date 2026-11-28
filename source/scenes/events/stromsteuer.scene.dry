@@ -10,7 +10,7 @@ on-arrival: stromsteuer_seen = 1
 
 = Stromsteuer-Streit
 
-Die Koalition hatte versprochen, die Stromsteuer für alle zu senken. Nun reicht das Geld nur für Industrie, Landwirtschaft und Gewerbe, die privaten Haushalte gehen leer aus. In der Bevölkerung ist der Ärger groß[? if player = "spd" : , und auch in der eigenen Fraktion rumort es ?].
+Die Koalition hatte versprochen, die Stromsteuer für alle zu senken. Nun reicht das Geld nur für Industrie, Landwirtschaft und Gewerbe, die privaten Haushalte gehen leer aus. In der Bevölkerung ist der Ärger groß[? if player = "spd" : , und auch in der eigenen Fraktion rumort es?].
 
 - @alle: Darauf bestehen, die Stromsteuer auch für Privathaushalte zu senken.
 - @industrie: Bei der Entlastung nur für die Wirtschaft bleiben.
@@ -40,7 +40,7 @@ Haushalte mit kleinen Einkommen erhalten ein Klimageld, das die steigenden CO2-P
 @linke
 # Linke in der Opposition gegen Schwarz-Rot (Durchgang 4.3).
 
-[? if player = "linke" : Für uns ist das eine Steilvorlage: Die Koalition entlastet Konzerne und lässt Mieter*innen und Rentner*innen zahlen. ?]
+[? if player = "linke" : Für uns ist das eine Steilvorlage: Die Koalition entlastet Konzerne und lässt Mieter\*innen und Rentner\*innen zahlen. ?]
 
 - @lk_kampagne: Eine Unterschriftenkampagne starten: Stromsteuer runter für alle!
 - @lk_antrag: Im Bundestag einen Antrag stellen und die Koalition vorführen.
@@ -62,4 +62,4 @@ Unser Antrag, die Stromsteuer für alle zu senken, wird mit den Stimmen von Unio
 @lk_klimageld
 on-arrival: new_middle_spd += 1.5*(1-dissent); unemployed_spd += 2*(1-dissent); gruene_relation += 3; labor_dissent += 2
 
-Wir fordern ein Klimageld, das kleine Einkommen stärker entlastet als große. Grüne und Sozialverbände loben den Vorschlag, manche Gewerkschafter*innen hätten lieber über Industriestrom geredet.
+Wir fordern ein Klimageld, das kleine Einkommen stärker entlastet als große. Grüne und Sozialverbände loben den Vorschlag, manche Gewerkschafter\*innen hätten lieber über Industriestrom geredet.

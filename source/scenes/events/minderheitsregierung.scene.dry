@@ -1,0 +1,55 @@
+title: Ein Haushalt ohne Mehrheit
+subtitle: Wie lange trägt die Tolerierung?
+new-page: true
+tags: event
+view-if: player = "spd" and spd_toleration = 1 and spd_in_government = 0 and chancellor_party = "Union" and minderheit_seen < n_elections and time >= last_election_time + 7
+on-arrival: minderheit_seen = n_elections; minderheit_frist = 0
+face-image: img/bundestag_plenum.jpg
+
+# Nov. 2026 (Realitätscheck): Eine von der SPD tolerierte Unions-Minderheitsregierung lief vorher eine ganze Wahlperiode.
+# Im Bund gab es Minderheitsregierungen nur für Wochen (1966, 1972, 1982). Spätestens beim ersten eigenen Haushalt muss
+# entschieden werden: Koalition, befristeter Tolerierungsvertrag (dann events/minderheitsregierung_ende) oder Neuwahl.
+# Einmal je Wahlperiode (minderheit_seen = Zahl der Wahlen beim letzten Auftreten).
+
+= Ein Haushalt ohne Mehrheit
+
+Seit der Wahl regiert [+ union_leader +] mit einer Minderheitsregierung, die wir tolerieren. Jedes Gesetz wird einzeln ausgehandelt, im Haushaltsausschuss geht es Woche für Woche um Einzelposten. Nun steht der Haushalt für das kommende Jahr an, und in der Union wächst der Druck: Entweder tritt die SPD in die Regierung ein, oder der Kanzler stellt die Vertrauensfrage und sucht in einer Neuwahl eine klare Mehrheit.
+
+Eine Minderheitsregierung über eine ganze Wahlperiode hat es im Bund nie gegeben. In der Partei sind die einen froh, nicht für die Politik der Union haften zu müssen; die anderen sagen, wir trügen die Verantwortung ohnehin, nur ohne Ministerien.
+
+- @koalition: In die Regierung eintreten: Finanzen, Arbeit, Verteidigung und Justiz gehen an uns.
+- @vertrag: Einen Tolerierungsvertrag für ein Jahr aushandeln: Wir tragen den Haushalt mit, bleiben aber draußen.
+- @neuwahl: Die Tolerierung aufkündigen und eine Neuwahl erzwingen.
+
+@koalition
+on-arrival: {!
+var kenia = (Q.union_r || 0) + (Q.spd_r || 0) < 50;
+Q.spd_in_government = 1; Q.spd_toleration = 0; Q.minority_government = 0; Q.union_in_government = 1;
+Q.partner_party = 'Union'; Q.chancellor_party = 'Union'; Q.chancellor = Q.union_leader;
+Q.coalition_dissent = (Q.union_relation || 0) < 25 ? 2 : 1;
+if (kenia) { Q.in_weimar_coalition = 1; Q.gruene_in_government = 1; Q.coalition_name = 'Kenia'; }
+else { Q.in_grand_coalition = 1; Q.coalition_name = 'Schwarz-Rot'; }
+var spd = {finance: 'Klingbeil', labor: Q.bas_ruecktritt_seen ? 'Schweitzer' : 'Bas', bundeswehr: 'Pistorius', justice: 'Hubig'};
+for (var p in spd) { Q[p + '_minister_party'] = 'SPD'; Q[p + '_minister'] = spd[p]; }
+if (kenia) { Q.economic_minister_party = 'Grüne'; Q.economic_minister = 'Dröge'; }
+Q.reformist_dissent += -5; Q.center_dissent += -3; Q.left_dissent += 6;
+!}
+
+[? if coalition_name = "Kenia" : Weil Union und SPD allein keine Mehrheit haben, kommen die Grünen dazu. ?]Nach drei Wochen Verhandlungen steht der Koalitionsvertrag. Lars Klingbeil wird Finanzminister und Vizekanzler, dazu übernehmen wir Arbeit, Verteidigung und Justiz. Der Seeheimer Kreis ist erleichtert, die SPD-Linke spricht von einem Eintritt ohne Not und ohne Preis.
+
+@vertrag
+on-arrival: minderheit_frist = time + 12; union_relation -= 3; reformist_dissent += 5; center_dissent += 2; left_dissent -= 3; profil += 0.5
+
+Wir handeln einen Tolerierungsvertrag aus: Der Haushalt kommt mit unseren Stimmen durch, dafür bleiben Mindestlohn, Rentenniveau und die Investitionen aus dem Sondervermögen unangetastet. Die Union unterschreibt zähneknirschend. Ein Jahr, sagt der Kanzler, danach müsse Klarheit herrschen.
+
+@neuwahl
+on-arrival: {!
+Q.spd_toleration = 0; Q.union_relation -= 8; Q.reformist_dissent += 8; Q.left_dissent -= 5;
+// wer eine Neuwahl erzwingt, wird oft abgestraft (wie die FDP nach dem Ampel-Aus 2024)
+Q.new_middle_spd -= 1.5; Q.rentner_spd -= 1.5;
+Q.coalition_name = 'geschäftsführende Regierung';
+Q.next_election_time = Q.time + 3; Q.next_election_month = Q.month + 3; Q.next_election_year = Q.year;
+if (Q.next_election_month > 12) { Q.next_election_month -= 12; Q.next_election_year += 1; }
+!}
+
+Wir kündigen die Tolerierung auf. [+ union_leader +] stellt die Vertrauensfrage und verliert sie, wie es in Berlin inzwischen fast schon üblich ist. Der Bundespräsident löst den Bundestag auf. Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt. Viele Wähler\*innen fragen, warum sie schon wieder an die Urne sollen.

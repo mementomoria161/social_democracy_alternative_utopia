@@ -48,23 +48,23 @@ Mit Grünen und Linken erinnern wir die Union daran, dass Verfassungsrichterinne
 @linke
 # Linke in der Opposition: Ohne Linke oder AfD fehlt Union, SPD und Grünen die Zweidrittelmehrheit für Richterwahlen.
 
-[? if player = "linke" : Für die Wahl von Verfassungsrichter*innen braucht es eine Zweidrittelmehrheit. Union, SPD und Grüne haben sie allein nicht, es geht nur mit uns oder mit der AfD. Trotzdem lehnt die Union jedes Gespräch mit der Linken ab. ?]
+[? if player = "linke" : Für die Wahl von Verfassungsrichter\*innen braucht es eine Zweidrittelmehrheit. Union, SPD und Grüne haben sie allein nicht, es geht nur mit uns oder mit der AfD. Trotzdem lehnt die Union jedes Gespräch mit der Linken ab. ?]
 
-- @lk_angebot: Unsere Stimmen öffentlich anbieten: Die Demokrat*innen müssen ohne die AfD auskommen können.
+- @lk_angebot: Unsere Stimmen öffentlich anbieten: Die Demokrat\*innen müssen ohne die AfD auskommen können.
 - @lk_bedingung: Zustimmung nur, wenn wir künftig bei der Auswahl mitreden.
 - @lk_hetze: Die Kampagne gegen Brosius-Gersdorf als rechte Hetze anprangern.
 
 @lk_angebot
 on-arrival: pro_republic += 2*(1-dissent); new_middle_spd += 1*(1-dissent); reformist_dissent -= 3; left_dissent += 2; union_relation += 2
 
-Wir erklären, dass wir die Kandidat*innen von SPD und Grünen wählen werden, ohne Gegenleistung. Im September wird mit unseren Stimmen eine neue Kandidatin gewählt. Kommentator*innen schreiben, die Linke habe sich als verlässlicher erwiesen als Teile der Union.
+Wir erklären, dass wir die Kandidat\*innen von SPD und Grünen wählen werden, ohne Gegenleistung. Im September wird mit unseren Stimmen eine neue Kandidatin gewählt. Kommentator\*innen schreiben, die Linke habe sich als verlässlicher erwiesen als Teile der Union.
 
 @lk_bedingung
 on-arrival: left_dissent -= 2; union_relation -= 3; reformist_dissent += 2
 
-Wir verlangen, an der Auswahl künftiger Richter*innen beteiligt zu werden, wie es unserer Stärke im Bundestag entspricht. Die Union lehnt ab. Die Frage bleibt offen und wird bei jeder Richterwahl wiederkommen.
+Wir verlangen, an der Auswahl künftiger Richter\*innen beteiligt zu werden, wie es unserer Stärke im Bundestag entspricht. Die Union lehnt ab. Die Frage bleibt offen und wird bei jeder Richterwahl wiederkommen.
 
 @lk_hetze
 on-arrival: new_middle_spd += 2*(1-dissent); union_relation -= 3; gruene_relation += 2
 
-Wir nennen die Kampagne beim Namen: Eine angesehene Juristin wurde mit Halbwahrheiten aus dem Amt gedrängt, bevor sie es antreten konnte. Viele Frauen und viele Jurist*innen sehen das genauso.
+Wir nennen die Kampagne beim Namen: Eine angesehene Juristin wurde mit Halbwahrheiten aus dem Amt gedrängt, bevor sie es antreten konnte. Viele Frauen und viele Jurist\*innen sehen das genauso.

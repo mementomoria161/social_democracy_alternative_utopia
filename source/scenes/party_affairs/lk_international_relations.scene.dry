@@ -17,7 +17,7 @@ In der Partei der Europäischen Linken und in der Linksfraktion im Europäischen
 - @fr_uk: Mit La France insoumise und der belgischen PTB an einer europäischen Antwort auf Aufrüstung und Sparpolitik arbeiten.
 - @austria: Von der KPÖ in Graz und Salzburg lernen, wie man mit Mieten und Sozialsprechstunden Wahlen gewinnt.
 - @scandi: Von den nordischen Linksparteien lernen, wie man mitregiert, ohne sich aufzugeben.
-- @spe: Gespräche mit den europäischen Sozialdemokrat*innen suchen.
+- @spe: Gespräche mit den europäischen Sozialdemokrat\*innen suchen.
 - @america: Von Bernie Sanders und den Democratic Socialists in den USA lernen.
 - @return: Wir brauchen gerade keine internationalen Kontakte.
 - @easy_discard
@@ -45,7 +45,7 @@ choose-if: resources >= 1
 unavailable-subtitle: Nicht genug Ressourcen.
 on-arrival: resources -= 1; reformist_strength += 8; wtb_support += 1; moderate_plan_support += 1
 
-Die dänische Einheitsliste und das finnische Linksbündnis haben Regierungen getragen oder mitgestellt und sind trotzdem linke Parteien geblieben. Unsere Reformer*innen hören genau zu.
+Die dänische Einheitsliste und das finnische Linksbündnis haben Regierungen getragen oder mitgestellt und sind trotzdem linke Parteien geblieben. Unsere Reformer\*innen hören genau zu.
 
 @spe
 subtitle: -1 Ressourcen
@@ -53,7 +53,7 @@ choose-if: resources >= 1
 unavailable-subtitle: Nicht genug Ressourcen.
 on-arrival: resources -= 1; linke_relation += 5*(1-dissent); communist_coalition += 1 if comintern_seen == 0; comintern_seen += 1; left_dissent += 2
 
-Im Europäischen Parlament stimmen unsere Abgeordneten oft mit den Sozialdemokrat*innen. Über diese Kontakte lernen wir die SPD besser kennen, ihre Parteilinke ebenso wie ihre Seeheimer.
+Im Europäischen Parlament stimmen unsere Abgeordneten oft mit den Sozialdemokrat\*innen. Über diese Kontakte lernen wir die SPD besser kennen, ihre Parteilinke ebenso wie ihre Seeheimer.
 
 @america
 subtitle: -1 Ressourcen

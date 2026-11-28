@@ -45,6 +45,6 @@ on-arrival: spd_in_government = 0; in_grand_coalition = 0; in_weimar_coalition =
 # erkennbaren Sachgrund (Taktik, Skandal) kosten Stimmen (So, American Political Science Review 2024). Sichtbarer Sachkonflikt:
 # coalition_dissent >= 3 (Koalitionskonflikte „hoch“). Vorher kostete jeder Bruch −3 in vier Gruppen.
 
-Wir verlassen die Koalition. Wie nach dem Ende der Ampel im November 2024 führt der Weg über eine verlorene Vertrauensfrage zu Neuwahlen. [? if coalition_dissent >= 3 : Weil der Streit in der Sache seit Monaten öffentlich ist, nehmen uns viele den Schritt ab: Wir stehen zu unseren Positionen. ?][? if coalition_dissent < 3 : Für viele kommt der Bruch aus heiterem Himmel. Er wirkt wie Taktik, und das kostet uns Vertrauen. ?] Bis dahin regiert Bundeskanzler\*in [+ chancellor +] geschäftsführend.
+Wir verlassen die Koalition. Wie nach dem Ende der Ampel im November 2024 führt der Weg über eine verlorene Vertrauensfrage zu Neuwahlen. [? if coalition_dissent >= 3 : Weil der Streit in der Sache seit Monaten öffentlich ist, nehmen uns viele den Schritt ab: Wir stehen zu unseren Positionen. ?][? if coalition_dissent < 3 : Für viele kommt der Bruch aus heiterem Himmel. Er wirkt wie Taktik, und das kostet uns Vertrauen. ?] Bis dahin regiert [+ chancellor_title +] [+ chancellor +] geschäftsführend.
 
 Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt.

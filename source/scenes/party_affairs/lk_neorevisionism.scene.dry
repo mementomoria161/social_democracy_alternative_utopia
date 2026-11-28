@@ -13,9 +13,9 @@ max-visits: 1
 
 = Der Friedensflügel meldet sich
 
-Eine Gruppe von Kommunalpolitiker*innen und älteren Mitgliedern, vor allem aus Sachsen, Thüringen und Brandenburg, ist 2024 nicht mit Sahra Wagenknecht gegangen. Doch sie teilen viele ihrer Positionen. Jetzt schreiben sie einen offenen Brief: Die Linke solle auf Ostermärschen in der ersten Reihe stehen, Verhandlungen mit Russland statt Waffenlieferungen fordern und „ehrlich“ über Migration reden. Nur so hole man die Wähler*innen zurück, die zu BSW und AfD gegangen sind.
+Eine Gruppe von Kommunalpolitiker\*innen und älteren Mitgliedern, vor allem aus Sachsen, Thüringen und Brandenburg, ist 2024 nicht mit Sahra Wagenknecht gegangen. Doch sie teilen viele ihrer Positionen. Jetzt schreiben sie einen offenen Brief: Die Linke solle auf Ostermärschen in der ersten Reihe stehen, Verhandlungen mit Russland statt Waffenlieferungen fordern und „ehrlich“ über Migration reden. Nur so hole man die Wähler\*innen zurück, die zu BSW und AfD gegangen sind.
 
-Die Kritiker*innen halten dagegen: Genau dieser Kurs habe die Partei 2024 fast zerstört, und wer über Geflüchtete redet wie die Rechten, mache die Rechten stärker.
+Die Kritiker\*innen halten dagegen: Genau dieser Kurs habe die Partei 2024 fast zerstört, und wer über Geflüchtete redet wie die Rechten, mache die Rechten stärker.
 
 - @support_neo: Dem Friedensflügel Raum geben.
 - @no_new_ideas: Das ist der falsche Weg.
@@ -24,7 +24,7 @@ Die Kritiker*innen halten dagegen: Genau dieser Kurs habe die Partei 2024 fast z
 @support_neo
 on-arrival: neorevisionist_strength += 10; nazi_urgency += 1; neorevisionism = 1; peoples_party_support += 1; left_dissent += 10; center_dissent += 5; nationalism += 2; pacifism += 1; bsw_relation += 5; mig_dev += 1
 
-Die Unterzeichner*innen dürfen auf dem Parteitag reden, und auf den Ostermärschen sind wir sichtbarer als seit Jahren. In der Bewegungslinken wird gemurrt. Wie die Wähler*innen reagieren, ist noch offen.
+Die Unterzeichner\*innen dürfen auf dem Parteitag reden, und auf den Ostermärschen sind wir sichtbarer als seit Jahren. In der Bewegungslinken wird gemurrt. Wie die Wähler\*innen reagieren, ist noch offen.
 
 - @shuffle_leadership: Wir sollten die Gelegenheit nutzen, die Parteiführung neu aufzustellen.
 - @root: Weiter …

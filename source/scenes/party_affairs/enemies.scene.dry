@@ -15,7 +15,7 @@ Gegen wen richten wir unsere Kampagnen? Eine Partei, die alle gleichzeitig angre
 
 - @anti_dem: Die Populisten von links und rechts: AfD, BSW und Linke.
 - @far_right: Die populistische Rechte: AfD und BSW.
-- @lk_all: Alle, die um dieselben Wähler*innen werben: AfD, BSW und SPD.
+- @lk_all: Alle, die um dieselben Wähler\*innen werben: AfD, BSW und SPD.
 - @lk_far_right: Die AfD und das BSW, das ihr in der Migrationspolitik hinterherläuft.
 - @nsdap: Allein die AfD.
 - @kpd: Die Linke.
@@ -57,19 +57,19 @@ Scharfe Attacken auf Union und FDP begeistern die Parteilinke. In der Koalition 
 view-if: player = "linke"
 on-arrival: enemies = "AfD, BSW und SPD"; left_strength += 5; center_strength += 3; reformist_dissent += 8; workers_linke -= 2; workers_afd -= 2; workers_bsw -= 2; linke_relation -= 10
 
-Wir greifen alle an, die uns Stimmen streitig machen. Die Sozialistische Linke ist zufrieden. Die Reformer*innen fragen, mit wem wir eigentlich jemals regieren wollen.
+Wir greifen alle an, die uns Stimmen streitig machen. Die Sozialistische Linke ist zufrieden. Die Reformer\*innen fragen, mit wem wir eigentlich jemals regieren wollen.
 
 @lk_far_right
 view-if: player = "linke"
 on-arrival: enemies = "AfD und BSW"; center_strength += 5; left_dissent -= 3; neorevisionist_dissent += 8; workers_afd -= 3; workers_bsw -= 4; unemployed_bsw -= 2
 
-Wir stellen das BSW in eine Reihe mit der AfD: Wer Geflüchtete zum Sündenbock macht, ist keine linke Alternative. Viele ehemalige BSW-Wähler*innen hören zu. Der Friedensflügel, der dem BSW in manchem nahesteht, fühlt sich vor den Kopf gestoßen.
+Wir stellen das BSW in eine Reihe mit der AfD: Wer Geflüchtete zum Sündenbock macht, ist keine linke Alternative. Viele ehemalige BSW-Wähler\*innen hören zu. Der Friedensflügel, der dem BSW in manchem nahesteht, fühlt sich vor den Kopf gestoßen.
 
 @lk_spd
 view-if: player = "linke"
 on-arrival: enemies = "SPD"; left_strength += 5; left_dissent -= 5; reformist_dissent += 8; linke_relation -= 15; workers_linke -= 4; unemployed_linke -= 2
 
-Wir erinnern an Hartz IV, an Waffenlieferungen und an jeden Kompromiss, den die SPD mit der Union geschlossen hat. Bei enttäuschten SPD-Wähler*innen kommt das an. Ein späteres Rot-Rot-Grün wird dadurch allerdings nicht leichter, und die Reformer*innen sind verärgert.
+Wir erinnern an Hartz IV, an Waffenlieferungen und an jeden Kompromiss, den die SPD mit der Union geschlossen hat. Bei enttäuschten SPD-Wähler\*innen kommt das an. Ein späteres Rot-Rot-Grün wird dadurch allerdings nicht leichter, und die Reformer\*innen sind verärgert.
 
 @lk_bourgeois
 view-if: player = "linke"

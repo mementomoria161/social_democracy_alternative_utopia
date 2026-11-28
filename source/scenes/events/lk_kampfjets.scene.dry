@@ -23,7 +23,7 @@ choose-if: resources >= 1
 unavailable-subtitle: Nicht genug Ressourcen.
 on-arrival: resources -= 1; pacifism += 1; left_dissent -= 5; neorevisionist_dissent -= 5; reformist_dissent += 4; workers_spd += 2*(1-dissent); new_middle_spd += 1*(1-dissent); rentner_spd += 1*(1-dissent)
 
-Auf Plakaten steht, wie viele Kitaplätze ein einziger Kampfjet kosten würde. Die Kampagne verfängt, die Jets werden trotzdem bestellt. Unsere Reformer*innen fürchten, als naiv zu gelten.
+Auf Plakaten steht, wie viele Kitaplätze ein einziger Kampfjet kosten würde. Die Kampagne verfängt, die Jets werden trotzdem bestellt. Unsere Reformer\*innen fürchten, als naiv zu gelten.
 
 @spd_linke
 on-arrival: linke_relation += 4; left_dissent -= 2; reformist_dissent -= 2; pacifism += 1

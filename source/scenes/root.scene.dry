@@ -5,6 +5,8 @@ go-to: post_event if started = 1; start_menu if started = 0
 @start_menu
 # party-ok: Sozialdemokratie (Spieltitel)
 new-page: true
+# Debug-Schnellstart nur mit ?debug in der Adresse (Realitätscheck Nov. 2026: stand für alle sichtbar im Startmenü)
+on-arrival: {! Q.debug_menu = (typeof window !== 'undefined' && window.location && /debug/.test(window.location.search || '')) ? 1 : 0; !}
 go-to: start_menu_2
 
 = November 2024
@@ -20,6 +22,7 @@ go-to: start_menu_2
 
 @debug_start
 # party-ok: SPD (der Debug-Schnellstart spielt immer die SPD)
+view-if: debug_menu = 1
 subtitle: Überspringt die Einleitung: normale Schwierigkeit, SPD, Neuwahl im Februar 2025. Direkt zur Hand.
 # Debug: runs the on-arrival actions of the first choices (root.start, choose_spd, ampel_aus.frueh) and jumps to main.
 on-arrival: {!
@@ -401,7 +404,7 @@ Q.bau_offensive = 0;
 // minority government of SPD and Grüne, Wissing stays as minister without party
 Q.president = "Steinmeier";
 Q.bundestag_president = "Bas";
-Q.chancellor = "Scholz";
+Q.chancellor = "Scholz"; Q.chancellor_title = "Bundeskanzler";
 Q.chancellor_party = 'SPD';
 Q.spd_in_government = 1;
 Q.union_in_government = 0;
@@ -642,8 +645,19 @@ Q.ampel_aus_seen = 0;
 Q.young_plan_seen = 0; Q.austrian_parliament_seen = 0; Q.austrian_civil_war_seen = 0;
 // Sitzanteil Union + SPD + Grüne nach einer Bundestagswahl (events/bundestagswahl, Koalitionswahl der Union)
 Q.mitte_coalition = 0;
-// AfD-Kandidat für die Bundespräsidentenwahl 2027 (fiktiv); vorher nur im SPD-Ereignis gesetzt, im Linke-Spiel fehlte der Name
-Q.afd_candidate = "Chrupalla";
+// Bundespräsidentenwahl 30.01.2027 (events/presidential_election_1932, events/bundesversammlung_linke_2027): AfD-Kandidat
+// Thomas Berthold (real nominiert am 14.11.2026); afd_president = 1, wenn er gewählt wird (Spielende); Unterstützung und
+// Stimmen der Kandidaturen (Aigner = hindenburg_*, Trabert = thalmann_*, Schwesig, AfD = hitler_*), Wahlgang, Linke-Entscheidung
+Q.afd_candidate = "Berthold"; Q.afd_president = 0;
+// Rücktritt von Bärbel Bas am 12.10.2026 (events/bas_ruecktritt): danach Schweitzer Arbeitsminister, Bas nicht mehr Beraterin
+Q.bas_ruecktritt_seen = 0;
+// Koalitionsbildung (events/bundestagswahl): union_alt = 1, wenn die Union eine Mehrheit ohne SPD hat; befristete Tolerierung
+// einer Unions-Minderheitsregierung (events/minderheitsregierung, _ende): minderheit_seen (Wahlperiode des letzten Auftretens),
+// minderheit_frist (Monat, bis zu dem der Tolerierungsvertrag läuft; 0 = keiner)
+Q.union_alt = 0; Q.minderheit_seen = 0; Q.minderheit_frist = 0;
+Q.schwesig_campaign = 0; Q.gruene_support_schwesig = 0; Q.linke_support_schwesig = 0; Q.spd_support_thalmann = 0;
+Q.hitler_support_hindenburg = 0; Q.election_round = 0; Q.bv_mode = 0; Q.bv_round = 0;
+Q.hindenburg_votes = 0; Q.thalmann_votes = 0; Q.hitler_votes = 0; Q.schwesig_votes = 0;
 // Migration (post_event): Bedeutung des Themas in % (ARD-DeutschlandTrend), Abweichung durch Spielzüge, Asylerstanträge
 // aufs Jahr in Tausend (BAMF); fiktive neue Fluchtbewegung (events/fluchtbewegung) in knapp jedem zweiten Spiel 2027–2029
 Q.mig_sal = 33; Q.mig_dev = 0; Q.mig_asyl = 191; Q.mig_crisis_seen = 0;

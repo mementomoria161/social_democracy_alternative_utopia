@@ -1,5 +1,5 @@
 title: Bauernproteste
-subtitle: Landwirt*innen gehen gegen Kürzungen und Bürokratie auf die Straße …
+subtitle: Landwirt\*innen gehen gegen Kürzungen und Bürokratie auf die Straße …
 view-if: ((year = 2026 and month >= 2)) and spd_in_government and agricultural_finance < 2
 max-visits: 1
 on-arrival: agricultural_crisis_seen = 1; rural_bsw -= 2; rural_spd -= 2; rural_afd += 2

@@ -8,7 +8,7 @@ view-if: klingbeil_advisor = 1
 
 = Lars Klingbeil
 
-Klingbeil ist seit 2021 Parteivorsitzender[? if finance_minister = "Klingbeil" : und Vizekanzler und Bundesfinanzminister ?][? if chancellor = "Klingbeil": – und inzwischen Bundeskanzler ?]. Der Niedersachse gilt als Stratege der Parteimitte[? if n_elections = 0 : , der die SPD nach dem Bruch der Ampel durch den Wahlkampf führen muss ?][? if n_elections > 0 : , der nach der Bundestagswahl 2025 die Macht in Partei und Fraktion auf sich vereint hat ?].
+Klingbeil ist seit 2021 Parteivorsitzender [? if finance_minister = "Klingbeil" : und Vizekanzler und Bundesfinanzminister ?][? if chancellor = "Klingbeil": – und inzwischen Bundeskanzler?]. Der Niedersachse gilt als Stratege der Parteimitte[? if n_elections = 0 : , der die SPD nach dem Bruch der Ampel durch den Wahlkampf führen muss ?][? if n_elections > 0 : , der nach der Bundestagswahl 2025 die Macht in Partei und Fraktion auf sich vereint hat?].
 
 - @coalition
 - @toleration

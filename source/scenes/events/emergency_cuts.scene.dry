@@ -1,5 +1,5 @@
 title: Kürzungspaket
-subtitle: Bundeskanzler*in [+ chancellor +] will die Sozialausgaben drastisch kürzen.
+subtitle: [+ chancellor_title +] [+ chancellor +] will die Sozialausgaben drastisch kürzen.
 new-page: true
 view-if: (year == 2026 or year == 2027 or year == 2028 or year == 2029) and month >= 12 and chancellor_party == "Union" and spd_in_government == 0 and (unemployed > 8 or (year == 2026 and unemployed > 6)) and welfare >= 0 and emergency_cuts_timer = 0
 on-arrival: emergency_cuts_seen = 1; emergency_cuts_timer = 12
@@ -8,7 +8,7 @@ max-visits: 4
 
 = Kürzungspaket
 
-Die Krise hat die Steuereinnahmen einbrechen und die Sozialausgaben steigen lassen. Um den Haushalt trotz Schuldenbremse auszugleichen, legt Bundeskanzler\*in [+ chancellor +] ein Haushaltsbegleitgesetz mit massiven Kürzungen bei Grundsicherung, Wohngeld und Rentenzuschüssen vor.
+Die Krise hat die Steuereinnahmen einbrechen und die Sozialausgaben steigen lassen. Um den Haushalt trotz Schuldenbremse auszugleichen, legt [+ chancellor_title +] [+ chancellor +] ein Haushaltsbegleitgesetz mit massiven Kürzungen bei Grundsicherung, Wohngeld und Rentenzuschüssen vor.
 
 [? if spd_toleration : Lehnen wir ab, ist die Tolerierung am Ende, und [+ chancellor +] würde wohl die Vertrauensfrage stellen und Neuwahlen herbeiführen. Die Beschäftigten sind natürlich gegen die Kürzungen, doch vielleicht sind sie für die wirtschaftliche und politische Stabilität notwendig. ?]
 

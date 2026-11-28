@@ -8,7 +8,7 @@ card-image: img/sozialstaat.jpg
 
 = Sozialpolitik
 
-Rente, Pflege, Grundsicherung: Der Sozialstaat ist die größte Errungenschaft der Arbeiterbewegung. Doch der Druck wächst. Die Union will beim Bürgergeld sparen, die Beiträge zur Kranken- und Pflegeversicherung steigen, und die Rentenkommission soll bis 2027 Vorschläge machen[? if unemployed > 7 :, während die steigende Arbeitslosigkeit die Kassen zusätzlich belastet ?].
+Rente, Pflege, Grundsicherung: Der Sozialstaat ist die größte Errungenschaft der Arbeiterbewegung. Doch der Druck wächst. Die Union will beim Bürgergeld sparen, die Beiträge zur Kranken- und Pflegeversicherung steigen, und die Rentenkommission soll bis 2027 Vorschläge machen[? if unemployed > 7 :, während die steigende Arbeitslosigkeit die Kassen zusätzlich belastet?].
 
 [? if g_vdk >= 60 : Die Sozialverbände sind gut organisiert und mobilisiert. Wer kürzt, bekommt es mit ihnen zu tun, wer ausbaut, hat sie an seiner Seite. ?]
 

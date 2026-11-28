@@ -98,7 +98,7 @@ var card = function(role, name, party, big) {
 };
 // real party of these persons; slot() turns it into the slot string (SPD and Linke swap when the Linke is played)
 var slot = function(p) { return Q.player == 'linke' ? ({'SPD': 'Linke', 'Linke': 'SPD'}[p] || p) : p; };
-var PERSON = {'Steinmeier': 'SPD', 'Lammert': 'Union', 'Schwesig': 'SPD', 'Trabert': 'parteilos', 'Chrupalla': 'AfD',
+var PERSON = {'Steinmeier': 'SPD', 'Aigner': 'Union', 'Berthold': 'AfD', 'Lammert': 'Union', 'Schwesig': 'SPD', 'Trabert': 'parteilos', 'Chrupalla': 'AfD',
     'Klöckner': 'Union', 'Ortleb': 'SPD', 'Nouripour': 'Grüne', 'Ramelow': 'Linke', 'Bas': 'SPD'};
 
 // Kabinett (after the 2025 election the old government stays in office until the Kanzlerwahl: snapshot Q.gf_gov from events/bundestagswahl)

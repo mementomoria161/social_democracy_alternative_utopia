@@ -7,7 +7,7 @@ new-page: true
 
 [? if hitler_deported : Trotz des Urteils aus Karlsruhe, das Teile der Partei verboten hat, ist es der AfD gelungen, sich neu zu organisieren. ?]
 
-Bundeskanzler\*in [+ chancellor +] kündigt eine „Wende“ an. Die neue Regierung will den öffentlich-rechtlichen Rundfunk umbauen, den Verfassungsschutz an die Leine nehmen, Millionen Menschen zur „Remigration“ drängen und Deutschland aus zentralen europäischen Verträgen lösen. Gegen Richter\*innen, Journalist\*innen und Gewerkschaften laufen bereits Kampagnen.
+[+ chancellor_title +] [+ chancellor +] kündigt eine „Wende“ an. Die neue Regierung will den öffentlich-rechtlichen Rundfunk umbauen, den Verfassungsschutz an die Leine nehmen, Millionen Menschen zur „Remigration“ drängen und Deutschland aus zentralen europäischen Verträgen lösen. Gegen Richter\*innen, Journalist\*innen und Gewerkschaften laufen bereits Kampagnen.
 
 Was sollen wir jetzt tun?
 

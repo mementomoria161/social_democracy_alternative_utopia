@@ -59,7 +59,7 @@ choose-if: resources >= 1
 unavailable-subtitle: Nicht genug Ressourcen.
 on-arrival: resources -= 1; unemployed_spd += 5*(1-dissent); workers_aid += 1; center_strength += 3; center_dissent -= 3
 
-In unseren Sozialsprechstunden helfen Ehrenamtliche beim Widerspruch gegen Bescheide und vermitteln Anwält*innen. Das Bundesverfassungsgericht hat 2019 Grenzen für Sanktionen gezogen; die ersten Klagen sind eingereicht.
+In unseren Sozialsprechstunden helfen Ehrenamtliche beim Widerspruch gegen Bescheide und vermitteln Anwält\*innen. Das Bundesverfassungsgericht hat 2019 Grenzen für Sanktionen gezogen; die ersten Klagen sind eingereicht.
 
 @lk_rede
 on-arrival: unemployed_spd += 2*(1-dissent); new_middle_spd += 1*(1-dissent); left_dissent -= 1

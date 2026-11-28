@@ -28,7 +28,7 @@ Eine Rentnerin aus Gera und ein Student aus Jena klingeln zusammen an Türen in 
 @verjuengen
 on-arrival: left_strength += 5; center_strength += 3; reformist_strength -= 3; reformist_dissent += 6 - 3*neumitglieder_integriert; neorevisionist_dissent += 6; palestine_debate += 1
 
-In vielen Kreisverbänden übernehmen Mittzwanziger den Vorsitz. Die Partei wirkt jünger und kämpferischer. Langjährige Kommunalpolitiker*innen fühlen sich verdrängt, und einige ihrer Äußerungen zum Nahostkonflikt sorgen für Schlagzeilen.
+In vielen Kreisverbänden übernehmen Mittzwanziger den Vorsitz. Die Partei wirkt jünger und kämpferischer. Langjährige Kommunalpolitiker\*innen fühlen sich verdrängt, und einige ihrer Äußerungen zum Nahostkonflikt sorgen für Schlagzeilen.
 
 @osten
 subtitle: -1 Ressource

@@ -9,7 +9,7 @@ tags: govt_affairs
 
 = Tolerierung
 
-Wir tolerieren die Minderheitsregierung von Bundeskanzler\*in [+ chancellor +], ohne selbst Ministerien zu stellen. Ohne unsere Stimmen bekommt die Regierung keinen Haushalt durch, es sei denn, sie sucht sich Mehrheiten bei der AfD. Wie nutzen wir unsere Position?
+Wir tolerieren die Minderheitsregierung von [+ chancellor_title +] [+ chancellor +], ohne selbst Ministerien zu stellen. Ohne unsere Stimmen bekommt die Regierung keinen Haushalt durch, es sei denn, sie sucht sich Mehrheiten bei der AfD. Wie nutzen wir unsere Position?
 
 - @break_toleration
 - @urge_against_austerity
@@ -30,7 +30,7 @@ Sind wir sicher? Ein Misstrauensvotum würde Neuwahlen auslösen, und davon kön
 @vonc
 on-arrival: spd_in_government = 0; spd_toleration = 0; in_grand_coalition = 0; chancellor = union_leader; chancellor_party = "Union"; next_election_time = time + 3 if next_election_time > time+3; next_election_month = month + 3 if next_election_time >= time+3; next_election_year = year if next_election_time >= time+3; next_election_year += 1 if next_election_month > 12; next_election_month -= 12 if next_election_month > 12; spd_toleration = 0; left_strength += 8; pro_republic -= 5; new_middle_spd -= 3; rural_spd -= 3; old_middle_spd -= 3; rentner_spd -= 3; reformist_dissent += 5; left_dissent -= 5
 
-Wir haben die Regierung mit einem Misstrauensvotum gestürzt. Bundeskanzler\*in [+ chancellor +] führt die Amtsgeschäfte bis zur Neuwahl weiter.
+Wir haben die Regierung mit einem Misstrauensvotum gestürzt. [+ chancellor_title +] [+ chancellor +] führt die Amtsgeschäfte bis zur Neuwahl weiter.
 
 Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt.
 
@@ -73,7 +73,7 @@ achievement: constitutional_coalition
 
 Die Verhandlungen waren erfolgreich: Die Union und ihre Partner bilden mit uns eine neue Regierung!
 
-Wir sind jetzt Teil einer „Koalition der Mitte“, die alle demokratischen Parteien jenseits der Ränder umfasst. [+ chancellor +] bleibt Bundeskanzler\*in. Die Parteilinke ist skeptisch.
+Wir sind jetzt Teil einer „Koalition der Mitte“, die alle demokratischen Parteien jenseits der Ränder umfasst. [+ chancellor +] bleibt [+ chancellor_title +]. Die Parteilinke ist skeptisch.
 
 - @bundestagswahl.ministries: Jetzt müssen wir unsere Ministerien auswählen.
 

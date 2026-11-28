@@ -252,3 +252,9 @@ waermepumpe.jpg: Kai Kemmann. „Luft-Wasser-Wärmepumpe Remeha auf Betonsockel 
 hochwasser.jpg: Dr. Bernd Gross. „Elbe-Hochwasser in Dresden-Juni 2013-002.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Elbe-Hochwasser_in_Dresden-Juni_2013-002.jpg. Lizenz: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0
 
 braunkohle.jpg: Raimond Spekking. „Garzweiler Tagebau-1230.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Garzweiler_Tagebau-1230.jpg. Lizenz: CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0
+
+portraits/Aigner.jpg: Syn 2023. „Ilse Aigner (2026, Foto- Christian Brecheis) (cropped).jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Ilse_Aigner_(2026,_Foto-_Christian_Brecheis)_(cropped).jpg. Lizenz: CC BY-SA 3.0 de https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+
+portraits/Schweitzer.jpg: Sven Teschke. „2014-02-20 - Alexander Schweitzer - Landesregierung Rheinland-Pfalz - 2676.jpg“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:2014-02-20_-_Alexander_Schweitzer_-_Landesregierung_Rheinland-Pfalz_-_2676.jpg. Lizenz: CC BY-SA 3.0 de https://creativecommons.org/licenses/by-sa/3.0/de/deed.en
+
+portraits/Berthold.jpg: Whitezombie68. „Thomas Berthold 2014.JPG“. Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Thomas_Berthold_2014.JPG. Lizenz: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0

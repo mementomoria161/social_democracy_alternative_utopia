@@ -79,7 +79,7 @@ choose-if: unemployed > 5
 on-arrival: profil += 1; coalition_dissent += 1; coalition_dissent += 1 if historical_mode; coalition_dissent += 1 if chancellor == "Merz"; works_program += 1; budget -= wtb_budget; unemployed -= 2; workers += 2; workers_spd += 8*(1-dissent); unemployed_spd += 8*(1-dissent); capital_strike_progress += 1; wtb_implemented += 1; linke_coalition_dissent += 1; linke_relation -= 5 if in_popular_front or in_left_front; inflation += 3; economic_growth += 3; pro_republic += 3*(1-dissent);
 achievement: wirtschaftspolitik
 
-Wir finanzieren das Programm auf Pump[? if sondervermoegen = 2 : , über das Sondervermögen hinaus ?]. Unsere Koalitionspartner sind entsetzt und reden vom „Bruch der Schuldenbremse“, doch die Offensive wird beschlossen. Das Geld fließt in Bahnstrecken, Brücken, Schulen, Stromnetze und Wohnungsbau.
+Wir finanzieren das Programm auf Pump[? if sondervermoegen = 2 : , über das Sondervermögen hinaus?]. Unsere Koalitionspartner sind entsetzt und reden vom „Bruch der Schuldenbremse“, doch die Offensive wird beschlossen. Das Geld fließt in Bahnstrecken, Brücken, Schulen, Stromnetze und Wohnungsbau.
 
 [? if player = "spd" and (in_popular_front or in_left_front) : Die Linke lehnt das Programm ab, weil es Konzernen mit Steuergeld Gewinne sichere, statt Schlüsselindustrien in öffentliche Hand zu holen. ?][? if player = "linke" and (in_popular_front or in_left_front) : Die SPD trägt das Programm mit, doch ihre Haushälter warnen vor den Kosten, und die Sozialistische Linke hätte lieber gleich Schlüsselindustrien in öffentliche Hand geholt. ?]
 
@@ -97,7 +97,7 @@ go-to: nationalize_deficit if budget < nationalize_budget; nationalize_no_defici
 on-arrival: nationalization_progress += 1; capital_strike_progress += 2; unemployed -= 1.75 if unemployed >= 4.5; unemployed -= 0.6 if works_councils >= 3; workers += 2 if nationalization_progress < 2; budget -= nationalize_budget; works_program += 1; workers_spd += 8*(1-dissent); unemployed_spd += 5*(1-dissent); coalition_dissent += 1; fdp_relation -= 4; left_dissent -= 5; new_middle_spd -= 2; old_middle_spd -= 3; economy_goal_completed += 1; inflation += 2; economic_growth += 1.7 if economic_growth < 5;
 achievement: wirtschaftspolitik
 
-[? if nationalization_progress == 1 : Über einen staatlichen Transformationsfonds steigen wir bei Industriebetrieben ein, die vor der Schließung oder dem Verkauf ins Ausland stehen[? if works_councils >= 1:, und führen sie gemeinsam mit gestärkten Betriebsräten weiter ?]. So halten wir die Produktion und die Arbeitsplätze im Land. ?]
+[? if nationalization_progress == 1 : Über einen staatlichen Transformationsfonds steigen wir bei Industriebetrieben ein, die vor der Schließung oder dem Verkauf ins Ausland stehen[? if works_councils >= 1:, und führen sie gemeinsam mit gestärkten Betriebsräten weiter?]. So halten wir die Produktion und die Arbeitsplätze im Land. ?]
 
 [? if nationalization_progress == 1 : Die Parteilinke betont, das könne nur ein erster Schritt sein. Langfristig müssten Schlüsselindustrien und Netze in öffentliche Hand. ?]
 
@@ -123,7 +123,7 @@ achievement: wirtschaftspolitik
 
 [? if suedekum_advisor: Große Teile der Partei scheuen neue Schulden jenseits der Schuldenbremse, auch wenn sie die Investitionen wollen. Jens Südekum war ursprünglich kein Anhänger des linken Transformationsplans, doch er überzeugt Partei und Finanzministerium, dass Staatsbeteiligungen in der Krise eine Investition sind und keine Ausgabe. ?]
 
-[? if nationalization_progress == 1 : Über einen staatlichen Transformationsfonds steigen wir bei Industriebetrieben ein, die vor der Schließung oder dem Verkauf ins Ausland stehen[? if works_councils >= 1:, und führen sie gemeinsam mit gestärkten Betriebsräten weiter ?]. So halten wir die Produktion und die Arbeitsplätze im Land. ?]
+[? if nationalization_progress == 1 : Über einen staatlichen Transformationsfonds steigen wir bei Industriebetrieben ein, die vor der Schließung oder dem Verkauf ins Ausland stehen[? if works_councils >= 1:, und führen sie gemeinsam mit gestärkten Betriebsräten weiter?]. So halten wir die Produktion und die Arbeitsplätze im Land. ?]
 
 [? if nationalization_progress == 1 : Die Parteilinke betont, das könne nur ein erster Schritt sein. Langfristig müssten Schlüsselindustrien und Netze in öffentliche Hand. ?]
 
@@ -139,7 +139,7 @@ achievement: wirtschaftspolitik
 
 Die Wirtschaftsverbände laufen erwartungsgemäß Sturm gegen die Vergesellschaftung zu symbolischen Entschädigungen. Sie sprechen von Enteignung, und genau das ist es. Doch wer Werke stilllegt und Subventionen kassiert, hat versagt, und wir müssen handeln.
 
-[? if nationalization_progress == 1 : Wir übernehmen stillgelegte und von Schließung bedrohte Werke[? if works_councils >= 1: und führen sie gemeinsam mit gestärkten Betriebsräten weiter ?]. So halten wir die Produktion und die Arbeitsplätze im Land. ?]
+[? if nationalization_progress == 1 : Wir übernehmen stillgelegte und von Schließung bedrohte Werke [? if works_councils >= 1: und führen sie gemeinsam mit gestärkten Betriebsräten weiter?]. So halten wir die Produktion und die Arbeitsplätze im Land. ?]
 
 [? if nationalization_progress > 1 : Wir übernehmen weitere Werke, Netze und Zulieferer und führen sie koordiniert und mitbestimmt weiter, auch mit zuvor entlassenen Beschäftigten. Ein bedeutender Teil der Industrie ist jetzt in öffentlicher Hand. ?]
 

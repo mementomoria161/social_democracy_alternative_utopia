@@ -46,7 +46,7 @@ Ein staatlich verwalteter Fonds nach schwedischem Vorbild soll die gesetzliche R
 @lk_oesterreich
 on-arrival: rentner_spd += 2*(1-dissent); new_middle_spd += 1*(1-dissent); reformist_strength += 2; welfare += 1
 
-Wir rechnen vor, dass österreichische Rentner*innen im Schnitt deutlich mehr bekommen, weil dort fast alle in eine Kasse einzahlen. Die Rechnung wird in Talkshows hitzig diskutiert.
+Wir rechnen vor, dass österreichische Rentner\*innen im Schnitt deutlich mehr bekommen, weil dort fast alle in eine Kasse einzahlen. Die Rechnung wird in Talkshows hitzig diskutiert.
 
 @lk_rente70
 subtitle: -1 Ressourcen
@@ -54,7 +54,7 @@ choose-if: resources >= 1
 unavailable-subtitle: Nicht genug Ressourcen.
 on-arrival: resources -= 1; rentner_spd += 3*(1-dissent); workers_spd += 2*(1-dissent); labor_dissent -= 4; labor_strength += 2
 
-„Wer am Bau arbeitet, schafft es nicht bis 70“: Mit Gewerkschafter*innen, Pflegekräften und Dachdeckern starten wir eine Kampagne. Sie kommt an, gerade bei denen, die körperlich arbeiten.
+„Wer am Bau arbeitet, schafft es nicht bis 70“: Mit Gewerkschafter\*innen, Pflegekräften und Dachdeckern starten wir eine Kampagne. Sie kommt an, gerade bei denen, die körperlich arbeiten.
 
 @lk_ost
 on-arrival: rentner_spd += 2*(1-dissent); rural_spd += 1*(1-dissent); neorevisionist_dissent -= 3; reformist_dissent -= 2

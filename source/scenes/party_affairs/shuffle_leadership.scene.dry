@@ -371,7 +371,7 @@ subtitle: Bärbel Bas – Parteivorsitzende und Arbeitsministerin aus Duisburg. 
 is-card: true
 card-image: img/portraits/Bas.jpg
 tags: center_advisor
-view-if: player = "spd" and bas_advisor = 0 and n_advisors < 3 and centrists_resign = 0
+view-if: player = "spd" and bas_advisor = 0 and n_advisors < 3 and centrists_resign = 0 and bas_ruecktritt_seen = 0
 on-arrival: bas_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 

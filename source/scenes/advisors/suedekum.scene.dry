@@ -8,7 +8,7 @@ new-page: true
 
 = Jens Südekum
 
-Südekum ist Professor für Volkswirtschaftslehre in Düsseldorf[? if finance_minister = "Klingbeil" : und seit 2025 persönlicher Beauftragter des Bundesfinanzministers für gesamtwirtschaftliche Fragen ?]. Er gehört zu den Ökonomen, die die Schuldenbremse für ein Investitionshindernis halten, und hat 2025 den Vorschlag eines Sondervermögens für Infrastruktur mit vorgedacht[? if sondervermoegen_seen = 1 and sondervermoegen < 2 : , der im Bundestag nicht zustande kam ?].
+Südekum ist Professor für Volkswirtschaftslehre in Düsseldorf [? if finance_minister = "Klingbeil" : und seit 2025 persönlicher Beauftragter des Bundesfinanzministers für gesamtwirtschaftliche Fragen?]. Er gehört zu den Ökonomen, die die Schuldenbremse für ein Investitionshindernis halten, und hat 2025 den Vorschlag eines Sondervermögens für Infrastruktur mit vorgedacht[? if sondervermoegen_seen = 1 and sondervermoegen < 2 : , der im Bundestag nicht zustande kam?].
 
 - @plan
 - @carry_out_policy

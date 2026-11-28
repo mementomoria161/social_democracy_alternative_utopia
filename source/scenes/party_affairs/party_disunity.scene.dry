@@ -13,9 +13,9 @@ Die Partei zerfleischt sich. Unzufrieden mit Führung und Kurs, sticheln die Str
 
 [? if reformist_dissent > 30 : Die Strömung [+ f_reformist +] ist mit unserem Kurs unzufrieden. ?]
 [? if center_dissent > 30 : Die Strömung [+ f_center +] ist mit der Richtung der Partei unzufrieden. ?]
-[? if labor_dissent > 30 : Die Gewerkschafter*innen sind mit unserem Kurs nicht einverstanden. ?]
+[? if labor_dissent > 30 : Die Gewerkschafter\*innen sind mit unserem Kurs nicht einverstanden. ?]
 [? if left_dissent > 30: In der Strömung [+ f_left +] wird offen über eine Abspaltung gesprochen. ?]
-[? if neorevisionist_dissent > 30 and neorevisionism = 1 : Die Anhänger*innen der Strömung [+ f_neorev +] fühlen sich übergangen. ?]
+[? if neorevisionist_dissent > 30 and neorevisionism = 1 : Die Anhänger\*innen der Strömung [+ f_neorev +] fühlen sich übergangen. ?]
 
 Wir müssen etwas für den Zusammenhalt tun.
 
@@ -77,17 +77,17 @@ on-arrival: labor_dissent += 1; left_dissent += 1; center_dissent += 1; reformis
 Sollen sie streiten. Vielleicht ist ein bisschen Streit ja gesund für die Partei.
 
 @expel_reformists
-title: Die Abweichler*innen der Strömung [+ f_reformist +] ausschließen.
+title: Die Abweichler\*innen der Strömung [+ f_reformist +] ausschließen.
 view-if: reformist_dissent > 30
 
 @expel_left
-title: Die Abweichler*innen der Strömung [+ f_left +] ausschließen.
+title: Die Abweichler\*innen der Strömung [+ f_left +] ausschließen.
 view-if: left_dissent > 30
 
 @expel_center
-title: Die Abweichler*innen der Strömung [+ f_center +] ausschließen.
+title: Die Abweichler\*innen der Strömung [+ f_center +] ausschließen.
 view-if: center_dissent > 30
 
 @expel_labor
-title: Die Abweichler*innen der Strömung [+ f_labor +] ausschließen.
+title: Die Abweichler\*innen der Strömung [+ f_labor +] ausschließen.
 view-if: labor_dissent > 30

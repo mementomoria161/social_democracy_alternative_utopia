@@ -64,7 +64,7 @@ Nach wochenlangen Verhandlungen steht der Koalitionsvertrag: Mietendeckel für l
 view-if: berlin_2026 = 1
 on-arrival: berlin_2026 = 3; left_dissent -= 6; reformist_dissent += 8; nationalization_support += 1; linke_relation -= 3
 
-Wir lassen die Verhandlungen an der Vergesellschaftung scheitern. Die CDU bildet eine Kenia-Koalition. Die Sozialistische Linke feiert die Standhaftigkeit, die Reformer*innen sind fassungslos.
+Wir lassen die Verhandlungen an der Vergesellschaftung scheitern. Die CDU bildet eine Kenia-Koalition. Die Sozialistische Linke feiert die Standhaftigkeit, die Reformer\*innen sind fassungslos.
 
 @lk_weiter
 on-arrival: center_dissent -= 1

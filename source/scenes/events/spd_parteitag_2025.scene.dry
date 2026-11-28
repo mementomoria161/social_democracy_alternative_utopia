@@ -13,7 +13,7 @@ face-image: img/parteitag.jpg
 
 = Bundesparteitag 2025
 
-Saskia Esken tritt nach sechs Jahren an der Spitze nicht wieder an. Für den Parteivorsitz kandidiert Bärbel Bas, die frühere Bundestagspräsidentin aus Duisburg[? if labor_minister = "Bas" : und heutige Arbeitsministerin ?]. Sie wird mit 95 Prozent gewählt. Spannender ist die Frage, wie die Delegierten mit Lars Klingbeil umgehen, der nach der Wahl [? if finance_minister = "Klingbeil" : Vizekanzler und Finanzminister geworden ist ?][? if finance_minister != "Klingbeil" : die Macht in Partei und Fraktion auf sich vereint hat ?]. Viele werfen ihm vor, sich nach der Niederlage selbst belohnt zu haben.
+Saskia Esken tritt nach sechs Jahren an der Spitze nicht wieder an. Für den Parteivorsitz kandidiert Bärbel Bas, die frühere Bundestagspräsidentin aus Duisburg [? if labor_minister = "Bas" : und heutige Arbeitsministerin?]. Sie wird mit 95 Prozent gewählt. Spannender ist die Frage, wie die Delegierten mit Lars Klingbeil umgehen, der nach der Wahl [? if finance_minister = "Klingbeil" : Vizekanzler und Finanzminister geworden ist ?][? if finance_minister != "Klingbeil" : die Macht in Partei und Fraktion auf sich vereint hat?]. Viele werfen ihm vor, sich nach der Niederlage selbst belohnt zu haben.
 
 - @geschlossen: Für Klingbeil werben: Die Partei muss Geschlossenheit zeigen.
 - @denkzettel: Den Denkzettel zulassen. Die Basis soll sich Luft machen.

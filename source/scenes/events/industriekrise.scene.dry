@@ -57,4 +57,4 @@ Wir fordern: Wer Werke schließt, obwohl er Gewinne macht, soll enteignet werden
 @lk_kommunal
 on-arrival: reformist_strength += 3; reformist_dissent -= 3; workers_spd += 1.5*(1-dissent); rural_spd += 1*(1-dissent)
 
-Wo wir mitregieren, setzen wir Landesbürgschaften und Gespräche mit den Betriebsräten durch. Das rettet nicht alle Arbeitsplätze, aber unsere Reformer*innen können zeigen, was sie praktisch erreichen.
+Wo wir mitregieren, setzen wir Landesbürgschaften und Gespräche mit den Betriebsräten durch. Das rettet nicht alle Arbeitsplätze, aber unsere Reformer\*innen können zeigen, was sie praktisch erreichen.

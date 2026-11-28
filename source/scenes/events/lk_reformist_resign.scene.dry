@@ -1,6 +1,6 @@
-title: Die Reformer*innen gehen
+title: Die Reformer\*innen gehen
 new-page: true
-subtitle: Der Streit mit den Reformer*innen ist eskaliert.
+subtitle: Der Streit mit den Reformer\*innen ist eskaliert.
 tags: event
 view-if: player = "linke" and reformist_dissent >= 60
 max-visits: 1
@@ -9,8 +9,8 @@ on-arrival: reformist_strength *= 0.3; reformists_resign = 1; rentner_spd -= 3; 
 # Linke-Gegenstück zu reformist_leaders_resign (Durchgang 4.3), ohne Folgepartei: Ein Teil der Reformer*innen wechselt
 # zur SPD (Slot linke), die übrigen ziehen sich zurück. Wer in den Ländern mitregiert, verlässt die Regierung (spd_prussia = 0).
 
-= Die Reformer*innen gehen
+= Die Reformer\*innen gehen
 
-Unsere Politik hat die Reformer*innen zutiefst verärgert. Langjährige Landesminister*innen, Bürgermeister*innen und Abgeordnete aus dem Osten verlassen die Partei. Einige treten in die SPD ein, andere ziehen sich ganz aus der Politik zurück. Sie werfen uns vor, aus einer Partei, die regieren wollte, eine Protestbewegung gemacht zu haben.
+Unsere Politik hat die Reformer\*innen zutiefst verärgert. Langjährige Landesminister\*innen, Bürgermeister\*innen und Abgeordnete aus dem Osten verlassen die Partei. Einige treten in die SPD ein, andere ziehen sich ganz aus der Politik zurück. Sie werfen uns vor, aus einer Partei, die regieren wollte, eine Protestbewegung gemacht zu haben.
 
-Mit ihnen gehen Erfahrung, Mandate und viele ältere Wähler*innen im Osten. Wo wir in den Ländern mitregiert haben, zerbrechen die Koalitionen.
+Mit ihnen gehen Erfahrung, Mandate und viele ältere Wähler\*innen im Osten. Wo wir in den Ländern mitregiert haben, zerbrechen die Koalitionen.

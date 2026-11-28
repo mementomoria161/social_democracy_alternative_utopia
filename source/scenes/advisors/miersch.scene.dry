@@ -8,7 +8,7 @@ new-page: true
 
 = Matthias Miersch
 
-Miersch führt seit 2025 die SPD-Bundestagsfraktion. Der Umweltjurist aus der Region Hannover kommt aus der Parlamentarischen Linken, war Generalsekretär im Wahlkampf 2025 und muss nun dafür sorgen, dass 120 Abgeordnete die Kompromisse der Koalition mittragen.
+Miersch führt seit 2025 die SPD-Bundestagsfraktion. Der Umweltjurist aus der Region Hannover kommt aus der Parlamentarischen Linken, war Generalsekretär im Wahlkampf 2025 und muss nun dafür sorgen, dass die Abgeordneten [? if spd_in_government : die Kompromisse der Koalition mittragen?][? if spd_toleration : die Tolerierung mittragen?][? if not spd_in_government and not spd_toleration : in der Opposition an einem Strang ziehen?].
 
 - @against_right_and_left
 - @toleration

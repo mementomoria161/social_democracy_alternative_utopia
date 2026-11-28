@@ -9,7 +9,7 @@ max-visits: 6
 
 = Demokratiebewegung
 
-Seit den Enthüllungen über das Potsdamer Treffen von Rechtsextremen im Januar 2024 gehen immer wieder Hunderttausende gegen Rechts auf die Straße. Getragen wird die Bewegung von Gewerkschaften, Kirchen, Initiativen wie den „Omas gegen Rechts“ und den demokratischen Parteien – den größten Teil der Organisationsarbeit leisten aber Mitglieder von [? if player = "spd" : SPD und Grünen ?][? if player = "linke" : Grünen, SPD und, seit 2025 immer häufiger, der Linken ?].
+Seit den Enthüllungen über das Potsdamer Treffen von Rechtsextremen im Januar 2024 gehen immer wieder Hunderttausende gegen Rechts auf die Straße. Getragen wird die Bewegung von Gewerkschaften, Kirchen, Initiativen wie den „Omas gegen Rechts“ und den demokratischen Parteien – den größten Teil der Organisationsarbeit leisten aber Mitglieder von [? if player = "spd" : SPD und Grünen ?][? if player = "linke" : Grünen, SPD und, seit 2025 immer häufiger, der Linken?].
 
 [? if workers_spd < 15 or workers_spd < workers_afd or workers_spd < workers_linke : Weil [+ pp_full +] unter Beschäftigten an Rückhalt verloren hat, fällt es der Bewegung schwer, über das akademische Milieu hinaus Menschen zu gewinnen. ?]
 
@@ -27,7 +27,7 @@ unavailable-subtitle: Nicht genug Ressourcen ([+ demo_militarization_cost +] ben
 subtitle: -[+ demo_militarization_cost +] Ressourcen
 on-arrival: resources -= demo_militarization_cost; demo_investment += 1; demo_strength += 100; demo_radicalism += 0.05; left_strength += 2; left_dissent -= 2; reformist_dissent += 5; spd_radicalism += 0.05; workers_spd += 2*(1-dissent); unemployed_spd += 2*(1-dissent); union_relation -= 5 if historical_mode
 
-Wir finanzieren Aktionstrainings für Sitzblockaden, Ordnerdienste und schnelle Mobilisierung. Die Strömung [+ f_reformist +] und die Union warnen, wir würden die Grenze zum zivilen Ungehorsam verwischen. Dafür kommen viele junge Leute, die sonst [? if player = "spd" : bei der Linken gelandet wären ?][? if player = "linke" : nie in eine Partei eingetreten wären ?], zu uns.
+Wir finanzieren Aktionstrainings für Sitzblockaden, Ordnerdienste und schnelle Mobilisierung. Die Strömung [+ f_reformist +] und die Union warnen, wir würden die Grenze zum zivilen Ungehorsam verwischen. Dafür kommen viele junge Leute, die sonst [? if player = "spd" : bei der Linken gelandet wären ?][? if player = "linke" : nie in eine Partei eingetreten wären?], zu uns.
 
 [? if historical_mode : Die Union distanziert sich von der Bewegung und ruft ihre Mitglieder auf, sich nicht an Blockaden zu beteiligen. ?]
 
@@ -63,7 +63,7 @@ go-to: homosexual if trans_rights or repealed_175 or reformed_183
 max-visits: 1
 achievement: women_reichsbanner
 
-Saskia Esken drängt darauf, die Bewegung aus dem linksliberalen Milieu herauszuholen. Wir bauen Brücken zu Moscheegemeinden, Fußballvereinen, Feuerwehren und Landfrauen[? if homosexual_rights > 0: und zu den CSD-Vereinen, deren Paraden immer öfter von Rechtsextremen angegriffen werden ?].
+Saskia Esken drängt darauf, die Bewegung aus dem linksliberalen Milieu herauszuholen. Wir bauen Brücken zu Moscheegemeinden, Fußballvereinen, Feuerwehren und Landfrauen [? if homosexual_rights > 0: und zu den CSD-Vereinen, deren Paraden immer öfter von Rechtsextremen angegriffen werden?].
 
 Die Bewegung wird bunter und viel größer. Sie wird allerdings auch weniger eingespielt, und manche alten Aktivisten fremdeln mit den neuen Verbündeten.
 

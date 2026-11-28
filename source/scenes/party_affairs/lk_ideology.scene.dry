@@ -63,7 +63,7 @@ if (Q.ideology && Q.ideology != "reformist") {
 go-to: changed if changed = 1
 on-departure: ideology = "reformist"; reformist_strength += 10; democratization += 1; reformist_dissent -= 5; left_dissent += 5; linke_relation += 8; gruene_relation += 5; communist_coalition += 1; moderate_plan_support += 1
 
-Die Reformer*innen setzen sich durch. Die Linke will zeigen, dass sie regieren kann, wie in Bremen und Mecklenburg-Vorpommern, und bietet SPD und Grünen offen Gespräche über ein Bündnis an.
+Die Reformer\*innen setzen sich durch. Die Linke will zeigen, dass sie regieren kann, wie in Bremen und Mecklenburg-Vorpommern, und bietet SPD und Grünen offen Gespräche über ein Bündnis an.
 
 @changed
 on-arrival: left_dissent += 5; center_dissent += 5; labor_dissent += 5; reformist_dissent += 5

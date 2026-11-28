@@ -27,7 +27,7 @@ choose-if: resources >= 1
 unavailable-subtitle: Nicht genug Ressourcen.
 on-arrival: resources -= 1; gruene_relation += 6*(1 - dissent); left_dissent -= 1; labor_dissent += 1
 
-In Großstädten konkurrieren wir mit den Grünen um dieselben jungen Wähler*innen. Bei Klimageld, Mieten und Brandmauer ziehen wir oft an einem Strang. Die Gewerkschafter*innen in der Partei sehen die Grünen skeptischer.
+In Großstädten konkurrieren wir mit den Grünen um dieselben jungen Wähler\*innen. Bei Klimageld, Mieten und Brandmauer ziehen wir oft an einem Strang. Die Gewerkschafter\*innen in der Partei sehen die Grünen skeptischer.
 
 @spd
 subtitle: -1 Ressourcen
@@ -39,7 +39,7 @@ go-to: spd_blutmai if blutmai = 1; spd_1 if blutmai = 0 and linke_coalition_succ
 @spd_1
 on-arrival: linke_relation += 6*(1 - dissent); communist_coalition += 1 if linke_inter_party_seen <= 1; left_dissent += 2; reformist_dissent -= 2
 
-In der SPD gelten wir vielen noch immer als unzuverlässig. Doch in Kommunen, Landtagen und Gewerkschaften entstehen neue Kontakte, und manche Sozialdemokrat*innen sind froh, dass es links von ihnen wieder jemanden gibt.
+In der SPD gelten wir vielen noch immer als unzuverlässig. Doch in Kommunen, Landtagen und Gewerkschaften entstehen neue Kontakte, und manche Sozialdemokrat\*innen sind froh, dass es links von ihnen wieder jemanden gibt.
 
 @spd_history
 
@@ -76,7 +76,7 @@ choose-if: resources >= 1
 unavailable-subtitle: Nicht genug Ressourcen.
 on-arrival: resources -= 1; union_relation += 4*(1 - dissent); left_dissent += 4; reformist_dissent -= 3
 
-Für Zweidrittelmehrheiten im Bundestag braucht die Union entweder die AfD oder uns. Unsere Reformer*innen, die in Thüringen jahrelang mit der CDU über Haushalte verhandelt haben, halten diskrete Kontakte. Die Sozialistische Linke hält das für Verrat, aber für die Brandmauer ist es wichtig.
+Für Zweidrittelmehrheiten im Bundestag braucht die Union entweder die AfD oder uns. Unsere Reformer\*innen, die in Thüringen jahrelang mit der CDU über Haushalte verhandelt haben, halten diskrete Kontakte. Die Sozialistische Linke hält das für Verrat, aber für die Brandmauer ist es wichtig.
 
 @bsw
 subtitle: -1 Ressourcen
@@ -84,7 +84,7 @@ choose-if: resources >= 1
 unavailable-subtitle: Nicht genug Ressourcen.
 on-arrival: resources -= 1; bsw_relation += 5*(1 - dissent); neorevisionist_dissent -= 6; left_dissent += 4; center_dissent += 2; workers_bsw -= 1*(1-dissent); workers_spd += 1*(1-dissent)
 
-Viele, die 2024 mit Sahra Wagenknecht gegangen sind, waren jahrzehntelang unsere Genoss*innen. In ostdeutschen Kreistagen sitzen wir oft nebeneinander. Wir laden zu Gesprächen über gemeinsame kommunale Anträge ein. Der Friedensflügel ist erleichtert, in der Bewegungslinken schüttelt man den Kopf.
+Viele, die 2024 mit Sahra Wagenknecht gegangen sind, waren jahrzehntelang unsere Genoss\*innen. In ostdeutschen Kreistagen sitzen wir oft nebeneinander. Wir laden zu Gesprächen über gemeinsame kommunale Anträge ein. Der Friedensflügel ist erleichtert, in der Bewegungslinken schüttelt man den Kopf.
 
 @alone
 

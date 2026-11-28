@@ -18,7 +18,7 @@ Ob gerade Wahlkampf ist oder nicht: Die Partei versucht ständig, neue Wählerin
 - @old_middle: Selbstständige, Handwerk und Mittelstand.
 - @rural: Die Menschen auf dem Land, die sich von uns oft vergessen fühlen.
 - @unemployed: Arbeitslose und Menschen in der Grundsicherung.
-- @catholics: Rentnerinnen und Rentner[? if player = "spd" : , unsere treueste Wählergruppe ?][? if player = "linke" : , gerade im Osten ?].
+- @catholics: Rentnerinnen und Rentner[? if player = "spd" : , unsere treueste Wählergruppe ?][? if player = "linke" : , gerade im Osten?].
 - @doors: Haustürgespräche in Vierteln mit hohen Mieten und niedrigen Löhnen.
 - @root: Wir wollen oder können gerade keinen Wahlkampf machen.
 - @easy_discard

@@ -39,6 +39,9 @@ Q.schwarz_gruen_coalition = Q.union_r + Q.gruene_r;
 Q.right_coalition = Q.union_r + Q.fdp_r;
 Q.far_right_coalition = Q.afd_r + Q.bsw_r;
 Q.union_afd_coalition = Q.union_r + Q.afd_r;
+['grand_coalition', 'weimar_coalition', 'ampel_coalition', 'popular_front_coalition', 'schwarz_gruen_coalition', 'right_coalition', 'far_right_coalition', 'union_afd_coalition'].forEach(function(k) {
+    Q[k + '_disp'] = (Math.round((Q[k] || 0) * 10) / 10).toFixed(1).replace('.', ',');
+});
 !}
 
 Bei der Bundestagswahl gilt die Fünf-Prozent-Hürde: Parteien darunter erhalten keine Sitze, die übrigen Sitze werden proportional zu den Stimmen verteilt.
@@ -63,18 +66,18 @@ Sonstige: [+ other_r +]
 
 **Mögliche Koalitionen:**
 
-Schwarz-Rot (Union + SPD): [+ grand_coalition +]
+Schwarz-Rot (Union + SPD): [+ grand_coalition_disp +] %
 
-Kenia (Union + SPD + Grüne): [+ weimar_coalition +]
+Kenia (Union + SPD + Grüne): [+ weimar_coalition_disp +] %
 
-Ampel (SPD + Grüne + FDP): [+ ampel_coalition +]
+Ampel (SPD + Grüne + FDP): [+ ampel_coalition_disp +] %
 
-Rot-Grün-Rot (SPD + Grüne + Linke): [+ popular_front_coalition +]
+Rot-Grün-Rot (SPD + Grüne + Linke): [+ popular_front_coalition_disp +] %
 
-Schwarz-Grün (Union + Grüne): [+ schwarz_gruen_coalition +]
+Schwarz-Grün (Union + Grüne): [+ schwarz_gruen_coalition_disp +] %
 
-Schwarz-Gelb (Union + FDP): [+ right_coalition +]
+Schwarz-Gelb (Union + FDP): [+ right_coalition_disp +] %
 
-Union + AfD: [+ union_afd_coalition +]
+Union + AfD: [+ union_afd_coalition_disp +] %
 
 Stärkste Kraft: [+ largest_party +]

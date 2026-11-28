@@ -16,7 +16,7 @@ face-image: img/synagoge.jpg
 
 = Streit um Nahost
 
-Seit dem Parteitag in Chemnitz gilt in der Linken die Jerusalemer Erklärung als Arbeitsdefinition von Antisemitismus. Sie unterscheidet schärfer zwischen Kritik an Israel und Judenhass als die Definition, die Bundestag und Bundesregierung verwenden. Viele Neumitglieder, die über Gaza-Proteste zur Partei gekommen sind, begrüßen den Beschluss. Reformer*innen und jüdische Organisationen kritisieren ihn scharf, und manche erinnern daran, dass prominente Berliner Linke die Partei schon im Herbst 2024 wegen dieses Streits verlassen haben.
+Seit dem Parteitag in Chemnitz gilt in der Linken die Jerusalemer Erklärung als Arbeitsdefinition von Antisemitismus. Sie unterscheidet schärfer zwischen Kritik an Israel und Judenhass als die Definition, die Bundestag und Bundesregierung verwenden. Viele Neumitglieder, die über Gaza-Proteste zur Partei gekommen sind, begrüßen den Beschluss. Reformer\*innen und jüdische Organisationen kritisieren ihn scharf, und manche erinnern daran, dass prominente Berliner Linke die Partei schon im Herbst 2024 wegen dieses Streits verlassen haben.
 
 Nun eskaliert die Debatte: Ein Kreisverband lädt eine Rednerin ein, die den 7. Oktober relativiert haben soll, ein anderer fordert den Ausschluss eines Abgeordneten wegen seiner Israel-Solidarität. Die Presse fragt: Hat die Linke ein Antisemitismusproblem?
 
@@ -32,9 +32,9 @@ Der Parteivorstand beschließt Unvereinbarkeitsregeln und leitet Ausschlussverfa
 @ausgleich
 on-arrival: palestine_stance = 0; gr_palaestina += 2; gr_israel += 2; center_strength += 3; center_dissent -= 3; reformist_dissent += 2; left_dissent += 2
 
-Wir sagen beides: Die Kriegsführung in Gaza ist nicht zu rechtfertigen, und Antisemitismus hat in unserer Partei keinen Platz. Den einen ist das zu wenig, den anderen zu viel. Aber die Partei bleibt zusammen, und die meisten Wähler*innen interessiert ohnehin mehr ihre Miete.
+Wir sagen beides: Die Kriegsführung in Gaza ist nicht zu rechtfertigen, und Antisemitismus hat in unserer Partei keinen Platz. Den einen ist das zu wenig, den anderen zu viel. Aber die Partei bleibt zusammen, und die meisten Wähler\*innen interessiert ohnehin mehr ihre Miete.
 
 @bewegung
 on-arrival: palestine_stance = 1; gr_palaestina += 15; gr_israel -= 12; gr_demo -= 5; left_strength += 5; left_dissent -= 6; reformist_dissent += 10; neorevisionist_dissent -= 2; new_middle_spd += 1*(1-dissent); unemployed_spd += 0.5*(1-dissent); rentner_spd -= 1; linke_relation -= 4; gruene_relation -= 3; palestine_debate += 2; demo_strength -= 50
 
-Wir rufen zu Demonstrationen gegen Waffenlieferungen an Israel auf. Tausende junge Menschen kommen, viele mit migrantischer Familiengeschichte. Bodo Ramelow und andere Reformer*innen distanzieren sich öffentlich, SPD und Grüne werfen uns Einseitigkeit vor, und Teile der Demokratiebewegung gehen auf Abstand.
+Wir rufen zu Demonstrationen gegen Waffenlieferungen an Israel auf. Tausende junge Menschen kommen, viele mit migrantischer Familiengeschichte. Bodo Ramelow und andere Reformer\*innen distanzieren sich öffentlich, SPD und Grüne werfen uns Einseitigkeit vor, und Teile der Demokratiebewegung gehen auf Abstand.

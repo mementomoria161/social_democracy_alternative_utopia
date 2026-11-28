@@ -1,48 +1,55 @@
 title: Bundespräsidentenwahl
 subtitle: Die Bundesversammlung wählt ein neues Staatsoberhaupt …
-view-if: player = "spd" and (year = 2027 and (month = 2 or month = 3) and presidential_election_seen = 0)
+view-if: player = "spd" and (year = 2027 and (month = 1 or month = 2) and presidential_election_seen = 0)
 frequency: 1000
 max-visits: 1
 new-page: true
-on-arrival: schwesig_campaign = 0; hitler_support_hindenburg = 0; presidential_election_seen = 1; afd_candidate = "Chrupalla";
+on-arrival: schwesig_campaign = 0; hitler_support_hindenburg = 0; presidential_election_seen = 1; afd_candidate = "Berthold"; gruene_support_schwesig = 0; linke_support_schwesig = 0; spd_support_thalmann = 0
 tags: event
-go-to: election_algorithm
-set-jump: pres_election
+go-to: pres_election
 face-image: img/bundesversammlung.jpg
+
+# Realer Stand (Nov. 2026, Quelle: de.wikipedia.org/wiki/Wahl_des_deutschen_Bundespräsidenten_2027, LpB BW):
+# 18. Bundesversammlung am 30. Januar 2027 im Reichstagsgebäude, 1260 Mitglieder, absolute Mehrheit 631.
+# Ilse Aigner (CSU, Präsidentin des Bayerischen Landtags): Vorschlag Söder April 2026, CDU-Vorstand 9.11.2026,
+# am selben Tag Unterstützung der Führungen von SPD und Grünen. AfD: Thomas Berthold (nominiert 14.11.2026).
+# Die Linke hatte bis Ende November 2026 niemanden nominiert; Trabert (wie 2022) und eine Kandidatur Schwesig sind Fiktion.
+# Stimmen: Bundestagsteil aus den Sitzanteilen im Spiel, Länderteil fest (siehe @post_election).
 
 @pres_election
 
-Die Amtszeit von Frank-Walter Steinmeier endet im März, eine dritte ist nicht möglich. Die Bundesversammlung aus den Bundestagsabgeordneten und ebenso vielen Delegierten der Länder wählt ein neues Staatsoberhaupt. Das Amt ist vor allem repräsentativ, doch in einer Staatskrise entscheidet das Staatsoberhaupt über die Auflösung des Bundestages, prüft Gesetze und setzt moralische Maßstäbe. [? if hitler_deported==0 : Die AfD schickt Tino Chrupalla ins Rennen, die Linke den Sozialmediziner Gerhard Trabert. Ein Sieg der AfD wäre ein Dammbruch. ?][? if hitler_deported==1 : Trotz des Verbotsurteils schickt die AfD Tino Chrupalla ins Rennen, als Symbol des „Widerstands gegen das System“. Die Linke nominiert den Sozialmediziner Gerhard Trabert. ?]
-[? if sapd_formed: Die Soziale Linke, unsere abtrünnigen Linken, unterstützt Trabert. ?]
+Am 30. Januar 2027 tritt im Reichstagsgebäude die Bundesversammlung zusammen: 630 Bundestagsabgeordnete und ebenso viele Delegierte der Landtage. Die Amtszeit von Frank-Walter Steinmeier endet im März, eine dritte ist nicht möglich. In den ersten beiden Wahlgängen braucht es die absolute Mehrheit von 631 Stimmen, im dritten genügt die einfache.
 
-# Kandidaturen fiktiv: Union Norbert Lammert, SPD Manuela Schwesig, Linke Gerhard Trabert, AfD Tino Chrupalla.
+Schon im November haben sich CDU und CSU auf Ilse Aigner verständigt, die Präsidentin des Bayerischen Landtags. [? if spd_in_government and union_in_government : Unsere Parteiführung und die Grünen haben noch am selben Tag ihre Unterstützung erklärt: eine gemeinsame Kandidatin der demokratischen Mitte. ?][? if not spd_in_government or not union_in_government : Die Grünen haben ihre Unterstützung erklärt, und die Union wirbt auch um uns: eine gemeinsame Kandidatin der demokratischen Mitte. ?] Aigner wäre die erste Frau an der Spitze des Staates.
 
-Viele drängen uns, den Kandidaten der Union zu unterstützen, den früheren Bundestagspräsidenten Norbert Lammert, um ein Signal der Geschlossenheit der Demokraten zu setzen. Andere in der Partei wollen eine eigene Kandidatin: Manuela Schwesig, die allerdings zögert.
+[? if hitler_deported==0 : Die AfD schickt den früheren Fußballnationalspieler Thomas Berthold ins Rennen, der während der Pandemie bei Querdenker-Demonstrationen auftrat. ?][? if hitler_deported==1 : Trotz des Verbotsurteils schickt die AfD Thomas Berthold ins Rennen, als Symbol des „Widerstands gegen das System“. ?] Die Linke stellt, wie schon 2022, den Sozialmediziner Gerhard Trabert auf. [? if sapd_formed: Die Soziale Linke, unsere abtrünnigen Linken, unterstützt Trabert. ?]
 
-[? if linke_relation >= 50 : Eine ungewöhnliche Möglichkeit wäre ein linkes Bündnis, entweder für Trabert oder für unsere eigene Kandidatin. ?]
+In der Partei murren manche: Wieder eine Kandidatin der Union, und das in einem Jahr, in dem die SPD ohnehin mit sich ringt. Einige wünschen sich Manuela Schwesig, die allerdings abwinkt.
+
+[? if linke_relation >= 50 : Eine ungewöhnliche Möglichkeit wäre ein linkes Bündnis, entweder für Trabert oder für eine eigene Kandidatin. ?]
 
 
-- @support_hindenburg: Norbert Lammert unterstützen.
-- @support_schwesig: Manuela Schwesig für die SPD aufstellen.
+- @support_hindenburg: Ilse Aigner mittragen.
+- @support_schwesig: Doch eine eigene Kandidatin aufstellen: Manuela Schwesig.
 - @support_thalmann: Gerhard Trabert, den Kandidaten der Linken, unterstützen.
 
 @support_hindenburg
 subtitle: Das ist die naheliegende Wahl.
 
-Lammert ist konservativ, aber ein überzeugter Demokrat und ein klarer Gegner der AfD. Mit ihm setzen die demokratischen Parteien ein gemeinsames Zeichen.
+Aigner ist konservativ, aber eine überzeugte Demokratin und eine klare Gegnerin der AfD. Mit ihr setzen die demokratischen Parteien ein gemeinsames Zeichen.
 
 - @final_election: Zur Abstimmung …
 
 @support_schwesig
-subtitle: Das kostet uns 2 Ressourcen.
+subtitle: Kostet 2 Ressourcen und verärgert Union und Grüne, die sich auf Aigner festgelegt haben.
 choose-if: resources >= 2
 unavailable-subtitle: Nicht genug Ressourcen.
-on-arrival: resources -= 2; schwesig_campaign = 1
+on-arrival: resources -= 2; schwesig_campaign = 1; union_relation -= 8; union_relation -= 4 if spd_in_government and union_in_government; coalition_dissent += 1 if spd_in_government and union_in_government; gruene_relation -= 4; left_dissent -= 4; center_dissent += 3
 go-to: schwesig_campaign
 
-Eine eigene Kandidatur kostet Kraft. Zuerst muss Schwesig überzeugt werden, die selbst lieber einen gemeinsamen Kandidaten der Mitte unterstützt hätte. Es braucht viel Zureden, bis sie zusagt.
+Eine eigene Kandidatur kostet Kraft und Vertrauen. Zuerst muss Schwesig überzeugt werden, die in Schwerin genug zu tun hat und selbst lieber Aigner unterstützt hätte. Es braucht viel Zureden, bis sie zusagt. In der Union spricht man von Wortbruch.
 
-[+ gruene_name +] werden uns wohl unterstützen. Wer noch? Können wir die Union für Schwesig gewinnen? Und die Linke?
+Allein sind wir weit von 631 Stimmen entfernt. Wen können wir gewinnen?
 
 
 @support_thalmann
@@ -53,7 +60,7 @@ Trabert zu unterstützen ist in unserer Partei umstritten, auch wenn die Linke u
 
 - @support_thalmann_2: Ja, wir unterstützen Trabert, trotz der Proteste der Seeheimer.
 - @support_schwesig: Doch lieber Schwesig aufstellen.
-- @support_hindenburg: Doch lieber Lammert unterstützen.
+- @support_hindenburg: Doch lieber Aigner mittragen.
 
 @support_thalmann_2
 on-arrival: spd_support_thalmann = 1; reformist_dissent += 15; center_dissent += 10; labor_dissent += 5; neorevisionist_dissent += 10; rentner_spd -= 5; workers_spd -= 3; linke_relation += 10; communist_coalition += 2; union_relation -= 15; fdp_relation -= 15; gruene_relation -= 10
@@ -64,61 +71,42 @@ Na gut. Wir unterstützen Gerhard Trabert.
 
 @schwesig_campaign
 
-- @convince_union: Die Union überzeugen.
+- @convince_gruene: Die Grünen gewinnen.
 - @convince_linke: Die Linke überzeugen.
-- @convince_liberals: Die FDP-Delegierten überzeugen, wo es sie noch gibt.
+- @convince_union: Die Union fragen.
 - @final_election: Zur Abstimmung …
 
 @convince_union
-choose-if: spd_votes >= union_votes
-unavailable-subtitle: Die Union weiß, dass sie stärker ist als wir, und sieht keinen Grund, unsere Kandidatin zu unterstützen.
-on-arrival: {!
-Q.union_support_schwesig = 0;
-if (Q.union_relation >= 55 || (Q.union_relation > 35 && Q.union_party_leader == "Wüst")) {
-    Q.union_support_schwesig = 1;
-} else if (Q.union_relation <= 35) {
-    Q.union_support_schwesig = 0;
-} else {
-    Q.union_support_schwesig = 2;
-}
-!}
-go-to: union_failed if union_support_schwesig = 0 or (union_support_schwesig == 2 and historical_mode); union_success if union_support_schwesig = 1; union_partial if union_support_schwesig = 2 and not historical_mode
+max-visits: 1
+go-to: schwesig_campaign
+
+Die Union hört höflich zu und bleibt bei ihrer Kandidatin. Markus Söder hat Aigner vorgeschlagen, die CDU hat sie nominiert; einen Rückzieher wird es nicht geben.
+
+@convince_gruene
+choose-if: gruene_relation >= 55
+unavailable-subtitle: Die Grünen haben sich auf Aigner festgelegt und sehen keinen Grund, das für uns aufzugeben.
 max-visits: 1
 
-Wir erinnern die Union an die gute Zusammenarbeit mit Schwesig im Bundesrat und daran, dass die SPD 2017 und 2022 ebenfalls auf einen gemeinsamen Kandidaten gesetzt hat. Eine Frau aus Ostdeutschland an der Spitze des Staates wäre zudem ein starkes Signal gegen die AfD.
+[+ gruene_name +] haben Aigner ihre Stimmen zugesagt. Sie umzustimmen, geht nur über unsere guten Beziehungen und ein Entgegenkommen an anderer Stelle.
 
-@union_success
+- @gruene_pay: Ihnen entgegenkommen.
+- @schwesig_campaign: Die Grünen vergessen.
+
+@gruene_pay
+choose-if: resources >= 2
+subtitle: -2 Ressourcen
+unavailable-subtitle: Nicht genug Ressourcen (2 benötigt).
+on-arrival: resources -= 2; gruene_support_schwesig = 1; gruene_relation -= 3
 go-to: schwesig_campaign
 
-Die Union ist überzeugt! Sie unterstützt Schwesig.
-
-@union_partial
-
-Ganz überzeugt ist die Union nicht, aber offen. Sie würde Schwesig mittragen, wenn wir ihr an anderer Stelle entgegenkommen.
-
-- @pay_union: Ihr entgegenkommen.
-- @schwesig_campaign: Die Union vergessen.
-
-@pay_union
-choose-if: resources >= 3
-subtitle: -3 Ressourcen
-unavailable-subtitle: Nicht genug Ressourcen (3 benötigt)
-on-arrival: resources -= 3; union_support_schwesig = 1
-go-to: schwesig_campaign
-
-Mit unseren Zugeständnissen ist die Union bereit, Schwesig statt Lammert zu wählen.
-
-@union_failed
-go-to: schwesig_campaign
-
-Leider können wir die Union nicht von Lammert abbringen.
+Nach langen Gesprächen wechseln die Grünen zu Schwesig. Ganz wohl ist ihnen dabei nicht, und die Union ist empört.
 
 @convince_linke
 choose-if: spd_votes >= linke_votes
 unavailable-subtitle: Die Linke weiß, dass sie stärker ist als wir, und sieht keinen Grund, unsere Kandidatin zu unterstützen.
 max-visits: 1
 
-Die Linke unterstützt ihren eigenen Kandidaten, Gerhard Trabert. [? if linke_relation >= 50 : Sie wäre aber bereit, ihn zurückzuziehen und Schwesig zu unterstützen. Wie überzeugen wir sie? ?][? if linke_relation < 50 or linke_party_leader != "Reformflügel" : Sie scheint nicht bereit, sich überzeugen zu lassen. ?]
+Die Linke unterstützt ihren eigenen Kandidaten, Gerhard Trabert. [? if linke_relation >= 50 : Sie wäre aber bereit, ihn zurückzuziehen und Schwesig zu unterstützen. Wie überzeugen wir sie? ?][? if linke_relation < 50 : Sie scheint nicht bereit, sich überzeugen zu lassen. ?]
 
 - @linke_resources: Ressourcen einsetzen.
 - @linke_relations: Unsere guten Beziehungen nutzen.
@@ -132,144 +120,82 @@ unavailable-subtitle: Nicht genug Ressourcen (3 benötigt).
 on-arrival: resources -= 3; linke_support_schwesig = 1
 go-to: schwesig_campaign
 
-Die Linke unterstützt jetzt Schwesig! Wir bitten sie, das nicht an die große Glocke zu hängen, um die Union nicht zu verschrecken.
+Die Linke unterstützt jetzt Schwesig! Wir bitten sie, das nicht an die große Glocke zu hängen, um die Union nicht noch mehr zu verärgern.
 
 @linke_relations
-view-if: linke_relation >= 60 or (linke_party_leader == "Reformflügel" and linke_relation >= 45)
+view-if: linke_relation >= 60
 unavailable-subtitle: Unser Verhältnis ist nicht gut genug.
 on-arrival: linke_support_schwesig = 1
 go-to: schwesig_campaign
 
-Die Linke unterstützt jetzt Schwesig! Wir bitten sie, das nicht an die große Glocke zu hängen, um die Union nicht zu verschrecken.
-
-
-
-@convince_liberals
-max-visits: 1
-go-to: convince_liberals_success if fdp_relation >= 50; convince_liberals_fail if fdp_relation < 50
-
-Die FDP sitzt nicht mehr im Bundestag und stellt nur noch wenige Delegierte aus den Landtagen. Viel helfen wird sie nicht. [+ gruene_name +] stehen ohnehin hinter Schwesig.
-
-@convince_liberals_success
-on-arrival: fdp_support_schwesig = 1
-go-to: schwesig_campaign
-
-Dank unserer guten Beziehungen sagen die FDP-Delegierten Schwesig ihre Stimmen zu.
-
-@convince_liberals_fail
-on-arrival: fdp_support_schwesig = 0
-go-to: schwesig_campaign
-
-Die FDP-Delegierten lassen sich nicht überzeugen.
+Die Linke unterstützt jetzt Schwesig! Wir bitten sie, das nicht an die große Glocke zu hängen, um die Union nicht noch mehr zu verärgern.
 
 
 
 @final_election
 on-arrival: election_round = 0
-go-to: election_algorithm
-set-jump: post_election
+go-to: post_election
 
 
 @post_election
 on-arrival: {!
+// Bundesversammlung 2027: 1260 Mitglieder. Bundestagsteil (630) aus den Sitzanteilen im Spiel (Q.<slot>_r in %),
+// Länderteil (630) fest nach der realen Zusammensetzung (Wikipedia, Stand 27.11.2026: Union 431, AfD 259, SPD 254,
+// Grüne 194, Linke 78, Freie Wähler 18, FDP 13, BSW 7, Sonstige 6) abzüglich der Bundestagssitze von 2025
+// (Union 208, AfD 152, SPD 120, Grüne 85, Linke 64, SSW 1). Freie Wähler und FDP stimmen für Aigner, BSW und
+// Sonstige enthalten sich (im Spiel angenommen).
+var land = {union: 223, spd: 134, gruene: 109, afd: 107, linke: 14, fw: 18, fdp: 13, bsw: 7, other: 5};
+if (Q.player == 'linke') { var t = land.spd; land.spd = land.linke; land.linke = t; }
+var bt = function(p) { return Math.round(630 * (Q[p + '_r'] || 0) / 100); };
+var seats = function(p) { return bt(p) + (land[p] || 0); };
 Q.schwesig_votes = 0;
-Q.hindenburg_votes = 0;
-Q.hitler_votes = 0;
+Q.hindenburg_votes = seats('union') + land.fw + seats('fdp');
+Q.hitler_votes = seats('afd');
 Q.thalmann_votes = 0;
-
-// initial phase:
-Q.hitler_votes += Q.afd_normalized;
-Q.hindenburg_votes += Q.other_normalized;
-Q.hindenburg_votes += Q.bsw_normalized;
-
+var linke = seats('linke') + (Q.sapd_formed ? bt('sapd') : 0);
 if (Q.schwesig_campaign) {
-    Q.schwesig_votes += Q.spd_normalized;
-    Q.schwesig_votes += Q.gruene_normalized;
-    if (Q.union_support_schwesig && Q.union_support_schwesig == 1) {
-        Q.schwesig_votes += Q.union_normalized;
-    } else {
-        Q.hindenburg_votes += Q.union_normalized;
-    }
-    if (Q.linke_support_schwesig) {
-        Q.schwesig_votes += Q.linke_normalized;
-        if (Q.sapd_formed && Q.sapd_votes) {
-            Q.schwesig_votes += Q.sapd_normalized;
-        }
-    } else {
-        Q.thalmann_votes += Q.linke_normalized;
-        if (Q.sapd_formed && Q.sapd_votes) {
-            Q.thalmann_votes += Q.sapd_normalized;
-        }
-    }
-    if (Q.fdp_support_schwesig) {
-        Q.schwesig_votes += Q.fdp_normalized;
-    } else {
-        Q.hindenburg_votes += Q.fdp_normalized;
-    }
+    Q.schwesig_votes += seats('spd');
+    if (Q.gruene_support_schwesig) { Q.schwesig_votes += seats('gruene'); } else { Q.hindenburg_votes += seats('gruene'); }
+    if (Q.linke_support_schwesig) { Q.schwesig_votes += linke; } else { Q.thalmann_votes += linke; }
 } else if (Q.spd_support_thalmann) {
-    Q.thalmann_votes += Q.linke_normalized;
-    Q.thalmann_votes += Q.spd_normalized;
-    Q.hindenburg_votes += Q.union_normalized;
-    Q.hindenburg_votes += Q.gruene_normalized;
-    Q.hindenburg_votes += Q.fdp_normalized;
+    Q.thalmann_votes += linke + seats('spd');
+    Q.hindenburg_votes += seats('gruene');
 } else {
-    Q.hindenburg_votes += Q.spd_normalized;
-    Q.hindenburg_votes += Q.union_normalized;
-    Q.hindenburg_votes += Q.gruene_normalized;
-    Q.hindenburg_votes += Q.fdp_normalized;
-    Q.thalmann_votes += Q.linke_normalized;
+    Q.hindenburg_votes += seats('spd') + seats('gruene');
+    Q.thalmann_votes += linke;
 }
+// AfD zieht im dritten Wahlgang zugunsten Aigners zurück, um eine linke Präsidentschaft zu verhindern
 if (Q.hitler_support_hindenburg) {
-    Q.hitler_votes -= Q.afd_normalized;
-    Q.hindenburg_votes += Q.afd_normalized;
+    Q.hindenburg_votes += Q.hitler_votes;
+    Q.hitler_votes = 0;
 }
-
-if (Q.hindenburg_to_schwesig_bonus) {
-    Q.hindenburg_votes -= Q.hindenburg_to_schwesig_bonus;
-    Q.schwesig_votes += Q.hindenburg_to_schwesig_bonus;
-}
-if (Q.thalmann_to_schwesig_bonus) {
-    Q.thalmann_votes -= Q.thalmann_to_schwesig_bonus;
-    Q.schwesig_votes += Q.thalmann_to_schwesig_bonus;
-}
-
-// check for majority
-Q.hindenburg_votes = Math.round(Q.hindenburg_votes*1000)/10;
-Q.schwesig_votes = Math.round(Q.schwesig_votes*1000)/10;
-Q.hitler_votes = Math.round(Q.hitler_votes*1000)/10;
-Q.thalmann_votes = Math.round(Q.thalmann_votes*1000)/10;
-
-Q.hindenburg_majority = (Q.hindenburg_votes >= 50);
-Q.thalmann_majority = (Q.thalmann_votes >= 50);
-Q.hitler_majority = (Q.hitler_votes >= 50);
-Q.schwesig_majority = (Q.schwesig_votes >= 50);
-Q.any_majority = Q.hindenburg_majority | Q.thalmann_majority | Q.hitler_majority | Q.schwesig_majority;
-
-// check for plurality
-Q.hindenburg_plurality = (Q.hindenburg_votes >= Q.hitler_votes && Q.hindenburg_votes >= Q.schwesig_votes && Q.hindenburg_votes >= Q.thalmann_votes);
-Q.thalmann_plurality = (Q.thalmann_votes >= Q.hindenburg_votes && Q.thalmann_votes >= Q.schwesig_votes && Q.thalmann_votes >= Q.hitler_votes);
-Q.hitler_plurality = (Q.hitler_votes >= Q.hindenburg_votes && Q.hitler_votes >= Q.schwesig_votes && Q.hitler_votes >= Q.thalmann_votes);
-Q.schwesig_plurality = (Q.schwesig_votes >= Q.hindenburg_votes && Q.schwesig_votes >= Q.hitler_votes && Q.schwesig_votes >= Q.thalmann_votes);
-// If no candidate gets above 50%, then there's a second round. In the second round, a plurality wins. 
+Q.hindenburg_majority = (Q.hindenburg_votes >= 631);
+Q.thalmann_majority = (Q.thalmann_votes >= 631);
+Q.hitler_majority = (Q.hitler_votes >= 631);
+Q.schwesig_majority = (Q.schwesig_votes >= 631);
+Q.any_majority = Q.hindenburg_majority || Q.thalmann_majority || Q.hitler_majority || Q.schwesig_majority;
+var m = Math.max(Q.hindenburg_votes, Q.thalmann_votes, Q.hitler_votes, Q.schwesig_votes);
+Q.hindenburg_plurality = (Q.hindenburg_votes == m);
+Q.thalmann_plurality = (!Q.hindenburg_plurality && Q.thalmann_votes == m);
+Q.schwesig_plurality = (!Q.hindenburg_plurality && !Q.thalmann_plurality && Q.schwesig_votes == m);
+Q.hitler_plurality = (!Q.hindenburg_plurality && !Q.thalmann_plurality && !Q.schwesig_plurality && Q.hitler_votes == m);
 Q.election_round += 1;
-
-// making the vote numbers nicer for the display
-Q.hindenburg_votes_disp = Q.hindenburg_votes.toFixed(1).replace('.', ',');
-Q.schwesig_votes_disp = Q.schwesig_votes.toFixed(1).replace('.', ',');
-Q.hitler_votes_disp = Q.hitler_votes.toFixed(1).replace('.', ',');
-Q.thalmann_votes_disp = Q.thalmann_votes.toFixed(1).replace('.', ',');
+Q.hindenburg_votes_disp = String(Q.hindenburg_votes);
+Q.schwesig_votes_disp = String(Q.schwesig_votes);
+Q.hitler_votes_disp = String(Q.hitler_votes);
+Q.thalmann_votes_disp = String(Q.thalmann_votes);
 !}
 go-to: hindenburg_wins if hindenburg_majority == 1; thalmann_wins if thalmann_majority == 1; hitler_wins if hitler_majority == 1; schwesig_wins if schwesig_majority == 1; no_majority_round1 if any_majority == 0 and election_round == 1; round2_results if election_round >= 2
 
-Ergebnis:
+Ergebnis (1260 Mitglieder, absolute Mehrheit 631):
 
-Lammert – [+ hindenburg_votes_disp +] %
+Ilse Aigner – [+ hindenburg_votes_disp +] Stimmen
 
-[+ afd_candidate +] – [+ hitler_votes_disp +] %
+[? if hitler_votes > 0 : Thomas Berthold – [+ hitler_votes_disp +] Stimmen ?]
 
-[? if linke_support_schwesig == 0 : Trabert – [+ thalmann_votes_disp +] % ?]
+[? if thalmann_votes > 0 : Gerhard Trabert – [+ thalmann_votes_disp +] Stimmen ?]
 
-[? if schwesig_campaign > 0 : Schwesig – [+ schwesig_votes_disp +] % ?]
+[? if schwesig_campaign > 0 : Manuela Schwesig – [+ schwesig_votes_disp +] Stimmen ?]
 
 @no_majority_round1
 on-arrival: hitler_support_hindenburg = 1 if (schwesig_plurality or thalmann_plurality)
@@ -277,111 +203,19 @@ go-to: round2_menu
 
 Auch im zweiten Wahlgang erreicht niemand die absolute Mehrheit. Im dritten Wahlgang genügt die einfache Mehrheit. Was tun wir?
 
-[? if schwesig_plurality or thalmann_plurality : Um eine linke Präsidentschaft zu verhindern, zieht die AfD [+ afd_candidate +] zurück und ruft ihre Delegierten auf, Lammert zu wählen. ?]
+[? if schwesig_plurality or thalmann_plurality : Um eine linke Präsidentschaft zu verhindern, zieht die AfD Berthold zurück und ruft ihre Delegierten auf, Aigner zu wählen. Aigner erklärt, sie lege auf diese Stimmen keinen Wert, doch verhindern kann sie sie nicht. ?]
 
 
 @round2_menu
 
-- @round2_convince_union: Die Union bewegen, zu uns zu wechseln.
-- @round2_convince_linke: Die Linke bewegen, zu uns zu wechseln.
-- @round2_hindenburg: Zu Lammert wechseln.
+- @round2_hindenburg: Zu Aigner wechseln.
 - @round2_thalmann: Zu Trabert wechseln.
 - @round2_vote: Den dritten Wahlgang beginnen.
 
 
-@round2_convince_union
-view-if: schwesig_campaign > 0 and union_support_schwesig != 1 
-choose-if: spd_votes >= union_votes
-unavailable-subtitle: Die Union weiß, dass sie stärker ist als wir, und sieht keinen Grund, unsere Kandidatin zu unterstützen.
-on-arrival: {!
-Q.union_support_schwesig = 0;
-// if Hindenburg (Lammert) support is greater than AfD and Schwesig support, this should be much harder
-
-if ((Q.union_relation >= 55 && Q.schwesig_votes >= Q.hindenburg_votes) || (Q.union_relation > 35 && Q.union_party_leader == "Wüst")) {
-    Q.union_support_schwesig = 1;
-    if (Q.hitler_support_hindenburg) {
-        Q.hindenburg_to_schwesig_bonus += Q.other_normalized/2;
-    }
-} else if (Q.union_relation >= 50 && Q.hitler_support_hindenburg) {
-    Q.union_support_schwesig = 1;
-    Q.hindenburg_to_schwesig_bonus += Q.other_normalized/2;
-} else if (Q.union_relation <= 35 || (Q.union_relation <= 45 && Q.schwesig_votes < Q.hindenburg_votes && Q.hindenburg_votes > Q.hitler_votes && Q.difficulty >= 0)) {
-    Q.union_support_schwesig = 0;
-} else {
-    Q.union_support_schwesig = 2;
-}
-!}
-go-to: r2_union_failed if union_support_schwesig = 0 or (union_support_schwesig = 2 and historical_mode); r2_union_success if union_support_schwesig = 1; r2_union_partial if union_support_schwesig = 2 and not historical_mode
-max-visits: 1
-
-@r2_union_success
-go-to: round2_menu
-on-departure: hitler_support_hindenburg = 1 if schwesig_votes + union_votes > hitler_votes
-
-[? if hitler_support_hindenburg : Dass ausgerechnet die AfD jetzt Lammert wählen will, ist der Union peinlich, und sie ist bereit umzuschwenken. ?] Die Union ist überzeugt! Sie unterstützt Schwesig. [? if hitler_support_hindenburg : Dazu bringt sie Delegierte der Freien Wähler und anderer kleiner Gruppen mit. ?]
-
-[? if not hitler_support_hindenburg and schwesig_votes + union_votes > hitler_votes: Weil die Union nun Schwesig unterstützt, zieht die AfD [+ afd_candidate +] zurück und ruft dazu auf, Lammert zu wählen, um eine Sozialdemokratin im Schloss Bellevue zu verhindern. ?]
-
-@r2_union_partial
-
-Ganz überzeugt ist die Union nicht, aber offen[? if hitler_support_hindenburg: , zumal die AfD jetzt Lammert unterstützt ?]. Sie würde Schwesig mittragen, wenn wir ihr an anderer Stelle entgegenkommen.
-
-- @r2_pay_union: Ihr entgegenkommen.
-- @round2_menu: Die Union vergessen.
-
-@r2_pay_union
-choose-if: resources >= 2
-subtitle: -2 Ressourcen
-unavailable-subtitle: Nicht genug Ressourcen (2 benötigt)
-on-arrival: resources -= 2; union_support_schwesig = 1
-on-departure: hitler_support_hindenburg = 1 if schwesig_votes + union_votes > hitler_votes
-go-to: round2_menu
-
-Mit unseren Zugeständnissen ist die Union bereit, Schwesig statt Lammert zu wählen.
-
-[? if not hitler_support_hindenburg and schwesig_votes + union_votes > hitler_votes: Weil die Union nun Schwesig unterstützt, zieht die AfD [+ afd_candidate +] zurück und ruft dazu auf, Lammert zu wählen, um eine Sozialdemokratin im Schloss Bellevue zu verhindern. ?]
-
-@r2_union_failed
-go-to: round2_menu
-
-Leider können wir die Union nicht von Lammert abbringen. [? if hindenburg_votes > schwesig_votes : Weil Lammert mehr Stimmen bekommen hat als Schwesig, finden sie, wir sollten zu ihm wechseln, nicht umgekehrt. ?]
-
-
-
-
-@round2_convince_linke
-choose-if: spd_votes >= linke_votes
-unavailable-subtitle: Die Linke weiß, dass sie stärker ist als wir, und sieht keinen Grund, unsere Kandidatin zu unterstützen.
-view-if: schwesig_campaign > 0 and linke_support_schwesig == 0 
-max-visits: 1
-
-Die Linke hält an Gerhard Trabert fest. [? if linke_relation >= 45 : Doch dass die AfD jetzt Lammert unterstützt, beunruhigt sie so sehr, dass sie bereit wäre, Trabert zurückzuziehen und Schwesig zu wählen. ?][? if linke_relation < 45 : Sie scheint nicht bereit, sich überzeugen zu lassen. ?]
-
-- @r2_linke_resources: Ressourcen einsetzen.
-- @r2_linke_relations: Unsere guten Beziehungen nutzen.
-- @round2_menu: Die Linke vergessen.
-
-@r2_linke_resources
-view-if: linke_relation >= 45 and not historical_mode
-choose-if: resources >= 3
-subtitle: -3 Ressourcen
-unavailable-subtitle: Nicht genug Ressourcen (3 benötigt).
-on-arrival: resources -= 3; linke_support_schwesig = 1
-go-to: round2_menu
-
-Die Linke unterstützt jetzt Schwesig! Wir bitten sie, das nicht an die große Glocke zu hängen, um die Union nicht zu verschrecken.
-
-@r2_linke_relations
-view-if: linke_relation >= 60 or (linke_party_leader == "Reformflügel" and linke_relation >= 45)
-unavailable-subtitle: Unser Verhältnis ist nicht gut genug.
-on-arrival: linke_support_schwesig = 1
-go-to: round2_menu
-
-Die Linke unterstützt jetzt Schwesig! Wir bitten sie, das nicht an die große Glocke zu hängen, um die Union nicht zu verschrecken. 
-
 @round2_thalmann
 view-if: spd_support_thalmann == 0 and linke_support_schwesig == 0
-choose-if: linke_relation >= 50 and left_strength > reformist_strength 
+choose-if: linke_relation >= 50 and left_strength > reformist_strength
 unavailable-subtitle: [? if linke_relation < 50 : Unser Verhältnis zur Linken ist nicht gut genug; sie will unsere Unterstützung gar nicht. ?] [? if reformist_strength >= left_strength : Die Seeheimer bringen die Partei von diesem ungewöhnlichen Bündnis ab. ?]
 max-visits: 1
 
@@ -392,34 +226,31 @@ Trabert zu unterstützen ist in unserer Partei umstritten, auch wenn die Linke u
 
 @round2_thalmann_2
 on-arrival: schwesig_campaign = 0; spd_support_thalmann = 1; reformist_dissent += 15; center_dissent += 10; labor_dissent += 5; neorevisionist_dissent += 10; rentner_spd -= 5; workers_spd -= 3; linke_relation += 10; communist_coalition += 2; union_relation -= 15; fdp_relation -= 15
-on-departure: union_support_schwesig = 0; linke_support_schwesig = 0;
+on-departure: gruene_support_schwesig = 0; linke_support_schwesig = 0;
 
-Na gut. Wir unterstützen Gerhard Trabert.
-
-[? if union_support_schwesig : Die Union ist über unser Hin und Her verärgert und wählt nun doch Lammert. ?]
+Na gut. Wir unterstützen Gerhard Trabert. [? if gruene_support_schwesig : Die Grünen sind über unser Hin und Her verärgert und wählen nun doch Aigner. ?]
 
 - @round2_vote: Den dritten Wahlgang beginnen.
 
 @round2_hindenburg
 view-if: schwesig_campaign > 0 or spd_support_thalmann > 0
-on-arrival: schwesig_campaign = 0; spd_support_thalmann = 0
+on-arrival: schwesig_campaign = 0; spd_support_thalmann = 0; gruene_support_schwesig = 0; union_relation += 4
 
-Wir unterstützen nun Lammert.
+Wir unterstützen nun Aigner. Die Union nimmt es zur Kenntnis.
 
 - @round2_vote: Den dritten Wahlgang beginnen.
 
 @round2_vote
-go-to: election_algorithm
-set-jump: post_election
+go-to: post_election
 
 @round2_results
 go-to: hindenburg_wins if hindenburg_plurality == 1; thalmann_wins if thalmann_plurality == 1; schwesig_wins if schwesig_plurality == 1; hitler_wins if hitler_plurality == 1
 
 
 @hindenburg_wins
-on-arrival: president = "Lammert"
+on-arrival: president = "Aigner"
 
-Wie erwartet wird Norbert Lammert zum Bundespräsidenten gewählt. Hoffen wir, dass er die Demokratie mit fester Stimme verteidigt.
+[? if election_round <= 1 : Schon im ersten Wahlgang ?][? if election_round > 1 : Im dritten Wahlgang ?] wird Ilse Aigner zur Bundespräsidentin gewählt, als erste Frau in diesem Amt. Am 19. März tritt sie ihr Amt an. Hoffen wir, dass sie die Demokratie mit fester Stimme verteidigt.
 
 @thalmann_wins
 on-arrival: president = "Trabert"; linke_relation = 80;
@@ -430,7 +261,7 @@ Gerhard Trabert, der Kandidat der Linken, wird Bundespräsident. Reichsbürger u
 # Umsturzaufrufe sind ein Fall für Polizei und Verfassungsschutz.
 
 @hitler_wins
-on-arrival: president = afd_candidate; brandmauer = 0 if hitler_majority; pro_republic -= 5; rechts_strength += 30; coalition_dissent += 1 if spd_in_government
+on-arrival: president = afd_candidate; afd_president = 1; brandmauer = 0 if hitler_majority; pro_republic -= 5; rechts_strength += 30; coalition_dissent += 1 if spd_in_government
 
 # Nov. 2026: vorher wurde die AfD damit automatisch Kanzlerpartei (Weimar: Hindenburg ernennt Hitler). Nach Art. 63 GG wählt
 # allein der Bundestag die Kanzlerin oder den Kanzler; der Bundespräsident kann weder eine Regierung einsetzen noch den Bundestag
@@ -439,10 +270,10 @@ on-arrival: president = afd_candidate; brandmauer = 0 if hitler_majority; pro_re
 
 [? if hitler_majority : Mit den Stimmen der AfD und eines Teils der Unionsdelegierten wird der AfD-Kandidat [+ president +] Bundespräsident. Die Brandmauer ist gefallen. ?][? if not hitler_majority : Im dritten Wahlgang genügt die relative Mehrheit, und die demokratischen Parteien haben sich nicht auf eine gemeinsame Kandidatur geeinigt: Der AfD-Kandidat [+ president +] wird Bundespräsident. ?]
 
-Zum ersten Mal zieht ein AfD-Politiker ins Schloss Bellevue. Gleich das erste umstrittene Gesetz bekommt keine Unterschrift, die Prüfung liege „noch nicht abgeschlossen“ vor. Die Regierung bleibt im Amt: Kanzlerin oder Kanzler wählt nach Artikel 63 des Grundgesetzes allein der Bundestag. Doch das höchste Staatsamt gibt der AfD eine Bühne, die sie nie hatte, und rechte Netzwerke fühlen sich ermutigt.
+Zum ersten Mal zieht ein Kandidat der AfD ins Schloss Bellevue. Gleich das erste umstrittene Gesetz bekommt keine Unterschrift, die Prüfung liege „noch nicht abgeschlossen“ vor. Die Regierung bleibt im Amt: Kanzlerin oder Kanzler wählt nach Artikel 63 des Grundgesetzes allein der Bundestag. Doch das höchste Staatsamt gibt der AfD eine Bühne, die sie nie hatte, und rechte Netzwerke fühlen sich ermutigt.
 
 
 @schwesig_wins
-on-arrival: president = "Schwesig"; reformist_dissent -= 15; center_dissent -= 15; labor_dissent -= 15; left_dissent -= 5; workers_spd += 8*(1-dissent); old_middle_spd += 5*(1-dissent); new_middle_spd += 5*(1-dissent); rural_spd += 5*(1-dissent); unemployed_spd += 5*(1-dissent);
+on-arrival: president = "Schwesig"; reformist_dissent -= 15; center_dissent -= 15; labor_dissent -= 15; left_dissent -= 5; workers_spd += 8*(1-dissent); old_middle_spd += 5*(1-dissent); new_middle_spd += 5*(1-dissent); rural_spd += 5*(1-dissent); unemployed_spd += 5*(1-dissent); union_relation -= 5
 
-Manuela Schwesig ist die erste Sozialdemokratin im Schloss Bellevue! Ein Moment zum Feiern für unsere Partei, und ihr Sieg stärkt unseren Rückhalt.
+Manuela Schwesig wird die erste Bundespräsidentin, gewählt mit den Stimmen von SPD, Grünen und Linken gegen die Kandidatin der Union. Ein Moment zum Feiern für unsere Partei, und ihr Sieg stärkt unseren Rückhalt. In der Union aber wird dieser Abend nicht vergessen.

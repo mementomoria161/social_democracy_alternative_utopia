@@ -52,7 +52,7 @@ Mit Zugeständnissen bei Projekten und Posten, die der Linken wichtig sind, ents
 choose-if: (weimar_coalition >= 50 and union_relation >= 40) or (grand_coalition >= 50 and union_relation >= 45 and fdp_relation >= 30)
 unavailable-subtitle: [? if grand_coalition < 50 : Das ergäbe keine Mehrheit. ?] [? if union_relation < 45 : Nach unserer Zusammenarbeit mit der Linken will die Union nicht mit uns regieren. ?] [? if fdp_relation < 30 : Die FDP lässt die Regierung lieber scheitern, als uns vor der Linken zu retten. ?]
 
-Wir könnten die Linke aus der Regierung drängen und eine neue Koalition bilden[? if spd_r <= 50 : , mit Partnern aus der Mitte ?].
+Wir könnten die Linke aus der Regierung drängen und eine neue Koalition bilden[? if spd_r <= 50 : , mit Partnern aus der Mitte?].
 
 - @bundestagswahl.spd_majority: Eine SPD-Regierung ohne die Linke bilden?
 - @bundestagswahl.weimar_coalition: Eine Koalition mit Grünen und FDP oder Union bilden?
@@ -69,7 +69,7 @@ go-to: let_it_happen_schwesig if chancellor_party == "SPD"; let_it_happen_hinden
 @let_it_happen_schwesig
 on-arrival: next_election_time = time + 3 if next_election_time >= time + 3; next_election_month = month + 3 if next_election_time >= time + 3; next_election_year = year if next_election_time >= time+3; next_election_year += 1 if next_election_month > 12; next_election_month -= 12 if next_election_month > 12; spd_in_government = 0; in_popular_front = 0; in_left_front = 0; coalition_name = "geschäftsführende Regierung"; foreign_minister_party = "parteilos"; interior_minister_party = "parteilos"; justice_minister_party = "parteilos"; labor_minister_party = "parteilos"; bundeswehr_minister_party = "parteilos"; economic_minister_party = "parteilos"; finance_minister_party = "parteilos"; agriculture_minister_party = "parteilos";
 
-Die Koalition ist zerbrochen. Bundeskanzler\*in [+ chancellor +] verliert die Vertrauensfrage und führt bis zur Neuwahl die Amtsgeschäfte weiter.
+Die Koalition ist zerbrochen. [+ chancellor_title +] [+ chancellor +] verliert die Vertrauensfrage und führt bis zur Neuwahl die Amtsgeschäfte weiter.
 
 Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +] statt.
 

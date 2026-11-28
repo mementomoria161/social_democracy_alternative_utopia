@@ -1,0 +1,69 @@
+title: Rücktritt von Bärbel Bas
+subtitle: Die SPD-Vorsitzende gibt ihre Ämter ab.
+new-page: true
+tags: event
+view-if: year = 2026 and month = 10 and bas_ruecktritt_seen = 0
+go-to: linke if player = "linke"; spd if player = "spd"
+max-visits: 1
+on-arrival: {!
+Q.bas_ruecktritt_seen = 1;
+// Arbeitsministerium: Schweitzer folgt auf Bas (im Linke-Spiel stand dort bisher noch Heil aus dem Kabinett Scholz)
+if (Q.labor_minister == 'Bas' || Q.labor_minister == 'Heil') Q.labor_minister = 'Schweitzer';
+if (Q.player != 'linke' && Q.bas_advisor) { Q.bas_advisor = 0; Q.n_advisors -= 1; }
+!}
+face-image: img/portraits/Bas.jpg
+
+# Realer Verlauf (taz, Bundesregierung, dpa): Am 12.10.2026 tritt Bärbel Bas als SPD-Co-Vorsitzende und Bundesministerin
+# für Arbeit und Soziales zurück; sie nennt persönliche Gründe und zunehmende öffentliche Angriffe, auch aus der CDU.
+# Am 13.10.2026 ernennt der Bundespräsident Alexander Schweitzer (bis Mai 2026 Ministerpräsident von Rheinland-Pfalz),
+# Vereidigung am 14.10. Die SPD wählt ihre gesamte Spitze auf einem Bundesparteitag am 16./17.01.2027 in Bremen neu.
+# Regel 3 (AGENTS.md): nichts über das Privatleben; nur die öffentlich genannten Gründe, ohne Einzelheiten.
+
+= Rücktritt von Bärbel Bas
+
+# party-ok: SPD (reale Partei; Rücktritt der realen SPD-Vorsitzenden)
+Am 12. Oktober erklärt Bärbel Bas ihren Rücktritt als SPD-Vorsitzende [? if labor_minister = "Schweitzer" : und als Bundesministerin für Arbeit und Soziales?]. Sie nennt persönliche Gründe und die zunehmenden öffentlichen Angriffe auf ihre Person, auch aus der Union. In Berlin ist man erschüttert; selbst politische Gegner zollen ihr Respekt.
+
+[? if labor_minister = "Schweitzer" : Schon am nächsten Tag ernennt der Bundespräsident ihren Nachfolger: Alexander Schweitzer, bis zum Frühjahr Ministerpräsident von Rheinland-Pfalz. Die SPD-Frauen hatten eine Frau an der Spitze des Ministeriums gefordert. ?] Lars Klingbeil kündigt an, die gesamte Parteispitze im Januar auf einem Bundesparteitag in Bremen neu wählen zu lassen.
+
+@spd
+# party: spd
+
+Für die SPD kommt der Rücktritt zur Unzeit: Die Rentenreform steht an, [? if rp_lost : die Staatskanzlei in Mainz ist verloren, ?]in Berlin ist die Partei auf ein historisches Tief gefallen, und in Bremen geht es im Januar um die Richtung. Wie reagieren wir?
+
+- @geschlossen: Geschlossenheit zeigen: Klingbeil führt die Partei bis Bremen allein.
+- @angriffe: Die Angriffe auf Bas öffentlich zum Thema machen, auch die aus der Union.
+- @debatte: Eine offene Debatte über die Neuaufstellung zulassen.
+
+@geschlossen
+on-arrival: center_dissent -= 4; center_strength += 2; left_dissent += 3; labor_dissent += 2
+
+Das Präsidium stellt sich geschlossen hinter Klingbeil. Nach außen wirkt das ruhig, in den Landesverbänden und bei den Jusos aber wird gefragt, ob die Führung die Niederlagen dieses Jahres überhaupt aufarbeiten will.
+
+@angriffe
+on-arrival: union_relation -= 5; coalition_dissent += 1 if spd_in_government and union_in_government; profil += 0.5; workers_spd += 1*(1-dissent); new_middle_spd += 1*(1-dissent); left_dissent -= 2
+
+Klingbeil nennt die Angriffe „unanständig“, und wir sagen öffentlich, dass auch Abgeordnete der Union daran beteiligt waren. Im Koalitionsausschuss ist die Stimmung danach eisig, doch in der eigenen Partei rückt man zusammen.
+
+@debatte
+on-arrival: left_dissent -= 4; labor_dissent -= 2; center_dissent += 4; reformist_dissent += 2
+
+Wir laden die Mitglieder zu Regionalkonferenzen ein: Wofür steht die SPD, und wer soll sie führen? Die Säle sind voll, die Debatten hart. Hubertus Heil lässt erkennen, dass er kandidieren will; wer an der Spitze steht, ist offen bis Bremen.
+
+@linke
+# Linke-Fassung: Rücktritt in der KI-Partei SPD
+
+Für uns ändert sich in der Opposition wenig, doch die Lage der SPD ist ein Thema: Sie verliert ihre Vorsitzende mitten in der Rentendebatte, und in Bremen wird über ihren Kurs entschieden.
+
+- @lk_respekt: Respekt zollen und die Angriffe auf Bas verurteilen.
+- @lk_rente: Die Gelegenheit nutzen: Die SPD bei der Rente unter Druck setzen.
+
+@lk_respekt
+on-arrival: linke_relation += 3; reformist_dissent -= 2
+
+Heidi Reichinnek erklärt im Bundestag, persönliche Angriffe hätten in der Politik nichts zu suchen, egal gegen wen. In der SPD-Fraktion wird das registriert.
+
+@lk_rente
+on-arrival: linke_relation -= 2; rentner_spd += 1*(1-dissent); workers_spd += 0.5*(1-dissent); left_dissent -= 2
+
+Wir legen im Bundestag einen Antrag vor, die Haltelinie von 48 Prozent dauerhaft zu sichern, und fordern die SPD auf, Farbe zu bekennen. Die Sozialistische Linke ist zufrieden, in der SPD spricht man von schlechtem Stil.

@@ -44,7 +44,7 @@ subtitle: -1 Ressourcen
 view-if: mitgliederboom >= 1
 on-arrival: resources -= 1; center_strength += 4; center_dissent -= 4; left_dissent -= 3; labor_dissent -= 2; reformist_dissent -= 2; neumitglieder_integriert += 1
 
-An Wochenenden lernen Neumitglieder, wie man Gespräche an der Haustür führt, Mieter*innen in einem Block organisiert oder eine Versammlung leitet. Die Neuen finden ihren Platz, und die alten Kreisverbände bekommen Unterstützung.
+An Wochenenden lernen Neumitglieder, wie man Gespräche an der Haustür führt, Mieter\*innen in einem Block organisiert oder eine Versammlung leitet. Die Neuen finden ihren Platz, und die alten Kreisverbände bekommen Unterstützung.
 
 @culture
 choose-if: resources > 0

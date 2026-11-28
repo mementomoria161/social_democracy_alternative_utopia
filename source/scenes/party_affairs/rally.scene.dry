@@ -71,7 +71,7 @@ Wir sagen die Kundgebung ab. Die Rechten feiern das als Sieg.
 
 @main_rally
 
-Kundgebungen auf Marktplätzen und vor Werkstoren gehören zu [+ pp_dat +] wie [? if player = "spd" : die rote Nelke ?][? if player = "linke" : der Rote Stern auf dem Transparent ?]. Was soll das Thema dieser Kundgebung sein?
+Kundgebungen auf Marktplätzen und vor Werkstoren gehören zu [+ pp_dat +] wie [? if player = "spd" : die rote Nelke ?][? if player = "linke" : der Rote Stern auf dem Transparent?]. Was soll das Thema dieser Kundgebung sein?
 
 - @class_struggle: Umverteilung: Wem gehört dieses Land?
 - @welfare: Der Sozialstaat: sichere Renten, gute Pflege, starke Kommunen.
@@ -102,7 +102,7 @@ Unsere Rednerinnen und Redner verteidigen das Grundgesetz und warnen vor denen, 
 @pacifism
 on-arrival: pacifism += 1; nationalism -= 2*(1 - dissent); workers_spd += 4*(1 - dissent) if pacifism >= 3; unemployed_spd += 3*(1-dissent) if pacifism >= 3; nationalism -= 3*(1-dissent) if pacifism >= 3; new_middle_spd += 4*(1-dissent) if pacifism >= 3; reformist_dissent += 3
 
-Unsere Rednerinnen und Redner kritisieren das Wettrüsten und fordern mehr Diplomatie. [? if player = "spd" : Im Seeheimer Kreis und bei Boris Pistorius ist man darüber wenig erfreut. ?][? if player = "linke" : Den Reformer*innen ist das zu einseitig: Sie fürchten, wieder als Partei zu gelten, die zu Russlands Krieg schweigt. ?]
+Unsere Rednerinnen und Redner kritisieren das Wettrüsten und fordern mehr Diplomatie. [? if player = "spd" : Im Seeheimer Kreis und bei Boris Pistorius ist man darüber wenig erfreut. ?][? if player = "linke" : Den Reformer\*innen ist das zu einseitig: Sie fürchten, wieder als Partei zu gelten, die zu Russlands Krieg schweigt. ?]
 
 [? if pacifism < 3 : Angesichts des russischen Angriffskriegs ist es schwer, gegen höhere Verteidigungsausgaben zu argumentieren. ?]
 [? if pacifism >= 3 : Weil wir Frieden und Abrüstung immer wieder zum Thema gemacht haben, findet die Botschaft Anklang. ?]

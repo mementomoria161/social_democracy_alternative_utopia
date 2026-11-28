@@ -17,7 +17,7 @@ Die deutsche Wirtschaft stagniert seit Jahren. Autoindustrie, Chemie und Stahl b
 
 [? if player = "spd" : Die SPD-Linke hält das für zu wenig. ?][? if player = "linke" : Die Sozialistische Linke hält das für zu wenig. ?] Sie will Schlüsselindustrien und Energienetze in öffentliche Hand überführen, Staatsbeteiligungen ausweiten und große Vermögen besteuern, um die Krise für einen Umbau der Wirtschaft zu nutzen.
 
-[? if player = "spd" : Der Seeheimer Kreis schlägt einen begrenzten Reformplan vor: gezielte Entlastungen bei Energiepreisen und Bürokratie, finanziert durch Umschichtungen im Haushalt, ohne neue Schulden. Den Gewerkschaften ist das zu mutlos. ?][? if player = "linke" : Die Reformer*innen aus den Landesverbänden schlagen einen Plan vor, den man mit SPD und Grünen auch umsetzen könnte: ein Industriestrompreis nur gegen Standort- und Tarifgarantien, finanziert durch Umschichtungen und eine Reform der Erbschaftsteuer. Der Sozialistischen Linken ist das zu brav. ?]
+[? if player = "spd" : Der Seeheimer Kreis schlägt einen begrenzten Reformplan vor: gezielte Entlastungen bei Energiepreisen und Bürokratie, finanziert durch Umschichtungen im Haushalt, ohne neue Schulden. Den Gewerkschaften ist das zu mutlos. ?][? if player = "linke" : Die Reformer\*innen aus den Landesverbänden schlagen einen Plan vor, den man mit SPD und Grünen auch umsetzen könnte: ein Industriestrompreis nur gegen Standort- und Tarifgarantien, finanziert durch Umschichtungen und eine Reform der Erbschaftsteuer. Der Sozialistischen Linken ist das zu brav. ?]
 
 - @support_centrist: Die Position der Strömung [+ f_center +] unterstützen.
 - @support_labor: Die Investitionsoffensive unterstützen.
@@ -30,7 +30,7 @@ Die deutsche Wirtschaft stagniert seit Jahren. Autoindustrie, Chemie und Stahl b
 subtitle: [? if player = "spd" and sondervermoegen = 2 : Haushaltsdisziplin wahren und das Sondervermögen klug ausgeben. ?][? if player = "spd" and sondervermoegen < 2 : Haushaltsdisziplin wahren und die Wettbewerbsfähigkeit stärken. ?][? if player = "linke" : Ein Sofortprogramm gegen hohe Preise und Mieten. ?]
 on-arrival: center_strength += 5; center_dissent -= 5; labor_dissent += 10; wtb_support -= 1; left_dissent += 10;
 
-[? if player = "spd" : Gewerkschaften und SPD-Linke sind empört: Während Fabriken schließen, verwalte die SPD nur den Mangel. Die Haushälter halten dagegen: Mit neuen Schulden würden falsche Hoffnungen geweckt und die nächste Generation belastet. ?][? if player = "linke" : Gewerkschafter*innen und Sozialistische Linke sind enttäuscht: Während Fabriken schließen, verteile die Partei nur Pflaster. Der Parteivorstand hält dagegen: Wer heute die Miete nicht zahlen kann, hat von einem Fünfjahresplan nichts. ?]
+[? if player = "spd" : Gewerkschaften und SPD-Linke sind empört: Während Fabriken schließen, verwalte die SPD nur den Mangel. Die Haushälter halten dagegen: Mit neuen Schulden würden falsche Hoffnungen geweckt und die nächste Generation belastet. ?][? if player = "linke" : Gewerkschafter\*innen und Sozialistische Linke sind enttäuscht: Während Fabriken schließen, verteile die Partei nur Pflaster. Der Parteivorstand hält dagegen: Wer heute die Miete nicht zahlen kann, hat von einem Fünfjahresplan nichts. ?]
 
 [? if player = "spd" : Unser Kurs lautet nun: Es gibt keine schnellen Lösungen, nur solide Finanzen und kluge Investitionen. ?][? if player = "linke" : Unser Kurs lautet nun: Erst die Preise, dann die großen Pläne. ?]
 
@@ -44,7 +44,7 @@ go-to: plan_adopted if wtb_support >= 3; plan_support if wtb_support < 3
 
 @plan_support
 
-Unsere Unterstützung für die Investitionsoffensive verärgert die Strömung [+ f_center +]. [? if player = "spd" : Der SPD-Linken geht der Plan nicht weit genug, im Seeheimer Kreis gibt es vorsichtige Zustimmung. ?][? if player = "linke" : Der Sozialistischen Linken geht der Plan nicht weit genug, bei den Reformer*innen gibt es vorsichtige Zustimmung. ?]
+Unsere Unterstützung für die Investitionsoffensive verärgert die Strömung [+ f_center +]. [? if player = "spd" : Der SPD-Linken geht der Plan nicht weit genug, im Seeheimer Kreis gibt es vorsichtige Zustimmung. ?][? if player = "linke" : Der Sozialistischen Linken geht der Plan nicht weit genug, bei den Reformer\*innen gibt es vorsichtige Zustimmung. ?]
 
 Noch hat die Partei den Plan nicht offiziell beschlossen. Es braucht mehr Überzeugungsarbeit.
 
@@ -62,7 +62,7 @@ go-to: support_left_progress if nationalization_support < 3; adopt_left if natio
 
 @support_left_progress
 
-Wir werben in der Partei für die Vergesellschaftung von Energienetzen, Wohnungskonzernen und Teilen der Industrie. [? if player = "spd" : Die SPD-Linke sieht darin endlich wieder sozialdemokratische Politik, Seeheimer und manche Gewerkschafter halten das Programm für realitätsfern. ?][? if player = "linke" : Die Sozialistische Linke sieht darin den Kern sozialistischer Politik, Reformer*innen und manche Gewerkschafter*innen halten das Programm für nicht durchsetzbar. ?]
+Wir werben in der Partei für die Vergesellschaftung von Energienetzen, Wohnungskonzernen und Teilen der Industrie. [? if player = "spd" : Die SPD-Linke sieht darin endlich wieder sozialdemokratische Politik, Seeheimer und manche Gewerkschafter halten das Programm für realitätsfern. ?][? if player = "linke" : Die Sozialistische Linke sieht darin den Kern sozialistischer Politik, Reformer\*innen und manche Gewerkschafter\*innen halten das Programm für nicht durchsetzbar. ?]
 
 Noch hat die Partei das Programm nicht beschlossen. Es braucht mehr Überzeugungsarbeit.
 
@@ -80,7 +80,7 @@ go-to: adopt_moderate if moderate_plan_support >= 2; support_moderate_progress i
 
 @support_moderate_progress
 
-Wir werben für einen begrenzten Reformplan: Industriestrompreis, Bürokratieabbau, schnellere Genehmigungen. [? if player = "spd" : Die Befürworter halten ihn für den einzigen Plan, der mit der Union umsetzbar ist. SPD-Linke und Gewerkschafter finden ihn mutlos. ?][? if player = "linke" : Die Befürworter*innen halten ihn für den einzigen Plan, den SPD und Grüne mittragen würden. Sozialistische Linke und Gewerkschafter*innen finden ihn mutlos. ?]
+Wir werben für einen begrenzten Reformplan: Industriestrompreis, Bürokratieabbau, schnellere Genehmigungen. [? if player = "spd" : Die Befürworter halten ihn für den einzigen Plan, der mit der Union umsetzbar ist. SPD-Linke und Gewerkschafter finden ihn mutlos. ?][? if player = "linke" : Die Befürworter\*innen halten ihn für den einzigen Plan, den SPD und Grüne mittragen würden. Sozialistische Linke und Gewerkschafter\*innen finden ihn mutlos. ?]
 
 Noch hat die Partei den Plan nicht beschlossen. Es braucht mehr Überzeugungsarbeit.
 

@@ -176,7 +176,7 @@ choose-if: budget >= 1
 view-if: austrian_parliament_seen = 1 and austrian_civil_war_seen = 0
 on-arrival: budget -= 1; sdapo_strength += 3; left_dissent -= 6; center_dissent -= 6
 
-Öffentlich stellen wir uns hinter die österreichische Demokratie und drängen auf ein Rechtsstaatsverfahren. Über parteinahe Stiftungen fördern wir zusätzlich unabhängige Medien, Gewerkschaften und [? if player = "spd" : unsere Genossinnen und Genossen von der SPÖ ?][? if player = "linke" : die Opposition im Nationalrat ?].
+Öffentlich stellen wir uns hinter die österreichische Demokratie und drängen auf ein Rechtsstaatsverfahren. Über parteinahe Stiftungen fördern wir zusätzlich unabhängige Medien, Gewerkschaften und [? if player = "spd" : unsere Genossinnen und Genossen von der SPÖ ?][? if player = "linke" : die Opposition im Nationalrat?].
 
 @european_union
 title: Schritte zu einer Europäischen Föderation einleiten.

@@ -39,12 +39,12 @@ Unsere Koalitionspartner sind entsetzt! Doch Bundeskanzlerin [+ chancellor +] st
 @muller
 on-arrival: panzerkreuzer_funded = 1
 
-Unsere Koalitionspartner sind entsetzt! Obwohl Bundeskanzler\*in [+ chancellor +] die Vorlage ablehnt, bringen die anderen Parteien sie im Haushaltsausschuss durch, nur wir und [+ op_full +] stimmen dagegen. Die Jets werden bestellt.
+Unsere Koalitionspartner sind entsetzt! Obwohl [+ chancellor_title +] [+ chancellor +] die Vorlage ablehnt, bringen die anderen Parteien sie im Haushaltsausschuss durch, nur wir und [+ op_full +] stimmen dagegen. Die Jets werden bestellt.
 
 @vote_no_pass
 on-arrival: panzerkreuzer_funded = 1
 
-Unsere Koalitionspartner sind entsetzt! Bundeskanzler\*in [+ chancellor +] bringt die Vorlage trotzdem im Bundestag durch, mit allen Stimmen außer unseren und denen [+ op_dat +]. Die Jets werden bestellt.
+Unsere Koalitionspartner sind entsetzt! [+ chancellor_title +] [+ chancellor +] bringt die Vorlage trotzdem im Bundestag durch, mit allen Stimmen außer unseren und denen [+ op_dat +]. Die Jets werden bestellt.
 
 @abstain
 on-arrival: fdp_relation -= 5; union_relation -= 3; left_dissent += 5; labor_dissent += 5; panzerkreuzer_funded = 1; linke_relation -= 3
