@@ -29,7 +29,7 @@ title: Bau-Offensive
 subtitle: Mehr bezahlbare Wohnungen, schneller genehmigt. Kostet Haushaltsmittel.
 choose-if: advisor_action_timer <= 0 and spd_in_government and budget > -3
 unavailable-subtitle: [? if advisor_action_timer > 0 : Noch [+ advisor_action_timer +] Monate bis zur nächsten Beratungsaktion. ?][? if not spd_in_government : Die SPD ist nicht an der Regierung beteiligt. ?][? if budget <= -3 : Der Haushalt gibt das nicht mehr her. ?]
-on-arrival: advisor_action_timer = 6; budget -= 1; workers_spd += 3*(1-dissent); new_middle_spd += 3*(1-dissent); unemployed_spd += 2*(1-dissent); economic_growth += 0.2; bau_offensive += 1
+on-arrival: advisor_action_timer = 6; budget -= 1; workers_spd += 3*(1-dissent); new_middle_spd += 3*(1-dissent); unemployed_spd += 2*(1-dissent); impuls_bip += 0.2; bau_offensive += 1
 
 Mit einem „Bau-Turbo“ für Genehmigungen und zusätzlichen Mitteln für den sozialen Wohnungsbau entstehen wieder mehr bezahlbare Wohnungen. Mieterinnen und Mieter in den Städten danken es uns.
 

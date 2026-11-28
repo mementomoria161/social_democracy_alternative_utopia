@@ -15,6 +15,6 @@ Die ganze Welt blickt auf die Präsidentschaftswahl in den Vereinigten Staaten. 
 - @weiter: Weiter.
 
 @weiter
-on-arrival: economic_growth += 0.5 if us_democrat_wins; tariffs -= 1 if us_democrat_wins and tariffs > 0; west_relation += 1 if not us_democrat_wins; nationalism += 2 if not us_democrat_wins
+on-arrival: impuls_bip += 0.5 if us_democrat_wins; tariffs -= 1 if us_democrat_wins and tariffs > 0; west_relation += 1 if not us_democrat_wins; nationalism += 2 if not us_democrat_wins
 
 [? if us_democrat_wins : Die Exportindustrie hofft auf bessere Zeiten. ?][? if not us_democrat_wins : Europa rückt enger zusammen, doch die Exportindustrie bleibt unter Druck. ?]

@@ -1,7 +1,7 @@
 title: Bankenkrise
 subtitle: Das deutsche Bankensystem wankt …
 new-page: true
-on-arrival: banking_crisis_seen = 1; workers_linke += 5; workers_afd += 3; new_middle_afd += 3; old_middle_afd += 4; rural_afd += 3; unemployed += 1.5; crisis_urgency += 1; workers_spd -= 4 if spd_in_government; new_middle_spd -= 5 if spd_in_government; old_middle_spd -= 5 if spd_in_government; rural_spd -= 4 if spd_in_government; economic_growth -= 1;
+on-arrival: banking_crisis_seen = 1; workers_linke += 5; workers_afd += 3; new_middle_afd += 3; old_middle_afd += 4; rural_afd += 3; impuls_alq += 1.5; crisis_urgency += 1; workers_spd -= 4 if spd_in_government; new_middle_spd -= 5 if spd_in_government; old_middle_spd -= 5 if spd_in_government; rural_spd -= 4 if spd_in_government; impuls_bip -= 1;
 tags: event
 view-if: customs_union = 1 and banking_crisis_timer = 0
 max-visits: 1
@@ -28,13 +28,13 @@ Im Grunde können wir nichts tun.
 view-if: spd_in_government = 1
 subtitle: -1 Haushaltsspielraum
 choose-if: budget >= 1
-on-arrival: workers_spd += 3*(1-dissent); new_middle_spd += 3*(1-dissent); old_middle_spd += 2*(1-dissent); rural_spd += 2*(1-dissent); unemployed -= 1; inflation += 1 if inflation < 0; budget -= 1; workers_afd -= 3; economic_growth += 0.9;
+on-arrival: workers_spd += 3*(1-dissent); new_middle_spd += 3*(1-dissent); old_middle_spd += 2*(1-dissent); rural_spd += 2*(1-dissent); impuls_alq -= 1; impuls_infl += 1 if inflation < 0; budget -= 1; workers_afd -= 3; impuls_bip += 0.9;
 
 Mit einem Rettungsschirm wie in der Finanzkrise 2008 stützen wir die Banken, garantieren die Spareinlagen und sichern Kredite für den Mittelstand ab. Ob das reicht, ist offen, doch die Blutung ist vorerst gestillt.
 
 @austerity
 view-if: spd_in_government = 0
-on-arrival: welfare -= 1; workers_spd -= 3; unemployed_spd -= 3; pro_republic -= 3; economic_growth -= 1;
+on-arrival: welfare -= 1; workers_spd -= 3; unemployed_spd -= 3; pro_republic -= 3; impuls_bip -= 1;
 
 [+ chancellor_title +] [+ chancellor +] antwortet auf die Bankenkrise mit weiteren Kürzungen bei den Sozialausgaben.
 

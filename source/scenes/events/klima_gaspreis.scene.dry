@@ -43,7 +43,7 @@ Wohngeldbeziehende, Rentner\*innen mit Grundsicherung und Studierende bekommen e
 
 @markt
 view-if: spd_in_government
-on-arrival: workers_spd -= 1; rentner_spd -= 1.5; old_middle_spd -= 1; inflation += 0.3; gr_vdk -= 4; gr_bda -= 3; left_dissent += 4; labor_dissent += 3
+on-arrival: workers_spd -= 1; rentner_spd -= 1.5; old_middle_spd -= 1; impuls_infl += 0.3; gr_vdk -= 4; gr_bda -= 3; left_dissent += 4; labor_dissent += 3
 
 Wir greifen nicht ein. Die Inflation zieht an, und die Heizkostenabrechnungen werden für viele zum Schock.
 

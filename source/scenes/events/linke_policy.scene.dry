@@ -61,7 +61,7 @@ Tragen wir diesen Kurs mit?
 - @economy_oppose: Nein, das muss gestoppt werden.
 
 @economy_support
-on-arrival: nationalization_progress += 1; capital_strike_progress += 4; unemployed -= 1.25 if unemployed >= 4.5; unemployed -= 0.6 if works_councils >= 3; budget -= 3; works_program += 1; workers_spd += 4*(1-dissent); workers_linke += 8*(1-dissent); unemployed_linke += 4*(1-dissent); coalition_dissent += 2; fdp_relation -= 6; union_relation -= 4; new_middle_spd -= 3; old_middle_spd -= 3; economy_goal_completed += 1; linke_influence += 2
+on-arrival: nationalization_progress += 1; capital_strike_progress += 4; impuls_alq -= 1.25 if unemployed >= 4.5; impuls_alq -= 0.6 if works_councils >= 3; budget -= 3; works_program += 1; workers_spd += 4*(1-dissent); workers_linke += 8*(1-dissent); unemployed_linke += 4*(1-dissent); coalition_dissent += 2; fdp_relation -= 6; union_relation -= 4; new_middle_spd -= 3; old_middle_spd -= 3; economy_goal_completed += 1; linke_influence += 2
 
 Die Linke gewinnt bei Beschäftigten an Ansehen, weil viele ihre Arbeitsplätze behalten. Union, FDP und die Mittelschicht machen dagegen die SPD für die Verstaatlichungen verantwortlich.
 

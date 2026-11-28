@@ -24,7 +24,7 @@ Die Union bremst bei fast allen diesen Themen, und auch in unserer eigenen Parte
 
 @labor
 subtitle: Entgeltgleichheit, Kitaausbau, Partnermonate beim Elterngeld.
-on-arrival: womens_work += 1; womens_rights += 1; workers_spd -= 4 if unemployed > 8; new_middle_spd += 4*(1-dissent); workers_spd += 4*(1 - dissent); economic_growth += 0.1;
+on-arrival: womens_work += 1; womens_rights += 1; workers_spd -= 4 if unemployed > 8; new_middle_spd += 4*(1-dissent); workers_spd += 4*(1 - dissent); impuls_bip += 0.1;
 max-visits: 3
 
 Wir setzen die EU-Entgelttransparenzrichtlinie streng um, bauen Kitas und Ganztagsschulen aus und verlängern die Partnermonate beim Elterngeld. Bei berufstätigen Frauen gewinnen wir an Zustimmung. [? if unemployed > 8 : Angesichts der steigenden Arbeitslosigkeit wettern AfD und Teile der Union allerdings gegen „Bürokratie für die Wirtschaft“, und das verfängt bei manchen männlichen Beschäftigten. ?]
@@ -40,7 +40,7 @@ Für neue Ehen gilt künftig eine Individualbesteuerung mit übertragbarem Grund
 @welfare
 subtitle: -1 Haushaltsspielraum
 choose-if: budget > 0
-on-arrival: welfare += 1; workers_spd += 5*(1-dissent); unemployed_spd += 5*(1-dissent); budget -= 1; womens_rights += 1; coalition_dissent += 1 if welfare >= 1 and unemployed >= 8; unemployed -= 0.4; inflation += 0.2; economic_growth += 0.3;
+on-arrival: welfare += 1; workers_spd += 5*(1-dissent); unemployed_spd += 5*(1-dissent); budget -= 1; womens_rights += 1; coalition_dissent += 1 if welfare >= 1 and unemployed >= 8; impuls_alq -= 0.4; impuls_infl += 0.06; impuls_bip += 0.3;
 
 Wir erhöhen den Unterhaltsvorschuss, bauen den Kinderzuschlag aus und schaffen einen Steuerfreibetrag für Alleinerziehende. Kinderarmut geht messbar zurück. [? if welfare >= 1 and unemployed >= 8 : Einige unserer Koalitionspartner halten neue Sozialausgaben in dieser Lage für unverantwortlich. ?]
 

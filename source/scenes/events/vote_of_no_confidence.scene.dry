@@ -37,7 +37,7 @@ Na gut. Wir überlassen unserem Partner in einem großen Land die Staatskanzlei 
 
 @austerity
 view-if: welfare >= 0 and not secularized
-on-arrival: coalition_dissent = 0; workers_spd -= 10; unemployed_spd -= 10; workers_linke += 7; workers_afd += 3; unemployed_linke += 5; unemployed_afd += 5; left_dissent += 15; center_dissent += 10; labor_dissent += 15; reformist_dissent += 5; welfare -= 2; budget += 1; unemployed += 1.5; linke_coalition_dissent += 1; linke_relation -= 10 if in_popular_front
+on-arrival: coalition_dissent = 0; workers_spd -= 10; unemployed_spd -= 10; workers_linke += 7; workers_afd += 3; unemployed_linke += 5; unemployed_afd += 5; left_dissent += 15; center_dissent += 10; labor_dissent += 15; reformist_dissent += 5; welfare -= 2; budget += 1; impuls_alq += 1.5; linke_coalition_dissent += 1; linke_relation -= 10 if in_popular_front
 
 Na gut. Wir beschließen ein hartes Sparpaket bei Grundsicherung, Wohngeld und Rente, um die Koalition zu retten. Unser Partner bleibt an Bord.
 

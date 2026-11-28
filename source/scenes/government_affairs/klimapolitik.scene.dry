@@ -161,7 +161,7 @@ subtitle: -1 Haushaltsspielraum
 view-if: kp_bahn = 0
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
-on-arrival: kp_bahn = 1; gl_dgb_klima += 4; budget -= 1; coalition_dissent += 1 if fdp_in_government; workers_spd += 1.5*(1-dissent); new_middle_spd += 1.5*(1-dissent); unemployed_spd += 1*(1-dissent); rentner_spd += 0.5*(1-dissent); gr_dgb += 3; gr_klima += 4; inflation -= 0.1; shock_bau += 0.3
+on-arrival: kp_bahn = 1; gl_dgb_klima += 4; budget -= 1; coalition_dissent += 1 if fdp_in_government; workers_spd += 1.5*(1-dissent); new_middle_spd += 1.5*(1-dissent); unemployed_spd += 1*(1-dissent); rentner_spd += 0.5*(1-dissent); gr_dgb += 3; gr_klima += 4; impuls_infl -= 0.03; shock_bau += 0.3
 
 Das Deutschlandticket wird gesetzlich gesichert, der Preis sinkt wieder unter 50 Euro, und der Bund stockt die Mittel für die Sanierung der Schiene auf. Pendler\*innen und Verkehrsverbünde atmen auf.
 

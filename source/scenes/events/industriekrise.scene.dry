@@ -5,7 +5,7 @@ tags: event
 view-if: year = 2026 and month >= 10 and ((player = "spd" and spd_in_government) or (player = "linke" and not spd_in_government))
 go-to: linke if player = "linke" and not spd_in_government
 max-visits: 1
-on-arrival: industriekrise_seen = 1; unemployed += 0.3; workers_afd += 2; crisis_urgency += 1
+on-arrival: industriekrise_seen = 1; impuls_alq += 0.3; workers_afd += 2; crisis_urgency += 1
 face-image: img/werksschliessung.jpg
 
 = Industriekrise
@@ -20,7 +20,7 @@ Einer der größten deutschen Autozulieferer kündigt an, mehrere Werke in Deuts
 subtitle: -2 Haushaltsspielraum
 choose-if: budget >= 2
 unavailable-subtitle: Dafür fehlt uns der Haushaltsspielraum.
-on-arrival: budget -= 2; unemployed -= 0.3; workers_spd += 5*(1-dissent); workers_afd -= 2; labor_dissent -= 5; left_dissent -= 3; fdp_relation -= 4; union_relation -= 2; socializations += 1; capital_strike_progress += 1
+on-arrival: budget -= 2; impuls_alq -= 0.3; workers_spd += 5*(1-dissent); workers_afd -= 2; labor_dissent -= 5; left_dissent -= 3; fdp_relation -= 4; union_relation -= 2; socializations += 1; capital_strike_progress += 1
 
 Über einen Transformationsfonds steigt der Bund bei den bedrohten Werken ein, gekoppelt an Standortgarantien und eine Umstellung auf Batterie- und Wärmepumpentechnik. Die Beschäftigten feiern, Ordnungspolitiker der Union sprechen von „Staatswirtschaft“.
 
@@ -28,7 +28,7 @@ on-arrival: budget -= 2; unemployed -= 0.3; workers_spd += 5*(1-dissent); worker
 subtitle: -1 Haushaltsspielraum
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt uns der Haushaltsspielraum.
-on-arrival: budget -= 1; unemployed -= 0.15; workers_spd += 2*(1-dissent); labor_dissent -= 2
+on-arrival: budget -= 1; impuls_alq -= 0.15; workers_spd += 2*(1-dissent); labor_dissent -= 2
 
 Wir verlängern das Kurzarbeitergeld und finanzieren Weiterbildung für Beschäftigte in der Transformation. Das kauft Zeit, ändert aber nichts an den Schließungsplänen.
 

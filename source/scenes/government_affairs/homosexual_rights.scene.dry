@@ -24,7 +24,7 @@ subtitle: Artikel 3 schützt vor Benachteiligung wegen Geschlecht, Herkunft oder
 unavailable-subtitle: Dafür haben wir keine Mehrheit.
 view-if: repealed_175 == 0
 choose-if: progressive_coalition >= 50
-on-arrival: repealed_175 = 1; homosexual_rights += 1; union_relation -= 5; linke_relation += 4*(1-dissent); gruene_relation += 4*(1-dissent); coalition_dissent += 1 if (in_grand_coalition or in_weimar_coalition); rentner_spd -= 4; economic_growth += 0.1;
+on-arrival: repealed_175 = 1; homosexual_rights += 1; union_relation -= 5; linke_relation += 4*(1-dissent); gruene_relation += 4*(1-dissent); coalition_dissent += 1 if (in_grand_coalition or in_weimar_coalition); rentner_spd -= 4; impuls_bip += 0.1;
 
 Gemeinsam mit [+ gruene_name +], [+ op_dat +] und einem Teil der Union haben wir „sexuelle Identität“ in Artikel 3 des Grundgesetzes aufgenommen. Der Schutz queerer Menschen hängt damit nicht mehr von wechselnden Mehrheiten ab.
 
@@ -36,7 +36,7 @@ subtitle: Lesbische Mütter müssen ihr eigenes Kind noch adoptieren, und queerf
 unavailable-subtitle: Dafür haben wir keine Mehrheit.
 view-if: reformed_183 == 0
 choose-if: progressive_coalition >= 50
-on-arrival: reformed_183 = 1; homosexual_rights += 1; union_relation -= 5; linke_relation += 4*(1-dissent); gruene_relation += 4*(1-dissent); coalition_dissent += 1 if (in_grand_coalition or in_weimar_coalition); rentner_spd -= 4; economic_growth += 0.1;
+on-arrival: reformed_183 = 1; homosexual_rights += 1; union_relation -= 5; linke_relation += 4*(1-dissent); gruene_relation += 4*(1-dissent); coalition_dissent += 1 if (in_grand_coalition or in_weimar_coalition); rentner_spd -= 4; impuls_bip += 0.1;
 
 Mit den Stimmen von [+ gruene_name +] und [+ op_dat +] haben wir das Abstammungsrecht reformiert: Die Ehefrau der Mutter ist künftig automatisch zweiter Elternteil. Ein Bund-Länder-Aktionsplan schützt CSDs und queere Einrichtungen, Polizei und Justiz erfassen queerfeindliche Straftaten künftig gezielt.
 
@@ -46,7 +46,7 @@ subtitle: Das Selbstbestimmungsgesetz steht unter Beschuss. Wir können es absic
 unavailable-subtitle: Dafür haben wir keine Mehrheit.
 view-if: trans_rights == 0
 choose-if: progressive_coalition >= 50
-on-arrival: trans_rights = 1; homosexual_rights += 1; union_relation -= 5; linke_relation += 4*(1-dissent); gruene_relation += 4*(1-dissent); coalition_dissent += 1 if (in_grand_coalition or in_weimar_coalition); rentner_spd -= 4; economic_growth += 0.1
+on-arrival: trans_rights = 1; homosexual_rights += 1; union_relation -= 5; linke_relation += 4*(1-dissent); gruene_relation += 4*(1-dissent); coalition_dissent += 1 if (in_grand_coalition or in_weimar_coalition); rentner_spd -= 4; impuls_bip += 0.1
 
 Die Rücknahme des Selbstbestimmungsgesetzes ist vom Tisch. Stattdessen sichern wir die Kostenübernahme geschlechtsangleichender Behandlungen gesetzlich ab und verkürzen die Wartezeiten. Für trans\*, inter\* und nicht-binäre Menschen bedeutet das ein Stück mehr Sicherheit.
 

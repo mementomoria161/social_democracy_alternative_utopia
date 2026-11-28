@@ -18,7 +18,7 @@ Die Krise hat die Steuereinnahmen einbrechen und die Sozialausgaben steigen lass
 
 @nothing_to_do
 view-if: spd_toleration == 0
-on-arrival: welfare -= 1; unemployed += 1; unemployed_afd += 4; unemployed_linke += 3; unemployed_spd += 2; pro_republic -= 4; budget += 1; inflation -= 2; economic_growth -= 0.5;
+on-arrival: welfare -= 1; impuls_alq += 1; unemployed_afd += 4; unemployed_linke += 3; unemployed_spd += 2; pro_republic -= 4; budget += 1; impuls_infl -= 2; impuls_bip -= 0.5;
 
 Das Kürzungspaket wird mit der Mehrheit der Regierung beschlossen. Die AfD nutzt die Empörung für ihre Kampagnen, wir aber auch.
 
@@ -37,6 +37,6 @@ Die Neuwahl findet im [+ next_election_month : month +] [+ next_election_year +]
 @vote_yes
 title: Dem Kürzungspaket zustimmen, um die Tolerierung fortzusetzen.
 view-if: spd_toleration
-on-arrival: welfare -= 1; unemployed += 1; left_dissent += 10; labor_dissent += 10; workers_spd *= 0.9; unemployed_spd *= 0.9; unemployed_afd += 5; unemployed_linke += 5; workers_afd += 5; workers_linke += 5; workers_spd -= 4 if welfare < 0; unemployed_spd -= 5 if welfare < 0; pro_republic -= 4; linke_relation -= 8; budget += 1; inflation -= 2; economic_growth -= 0.5;
+on-arrival: welfare -= 1; impuls_alq += 1; left_dissent += 10; labor_dissent += 10; workers_spd *= 0.9; unemployed_spd *= 0.9; unemployed_afd += 5; unemployed_linke += 5; workers_afd += 5; workers_linke += 5; workers_spd -= 4 if welfare < 0; unemployed_spd -= 5 if welfare < 0; pro_republic -= 4; linke_relation -= 8; budget += 1; impuls_infl -= 2; impuls_bip -= 0.5;
 
 Wir versuchen den Beschäftigten zu erklären, dass die Kürzungen nötig sind, um eine stabile Regierung ohne die AfD zu erhalten und die Folgen der Krise für den Haushalt zu bewältigen. Trotzdem ist das Paket ein Geschenk für AfD und Linke.

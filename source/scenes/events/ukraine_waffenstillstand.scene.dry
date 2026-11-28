@@ -4,7 +4,7 @@ new-page: true
 tags: event
 view-if: year = 2027 and month >= 8 and (soviet_relation >= 1 or east_relation >= 2 or west_relation >= 3)
 max-visits: 1
-on-arrival: ukraine_ceasefire_seen = 1; economic_growth += 0.3; pacifism += 1
+on-arrival: ukraine_ceasefire_seen = 1; impuls_bip += 0.3; pacifism += 1
 
 # Fiktives Szenario.
 
@@ -25,7 +25,7 @@ Deutschland beteiligt sich mit einer Brigade an der Absicherung der Waffenstills
 subtitle: -1 Haushaltsspielraum
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt uns der Haushaltsspielraum.
-on-arrival: budget -= 1; east_relation += 1; west_relation += 1; economic_growth += 0.3; workers_spd += 1
+on-arrival: budget -= 1; east_relation += 1; west_relation += 1; impuls_bip += 0.3; workers_spd += 1
 
 Wir legen ein Wiederaufbauprogramm mit Aufträgen für deutsche Unternehmen auf. Bauindustrie und Maschinenbau freuen sich, und Kyjiw dankt.
 

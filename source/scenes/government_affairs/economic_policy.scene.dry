@@ -1,4 +1,6 @@
 title: Wirtschaftspolitik
+# Nov. 2026 (Realitätscheck): Wirkungen auf Arbeitslosigkeit, Inflation (×0,3) und Wachstum als Impulse (impuls_*),
+# die post_event über rund anderthalb Jahre verteilt; vorher sank die Arbeitslosigkeit in einem Monat um bis zu 2,5 Punkte.
 new-page: true
 is-card: true
 tags: govt_affairs, cabinet
@@ -30,7 +32,7 @@ subtitle: -3 Haushaltsspielraum
 unavailable-subtitle: Die Arbeitslosigkeit ist niedrig genug; die Zeit für die Investitionsoffensive ist vorbei.
 view-if: wtb_implemented > 2 and budget >= 3
 choose-if: unemployed > 5
-on-arrival: profil += 1; works_program += 1; budget -= 3; workers_spd += 7*(1-dissent); workers += 1 if works_program <= 4; unemployed -= 1.5 if unemployed > 5; unemployed_spd += 7*(1-dissent); workers_linke -= 3; workers_afd -= 3; wtb_implemented += 1; linke_coalition_dissent += 1; linke_relation -= 5 if in_popular_front or in_left_front; inflation += 2; economic_growth += 1.6; economic_growth -= 0.6 if economic_growth > 5
+on-arrival: profil += 1; works_program += 1; budget -= 3; workers_spd += 7*(1-dissent); workers += 1 if works_program <= 4; impuls_alq -= 1.5 if unemployed > 5; unemployed_spd += 7*(1-dissent); workers_linke -= 3; workers_afd -= 3; wtb_implemented += 1; linke_coalition_dissent += 1; linke_relation -= 5 if in_popular_front or in_left_front; impuls_infl += 0.6; impuls_bip += 1.6; impuls_bip -= 0.6 if economic_growth > 5
 
 [? if works_program == 4 : Die zweite Phase der Investitionsoffensive hat begonnen. ?][? if works_program > 4 : Wir setzen die Investitionsoffensive fort. ?] Neben Schienen, Brücken und Netzen fördern wir jetzt gezielt den Umbau der Industrie: grüner Stahl, Batteriefabriken, Wärmepumpen.
 
@@ -41,7 +43,7 @@ subtitle: -3 Haushaltsspielraum – wir machen neue Schulden.
 unavailable-subtitle: Die Arbeitslosigkeit ist zu niedrig, um neue Schulden zu rechtfertigen.
 view-if: wtb_implemented > 2 and budget < 3 and budget >= -3
 choose-if: unemployed > 6
-on-arrival: profil += 1; works_program += 1; budget -= 3; workers_spd += 6*(1-dissent); workers += 1 if works_program <= 4; unemployed -= 1.5 if unemployed > 5; unemployed_spd += 6*(1-dissent); workers_linke -= 2; workers_afd -= 2; coalition_dissent += 1; capital_strike_progress += 1; wtb_implemented += 1; linke_coalition_dissent += 1; linke_relation -= 5 if in_popular_front or in_left_front; inflation += 3; economic_growth += 1.6; economic_growth -= 0.6 if economic_growth > 5
+on-arrival: profil += 1; works_program += 1; budget -= 3; workers_spd += 6*(1-dissent); workers += 1 if works_program <= 4; impuls_alq -= 1.5 if unemployed > 5; unemployed_spd += 6*(1-dissent); workers_linke -= 2; workers_afd -= 2; coalition_dissent += 1; capital_strike_progress += 1; wtb_implemented += 1; linke_coalition_dissent += 1; linke_relation -= 5 if in_popular_front or in_left_front; impuls_infl += 0.9; impuls_bip += 1.6; impuls_bip -= 0.6 if economic_growth > 5
 
 Trotz wachsender Neuverschuldung setzen wir die Investitionsoffensive fort. Neben der Infrastruktur fördern wir jetzt gezielt den Umbau der Industrie.
 
@@ -49,7 +51,7 @@ Trotz wachsender Neuverschuldung setzen wir die Investitionsoffensive fort. Nebe
 @wtb_continuation
 title: Eine erste Bilanz ziehen und weitermachen …
 view-if: wtb_implemented >= 1 and wtb_implemented <= 2
-on-arrival: profil += 1; budget += 1 if works_program <= 2; unemployed -= 2.5 if (works_program <= 2 and unemployed > 8) else unemployed -= 1.5; unemployed += 1.5 if unemployed < 4; unemployed += 1.5 if unemployed < 2; workers += 2 if works_program <= 2 else workers += 1; workers_spd += 8*(1-dissent); unemployed_spd += 8*(1-dissent); workers_linke -= 3; workers_afd -= 5; works_program += 1; union_relation += 3; fdp_relation += 3; coalition_dissent -= 1 if coalition_dissent >= 1; wtb_implemented += 1; capital_strike_progress -= 1 if capital_strike_progress >= 3; inflation += 1.5; inflation += 1 if unemployed < 6; economic_growth += 1.2; economic_growth -= 0.5 if economic_growth > 5
+on-arrival: profil += 1; budget += 1 if works_program <= 2; impuls_alq -= 2.5 if (works_program <= 2 and unemployed > 8) else impuls_alq -= 1.5; impuls_alq += 1.5 if unemployed < 4; impuls_alq += 1.5 if unemployed < 2; workers += 2 if works_program <= 2 else workers += 1; workers_spd += 8*(1-dissent); unemployed_spd += 8*(1-dissent); workers_linke -= 3; workers_afd -= 5; works_program += 1; union_relation += 3; fdp_relation += 3; coalition_dissent -= 1 if coalition_dissent >= 1; wtb_implemented += 1; capital_strike_progress -= 1 if capital_strike_progress >= 3; impuls_infl += 0.45; impuls_infl += 0.3 if unemployed < 6; impuls_bip += 1.2; impuls_bip -= 0.5 if economic_growth > 5
 
 Unsere Investitionen zahlen sich aus: Weniger Menschen sind auf Arbeitslosengeld und Grundsicherung angewiesen, und über den Multiplikatoreffekt steigen die Steuereinnahmen. Einen Teil der Ausgaben holen wir so wieder herein und stecken die Mehreinnahmen gleich wieder in das Programm.
 
@@ -63,7 +65,7 @@ subtitle: -[+ wtb_budget +] Haushaltsspielraum. [? if wtb_budget == 3 : Dank uns
 unavailable-subtitle: Die Arbeitslosigkeit ist niedrig genug; die Zeit für die Investitionsoffensive ist vorbei.
 view-if: budget >= wtb_budget and wtb_implemented == 0 and wtb_adopted == 1
 choose-if: unemployed > 5
-on-arrival: profil += 1; budget -= wtb_budget; works_program += 1; unemployed -= 2; workers_spd += 8*(1-dissent); unemployed_spd += 8*(1-dissent); wtb_implemented += 1; linke_coalition_dissent += 1; linke_relation -= 5 if in_popular_front or in_left_front; inflation += 2; economic_growth += 2.8; pro_republic += 3*(1-dissent);
+on-arrival: profil += 1; budget -= wtb_budget; works_program += 1; impuls_alq -= 2; workers_spd += 8*(1-dissent); unemployed_spd += 8*(1-dissent); wtb_implemented += 1; linke_coalition_dissent += 1; linke_relation -= 5 if in_popular_front or in_left_front; impuls_infl += 0.6; impuls_bip += 2.8; pro_republic += 3*(1-dissent);
 achievement: wirtschaftspolitik
 
 Die Investitionsoffensive läuft an. Über einen Deutschlandfonds fließt Geld in Bahnstrecken, Brücken, Schulen, Stromnetze und Wohnungsbau, gekoppelt an Standort- und Tarifgarantien.
@@ -76,7 +78,7 @@ subtitle: -[+ wtb_budget +] Haushaltsspielraum – wir machen neue Schulden. [? 
 unavailable-subtitle: Die Arbeitslosigkeit ist niedrig genug; die Zeit für die Investitionsoffensive ist vorbei.
 view-if: budget < wtb_budget and wtb_implemented == 0 and wtb_adopted == 1
 choose-if: unemployed > 5
-on-arrival: profil += 1; coalition_dissent += 1; coalition_dissent += 1 if historical_mode; coalition_dissent += 1 if chancellor == "Merz"; works_program += 1; budget -= wtb_budget; unemployed -= 2; workers += 2; workers_spd += 8*(1-dissent); unemployed_spd += 8*(1-dissent); capital_strike_progress += 1; wtb_implemented += 1; linke_coalition_dissent += 1; linke_relation -= 5 if in_popular_front or in_left_front; inflation += 3; economic_growth += 3; pro_republic += 3*(1-dissent);
+on-arrival: profil += 1; coalition_dissent += 1; coalition_dissent += 1 if historical_mode; coalition_dissent += 1 if chancellor == "Merz"; works_program += 1; budget -= wtb_budget; impuls_alq -= 2; workers += 2; workers_spd += 8*(1-dissent); unemployed_spd += 8*(1-dissent); capital_strike_progress += 1; wtb_implemented += 1; linke_coalition_dissent += 1; linke_relation -= 5 if in_popular_front or in_left_front; impuls_infl += 0.9; impuls_bip += 3; pro_republic += 3*(1-dissent);
 achievement: wirtschaftspolitik
 
 Wir finanzieren das Programm auf Pump[? if sondervermoegen = 2 : , über das Sondervermögen hinaus?]. Unsere Koalitionspartner sind entsetzt und reden vom „Bruch der Schuldenbremse“, doch die Offensive wird beschlossen. Das Geld fließt in Bahnstrecken, Brücken, Schulen, Stromnetze und Wohnungsbau.
@@ -94,7 +96,7 @@ go-to: nationalize_deficit if budget < nationalize_budget; nationalize_no_defici
 
 
 @nationalize_no_deficit
-on-arrival: nationalization_progress += 1; capital_strike_progress += 2; unemployed -= 1.75 if unemployed >= 4.5; unemployed -= 0.6 if works_councils >= 3; workers += 2 if nationalization_progress < 2; budget -= nationalize_budget; works_program += 1; workers_spd += 8*(1-dissent); unemployed_spd += 5*(1-dissent); coalition_dissent += 1; fdp_relation -= 4; left_dissent -= 5; new_middle_spd -= 2; old_middle_spd -= 3; economy_goal_completed += 1; inflation += 2; economic_growth += 1.7 if economic_growth < 5;
+on-arrival: nationalization_progress += 1; capital_strike_progress += 2; impuls_alq -= 1.75 if unemployed >= 4.5; impuls_alq -= 0.6 if works_councils >= 3; workers += 2 if nationalization_progress < 2; budget -= nationalize_budget; works_program += 1; workers_spd += 8*(1-dissent); unemployed_spd += 5*(1-dissent); coalition_dissent += 1; fdp_relation -= 4; left_dissent -= 5; new_middle_spd -= 2; old_middle_spd -= 3; economy_goal_completed += 1; impuls_infl += 0.6; impuls_bip += 1.7 if economic_growth < 5;
 achievement: wirtschaftspolitik
 
 [? if nationalization_progress == 1 : Über einen staatlichen Transformationsfonds steigen wir bei Industriebetrieben ein, die vor der Schließung oder dem Verkauf ins Ausland stehen[? if works_councils >= 1:, und führen sie gemeinsam mit gestärkten Betriebsräten weiter?]. So halten wir die Produktion und die Arbeitsplätze im Land. ?]
@@ -118,7 +120,7 @@ title: Den Transformationsfonds mit neuen Schulden finanzieren.
 choose-if: left_strength > reformist_strength + center_strength or suedekum_advisor == 1
 subtitle: [? if suedekum_advisor: Jens Südekum könnte die Partei von neuen Schulden überzeugen. ?]
 unavailable-subtitle: [? if left_strength <= reformist_strength + center_strength: Die Partei ist noch nicht bereit, dafür Schulden zu machen. ?] [? if not suedekum_advisor : Vielleicht würde ein Berater helfen, diesen Schritt vermittelbar zu machen? ?]
-on-arrival: nationalization_progress += 1; capital_strike_progress += 3; unemployed -= 1.5 if unemployed >= 4.5; unemployed -= 0.6 if works_councils >= 3; budget -= nationalize_budget; works_program += 1; workers_spd += 8*(1-dissent); unemployed_spd += 5*(1-dissent); coalition_dissent += 2; fdp_relation -= 6; union_relation -= 4; new_middle_spd -= 3; old_middle_spd -= 3; economy_goal_completed += 1; inflation += 3; economic_growth += 2 if economic_growth < 5;
+on-arrival: nationalization_progress += 1; capital_strike_progress += 3; impuls_alq -= 1.5 if unemployed >= 4.5; impuls_alq -= 0.6 if works_councils >= 3; budget -= nationalize_budget; works_program += 1; workers_spd += 8*(1-dissent); unemployed_spd += 5*(1-dissent); coalition_dissent += 2; fdp_relation -= 6; union_relation -= 4; new_middle_spd -= 3; old_middle_spd -= 3; economy_goal_completed += 1; impuls_infl += 0.9; impuls_bip += 2 if economic_growth < 5;
 achievement: wirtschaftspolitik
 
 [? if suedekum_advisor: Große Teile der Partei scheuen neue Schulden jenseits der Schuldenbremse, auch wenn sie die Investitionen wollen. Jens Südekum war ursprünglich kein Anhänger des linken Transformationsplans, doch er überzeugt Partei und Finanzministerium, dass Staatsbeteiligungen in der Krise eine Investition sind und keine Ausgabe. ?]
@@ -134,7 +136,7 @@ title: Nach Artikel 15 vergesellschaften.
 subtitle: Warum sollten Konzerne, die Werke stilllegen, auch noch Milliarden Entschädigung bekommen? Das wird einen offenen Konflikt mit der Wirtschaft auslösen.
 unavailable-subtitle: [? if left_strength <= reformist_strength + center_strength: Die Mehrheit der Partei trägt diesen Schritt nicht mit. ?] [? if judicial_reform < 3 : Das Bundesverfassungsgericht würde das stoppen. ?]
 choose-if: left_strength > reformist_strength + center_strength and judicial_reform >= 3
-on-arrival: nationalization_progress += 1; capital_strike_progress += 7; coup_progress += 3; unemployed -= 1.25 if unemployed >= 4.5; unemployed -= 0.6 if works_councils >= 3 and unemployed >= 3; works_program += 1; workers_spd += 8*(1-dissent); unemployed_spd += 6*(1-dissent); coalition_dissent += 2; fdp_relation -= 10; union_relation -= 8; gruene_relation -= 8; left_strength += 15; reformist_dissent += 10; left_dissent -= 10; new_middle_spd -= 5; old_middle_spd -= 8; economy_goal_completed += 1; linke_relation += 5*(1-dissent); inflation += 4; economic_growth += 1 if economic_growth < 4;
+on-arrival: nationalization_progress += 1; capital_strike_progress += 7; coup_progress += 3; impuls_alq -= 1.25 if unemployed >= 4.5; impuls_alq -= 0.6 if works_councils >= 3 and unemployed >= 3; works_program += 1; workers_spd += 8*(1-dissent); unemployed_spd += 6*(1-dissent); coalition_dissent += 2; fdp_relation -= 10; union_relation -= 8; gruene_relation -= 8; left_strength += 15; reformist_dissent += 10; left_dissent -= 10; new_middle_spd -= 5; old_middle_spd -= 8; economy_goal_completed += 1; linke_relation += 5*(1-dissent); impuls_infl += 1.2; impuls_bip += 1 if economic_growth < 4;
 achievement: wirtschaftspolitik
 
 Die Wirtschaftsverbände laufen erwartungsgemäß Sturm gegen die Vergesellschaftung zu symbolischen Entschädigungen. Sie sprechen von Enteignung, und genau das ist es. Doch wer Werke stilllegt und Subventionen kassiert, hat versagt, und wir müssen handeln.
@@ -148,7 +150,7 @@ title: Belegschaften die Übernahme ihrer Werke ermöglichen.
 subtitle: Wir können Werksbesetzungen legalisieren und stillgelegte Betriebe an Belegschaftsgenossenschaften übergeben. Das ist hochgradig konfrontativ und würde Wirtschaft und rechte Mobilisierung gleichermaßen auf den Plan rufen.
 unavailable-subtitle: [? if left_strength <= reformist_strength + neorevisionist_strength : Die Mehrheit der Partei trägt diesen radikalen Schritt nicht mit. ?] [? if judicial_reform < 3 : Das Bundesverfassungsgericht würde das stoppen. ?] [? if demo_radicalism < 0.25 : Mit einer stärker mobilisierten Demokratiebewegung wäre das vielleicht möglich. ?] [? if works_councils < 1 : Dafür brauchen wir zuerst die Betriebsräte. ?]
 choose-if: left_strength > reformist_strength + neorevisionist_strength and (judicial_reform >= 3 or demo_radicalism >= 0.25) and works_councils >= 1
-on-arrival: nationalization_progress += 1; capital_strike_progress += 6; coup_progress += 5; unemployed -= 1.5 if unemployed >= 4.5; unemployed -= 0.75 if works_councils >= 3 and unemployed > 3.5; works_program += 1; workers_spd += 10*(1-dissent); unemployed_spd += 10*(1-dissent); coalition_dissent += 2; fdp_relation -= 10; union_relation -= 8; gruene_relation -= 8; workers_afd -= 5*(1-dissent); unemployed_afd -= 5*(1-dissent); left_strength += 15; reformist_dissent += 10; left_dissent -= 10; new_middle_spd -= 5; old_middle_spd -= 10; factory_takeovers += 1; economy_goal_completed += 1; linke_relation += 5*(1-dissent); inflation += 3; economic_growth += 1 if economic_growth < 3;
+on-arrival: nationalization_progress += 1; capital_strike_progress += 6; coup_progress += 5; impuls_alq -= 1.5 if unemployed >= 4.5; impuls_alq -= 0.75 if works_councils >= 3 and unemployed > 3.5; works_program += 1; workers_spd += 10*(1-dissent); unemployed_spd += 10*(1-dissent); coalition_dissent += 2; fdp_relation -= 10; union_relation -= 8; gruene_relation -= 8; workers_afd -= 5*(1-dissent); unemployed_afd -= 5*(1-dissent); left_strength += 15; reformist_dissent += 10; left_dissent -= 10; new_middle_spd -= 5; old_middle_spd -= 10; factory_takeovers += 1; economy_goal_completed += 1; linke_relation += 5*(1-dissent); impuls_infl += 0.9; impuls_bip += 1 if economic_growth < 3;
 achievement: wirtschaftspolitik
 
 Die Wirtschaftsverbände laufen erwartungsgemäß Sturm gegen die Legalisierung der Werksbesetzungen. Sie sprechen von Enteignung, und genau das ist es. Doch die Konzerne haben versagt, und wir müssen handeln.
@@ -171,7 +173,7 @@ subtitle: -2 Haushaltsspielraum.
 unavailable-subtitle: -2 Haushaltsspielraum. [? if budget < 2 : Dafür fehlt uns der Haushaltsspielraum. ?] [? if unemployed < 5 : Die Arbeitslosigkeit ist zu niedrig, um ein Beschäftigungsprogramm zu rechtfertigen. ?]
 view-if: moderate_plan_adopted == 1
 choose-if: budget >= 2 and unemployed >= 5
-on-arrival: budget -= 2; works_program += 1; unemployed -= 1.5 if unemployed >= 5; inflation += 1.5; workers_spd += 6*(1-dissent); unemployed_spd += 4*(1-dissent); new_middle_spd += 3*(1-dissent); old_middle_spd += 2*(1-dissent); rural_spd += 2*(1-dissent); moderate_plan_progress += 1; linke_coalition_dissent += 1; inflation += 1 if unemployed < 6; linke_relation -= 5 if in_popular_front or in_left_front; economic_growth += 1.6; pro_republic += 3*(1-dissent);
+on-arrival: budget -= 2; works_program += 1; impuls_alq -= 1.5 if unemployed >= 5; impuls_infl += 0.45; workers_spd += 6*(1-dissent); unemployed_spd += 4*(1-dissent); new_middle_spd += 3*(1-dissent); old_middle_spd += 2*(1-dissent); rural_spd += 2*(1-dissent); moderate_plan_progress += 1; linke_coalition_dissent += 1; impuls_infl += 0.3 if unemployed < 6; linke_relation -= 5 if in_popular_front or in_left_front; impuls_bip += 1.6; pro_republic += 3*(1-dissent);
 achievement: wirtschaftspolitik
 
 [? if moderate_plan_progress == 1 : Das Bau- und Beschäftigungsprogramm läuft an! Mit Sonderabschreibungen, schnelleren Genehmigungen und Bundesmitteln für Kommunen entstehen überall im Land Wohnungen, Brücken und Schulen. ?]
@@ -190,7 +192,7 @@ subtitle: -1 Haushaltsspielraum.
 unavailable-subtitle: -1 Haushaltsspielraum. [? if budget < 1 : Dafür fehlt uns der Haushaltsspielraum. ?] [? if unemployed < 5 : Die Arbeitslosigkeit ist zu niedrig, um ein Beschäftigungsprogramm zu rechtfertigen. ?]
 view-if: moderate_plan_adopted == 1
 choose-if: budget >= 1 and unemployed >= 5
-on-arrival: budget -= 1; works_program += 1; unemployed -= 1 if unemployed >= 5; inflation += 1; workers_spd += 4*(1-dissent); unemployed_spd += 2*(1-dissent); new_middle_spd += 2*(1-dissent); old_middle_spd += 1*(1-dissent); rural_spd += 1*(1-dissent); moderate_plan_progress += 1; linke_coalition_dissent += 1; inflation += 1 if unemployed < 6; linke_relation -= 5 if in_popular_front or in_left_front; economic_growth += 0.7; pro_republic += 3*(1-dissent);
+on-arrival: budget -= 1; works_program += 1; impuls_alq -= 1 if unemployed >= 5; impuls_infl += 0.3; workers_spd += 4*(1-dissent); unemployed_spd += 2*(1-dissent); new_middle_spd += 2*(1-dissent); old_middle_spd += 1*(1-dissent); rural_spd += 1*(1-dissent); moderate_plan_progress += 1; linke_coalition_dissent += 1; impuls_infl += 0.3 if unemployed < 6; linke_relation -= 5 if in_popular_front or in_left_front; impuls_bip += 0.7; pro_republic += 3*(1-dissent);
 achievement: wirtschaftspolitik
 
 [? if moderate_plan_progress == 1 : Das Bau- und Beschäftigungsprogramm läuft an! Mit Sonderabschreibungen, schnelleren Genehmigungen und Bundesmitteln für Kommunen entstehen überall im Land Wohnungen, Brücken und Schulen. ?]

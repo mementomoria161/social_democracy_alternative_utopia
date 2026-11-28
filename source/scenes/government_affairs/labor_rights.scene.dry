@@ -29,7 +29,7 @@ Mit dem Arbeitsministerium setzen wir die Standards für die Arbeitswelt. Unsere
 
 @working_hours
 view-if: working_hours < 2
-on-arrival: profil += 1; working_hours += 1; gr_dgb += 5; gr_bda -= 5; capital_strike_progress += 1 if g_bda >= 70; labor_dissent -= 8; left_dissent -= 5; labor_strength += 5; workers_spd += 7*(1-dissent); fdp_relation -= 4; coalition_dissent += 1; capital_strike_progress += 1 if fdp_relation <= 30; labor_goal_completed = 1; inflation += 0.1; economic_growth -= 0.1
+on-arrival: profil += 1; working_hours += 1; gr_dgb += 5; gr_bda -= 5; capital_strike_progress += 1 if g_bda >= 70; labor_dissent -= 8; left_dissent -= 5; labor_strength += 5; workers_spd += 7*(1-dissent); fdp_relation -= 4; coalition_dissent += 1; capital_strike_progress += 1 if fdp_relation <= 30; labor_goal_completed = 1; impuls_infl += 0.03; impuls_bip -= 0.1
 
 Der Achtstundentag wurde in der Novemberrevolution 1918 erkämpft. Heute wollen Union und Arbeitgeber die tägliche Höchstarbeitszeit durch eine wöchentliche ersetzen, und Millionen unbezahlte Überstunden sind Alltag, weil vielerorts niemand die Arbeitszeit erfasst.
 
@@ -38,7 +38,7 @@ Wir schreiben die elektronische Arbeitszeiterfassung verbindlich vor, wie es das
 @shorten_hours
 view-if: working_hours >= 2 and black_thursday_seen = 1
 subtitle: Könnten kürzere Arbeitszeiten Entlassungen verhindern und Arbeit gerechter verteilen?
-on-arrival: profil += 1; working_hours += 1; gr_dgb += 5; gr_bda -= 5; capital_strike_progress += 1 if g_bda >= 70; labor_dissent -= 8; left_dissent -= 5; labor_strength += 5; workers_spd += 7*(1-dissent); fdp_relation -= 4; coalition_dissent += 1; capital_strike_progress += 1; labor_goal_completed = 1; unemployed -= 0.15; economic_growth -= 0.2;
+on-arrival: profil += 1; working_hours += 1; gr_dgb += 5; gr_bda -= 5; capital_strike_progress += 1 if g_bda >= 70; labor_dissent -= 8; left_dissent -= 5; labor_strength += 5; workers_spd += 7*(1-dissent); fdp_relation -= 4; coalition_dissent += 1; capital_strike_progress += 1; labor_goal_completed = 1; impuls_alq -= 0.15; impuls_bip -= 0.2;
 
 Die IG Metall argumentiert, eine Vier-Tage-Woche mit teilweisem Lohnausgleich könne in der Industriekrise Entlassungen verhindern, so wie die Kurzarbeit in der Finanzkrise 2009. Gleichzeitig würden Beschäftigte gesünder und produktiver. Wir fördern Betriebe, die die Arbeitszeit verkürzen statt Personal abzubauen. Die Arbeitgeber halten dagegen, angesichts des Fachkräftemangels müsse mehr gearbeitet werden, nicht weniger.
 
@@ -61,7 +61,7 @@ Mit der steigenden Arbeitslosigkeit gerät die Bundesagentur für Arbeit tief in
 
 @cut_benefits
 subtitle: Die Beschäftigten werden das als Verrat empfinden.
-on-arrival: workers_spd -= 0.12*workers_spd; unemployed_spd -= 0.2*unemployed_spd; workers_linke += 6; workers_afd += 6; unemployed_linke += 5; unemployed_afd += 5; left_dissent += 15; center_dissent += 10; labor_dissent += 15; reformist_dissent += 5; welfare -= 2; budget += 1; unemployed += 1.5; pro_republic -= 4; linke_relation -= 8; inflation -= 2; unemployment_insurance_threshold = unemployed; unemployment_insurance_timer = 10; economic_growth -= 0.2;
+on-arrival: workers_spd -= 0.12*workers_spd; unemployed_spd -= 0.2*unemployed_spd; workers_linke += 6; workers_afd += 6; unemployed_linke += 5; unemployed_afd += 5; left_dissent += 15; center_dissent += 10; labor_dissent += 15; reformist_dissent += 5; welfare -= 2; budget += 1; impuls_alq += 1.5; pro_republic -= 4; linke_relation -= 8; impuls_infl -= 0.6; unemployment_insurance_threshold = unemployed; unemployment_insurance_timer = 10; impuls_bip -= 0.2;
 
 Aus Haushaltsgründen verkürzen wir die Bezugsdauer des Arbeitslosengeldes und senken die Leistungen. Für die Beschäftigten ist unsere Haushaltsdisziplin unverständlich. Sie sind wütend über den Verrat, ebenso große Teile unserer Mitgliedschaft in allen Flügeln. Was wir verlieren, gewinnt [+ op_full +], und selbst die AfD, die sonst gegen „Sozialschmarotzer“ hetzt, prangert jetzt unseren Sozialabbau an.
 
@@ -69,12 +69,12 @@ Aus Haushaltsgründen verkürzen wir die Bezugsdauer des Arbeitslosengeldes und 
 
 @increase_employers
 subtitle: Die Arbeitgeber laufen Sturm dagegen. [? if in_grand_coalition: Der Wirtschaftsflügel der Union wird wohl die Koalition infrage stellen. ?]
-on-arrival: capital_strike_progress += 2; coalition_dissent = 2 if in_grand_coalition; coalition_dissent += 1; welfare += 1; workers_spd += 6*(1-dissent); unemployed_spd += 6*(1-dissent); old_middle_spd -= 6*(1-dissent); new_middle_spd -= 2*(1-dissent); unemployment_insurance_threshold = unemployed; unemployment_insurance_timer = 10; economic_growth -= 0.2;
+on-arrival: capital_strike_progress += 2; coalition_dissent = 2 if in_grand_coalition; coalition_dissent += 1; welfare += 1; workers_spd += 6*(1-dissent); unemployed_spd += 6*(1-dissent); old_middle_spd -= 6*(1-dissent); new_middle_spd -= 2*(1-dissent); unemployment_insurance_threshold = unemployed; unemployment_insurance_timer = 10; impuls_bip -= 0.2;
 
 Wir heben den Arbeitgeberanteil an der Arbeitslosenversicherung an. So bleibt das Leistungsniveau erhalten, ohne Beschäftigte und Arbeitslose zusätzlich zu belasten. Arbeitgeber und Wirtschaftsverbände sind erwartungsgemäß empört, Gewerkschaften und Arbeitslose zufrieden.
 
 @balance
 subtitle: Weder Beschäftigte noch Arbeitgeber werden ganz zufrieden sein. [? if in_grand_coalition and fdp_relation < 30: Der Wirtschaftsflügel der Union wird den Kompromiss wohl ablehnen. ?][? if in_grand_coalition and fdp_relation >= 30: Der Wirtschaftsflügel der Union könnte den Kompromiss zähneknirschend mittragen. ?]
-on-arrival: workers_spd -= 4; unemployed_spd -= 5; workers_linke += 4; unemployed_linke += 3; unemployed_afd += 3; left_dissent += 10; labor_dissent += 8; center_dissent += 5; welfare -= 1; budget += 1; month += 1; linke_relation -= 4; inflation -= 1; unemployment_insurance_threshold = unemployed; unemployment_insurance_timer = 10; coalition_dissent = 2 if in_grand_coalition and fdp_relation < 30; coalition_dissent += 1 if in_grand_coalition; economic_growth -= 0.1;
+on-arrival: workers_spd -= 4; unemployed_spd -= 5; workers_linke += 4; unemployed_linke += 3; unemployed_afd += 3; left_dissent += 10; labor_dissent += 8; center_dissent += 5; welfare -= 1; budget += 1; month += 1; linke_relation -= 4; impuls_infl -= 0.3; unemployment_insurance_threshold = unemployed; unemployment_insurance_timer = 10; coalition_dissent = 2 if in_grand_coalition and fdp_relation < 30; coalition_dissent += 1 if in_grand_coalition; impuls_bip -= 0.1;
 
 Mit unserem Kompromiss ist niemand ganz glücklich. Viele Beschäftigte und Arbeitslose sehen darin einen Verrat, auch wenn wir ihn als Abwendung von Schlimmerem verkaufen. [? if in_grand_coalition: Der Wirtschaftsflügel der Union ist entsetzt über jede zusätzliche Belastung der Unternehmen. ?]

@@ -32,7 +32,7 @@ Wir setzen einen befristeten Krisenbeitrag auf sehr hohe Einkommen und Vermögen
 @notlage
 choose-if: judicial_reform >= 1 or unemployed >= 7
 unavailable-subtitle: Ohne echte Notlage würde Karlsruhe das kassieren, wie 2023 den Nachtragshaushalt.
-on-arrival: budget += 2; inflation += 0.3; coalition_dissent += 1 if in_grand_coalition; fdp_relation -= 5; economic_growth += 0.2
+on-arrival: budget += 2; impuls_infl += 0.3; coalition_dissent += 1 if in_grand_coalition; fdp_relation -= 5; impuls_bip += 0.2
 
 Mit Verweis auf Industriekrise und Arbeitslosigkeit erklärt der Bundestag eine außergewöhnliche Notlage. Die Lücke wird über Kredite geschlossen. Die Union trägt das zähneknirschend mit, warnt aber vor einem Präzedenzfall.
 

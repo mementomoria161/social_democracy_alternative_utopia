@@ -1,7 +1,7 @@
 title: Zollkrieg
 subtitle: Der Handelskonflikt mit den USA eskaliert …
 new-page: true
-on-arrival: black_thursday_seen = 1; zollkrieg_2027 = 1; workers_linke += 2; workers_afd += 1; old_middle_afd += 2; rural_afd += 1; unemployed += 0.5; budget -= 1 if budget > 0; dues -= 1 if dues > 2; inflation -= 0.3; economic_growth -= 1.2;
+on-arrival: black_thursday_seen = 1; zollkrieg_2027 = 1; workers_linke += 2; workers_afd += 1; old_middle_afd += 2; rural_afd += 1; impuls_alq += 0.5; budget -= 1 if budget > 0; dues -= 1 if dues > 2; impuls_infl -= 0.3; impuls_bip -= 1.2;
 # Nov. 2026: nicht mehr in jedem Spiel (Weimar: Börsenkrach 1929), sondern in rund einem Drittel (zollkrieg_roll, Spielannahme).
 # Stärke nach IAB-Forschungsbericht 9/2025: BIP ein Jahr nach einer Zolleskalation um 1,4 % niedriger (Wachstum −1,2,
 # Arbeitslosigkeit +0,5, der Rest über die Konjunkturdynamik). Inflation nur −0,3 (vorher −1: Gegenzölle verteuern Importe,

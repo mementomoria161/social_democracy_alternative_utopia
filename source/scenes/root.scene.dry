@@ -258,8 +258,11 @@ Q.workers = 30; // Arbeitnehmer*innen ohne Hochschulabschluss
 Q.old_middle = 8; // Selbstständige & Mittelstand
 Q.new_middle = 22; // akademische Mittelschicht
 Q.rural = 16; // ländlicher Raum
-// unemployment rate (Bundesagentur für Arbeit, Jahresdurchschnitt 2024: 6,0 %) - doubles as the size of the group
-Q.unemployed = 6.0;
+// unemployment rate (Bundesagentur für Arbeit, November 2024: 5,8 %; Jahresdurchschnitt 2024: 6,0 %) - doubles as the size of the group.
+// Nov. 2026: Monatswert statt Jahresmittel, weil post_event bis November 2026 den realen Monatsverlauf nachzeichnet (REAL_ECON_M).
+Q.unemployed = 5.8;
+// Wirtschaftsimpulse aus Programmen (post_event: 8 % des Rests je Monat), Stimmungsschocks und Zufall mit Gedächtnis (Umfragetrend)
+Q.impuls_alq = 0; Q.impuls_infl = 0; Q.impuls_bip = 0; Q.poll_shock = {}; Q.poll_mom = {};
 Q.rentner = 32; // Rentner*innen
 
 // average gross income in euros/month (Destatis 2025, Vollzeit)

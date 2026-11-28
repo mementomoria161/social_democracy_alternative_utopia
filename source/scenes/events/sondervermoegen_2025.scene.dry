@@ -34,7 +34,7 @@ Noch bevor der neu gewählte Bundestag zusammentritt, liegt ein Vorschlag auf de
 subtitle: +2 Haushaltsspielraum.
 choose-if: union_in_government or union_relation >= 25
 unavailable-subtitle: Die Union verweigert uns die nötigen Stimmen.
-on-arrival: sondervermoegen = 2; budget += 2; wtb_support += 1; economic_growth += 0.2; bundeswehr_strength += 5; gruene_relation += 3; union_relation += 3; left_dissent -= 3; labor_dissent -= 5; reformist_dissent -= 2
+on-arrival: sondervermoegen = 2; budget += 2; wtb_support += 1; bundeswehr_strength += 5; gruene_relation += 3; union_relation += 3; left_dissent -= 3; labor_dissent -= 5; reformist_dissent -= 2
 
 Union, SPD und Grüne ändern das Grundgesetz mit der nötigen Mehrheit, der Bundesrat stimmt zu. Es ist die größte finanzpolitische Wende seit Jahrzehnten. Kommunen und Bauindustrie atmen auf, Ökonominnen warnen, das Geld müsse auch wirklich zusätzlich investiert werden. AfD, Linke und FDP klagen vergeblich in Karlsruhe.
 
@@ -50,7 +50,7 @@ on-arrival: sondervermoegen = 0; union_relation -= 8; gruene_relation -= 3; coal
 Wir verweigern die Zustimmung. Der neue Bundestag soll entscheiden, auch wenn dort keine Zweidrittelmehrheit mehr möglich ist. Manche loben die Prinzipientreue; in den Kommunen und bei den Gewerkschaften fragt man, wovon jetzt Schulen und Brücken saniert werden sollen.
 
 @linke
-on-arrival: sondervermoegen = 2; economic_growth += 0.2; bundeswehr_strength += 5
+on-arrival: sondervermoegen = 2; bundeswehr_strength += 5
 
 Noch vor dem Zusammentritt des neuen Bundestages beschließen Union, SPD und Grüne im alten Parlament eine Grundgesetzänderung: 500 Milliarden Euro Sondervermögen für Infrastruktur und Klimaschutz, und Verteidigungsausgaben über einem Prozent der Wirtschaftsleistung fallen nicht mehr unter die Schuldenbremse. Im neuen Bundestag hätte es dafür keine Zweidrittelmehrheit mehr gegeben. Im Bundesrat kommt es auch auf die Länder an, in denen wir mitregieren.
 

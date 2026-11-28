@@ -22,7 +22,7 @@ Seit der Zeitenwende 2022 fließen Milliarden in die Bundeswehr, die NATO verlan
 subtitle: -1 Haushaltsspielraum
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt uns der Haushaltsspielraum.
-on-arrival: budget -= 1; coalition_dissent -= 1 if coalition_dissent > 0; bundeswehr_loyalty += 0.07 if bundeswehr_loyalty < 1; bundeswehr_strength += 20; left_dissent += 5; linke_coalition_dissent += 1; west_relation -= 1; east_relation -= 1; reparations_negotiation -= 1; eu_progress -= 1; economic_growth += 0.1
+on-arrival: budget -= 1; coalition_dissent -= 1 if coalition_dissent > 0; bundeswehr_loyalty += 0.07 if bundeswehr_loyalty < 1; bundeswehr_strength += 20; left_dissent += 5; linke_coalition_dissent += 1; west_relation -= 1; east_relation -= 1; reparations_negotiation -= 1; eu_progress -= 1; impuls_bip += 0.1
 
 Bundeswehr und Union sind angenehm überrascht, wie entschlossen wir aufrüsten. Unsere Mitglieder sind weniger begeistert, die Friedensbewegung in der Partei ist empört. Und in Paris und Warschau fragen sich manche, ob Deutschland mit der größten Armee Europas nicht zu viel Gewicht bekommt, zumal wir das Geld lieber national ausgeben als in gemeinsame europäische Projekte. [? if reparations >= 0 : Für die Verhandlungen über die EU-Schuldenregeln ist das nicht hilfreich. ?]
 
@@ -30,7 +30,7 @@ Bundeswehr und Union sind angenehm überrascht, wie entschlossen wir aufrüsten.
 subtitle: +1 Haushaltsspielraum
 unavailable-subtitle: Hier gibt es nichts mehr zu kürzen.
 choose-if: bundeswehr_strength > 0
-on-arrival: budget += 1; coalition_dissent += 1 if in_grand_coalition == 1; fdp_relation -= 8; bundeswehr_radicalism -= 1; bundeswehr_strength -= 20; bauern_strength += 15; rechts_strength += 5; bauern_radicalism += 0.05; bundeswehr_loyalty -= 0.05 if bundeswehr_loyalty > 0; coup_progress += 1; coup_progress += 1 if bundeswehr_loyalty < 0.2; coup_progress += 1 if bundeswehr_loyalty < 0.1; coup_progress += 1 if bundeswehr_loyalty <= 0; bundeswehr_goal_completed = 1; economic_growth -= 0.1; hindenburg_dissent += 1; hindenburg_relation -= 5
+on-arrival: budget += 1; coalition_dissent += 1 if in_grand_coalition == 1; fdp_relation -= 8; bundeswehr_radicalism -= 1; bundeswehr_strength -= 20; bauern_strength += 15; rechts_strength += 5; bauern_radicalism += 0.05; bundeswehr_loyalty -= 0.05 if bundeswehr_loyalty > 0; coup_progress += 1; coup_progress += 1 if bundeswehr_loyalty < 0.2; coup_progress += 1 if bundeswehr_loyalty < 0.1; coup_progress += 1 if bundeswehr_loyalty <= 0; bundeswehr_goal_completed = 1; impuls_bip -= 0.1; hindenburg_dissent += 1; hindenburg_relation -= 5
 
 Wir strecken Beschaffungsprojekte und verkleinern den Wehrdienst. In der Truppe wächst der Frust, und Union und Wirtschaft werfen uns vor, die Sicherheit des Landes aufs Spiel zu setzen.
 

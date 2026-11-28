@@ -3,7 +3,7 @@ subtitle: Die Konzerne legen Projekte auf Eis …
 view-if: (capital_strike_progress >= 10 or budget <= -5) and spd_in_government
 new-page: true
 max-visits: 1
-on-arrival: unemployed += 0.8; workers_spd *= 0.95; new_middle_spd -= 4; old_middle_spd -= 5; rural_spd -= 3; pro_republic -= 4; capital_strike_seen = 1; union_relation -= 10; fdp_relation -= 10; workers_afd += 1; old_middle_afd += 2; new_middle_afd += 1; rural_afd += 1; economic_growth -= 1.5;
+on-arrival: impuls_alq += 0.8; workers_spd *= 0.95; new_middle_spd -= 4; old_middle_spd -= 5; rural_spd -= 3; pro_republic -= 4; capital_strike_seen = 1; union_relation -= 10; fdp_relation -= 10; workers_afd += 1; old_middle_afd += 2; new_middle_afd += 1; rural_afd += 1; impuls_bip -= 1.5;
 # Nov. 2026: vorher Weimar-Größenordnung (Wachstum −4, Arbeitslosigkeit +2,5, SPD −15 und AfD +15 in mehreren Gruppen).
 # Politische Unsicherheit dämpft Investitionen und Beschäftigung messbar, aber nicht in dieser Größe (Baker/Bloom/Davis,
 # Quarterly Journal of Economics 2016: Index wirtschaftspolitischer Unsicherheit). Jetzt Wachstum −1,5, Arbeitslosigkeit +0,8.
@@ -24,7 +24,7 @@ Was können wir tun?
 title: Den Belegschaften die Übernahme der Werke ermöglichen!
 unavailable-subtitle: [? if left_strength <= reformist_strength + neorevisionist_strength : Die Mehrheit der Partei trägt diesen radikalen Schritt nicht mit. ?] [? if judicial_reform < 3 : Das Bundesverfassungsgericht würde das stoppen. ?] [? if demo_radicalism < 0.25 : Mit einer stärker mobilisierten Demokratiebewegung wäre das vielleicht möglich. ?] [? if works_councils < 1 : Dafür brauchen wir zuerst die Betriebsräte. ?]
 choose-if: left_strength > reformist_strength + neorevisionist_strength and (judicial_reform >= 3 or demo_radicalism >= 0.25) and works_councils >= 1
-on-arrival: nationalization_progress += 1; coup_progress += 6; unemployed -= 1; unemployed -= 0.5 if works_councils >= 3; works_program += 1; workers_spd += 10*(1-dissent); unemployed_spd += 10*(1-dissent); coalition_dissent += 2; fdp_relation -= 4; workers_afd -= 8*(1-dissent); unemployed_afd -= 8*(1-dissent); left_strength += 15; reformist_dissent += 10; left_dissent -= 10; factory_takeovers += 1; economic_growth += 2;
+on-arrival: nationalization_progress += 1; coup_progress += 6; impuls_alq -= 1; impuls_alq -= 0.5 if works_councils >= 3; works_program += 1; workers_spd += 10*(1-dissent); unemployed_spd += 10*(1-dissent); coalition_dissent += 2; fdp_relation -= 4; workers_afd -= 8*(1-dissent); unemployed_afd -= 8*(1-dissent); left_strength += 15; reformist_dissent += 10; left_dissent -= 10; factory_takeovers += 1; impuls_bip += 2;
 
 Wenn die Konzerne uns angreifen, schlagen wir zurück. Belegschaften dürfen stillgelegte Werke übernehmen und in eigener Regie weiterführen. Die Rechte spricht von „Diebstahl“ und „Plünderung“.
 
@@ -33,7 +33,7 @@ Wenn die Konzerne uns angreifen, schlagen wir zurück. Belegschaften dürfen sti
 title: Kapitalverkehrskontrollen einführen, um die Folgen abzufedern.
 choose-if: judicial_reform >= 2
 unavailable-subtitle: Das Bundesverfassungsgericht und das EU-Recht würden das nie zulassen.
-on-arrival: unemployed -= 0.75; workers_spd += 6*(1-dissent); unemployed_spd += 6*(1-dissent); economic_growth += 2;
+on-arrival: impuls_alq -= 0.75; workers_spd += 6*(1-dissent); unemployed_spd += 6*(1-dissent); impuls_bip += 2;
 
 Eine Abzugssteuer auf Kapital, das ins Ausland verlagert wird, und Auflagen für Subventionsempfänger könnten die schlimmsten Folgen des Investitionsstreiks abmildern.
 

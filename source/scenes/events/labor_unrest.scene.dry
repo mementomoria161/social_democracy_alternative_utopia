@@ -17,7 +17,7 @@ In der Metall- und Elektroindustrie eskaliert die Tarifrunde. Die Arbeitgeber ve
 - @balance: Einen Kompromiss zwischen beiden Seiten vermitteln.
 
 @support_labor
-on-arrival: labor_strength += 5; labor_dissent -= 5; left_dissent -= 5; workers_spd += 6*(1-dissent); coalition_dissent += 1; fdp_relation -= 4; capital_strike_progress += 1 if fdp_relation <= 30; capital_strike_progress += 1 if unemployed > 8; capital_strike_progress += 1 if unemployed > 11.5; labor_goal_completed += 1; inflation += 0.1; economic_growth -= 0.2; gr_dgb += 6; gr_bda -= 6; capital_strike_progress += 1 if g_bda >= 70; workers_spd += 1.5*(1-dissent) if g_dgb >= 65
+on-arrival: labor_strength += 5; labor_dissent -= 5; left_dissent -= 5; workers_spd += 6*(1-dissent); coalition_dissent += 1; fdp_relation -= 4; capital_strike_progress += 1 if fdp_relation <= 30; capital_strike_progress += 1 if unemployed > 8; capital_strike_progress += 1 if unemployed > 11.5; labor_goal_completed += 1; impuls_infl += 0.1; impuls_bip -= 0.2; gr_dgb += 6; gr_bda -= 6; capital_strike_progress += 1 if g_bda >= 70; workers_spd += 1.5*(1-dissent) if g_dgb >= 65
 
 Die Unterstützung der Beschäftigten kommt in der SPD immer gut an. Der Wirtschaftsflügel der Union und die Arbeitgeberverbände sind weniger begeistert.
 

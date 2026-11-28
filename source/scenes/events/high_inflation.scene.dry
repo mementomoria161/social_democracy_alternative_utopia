@@ -18,17 +18,17 @@ Bürgerinnen, Bürger und Presse verlangen, dass die Regierung handelt.
 - @nothing: Realistisch betrachtet können wir nichts tun.
 
 @taxes
-on-arrival: upper_tax_rates += 1; lower_tax_rates += 1; budget += 2; unemployed += 0.75; capital_strike_progress -= 1; inflation -= 1; new_middle_spd -= 3; old_middle_spd -= 3; workers_spd -= 3; rural_spd -= 3; linke_coalition_dissent += 1; linke_relation -= 5; left_dissent += 5; economic_growth -= 0.4
+on-arrival: upper_tax_rates += 1; lower_tax_rates += 1; budget += 2; impuls_alq += 0.75; capital_strike_progress -= 1; impuls_infl -= 1; new_middle_spd -= 3; old_middle_spd -= 3; workers_spd -= 3; rural_spd -= 3; linke_coalition_dissent += 1; linke_relation -= 5; left_dissent += 5; impuls_bip -= 0.4
 
 Steuererhöhungen sind bei allen unbeliebt, aber vielleicht nötig, um die Inflation in den Griff zu bekommen.
 
 @welfare
-on-arrival: welfare -= 1; budget += 1; capital_strike_progress -= 2; unemployed += 0.75; new_middle_spd += 4*(1-dissent); old_middle_spd += 4*(1-dissent); workers_spd -= 5; unemployed_spd -= 5; inflation -= 1; left_dissent += 5; labor_dissent += 5; center_dissent += 5; linke_coalition_dissent += 1; economic_growth -= 0.4
+on-arrival: welfare -= 1; budget += 1; capital_strike_progress -= 2; impuls_alq += 0.75; new_middle_spd += 4*(1-dissent); old_middle_spd += 4*(1-dissent); workers_spd -= 5; unemployed_spd -= 5; impuls_infl -= 1; left_dissent += 5; labor_dissent += 5; center_dissent += 5; linke_coalition_dissent += 1; impuls_bip -= 0.4
 
 Weniger Staatsausgaben sollen nach der Lehrbuchökonomie die Inflation dämpfen. Doch die Last tragen jene, denen es ohnehin am schlechtesten geht.
 
 @price_controls
-on-arrival: capital_strike_progress += 3; inflation -= 3; coalition_dissent += 1; unemployed += 0.5; old_middle_spd -= 4; new_middle_spd -= 3; rural_spd -= 5; workers_spd -= 2; unemployed_spd += 3; labor_dissent += 6; fdp_relation -= 6; union_relation -= 4; gruene_relation -= 4; economic_growth -= 0.4
+on-arrival: capital_strike_progress += 3; impuls_infl -= 3; coalition_dissent += 1; impuls_alq += 0.5; old_middle_spd -= 4; new_middle_spd -= 3; rural_spd -= 5; workers_spd -= 2; unemployed_spd += 3; labor_dissent += 6; fdp_relation -= 6; union_relation -= 4; gruene_relation -= 4; impuls_bip -= 0.4
 
 Preisdeckel für Strom, Gas und Mieten sind bei Wirtschaft, Vermietern und Landwirtschaft höchst unbeliebt, und die Bitte um Lohnzurückhaltung verärgert die Gewerkschaften. Die Teuerung bremsen sie aber, zumindest etwas.
 

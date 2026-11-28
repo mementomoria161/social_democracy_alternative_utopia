@@ -247,7 +247,8 @@ var CLIM = {
         Q.energy_price = r1(100 * (0.3 * si / CLIM.P0[2] + 0.3 * sh / CLIM.P0[0] + 0.25 * gh / CLIM.P0[1]) + 0.15 * fuel);
         // milde Kopplung an die Inflation (Energie im Warenkorb rund 7 %, mit Weitergabe)
         var dep = Q.energy_price - old_ep;
-        if (Math.abs(dep) > 0.2) Q.inflation = (Q.inflation || 0) + clamp(0.03 * dep, -0.3, 0.3);
+        // bis November 2026 enthält die reale Inflationsrate die Energiepreise schon (post_event, REAL_ECON_M)
+        if (Math.abs(dep) > 0.2 && Q.year * 12 + Q.month > 2026 * 12 + 11) Q.inflation = (Q.inflation || 0) + clamp(0.03 * dep, -0.3, 0.3);
         // hohe Energiepreise kosten die Regierung Zustimmung (mit Klimageld nur halb so viel)
         if (Q.spd_in_government && Q.energy_price > 105) {
             var d = Math.min(0.08, (Q.energy_price - 105) * 0.004) * (Q.kp_klimageld ? 0.5 : 1);

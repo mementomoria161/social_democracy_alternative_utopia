@@ -49,7 +49,7 @@ Die Arbeiterbewegung stand immer für Wissenschaft und Aufklärung. Deutschlands
 title: Die Max-Planck-Gesellschaft und die Grundlagenforschung stärken.
 subtitle: -1 Haushaltsspielraum
 choose-if: budget >= 1
-on-arrival: budget -= 1; science += 1; kwg_research += 1; economic_growth += 0.3 if economic_growth <= 8; new_middle_spd += 5*(1-dissent); gruene_relation += 5*(1-dissent); unemployed -= 0.1 if unemployed >= 3.5; west_relation += 1; science_funding += 1
+on-arrival: budget -= 1; science += 1; kwg_research += 1; impuls_bip += 0.3 if economic_growth <= 8; new_middle_spd += 5*(1-dissent); gruene_relation += 5*(1-dissent); impuls_alq -= 0.1 if unemployed >= 3.5; west_relation += 1; science_funding += 1
 
 Die Max-Planck-Gesellschaft, Nachfolgerin der Kaiser-Wilhelm-Gesellschaft, gehört zu den angesehensten Forschungseinrichtungen der Welt. Mit einem „1000-Köpfe-Programm“ holen wir Spitzenforschende aus aller Welt nach Deutschland und geben ihnen die Freiheit, ihren eigenen Fragen nachzugehen.
 
@@ -57,7 +57,7 @@ Die Max-Planck-Gesellschaft, Nachfolgerin der Kaiser-Wilhelm-Gesellschaft, gehö
 title: Anwendungsnahe Forschung in Schlüsseltechnologien fördern.
 subtitle: -1 Haushaltsspielraum
 choose-if: budget >= 1
-on-arrival: budget -= 1; science += 1; applied_research += 1; economic_growth += 0.5 if economic_growth <= 8 and applied_research <= 1; economic_growth += 3 if applied_research > 1; new_middle_spd += 5*(1-dissent); workers_spd += 3*(1-dissent); gruene_relation += 5*(1-dissent); unemployed -= 0.25 if unemployed >= 3.5; capital_strike_progress -= 1 if capital_strike_progress > 1; science_funding += 1
+on-arrival: budget -= 1; science += 1; applied_research += 1; impuls_bip += 0.5 if economic_growth <= 8 and applied_research <= 1; impuls_bip += 3 if applied_research > 1; new_middle_spd += 5*(1-dissent); workers_spd += 3*(1-dissent); gruene_relation += 5*(1-dissent); impuls_alq -= 0.25 if unemployed >= 3.5; capital_strike_progress -= 1 if capital_strike_progress > 1; science_funding += 1
 
 Gemeinsam mit Fraunhofer-Instituten, Hochschulen und Industrie fördern wir Forschung zu KI, Halbleitern, Batterien und Wasserstoff. Neue Transferzentren sollen Erfindungen schneller in Produkte und Arbeitsplätze verwandeln.
 
@@ -66,7 +66,7 @@ Gemeinsam mit Fraunhofer-Instituten, Hochschulen und Industrie fördern wir Fors
 title: Medizinische Forschung an Universitätskliniken fördern.
 subtitle: -1 Haushaltsspielraum
 choose-if: budget >= 1
-on-arrival: budget -= 1; science += 1; medical_research += 1; economic_growth += 0.4 if economic_growth <= 8; new_middle_spd += 5*(1-dissent); workers_spd += 3*(1-dissent); gruene_relation += 5*(1-dissent); unemployed -= 0.1 if unemployed >= 3.5; science_funding += 1
+on-arrival: budget -= 1; science += 1; medical_research += 1; impuls_bip += 0.4 if economic_growth <= 8; new_middle_spd += 5*(1-dissent); workers_spd += 3*(1-dissent); gruene_relation += 5*(1-dissent); impuls_alq -= 0.1 if unemployed >= 3.5; science_funding += 1
 
 Wir fördern die Forschung an Universitätskliniken zu Krebs, Demenz und seltenen Krankheiten und bauen nach dem Erfolg der mRNA-Impfstoffe eine nationale Infrastruktur für klinische Studien auf. [? if trans_rights: Dazu gehört auch eine bessere Versorgungsforschung für trans\* Personen. ?]
 
@@ -75,7 +75,7 @@ title: Bei der Forschung kürzen.
 subtitle: +1 Haushaltsspielraum
 choose-if: science_funding >= 1
 unavailable-subtitle: Wir haben die Forschung nicht zusätzlich gefördert.
-on-arrival: budget += 1; science -= 1; science_funding -= 1; applied_research -= 0.33; kwg_research -= 0.33; medical_research -= 0.33; economic_growth -= 0.5; new_middle_spd -= 5; workers_spd -= 2; gruene_relation -= 5; unemployed += 0.15
+on-arrival: budget += 1; science -= 1; science_funding -= 1; applied_research -= 0.33; kwg_research -= 0.33; medical_research -= 0.33; impuls_bip -= 0.5; new_middle_spd -= 5; workers_spd -= 2; gruene_relation -= 5; impuls_alq += 0.15
 
 Wir kürzen die Forschungsförderung. Das bremst das Wachstum, und befristet beschäftigte Wissenschaftler\*innen, die nun ihre Stellen verlieren, wenden sich von [+ pp_dat +] ab.
 
@@ -121,7 +121,7 @@ SPD, [+ gruene_name +], FDP und Linke stimmen für ein Bundesprogramm, das die U
 title: Das Startchancen-Programm ausweiten und Gemeinschaftsschulen fördern.
 subtitle: -1 Haushaltsspielraum
 choose-if: budget >= 1
-on-arrival: budget -= 1; public_hs += 1; workers_spd += 6*(1-dissent); unemployed_spd += 3*(1-dissent); prussian_police_loyalty += 0.04; education_science += 0.5; unemployed -= 0.1; economic_growth += 0.2; pro_republic += 4*(1-dissent);
+on-arrival: budget -= 1; public_hs += 1; workers_spd += 6*(1-dissent); unemployed_spd += 3*(1-dissent); prussian_police_loyalty += 0.04; education_science += 0.5; impuls_alq -= 0.1; impuls_bip += 0.2; pro_republic += 4*(1-dissent);
 max-visits: 3
 
 # macht den öffentlichen Dienst sozial durchlässiger
@@ -182,7 +182,7 @@ Wir stärken Kunst, Musik, Literatur, Geschichte und Philosophie. Kritiker nenne
 @vocational_major
 title: Berufliche Bildung
 subtitle: Praxis, Berufsorientierung und Ausbildung
-on-arrival: curriculum_timer = 50; major_curriculum = "Berufliche Bildung"; fdp_relation += 3*(1-dissent); gruene_relation += 3*(1-dissent); workers_spd += 4*(1-dissent); rural_spd += 2*(1-dissent); unemployed_spd += 3*(1-dissent); new_middle_spd -= 1; unemployed -= 0.05; education_science += 0.5
+on-arrival: curriculum_timer = 50; major_curriculum = "Berufliche Bildung"; fdp_relation += 3*(1-dissent); gruene_relation += 3*(1-dissent); workers_spd += 4*(1-dissent); rural_spd += 2*(1-dissent); unemployed_spd += 3*(1-dissent); new_middle_spd -= 1; impuls_alq -= 0.05; education_science += 0.5
 go-to: curriculum_minor
 
 Praktika, Werkstattunterricht und Berufsorientierung ab Klasse 7 sollen den Weg in Ausbildung und Handwerk ebnen. Gegen den Fachkräftemangel ist das bitter nötig.
