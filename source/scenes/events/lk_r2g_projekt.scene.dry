@@ -14,7 +14,7 @@ face-image: img/linke_fraktion.jpg
 = Ein Projekt Rot-Grün-Rot?
 
 # party-ok: SPD (die reale SPD als mögliche Partnerin)
-Ein Jahr vor der Bundestagswahl laden Abgeordnete von SPD, Grünen und Linken zu einem Treffen ein: Was wäre, wenn es 2029 eine Mehrheit links der Union gäbe? [? if berlin_2026 = 2 or berlin_r2g = 1 : In Berlin regiert Rot-Grün-Rot unter Elif Eralp, und es hält. ?] Die Parteispitzen von SPD und Grünen sind vorsichtig: Die Wähler\*innen der Mitte schreckt das Wort „Linksbündnis“.
+[? if next_election_time <= time + 7 : Wenige Monate vor der Bundestagswahl?][? if next_election_time > time + 7 and next_election_time <= time + 14 : Ein knappes Jahr vor der Bundestagswahl?][? if next_election_time > time + 14 : Mit Blick auf die nächste Bundestagswahl?] laden Abgeordnete von SPD, Grünen und Linken zu einem Treffen ein: Was wäre, wenn es 2029 eine Mehrheit links der Union gäbe? [? if berlin_2026 = 2 or berlin_r2g = 1 : In Berlin regiert Rot-Grün-Rot unter Elif Eralp, und es hält. ?] Die Parteispitzen von SPD und Grünen sind vorsichtig: Die Wähler\*innen der Mitte schreckt das Wort „Linksbündnis“.
 
 - @offen: Offen für das Projekt werben, mit einem gemeinsamen Papier zu Mieten, Rente und Investitionen.
 - @leise: Leise vorbereiten: Gespräche ja, Schlagzeilen nein.

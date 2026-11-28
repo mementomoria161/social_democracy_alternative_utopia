@@ -13,7 +13,7 @@ face-image: img/wahlkampf.jpg
 
 = Bayern und Hessen wählen
 
-Im Oktober wählen Bayern und Hessen ihre Landtage, ein Jahr vor der Bundestagswahl.
+Im Oktober wählen Bayern und Hessen ihre Landtage[? if next_election_time <= time + 7 : , wenige Monate vor der Bundestagswahl?][? if next_election_time > time + 7 and next_election_time <= time + 14 : , ein knappes Jahr vor der Bundestagswahl?].
 
 [? if csu_stark : Die CSU bleibt in Bayern mit Abstand stärkste Kraft, und Markus Söder lässt keinen Zweifel daran, dass er bei der Frage mitreden will, wer die Union 2029 anführt. ?][? if not csu_stark : Die CSU verliert deutlich, und in München wird gefragt, ob der Bundestrend der Union auch Söder beschädigt. ?] In Hessen bleibt Boris Rhein Ministerpräsident[? if player = "spd" : , mit der SPD als Juniorpartnerin?]. [? if afd_land_stark : Die AfD wird in beiden Ländern zweitstärkste Kraft. ?]
 

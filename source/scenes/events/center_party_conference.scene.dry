@@ -10,14 +10,15 @@ on-arrival: union_kfrage_seen = 1
 # Merz 2029 trotzdem wieder Kanzler wurde. Real hat Merz laut dpa angekündigt, nach der Wahl 2029 eine zweite Amtszeit
 # anzustreben (bei der Wahl wäre er 73); Generalsekretär Linnemann nannte die Debatte verfrüht. Seit dem Rücktritt von Jens
 # Spahn als Fraktionschef (18.07.2026) führt Thorsten Frei die Fraktion; Linnemann ist seit 29.07.2026 Gesundheitsminister.
-# Die Entscheidung im November 2028 ist Fiktion. union_leader = Kanzlerkandidat*in (wird nach der Wahl Kanzler*in, wenn die
+# Die Entscheidung im November 2028 ist Fiktion. Regulär wird nach der Wahl im Februar 2025 im Februar 2029 gewählt (Art. 39 GG:
+# 46 bis 48 Monate nach Beginn der Wahlperiode am 25.03.2025); die Zeitangabe im Text richtet sich nach next_election_time. union_leader = Kanzlerkandidat*in (wird nach der Wahl Kanzler*in, wenn die
 # Union die Regierung führt); union_kandidat: 1 Merz, 2 Wüst, 3 Söder, 4 Linnemann. csu_stark aus events/bayern_hessen_2028.
 
 = Wer führt die Union in die Wahl?
 
 # party-ok: SPD (die reale SPD als Partnerin der Union)
 
-Ein knappes Jahr vor der Bundestagswahl muss die Union entscheiden, mit wem sie antritt. Friedrich Merz hat früh erklärt, er wolle eine zweite Amtszeit; bei der Wahl wäre er 73 Jahre alt. Hendrik Wüst, Ministerpräsident von Nordrhein-Westfalen, steht für einen Kurs der Mitte und wartet auf seine Chance. [? if csu_stark : Markus Söder lässt nach seinem Wahlsieg in Bayern wissen, dass er bereitstünde. ?] Carsten Linnemann, der Gesundheitsminister, gilt als Hoffnung des Wirtschaftsflügels und der Konservativen. Eine Zusammenarbeit mit der AfD schließen alle aus.
+[? if next_election_time <= time + 7 : Wenige Monate vor der Bundestagswahl?][? if next_election_time > time + 7 and next_election_time <= time + 14 : Ein knappes Jahr vor der Bundestagswahl?][? if next_election_time > time + 14 : Mit Blick auf die nächste Bundestagswahl?] muss die Union entscheiden, mit wem sie antritt. Friedrich Merz hat früh erklärt, er wolle eine zweite Amtszeit[? if next_election_year = 2029 : ; bei der Wahl wäre er 73 Jahre alt?]. Hendrik Wüst, Ministerpräsident von Nordrhein-Westfalen, steht für einen Kurs der Mitte und wartet auf seine Chance. [? if csu_stark : Markus Söder lässt nach seinem Wahlsieg in Bayern wissen, dass er bereitstünde. ?] Carsten Linnemann, der Gesundheitsminister, gilt als Hoffnung des Wirtschaftsflügels und der Konservativen. Eine Zusammenarbeit mit der AfD schließen alle aus.
 
 - @abwarten: Uns heraushalten: Das ist Sache der Union.
 - @merz: Merz als verlässlichen Partner würdigen.

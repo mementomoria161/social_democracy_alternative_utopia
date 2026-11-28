@@ -14,7 +14,7 @@ face-image: img/wahlkampf.jpg
 = Wer führt die SPD in die Wahl?
 
 # party-ok: SPD (nur im SPD-Spiel)
-Ein halbes Jahr vor der Bundestagswahl muss die SPD entscheiden, wer als Kanzlerkandidat\*in antritt. [? if dissent < 0.25 and profil >= 2 and nds_lost = 0 : Die Partei ist geschlossen, in der Regierung erkennbar, und sie hat ihre Länder gehalten: Zum ersten Mal seit Jahren reden Kommentator\*innen von einem offenen Rennen ums Kanzleramt. ?][? if not (dissent < 0.25 and profil >= 2 and nds_lost = 0) : Die Ausgangslage ist schwierig, aber Wahlkämpfe haben schon manches gedreht. ?]
+[? if next_election_time <= time + 7 : Wenige Monate vor der Bundestagswahl?][? if next_election_time > time + 7 and next_election_time <= time + 14 : Ein knappes Jahr vor der Bundestagswahl?][? if next_election_time > time + 14 : Mit Blick auf die nächste Bundestagswahl?] muss die SPD entscheiden, wer als Kanzlerkandidat\*in antritt. [? if dissent < 0.25 and profil >= 2 and nds_lost = 0 : Die Partei ist geschlossen, in der Regierung erkennbar, und sie hat ihre Länder gehalten: Zum ersten Mal seit Jahren reden Kommentator\*innen von einem offenen Rennen ums Kanzleramt. ?][? if not (dissent < 0.25 and profil >= 2 and nds_lost = 0) : Die Ausgangslage ist schwierig, aber Wahlkämpfe haben schon manches gedreht. ?]
 
 - @pistorius: Boris Pistorius, der beliebteste Politiker des Landes.
 - @vorsitz: Die Parteispitze tritt an: [? if spd_vorsitz_2027 = 2 : Hubertus Heil ?][? if spd_vorsitz_2027 != 2 : Lars Klingbeil?].
