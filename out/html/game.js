@@ -615,6 +615,24 @@
   window.klFilter = {emis: '', preis: '0'};
   window.klFocus = null;
 
+  // K1: Energiekosten je Wählergruppe (Q.energie_last aus climate_data, Indexpunkte über 2024 nach Entlastungen)
+  var klLast = function(Q) {
+      var L = Q.energie_last;
+      if (!L) return '';
+      var keys = ['rural', 'rentner', 'workers', 'old_middle', 'new_middle', 'unemployed'];
+      var max = Math.max(10, d3.max(keys, function(k) { return L[k] || 0; }));
+      var rel = [];
+      if (Q.kp_klimageld) rel.push('Klimageld');
+      if ((Q.kp_bahn || 0) >= 1) rel.push('Deutschlandticket');
+      if ((Q.kp_waerme || 0) >= 1) rel.push('sozial gestaffelte Wärmewende');
+      return '<h3 class="poll_heading">Wer trägt die Energiekosten?</h3>' + keys.map(function(k) {
+          var v = L[k] || 0;
+          return '<div class="poll_row"><span class="poll_name">' + POLL_GROUPS[k] + '</span><span class="poll_bar"><span style="width:' +
+              Math.round(100 * v / max) + '%; background: var(' + (v > 5 ? '--viz-s6' : '--viz-s7') + ')"></span></span><span class="poll_val">' +
+              (v > 0 ? '+' : '') + econNum(v, 1) + '</span></div>';
+      }).join('') + '<p class="poll_note">Mehrbelastung durch Strom, Heizen und Tanken gegenüber 2024 (Indexpunkte). Ab 5 Punkten kostet sie die Regierung ' +
+          'Zustimmung in der Gruppe.' + (rel.length ? ' Entlastet durch: ' + rel.join(', ') + '.' : ' Bisher ohne gezielte Entlastung.') + '</p>';
+  };
   window.drawClimate = function() {
       var box = document.getElementById('klima_view');
       var Q = dendryUI.dendryEngine.state.qualities;
@@ -726,7 +744,7 @@
       box.innerHTML = vizSeg(KL_VIEWS, view, function(v) { return 'window.klView = \'' + v + '\'; window.klFocus = null; window.drawClimate();'; }, 'Ansicht') +
           (filter ? sel(filter.label, filter.options, window.klFilter[filter.key], 'window.klFilter.' + filter.key + ' = this.value; window.drawClimate();') : '') +
           '<div id="kl_graph" class="viz_card"></div>' +
-          '<h3 class="poll_heading">Aktueller Stand</h3>' + top;
+          '<h3 class="poll_heading">Aktueller Stand</h3>' + top + klLast(Q);
       rings.forEach(function(r, j) {
           var R = 56, g0 = d3.select('#kl_ring' + j).append('g').attr('transform', 'translate(60,60)');
           g0.selectAll(null).data(d3.pie().sort(null)(r.vals.map(function(v) { return Math.max(0, v); }))).enter().append('path')

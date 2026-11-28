@@ -1,0 +1,35 @@
+title: Verlagert trotz Staatsgeld
+subtitle: Ein Unternehmen hat Hilfe bekommen und will trotzdem gehen.
+new-page: true
+tags: event
+view-if: spd_in_government and konditionalitaet >= 1 and verlagerung_seen = 0 and kond_time > 0 and time >= kond_time + 10 and year >= 2027 and chancellor_party != "AfD"
+max-visits: 1
+on-arrival: verlagerung_seen = 1; workers_afd += 1
+
+# S3 (Weltlage im Ortsverein, Nov. 2026): Staatsgeld nur mit Zusagen. konditionalitaet wird gesetzt vom Industriestrompreis mit
+# Standortgarantien (Karte Klimaschutz und Energie), der Beteiligung in der Industriekrise und dem Transformationspakt. Das Unternehmen
+# ist erfunden; Vorbild sind Debatten über Rückforderungen von Subventionen bei Werksschließungen. Ausgang Fiktion.
+
+= Verlagert trotz Staatsgeld
+
+Ein großer Zulieferer, der in den vergangenen Jahren Staatshilfen und günstigen Industriestrom bekommen hat, kündigt an, ein Werk mit 1.800 Beschäftigten nach Osteuropa zu verlagern. In den Verträgen stehen Standortzusagen. Die IG Metall verlangt, dass der Staat das Geld zurückholt, der Arbeitgeberverband warnt vor einem „Signal an alle Investoren“. [? if union_in_government : Die Union will den Streit nicht vor Gericht austragen. ?]
+
+- @zurueck: Die Zusagen durchsetzen und die Hilfen zurückfordern.
+- @kulanz: Kulanz zeigen, wenn das Unternehmen die übrigen Standorte garantiert.
+- @gesetz: Ein Standortgesetz vorlegen: Rückzahlung und Mitsprache der Betriebsräte gesetzlich festschreiben.
+
+@zurueck
+on-arrival: gr_dgb += 6; gr_bda -= 6; workers_spd += 1.5*(1-dissent); labor_dissent -= 4; left_dissent -= 2; profil += 1; union_relation -= 2 if union_in_government; coalition_dissent += 1 if union_in_government
+
+Das Wirtschaftsministerium fordert die Hilfen zurück. Das Unternehmen klagt, doch in der Belegschaft und in der Region gilt die Regierung als eine, die ihre eigenen Bedingungen ernst nimmt.
+
+@kulanz
+on-arrival: gr_bda += 3; gr_dgb -= 5; labor_dissent += 5; workers_spd -= 1.5; workers_afd += 1; union_relation += 2 if union_in_government
+
+Das Unternehmen sichert die übrigen Werke für fünf Jahre zu. Die Betriebsräte am betroffenen Standort sprechen von Verrat, und auf der nächsten Kundgebung tauchen Plakate auf, die nicht von der Gewerkschaft stammen.
+
+@gesetz
+subtitle: Belastet das Verhältnis zur Wirtschaft.
+on-arrival: gr_dgb += 8; gr_bda -= 8; capital_strike_progress += 1; labor_dissent -= 5; reformist_dissent += 3; konditionalitaet += 1; workers_spd += 1*(1-dissent); coalition_dissent += 2 if union_in_government; union_relation -= 3 if union_in_government
+
+Der Entwurf sieht vor, dass Staatshilfen bei einer Verlagerung zurückgezahlt werden müssen und Betriebsräte bei Standortentscheidungen mitreden. Die Gewerkschaften jubeln, die Wirtschaftsverbände drohen mit einem Investitionsstopp. [? if union_in_government : Ob die Union mitzieht, ist offen. ?]

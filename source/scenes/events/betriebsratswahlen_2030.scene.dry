@@ -1,0 +1,52 @@
+title: Betriebsratswahlen 2030
+subtitle: Bis Ende Mai wählen die Beschäftigten ihre Betriebsräte.
+new-page: true
+tags: event
+view-if: year = 2030 and month >= 3 and br_wahl_2030_seen = 0
+max-visits: 1
+on-arrival: br_wahl_2030_seen = 1
+
+# S4 (Weltlage im Ortsverein, Nov. 2026). Real: Regelmäßige Betriebsratswahlen finden alle vier Jahre vom 1. März bis 31. Mai statt
+# (§ 13 Betriebsverfassungsgesetz), zuletzt 2026. Rechte Listen wie „Zentrum“ treten seit Jahren in einzelnen Autowerken an.
+# Ergebnis 2030 Fiktion: aus Kampagne (br_wahl_score), Verhältnis zum DGB, Industriekonjunktur und AfD-Stärke bei Arbeitnehmer*innen.
+
+= Betriebsratswahlen 2030
+
+In Zehntausenden Betrieben werden die Betriebsräte neu gewählt. Die Gewerkschaften wollen zeigen, dass sie die Beschäftigten vertreten. In einigen Autowerken und Logistikzentren treten Listen aus dem Umfeld der AfD an, die mit Parolen gegen „Gewerkschaftsbonzen“ und die Klimapolitik werben. [? if player = "spd" : Für den Gewerkschaftsflügel unserer Partei ist das ein Test, ob die Partei der Arbeit in den Betrieben noch verankert ist. ?][? if player = "linke" : Für unsere Gewerkschafter\*innen ist das ein Test, ob linke Politik in den Betrieben ankommt. ?]
+
+- @kampagne: Mit den Gewerkschaften für hohe Beteiligung und starke Listen werben.
+- @schutz: Die Behinderung von Betriebsratswahlen konsequenter verfolgen lassen.
+- @still: Das ist Sache der Gewerkschaften.
+
+@kampagne
+subtitle: -1 Ressourcen.
+choose-if: resources >= 1
+unavailable-subtitle: Dafür fehlen uns die Ressourcen.
+on-arrival: resources -= 1; br_wahl_score += 2; gr_dgb += 3; labor_dissent -= 2
+go-to: ergebnis
+
+Unsere Mitglieder und Betriebsgruppen verteilen vor den Werkstoren Flugblätter, Abgeordnete besuchen Betriebsversammlungen.
+
+@schutz
+view-if: spd_in_government
+on-arrival: br_wahl_score += 1; gr_dgb += 3; gr_bda -= 2
+go-to: ergebnis
+
+Die Schwerpunktstaatsanwaltschaften für Arbeitsrecht verfolgen Fälle, in denen Unternehmen Wahlen behindern. Die Arbeitgeberverbände sprechen von einem Generalverdacht.
+
+@still
+on-arrival: labor_dissent += 2
+go-to: ergebnis
+
+Wir halten uns heraus. Der Gewerkschaftsflügel hätte sich mehr erwartet.
+
+@ergebnis
+on-arrival: {!
+var s = (Q.br_wahl_score || 0) + ((Q.gr_dgb || 50) - 50) / 10 + (Q.sector_growth && Q.sector_growth[0] > 0 ? 1 : -1) - Math.max(0, ((Q.workers_afd || 0) - 25) / 5);
+var f = 1 - (Q.dissent || 0);
+if (s >= 1) { Q.br_wahl_result = 1; Q.labor_dissent = Math.max(0, Q.labor_dissent - 3); Q.workers_spd += 1 * f; }
+else if (s > -2) { Q.br_wahl_result = 2; }
+else { Q.br_wahl_result = 3; Q.workers_afd += 1; Q.labor_dissent += 4; Q.nazi_urgency = (Q.nazi_urgency || 0) + 1; }
+!}
+
+[? if br_wahl_result = 1 : Die DGB-Gewerkschaften behaupten sich klar, die Wahlbeteiligung steigt. Die rechten Listen bleiben bis auf wenige Werke bedeutungslos. ?][? if br_wahl_result = 2 : Die Gewerkschaften halten die meisten Betriebsräte. In einigen Werken im Süden und Osten ziehen rechte Listen aber mit mehreren Sitzen ein. ?][? if br_wahl_result = 3 : In mehreren großen Werken gewinnen rechte Listen ein Drittel der Sitze oder mehr. Die Gewerkschaften sprechen von einem Alarmsignal, und die Frage, wer die Arbeiter\*innen noch erreicht, beherrscht die Debatte. ?]

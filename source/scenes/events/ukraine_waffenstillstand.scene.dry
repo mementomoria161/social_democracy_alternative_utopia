@@ -4,7 +4,7 @@ new-page: true
 tags: event
 view-if: year = 2027 and month >= 8 and (soviet_relation >= 1 or east_relation >= 2 or west_relation >= 3)
 max-visits: 1
-on-arrival: ukraine_ceasefire_seen = 1; impuls_bip += 0.3; pacifism += 1
+on-arrival: ukraine_ceasefire_seen = 1; ukraine_ceasefire_time = time; impuls_bip += 0.3; pacifism += 1
 
 # Fiktives Szenario.
 

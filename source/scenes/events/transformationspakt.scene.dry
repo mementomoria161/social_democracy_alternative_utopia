@@ -1,0 +1,37 @@
+title: Mit wem bauen wir um?
+subtitle: Gewerkschaften und Klimabewegung wollen beide gefragt werden.
+new-page: true
+tags: event
+view-if: spd_in_government and transformationspakt_seen = 0 and year >= 2027 and chancellor_party != "AfD" and (kp_kohle = 1 or kp_industrie >= 1 or kp_ee >= 2 or kp_waerme >= 1 or klima_kohle_ost_seen = 1)
+max-visits: 1
+on-arrival: transformationspakt_seen = 1
+
+# K4 (Weltlage im Ortsverein, Nov. 2026): Der wichtigste Konflikt der Klimapolitik verläuft innerhalb der Partei, zwischen
+# Gewerkschaftsflügel und Parteilinker. Wirkt über das Verhältnis Gewerkschaften–Klimabewegung (gl_dgb_klima, Politik-Reiter).
+# Vorbild: gemeinsame Kampagnen von ver.di und Fridays for Future für den Nahverkehr seit 2020. Ausgang Fiktion.
+
+= Mit wem bauen wir um?
+
+Die ersten großen Klimabeschlüsse der Regierung sind gefasst, jetzt geht es um die Umsetzung in Betrieben und Regionen. Die IG Metall und die IG BCE verlangen, dass Fördergeld nur an Unternehmen mit Tarifvertrag fließt und Beschäftigte vor dem Umbau weitergebildet werden. Fridays for Future und die Umweltverbände drängen auf mehr Tempo, weil das Klimaziel 2030 zu reißen droht. [? if player = "spd" : In der Partei sitzt der Gewerkschaftsflügel auf der einen, die Parteilinke mit den Jusos auf der anderen Seite. ?][? if player = "linke" : In der Partei ziehen die Gewerkschafter\*innen und die Bewegungslinke in verschiedene Richtungen. ?]
+
+- @gewerkschaften: Ein Bündnis für Arbeit und Klima mit IG Metall, IG BCE und ver.di: Förderung nur mit Tarifvertrag, Weiterbildung vor Abbau.
+- @bewegung: Mit Klimabewegung und Umweltverbänden mehr Tempo machen.
+- @pakt: Beide an einen Tisch holen: ein Transformationspakt von Gewerkschaften und Klimabewegung.
+
+@gewerkschaften
+on-arrival: gr_dgb += 6; gr_klima -= 4; labor_dissent -= 4; left_dissent += 2; workers_spd += 1*(1-dissent); konditionalitaet += 1; kond_time = time if kond_time = 0
+
+Die Gewerkschaften loben den Kurs als „Transformation mit den Beschäftigten“. Fridays for Future wirft uns vor, das Tempo den Konzernen und Betriebsräten zu überlassen.
+
+@bewegung
+on-arrival: gr_klima += 6; gr_dgb -= 4; left_dissent -= 4; labor_dissent += 4; new_middle_spd += 1*(1-dissent); gl_dgb_klima -= 5
+
+Die Klimabewegung ist zufrieden, und in den Großstädten gewinnen wir an Ansehen. In den Industrieregionen murren die Betriebsräte, über ihre Köpfe hinweg werde entschieden.
+
+@pakt
+subtitle: -2 Ressourcen.
+choose-if: resources >= 2
+unavailable-subtitle: Dafür fehlen uns die Ressourcen.
+on-arrival: resources -= 2; gl_dgb_klima += 10; gr_dgb += 3; gr_klima += 3; labor_dissent -= 2; left_dissent -= 2
+
+Nach wochenlangen Gesprächen unterschreiben Gewerkschaften, Umweltverbände und Klimabewegung eine gemeinsame Erklärung: Tempo beim Klimaschutz und Sicherheit für die Beschäftigten gehören zusammen. Der Pakt hält nicht jeden Streit aus, aber er verändert den Ton.

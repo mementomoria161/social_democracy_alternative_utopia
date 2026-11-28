@@ -1,0 +1,46 @@
+title: Bleiben oder zurückkehren?
+subtitle: Nach dem Waffenstillstand beginnt die Debatte im Inland.
+new-page: true
+tags: event
+view-if: ukraine_ceasefire_seen = 1 and ukraine_nachkrieg_seen = 0 and time >= ukraine_ceasefire_time + 4 and chancellor_party != "AfD"
+max-visits: 1
+on-arrival: ukraine_nachkrieg_seen = 1
+
+# G3 (Weltlage im Ortsverein, Nov. 2026): Folge von events/ukraine_waffenstillstand (Spielereignis). Real leben rund 1,2 Millionen
+# Schutzsuchende aus der Ukraine in Deutschland (Ausländerzentralregister; Stand prüfen). Debatte und Ausgang Fiktion.
+
+= Bleiben oder zurückkehren?
+
+Seit einigen Monaten schweigen in der Ukraine die Waffen. In Deutschland leben rund 1,2 Millionen Menschen, die vor dem Krieg geflohen sind, viele arbeiten inzwischen in Pflege, Handwerk und Logistik. Die ukrainische Regierung wirbt um Rückkehr für den Wiederaufbau, die Arbeitgeber wollen ihre Fachkräfte halten. AfD und BSW fordern, den Schutzstatus zu beenden, und nebenbei auch das Gas aus Russland zurück.
+
+- @bleiben: Wer hier arbeitet oder eine Ausbildung macht, darf bleiben.
+- @rueckkehr: Freiwillige Rückkehr fördern, mit Partnerschaften zwischen deutschen und ukrainischen Kommunen.
+
+@bleiben
+on-arrival: gr_bda += 3; old_middle_spd += 0.5*(1-dissent); new_middle_spd += 0.5*(1-dissent); rural_afd += 0.5; left_dissent -= 2; union_relation -= 1
+go-to: gas if player = "spd"
+
+Ein Bleiberecht für alle, die arbeiten oder lernen: Handwerkskammern und Pflegeverbände sind erleichtert. Die AfD spricht von „Einwanderung durch die Hintertür“.
+
+@rueckkehr
+on-arrival: budget -= 1 if spd_in_government and budget > 0; impuls_bip += 0.1; union_relation += 1; rural_spd += 0.5*(1-dissent); reformist_dissent -= 1; gr_bda -= 1
+go-to: gas if player = "spd"
+
+Städte in ganz Deutschland vertiefen ihre Partnerschaften mit ukrainischen Kommunen. Wer zurückgeht, bekommt Starthilfe, und deutsche Firmen bewerben sich um Aufträge für den Wiederaufbau.
+
+@gas
+
+Und das Gas? Auch in unserer Partei fragen einige, ob billige Energie aus Russland nicht helfen würde, den Frieden zu sichern.
+
+- @gas_nein: Klar Nein: keine neue Abhängigkeit von Russland.
+- @gas_offen: Nicht ausschließen, wenn der Frieden dauerhaft hält.
+
+@gas_nein
+on-arrival: east_relation += 1; reformist_dissent -= 2; left_dissent += 1; gr_klima += 1; rural_afd += 0.3 if energy_price > 105
+
+Wir bleiben dabei: Die Abhängigkeit von russischem Gas war ein Fehler, den wir nicht wiederholen. Union und Grüne stimmen zu, AfD und BSW sprechen von teurer Ideologie.
+
+@gas_offen
+on-arrival: left_dissent -= 2; reformist_dissent += 4; union_relation -= 3; gruene_relation -= 3; east_relation -= 2; rentner_spd += 0.5*(1-dissent); rural_spd += 0.5*(1-dissent)
+
+Einige Stimmen aus der Partei halten die Tür einen Spalt offen. In Ostdeutschland kommt das an, in Warschau und Kyjiw ist die Empörung groß, und die Union wirft uns Naivität vor.

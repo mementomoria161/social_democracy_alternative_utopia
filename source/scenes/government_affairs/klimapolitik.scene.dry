@@ -233,7 +233,7 @@ subtitle: -2 Haushaltsspielraum. Die eigene Linke murrt über „Subventionen f�
 view-if: kp_industrie = 1
 choose-if: budget >= 2
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
-on-arrival: kp_industrie = 2; budget -= 2; gr_dgb += 6; gr_bda += 6; gr_klima -= 2; left_dissent += 2; labor_dissent -= 3; union_relation += 2; workers_spd += 1*(1-dissent); shock_industrie += 1.2
+on-arrival: kp_industrie = 2; konditionalitaet += 1; kond_time = time if kond_time = 0; budget -= 2; gr_dgb += 6; gr_bda += 6; gr_klima -= 2; left_dissent += 2; labor_dissent -= 3; union_relation += 2; workers_spd += 1*(1-dissent); shock_industrie += 1.2
 
 Energieintensive Betriebe zahlen für einen Teil ihres Stroms höchstens fünf Cent je Kilowattstunde, wenn sie in Effizienz und Elektrifizierung investieren und Standorte sichern. Das Handwerk fragt, warum nur die Großen entlastet werden.
 

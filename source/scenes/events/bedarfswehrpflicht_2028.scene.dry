@@ -1,0 +1,54 @@
+title: Die Bedarfswehrpflicht
+subtitle: Die Freiwilligen reichen nicht. Der Bundestag muss entscheiden.
+new-page: true
+tags: event
+view-if: year = 2028 and month >= 3 and bedarfswp_seen = 0 and wehrdienst_choice != 1 and bundeswehr_strength < 215 and union_in_government and chancellor_party != "AfD" and ((player = "spd" and spd_in_government) or (player = "linke" and not spd_in_government))
+max-visits: 1
+on-arrival: bedarfswp_seen = 1
+go-to: linke if player = "linke"
+
+# G1, zweiter Teil (Weltlage im Ortsverein, Nov. 2026). Real: Reicht die Zahl der Freiwilligen nicht, kann der Bundestag per
+# Gesetz eine Bedarfswehrpflicht beschließen (Wehrdienst-Modernisierungsgesetz). Dass es 2028 dazu kommt, ist Fiktion.
+
+= Die Bedarfswehrpflicht
+
+Ein Jahr nach Beginn der Musterung meldet das Verteidigungsministerium, dass die Zahl der Freiwilligen hinter dem Bedarf zurückbleibt. Die Union legt einen Gesetzentwurf für die Bedarfswehrpflicht vor: Ein Teil der gemusterten jungen Männer soll ausgewählt und einberufen werden. [? if player = "spd" : In unserer Fraktion gibt es keine Mehrheit dafür und keine dagegen. Die Jusos sammeln Unterschriften. ?]
+
+- @ja: Zustimmen und die Fraktion auf Linie bringen.
+- @frei: Die Abstimmung freigeben: Das ist eine Gewissensentscheidung.
+- @nein: Ablehnen: Erst müssen die Möglichkeiten der Freiwilligkeit ausgeschöpft sein.
+
+@ja
+on-arrival: bedarfswp = 1; bundeswehr_strength += 20; union_relation += 4; left_dissent += 10; new_middle_spd -= 2; coalition_dissent -= 1 if coalition_dissent > 0
+
+Das Gesetz passiert den Bundestag mit den Stimmen der Koalition. Die Bundeswehr kann planen, die Union lobt unsere Verlässlichkeit. Bei jungen Wähler\*innen verlieren wir deutlich, und die Jusos kündigen Widerstand auf dem nächsten Parteitag an.
+
+@frei
+on-arrival: bedarfswp = 1; bundeswehr_strength += 20; union_relation += 1; left_dissent += 3; reformist_dissent -= 1; new_middle_spd -= 1
+
+Mit den Stimmen der Union und eines Teils unserer Fraktion wird das Gesetz beschlossen. Fast die Hälfte unserer Abgeordneten stimmt dagegen. Kommentator\*innen sprechen von einer gespaltenen Partei, aber niemand musste gegen sein Gewissen stimmen.
+
+@nein
+on-arrival: union_relation -= 5; coalition_dissent += 2; left_dissent -= 5; reformist_dissent += 4; new_middle_spd += 1.5*(1-dissent); bundeswehr_strength += 5
+
+Wir lehnen ab und setzen stattdessen höheren Sold und kürzere Verpflichtungszeiten durch. Die Union spricht von einem Bruch der Absprachen, im Koalitionsausschuss wird es laut.
+
+@linke
+
+[? if player = "linke" : Union und SPD haben die Mehrheit. Wir können das Gesetz nicht verhindern, aber wir können zeigen, wo wir stehen. ?]
+
+- @lk_kampagne: Eine Kampagne mit Schüler\*innenvertretungen und Friedensbewegung: „Nein zum Zwangsdienst“.
+- @lk_spd: Die SPD-Abgeordneten ansprechen, die zweifeln.
+
+@lk_kampagne
+subtitle: -1 Ressourcen
+choose-if: resources >= 1
+unavailable-subtitle: Nicht genug Ressourcen.
+on-arrival: bedarfswp = 1; resources -= 1; new_middle_spd += 2*(1-dissent); pacifism += 1; left_dissent -= 4; reformist_dissent += 2
+
+Das Gesetz kommt, doch unsere Kampagne erreicht Zehntausende junge Menschen. In vielen Städten sind die Demonstrationen die größten seit Jahren.
+
+@lk_spd
+on-arrival: bedarfswp = 1; linke_relation += 3; left_dissent -= 1; reformist_dissent -= 2
+
+Mehrere Dutzend SPD-Abgeordnete stimmen mit uns gegen das Gesetz. Es wird trotzdem beschlossen, aber die Gespräche über die Fraktionsgrenzen hinweg bleiben.

@@ -1,0 +1,71 @@
+title: Post vom Karrierecenter
+subtitle: Die ersten jungen Männer werden gemustert.
+new-page: true
+tags: event
+view-if: year = 2027 and month >= 7 and musterung_seen = 0 and chancellor_party != "AfD"
+max-visits: 1
+on-arrival: musterung_seen = 1
+go-to: linke if player = "linke"; opposition if player = "spd" and not spd_in_government
+
+# G1 (Weltlage im Ortsverein, Nov. 2026). Real: Das Gesetz zur Modernisierung des Wehrdienstes gilt seit dem 1.1.2026; alle
+# Männer ab Jahrgang 2008 müssen ab dem 1.7.2027 zur Musterung, der Dienst bleibt freiwillig, eine Bedarfswehrpflicht braucht
+# ein eigenes Bundestagsgesetz (Bundesregierung, Fragen und Antworten zum neuen Wehrdienst). Reaktionen und Folgen sind Fiktion.
+
+= Post vom Karrierecenter
+
+# party-ok: Jusos (Jugend der realen SPD, auch im Linke-Spiel)
+
+Im Juli beginnen die Karrierecenter der Bundeswehr, die jungen Männer des Jahrgangs 2008 zu mustern. [? if wehrdienst_choice = 1 : Weil die Bedarfswehrpflicht schon aktiviert ist, ahnen viele, dass es für einen Teil von ihnen ernst wird. ?][? if wehrdienst_choice != 1 : Noch bleibt der Dienst freiwillig, doch die Briefe machen die Debatte in vielen Familien zum Thema am Küchentisch. ?] Die Jusos melden volle Säle bei ihren Infoabenden, Verteidigungsminister Boris Pistorius wirbt in Talkshows für den Dienst.
+
+- @beratung: Die Musterung mit Beratung verbinden: Ausbildung, Studium und Freiwilligendienste auch außerhalb der Bundeswehr.
+- @pistorius: Pistorius den Rücken stärken: Wer gemustert ist, soll sich ernsthaft mit dem Dienst befassen.
+- @kdv: Das Grundrecht auf Kriegsdienstverweigerung offen ansprechen.
+
+@beratung
+on-arrival: bundeswehr_strength += 5; new_middle_spd += 1*(1-dissent); left_dissent -= 2
+
+Zu jeder Musterung gehört künftig ein Beratungsgespräch über alle Wege: Bundeswehr, Katastrophenschutz, Pflege, Ausbildung. Die Bundeswehr ist skeptisch, die Eltern sind erleichtert.
+
+@pistorius
+on-arrival: bundeswehr_strength += 8; union_relation += 2; left_dissent += 4; reformist_dissent -= 2; new_middle_spd -= 1
+
+Pistorius tourt mit Abgeordneten der Fraktion durch Schulen und Betriebe. Die Zahl der Freiwilligen steigt, an der Basis der Jusos ist die Stimmung gereizt.
+
+@kdv
+on-arrival: left_dissent -= 4; reformist_dissent += 3; union_relation -= 2; new_middle_spd += 1*(1-dissent); pacifism += 1
+
+Wir erinnern daran, dass niemand gegen sein Gewissen zum Dienst an der Waffe gezwungen werden darf. Die Union spricht von einem falschen Signal, viele junge Wähler\*innen sehen das anders.
+
+@opposition
+
+[? if player = "spd" : Aus der Opposition können wir die Debatte nur begleiten. Wie positionieren wir uns? ?]
+
+- @opp_jugend: Mit den Jusos an Schulen informieren: Rechte, Freiwilligkeit, Alternativen.
+- @opp_dienst: Den Dienst unterstützen und mehr Tempo bei der Ausstattung fordern.
+
+@opp_jugend
+on-arrival: new_middle_spd += 1*(1-dissent); left_dissent -= 2; reformist_dissent += 1
+
+Unsere Infoabende sind gut besucht. Viele Eltern wussten bis dahin nicht, was die Musterung für ihre Söhne bedeutet.
+
+@opp_dienst
+on-arrival: reformist_dissent -= 2; left_dissent += 2; union_relation += 1
+
+Wir stellen uns hinter den Wehrdienst und fordern schnellere Beschaffung. Die Regierung nimmt es dankend zur Kenntnis.
+
+@linke
+
+[? if player = "linke" : Für die Linke ist der Beginn der Musterung ein Kampagnenmoment. Aber wie laut wollen wir werden? ?]
+
+- @lk_beratung: Vor den Karrierecentern Beratung zur Kriegsdienstverweigerung anbieten.
+- @lk_sachlich: Sachlich bleiben: Freiwilligkeit verteidigen, aber keine Fundamentalopposition gegen die Bundeswehr.
+
+@lk_beratung
+on-arrival: pacifism += 1; new_middle_spd += 1.5*(1-dissent); left_dissent -= 3; reformist_dissent += 2
+
+Linksjugend, Friedensgruppen und Kirchengemeinden stehen mit Infotischen vor den Karrierecentern. Die Anträge auf Kriegsdienstverweigerung steigen deutlich.
+
+@lk_sachlich
+on-arrival: reformist_dissent -= 3; left_dissent += 3
+
+Wir bleiben bei der Freiwilligkeit und vermeiden schrille Töne. Die Reformer\*innen sind zufrieden, die Linksjugend weniger.

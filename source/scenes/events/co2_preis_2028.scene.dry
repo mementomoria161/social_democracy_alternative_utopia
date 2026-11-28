@@ -1,0 +1,66 @@
+title: Der neue CO2-Preis kommt an
+subtitle: Seit Januar gilt der europäische Emissionshandel für Heizen und Tanken.
+new-page: true
+tags: event
+view-if: year = 2028 and month >= 3 and co2_abrechnung_seen = 0 and klima_ets2_seen = 1 and chancellor_party != "AfD"
+max-visits: 1
+on-arrival: {!
+Q.co2_abrechnung_seen = 1;
+// K2 (Weltlage im Ortsverein, Nov. 2026): Folge der Entscheidung in events/klima_ets2 (September 2027). Die Wirkung hängt davon ab,
+// wie die Einnahmen zurückfließen. Gruppengenaue Energiekosten: energie_last in climate_data (K1).
+var g = Q.spd_in_government, f = 1 - (Q.dissent || 0);
+if (Q.kp_klimageld) {
+    Q.co2_weg = 1;
+    if (g) { Q.unemployed_spd += 1.5 * f; Q.workers_spd += 1 * f; Q.rentner_spd += 1 * f; Q.rural_spd += 0.5 * f; }
+} else if (Q.kp_co2 < 0) {
+    Q.co2_weg = 2;
+    if (g) { Q.rural_spd += 0.5 * f; if (Q.budget > 0) Q.budget -= 1; }
+} else if (Q.stromsteuer_alle) {
+    Q.co2_weg = 3;
+    Q.rural_afd += 1;
+    if (g) Q.rural_spd = Math.max(0, Q.rural_spd - 0.5);
+} else {
+    Q.co2_weg = 4;
+    Q.rural_afd += 1.5; Q.rentner_afd += 0.5;
+    if (g) { Q.rural_spd = Math.max(0, Q.rural_spd - 1); Q.rentner_spd = Math.max(0, Q.rentner_spd - 0.5); }
+}
+!}
+
+# Real: Der EU-Emissionshandel für Gebäude und Verkehr (ETS 2) beginnt nach dem EU-Beschluss vom November 2025 am 1.1.2028.
+# Preise im Spiel: climate_data (CLIM.co2Nat). Reaktionen und Ausgang Fiktion.
+
+= Der neue CO2-Preis kommt an
+
+Seit Januar gilt der europäische Emissionshandel auch für Heizöl, Erdgas, Benzin und Diesel. An den Tankstellen steigen die Preise um einige Cent, die Versorger kündigen höhere Abschläge an. [? if co2_weg = 1 : Im Frühjahr wird zum ersten Mal das Klimageld überwiesen, für eine vierköpfige Familie ein spürbarer Betrag. Wer wenig verdient und wenig fährt, hat am Ende mehr in der Tasche als vorher. ?][? if co2_weg = 2 : Der Preisdeckel hält die Belastung in Grenzen, doch die Differenz zahlt der Bundeshaushalt, und die Klimawirkung ist gering. ?][? if co2_weg = 3 : Der Strom ist billiger geworden, doch Heizöl und Sprit werden teurer. Wer auf dem Land mit Ölheizung und Auto lebt, spürt vor allem das. ?][? if co2_weg = 4 : Einen Ausgleich gibt es nicht. Auf dem Land und bei Rentner\*innen mit alter Heizung wächst der Ärger, und die AfD plakatiert: „Heizen wird Luxus“. ?]
+
+- @haerte: Einen Härtefallfonds für Pendler\*innen und alte Ölheizungen auflegen.
+- @kurs: Kurs halten und erklären, wofür das Geld verwendet wird.
+- @opp_klimageld: Ein Klimageld für alle fordern, das kleine Einkommen stärker entlastet.
+- @opp_preis: Die Regierung für die Preise angreifen.
+
+@haerte
+view-if: spd_in_government
+subtitle: -1 Haushaltsspielraum.
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: budget -= 1; rural_spd += 1*(1-dissent); rentner_spd += 0.5*(1-dissent); gr_klima -= 2; gr_vdk += 2
+
+Wer weit pendeln muss oder sich den Heizungstausch nicht leisten kann, bekommt einen Zuschuss. Die Umweltverbände sprechen von falschen Anreizen, auf dem Land kommt die Hilfe an.
+
+@kurs
+view-if: spd_in_government
+on-arrival: gr_klima += 2; new_middle_spd += 0.3*(1-dissent)
+
+Wir erklären, dass der CO2-Preis mit dem Ausbau von Bahn, Wärmenetzen und Förderprogrammen zusammengehört. Ob die Botschaft ankommt, zeigt sich an der Wahlurne.
+
+@opp_klimageld
+view-if: not spd_in_government
+on-arrival: workers_spd += 0.5*(1-dissent); unemployed_spd += 0.5*(1-dissent); gr_vdk += 2; gr_klima += 1
+
+Unser Vorschlag ist einfach: Die Einnahmen gehen pro Kopf an alle zurück. Sozialverbände und Umweltverbände stellen sich dahinter.
+
+@opp_preis
+view-if: not spd_in_government
+on-arrival: rural_spd += 0.5*(1-dissent); rentner_spd += 0.3*(1-dissent); gr_klima -= 2
+
+Wir greifen die Regierung für die Preise an. Auf dem Land kommt das an, die Klimabewegung fragt, wo unser eigener Plan bleibt.

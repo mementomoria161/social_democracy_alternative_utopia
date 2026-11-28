@@ -24,16 +24,19 @@ Im Koalitionsausschuss wird um jede Milliarde gerungen. Wo setzen wir den Schwer
 
 @invest
 on-arrival: budget -= 1 if budget > 0; invest_bonus += 1; shock_bau += 0.5; new_middle_spd += 0.5*(1-dissent); workers_spd += 0.5*(1-dissent); gr_dgb += 2
+go-to: verteidigung if player = "spd"
 
 Wir setzen durch, dass zusätzliche Mittel in Schulen, Schiene und Wohnungsbau fließen. Die Bauwirtschaft und die Kommunen loben uns, die Haushälter\*innen der Union verlangen dafür Einsparungen bei der Verwaltung.
 
 @sozial
 on-arrival: welfare += 1 if welfare < 3; budget -= 1 if budget > 0; rentner_spd += 0.5*(1-dissent); unemployed_spd += 0.5*(1-dissent); gr_vdk += 3; coalition_dissent += 1 if union_in_government
+go-to: verteidigung if player = "spd"
 
 Die geplanten Kürzungen bei Pflege und Grundsicherung fallen weg. Die Union verbucht das als teures Zugeständnis, die Sozialverbände als Erfolg.
 
 @konsolidieren
 on-arrival: budget += 1; union_relation += 3; left_dissent += 3; labor_dissent += 2; gr_vdk -= 3
+go-to: verteidigung if player = "spd"
 
 Wir begrenzen die Ausgaben. Die Ratingagenturen und die Union sind zufrieden, an der Basis fragt man, wofür [+ pp_full +] in dieser Koalition eigentlich sitzt.
 
@@ -43,6 +46,7 @@ In der Opposition haben wir in der Haushaltswoche vor allem die Redezeit. Wofür
 
 - @opp_gegenhaushalt: Einen Gegenhaushalt vorlegen: was wir mit dem Geld anders machen würden.
 - @opp_kuerzungen: Die Kürzungen beim Sozialstaat anprangern.
+- @opp_ruestung: Die Aufrüstung anprangern: „Kitas statt Kampfjets“.
 
 @opp_gegenhaushalt
 on-arrival: new_middle_spd += 1*(1-dissent); old_middle_spd += 0.5*(1-dissent); reformist_dissent -= 2
@@ -53,3 +57,36 @@ Unser Gegenhaushalt ist durchgerechnet. Die Regierung lehnt ihn ab, aber die Fac
 on-arrival: unemployed_spd += 1*(1-dissent); rentner_spd += 0.5*(1-dissent); left_dissent -= 2; gr_vdk += 2
 
 Wir greifen jede Kürzung beim Sozialstaat an. In den Talkshows ist das wirkungsvoll, in der Mitte überzeugt es nicht jeden.
+
+@opp_ruestung
+view-if: player = "linke"
+on-arrival: pacifism += 1; left_dissent -= 3; reformist_dissent += 2; workers_spd += 0.5*(1-dissent); new_middle_spd += 0.5*(1-dissent)
+
+Wir rechnen vor, wie viele Kitaplätze und Pflegekräfte ein einziges Kampfflugzeug kostet. In den Talkshows wirkt das, die Reformer\*innen aus den Ländern hätten lieber über Investitionen geredet.
+
+@verteidigung
+# G2 (Weltlage im Ortsverein, Nov. 2026). Real: NATO-Gipfel Den Haag (Juni 2025): 3,5 Prozent des BIP für Verteidigung und 1,5 Prozent
+# für verteidigungsnahe Infrastruktur bis 2035; Verteidigungsausgaben über 1 Prozent des BIP sind seit März 2025 von der
+# Schuldenbremse ausgenommen. KNDS fertigt seit 2025 im früheren Waggonbauwerk Görlitz, Rheinmetall hat im August 2025 ein
+# Munitionswerk in Unterlüß eröffnet. Entscheidungen ab 2027 Fiktion.
+
+Bleibt der Verteidigungsetat. Der Pfad zum NATO-Ziel verlangt jedes Jahr Milliarden mehr. Die Union will ihn ohne Abstriche, die Parteilinke fragt, ob Kasernen wichtiger sind als Kitas.
+
+- @v_pfad: Den Pfad zum NATO-Ziel halten, finanziert über die Ausnahme von der Schuldenbremse.
+- @v_strecken: Den Aufwuchs strecken und mehr in Schiene, Brücken und Zivilschutz stecken.
+- @v_sozial: Die Rüstung vorziehen und dafür im Sozialetat sparen.
+
+@v_pfad
+on-arrival: verteidigung_pfad = 1; bundeswehr_strength += 3; shock_industrie += 0.3; union_relation += 2; left_dissent += 3; reformist_dissent -= 2; workers_spd += 0.3*(1-dissent)
+
+Die Verteidigungsausgaben steigen weiter. In Görlitz, wo im früheren Waggonbauwerk jetzt Komponenten für Panzer entstehen, und in Unterlüß werden neue Stellen ausgeschrieben. Die Parteilinke fragt, ob die Prioritäten noch stimmen.
+
+@v_strecken
+on-arrival: verteidigung_pfad = 2; union_relation -= 3; coalition_dissent += 1 if union_in_government; left_dissent -= 3; reformist_dissent += 3; invest_bonus += 0.5; west_relation -= 1
+
+Wir strecken den Aufwuchs um zwei Jahre und investieren das Geld in Infrastruktur, die auch der Bundeswehr nützt. Die NATO-Partner sind irritiert, die Union spricht von einem gebrochenen Versprechen.
+
+@v_sozial
+on-arrival: verteidigung_pfad = 3; budget += 1; bundeswehr_strength += 5; union_relation += 4; left_dissent += 6; labor_dissent += 4; gr_vdk -= 5; rentner_spd -= 1; unemployed_spd -= 1; workers_afd += 0.5
+
+Die Rüstung wird vorgezogen, bei Grundsicherung und Wohngeld wird gekürzt. Die Union ist zufrieden, die Sozialverbände sind entsetzt, und BSW und AfD plakatieren: „Kanonen statt Butter“.

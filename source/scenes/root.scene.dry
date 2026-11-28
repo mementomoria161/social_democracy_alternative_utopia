@@ -792,6 +792,14 @@ Q.buendnis_timer = 0;
 Q.vw_warnstreiks_seen = 0; Q.resolution_antisemitismus_seen = 0; Q.verdi_tarifrunde_seen = 0; Q.palaestina_proteste_seen = 0;
 Q.ruestungsexporte_israel_seen = 0; Q.gaza_waffenruhe_seen = 0; Q.arbeitgeber_kampagne_seen = 0; Q.sozialverbaende_protest_seen = 0;
 Q.mietenstopp_kampagne_seen = 0;
+// Weltlage im Ortsverein (Nov. 2026, PORT_2026.md): Klima, Standort und Weltlage als Akzente. energie_last (K1, climate_data),
+// konditionalitaet/kond_time (S3), wehrdienst_choice (1 Bedarfswehrpflicht, 2 Freiwilligkeit, 3 Gesellschaftsjahr), bedarfswp,
+// verteidigung_pfad (1 NATO-Pfad, 2 gestreckt, 3 zulasten des Sozialetats), co2_weg (1 Klimageld, 2 Deckel, 3 Stromsteuer, 4 ohne),
+// us_antwort, br_wahl_score/br_wahl_result, ukraine_ceasefire_time.
+Q.energie_last = 0; Q.konditionalitaet = 0; Q.kond_time = 0; Q.verlagerung_seen = 0; Q.transformationspakt_seen = 0;
+Q.wehrdienst_choice = 0; Q.musterung_seen = 0; Q.bedarfswp_seen = 0; Q.bedarfswp = 0; Q.verteidigung_pfad = 0;
+Q.co2_abrechnung_seen = 0; Q.co2_weg = 0; Q.ukraine_ceasefire_time = 0; Q.ukraine_nachkrieg_seen = 0; Q.us_antwort = 0;
+Q.hybrid_seen = 0; Q.br_wahl_2030_seen = 0; Q.br_wahl_score = 0; Q.br_wahl_result = 0;
 !}
 set-bg: img/map_2.jpg
 new-page: true

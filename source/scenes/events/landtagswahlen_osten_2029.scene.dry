@@ -4,7 +4,16 @@ new-page: true
 tags: event
 view-if: year = 2029 and month = 9
 max-visits: 1
-on-arrival: ltw_osten_2029_seen = 1; brandenburg_lost = 1 if afd_r >= 30 or (player = "spd" and spd_r < 15) or (player = "linke" and linke_r < 15); nazi_urgency += 1 if brandenburg_lost; strife += 1 if afd_r >= 30
+on-arrival: {!
+Q.ltw_osten_2029_seen = 1;
+// K5 (Weltlage im Ortsverein, Nov. 2026): Strukturhilfen für die Lausitz (events/klima_kohle_ost) wirken auf Brandenburg.
+// Strukturpaket oder Lausitz-Pakt: die SPD hält die Staatskanzlei auch bei etwas stärkerer AfD; keine Hilfen: schon bei 27 Prozent verloren.
+var kc = Q.klima_kohle_ost_choice || 0, afd_cut = kc == 1 || kc == 3 ? 32 : kc == 2 ? 27 : 30, own_cut = kc == 1 || kc == 3 ? 13 : 15;
+if (kc == 2) { Q.rural_afd += 1; Q.workers_afd += 0.5; }
+Q.brandenburg_lost = (Q.afd_r >= afd_cut || (Q.player == 'spd' && Q.spd_r < own_cut) || (Q.player == 'linke' && Q.linke_r < own_cut)) ? 1 : 0;
+if (Q.brandenburg_lost) Q.nazi_urgency = (Q.nazi_urgency || 0) + 1;
+if (Q.afd_r >= 30) Q.strife = (Q.strife || 0) + 1;
+!}
 go-to: linke if player = "linke"
 face-image: img/wahlkampf.jpg
 
@@ -16,7 +25,7 @@ face-image: img/wahlkampf.jpg
 
 In Sachsen, Thüringen und Brandenburg werden neue Landtage gewählt. [? if afd_r >= 30 : In allen drei Ländern wird die AfD mit großem Abstand stärkste Kraft, in Thüringen fehlen ihr nur wenige Sitze zur absoluten Mehrheit. ?][? if afd_r < 30 : Die AfD bleibt stark, verliert aber erstmals seit Jahren an Zustimmung. ?]
 
-[? if brandenburg_lost : In Brandenburg verliert die SPD nach mehr als 35 Jahren die Staatskanzlei. ?][? if not brandenburg_lost : In Brandenburg hält die SPD die Staatskanzlei, als letzte Bastion im Osten. ?]
+[? if klima_kohle_ost_choice = 1 or klima_kohle_ost_choice = 3 : In der Lausitz zahlen sich die Strukturhilfen aus: Neue Werke, eine Bundesbehörde und die Bahnstrecke nach Berlin sind sichtbar. ?][? if klima_kohle_ost_choice = 2 : In der Lausitz rächt sich, dass der Bund beim Kohleausstieg keine zusätzlichen Hilfen gegeben hat. ?] [? if brandenburg_lost : In Brandenburg verliert die SPD nach mehr als 35 Jahren die Staatskanzlei. ?][? if not brandenburg_lost : In Brandenburg hält die SPD die Staatskanzlei, als letzte Bastion im Osten. ?]
 
 - @weiter: Weiter.
 

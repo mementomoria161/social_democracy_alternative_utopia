@@ -1,0 +1,60 @@
+title: Drohnen, Sabotage, falsche Zitate
+subtitle: Kurz vor der Bundestagswahl häufen sich hybride Angriffe.
+new-page: true
+tags: event
+view-if: year >= 2028 and hybrid_seen = 0 and next_election_time > time and next_election_time <= time + 3 and chancellor_party != "AfD"
+max-visits: 1
+on-arrival: hybrid_seen = 1; pro_republic -= 1
+
+# G5 (Weltlage im Ortsverein, Nov. 2026). Real: Drohnensichtungen legten den Flughafen München im Oktober 2025 zeitweise lahm;
+# Sicherheitsbehörden warnen seit Jahren vor Sabotage und Desinformation aus Russland; der Digital Services Act der EU verpflichtet
+# große Plattformen, Risiken für Wahlen zu begrenzen. Die Vorfälle vor der Wahl sind Fiktion.
+
+= Drohnen, Sabotage, falsche Zitate
+
+Wenige Wochen vor der Bundestagswahl reißen die Meldungen nicht ab: Drohnen über Kasernen und Flughäfen, durchtrennte Kabel an Bahnstrecken, Netzwerke gefälschter Konten, die erfundene Zitate von Spitzenkandidat\*innen verbreiten. Die Sicherheitsbehörden vermuten russische Auftraggeber. Viele Menschen fragen sich, ob der Staat sie noch schützen kann.
+
+- @dsa: Die Plattformen in die Pflicht nehmen und den Digital Services Act konsequent durchsetzen.
+- @schutz: Drohnenabwehr und den Schutz von Bahn, Strom und Häfen sofort verstärken.
+- @aufklaerung: Mit Zivilgesellschaft und Medien aufklären, ohne Panik zu verbreiten.
+- @opp_aufklaerung: Mit Zivilgesellschaft und Medien aufklären, ohne Panik zu verbreiten.
+- @opp_druck: Die Regierung drängen, endlich zu handeln.
+
+@dsa
+view-if: spd_in_government
+on-arrival: pro_republic += 1; gr_demo += 4; new_middle_spd += 0.5*(1-dissent); rural_afd += 0.3; union_relation += 1
+
+Die Bundesnetzagentur geht gegen Plattformen vor, die gefälschte Konten nicht löschen. Die AfD spricht von Zensur, doch die Netzwerke der falschen Konten schrumpfen.
+
+@schutz
+view-if: spd_in_government
+subtitle: -1 Haushaltsspielraum.
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: budget -= 1; pro_republic += 1; union_relation += 2; left_dissent += 2; rentner_spd += 0.5*(1-dissent)
+
+Bundespolizei und Bundeswehr erhalten zusätzliche Mittel für Drohnenabwehr, Bahn und Netzbetreiber Geld für den Schutz ihrer Anlagen. Die Union lobt die Entschlossenheit, die Parteilinke fürchtet eine Militarisierung des Alltags.
+
+@aufklaerung
+view-if: spd_in_government
+subtitle: -1 Ressourcen.
+choose-if: resources >= 1
+unavailable-subtitle: Dafür fehlen uns die Ressourcen.
+on-arrival: resources -= 1; gr_demo += 6; pro_republic += 0.5; new_middle_spd += 1*(1-dissent)
+
+Gemeinsam mit Faktencheck-Redaktionen, Volkshochschulen und Vereinen erklären wir, woran man gefälschte Inhalte erkennt. Die Demokratiebewegung ist dabei.
+
+@opp_aufklaerung
+view-if: not spd_in_government
+subtitle: -1 Ressourcen.
+choose-if: resources >= 1
+unavailable-subtitle: Dafür fehlen uns die Ressourcen.
+on-arrival: resources -= 1; gr_demo += 5; pro_republic += 0.5; new_middle_spd += 1*(1-dissent)
+
+Gemeinsam mit Faktencheck-Redaktionen, Volkshochschulen und Vereinen erklären wir, woran man gefälschte Inhalte erkennt. Die Demokratiebewegung ist dabei.
+
+@opp_druck
+view-if: not spd_in_government
+on-arrival: pro_republic += 0.3; reformist_dissent -= 1; rentner_spd += 0.3*(1-dissent)
+
+Wir fordern einen Sicherheitsgipfel vor der Wahl. Die Regierung lädt ein, und für ein paar Tage reden alle demokratischen Parteien miteinander statt übereinander.

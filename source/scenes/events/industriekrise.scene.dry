@@ -21,7 +21,7 @@ Einer der größten deutschen Autozulieferer kündigt an, mehrere Werke in Deuts
 subtitle: -2 Haushaltsspielraum
 choose-if: budget >= 2
 unavailable-subtitle: Dafür fehlt uns der Haushaltsspielraum.
-on-arrival: budget -= 2; impuls_alq -= 0.3; workers_spd += 5*(1-dissent); workers_afd -= 2; labor_dissent -= 5; left_dissent -= 3; fdp_relation -= 4; union_relation -= 2; socializations += 1; capital_strike_progress += 1
+on-arrival: konditionalitaet += 1; kond_time = time if kond_time = 0; budget -= 2; impuls_alq -= 0.3; workers_spd += 5*(1-dissent); workers_afd -= 2; labor_dissent -= 5; left_dissent -= 3; fdp_relation -= 4; union_relation -= 2; socializations += 1; capital_strike_progress += 1
 
 Über einen Transformationsfonds steigt der Bund bei den bedrohten Werken ein, gekoppelt an Standortgarantien und eine Umstellung auf Batterie- und Wärmepumpentechnik. Die Beschäftigten feiern, Ordnungspolitiker der Union sprechen von „Staatswirtschaft“.
 
@@ -52,7 +52,7 @@ on-arrival: workers_spd += 1.5*(1-dissent); labor_dissent -= 4; gr_dgb += 4
 Unsere Abgeordneten stehen mit den Beschäftigten vor den Toren. In den Betrieben wird registriert, wer kommt und wer nicht.
 
 @opp_gesetz
-on-arrival: workers_spd += 1*(1-dissent); new_middle_spd += 0.5*(1-dissent); reformist_dissent -= 1; labor_dissent -= 2
+on-arrival: konditionalitaet += 1; workers_spd += 1*(1-dissent); new_middle_spd += 0.5*(1-dissent); reformist_dissent -= 1; labor_dissent -= 2
 
 Unser Entwurf bindet Subventionen an Zusagen für Standorte und Arbeitsplätze. Die Regierung lehnt ab, Gewerkschaften und Fachpresse loben den Ansatz.
 
