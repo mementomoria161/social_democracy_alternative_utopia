@@ -1,0 +1,52 @@
+title: Gemeinsame Schulden für Europa?
+subtitle: Die Kommission will gemeinsam investieren und dafür Anleihen ausgeben.
+new-page: true
+tags: event
+view-if: year = 2028 and month >= 9 and eu_kredite_seen = 0 and chancellor_party != "AfD"
+max-visits: 1
+on-arrival: eu_kredite_seen = 1
+
+# G6 (Weltlage im Ortsverein, Nov. 2026). Real: EU-Instrument SAFE mit bis zu 150 Mrd. Euro Krediten für Verteidigung (Rat, Mai
+# 2025); Vorschlag der Kommission für den Finanzrahmen 2028–2034 (Juli 2025) mit einem Wettbewerbsfähigkeitsfonds. Ein neuer
+# Fonds aus gemeinsamen Anleihen ist Fiktion. eu_kredite: 1 Zustimmung, 2 nur für Verteidigung und Netze, 3 Ablehnung; wirkt auf
+# die Europawahl 2029 (eu_progress, Text).
+
+= Gemeinsame Schulden für Europa?
+
+Die EU-Kommission schlägt einen Fonds für Verteidigung, Stromnetze und Industrie vor, finanziert über gemeinsame Anleihen, wie einst der Wiederaufbaufonds nach der Corona-Krise. Für Deutschland hieße das: weniger Druck auf den eigenen Haushalt, aber gemeinsame Haftung. Frankreich, Italien und Polen drängen, die Niederlande und Österreich zögern, und die AfD plakatiert schon: „Keine Schuldenunion“. [? if union_in_government : Die Union ist gespalten. ?]
+
+- @ja: Zustimmen: Europa investiert gemeinsam in Sicherheit, Netze und Industrie.
+- @bedingt: Nur für Verteidigung und Stromnetze, mit klaren Regeln für die Rückzahlung.
+- @nein: Ablehnen: Jedes Land finanziert seine Investitionen selbst.
+- @opp_invest: Für gemeinsame Investitionen in Netze und Industrie werben.
+- @opp_frieden: Ja zu Investitionen, Nein zu Krediten für Rüstung.
+
+@ja
+view-if: spd_in_government
+on-arrival: eu_kredite = 1; budget += 1; eu_progress += 1; new_middle_spd += 1*(1-dissent); reformist_dissent -= 1; union_relation -= 3; coalition_dissent += 1 if union_in_government; old_middle_afd += 0.5; rural_afd += 0.5
+
+Deutschland stimmt zu. Ein Teil der Investitionen läuft künftig über den europäischen Fonds, was den Bundeshaushalt entlastet. Die proeuropäische Mitte ist begeistert, die AfD hat ihr Thema für die Europawahl.
+
+@bedingt
+view-if: spd_in_government
+on-arrival: eu_kredite = 2; eu_progress += 1; union_relation += 1; new_middle_spd += 0.3*(1-dissent); left_dissent += 1
+
+Wir stimmen nur einem kleineren Fonds für Verteidigung und Stromnetze zu. Paris und Rom hätten mehr gewollt, die Union kann mit dem Kompromiss leben.
+
+@nein
+view-if: spd_in_government
+on-arrival: eu_kredite = 3; union_relation += 2; gruene_relation -= 3; new_middle_spd -= 0.5; reformist_dissent += 1; left_dissent += 1
+
+Deutschland lehnt ab, der Fonds scheitert vorerst. In Brüssel ist die Enttäuschung groß, die Union lobt die Haushaltsdisziplin.
+
+@opp_invest
+view-if: not spd_in_government
+on-arrival: new_middle_spd += 0.5*(1-dissent); gruene_relation += 1; eu_progress += 1 if eu_progress < 1
+
+Wir werben für einen europäischen Investitionsfonds. In den Städten kommt das an, die AfD spricht von „Schuldenunion“.
+
+@opp_frieden
+view-if: not spd_in_government
+on-arrival: pacifism += 1; left_dissent -= 2; reformist_dissent += 1; workers_spd += 0.3*(1-dissent)
+
+Wir sagen Ja zu gemeinsamen Investitionen in Netze und Industrie, aber Nein zu Krediten für Rüstung. Die Friedensbewegung ist zufrieden, die Reformer\*innen nennen das unrealistisch.

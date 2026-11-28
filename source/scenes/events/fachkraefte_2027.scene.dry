@@ -1,0 +1,52 @@
+title: Wer soll die Arbeit machen?
+subtitle: Pflege, Handwerk und Industrie fehlen Fachkräfte.
+new-page: true
+tags: event
+view-if: year = 2027 and month >= 4 and fachkraefte_seen = 0 and chancellor_party != "AfD"
+max-visits: 1
+on-arrival: fachkraefte_seen = 1
+
+# S5 (Weltlage im Ortsverein, Nov. 2026). Real: Fachkräfteeinwanderungsgesetz (2023, Stufen 2023–2024), Westbalkanregelung seit
+# Juni 2024 mit 50.000 Zustimmungen im Jahr; die Engpassanalyse der Bundesagentur für Arbeit zählt Pflege, Handwerk und
+# Kraftfahrer\*innen seit Jahren zu den Engpassberufen. Debatte und Entscheidungen 2027 Fiktion. Wirkt auf die Bedeutung des
+# Themas Migration (mig_dev, post_event) und damit auf die AfD.
+
+= Wer soll die Arbeit machen?
+
+Pflegeheime schließen Stationen, Handwerksbetriebe lehnen Aufträge ab, und in der Industrie gehen jedes Jahr mehr Beschäftigte in Rente, als Junge nachkommen. Arbeitgeber und Gewerkschaften fordern gemeinsam, Abschlüsse aus dem Ausland schneller anzuerkennen. Gleichzeitig dreht sich die öffentliche Debatte vor allem um Begrenzung. [? if player = "spd" : In der Partei wollen die einen das Thema versachlichen, die Anhänger\*innen des Dänischen Kurses fürchten, dass jede Einwanderungsdebatte der AfD nützt. ?][? if player = "linke" : In der Partei ist man sich einig, dass Einwanderung kein Problem ist, aber nicht, wie laut man es sagen soll. ?]
+
+- @anerkennung: Ein Fachkräftepaket: Anerkennung in drei Monaten, Arbeitsagentur im Ausland, Partnerschaften mit Herkunftsländern.
+- @westbalkan: Die Westbalkanregelung ausweiten, mit Tarifbindung als Bedingung.
+- @begrenzen: Erst Begrenzung, dann Fachkräfte: den Dänischen Kurs fahren.
+- @opp_anerkennung: Schnellere Anerkennung fordern und die Debatte versachlichen.
+- @opp_arbeit: Erst die Arbeitsbedingungen in Pflege und Handwerk verbessern.
+
+@anerkennung
+view-if: spd_in_government
+on-arrival: fachkraefte_choice = 1; gr_bda += 4; gr_dgb += 1; mig_dev -= 2; old_middle_spd += 0.5*(1-dissent); neorevisionist_dissent += 2; union_relation += 1; impuls_bip += 0.1
+
+Wer im Ausland Pflegekraft oder Elektriker\*in geworden ist, bekommt künftig binnen drei Monaten eine Entscheidung. Arbeitgeber und Gewerkschaften loben das Paket, und für ein paar Wochen redet das Land über Arbeit statt über Abschiebungen.
+
+@westbalkan
+view-if: spd_in_government
+on-arrival: fachkraefte_choice = 2; gr_bda += 3; gr_dgb += 1; mig_dev -= 1; labor_dissent -= 1; impuls_bip += 0.1
+
+Die Westbalkanregelung wird ausgeweitet, aber nur für Betriebe mit Tarifvertrag. Die Bauwirtschaft ist zufrieden, die Gewerkschaften auch.
+
+@begrenzen
+view-if: spd_in_government and player = "spd"
+on-arrival: fachkraefte_choice = 3; mig_dev += 1; neorevisionist_dissent -= 4; left_dissent += 4; gr_bda -= 3; union_relation += 2; rural_spd += 0.5*(1-dissent)
+
+Wir stellen die Begrenzung in den Vordergrund und verschieben das Fachkräftepaket. Die Arbeitgeber sind enttäuscht, und das Thema Migration bleibt ganz oben auf der Tagesordnung.
+
+@opp_anerkennung
+view-if: not spd_in_government
+on-arrival: mig_dev -= 1; gr_bda += 1; new_middle_spd += 0.5*(1-dissent); neorevisionist_dissent += 1
+
+Wir legen einen eigenen Plan für schnellere Anerkennung vor. In der Fachpresse wird er gelobt, in den Talkshows geht es weiter um Abschiebungen.
+
+@opp_arbeit
+view-if: not spd_in_government
+on-arrival: gr_dgb += 3; workers_spd += 0.5*(1-dissent); labor_dissent -= 2
+
+Wir sagen: Wer Pflegekräfte will, muss sie anständig bezahlen. Ver.di stellt sich dahinter, die Arbeitgeber sprechen von Realitätsverweigerung.

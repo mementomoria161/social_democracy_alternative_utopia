@@ -4,7 +4,7 @@ new-page: true
 tags: event
 view-if: year >= 2026 and month = 5 and cl_gap2030 > 15 and expertenrat_last_year != year and chancellor_party != "AfD"
 max-visits: 3
-on-arrival: klima_expertenrat_seen += 1; expertenrat_last_year = year; gm_klima += 1
+on-arrival: klima_expertenrat_seen += 1; expertenrat_last_year = year; gm_klima += 1; budget -= 1 if year >= 2029 and cl_gap2030 > 30
 face-image: img/windpark.jpg
 
 # Durchgang 4.6 (Klima). Real: Der Expertenrat für Klimafragen prüft jedes Frühjahr die Projektionsdaten des Umweltbundesamts;
@@ -13,10 +13,15 @@ face-image: img/windpark.jpg
 # Minderung, Puffer 4,5 Mt) unterschätzen die Emissionen; mittlerer Pfad überschreitet das Budget 2021–2030 um 60–100 Mt.
 # Zahlen danach aus dem Klimamodell (cl_p2030, cl_gap2030), als eigene Rechnung gekennzeichnet; das Modell liegt ohne neue
 # Maßnahmen rund 40–50 Mt über der UBA-Projektion (468 Mt), weil es Verkehr und Gebäude träger ansetzt.
+# K6 (Weltlage im Ortsverein, Nov. 2026): EU-Lastenteilungsverordnung, Deutschland −50 % bis 2030 gegenüber 2005 für Gebäude,
+# Verkehr, Landwirtschaft und Kleinindustrie; wer verfehlt, kauft Emissionszuweisungen anderer Staaten (Kostenschätzungen in
+# Milliardenhöhe, Stand prüfen). Spielannahme: ab 2029 bei einer Lücke über 30 Mt je Bericht -1 Haushaltsspielraum.
 
 = Expertenrat meldet Zielverfehlung
 
 [? if year = 2026 : Der Expertenrat für Klimafragen legt seinen Prüfbericht vor und widerspricht der Bundesregierung: Die Projektionen sähen das Klimaziel nur hauchdünn erreicht, tatsächlich werde das Emissionsbudget bis 2030 voraussichtlich um 60 bis 100 Millionen Tonnen überschritten. Auch das Klimaschutzprogramm reiche nicht. ?][? if year > 2026 : Der Expertenrat für Klimafragen legt seinen nächsten Prüfbericht vor. ?]Nach unserer eigenen Rechnung lägen die Emissionen 2030 bei rund [+ cl_p2030 +] Millionen Tonnen statt der erlaubten 438, eine Lücke von etwa [+ cl_gap2030 +] Millionen Tonnen. [? if cl_budget_year > 0 : Das Paris-kompatible CO2-Budget wäre um [+ cl_budget_year +] aufgebraucht. ?] Besonders schlecht sieht es bei Verkehr und Gebäuden aus.
+
+[? if year >= 2027 and year < 2029 : Der Bericht warnt auch vor den Kosten: Verfehlt Deutschland das EU-Ziel für Gebäude und Verkehr, muss es Emissionsrechte anderer Staaten zukaufen, nach Schätzungen für Milliarden. ?][? if year >= 2029 and cl_gap2030 > 30 : Das Finanzministerium muss Geld für den Zukauf von Emissionsrechten anderer EU-Staaten einplanen, weil Deutschland das Ziel für Gebäude und Verkehr verfehlt. Es fehlt an anderer Stelle im Haushalt. ?]
 
 [? if klima_expertenrat_seen > 1 : Es ist nicht die erste Warnung: Nach dem Klimaschutzgesetz muss die Bundesregierung jetzt ein Klimaschutzprogramm nachlegen. ?][? if klima_expertenrat_seen = 1 : Umweltverbände kündigen an, die Regierung notfalls vor Gericht zu zwingen. ?]
 

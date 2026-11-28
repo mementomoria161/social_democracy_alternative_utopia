@@ -264,6 +264,9 @@ var CLIM = {
             if (Q.kp_klimageld) f *= w[2];                       // Klimageld pro Kopf: entlastet kleine Einkommen am stärksten
             if ((Q.kp_bahn || 0) >= 1) f *= w[3];                // Deutschlandticket
             if ((Q.kp_waerme || 0) >= 1) f *= w[4];              // Wärmewende sozial gestaffelt
+            // K3: Preisaufsicht für Fernwärme entlastet Mieter*innen in der Stadt, das Bundesprogramm für Wärmenetze alle ein wenig
+            if (Q.waermeplan == 1 && ['workers', 'rentner', 'new_middle'].indexOf(w[0]) >= 0) f *= 0.95;
+            if (Q.waermeplan == 3 && w[0] != 'unemployed') f *= 0.97;
             L[w[0]] = r1(over * f);
         });
         Q.energie_last = L;

@@ -4,7 +4,7 @@ new-page: true
 tags: event
 view-if: year = 2027 and month = 4 and saarland_2027_seen = 0
 max-visits: 1
-on-arrival: saarland_2027_seen = 1; saar_lost = 1 if (player = "spd" and spd_votes < 13) or (player = "linke" and linke_votes < 13); left_dissent += 2 if saar_lost and player = "spd"; center_dissent += 3 if saar_lost and player = "spd"
+on-arrival: saarland_2027_seen = 1; saar_lost = 1 if (player = "spd" and spd_votes < 13 - st_saar) or (player = "linke" and linke_votes < 13 - st_saar); left_dissent += 2 if saar_lost and player = "spd"; center_dissent += 3 if saar_lost and player = "spd"
 go-to: linke if player = "linke"
 face-image: img/wahlkampf.jpg
 
@@ -14,7 +14,7 @@ face-image: img/wahlkampf.jpg
 = Landtagswahl im Saarland
 
 # party-ok: SPD (reale Landesregierung)
-Im Saarland regiert die SPD seit 2022 mit absoluter Mehrheit, Anke Rehlinger ist eine der beliebtesten Ministerpräsidentinnen. Doch der Bundestrend ist schlecht, und an der Saar haben Stahl und Autozulieferer Tausende Arbeitsplätze abgebaut.
+Im Saarland regiert die SPD seit 2022 mit absoluter Mehrheit, Anke Rehlinger ist eine der beliebtesten Ministerpräsidentinnen. Doch der Bundestrend ist schlecht, und an der Saar haben Stahl und Autozulieferer Tausende Arbeitsplätze abgebaut. [? if st_saar <= -0.5 : Die Krise der Hütten und Zulieferer bestimmt den Wahlkampf. ?][? if st_saar >= 0.5 : Dass die Hütten mit grünem Stahl eine Zukunft haben, rechnen viele der Landesregierung an. ?]
 
 [? if not saar_lost : Rehlinger verliert die absolute Mehrheit, bleibt aber mit großem Abstand vorn und regiert künftig mit einem Partner. ?][? if saar_lost : Die CDU wird knapp stärkste Kraft, die AfD legt kräftig zu. Rehlinger verliert die Staatskanzlei. ?]
 

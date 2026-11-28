@@ -100,6 +100,8 @@ Erneuerbare am Strom: [+ cl_ee_i +] %
 
 Klimakurs: [+ cl_status_text +]
 
+[? if cl_gap2030 > 30 and year >= 2027 : Verfehlt Deutschland das EU-Ziel für Gebäude und Verkehr, drohen ab 2029 Zahlungen an andere EU-Staaten. ?]
+
 @economy
 
 = Wirtschaft

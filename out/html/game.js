@@ -508,6 +508,18 @@
       }).join('') + '</div>';
   };
 
+  // S2: Standortregionen (Q.standort aus post_event: [Lage -2..+2, Gründe]); Balken wie bei den Wirtschaftsbereichen
+  var REGION_NAMES = ['Ruhrgebiet', 'Saarland', 'Niedersachsen', 'Südwesten', 'Mitteldeutschland und Lausitz'];
+  var econRegions = function(Q) {
+      if (!Q.standort || !Q.standort.length) return '';
+      var word = function(v) { return v <= -1 ? 'Krise' : v < -0.3 ? 'angespannt' : v < 0.3 ? 'stabil' : v < 1 ? 'aufwärts' : 'Aufschwung'; };
+      return '<div class="viz_card"><div class="viz_card_title">Standortregionen</div>' + Q.standort.map(function(r, i) {
+          var v = r[0], w = 100 * Math.min(2, Math.abs(v)) / 2 / 2;
+          return '<div class="viz_row" title="' + (r[1] || 'keine besonderen Einflüsse') + '"><span class="viz_row_name">' + REGION_NAMES[i] + '</span><span class="viz_row_val">' + word(v) +
+              '</span><span class="viz_track diverging"><span class="' + (v < 0 ? 'neg' : 'pos') + '" style="width:' + w + '%"></span></span></div>';
+      }).join('') + '<p class="poll_note">Lage der Industrieregionen (Spielmodell). Sie wirkt auf die Landtagswahlen im Saarland, in Niedersachsen und im Osten.' +
+          (Q.standort.some(function(r) { return r[1]; }) ? ' Gründe: ' + Q.standort.map(function(r, i) { return r[1] ? REGION_NAMES[i] + ': ' + r[1] : ''; }).filter(Boolean).join('; ') + '.' : '') + '</p></div>';
+  };
   window.drawEconomy = function() {
       var box = document.getElementById('econ_view');
       var Q = dendryUI.dendryEngine.state.qualities;
@@ -558,7 +570,7 @@
               var cls = diverging ? (v < 0 ? 'neg' : 'pos') : 'one';
               return '<div class="viz_row"><span class="viz_row_name">' + r.s.name + '</span><span class="viz_row_val">' + fmt(r[key]) + '</span>' +
                   '<span class="viz_track' + (diverging ? ' diverging' : '') + '"><span class="' + cls + '" style="width:' + w + '%"></span></span></div>';
-          }).join('') + '</div>';
+          }).join('') + '</div>' + econRegions(Q);
       box.innerHTML = html;
 
       // Liniendiagramm
@@ -625,6 +637,8 @@
       if (Q.kp_klimageld) rel.push('Klimageld');
       if ((Q.kp_bahn || 0) >= 1) rel.push('Deutschlandticket');
       if ((Q.kp_waerme || 0) >= 1) rel.push('sozial gestaffelte Wärmewende');
+      if (Q.waermeplan == 1) rel.push('Preisaufsicht für Fernwärme');
+      if (Q.waermeplan == 3) rel.push('Bundesprogramm für Wärmenetze');
       return '<h3 class="poll_heading">Wer trägt die Energiekosten?</h3>' + keys.map(function(k) {
           var v = L[k] || 0;
           return '<div class="poll_row"><span class="poll_name">' + POLL_GROUPS[k] + '</span><span class="poll_bar"><span style="width:' +

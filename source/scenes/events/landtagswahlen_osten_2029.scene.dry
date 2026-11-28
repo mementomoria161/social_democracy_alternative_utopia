@@ -8,7 +8,8 @@ on-arrival: {!
 Q.ltw_osten_2029_seen = 1;
 // K5 (Weltlage im Ortsverein, Nov. 2026): Strukturhilfen für die Lausitz (events/klima_kohle_ost) wirken auf Brandenburg.
 // Strukturpaket oder Lausitz-Pakt: die SPD hält die Staatskanzlei auch bei etwas stärkerer AfD; keine Hilfen: schon bei 27 Prozent verloren.
-var kc = Q.klima_kohle_ost_choice || 0, afd_cut = kc == 1 || kc == 3 ? 32 : kc == 2 ? 27 : 30, own_cut = kc == 1 || kc == 3 ? 13 : 15;
+// S2: dazu die Lage der Region Mitteldeutschland und Lausitz (st_ost, -2 bis +2).
+var kc = Q.klima_kohle_ost_choice || 0, afd_cut = (kc == 1 || kc == 3 ? 32 : kc == 2 ? 27 : 30) + (Q.st_ost || 0), own_cut = kc == 1 || kc == 3 ? 13 : 15;
 if (kc == 2) { Q.rural_afd += 1; Q.workers_afd += 0.5; }
 Q.brandenburg_lost = (Q.afd_r >= afd_cut || (Q.player == 'spd' && Q.spd_r < own_cut) || (Q.player == 'linke' && Q.linke_r < own_cut)) ? 1 : 0;
 if (Q.brandenburg_lost) Q.nazi_urgency = (Q.nazi_urgency || 0) + 1;

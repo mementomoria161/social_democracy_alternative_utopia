@@ -1,0 +1,54 @@
+title: Schneller bauen, aber wie?
+subtitle: Das Geld ist da, die Genehmigungen nicht.
+new-page: true
+tags: event
+view-if: year = 2027 and month >= 6 and planung_seen = 0 and sondervermoegen >= 1 and chancellor_party != "AfD"
+max-visits: 1
+on-arrival: planung_seen = 1
+
+# S6 (Weltlage im Ortsverein, Nov. 2026). Real: Grundgesetzänderung vom März 2025 mit einem Sondervermögen Infrastruktur von
+# 500 Mrd. Euro über zwölf Jahre; der schleppende Mittelabfluss ist seit 2025 ein Dauerthema (Stand prüfen). Entscheidung Fiktion.
+# Wirkt über invest_bonus auf den Wachstumstrend (post_event).
+
+= Schneller bauen, aber wie?
+
+Das Sondervermögen Infrastruktur ist beschlossen, doch das Geld fließt nur langsam ab. Brücken, Schienen und Stromleitungen warten auf Genehmigungen, Planungsbehörden suchen Personal, und gegen große Vorhaben wird oft jahrelang geklagt. Bauindustrie und Kommunen fordern, die Verfahren radikal zu verkürzen. Umweltverbände warnen, dann würden Natur- und Anwohnerrechte geopfert.
+
+- @schnell: Verfahren verkürzen und die Klagerechte der Verbände einschränken.
+- @personal: Mehr Personal für Planungsbehörden und Gerichte, Beteiligung früher statt später.
+- @vorrang: Vorrang nur für Schiene, Netze und Brücken, mit Stichtagen für Einwände.
+- @opp_tempo: Mehr Tempo fordern: Das Geld muss endlich ankommen.
+- @opp_umwelt: Gegen den Abbau von Beteiligungsrechten protestieren.
+
+@schnell
+view-if: spd_in_government
+on-arrival: invest_bonus += 1; shock_bau += 0.5; gr_klima -= 6; gruene_relation -= 3; gr_bda += 3; gr_dgb += 1; left_dissent += 2; reformist_dissent -= 2
+
+Planfeststellungen werden verkürzt, Umweltverbände können nur noch in engen Grenzen klagen. Die Bauwirtschaft spricht von einem Durchbruch, die Grünen von einem Angriff auf den Rechtsstaat.
+
+@personal
+view-if: spd_in_government
+subtitle: -1 Haushaltsspielraum.
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: budget -= 1; invest_bonus += 0.5; shock_bau += 0.3; gr_dgb += 2; gr_klima += 1
+
+Bund und Länder stellen Tausende Planer\*innen und Verwaltungsrichter\*innen ein, Bürger\*innen werden früher beteiligt. Es geht langsamer als erhofft, aber mit weniger Streit.
+
+@vorrang
+view-if: spd_in_government
+on-arrival: invest_bonus += 0.8; shock_bau += 0.4; gr_klima -= 2; gr_bda += 1; gruene_relation -= 1
+
+Für Schiene, Stromnetze und marode Brücken gilt künftig ein überragendes öffentliches Interesse, Einwände müssen bis zu einem Stichtag vorliegen. Ein Kompromiss, mit dem die meisten leben können.
+
+@opp_tempo
+view-if: not spd_in_government
+on-arrival: old_middle_spd += 0.5*(1-dissent); new_middle_spd += 0.3*(1-dissent); reformist_dissent -= 1
+
+Wir rechnen vor, wie viel vom Sondervermögen noch auf dem Konto liegt. Handwerk und Kommunen stimmen zu.
+
+@opp_umwelt
+view-if: not spd_in_government
+on-arrival: gr_klima += 3; left_dissent -= 1; new_middle_spd += 0.3*(1-dissent)
+
+Mit den Umweltverbänden verteidigen wir das Recht, gegen große Projekte zu klagen. Die Bauwirtschaft wirft uns Blockade vor.

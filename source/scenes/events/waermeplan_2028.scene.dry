@@ -1,0 +1,57 @@
+title: Der Wärmeplan in deiner Stadt
+subtitle: Bis Ende Juni legen auch die kleineren Kommunen ihre Wärmepläne vor.
+new-page: true
+tags: event
+view-if: year = 2028 and month >= 5 and waermeplan_seen = 0 and chancellor_party != "AfD"
+max-visits: 1
+on-arrival: waermeplan_seen = 1; gm_vdk += 1
+
+# K3 (Weltlage im Ortsverein, Nov. 2026). Real: Wärmeplanungsgesetz (in Kraft seit 1.1.2024): Kommunen über 100.000 Einwohner
+# legen ihre Wärmepläne bis 30.06.2026 vor, alle übrigen bis 30.06.2028. Debatten und Entscheidungen Fiktion. waermeplan:
+# 1 Preisaufsicht Fernwärme, 2 Gasnetze länger, 3 Bundesprogramm Quartiere; wirkt in climate_data auf energie_last (K1).
+
+= Der Wärmeplan in deiner Stadt
+
+In Tausenden Städten und Gemeinden liegen jetzt Wärmepläne aus: Wo kommt Fernwärme hin, wo sollen Wärmepumpen heizen, wann wird das Gasnetz stillgelegt? In den Bürgerversammlungen geht es hoch her. Mieter\*innen fürchten steigende Fernwärmepreise, Hausbesitzer\*innen fragen, ob ihre neue Gasheizung in zehn Jahren noch Gas bekommt, und die Stadtwerke rechnen vor, dass sie die Netze allein nicht bezahlen können. [? if player = "spd" : Unsere Oberbürgermeister\*innen und Ortsvereine stehen dabei in der ersten Reihe. ?][? if player = "linke" : Für unsere Mietenkampagne ist das eine Steilvorlage. ?]
+
+- @preisaufsicht: Fernwärme unter Preisaufsicht stellen und Mieter\*innen vor Kostensprüngen schützen.
+- @gasnetz: Den Kommunen Zeit lassen und Gasnetze länger erhalten.
+- @quartiere: Ein Bundesprogramm für kommunale Wärmenetze und Wärmepumpen-Quartiere.
+- @opp_mieter: Mit Mieterverein und Sozialverbänden für bezahlbare Fernwärme kämpfen.
+- @opp_vorort: Unsere Kommunalpolitiker\*innen in die Wärmeplanung schicken und vor Ort mitreden.
+
+@preisaufsicht
+view-if: spd_in_government
+on-arrival: waermeplan = 1; gr_vdk += 5; gr_bda -= 2; workers_spd += 0.5*(1-dissent); rentner_spd += 0.5*(1-dissent); union_relation -= 2 if union_in_government; coalition_dissent += 1 if union_in_government
+
+Fernwärmepreise müssen künftig offengelegt und von einer Preisaufsicht genehmigt werden. Der Mieterbund jubelt, die Versorger warnen, dann werde weniger investiert.
+
+@gasnetz
+view-if: spd_in_government
+on-arrival: waermeplan = 2; gr_klima -= 5; old_middle_spd += 0.5*(1-dissent); rural_spd += 0.5*(1-dissent); union_relation += 2; left_dissent += 2
+
+Die Gasnetze dürfen länger betrieben werden, die Fristen werden gestreckt. Hausbesitzer\*innen und Handwerk sind erleichtert, die Klimabewegung spricht von einer verlorenen Dekade.
+
+@quartiere
+view-if: spd_in_government
+subtitle: -1 Haushaltsspielraum.
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: waermeplan = 3; budget -= 1; gr_klima += 4; gr_vdk += 2; shock_bau += 0.3; new_middle_spd += 0.5*(1-dissent); workers_spd += 0.3*(1-dissent)
+
+Der Bund übernimmt einen Teil der Kosten für neue Wärmenetze und ganze Straßenzüge, die gemeinsam auf Wärmepumpen umsteigen. In vielen Städten beginnen die Bauarbeiten noch im Herbst.
+
+@opp_mieter
+view-if: not spd_in_government
+subtitle: -1 Ressourcen.
+choose-if: resources >= 1
+unavailable-subtitle: Dafür fehlen uns die Ressourcen.
+on-arrival: resources -= 1; gr_vdk += 5; workers_spd += 0.5*(1-dissent); rentner_spd += 0.5*(1-dissent); left_dissent -= 2
+
+Mit Mieterverein und Sozialverbänden sammeln wir Unterschriften für eine Preisaufsicht über die Fernwärme. In vielen Städten sind wir plötzlich die Partei, die bei dem Thema Antworten hat.
+
+@opp_vorort
+view-if: not spd_in_government
+on-arrival: gr_vdk += 2; new_middle_spd += 0.3*(1-dissent); rentner_spd += 0.3*(1-dissent)
+
+Unsere Leute in den Stadträten erklären die Pläne, sammeln Fragen und setzen Härtefallregeln durch. Es ist mühsame Arbeit, aber sie wird gesehen.

@@ -7,6 +7,8 @@ max-visits: 3
 on-arrival: {!
 Q.klima_extremwetter_seen += 1; Q.extremwetter_last_year = Q.year;
 Q.klima_strength += 40; Q.gm_klima += 2;
+// K7 (Weltlage im Ortsverein, Nov. 2026): Vorsorge zahlt sich aus. Ohne Pflichtversicherung kostet jedes weitere Extremwetter Vertrauen.
+if (Q.klima_extremwetter_seen > 1 && !Q.extremwetter_vorsorge) Q.pro_republic -= 0.5;
 if (Q.duerre_year == Q.year) { Q.shock_agrar -= 3; Q.shock_industrie -= 0.3; }
 else { Q.shock_bau += 0.5; Q.shock_handel -= 0.3; }
 !}
@@ -19,13 +21,20 @@ face-image: img/hochwasser.jpg
 
 [? if duerre_year = year : Seit Wochen kein Regen, Temperaturen über 35 Grad: In Brandenburg, Sachsen und im Harz brennen die Wälder, Landwirt\*innen melden Ernteausfälle, und am Rhein ist der Pegel so niedrig, dass Frachtschiffe nur noch halb beladen fahren können. Krankenhäuser und Pflegeheime kämpfen mit der Hitze. ?][? if duerre_year != year : Nach tagelangem Starkregen treten Elbe, Donau und ihre Nebenflüsse über die Ufer. Ganze Ortschaften stehen unter Wasser, Tausende Menschen müssen ihre Häuser verlassen. Viele denken an die Flut im Ahrtal im Juli 2021, bei der in Deutschland mehr als 180 Menschen starben. Diesmal halten die meisten Deiche, doch die Schäden gehen in die Milliarden. ?]
 
-Die Klimaforschung ist eindeutig: Solche Extreme werden mit der Erderhitzung häufiger und heftiger. [? if spd_in_government : Von der Regierung wird jetzt schnelle Hilfe erwartet und die Frage gestellt, wie sich das Land besser schützt. ?][? if not spd_in_government : Die Regierung verspricht schnelle Hilfe. Was sagen wir? ?]
+Die Klimaforschung ist eindeutig: Solche Extreme werden mit der Erderhitzung häufiger und heftiger. [? if klima_extremwetter_seen > 1 and extremwetter_vorsorge = 0 : Wieder fehlt vielen Betroffenen eine Versicherung, und wieder richten sich alle Blicke auf den Staat. ?][? if extremwetter_vorsorge = 1 : Diesmal sind die meisten Häuser gegen Elementarschäden versichert. ?] [? if spd_in_government : Von der Regierung wird jetzt schnelle Hilfe erwartet und die Frage gestellt, wie sich das Land besser schützt. ?][? if not spd_in_government : Die Regierung verspricht schnelle Hilfe. Was sagen wir? ?]
 
+- @versicherung: Die Versicherungen regulieren lassen und nur ergänzend helfen.
 - @hilfe: Schnelle Soforthilfen für Betroffene.
 - @anpassung: Ein Klimaanpassungsprogramm: Pflichtversicherung gegen Elementarschäden, Hitzeschutz, Entsiegelung.
 - @laender: Die Hilfen über die Länder laufen lassen.
 - @opp_vorort: Vor Ort mit anpacken und zuhören.
 - @opp_klima: Klar sagen: Klimaschutz ist auch Katastrophenschutz.
+
+@versicherung
+view-if: spd_in_government and extremwetter_vorsorge = 1
+on-arrival: pro_republic += 1; rural_spd += 1*(1-dissent); rentner_spd += 0.5*(1-dissent)
+
+Die Pflichtversicherung greift: Die Versicherer regulieren die Schäden, der Bund hilft nur dort, wo Gemeinden und Infrastruktur betroffen sind. Diesmal muss niemand monatelang auf Hilfe warten.
 
 @hilfe
 view-if: spd_in_government
@@ -41,7 +50,7 @@ view-if: spd_in_government
 subtitle: -1 Haushaltsspielraum.
 choose-if: budget >= 1
 unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
-on-arrival: budget -= 1; gr_klima += 5; gr_bda -= 1.5; new_middle_spd += 1*(1-dissent); rural_spd += 1*(1-dissent); pro_republic += 1; coalition_dissent += 1 if fdp_in_government
+on-arrival: extremwetter_vorsorge = 1; budget -= 1; gr_klima += 5; gr_bda -= 1.5; new_middle_spd += 1*(1-dissent); rural_spd += 1*(1-dissent); pro_republic += 1; coalition_dissent += 1 if fdp_in_government
 
 Neben Soforthilfen beschließen wir eine Pflichtversicherung gegen Elementarschäden, Hitzeschutzpläne für Städte, Kliniken und Pflegeheime und mehr Geld für Deiche, Auen und Entsiegelung. Eigentümerverbände klagen über die Versicherungskosten.
 

@@ -800,6 +800,11 @@ Q.energie_last = 0; Q.konditionalitaet = 0; Q.kond_time = 0; Q.verlagerung_seen 
 Q.wehrdienst_choice = 0; Q.musterung_seen = 0; Q.bedarfswp_seen = 0; Q.bedarfswp = 0; Q.verteidigung_pfad = 0;
 Q.co2_abrechnung_seen = 0; Q.co2_weg = 0; Q.ukraine_ceasefire_time = 0; Q.ukraine_nachkrieg_seen = 0; Q.us_antwort = 0;
 Q.hybrid_seen = 0; Q.br_wahl_2030_seen = 0; Q.br_wahl_score = 0; Q.br_wahl_result = 0;
+// Paket 3: waermeplan (K3), extremwetter_vorsorge (K7), revier_choice (K5), standort/st_* (S2, post_event), fachkraefte_choice (S5),
+// china_choice (S7), eu_kredite (G6).
+Q.waermeplan_seen = 0; Q.waermeplan = 0; Q.extremwetter_vorsorge = 0; Q.revier_seen = 0; Q.revier_choice = 0;
+Q.standort = 0; Q.st_ruhr = 0; Q.st_saar = 0; Q.st_nds = 0; Q.st_sw = 0; Q.st_ost = 0; Q.fachkraefte_seen = 0; Q.fachkraefte_choice = 0;
+Q.planung_seen = 0; Q.china_seen = 0; Q.china_choice = 0; Q.eu_kredite_seen = 0; Q.eu_kredite = 0;
 !}
 set-bg: img/map_2.jpg
 new-page: true

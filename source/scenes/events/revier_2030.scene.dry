@@ -1,0 +1,55 @@
+title: Schicht im Rheinischen Revier
+subtitle: Die letzten Braunkohleblöcke gehen vom Netz.
+new-page: true
+tags: event
+view-if: year = 2030 and month >= 3 and revier_seen = 0 and chancellor_party != "AfD"
+max-visits: 1
+on-arrival: revier_seen = 1
+
+# K5, zweiter Teil (Weltlage im Ortsverein, Nov. 2026). Real: Bund, NRW und RWE haben im Oktober 2022 vereinbart, die
+# Braunkohleverstromung im Rheinischen Revier 2030 zu beenden; drei Blöcke können bis Ende 2033 in eine Reserve gehen
+# (Gesetz zur Beschleunigung des Braunkohleausstiegs im Rheinischen Revier, Dezember 2022). Entscheidungen Fiktion.
+# revier_choice: 1 Revierprogramm mit dem Land, 2 Reserve bis 2033, 3 Ausstieg ohne Reserve.
+
+= Schicht im Rheinischen Revier
+
+Im Rheinischen Revier geht eine Epoche zu Ende: RWE nimmt die letzten Braunkohleblöcke vom Netz, acht Jahre früher, als es das Kohleausstiegsgesetz einmal vorsah. In Grevenbroich, Bergheim und Eschweiler fragen sich Tausende Beschäftigte, was nach der Kohle kommt. Die Landesregierung in Düsseldorf drängt auf neue Gaskraftwerke und Gewerbeflächen, die Klimabewegung feiert, und die IG BCE erinnert an die Zusage, dass niemand ins Bergfreie fällt.
+
+- @programm: Mit der Landesregierung ein Revierprogramm auflegen: Kraftwerke für Wasserstoff, Forschung, neue Gewerbegebiete.
+- @reserve: Die Blöcke wie vereinbart bis 2033 in Reserve halten.
+- @tempo: Ohne Reserve aussteigen und das Geld in Netze und Speicher stecken.
+- @opp_revier: Mit der IG BCE vor Ort für die Beschäftigten eintreten.
+- @opp_feiern: Den Ausstieg als Erfolg feiern und mehr Tempo bei den Erneuerbaren fordern.
+
+@programm
+view-if: spd_in_government
+subtitle: -1 Haushaltsspielraum.
+choose-if: budget >= 1
+unavailable-subtitle: Dafür fehlt der Haushaltsspielraum.
+on-arrival: revier_choice = 1; budget -= 1; gr_dgb += 4; union_relation += 3; workers_spd += 0.5*(1-dissent); labor_dissent -= 2; shock_industrie += 0.2
+
+Bund und Land legen ein gemeinsames Programm auf. Auf dem Gelände der alten Kraftwerke sollen Gaskraftwerke entstehen, die später Wasserstoff verbrennen, dazu ein Forschungszentrum. Die IG BCE ist zufrieden, ob die Pläne aufgehen, wird sich erst in Jahren zeigen.
+
+@reserve
+view-if: spd_in_government
+on-arrival: revier_choice = 2; gr_klima -= 4; gr_dgb += 2; union_relation += 1; rural_spd += 0.3*(1-dissent)
+
+Die Blöcke bleiben als Reserve stehen, falls im Winter der Strom knapp wird. Die Versorger sind beruhigt, die Klimabewegung spricht von einem Ausstieg auf Raten.
+
+@tempo
+view-if: spd_in_government
+on-arrival: revier_choice = 3; gr_klima += 5; gr_dgb -= 3; labor_dissent += 2; left_dissent -= 2; new_middle_spd += 0.5*(1-dissent)
+
+Wir verzichten auf die Reserve und investieren in Speicher und Leitungen. Fridays for Future lobt den Mut, in den Kraftwerksorten fühlen sich viele übergangen.
+
+@opp_revier
+view-if: not spd_in_government
+on-arrival: gr_dgb += 3; workers_spd += 0.5*(1-dissent); labor_dissent -= 2
+
+Wir stehen mit der IG BCE vor den Werkstoren und fordern Jobgarantien. Die Beschäftigten merken sich, wer da war.
+
+@opp_feiern
+view-if: not spd_in_government
+on-arrival: gr_klima += 3; new_middle_spd += 0.5*(1-dissent); labor_dissent += 1
+
+Wir feiern das Ende der Braunkohle im Westen und fordern, jetzt beim Ausbau von Wind und Sonne Tempo zu machen. In den Revierstädten kommt die Feierstimmung nicht überall gut an.

@@ -4,7 +4,7 @@ new-page: true
 tags: event
 view-if: year = 2027 and month = 10 and nds_2027_seen = 0
 max-visits: 1
-on-arrival: nds_2027_seen = 1; nds_lost = 1 if (player = "spd" and spd_votes < 15) or (player = "linke" and linke_votes < 15); spd_prussia = 0 if nds_lost and saar_lost and rp_lost and player = "spd"; center_dissent += 6 if nds_lost and player = "spd"; reformist_dissent += 4 if nds_lost and player = "spd"; pro_republic += 1 if not nds_lost
+on-arrival: nds_2027_seen = 1; nds_lost = 1 if (player = "spd" and spd_votes < 15 - st_nds) or (player = "linke" and linke_votes < 15 - st_nds); spd_prussia = 0 if nds_lost and saar_lost and rp_lost and player = "spd"; center_dissent += 6 if nds_lost and player = "spd"; reformist_dissent += 4 if nds_lost and player = "spd"; pro_republic += 1 if not nds_lost
 go-to: linke if player = "linke"
 face-image: img/wahlkampf.jpg
 
@@ -14,7 +14,7 @@ face-image: img/wahlkampf.jpg
 = Landtagswahl in Niedersachsen
 
 # party-ok: SPD, Willy-Brandt-Haus (reale Landesregierung)
-In Niedersachsen, wo Gerhard Schröder, Sigmar Gabriel, Stephan Weil und Lars Klingbeil herkommen, verteidigt Olaf Lies die Staatskanzlei. Es ist das größte Land, das die SPD noch regiert.
+In Niedersachsen, wo Gerhard Schröder, Sigmar Gabriel, Stephan Weil und Lars Klingbeil herkommen, verteidigt Olaf Lies die Staatskanzlei. Es ist das größte Land, das die SPD noch regiert. [? if st_nds <= -0.5 : Bei Volkswagen und den Zulieferern wird Kurzarbeit gefahren, und die Sorge um die Arbeitsplätze prägt den Wahlkampf. ?][? if st_nds >= 0.5 : Die Autoindustrie im Land fasst wieder Tritt, und das hilft der Landesregierung. ?]
 
 [? if not nds_lost : Lies hält das Land knapp, die SPD bleibt stärkste Kraft und regiert weiter mit den Grünen. In Hannover wird gefeiert, im Willy-Brandt-Haus durchgeatmet. ?][? if nds_lost : Die CDU gewinnt die Wahl, die AfD wird zweitstärkste Kraft vor der SPD. Nach zehn Jahren verliert die SPD Niedersachsen. ?]
 

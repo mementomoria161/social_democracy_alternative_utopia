@@ -4,7 +4,7 @@ new-page: true
 tags: event
 view-if: year = 2029 and month = 6
 max-visits: 1
-on-arrival: europawahl_2029_seen = 1; pro_republic += 2 if eu or eu_progress >= 1; pro_republic -= 2 if not eu and eu_progress < 1
+on-arrival: europawahl_2029_seen = 1; rural_afd += 0.5 if eu_kredite = 1; new_middle_spd += 0.5*(1-dissent) if eu_kredite = 1; pro_republic += 2 if eu or eu_progress >= 1; pro_republic -= 2 if not eu and eu_progress < 1
 face-image: img/international.jpg
 
 # Nov. 2026: Die EU-Direktwahlakt-Reform (Sperrklausel 2–5 % für große Staaten) ist noch nicht in Kraft; BVerfG 6.2.2024:
@@ -12,7 +12,7 @@ face-image: img/international.jpg
 
 = Europawahl
 
-Wenige Monate nach der Bundestagswahl wählt Deutschland das Europäische Parlament. Noch gilt in Deutschland bei der Europawahl keine Sperrklausel, kleine Parteien ziehen also schon mit weniger als einem Prozent ein, und die Wahl gilt als Stimmungstest für die neue Bundesregierung.
+Wenige Monate nach der Bundestagswahl wählt Deutschland das Europäische Parlament. Noch gilt in Deutschland bei der Europawahl keine Sperrklausel, kleine Parteien ziehen also schon mit weniger als einem Prozent ein, und die Wahl gilt als Stimmungstest für die neue Bundesregierung. [? if eu_kredite = 1 : Die AfD führt ihren Wahlkampf gegen die „Schuldenunion“, die Befürworter\*innen werben mit den neuen Stromleitungen und Werken, die der europäische Fonds bezahlt. ?][? if eu_kredite = 3 : Dass Deutschland den europäischen Investitionsfonds verhindert hat, nehmen ihm viele Partner übel, im Wahlkampf spielt es kaum eine Rolle. ?]
 
 [? if player = "spd" and spd_r >= 20 : Die SPD schneidet ordentlich ab und kann sich als proeuropäische Kraft profilieren. ?][? if player = "spd" and spd_r < 20 : Die SPD bleibt hinter ihren Erwartungen zurück. ?][? if player = "linke" and spd_votes >= 9 : Die Linke erzielt ihr bestes Europawahlergebnis seit Jahren und wird zur stärksten Gruppe in der Linksfraktion des Europaparlaments. ?][? if player = "linke" and spd_votes < 9 : Die Linke bleibt hinter ihren Erwartungen zurück. ?] [? if afd_r >= 25 : Die AfD wird zur größten deutschen Gruppe im Europäischen Parlament, was in Brüssel für Unruhe sorgt. ?] [? if eu : Die neue Europäische Föderation ist das große Thema des Wahlkampfs. ?]
 

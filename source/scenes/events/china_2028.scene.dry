@@ -1,0 +1,73 @@
+title: Konkurrenz aus China
+subtitle: Günstige E-Autos, teure Abhängigkeiten.
+new-page: true
+tags: event
+view-if: year = 2028 and month >= 2 and china_seen = 0 and chancellor_party != "AfD"
+max-visits: 1
+on-arrival: china_seen = 1
+go-to: opposition if not spd_in_government
+
+# S7 (Weltlage im Ortsverein, Nov. 2026). Real: EU-Ausgleichszölle auf E-Autos aus China seit 30.10.2024; Bund und Netzbetreiber
+# haben im Juli 2024 vereinbart, Bauteile von Huawei und ZTE bis Ende 2026 aus dem 5G-Kernnetz und bis Ende 2029 aus dem
+# Zugangsnetz zu entfernen. Lage 2028 und Entscheidungen Fiktion. china_choice: 1 Schutz, 2 Offenheit, 3 Ansiedlung mit Bedingungen;
+# wirkt auf die Standortregionen Niedersachsen und Südwesten (S2).
+
+= Konkurrenz aus China
+
+Chinesische Hersteller verkaufen ihre E-Autos in Europa trotz der Ausgleichszölle inzwischen günstiger als die deutsche Konkurrenz. Bei Zulieferern in Niedersachsen, Sachsen und im Südwesten wird Kurzarbeit gefahren. Die EU-Kommission schlägt vor, Förderung und öffentliche Aufträge an europäische Wertschöpfung zu binden. Peking droht mit Gegenmaßnahmen gegen deutsche Autos und Maschinen, und die Konzerne, die in China gut verdienen, warnen vor einem Handelskrieg.
+
+- @schutz: Europäische Wertschöpfung zur Bedingung machen und höhere Zölle mittragen.
+- @offen: Gegen höhere Zölle stimmen, um die Exporte nach China zu schützen.
+- @ansiedlung: Chinesische Hersteller sollen in Europa bauen, mit Tarifbindung und deutschen Zulieferern.
+
+@schutz
+on-arrival: china_choice = 1; gr_dgb += 4; gr_bda -= 2; workers_spd += 0.5*(1-dissent); labor_dissent -= 2; shock_industrie -= 0.2
+go-to: netz if player = "spd"
+
+Die Bundesregierung unterstützt die Kommission. Die IG Metall begrüßt den Schritt, die Exportkonzerne rechnen mit Einbußen in China.
+
+@offen
+on-arrival: china_choice = 2; gr_bda += 3; gr_dgb -= 3; labor_dissent += 2; shock_industrie += 0.2
+go-to: netz if player = "spd"
+
+Deutschland stimmt in Brüssel gegen höhere Zölle. Die großen Hersteller atmen auf, die Betriebsräte der Zulieferer fühlen sich im Stich gelassen.
+
+@ansiedlung
+on-arrival: china_choice = 3; gr_dgb += 2; gr_bda += 1; shock_industrie += 0.1; union_relation -= 1
+go-to: netz if player = "spd"
+
+Wir werben dafür, dass chinesische Hersteller in Europa Werke bauen, mit Tarifvertrag und Zulieferern aus der Region. Ein erstes Werk ist im Gespräch. Kritiker\*innen warnen vor neuen Abhängigkeiten.
+
+@netz
+
+Bleibt das Mobilfunknetz. Bis Ende 2029 müssen chinesische Bauteile auch aus dem Zugangsnetz verschwinden. Die Netzbetreiber wollen mehr Zeit oder Geld vom Bund.
+
+- @netz_frist: An der Frist festhalten: Sicherheit geht vor.
+- @netz_strecken: Die Frist um zwei Jahre strecken, damit die Kosten nicht auf die Kund\*innen umgelegt werden.
+
+@netz_frist
+on-arrival: union_relation += 1; gr_bda -= 1; pro_republic += 0.3; reformist_dissent -= 1
+
+Die Frist bleibt. Die Netzbetreiber murren, die Sicherheitsbehörden sind zufrieden.
+
+@netz_strecken
+on-arrival: union_relation -= 2; gr_bda += 2; west_relation -= 1; left_dissent -= 1
+
+Die Frist wird gestreckt. Die Mobilfunkkund\*innen merken nichts, in Washington und bei der Union wird es aufmerksam registriert.
+
+@opposition
+
+[? if player = "spd" : Aus der Opposition können wir die Debatte nur prägen. ?][? if player = "linke" : Wir sind weder für Handelskriege noch für Lohndumping. Was sagen wir? ?]
+
+- @opp_schutz: Arbeitsplätze vor Billigkonkurrenz schützen: europäische Wertschöpfung zur Bedingung machen.
+- @opp_offen: Vor einem Handelskrieg warnen, der am Ende die Beschäftigten trifft.
+
+@opp_schutz
+on-arrival: gr_dgb += 3; workers_spd += 0.5*(1-dissent); labor_dissent -= 2
+
+Die IG Metall zitiert uns zustimmend, die Exportwirtschaft weniger.
+
+@opp_offen
+on-arrival: gr_bda += 2; new_middle_spd += 0.3*(1-dissent); labor_dissent += 1
+
+Wir warnen vor Zöllen und Gegenzöllen. Die Exportwirtschaft hört zu, die Betriebsräte der Zulieferer weniger.

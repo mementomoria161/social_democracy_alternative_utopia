@@ -307,6 +307,32 @@ if (Q.month_actions >= 1) {
             if (Q.spd_in_government) Q.workers_spd += 0.02 * kp;
         }
     }
+    // S2 (Weltlage im Ortsverein, Nov. 2026): fünf Standortregionen, Lage von -2 (Krise) bis +2 (Aufschwung). Spielannahmen aus
+    // Industriekonjunktur (sector_growth), Energiepreisen, Zöllen und eigenen Entscheidungen; die Landtagswahlen im Saarland
+    // (st_saar), in Niedersachsen (st_nds) und im Osten (st_ost) lesen ihre Region. Anzeige im Wirtschafts-Reiter (Q.standort).
+    var sg0 = Q.sector_growth, clampR = function(v) { return Math.round(Math.max(-2, Math.min(2, v)) * 10) / 10; };
+    // Industrie relativ zu ihrem Grundtrend (-0,8 % im Jahr, TREND oben): „stabil“, wenn sie dem langfristigen Pfad folgt.
+    var common = Math.max(-1.5, Math.min(1.5, (sg0[0] + 0.8) / 2)), epx = Math.max(0, Math.min(1, ((Q.energy_price || 100) - 105) / 15));
+    var tar = Math.min(3, Q.tariffs || 0), kc = Q.klima_kohle_ost_choice || 0, chn = Q.china_choice || 0;
+    var REG = [
+        ['Ruhrgebiet', [[common, 'Industriekonjunktur'], [-epx, 'hohe Energiepreise'], [Q.kp_industrie >= 2 ? 0.5 : Q.kp_industrie ? 0.25 : 0, 'Industriestrom und Klimaschutzverträge'],
+                        [Q.kp_h2 ? 0.25 : 0, 'Wasserstoffnetz'], [Q.revier_choice == 1 ? 0.3 : 0, 'Revierprogramm']]],
+        ['Saarland', [[common, 'Industriekonjunktur'], [-0.5 * epx, 'hohe Energiepreise'], [Q.kp_industrie >= 1 ? 0.4 : 0, 'grüner Stahl'], [-0.2 * tar, 'Zölle']]],
+        ['Niedersachsen', [[common, 'Industriekonjunktur'], [-0.3 * tar, 'Zölle'], [Q.kp_eauto ? 0.3 : 0, 'E-Auto-Förderung'],
+                           [chn == 1 ? 0.3 : chn == 2 ? -0.2 : chn == 3 ? 0.1 : 0, 'Antwort auf die Konkurrenz aus China'], [Q.konditionalitaet >= 1 ? 0.2 : 0, 'Standortzusagen']]],
+        ['Südwesten', [[common, 'Industriekonjunktur'], [-0.35 * tar, 'Zölle'], [Q.kp_eauto ? 0.2 : 0, 'E-Auto-Förderung'], [(sg0[4] || 0) > 2 ? 0.3 : 0, 'Digitalwirtschaft'],
+                       [chn == 1 ? 0.2 : chn == 2 ? -0.1 : 0, 'Antwort auf die Konkurrenz aus China']]],
+        ['Mitteldeutschland und Lausitz', [[common / 2, 'Industriekonjunktur'], [Math.max(-0.5, Math.min(0.5, (sg0[1] || 0) / 4)), 'Energiewirtschaft'],
+                           [kc == 1 || kc == 3 ? 0.7 : kc == 2 ? -0.7 : 0, kc == 2 ? 'Kohleausstieg ohne Strukturhilfen' : 'Strukturhilfen für die Reviere'],
+                           [Q.verteidigung_pfad == 1 ? 0.3 : 0, 'Rüstungsaufträge'], [-0.4 * epx, 'hohe Energiepreise für die Chemie']]]
+    ];
+    Q.standort = REG.map(function(r) {
+        var v = r[1].reduce(function(a, f) { return a + f[0]; }, 0);
+        var why = r[1].filter(function(f) { return Math.abs(f[0]) >= 0.15; }).sort(function(a, b) { return Math.abs(b[0]) - Math.abs(a[0]); })
+            .slice(0, 2).map(function(f) { return f[1]; });
+        return [clampR(v), why.join(', ')];
+    });
+    Q.st_ruhr = Q.standort[0][0]; Q.st_saar = Q.standort[1][0]; Q.st_nds = Q.standort[2][0]; Q.st_sw = Q.standort[3][0]; Q.st_ost = Q.standort[4][0];
     // Interessengruppen und Bewegungen (Durchgang 4.5): Stärke, Konjunktur, Verhältnis, Druck auf Strömungen und Wählergruppen.
     // Tabelle, Treiber und Wirkungen: groups_data.scene.dry (GRP.month).
     if (!this.game.GRP) this._runActions(this.game.scenes.groups_data.onArrival);
