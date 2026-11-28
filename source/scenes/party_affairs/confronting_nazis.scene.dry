@@ -6,9 +6,13 @@ on-arrival: confronting_nazis_seen += 1; confronting_nazis_timer = 5; month_acti
 card-image: img/buendnis_demokratie.jpg
 tags: party_affairs; antifascism
 
+# Nov. 2026: BfV stufte die AfD am 02.05.2025 als gesichert rechtsextremistisch ein; VG Köln, Beschluss vom 26.02.2026
+# (13 L 1109/25): vorerst untersagt, die Partei bleibt Verdachtsfall; mehrere Landesverbände (u. a. Thüringen, Sachsen,
+# Sachsen-Anhalt) gelten als gesichert rechtsextremistisch, in Sachsen gerichtlich bestätigt (ZDF, LTO, Correctiv).
+
 = Der AfD entgegentreten
 
-Die AfD wird immer stärker. Der Verfassungsschutz stuft sie in Teilen als gesichert rechtsextrem ein, und in Ostdeutschland könnte sie bald Landesregierungen stellen. Ihre Vertreter sprechen offen von „Remigration“.
+Die AfD wird immer stärker. Der Verfassungsschutz stuft sie in Teilen als gesichert rechtsextrem ein[? if year > 2026 or (year = 2026 and month >= 3) : ; die Gesamtpartei so zu nennen, hat das Verwaltungsgericht Köln im Februar 2026 vorerst untersagt?][? if (year = 2025 and month >= 5) or (year = 2026 and month < 3) : , seit Mai 2025 auch die Gesamtpartei, wogegen sie klagt?], und in Ostdeutschland könnte sie bald Landesregierungen stellen. Ihre Vertreter sprechen offen von „Remigration“.
 
 Viele in der Partei fordern ein entschlossenes Handeln. In allen Strömungen wächst die Sorge, dass die Brandmauer nicht ewig hält.
 

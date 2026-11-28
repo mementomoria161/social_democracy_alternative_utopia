@@ -1,5 +1,7 @@
 # Realitäts- und Plausibilitätscheck (Stand 28. November 2026)
 
+> **Umsetzung:** Alle Punkte dieses Berichts sind inzwischen umgesetzt (Commits db2f5a2, a66dad2, dae08aa, e45e84e, cb1c023 und Nachträge in `PORT_2026.md`). Der Bericht beschreibt den Stand vor der Umsetzung.
+
 Blick von zwei Seiten: als Game Designer (Spielgefühl, Entscheidungen, Rückmeldung, Balance) und als politischer Berater (Fakten, Abläufe, Machtlogik, Personen).
 Grundlage: Build und Prüfskripte, 120 Headless-Läufe, zwei vollständig mitgeschriebene Durchgänge (SPD im historischen Modus, Linke normal) mit allen Texten, eine Browser-Stichprobe und eine Recherche zum Stand der Wirklichkeit bis Ende November 2026 (Quellen am Ende).
 
