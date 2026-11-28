@@ -443,6 +443,19 @@
       return {'date': new Date(r[0], 6, 1), 'unemployment': r[1], 'inflation': r[2], 'growth': r[3], 'real': true};
   });
   var GAME_START = new Date(2024, 10, 6);
+  // Bundestagswahlen vor dem Spielstart, Zweitstimmen in % (Bundeswahlleiterin, endgültige Ergebnisse 2017 und 2021); nur für die Anzeige
+  var REAL_ELECTIONS = [
+      {'date': new Date(2017, 8, 24), 'union': 32.9, 'spd': 20.5, 'afd': 12.6, 'fdp': 10.7, 'linke': 9.2, 'gruene': 8.9, 'other': 5.2},
+      {'date': new Date(2021, 8, 26), 'spd': 25.7, 'union': 24.1, 'gruene': 14.8, 'fdp': 11.5, 'afd': 10.3, 'linke': 4.9, 'other': 8.7}
+  ];
+  // Reale Werte vor dem Spielstart vor die Spielaufzeichnungen setzen (Bibliothek, Grafiken). Spielt man die Linke,
+  // stehen deren Werte im Slot spd (PORT_2026.md, „Spielbare Parteien“).
+  window.withRealHistory = function(kind, records, Q) {
+      var swap = function(r) { return Q && Q.player == 'linke' ? Object.assign({}, r, {'spd': r.linke, 'linke': r.spd}) : r; };
+      var real = kind == 'polls' ? REAL_POLLS.map(swap) : kind == 'elections' ? REAL_ELECTIONS.map(swap) : REAL_ECON;
+      var first = records && records.length ? new Date(records[0].date) : null;
+      return real.filter(function(r) { return !first || r.date < first; }).concat(records || []);
+  };
   // Reihenfolge wie SECTORS in post_event (dort Modell und Quellen der Anteile). share = Anteil an der Bruttowertschöpfung 2024 in %,
   // jobs = Erwerbstätige 2024 in Tausend (Destatis, Arbeitnehmer und Erwerbstätige nach Wirtschaftsbereichen, Stand 18.08.2026;
   // Energie = Produzierendes Gewerbe ohne Bau minus Verarbeitendes Gewerbe; Öffentliche und Sonstige Dienstleister geschätzt aufgeteilt).
@@ -571,7 +584,7 @@
   var KL_X0 = 2020, KL_X1 = 2045.5, KL_START = 2024 + 10 / 12;
   var KL_VIEWS = [['emis', 'Emissionen'], ['mix', 'Strommix'], ['preis', 'Energiepreise']];
   // [Name, Einheit, Nachkommastellen, reale Jahreswerte]
-  var HISTORY_KLIMA = (window.HISTORY && window.HISTORY.klima) || {haushaltsstrom: [], co2_national: []}; // out/html/history_data.js
+  var HISTORY_KLIMA = Object.assign({haushaltsstrom: [], co2_national: [], sektoren: [], strommix: {}, eu_ets: []}, window.HISTORY && window.HISTORY.klima); // out/html/history_data.js
   var KL_PRICES = [['Haushaltsstrom', 'ct/kWh', 1, HISTORY_KLIMA.haushaltsstrom],
                    ['Gas für Haushalte', 'ct/kWh', 1, []],
                    ['Industriestrom', 'ct/kWh', 1, []],
@@ -641,7 +654,7 @@
           } else {
               C.SECTORS.forEach(function(s, i) {
                   if (fsec != 'alle' && fsec != String(i)) return;
-                  series.push({pts: hist([], C.START[i], function(r) { return r.s[i]; }), color: KL_SEC_COLORS[i], cls: 'main', label: s.name,
+                  series.push({pts: hist(HISTORY_KLIMA.sektoren[i] || [], C.START[i], function(r) { return r.s[i]; }), color: KL_SEC_COLORS[i], cls: 'main', label: s.name,
                                end: s.name.split(' ')[0]});
                   if (fsec != 'alle') marks.push({t: 2030.5, v: s.t2030, color: KL_SEC_COLORS[i], text: 'Ziel 2030: ' + s.t2030});
               });
@@ -649,7 +662,7 @@
       } else if (view == 'mix') {
           unit = 'Prozent der Stromerzeugung';
           KL_MIX.forEach(function(g) {
-              series.push({pts: hist([], sum(C.MIX_2024, g[1]), function(r) { return sum(r.m, g[1]); }), color: g[2],
+              series.push({pts: hist(HISTORY_KLIMA.strommix[g[0]] || [], sum(C.MIX_2024, g[1]), function(r) { return sum(r.m, g[1]); }), color: g[2],
                            cls: g[0] == 'Erneuerbare' ? 'main bold' : 'main', label: g[0], end: g[0]});
           });
       } else {
@@ -658,7 +671,7 @@
           unit = P[1]; digits = P[2];
           series.push({pts: hist(P[3], KL_P0[pi], function(r) { return r.p[pi]; }), color: '--kl-game', cls: 'main', label: P[0]});
           // CO2-Preis im EU-Emissionshandel (Kraftwerke und Industrie) zum Vergleich
-          if (pi == 3) series.push({pts: hist([], 65, function(r) { return r.p.length > 4 ? r.p[4] : null; }).filter(function(d) { return d[1] !== null; }),
+          if (pi == 3) series.push({pts: hist(HISTORY_KLIMA.eu_ets, 65, function(r) { return r.p.length > 4 ? r.p[4] : null; }).filter(function(d) { return d[1] !== null; }),
                                     color: '--kl-ksg', cls: 'main', label: 'EU-Emissionshandel', end: 'EU-ETS'});
       }
       if (view == 'preis') series[0].end = econNum(series[0].pts[series[0].pts.length - 1][1], digits);
@@ -711,7 +724,7 @@
               .attr('class', function(d, k) { return 'kl_arc' + (r.sel !== null && r.sel != String(k) ? ' dim' : ''); })
               .style('fill', function(d, k) { return 'var(' + r.colors[k] + ')'; })
               .on('click', function(ev, d) { (new Function(r.pick(d.index)))(); })
-              .attr('d', d3.arc().innerRadius(R * 0.74).outerRadius(R).padAngle(0.03).cornerRadius(3))
+              .attr('d', d3.arc().innerRadius(R * 0.7).outerRadius(R))
               .append('title').text(function(d, k) { return r.names[k] + ': ' + r.fmt(r.vals[k]); });
           g0.append('text').attr('class', 'kl_ring_big').attr('text-anchor', 'middle').attr('y', 4).text(r.big);
           g0.append('text').attr('class', 'kl_ring_small').attr('text-anchor', 'middle').attr('y', 18).text(r.small);
@@ -1234,6 +1247,7 @@
       var nowGroup = groups.indexOf(window.pollNowGroup) >= 0 ? window.pollNowGroup : '';
       var html = select('Verlauf seit Januar 2023', group, 'pollGroup') +
           '<div id="poll_graph" class="viz_card"></div>' +
+          (group ? '<p class="poll_note">Umfragen nach Wählergruppen werden nicht monatlich veröffentlicht; der Verlauf beginnt deshalb beim Spielstart im November 2024.</p>' : '') +
           pollWhy(Q, names) +
           select('Aktuelle Umfrage', nowGroup, 'pollNowGroup') +
           bars(nowGroup ? groupValues(nowGroup) : now) +

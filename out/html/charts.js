@@ -96,9 +96,14 @@ window.VIZ = (function() {
             .attr('x', m.left - 5).attr('y', 0).attr('width', width - m.left - m.right + 10).attr('height', height - m.bottom + 4);
 
         if (o.past && o.past.to > xDom[0]) {
-            var px = Math.min(x(o.past.to), width - m.right);
-            svg.append('rect').attr('class', 'viz_past').attr('x', m.left).attr('y', m.top).attr('rx', 4)
+            // Zeit vor dem Spielstart fein schraffiert wie in einer gedruckten Statistik
+            var px = Math.min(x(o.past.to), width - m.right), hatch = clip + '_hatch';
+            svg.select('defs').append('pattern').attr('id', hatch).attr('width', 5).attr('height', 5)
+                .attr('patternUnits', 'userSpaceOnUse').attr('patternTransform', 'rotate(45)')
+                .append('line').attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', 5).style('stroke', 'var(--viz-hatch)').attr('stroke-width', 1.2);
+            svg.append('rect').attr('x', m.left).attr('y', m.top).attr('fill', 'url(#' + hatch + ')')
                 .attr('width', Math.max(0, px - m.left)).attr('height', height - m.top - m.bottom);
+            svg.append('line').attr('class', 'viz_grid').attr('x1', px).attr('x2', px).attr('y1', m.top).attr('y2', height - m.bottom);
             if (o.past.label && px - m.left > 56) {
                 svg.append('text').attr('class', 'viz_past_label').attr('x', m.left + 6).attr('y', m.top + 12).text(o.past.label);
             }
@@ -119,6 +124,9 @@ window.VIZ = (function() {
         }
         var xFormat = o.xFormat || (o.time ? x.tickFormat(count) : d3.format('d'));
         var xg = svg.append('g').attr('class', 'viz_axis');
+        if (y.domain()[0] >= 0) {
+            xg.append('line').attr('class', 'viz_base').attr('x1', m.left).attr('x2', width - m.right).attr('y1', height - m.bottom).attr('y2', height - m.bottom);
+        }
         xt.forEach(function(t) {
             var tx = x(t), anchor = tx > width - 22 ? 'end' : tx < m.left + 14 ? 'start' : 'middle';
             xg.append('text').attr('x', tx).attr('y', height - 7).attr('text-anchor', anchor).text(xFormat(t));

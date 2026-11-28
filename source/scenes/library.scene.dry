@@ -510,9 +510,8 @@ if (d3 && window) {
             {'spd': Q.pp_name || 'SPD', 'linke': Q.op_name || 'Linke', 'gruene': Q.gruene_name, 'union': 'CDU/CSU', 'fdp': 'FDP', 'bsw': 'BSW', 'afd': 'AfD', 'other': 'Sonstige', 'sapd': 'Soziale Linke', 'srpd': 'Neue Mitte'});
     lines.width(width).height(400);
     //var svg = lines(Q.election_records);
-    if (Q.election_records.length > 0) {
-        d3.select("#election_history").datum(Q.election_records).call(lines);
-    }
+    // mit den Bundestagswahlen 2017 und 2021 vor dem Spielstart (game.js, REAL_ELECTIONS)
+    d3.select("#election_history").datum(window.withRealHistory('elections', Q.election_records, Q)).call(lines);
     //document.getElementById('election_history').innerHTML = svg.outerHTML;
 
     // party support records should not have so many ticks
@@ -522,18 +521,20 @@ if (d3 && window) {
             {'spd': Q.pp_color || '#E3000F', 'linke': Q.op_color || '#BE3075', 'gruene': '#46962B', 'union': '#151518', 'fdp': '#E6C800', 'bsw': '#7D254F', 'afd': '#009EE0', 'other': '#a0a0a0', 'sapd': '#c40000', 'srpd': '#F4A460'},
             {'spd': Q.pp_name || 'SPD', 'linke': Q.op_name || 'Linke', 'gruene': Q.gruene_name, 'union': 'CDU/CSU', 'fdp': 'FDP', 'bsw': 'BSW', 'afd': 'AfD', 'other': 'Sonstige', 'sapd': 'Soziale Linke', 'srpd': 'Neue Mitte'});
         lines_2.width(width).height(400);
-        d3.select("#party_support_history").datum(Q.party_support_records).call(lines_2);
+        d3.select("#party_support_history").datum(window.withRealHistory('polls', Q.party_support_records, Q)).call(lines_2);
     }
 
     // economic stats
-    var minInflation = d3.min(Q.economic_records, d => d.inflation);
-    var maxUnemployment = d3.max(Q.economic_records, d => d.unemployment);
+    // mit den realen Jahreswerten 2019-2024 (game.js, REAL_ECON)
+    var econ = window.withRealHistory('econ', Q.economic_records, Q);
+    var minInflation = Math.min(0, d3.min(econ, d => d.inflation));
+    var maxUnemployment = d3.max(econ, d => Math.max(d.unemployment, d.inflation));
     var lines_3 = d3.linegraph(true, true, ['inflation', 'unemployment'],
             {'inflation': 'var(--viz-s3)', 'unemployment': 'var(--viz-s2)'},
             {'inflation': 'Inflation', 'unemployment': 'Arbeitslosigkeit'},
-            maxUnemployment + 5, minInflation - 5, 21);
+            maxUnemployment + 1, minInflation, 21);
     lines_3.width(width).height(300);
-    d3.select("#economic_history").datum(Q.economic_records).call(lines_3);
+    d3.select("#economic_history").datum(econ).call(lines_3);
 }
 !}
 
@@ -565,7 +566,7 @@ if (d3 && window) {
 
 = Wahlergebnisse
 
-[? if n_elections = 0 : Noch keine neuen Wahlen. ?]
+[? if n_elections = 0 : Im Spiel gab es noch keine Bundestagswahl; zu sehen sind die Wahlen 2017 und 2021. ?]
 
 {!<svg id="election_history" style="width: 500px; height: 400px;"> </svg>!}
 

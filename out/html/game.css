@@ -614,10 +614,11 @@ body.player-linke .seat.linke {
 .poll_select select {
   font-family: var(--viz-font);
   font-size: 0.85em;
+  font-stretch: 88%;
   color: var(--viz-ink);
   background-color: var(--viz-surface);
-  border: 1px solid var(--viz-line);
-  border-radius: 8px;
+  border: 1px solid var(--viz-zero);
+  border-radius: 0;
   padding: 0.2em 0.5em;
   margin-left: 0.3em;
 }
@@ -637,14 +638,12 @@ body.player-linke .seat.linke {
 }
 .poll_bar {
   flex-grow: 1;
-  height: 8px;
-  border-radius: 4px;
-  background: var(--viz-soft);
+  height: 7px;
+  border-bottom: 1px solid var(--viz-line);
 }
 .poll_bar span {
   display: block;
   height: 100%;
-  border-radius: 0 4px 4px 0;
 }
 .poll_val {
   width: 3em;
@@ -664,10 +663,9 @@ body.player-linke .seat.linke {
 }
 .poll_stack {
   display: flex;
-  height: 8px;
-  gap: 2px;
+  height: 7px;
+  gap: 1px;
   margin: 0.3em 0 0 1.1em;
-  border-radius: 4px;
   overflow: hidden;
 }
 .poll_group .poll_bars {
@@ -786,102 +784,108 @@ body.dark-mode .poll_bar .union, body.dark-mode .poll_stack .union {
 }
 
 /* ---------- Diagramme: gemeinsame Farben und Bausteine (Zeichencode: charts.js und game.js) ----------
-   Reihenfarben s1–s7 in fester Reihenfolge, geprüft auf Farbfehlsichtigkeit und Kontrast (hell auf #fff, dunkel auf #1d1e22).
-   Texte tragen nie die Reihenfarbe; die Zuordnung zeigt eine Marke daneben. */
+   Stil wie eine gedruckte Statistik: keine Karten, Schatten oder Rundungen. Grafiken stehen auf dem Papier der Seitenleiste,
+   oben eine kräftige Linie, unten eine feine. Daten- und Achsenschrift Archivo schmal, große Zahlen in der Serifenschrift.
+   Reihenfarben s1–s6 wie Druckfarben (Preußischblau, Zinnober, Grün, Ocker, Violett, Karmin) in fester Reihenfolge,
+   geprüft auf Farbfehlsichtigkeit und Kontrast (hell auf #f3f3f3, dunkel auf #242424). Texte tragen nie die Reihenfarbe. */
 body {
-  --viz-s1: #4263eb; --viz-s2: #e8710a; --viz-s3: #0ca678; --viz-s4: #7048c4;
-  --viz-s5: #d6336c; --viz-s6: #e0a100; --viz-s7: #1098c4; --viz-other: #a3a6ae;
-  --viz-pos: #0ca678; --viz-neg: #d6336c; --viz-good: #087f5b; --viz-bad: #c2255c;
-  --viz-surface: #ffffff; --viz-ink: #1d1f24; --viz-muted: #6b6f7a; --viz-line: #e4e5e9; --viz-zero: #a3a6ae;
-  --viz-soft: #f1f2f5; --viz-shadow: 0 1px 2px rgba(20, 22, 30, 0.07), 0 4px 14px rgba(20, 22, 30, 0.05);
-  --viz-font: "Archivo", system-ui, sans-serif;
+  --viz-s1: #2c5aa0; --viz-s2: #d2601a; --viz-s3: #008a6a; --viz-s4: #b5890a;
+  --viz-s5: #7646a8; --viz-s6: #c8304a; --viz-s7: #5b6b78; --viz-other: #9a978d;
+  --viz-pos: #008a6a; --viz-neg: #c8304a; --viz-good: #00704f; --viz-bad: #a8243c;
   --party-union: #151518;
 }
 body.dark-mode {
-  --viz-s1: #5c7cfa; --viz-s2: #d9660f; --viz-s3: #12a37a; --viz-s4: #9775e0;
-  --viz-s5: #d9548a; --viz-s6: #b98a00; --viz-s7: #1a93bd; --viz-other: #767983;
-  --viz-pos: #12a37a; --viz-neg: #d9548a; --viz-good: #38d9a9; --viz-bad: #f783ac;
-  --viz-surface: #1d1e22; --viz-ink: #eceef2; --viz-muted: #9a9ea8; --viz-line: #32343a; --viz-zero: #6b6f7a;
-  --viz-soft: #2a2c31; --viz-shadow: 0 0 0 1px #34363c;
+  --viz-s1: #5f86d0; --viz-s2: #cf6626; --viz-s3: #16a07e; --viz-s4: #b38a14;
+  --viz-s5: #9a6fd0; --viz-s6: #d94f68; --viz-s7: #8a99a6; --viz-other: #77756f;
+  --viz-pos: #16a07e; --viz-neg: #d94f68; --viz-good: #4cc79f; --viz-bad: #f0849a;
   --party-union: #a5a8b0;
 }
-.viz_card, .viz_tile {
-  background: var(--viz-surface);
-  color: var(--viz-ink);
-  border-radius: 12px;
-  box-shadow: var(--viz-shadow);
+body {
+  --viz-surface: var(--content-bg-color);
+  --viz-ink: var(--text-color);
+  --viz-muted: color-mix(in srgb, var(--text-color) 64%, transparent);
+  --viz-line: color-mix(in srgb, var(--text-color) 16%, transparent);
+  --viz-hatch: color-mix(in srgb, var(--text-color) 13%, transparent);
+  --viz-soft: color-mix(in srgb, var(--text-color) 6%, transparent);
+  --viz-zero: color-mix(in srgb, var(--text-color) 55%, transparent);
+  --viz-font: "Archivo", "Arial Narrow", sans-serif;
 }
-.viz_card { padding: 0.8em 0.8em 0.6em; margin: 0 0 1em; font-family: var(--viz-font); text-indent: 0; }
-.viz_card_title { font-weight: 650; margin: 0 0 0.5em; }
-.viz { font-family: var(--viz-font); line-height: 1.35; }
+.viz_card {
+  border-top: 2px solid var(--viz-ink); border-bottom: 1px solid var(--viz-line);
+  padding: 0.45em 0 0.5em; margin: 0 0 1.3em; text-indent: 0; color: var(--viz-ink);
+}
+.viz_card_title { font-variant: small-caps; letter-spacing: 0.05em; font-weight: bold; margin: 0 0 0.4em; }
+.viz, .viz_tiles, .viz_seg, .viz_row, .viz_note { font-family: var(--viz-font); font-stretch: 88%; }
+.viz { line-height: 1.35; }
 .viz_plot { position: relative; }
 .viz_plot svg { display: block; overflow: visible; touch-action: pan-y; }
-.viz_unit { font-size: 0.75em; color: var(--viz-muted); margin: 0 0 0.2em; }
+.viz_unit { font-size: 0.72em; color: var(--viz-muted); margin: 0 0 0.2em; }
 .viz_axis text { fill: var(--viz-muted); font-size: 11px; font-variant-numeric: tabular-nums; }
 .viz_grid { stroke: var(--viz-line); stroke-width: 1; }
-.viz_zero { stroke: var(--viz-zero); stroke-width: 1; }
-.viz_past { fill: var(--viz-soft); opacity: 0.7; }
-.viz_past_label { fill: var(--viz-muted); font-size: 10px; }
+.viz_zero, .viz_base { stroke: var(--viz-zero); stroke-width: 1; }
+.viz_past_label { fill: var(--viz-muted); font-size: 10px; font-style: italic; }
 .viz_line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
 .viz_line.bold { stroke-width: 3; }
-.viz_line.proj { stroke-dasharray: 6 5; }
-.viz_line.ksg { stroke-dasharray: 1 5; stroke-width: 2.5; }
+.viz_line.proj { stroke-dasharray: 6 4; }
+.viz_line.ksg { stroke-dasharray: 1 4; stroke-width: 2.5; }
 .viz_line.paris { stroke-dasharray: 9 4 1 4; }
 .viz_series { transition: opacity 0.15s; }
-.viz_series.dim { opacity: 0.18; }
+.viz_series.dim { opacity: 0.16; }
 .viz_dot { stroke: var(--viz-surface); stroke-width: 2; }
 .viz_target { fill: var(--viz-surface); stroke-width: 2; }
 .viz_mark_label { fill: var(--viz-ink); font-size: 11px; font-weight: 600; paint-order: stroke; stroke: var(--viz-surface); stroke-width: 3px; stroke-linejoin: round; }
-.viz_rule { stroke: var(--viz-muted); stroke-width: 1; }
+.viz_rule { stroke: var(--viz-ink); stroke-width: 1; }
 .viz_tip {
   position: absolute; top: 4px; z-index: 5; pointer-events: none; min-width: 9em;
-  background: var(--viz-surface); border: 1px solid var(--viz-line); border-radius: 8px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18); padding: 0.4em 0.6em; font-size: 0.78em; white-space: nowrap;
+  background: var(--viz-surface); border: 1px solid var(--viz-ink); padding: 0.35em 0.55em; font-size: 0.78em; white-space: nowrap;
 }
-.viz_tip_title { color: var(--viz-muted); margin: 0 0 0.2em; }
+.viz_tip_title { font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.9em; margin: 0 0 0.25em; padding-bottom: 0.2em; border-bottom: 1px solid var(--viz-line); }
 .viz_tip_row { display: flex; align-items: center; gap: 0.5em; }
 .viz_tip_row b { margin-left: auto; padding-left: 0.8em; font-variant-numeric: tabular-nums; }
-.viz_tip i, .viz_key i { display: inline-block; width: 0.9em; height: 3px; border-radius: 2px; background: currentColor; flex-shrink: 0; }
+.viz_tip i, .viz_key i { display: inline-block; width: 1em; height: 2px; background: currentColor; flex-shrink: 0; }
 .viz_key i.dashed { background: repeating-linear-gradient(90deg, currentColor 0 4px, transparent 4px 6px); }
-.viz_legend { display: flex; flex-wrap: wrap; gap: 0.3em; margin: 0 0 0.6em; }
+/* Legende als Textzeile, Klick hebt eine Reihe hervor */
+.viz_legend { display: flex; flex-wrap: wrap; gap: 0.1em 0.9em; margin: 0 0 0.5em; }
 .viz_key {
-  display: inline-flex; align-items: center; gap: 0.35em; font: inherit; font-size: 0.76em; line-height: 1.5; color: var(--viz-ink);
-  background: var(--viz-soft); border: 1px solid transparent; border-radius: 999px; padding: 0.1em 0.65em; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 0.35em; font: inherit; font-size: 0.78em; line-height: 1.6; color: var(--viz-ink);
+  background: none; border: 0; border-bottom: 1px solid transparent; padding: 0; cursor: pointer;
 }
-.viz_key b { font-variant-numeric: tabular-nums; }
-.viz_key.sel { border-color: var(--viz-ink); }
-.viz_key.dim { opacity: 0.45; }
-/* Umschalter */
-.viz_seg { display: flex; flex-wrap: wrap; gap: 2px; padding: 3px; margin: 0 0 0.8em; border-radius: 10px; background: var(--viz-soft); font-family: var(--viz-font); }
+.viz_key b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.viz_key:hover, .viz_key.sel { border-bottom-color: var(--viz-ink); }
+.viz_key.dim { opacity: 0.4; }
+/* Umschalter wie die Ressortleiste einer Zeitung: Versalien, aktive Rubrik unterstrichen */
+.viz_seg { display: flex; flex-wrap: wrap; gap: 0 1.1em; margin: 0 0 0.7em; border-bottom: 1px solid var(--viz-line); }
 .viz_seg button {
-  flex: 1 1 auto; font: inherit; font-size: 0.8em; color: var(--viz-muted); background: transparent; border: 0; border-radius: 8px;
-  padding: 0.25em 0.7em; cursor: pointer;
+  font: inherit; font-size: 0.72em; text-transform: uppercase; letter-spacing: 0.07em; color: var(--viz-muted);
+  background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; padding: 0.3em 0; cursor: pointer;
 }
-.viz_seg button.active { background: var(--viz-surface); color: var(--viz-ink); font-weight: 600; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15); }
-/* Kennzahl-Kacheln */
-.viz_tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6em; font-family: var(--viz-font); }
+.viz_seg button:hover { color: var(--viz-ink); }
+.viz_seg button.active { color: var(--viz-ink); font-weight: 700; border-bottom-color: var(--viz-ink); }
+/* Kennzahlen: drei Spalten mit Haarlinien, oben ein Farbbalken als Schlüssel zur Linie im Verlauf */
+.viz_tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0.2em 0 0; }
 .viz_tile {
-  display: flex; flex-direction: column; align-items: flex-start; font: inherit; font-family: var(--viz-font); text-align: left;
-  border: 2px solid transparent; padding: 0.5em 0.65em; cursor: pointer; line-height: 1.3; min-width: 0;
+  display: flex; flex-direction: column; align-items: flex-start; min-width: 0; text-align: left; font: inherit; color: var(--viz-ink);
+  background: none; border: 0; border-top: 3px solid var(--tile); border-left: 1px solid var(--viz-line); padding: 0.35em 0.6em 0.3em; cursor: pointer; line-height: 1.25;
 }
-.viz_tile.sel { border-color: var(--tile); }
-.viz_tile.dim { opacity: 0.55; }
-.viz_tile_label { display: flex; align-items: center; gap: 0.35em; font-size: 0.75em; color: var(--viz-muted); white-space: nowrap; }
-.viz_tile_label i { width: 0.65em; height: 0.65em; border-radius: 50%; background: var(--tile); }
-.viz_tile_value { font-size: 1.6em; font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; }
-.viz_tile_value small { font-size: 0.55em; font-weight: 500; color: var(--viz-muted); }
+.viz_tile:first-child { border-left: 0; padding-left: 0; }
+.viz_tile.dim { opacity: 0.45; }
+.viz_tile.sel .viz_tile_label { text-decoration: underline; text-underline-offset: 0.2em; }
+.viz_tile_label { font-size: 0.7em; text-transform: uppercase; letter-spacing: 0.07em; color: var(--viz-muted); white-space: nowrap; }
+.viz_tile_label i { display: none; }
+.viz_tile_value { font-family: "Minion Pro", Georgia, serif; font-size: 2.1em; line-height: 1.1; font-variant-numeric: lining-nums tabular-nums; white-space: nowrap; }
+.viz_tile_value small { font-size: 0.5em; color: var(--viz-muted); }
 .viz_tile_delta { font-size: 0.72em; color: var(--viz-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .viz_tile_delta.good { color: var(--viz-good); }
 .viz_tile_delta.bad { color: var(--viz-bad); }
-.viz_note { font-family: var(--viz-font); font-size: 0.7em; color: var(--viz-muted); text-align: right; text-indent: 0; margin: 0.3em 0 0.6em; }
-/* Rangliste mit Balken: Name und Wert, darunter der Balken */
-.viz_row { display: grid; grid-template-columns: 1fr auto; gap: 0.1em 0.8em; margin: 0 0 0.65em; font-size: 0.85em; }
+.viz_note { font-size: 0.68em; color: var(--viz-muted); text-align: right; text-indent: 0; margin: 0.25em 0 0.7em; }
+/* Rangliste: Name und Wert, darunter ein schmaler Balken mit geraden Enden */
+.viz_row { display: grid; grid-template-columns: 1fr auto; gap: 0.05em 0.8em; margin: 0 0 0.55em; font-size: 0.85em; }
 .viz_row_val { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.viz_track { grid-column: 1 / -1; position: relative; height: 6px; border-radius: 3px; background: var(--viz-soft); }
-.viz_track span { position: absolute; top: 0; bottom: 0; left: 0; border-radius: 0 3px 3px 0; background: var(--viz-s1); }
+.viz_track { grid-column: 1 / -1; position: relative; height: 5px; border-bottom: 1px solid var(--viz-line); }
+.viz_track span { position: absolute; top: 0; bottom: 0; left: 0; background: var(--viz-s1); }
 .viz_track.diverging span.pos { left: 50%; background: var(--viz-pos); }
-.viz_track.diverging span.neg { left: auto; right: 50%; border-radius: 3px 0 0 3px; background: var(--viz-neg); }
-.viz_track.diverging::after { content: ""; position: absolute; left: 50%; top: -3px; bottom: -3px; border-left: 1px solid var(--viz-zero); }
+.viz_track.diverging span.neg { left: auto; right: 50%; background: var(--viz-neg); }
+.viz_track.diverging::after { content: ""; position: absolute; left: 50%; top: -3px; bottom: -2px; border-left: 1px solid var(--viz-zero); }
 
 /* Kennzahlen oben in Wirtschaft und Klima: schlichte Textzeilen wie im Status-Reiter */
 .econ_tiles { margin: 0.5em 0; }
@@ -912,7 +916,6 @@ body.dark-mode {
   display: inline-block;
   width: 0.75em;
   height: 0.75em;
-  border-radius: 3px;
   margin-right: 0.3em;
 }
 
@@ -920,23 +923,31 @@ body.dark-mode {
 .grp_views {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.3em;
+  gap: 0 1.1em;
   margin: 0 0 0.6em;
+  border-bottom: 1px solid var(--viz-line);
 }
 .grp_view_btn {
   font-family: inherit;
   font-size: 0.8em;
   padding: 0.2em 0.6em;
-  border: 1px solid var(--viz-line);
-  border-radius: 999px;
-  background: transparent;
-  color: inherit;
+  font-family: var(--viz-font);
+  font-stretch: 88%;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: 0.72em;
+  padding: 0.3em 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  background: none;
+  color: var(--viz-muted);
   cursor: pointer;
 }
 .grp_view_btn.active {
-  background: var(--text-color);
-  color: var(--content-bg-color);
-  border-color: var(--text-color);
+  color: var(--viz-ink);
+  font-weight: 700;
+  border-bottom-color: var(--viz-ink);
 }
 #grp_graph {
   display: block;
@@ -980,10 +991,8 @@ body.dark-mode .grp_party.union { fill: #888; }
 .grp_line.neg { border-top-color: var(--viz-neg); }
 .grp_line { border-top-width: 3px; }
 .grp_card {
-  background: var(--viz-surface);
-  color: var(--viz-ink);
-  border-radius: 12px;
-  box-shadow: var(--viz-shadow);
+  border-top: 2px solid var(--viz-ink);
+  border-bottom: 1px solid var(--viz-line);
   padding: 0.5em 0.6em;
   margin: 0.5em 0;
   font-size: 0.9em;
@@ -1014,43 +1023,42 @@ body.dark-mode .grp_party.union { fill: #888; }
 
 /* Klima-Reiter (Durchgang 4.6): Strommix-Farben nach Energieträger, Ampel, Pfade. Hell und dunkel über CSS-Variablen. */
 body {
-  --kl-m1: #4263eb; --kl-m2: #e0a100; --kl-m3: #5c940d; --kl-m4: #0ca6a6; --kl-m5: #94c973;
-  --kl-m6: #e8710a; --kl-m7: #4b4e57; --kl-m8: #8d6748; --kl-m9: #a3a6ae;
-  --kl-game: #d6336c; --kl-ksg: #7048c4; --kl-paris: #0ca678;
-  --kl-red: #c2255c; --kl-green: #087f5b;
+  --kl-m1: #2c5aa0; --kl-m2: #b5890a; --kl-m3: #4f8a1c; --kl-m4: #2a8fa8; --kl-m5: #93b86a;
+  --kl-m6: #d2601a; --kl-m7: #4b4e57; --kl-m8: #7d5a3c; --kl-m9: #9a978d;
+  --kl-game: #c8304a; --kl-ksg: #7646a8; --kl-paris: #008a6a;
+  --kl-red: #a8243c; --kl-green: #00704f;
 }
 body.dark-mode {
-  --kl-m1: #5c7cfa; --kl-m2: #d9a400; --kl-m3: #74b816; --kl-m4: #22b8b8; --kl-m5: #a9d88b;
-  --kl-m6: #d9660f; --kl-m7: #8d919b; --kl-m8: #b08560; --kl-m9: #767983;
-  --kl-game: #d9548a; --kl-ksg: #9775e0; --kl-paris: #12a37a;
-  --kl-red: #f783ac; --kl-green: #38d9a9;
+  --kl-m1: #5f86d0; --kl-m2: #b38a14; --kl-m3: #6fa83a; --kl-m4: #3aa6c0; --kl-m5: #a4c784;
+  --kl-m6: #cf6626; --kl-m7: #8d919b; --kl-m8: #a57e5c; --kl-m9: #77756f;
+  --kl-game: #d94f68; --kl-ksg: #9a6fd0; --kl-paris: #16a07e;
+  --kl-red: #f0849a; --kl-green: #4cc79f;
 }
 #klima_view .poll_select { display: block; margin: 0 0 0.6em; }
-.kl_now_grid { display: flex; flex-wrap: wrap; gap: 0.6em; margin: 0 0 0.5em; font-family: var(--viz-font); text-indent: 0; line-height: 1.4; }
-.kl_panel { flex: 1 1 150px; min-width: 0; padding: 0.6em 0.7em; background: var(--viz-surface); color: var(--viz-ink); border: 2px solid transparent; border-radius: 12px; box-shadow: var(--viz-shadow); }
-.kl_panel.sel { border-color: var(--viz-line); }
-.kl_panel_title { font-weight: 650; margin: 0 0 0.4em; }
-.kl_ring { display: block; margin: 0 auto 0.5em; }
-.kl_ringlegend { font-size: 0.78em; }
-.kl_leg { display: flex; align-items: center; gap: 0.4em; padding: 0.1em 0.3em; border-radius: 6px; cursor: pointer; }
-.kl_leg:hover, .kl_leg.sel { background: var(--viz-soft); }
-.kl_leg .econ_swatch { flex-shrink: 0; margin-right: 0; }
+.kl_now_grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0 1.2em; margin: 0 0 0.5em; text-indent: 0; line-height: 1.4; }
+.kl_panel { min-width: 0; padding: 0.4em 0 0.6em; border-top: 2px solid var(--viz-line); }
+.kl_panel.sel { border-top-color: var(--viz-ink); }
+.kl_panel_title { font-variant: small-caps; letter-spacing: 0.05em; font-weight: bold; margin: 0 0 0.3em; }
+.kl_panel_prices { grid-column: 1 / -1; }
+.kl_ring { display: block; margin: 0 auto 0.4em; }
+.kl_ringlegend { font-family: var(--viz-font); font-stretch: 88%; font-size: 0.8em; }
+.kl_leg { display: flex; align-items: center; gap: 0.4em; padding: 0.05em 0; border-bottom: 1px solid transparent; cursor: pointer; }
+.kl_leg:hover, .kl_leg.sel { border-bottom-color: var(--viz-ink); }
+.kl_leg .econ_swatch { flex-shrink: 0; margin-right: 0; border-radius: 0; }
 .kl_leg_name { flex-grow: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .kl_leg_val { white-space: nowrap; font-weight: 600; font-variant-numeric: tabular-nums; }
-.kl_arc { cursor: pointer; }
+.kl_arc { cursor: pointer; stroke: var(--viz-surface); stroke-width: 1.5; }
 .kl_arc.dim { opacity: 0.3; }
-.kl_ring_big { fill: currentColor; font-size: 1.25em; font-weight: 700; }
-.kl_ring_small { fill: var(--viz-muted); font-size: 0.68em; }
-.kl_levels { display: grid; grid-template-columns: repeat(auto-fit, minmax(105px, 1fr)); gap: 0.4em; }
-.kl_level { background: var(--viz-soft); border: 2px solid transparent; border-radius: 8px; padding: 0.35em 0.55em; cursor: pointer; line-height: 1.3; }
-.kl_level:hover, .kl_level.sel { border-color: var(--viz-line); }
-.kl_level.sel { border-color: var(--viz-muted); }
-.kl_panel_prices { flex-basis: 200px; }
-.kl_level_name { font-size: 0.76em; color: var(--viz-muted); }
-.kl_level_word { font-size: 1.1em; font-weight: 700; }
+.kl_ring_big { fill: currentColor; font-size: 1.3em; }
+.kl_ring_small { fill: var(--viz-muted); font-size: 0.66em; font-family: var(--viz-font); }
+.kl_levels { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 0 1em; }
+.kl_level { border-top: 1px solid var(--viz-line); padding: 0.3em 0 0.4em; cursor: pointer; line-height: 1.3; }
+.kl_level:hover, .kl_level.sel { border-top-color: var(--viz-ink); }
+.kl_level.sel { box-shadow: inset 0 1px 0 var(--viz-ink); }
+.kl_level_name, .kl_level_num { font-family: var(--viz-font); font-stretch: 88%; font-size: 0.76em; color: var(--viz-muted); font-variant-numeric: tabular-nums; }
+.kl_level_word { font-size: 1.15em; }
 .kl_level_word.l0, .kl_level_word.l1 { color: var(--kl-green); }
 .kl_level_word.l3, .kl_level_word.l4 { color: var(--kl-red); }
-.kl_level_num { font-size: 0.76em; color: var(--viz-muted); font-variant-numeric: tabular-nums; }
 #klima_view .poll_heading { margin: 0.4em 0 0.5em; }
 
 /* Dropdown-Auswahllisten deckend (keine Transparenz) */
